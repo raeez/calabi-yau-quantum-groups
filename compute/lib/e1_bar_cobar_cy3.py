@@ -83,7 +83,9 @@ MATHEMATICAL CONTENTS:
    After Omega-deformation with parameter epsilon:
      A_{C³,epsilon} = deformation of H_1 with R-matrix g(z)
 
-   At epsilon = 0 (self-dual): A = H_1, trivial braiding.
+   At epsilon = 0 (self-dual): A = H_1, with trivial nonabelian
+   Yangian/MO braiding; the Heisenberg ordered-bar scalar braid is
+   R_ord(z)=exp(k*hbar/z).
    At generic epsilon: genuine E₁ structure.
 
    B^{E₁}(H_1) through arity 4:
@@ -93,11 +95,12 @@ MATHEMATICAL CONTENTS:
      Arity 4: [a|a|a|a] -- 1-dimensional, d=0
    (For the Heisenberg, all differentials vanish.)
 
-   kappa^{E₁}(W_{1+∞}) = kappa^{E₁}(H_1) = 1 (at c=1, self-dual)
+   kappa^{E₁}(W_{1+∞}) = kappa^{E₁}(H_1) = 1
+   (at c=1, the CY parameter point is self-dual, not the object H_1)
 
 CONVENTIONS:
   - Cohomological grading (|d| = +1).
-  - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (AP45).
+  - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (desuspension convention).
   - E₁ shift: E₁^! = E₁{-1} (shift by 1 = dim(R)).
   - Ordered bar: [a₁|...|aₙ] -- the order matters.
   - The E₁ bar differential d_{E₁}([a₁|...|aₙ]) =
@@ -154,7 +157,7 @@ def _koszul_sign_adjacent(degrees: Sequence[int], pos: int) -> int:
     """Koszul sign for the bar differential at position pos.
 
     For the bar element [a₁|...|aₙ] with |aᵢ| the cohomological degree
-    of s⁻¹aᵢ (= |aᵢ| - 1 by desuspension, AP45), the sign for the
+    of s⁻¹aᵢ (= |aᵢ| - 1 by desuspension, desuspension convention), the sign for the
     i-th adjacent multiplication is:
 
         (-1)^{sum_{j=1}^{i} |s⁻¹a_j|}  =  (-1)^{sum_{j=1}^{i} (|a_j| - 1)}
@@ -238,7 +241,7 @@ class E1BarElement:
     def cohomological_degree(self) -> int:
         """Total cohomological degree after desuspension.
 
-        Each factor s⁻¹aᵢ has degree |aᵢ| - 1 (AP45: desuspension lowers by 1).
+        Each factor s⁻¹aᵢ has degree |aᵢ| - 1 (desuspension convention: desuspension lowers by 1).
         Total = sum(|aᵢ| - 1) = sum|aᵢ| - n.
         """
         return sum(g.degree for g in self.factors) - self.arity
@@ -315,7 +318,7 @@ class CY3ChiralOPE:
 
 
 def heisenberg_c1_ope() -> CY3ChiralOPE:
-    """OPE data for the Heisenberg H_1 (= W_{1+∞} at c=1, self-dual).
+    """OPE data for the Heisenberg H_1 (= W_{1+∞} at c=1 parameter point).
 
     Generator: a(z) with a(z)a(w) ~ 1/(z-w)².
     No first-order pole => chiral bracket vanishes.
@@ -323,7 +326,7 @@ def heisenberg_c1_ope() -> CY3ChiralOPE:
     """
     gen_a = E1Generator("a", weight=1, degree=0)
     return CY3ChiralOPE(
-        name="Heisenberg H_1 (C³ self-dual)",
+        name="Heisenberg H_1 (C³ parameter-fixed point)",
         generators=(gen_a,),
         ope_data={("a", "a"): {2: Rational(1)}},
         bracket_data={("a", "a"): None},
@@ -745,8 +748,8 @@ class E1KoszulDuality:
       - For Koszul algebras: A^! = A^i,v where A^i is the quadratic dual
 
     Key examples:
-      H₁^! (E₁) = H_{-1} (level -1 Heisenberg, as E₁ algebras)
-        Note: this differs from the E_∞ Koszul dual H₁^! = Sym^ch(V*)
+      H₁^! (E₁) is the curved Sym^ch(V*[1]) branch with scalar
+        kappa equal to that of H_{-1}
         (AP33: Koszul duality ≠ Feigin-Frenkel ≠ negative-level substitution)
 
       V_k(sl₂)^! (E₁) = V_{-k-4}(sl₂) as E₁-algebras
@@ -779,7 +782,7 @@ class E1KoszulDuality:
         dual generators have degree 1 - 0 = 1.
 
         Wait -- for weight-1 generators in degree 0, the desuspended
-        generators s⁻¹v have degree -1 (AP45). The E₁ dual of s⁻¹v
+        generators s⁻¹v have degree -1 (desuspension convention). The E₁ dual of s⁻¹v
         is (s⁻¹v)* with degree -(-1) - 1 = 0 (linear dual + shift).
         So the dual generators land back in degree 0. Correct.
         """

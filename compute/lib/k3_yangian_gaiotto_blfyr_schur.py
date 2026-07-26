@@ -10,7 +10,7 @@ Rastelli--van Rees (BLLPR, "BLFYR" in the attack brief; canonical in
 the programme as BLLPR; arXiv:1312.5344) and a Schiffmann--Vasserot /
 Maulik--Okounkov geometric action on Hilb^n(K3).
 
-Three attack tests:
+Three obstruction tests:
 
 (A)  c_{2d} SIGN test.  BLLPR asserts c_{2d} = -12(c_{4d} - a_{4d}).
      For every unitary 4d N=2 SCFT with a free-hypermultiplet
@@ -281,7 +281,7 @@ def test_D_SV_rank_1_match() -> dict:
     # Under CY constraint, h1 + h2 -> 0 forces h3 -> 0 too.
     # That means the SV/MO structure function degenerates to
     # g(z) = ((z)(z)(z))/((z)(z)(z)) = 1, identically.
-    naive_limit_structure = "g(z) = 1 identically (trivial R-matrix)"
+    naive_limit_structure = "g(z) = 1 identically (trivial nonabelian Yangian part)"
 
     # Yang R-matrix from Wave 5 synthesis:
     # R(u) = (u + hbar * P) / (u + hbar)  on V \otimes V with V = rank-1 line.
@@ -289,7 +289,7 @@ def test_D_SV_rank_1_match() -> dict:
     # R(u) = (u + hbar) / (u + hbar) = 1 identically.
     yang_rank_1_R = "R(u) = 1 identically on a single line"
 
-    match = (naive_limit_structure == "g(z) = 1 identically (trivial R-matrix)"
+    match = (naive_limit_structure == "g(z) = 1 identically (trivial nonabelian Yangian part)"
              and yang_rank_1_R == "R(u) = 1 identically on a single line")
 
     return {
@@ -379,7 +379,7 @@ def run_all() -> None:
         test_E_class_S_vs_4d_on_K3(),
     ]
     print("=" * 78)
-    print("Wave 6 Gaiotto BLLPR / Schur / SV attack tests")
+    print("Wave 6 Gaiotto BLLPR / Schur / SV obstruction tests")
     print("=" * 78)
     for t in tests:
         print()

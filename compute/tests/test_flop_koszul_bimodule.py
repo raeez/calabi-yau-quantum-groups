@@ -24,7 +24,7 @@ Literature ground truth:
 
     AP42: Bimodule tensor product is exact at DERIVED level; naive != identity.
     AP43: Koszul wall is a CONJECTURE, not a theorem.
-    AP45: Desuspension LOWERS degree: |s^{-1}v| = |v| - 1.
+    desuspension convention: Desuspension LOWERS degree: |s^{-1}v| = |v| - 1.
     AP-CY4: Drinfeld center != derived center in general.
 
 Multi-path verification with at least 3 independent paths per claim.
@@ -834,7 +834,7 @@ class TestBimoduleBarElement:
     """Verify BimoduleBarElement degree and charge computations."""
 
     def test_bar_degree_desuspension_ap45(self):
-        """Bar degree = -(left_arity + right_arity) (AP45: |s^{-1}v| = |v|-1).
+        """Bar degree = -(left_arity + right_arity) (desuspension convention: |s^{-1}v| = |v|-1).
 
         Path 1: degree computation.
         """
@@ -1019,7 +1019,7 @@ class TestKoszulDualBimoduleDimensions:
             assert result['cohomology_degrees'][n]['bar_degree'] == -n
 
     def test_bar_degree_equals_minus_arity(self):
-        """Bar degree at arity n is -n (AP45).
+        """Bar degree at arity n is -n (desuspension convention).
 
         Path 2: degree formula.
         """

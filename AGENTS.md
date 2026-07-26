@@ -58,7 +58,7 @@ Bare $\kappa$ forbidden (HZ-7 / AP-CY113). Subscript at every use, including con
 
 **Seven parts** (current): I Foundations · II $\Phi$ functor · III $E_n$ hierarchy · IV K3 Yangian · V CY landscape · VI Seven faces of $r_{\mathrm{CY}}$ · VII Frontiers.
 
-**Five theorems** (shared with Vol I): A bar–cobar; B chiral Positselski; C derived-centre complementarity ($\kappa + \kappa^! \in \{0, 8, 13, 250/3, 98/3\}$ on $\mathsf{G}/\mathsf{L}/\mathsf{C}/\mathsf{M}/\mathsf{B}$ five-archetype landmark — distinct from the K3 × E spectrum); D obstruction-tower universality; H Hochschild concentration.
+**Five theorems** (shared with Vol I): A bar–cobar; B chiral Positselski; C derived-centre complementarity ($\kappa + \kappa^! \in \{0, 8, 13, 250/3, 25/3\}$ on $\mathsf{G}/\mathsf{L}/\mathsf{C}/\mathsf{M}/\mathsf{B}$ five-archetype landmark — distinct from the K3 × E spectrum); D obstruction-tower universality; H Hochschild concentration.
 
 ## Three-axis scope discipline
 
@@ -86,7 +86,7 @@ III. **The bulk** (level 3). $Z^{\mathrm{der}}_{\mathrm{ch}}(A_X)$, $Y^+(X)$, $G
 
 IV. **Seven-faced $r_{\mathrm{CY}}$** (level-2 cross-axis). Three tiers (`working_notes.tex:742-752`) × seven algebraic presentations (bar–cobar / CoHA / coisson / MO stable envelope / Yangian / Sklyanin / Gaudin). MO as gluing-cocycle residue. Promotes earlier as Part IV.
 
-V. **CY landscape** (level-2 instances by chart class). Toric / reduced + Aut / orbifold inertia / lattice-polarised. Cross-stratum sibling census ($d = 1, 2, 3, 4, 5$). $K3 \times E$ five $\kappa$-values $\{0, 0, 3, 5, 24\}$ vs $\mathsf{G}/\mathsf{L}/\mathsf{C}/\mathsf{M}/\mathsf{B}$ five-archetype $\{0, 8, 13, 250/3, 98/3\}$ — two distinct fives.
+V. **CY landscape** (level-2 instances by chart class). Toric / reduced + Aut / orbifold inertia / lattice-polarised. Cross-stratum sibling census ($d = 1, 2, 3, 4, 5$). $K3 \times E$ five $\kappa$-values $\{0, 0, 3, 5, 24\}$ vs $\mathsf{G}/\mathsf{L}/\mathsf{C}/\mathsf{M}/\mathsf{B}$ five-archetype $\{0, 8, 13, 250/3, 25/3\}$ — two distinct fives.
 
 VI. **Terminal scalar shadow** (level 4). Universal Borcherds identity. CHL ladder $N \in \{1, 2, 3, 4, 6\}$. Gritsenko–Cléry 8-form catalogue. Cross-volume terminal-shadow disclaimer (`~/igusa-cusp-form/main.tex:96`).
 

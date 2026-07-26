@@ -705,7 +705,7 @@ class TestCentralCharge:
     """Test the Sugawara central charge c(A_t) = dim(g)*(1+t)/t."""
 
     def test_central_charge_pole_at_t0(self):
-        """c diverges at t=0 (critical level)."""
+        """The generic Sugawara formula has a pole at t=0."""
         assert central_charge_kw('A', 1, Fraction(0)) is None
 
     def test_central_charge_sl2_at_t1(self):

@@ -19,7 +19,8 @@ EIGHT COMPUTATION SECTORS:
    For modular categories: Z(C) = C boxtimes C^{rev}.
 
 4. BULK-BOUNDARY CORRESPONDENCE:
-   Vol II thm:thqg-swiss-cheese: Z^der_ch(A) = universal bulk.
+   Vol II thm:thqg-swiss-cheese: Z^der_ch(A) is the algebraic
+   closed-sector vertex; physical bulk uses the HT comparison datum.
    Vol III: Z(C_op) = Drinfeld center of open sector.
    Verification for A = Heisenberg at weight <= 4.
 
@@ -714,7 +715,7 @@ class BulkBoundaryHeisenberg:
     r"""Bulk-boundary correspondence for the Heisenberg algebra H_k.
 
     Vol II thm:thqg-swiss-cheese:
-        Z^der_ch(A) = chiral derived center = universal bulk
+        Z^der_ch(A) = chiral derived center = algebraic closed sector
 
     Vol III:
         Z(Mod(A)) = Drinfeld center of the module category

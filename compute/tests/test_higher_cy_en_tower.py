@@ -964,7 +964,7 @@ class TestCrossVolumeConsistency:
             assert sn_bracket_vanishes_affine(d), f"d={d}: SN bracket should vanish"
 
     def test_shadow_k3xk3_class_G(self):
-        """K3 x K3 shadow tower is class G (Gaussian, lattice VOA)."""
+        """K3 x K3 product Mukai/Heisenberg branch is class G."""
         st = shadow_tower_k3_cross_k3()
         # VERIFIED [DC] shadow structure [CF] cross-family census
         assert st.shadow_class == "G"

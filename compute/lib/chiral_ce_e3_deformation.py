@@ -116,7 +116,7 @@ CONVENTIONS
 - sigma_2 = h_1*h_2 + h_1*h_3 + h_2*h_3 (the Kac-Moody level).
 - sigma_3 = h_1*h_2*h_3 (the cubic invariant = kappa of the Yangian).
 - Cohomological grading (|d| = +1).
-- Bar desuspension: |s^{-1}a| = |a| - 1 (AP45).
+- Bar desuspension: |s^{-1}a| = |a| - 1 (desuspension convention).
 - For L_infinity: d_CE = sum_{k>=2} d^{(k)} where d^{(k)} from l_k.
 
 MANUSCRIPT REFERENCES

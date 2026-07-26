@@ -769,7 +769,8 @@ def umbral_moonshine_at_niemeier(root_system: str) -> Dict[str, Any]:
         'shadow_data': {
             'kappa_ch_lattice_voa': 24,
             'kappa_ch_k3_sigma': KAPPA_CH_K3,
-            'shadow_class_lattice': 'G',
+            'shadow_class_lattice': 'L',
+            'shadow_class_current': 'L',
             'shadow_class_sigma': 'M',
         },
         'status': ENGINE_STATUS,

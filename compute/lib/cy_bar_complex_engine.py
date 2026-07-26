@@ -83,7 +83,7 @@ MATHEMATICAL CONTENTS:
 
 CONVENTIONS:
   - Cohomological grading (|d| = +1).
-  - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (AP45).
+  - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (desuspension convention).
   - kappa_ch(A) = modular characteristic from Vol I.
   - chi^CY(C) = CY Euler characteristic (Theorem CY-D, NOT chi_top).
   - All Fraction arithmetic for exact computations.
@@ -300,7 +300,7 @@ class BarComplexData(NamedTuple):
     For a finite-dimensional graded Lie algebra g concentrated in
     degrees [a, b], the bar complex has:
       B(g)^n = bigoplus_{k >= 1} Sym^k(g[1])^n
-    where g[1]^m = g^{m-1} (another desuspension, AP45).
+    where g[1]^m = g^{m-1} (another desuspension, desuspension convention).
 
     The bar spectral sequence:
       E_1 = H_*(g, trivial) (Lie algebra homology with trivial coefficients).

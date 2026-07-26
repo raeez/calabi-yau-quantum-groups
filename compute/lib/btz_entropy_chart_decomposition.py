@@ -165,7 +165,7 @@ CONVENTIONS
   - S_BH = 2 pi sqrt(kappa * n / 3)  (Cardy formula with c_eff)
   - Exact arithmetic via fractions.Fraction
   - Cohomological grading: |d| = +1
-  - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (AP45)
+  - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (desuspension convention)
   - AP48: kappa depends on the full algebra, not Virasoro sub
 
 CAUTIONS (Beilinson Principle)

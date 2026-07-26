@@ -22,12 +22,13 @@ MATHEMATICAL FRAMEWORK
    For an E_1-algebra (=associative algebra up to homotopy), the Koszul
    dual is:
      A^{!, E_1} = H*(B_{E_1}(A))^v
-   where B_{E_1}(A) = (T^c(s^{-1} A), d_bar) is the associative bar
-   complex. The shift is E_1^! = E_1{-1} (shift by 1 = dim(R)).
+   where B_{E_1}(A) = (T^c(s^{-1} \bar A), d_bar) is the reduced
+   associative bar complex. The shift is E_1^! = E_1{-1}
+   (shift by 1 = dim(R)).
 
    For the CY3 chiral algebra A_X:
      - Generators of A_X in HH^p(X) have cohomological degree p.
-     - Bar desuspension: |s^{-1}v| = |v| - 1 (AP45).
+     - Bar desuspension: |s^{-1}v| = |v| - 1 (desuspension convention).
      - The bar differential encodes the A-infinity structure maps m_k.
 
 3. MIRROR SYMMETRY AT THE ALGEBRAIC LEVEL.
@@ -106,7 +107,7 @@ MATHEMATICAL FRAMEWORK
    The PHYSICAL free energies F_g^{top} are related by
      F_g^{top,B}(X) = F_g^{top,A}(X-check)
    which is the mirror map, not a sign flip. The sign comes from the
-   KOSZUL DUALITY having a natural orientation reversal (AP45: bar
+   KOSZUL DUALITY having a natural orientation reversal (desuspension convention: bar
    desuspension shifts degree by -1, giving a (-1)^g factor at genus g
    for E_1 algebras). [More precisely: the Koszul sign is (-1)^{dim=1}
    per edge in the graph sum, and a genus-g graph has g loops.]
@@ -1227,8 +1228,9 @@ def syz_mirror_koszul_connection() -> Dict[str, Any]:
     At the LINEAR level:
       T-duality on T^n exchanges the lattice L with its dual L*.
       For a flat torus T = R^n / L: the dual torus is T* = R^n / L*.
-      The Heisenberg at level k=1 on T has Koszul dual = Heisenberg at
-      level k=-1 on T* (Vol I: H_k^! = Sym^ch(V*) with curvature -k).
+      The Heisenberg at level k=1 on T has Koszul dual given by the
+      curved Sym^ch(V*[1]) branch on T*; H_{-1} is only the scalar
+      shadow match.
 
     At the NONLINEAR level:
       The instanton corrections (disk counts, GW invariants) are

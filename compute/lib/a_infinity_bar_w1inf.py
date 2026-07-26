@@ -44,11 +44,16 @@ carries the TOTAL bar differential d = m_1 + m_2 + m_3 + ... where:
 The A_∞ relations are:
   sum_{i+j=n+1} sum_k m_i(a_1,...,m_j(a_k,...,a_{k+j-1}),...,a_n) = 0
 
-At low arity:
+At low arity on the flat/genus-zero lane:
   n=1: m_1^2 = 0  (differential squares to zero)
   n=2: m_1 m_2 + m_2(m_1 x id + id x m_1) = 0  (m_2 is a chain map)
   n=3: m_2(m_2 x id - id x m_2) = m_1 m_3 + m_3(m_1 x id^2 + ...)
        (m_3 is the ASSOCIATOR correction)
+
+In the curved lane the first relation is instead
+  m_1^2(a) = [m_0, a],
+so flatness is the hypothesis m_0 = 0 rather than the bare slogan
+"m_1^2 = 0".
 
 THE KEY COMPUTATION: m_3 AS MASSEY PRODUCT
 
@@ -97,7 +102,7 @@ Expanded in degree:
 
 CONVENTIONS:
   - Cohomological grading (|d| = +1).
-  - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (AP45).
+  - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (desuspension convention).
   - m_2 is the residue of the OPE (first-order pole coefficient).
   - Conformal weights: h(J)=1, h(T)=2, h(W)=3.
   - Central charge c=1 throughout unless stated otherwise.
@@ -195,7 +200,7 @@ class AInfBarElement:
 
     @property
     def cohomological_degree(self) -> int:
-        """Cohomological degree after desuspension (AP45).
+        """Cohomological degree after desuspension (desuspension convention).
 
         |s^{-1}a_i| = |a_i| - 1, total = sum(|a_i|) - n.
         """
@@ -608,16 +613,15 @@ class AInfBarComplex:
         # From c3_shadow_tower.py: alpha_T = 2 at c=1.
         #
         # m_3(T,T,T) gives a spin-2 output (T itself) with coefficient
-        # related to the cubic shadow: the coefficient is -2c = -2.
+        # related to the cubic shadow: the coefficient is -2.
         #
         # Sign: the bar differential uses desuspension signs. The net
-        # coefficient is -2c (negative because the associator corrects
+        # coefficient is -2 (negative because the associator corrects
         # the FAILURE, and the sign convention matches the shadow tower
         # where S_3 = alpha * a_0 / 3 with a_0 = 2*kappa).
         if key == ("T", "T", "T"):
-            # m_3(T,T,T) = -2c * T
-            # At c=1: m_3(T,T,T) = -2T
-            coeff = Fraction(-2) * c
+            # m_3(T,T,T) = -2T
+            coeff = Fraction(-2)
             return LinearCombination([
                 AInfBarElement(factors=(T,), coeff=coeff)
             ])
@@ -782,7 +786,7 @@ class AInfBarComplex:
 
         The INDEPENDENT INPUT DATA (verified from the Virasoro mode algebra):
           kappa = c/2 (from 2-point normalization <T|T> = c/2)
-          alpha = 2 (from the Virasoro associator: m_3(T,T,T) = -2c T)
+          alpha = 2 (from the Virasoro associator: m_3(T,T,T) = -2T)
           S_4 = 10/(c(5c+22)) (Zamolodchikov formula from Gram matrix at level 2)
 
         These three OPE structure constants completely determine Q_L(t), hence
@@ -1088,7 +1092,7 @@ class AInfBarComplex:
         The quadratic landscape Q_L(t) = q_0 + q_1*t + q_2*t^2 is determined
         by three independently verified OPE structure constants:
           kappa = c/2 (from 2-point <T|T> normalization)
-          alpha = 2c  (from Virasoro associator m_3(T,T,T) = -2c T)
+          alpha = 2  (from Virasoro associator m_3(T,T,T) = -2T)
           S_4 = 10/(c(5c+22))  (Zamolodchikov formula from Gram matrix)
 
         The convolution recursion (Newton's square root):
@@ -1101,7 +1105,7 @@ class AInfBarComplex:
         """
         c = self.ope.c
         kappa = c / 2
-        alpha_T = Fraction(2) * c
+        alpha_T = Fraction(2)
         S4_val = Fraction(10) / (c * (5 * c + 22))
 
         q0 = 4 * kappa ** 2
@@ -1385,7 +1389,7 @@ def _koszul_sign(factors: Tuple[WGenerator, ...], pos: int, k: int) -> int:
     r"""Koszul sign for m_k insertion at position pos in a bar element.
 
     For the bar element [a_1|...|a_n] with desuspended degrees
-    |s^{-1}a_i| = |a_i| - 1 (AP45), the sign for inserting m_k at
+    |s^{-1}a_i| = |a_i| - 1 (desuspension convention), the sign for inserting m_k at
     position pos (consuming factors[pos:pos+k]) is:
 
       (-1)^{sum_{j=0}^{pos-1} |s^{-1}a_j|}

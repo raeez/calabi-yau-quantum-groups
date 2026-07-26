@@ -121,7 +121,7 @@ CONVENTIONS
 ===========
     - Exact arithmetic via fractions.Fraction throughout
     - Cohomological grading: |d_bar| = +1
-    - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (AP45)
+    - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (desuspension convention)
     - kappa_{BCOV} = chi/24 is the BCOV modular characteristic (AP48)
     - AP-CY7: CoHA is NOT the same as E_1 chiral algebra; it is the
       target the E_1 sector should match, IF the chiral algebra exists.

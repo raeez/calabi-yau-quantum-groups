@@ -688,7 +688,8 @@ def yangian_chiral_homology_conjectural(
         yangian_action_desc = (
             'Y(g_{K3}) acts on the Fock module underlying the character. '
             'The coproduct Delta_z acts via insertion of Yangian generators '
-            'at points of E. The braiding is the R-matrix R(z) = g_{K3}(z).'
+            'at points of E. The Drinfeld-center half-braiding has spectral '
+            'matrix coefficient R(z) = g_{K3}(z) on these evaluation modules.'
         )
     else:
         h0_desc = (

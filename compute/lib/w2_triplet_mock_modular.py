@@ -99,7 +99,7 @@ MATHEMATICAL CONTENT
 7. CLASS M (INFINITE SHADOW DEPTH).
 
    W(2) has m_3 != 0 from the W-OPE non-associativity. The cubic shadow
-   alpha_T = 2c^2/(5c+22) = 8/12 = 2/3 in the Virasoro (T) channel.
+   alpha_T = 2 in the Virasoro (T) channel.
    The shadow tower does not terminate: class M.
 
    The mock modularity of h(tau) is EQUIVALENT to class M: the infinite
@@ -588,7 +588,7 @@ def w2_shadow_tower() -> Dict[str, Any]:
     r"""Shadow tower of W(2) at c=-2.
 
     S_2 = kappa_ch = c/2 = -1  (modular characteristic)
-    S_3 = alpha_T = 2c^2/(5c+22) = 2/3  (Virasoro T-channel cubic shadow)
+    S_3 = alpha_T = 2  (Virasoro T-channel cubic shadow)
 
     The tower does not terminate: class M (infinite depth).
 
@@ -601,9 +601,8 @@ def w2_shadow_tower() -> Dict[str, Any]:
     c = Fraction(-2)
     kappa = c / 2  # -1
 
-    # Virasoro T-channel cubic shadow: alpha = 2c^2/(5c+22)
-    alpha_T = Fraction(2) * c ** 2 / (5 * c + 22)
-    # At c=-2: 2*4/(−10+22) = 8/12 = 2/3
+    # Virasoro T-channel cubic shadow: alpha = 2, independent of c.
+    alpha_T = Fraction(2)
 
     return {
         "shadow_tower": {

@@ -207,10 +207,10 @@ class TestSpin1OPE:
             assert v["ok"], f"Spin-1 verification failed at ({h1}, {h2}): {v}"
 
     def test_r_matrix_level_prefix(self):
-        """The r-matrix r^Heis(z) = Psi/z has the level prefix Psi.
+        """The r-matrix tensor Psi*Omega_H/z has the level prefix Psi.
 
         AP126: level-stripped r-matrix FORBIDDEN.
-        C10: r^Heis(z) = k/z where k = Psi.
+        C10: coefficient of r^Heis(z) is k/z where k = Psi.
         """
         # VERIFIED [DC] [LT] AP126/C10
         c = DefectCoupling(Rational(1), Rational(-2))

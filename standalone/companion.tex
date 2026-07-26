@@ -1,0 +1,533 @@
+% =====================================================================
+%  THE COMPANION TO VOLUME III
+%  Calabi-Yau quantum groups. Distilled from ~/calabi-yau-quantum-groups.
+%  Standalone document. Author: Raeez Lorgat.
+% =====================================================================
+\documentclass[11pt]{article}
+\usepackage[localtheorems]{raeez-math-template}
+
+\providecommand{\cA}{\mathcal{A}}
+\providecommand{\cC}{\mathcal{C}}
+\providecommand{\cD}{\mathcal{D}}
+\providecommand{\cF}{\mathcal{F}}
+\providecommand{\cH}{\mathcal{H}}
+\providecommand{\cL}{\mathcal{L}}
+\providecommand{\cM}{\mathcal{M}}
+\providecommand{\cO}{\mathcal{O}}
+\providecommand{\cW}{\mathcal{W}}
+\providecommand{\cY}{\mathcal{Y}}
+\providecommand{\cZ}{\mathcal{Z}}
+\providecommand{\bC}{\mathbb{C}}
+\providecommand{\bR}{\mathbb{R}}
+\providecommand{\bQ}{\mathbb{Q}}
+\providecommand{\bZ}{\mathbb{Z}}
+\providecommand{\bP}{\mathbb{P}}
+\providecommand{\bH}{\mathbb{H}}
+\providecommand{\fg}{\mathfrak{g}}
+\providecommand{\fgl}{\mathfrak{gl}}
+\providecommand{\fso}{\mathfrak{so}}
+\providecommand{\fosp}{\mathfrak{osp}}
+\providecommand{\barB}{\overline{B}}
+\providecommand{\MC}{\mathrm{MC}}
+\providecommand{\Ran}{\operatorname{Ran}}
+\providecommand{\Mbar}{\overline{\mathcal{M}}}
+\providecommand{\FM}{\overline{\mathrm{FM}}}
+\providecommand{\Vir}{\mathrm{Vir}}
+\providecommand{\ChirHoch}{\operatorname{ChirHoch}}
+\providecommand{\Zder}{Z^{\mathrm{der}}_{\mathrm{ch}}}
+\providecommand{\kch}{\kappa_{\mathrm{ch}}}
+\providecommand{\kBKM}{\kappa_{\mathrm{BKM}}}
+\providecommand{\kcat}{\kappa_{\mathrm{cat}}}
+\providecommand{\kfib}{\kappa_{\mathrm{fiber}}}
+\providecommand{\SCchtop}{\mathsf{SC}^{\mathrm{ch,top}}}
+\providecommand{\PhiFA}{\Phi^{\mathrm{FA}}}
+\providecommand{\SpCh}{\mathrm{Sp}^{\mathrm{ch}}}
+\providecommand{\CoHA}{\mathrm{CoHA}}
+\providecommand{\Dfive}{\Delta_5}
+\providecommand{\Phiten}{\Phi_{10}}
+\providecommand{\Tr}{\operatorname{Tr}}
+\providecommand{\Rez}{\operatorname{Res}}
+\providecommand{\Conf}{\operatorname{Conf}}
+\providecommand{\HH}{\operatorname{HH}}
+\providecommand{\Coh}{\operatorname{Coh}}
+\providecommand{\Rep}{\operatorname{Rep}}
+\providecommand{\Hilb}{\operatorname{Hilb}}
+\providecommand{\Perf}{\operatorname{Perf}}
+\providecommand{\Muk}{\mathrm{Muk}}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem*{principle}{Principle}
+
+\title{\bfseries Calabi--Yau Quantum Groups\\[0.4em]\Large The Companion}
+\author{Raeez Lorgat}
+\date{July 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent\itshape
+A Calabi--Yau category has a trace; a chiral algebra has an operator
+product; no formal argument connects them. Volume III constructs the
+connection as a two-stage, dimension-indexed correspondence
+$\Phi_d=\SpCh_{\Sigma_{d-1},C}\circ\PhiFA_d$: a canonical
+$E_d$-holomorphic factorization algebra on the Calabi--Yau target,
+then factorization homology along a $(d{-}1)$-cycle restricted to a
+reference curve. Inside the first stage lives the quantum group: the
+critical cohomological Hall algebra $Y^+(X)$ whose Drinfeld double
+$G(X)$ is the level-three object; at the terminal scalar level every
+$K3\times E$ reading lands on the Igusa form,
+$Z_{\mathrm{DT}}^{\mathrm{red}}=-4096\,\Dfive^{-2}$. This companion
+states the functor with its honest per-dimension status, the
+$\kappa$-spectrum that stratifies the landscape, the proved
+scalar/automorphic layer, the no-go theorems that fence the
+conditional algebraic layer, and the finite recognition data that
+separate the two.
+\end{abstract}
+
+\section{The seed}\label{sec:seed}
+
+A single Calabi--Yau input carries a spectrum of numerical shadows,
+one per construction class. At $X=K3\times E$ the five measurements
+\[
+\kcat(X)=0,\qquad
+\kch^{\mathrm{Hodge}}(X)=0,\qquad
+\kch^{\mathrm{Heis}}(X)=3,\qquad
+\kBKM(\Dfive)=5,\qquad
+\kfib(K3)=24
+\]
+are all correct and mutually incommensurable: the K\"unneth
+holomorphic Euler characteristic, the Hodge supertrace, the rank of
+the Heisenberg--Cartan after Gram projection, the Borcherds weight
+$c_1(0)/2$ of the Gritsenko denominator, and the Mukai rank of the
+fibre. No additive relation holds among them --- the once-tempting
+identity $\kBKM=\kch^{\mathrm{Hodge}}+\chi(\cO_{\mathrm{fiber}})$
+predicts $2$ where the value is $5$. The object of the volume is the
+mechanism producing all five from one datum, and the mechanism is a
+functor in two stages,
+\[
+\Phi_d^{(\Sigma_{d-1},C)}
+\;=\;
+\SpCh_{\Sigma_{d-1},C}\circ\PhiFA_d
+\;:\;
+\mathrm{CY}_d\text{-}\mathrm{Cat}
+\xrightarrow{\ \PhiFA_d\ }
+E_d\text{-}\mathrm{HolFA}(X)
+\xrightarrow{\ \SpCh_{\Sigma_{d-1},C}\ }
+E_{n(d)}\text{-}\mathrm{ChirAlg}(C),
+\]
+with native operadic level $n(1)=\infty$, $n(2)=2$, $n(d\ge3)=1$.
+Stage one assembles a holomorphic factorization algebra on the target
+from the degree-$(1-d)$ Gerstenhaber bracket on Hochschild cohomology,
+by Kontsevich--Tamarkin formality --- pinned up to a
+$\mathrm{GRT}_1(\bQ)$-torsor --- together with Costello--Gwilliam
+locality and the holomorphic BV twist of the volume form. Stage two is
+specialisation, never inversion: different cycles produce different
+chiral shadows of one stage-one datum. At $d\ge3$ the output is
+natively $E_1$, because $\Conf_2(\bR^3)$ is simply connected; the
+braiding that makes a quantum group lives one level up, on the
+Drinfeld centre of the representation category, where the half-braiding
+on evaluation modules \emph{is} the spectral $R$-matrix
+$R(z)=\sigma_{V_u}(V_v)$, $z=u-v$.
+
+\section{The objects}\label{sec:objects}
+
+\begin{definition}[Calabi--Yau category]
+A $\mathrm{CY}_d$-category is a smooth proper pretriangulated dg (or
+cyclic $A_\infty$) category $\cA$ with a non-degenerate negative-cyclic
+trace $\Tr^-_\cA\colon HC^-_d(\cA)\to k$; its Hochschild trace is only
+the decategorified shadow. Models: $\Perf(X)$ with the Serre trace for
+projective Calabi--Yau $X$; matrix-factorisation and critical-CoHA
+categories for Landau--Ginzburg charts. The holomorphic volume form
+$\Omega_X$ rigidifies the trace into the BV datum of stage one.
+\end{definition}
+
+\begin{definition}[The quantum group]
+Inside the stage-one object lies the positive effective moduli stack
+with its Kontsevich--Soibelman critical structure; its equivariant
+vanishing-cycle cohomology is the positive half
+$Y^+(X)=H^\bullet_{\mathrm{eq}}(\cM^+_{\mathrm{eff}}(X),\phi_W)$ with
+the Schiffmann--Vasserot Hall product. When the Hall pairing
+\textup{(from Serre duality)}, Cartan, completion, integral form
+\textup{(Davison--Meinhardt)} and stable-envelope transport
+\textup{(Maulik--Okounkov)} are constructed, the Drinfeld double
+$G(X)=Y^+\bowtie Y^0\bowtie Y^-$ is the quantum group of the datum.
+The equivariance stratifies by geometry: full torus on toric charts;
+reduced class with residual $\bC^\times$ on compact targets; orbifold
+inertia; period-domain equivariance on lattice-polarised families.
+\end{definition}
+
+\begin{definition}[The $K3$ column]
+$\Phi_2(D^b\Coh(K3))=\cH_{\Muk}$, the Mukai--Heisenberg chiral
+algebra: twenty-four currents $J_i(z)$ with
+$J_iJ_j\sim\omega^{ij}_{\Muk}/(z-w)^2$ on the Mukai lattice
+$\mathrm{II}_{4,20}=U^{4}\oplus E_8(-1)^{2}$, character $1/\eta^{24}$,
+$\kch^{\mathrm{Hodge}}=2$. The $d=2$ bulk is the K3 Yangian, the
+double of the K3 cohomological Hall algebra on
+$\bigsqcup_n\Hilb^n(K3)$; the Mukai-form-preserving envelopes form a
+trichotomy --- ungraded orthogonal $Y_\hbar(\fso(4,20))$, the
+Hodge-parity super-extension $Y_\hbar(\fso(4|20))$
+\textup{(non-Kac: the Mukai pairing is symmetric on both parities)},
+with Kac $\fosp(4|20)$ excluded. The trigonometric lift is twenty-four
+coupled copies of quantum toroidal $\fgl_1$, with Miki symmetry the
+mapping-class $SL_2(\bZ)$ of the elliptic factor.
+\end{definition}
+
+\begin{definition}[The $K3\times E$ object]
+$\mathbf H_{\Dfive}$ is the conditional Hall--Drinfeld double of
+$\CoHA_{K3\times E}$, a quasi-Hopf object of the fourth kind: the
+super-Etingof--Kazhdan quantisation of a Manin \emph{pair}
+$(\fg_{\Dfive},\ \mathfrak n^{\mathrm{imag}}_+\oplus
+\mathfrak h^{\mathrm{imag}})$ --- no Manin triple exists, since the
+signature-$(2,1)$ Cartan form has isotropic rank one --- twisted by
+the Siegel--Borcherds associator built from
+$\Phiten^{\mathrm{un}}/\eta^{24}$ and carrying a projective
+$\widetilde M_{24}$ symmetry. Its character is a theorem; its
+existence as an algebra is a finite recognition problem.
+\end{definition}
+
+\section{The theorems}\label{sec:theorems}
+
+\begin{theorem}[Two-stage factorisation; per-dimension status]
+\label{thm:twostage}
+$\Phi_d=\SpCh_{\Sigma_{d-1},C}\circ\PhiFA_d$ with $n(d)$ as above.
+Stage one is proved unconditionally at $d\le2$; at $d=3$ on the smooth
+proper object-level locus, granted the framing package
+\textup{(negative-cyclic CY class, the Costello-corrected chain-level
+$S^3$-framing $\{b,B^{(2)}_{\mathrm{TCFT}}\}=0$, and
+$\pi_3(B\mathrm{Sp})=0$)}; on explicit toric and formal charts beyond.
+Morphism-level functoriality is conjectural at every $d$; the
+collection $\{\Phi_d\}$ is a correspondence programme, not one functor
+across dimensions. The claims $n(2)=2$ and $n(1)=\infty$ are
+conditional enhancements \textup{(the braided enhancement needs the
+chain-level two-sphere framing action; the constructed $d=1$ output
+has singular operator product and is not commutative)}.
+\end{theorem}
+
+\begin{theorem}[The $m_3$ obstruction, resolved in three levels]
+\label{thm:m3}
+On a non-formal cyclic $A_\infty$-category of dimension three the
+strict identity $[m_3,B^{(2)}]=0$ is \emph{false} --- witness
+$[m_3,B^{(2)}_{\mathrm{term}}][a|a|a|a|b]=2\alpha[b]\neq0$. What holds
+is the moduli-level identity $\{b,B^{(2)}_{\mathrm{TCFT}}\}=0$
+\textup{(Costello's open--closed topological conformal field theory:
+strip degenerations against the genus-change node, $\partial^2=0$ on
+moduli chains)}, and a filtered derived comparison. The chain-level
+identification of the two $B^{(2)}$'s is the named open frontier of
+stage one at $d=3$; three tempting wrong proofs \textup{(cyclic
+invariance, the mixed-complex axiom, Tsygan formality)} are dissected
+as mathematics. On the Fermat quintic strict formality is refuted
+outright: the Yukawa coupling $Y_3=5+2875\,q+\cdots$ is a nonzero
+$m_3$, and the correct statement is \emph{curved} formality with
+Yukawa as the BCOV curving datum.
+\end{theorem}
+
+\begin{theorem}[Centre and braiding]\label{thm:centre}
+For dualizable $\Rep^{E_1}(A)$ the Drinfeld centre satisfies
+$\cZ(\Rep^{E_1}(A))\simeq\Rep^{E_2}(\Zder(A))$ as braided monoidal
+$\infty$-categories, and on the chiral Koszul locus
+$\Zder(A)=C^\bullet_{\mathrm{ch}}(A,A)$. On toric charts, granted the
+Morita-kernel packages, the three level-three constructions meet:
+$\Rep^{E_2}(\Zder(A))\simeq\cZ(\Rep^{E_1}(A))
+\simeq\cZ(\mathrm{Mod}(Y^+(X)))\simeq\Rep^{E_2}(G(X))$
+--- three faces carrying three associativity classes. The evaluation
+chain
+$\CoHA(\bC^3)=Y^+(\widehat{\fgl}_1)\hookrightarrow
+Y\xrightarrow{\mathrm{ev}}\mathrm{End}
+(\cW_{1+\infty}[\lambda]\text{-vac})$
+keeps the three arrows distinct: the cohomological Hall algebra is the
+positive half, never $\cW_{1+\infty}$ itself; its character is the
+MacMahon function $\prod_n(1-q^n)^{-n}$.
+\end{theorem}
+
+\begin{theorem}[Dimension stratification of the Hodge shadow; proved]
+\label{thm:cyd}
+For the Hodge supertrace $\Xi(X)=\sum_q(-1)^qh^{0,q}(X)$ on compact
+Calabi--Yau $d$-folds: $\Xi=0$ at every odd $d$ \textup{(Serre pairs
+cancel)}; $\Xi=2$ for even $d$ with full $SU(d)$ holonomy; $\Xi=n+1$
+for hyperk\"ahler $K3^{[n]}$-type. The two even strata meet only at
+$d=2$. Local values: $\kch^{\mathrm{loc}}(\bC^3)=1$, resolved conifold
+$1$, local $\bP^2$ $=3/2$, $K_S=\chi_{\mathrm{top}}(S)/2$; on the
+quintic the BV-corrected reading is
+$\chi_{\mathrm{top}}/24=-25/3$ while the Hodge reading is $0$ ---
+distinct invariants, both correct. The scalar genus tower is
+$\mathrm{obs}_g=\kch\lambda_g$ on the uniform-weight lane, with the
+first cross-channel correction
+$\delta F_2(\cW_3)=(c+204)/(16c)$ at multi-weight.
+\end{theorem}
+
+\begin{theorem}[Abelian $K3$ Yangian; proved]\label{thm:k3yangian}
+The $d=2$ bulk admits the presentation: twenty-four currents with
+Mukai-diagonal double poles; Miura transfer matrix
+$T_{K3}(u)=\prod_{i=1}^{24}(u-\phi_i)$; structure function
+$g_{K3}(u)=\prod_{i=1}^{24}\frac{u-h_i}{u+h_i}$ with the Calabi--Yau
+constraint $\sum_ih_i=0$ and unitarity $g(u)g(-u)=1$; Drinfeld
+coproduct $\Delta_z(T(u))=T(u)\otimes T(u-z)$; Fock characters
+$p_{24}(n)=\chi(\Hilb^nK3)$. Koszul duality acts by $h_i\mapsto-h_i$,
+with conductor $\kappa+\kappa^!=0$. The non-abelian extension --- the
+lattice-Hopf matching with vertex operators --- is a conjecture.
+\end{theorem}
+
+\begin{theorem}[The scalar layer at $K3\times E$; proved]
+\label{thm:scalar}
+With $\Dfive$ the weight-five Gritsenko--Nikulin form,
+$D_5=64^{-1}\Dfive$, $\Phiten^{\mathrm{un}}=\Dfive^2$ the Igusa cusp
+form $\chi_{10}$:
+\[
+Z^{K3\times E}_{\mathrm{DT,red}}
+=-\bigl(\Phiten^{\mathrm{OP}}\bigr)^{-1}
+=-4096\,\Dfive^{-2}
+\qquad\textup{(Oberdieck--Pandharipande--Pixton)},
+\]
+\[
+Z^X_{\mathrm{red}}(p,q,t)
+=\prod_{(n,m,\ell)>0}(1-p^nq^mt^\ell)^{-c(nm,\ell)}
+=\frac{pqt}{\Dfive^2}
+\qquad\textup{(Katz--Klemm--Vafa via Pandharipande--Thomas)},
+\]
+with $c$ the coefficients of the $K3$ elliptic genus $2\phi_{0,1}$ ---
+the exponent doubling is exactly the reciprocal-square mechanism.
+The rank-one sector is G\"ottsche's
+$\sum_n\chi(\Hilb^nK3)q^n=q/\eta^{24}$; the Humbert restriction of
+$\Dfive^{-2}$ produces the doubled Heisenberg character $\eta^{-48}$
+exactly \textup{(Gritsenko--Nikulin
+$\Dfive=(2\pi iz)\,\eta(\tau)^{24}\eta(\sigma)^{24}(1+O(z^2))$)};
+and the Weyl--Kac--Borcherds denominator of $\fg_{\Dfive}$ is
+$64^{-1}\Dfive(2Z)$ with signed multiplicities $f(nm,l)$. The
+universal Borcherds weight identity reads
+$\kBKM(\Phi_N)=c_N(0)/2$, always naming the input form; on the CHL
+ladder $N\in\{1,2,3,4,6\}$ the corrected weights are
+$(5,3,2,\tfrac32,1)$ with $c_N(0)=(10,6,4,3,2)$ \textup{(Jatkar--Sen,
+Govindarajan--Krishna; the once-recorded ladder $(5,4,3,2,1)$ is
+retracted)}; the Fake Monster form $\Phi_{12}$ carries
+$c_\Lambda(0)=24$, $\kBKM=12$.
+\end{theorem}
+
+\begin{theorem}[Six routes: falsification and stratification]
+\label{thm:sixroutes}
+Six constructions aim at $G(K3\times E)$: the functor image, the
+Borcherds lift, the Mukai lattice vertex algebra, the Kummer orbifold,
+the sigma-model half-twist, and the class-$\mathcal S$ realisation.
+Unconditionally, the six-way isomorphism is \emph{false}: the route
+algebras stratify into exactly three $\kch$-strata, $(3,3,3)$, $(12)$,
+$(24)$, and the comparison from the functor route to the lattice route
+is injective with cokernel a rank-twenty-one Heisenberg. The
+convergence statement that survives is a colimit: granted four
+chain-level hypotheses \textup{(Costello--Li factorisation for
+holomorphic Chern--Simons; the threefold Kummer Mayer--Vietoris
+halving $24\to12$; half-twist primitive extraction; the
+Hochschild--Kostant--Rosenberg--Borcherds lift)}, the pentagon of
+intertwiners has positive-half colimit $Y^+_{K3\times E}$, and with
+Hopf pairing and completion data $G(K3\times E)=D_\hbar(Y^+)$. Three
+automorphic shadows of the convergence are proved.
+\end{theorem}
+
+\begin{theorem}[No-go theorems; proved]\label{thm:nogo}
+\textup{(i)} No smooth projective toric Calabi--Yau threefold exists
+\textup{(ray generators on an affine hyperplane contradict fan
+completeness)}. \textup{(ii)} For compact non-toric $X$ the
+identification of $\Phi_3(X)$ with the double of a quiver CoHA is
+obstructed: toric completeness, connected automorphisms, finite-quiver
+equivariance and the BCOV anomaly
+$\alpha_{\mathrm{BCOV}}=\frac{\chi_{\mathrm{top}}}{24}
+\mathrm{tr}\,\mathrm{At}(T_X)\in H^1(X,\cO_X)$ interlock into two and
+a half independent mechanisms. \textup{(iii)} $K3\times E$ admits no
+global noncommutative crepant resolution \textup{(five obstructions)};
+the Serre-equivariant quasi-resolution substitute has forced character
+$-(\Phiten^{\mathrm{OP}})^{-1}$. \textup{(iv)} No $K3$-fibred
+threefold specialisation realises the Fake Monster:
+$\mathrm{rk}\,\Lambda_{\mathrm{Leech}}=24$ exceeds every attainable
+Picard rank; its home is conjecturally $d=5$ on $K3\times K3\times E$.
+\textup{(v)} Toric positive halves define no Borcherds weight: the
+$\kBKM$-invariant requires a weak Jacobi input, an even Lorentzian
+lattice, and a Weyl vector.
+\end{theorem}
+
+\begin{theorem}[Wall-crossing as gauge equivalence; proved]
+\label{thm:wall}
+The cohomological Hall algebra is an algebra, not a coalgebra; its
+ordered bar complex is a separate coassociative object, and the
+square-zero equation lives on the Ginzburg dg Lie algebra, where the
+potential's critical equation is the Maurer--Cartan equation.
+Kontsevich--Soibelman wall-crossing is Maurer--Cartan gauge
+equivalence on the motivic Hall Lie algebra; the pentagon identity is
+the Jacobi identity in degree three; conifold wall-crossing is cluster
+mutation; the attractor mechanism selects the canonical gauge
+representative. Shadow-tower truncations are not gauge-invariant
+across walls.
+\end{theorem}
+
+\begin{conjecture}[The three bridges]\label{conj:bridges}
+\textup{(i) Chain fusion:} the stage-two output $A_X$ is the boundary
+chart $\mathrm{End}(b)$ of a canonical vacuum in an open factorization
+category on a tangential log curve --- verified on $\bC^3$, local
+$\bP^2$, the conifold, conditional at $K3\times E$, open in general.
+\textup{(ii) CY-C:} a braided Hopf datum $C(\cA,q)$ with
+$\Rep^{\mathrm{fd}}\simeq$ the modular tensor category of $A_\cA$,
+recovering Kazhdan--Lusztig at $\mathrm{pt}/G$.
+\textup{(iii) Mirror equals Koszul:}
+$\Phi(\cA^\vee)\simeq\Phi(\cA)^!$; at $d=2$ this is \emph{false} ---
+homological mirror symmetry preserves $\kch=2$ while Koszul duality
+negates it --- and at $d=3$ it is the conjecture that mirror symmetry
+flips the sign of $\chi_{\mathrm{top}}$.
+\end{conjecture}
+
+\section{The computations}\label{sec:computations}
+
+The $\kappa$-table, five subscripts never conflated:
+
+\begin{center}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{lccccc}
+$X$ & $\kcat$ & $\kch^{\mathrm{Hodge}}$ & $\kch^{\mathrm{Heis}}$ &
+$\kBKM$ & $\kfib$\\
+\hline
+$K3\times E$ & $0$ & $0$ & $3$ & $5$ \textup{(at $\Dfive$)} & $24$\\
+$K3$ & $2$ & $2$ & --- & --- & ---\\
+$K3^{[n]}$ & $n{+}1$ & $n{+}1$ & --- & --- & ---\\
+quintic & $0$ & $0$ \textup{(BV: $-25/3$)} & --- & --- & ---\\
+local $\bP^2$ & --- & $3/2$ \textup{(local)} & --- & --- & ---\\
+conifold, $\bC^3$ & --- & $1$ \textup{(local)} & --- & --- & ---\\
+\end{tabular}
+\end{center}
+
+The $K3$ trichotomy: three $c=24$ chiral algebras with three distinct
+characteristics --- the functor output $\cH_{\Muk}$ ($\kch=2$), the
+Monster orbifold $V^\natural$ ($\kappa=12$), the Leech lattice vertex
+algebra ($\kappa=24$) --- ratio $24:12:2$; three inequivalent readings
+of ``the'' $K3$ algebra.
+
+The $\Dfive$ dictionary, one normalisation trap stated once:
+$\Dfive$ theta-normalised with leading coefficient $64$;
+$D_5=64^{-1}\Dfive$ monic; $\Phiten^{\mathrm{un}}=\Dfive^2=\chi_{10}$;
+$\Phiten^{\mathrm{OP}}=D_5^2=4096^{-1}\Dfive^2$. The four-image
+$\Psi$-landscape of bosonic Borcherds lifts terminates: Monster
+\textup{(non-geometric, Cartan rank two on $\mathrm{II}_{1,1}$)}, Fake
+Monster \textup{($\Phi_{12}$, rank twenty-six, conjecturally $d=5$)},
+Igusa/$K3$ \textup{($\Dfive$, rank three)}, Enriques; the Conway
+module is the super-image boundary, not a fifth row; the twenty-two
+non-Leech Niemeier Borcherds--Kac--Moody algebras are genuine
+counterexamples to surjectivity.
+
+The Vol I interface constants: the derived-centre complementarity
+bucket is $\{0,\ 8,\ 13,\ 250/3,\ 25/3\}$ on the canonical
+$\mathsf G/\mathsf L/\mathsf C/\mathsf M/\mathsf B$ witnesses
+\textup{(the $\mathsf B$-row value $8=2c_+(\mathrm{II}_{4,20})
+=\mathrm{ord}(H_1)$, with $\hbar^2\cdot8=-1$; the Bershadsky--Polyakov
+entry $25/3$ conditional on its anomaly-ratio lane, the once-recorded
+$98/3$ retracted)}; distinct from the $K3\times E$ five-tuple
+$(0,0,3,5,24)$ --- two different fives sharing one cell.
+
+\section{The garden}\label{sec:garden}
+
+One logarithmic $1$-form generates the programme. On a smooth complex
+curve $X$, the form $\eta=d\log(z_1-z_2)$ is the unique
+coordinate-free $1$-form with a residue along the diagonal of
+$\Conf_2(X)$; the Arnold relation
+$\eta_{12}\wedge\eta_{23}+\eta_{23}\wedge\eta_{31}
++\eta_{31}\wedge\eta_{12}=0$ generates all relations among its higher
+companions. From $\eta$ one builds, for an augmented chiral algebra
+$\cA$ on $X$, the ordered bar complex
+$\barB^{\mathrm{ord}}_X(\cA)=T^c(s^{-1}\bar\cA)\otimes
+\Omega^\bullet_{\log}(\FM_\bullet(X))$; its differential squares to
+zero exactly when $\cA$ satisfies the Borcherds identity. Assembled
+over $\Mbar_{g,n}$ with the prime-form propagator, the total
+differential is a Maurer--Cartan element $\Theta_\cA=D_\cA-d_0$;
+genus~$\ge1$ flatness fails by the curvature
+$d^2_{\mathrm{fib}}=\kappa(\cA)\,\omega_g$, and the scalar $\kappa$
+--- $\kappa(\Vir_c)=c/2$,
+$\kappa(V_k(\fg))=\dim\fg\,(k+h^\vee)/2h^\vee$ --- is the central
+charge read as modular curvature. The Verdier--Koszul dual obeys
+conductor laws $c(\cA)+c(\cA^!)=K$ with $K(\Vir)=26$,
+$K(\cW_N)=4N^3-2N-2$, $K(V_k(\fg))=2\dim\fg$ along
+$k\mapsto-k-2h^\vee$; the landscape stratifies into archetype classes
+$\mathsf G/\mathsf L/\mathsf C/\mathsf M$ of shadow depth
+$2/3/4/\infty$ plus the critical Feigin--Frenkel stratum.
+
+Every object sits on one chain: primitive factorization category
+$\to$ chart algebra $A_b$ $\to$ bar shadow $\barB(A_b)$ $\to$ derived
+chiral centre $\Zder(A_b)$ \textup{(the bulk)} $\to$ acting line
+operators $\to$ scalar modular shadow. Identifying stages without the
+licensing datum --- shadow $=$ object --- is the master error the
+programme is disciplined against; this volume's own instrument is the
+three-axis type signature: level, chart, ambient, declared on every
+theorem.
+
+The five gardens are five readings of the chain. \emph{Volume I}
+(\texttt{chiral-bar-cobar}) builds the engine on algebraic curves:
+bar--cobar adjunction and inversion, quadratic Koszul recognition,
+centre complementarity, the deformation--Hodge--graph traces
+$F_g=\kappa\lambda^{\mathrm{FP}}_g+\delta F^{\mathrm{cross}}_g$,
+Hochschild concentration, and the arithmetic shadow. \emph{Volume II}
+(\texttt{chiral-bar-cobar-vol2}) reads the same object as physics:
+bar $=$ BV/BRST, quantum master equation $=$ Maurer--Cartan, anomaly
+$=$ curvature, the two-coloured Swiss-cheese operad as bulk--boundary
+home, Universal Holography
+$\cA\mapsto(\partial=\cA,\ \mathrm{bulk}=\Zder(\cA))$, at
+$\Vir_{c=3\ell/2G_N}$ the boundary reading of 3d gravity.
+\emph{This volume} constructs the geometric source: the two-stage
+functor from Calabi--Yau categories, the Hall positive half and its
+double as the level-three quantum group, and the $\kappa$-spectrum as
+the level-$\mathsf S$ characteristic. \emph{Mixed
+holomorphic--topological strings} computes the local germ of the
+$d=2$ theory at $N$ Dirac branes --- the trace coordinate
+$J(f)=\Tr f(\phi_1,\phi_2)$ --- with the holomorphic de Rham
+obstruction on $K3\times E$ showing why the local stalk does not
+globalise for free. \emph{The Igusa cusp form}
+(\texttt{igusa-cusp-form}) is the terminal scalar: $\Dfive$ read five
+ways, the order-two orientation bit that squaring kills, and the
+finite recognition data --- this volume's own frontier --- that would
+promote the scalar back to the operator $\mathbf H_{\Dfive}$.
+
+The single question underneath: characterise the modular convolution
+algebra $\fg^{\mathrm{mod}}_\cA$ as a geometric object. The proposed
+answer --- endomorphisms of the Lagrangian embedding
+$\cL_\cA\hookrightarrow\cM_{\mathrm{vac}}(\cA)$ in a $(-2)$-shifted
+symplectic stack of vacua --- has Volume I computing its Taylor jets,
+Volume II its local composition law, this volume its geometric
+source, and the satellites its sharpest example: the $K3\times E$
+datum whose scalar shadow is $\Dfive$.
+
+\section{The frontier}\label{sec:frontier}
+
+The volume's honest split is scalar versus algebraic. Everything
+scalar and automorphic at $K3\times E$ --- the
+Oberdieck--Pandharipande identity, the Katz--Klemm--Vafa product, the
+second-quantised elliptic genus, the Borcherds lift and denominator,
+the $\eta^{-48}$ Humbert residue, the universal weight $c_N(0)/2$ ---
+is proved with sources pinned. The algebraic layer is one coherent
+conditional programme whose missing inputs are enumerated:
+
+\begin{enumerate}
+\item The compact critical CoHA package for $K3\times E$ --- atlas,
+Serre-compatible quasi-resolution descent, Hopf pairing with
+Poincar\'e--Birkhoff--Witt integral form, stable-envelope transport,
+double descent --- the existence layer of $G(K3\times E)$ and
+$\mathbf H_{\Dfive}$. The deepest form: away from toric charts, most
+of the global double is invisible to local chart data.
+\item The four pentagon hypotheses closing the six-route colimit.
+\item The compact CY$_3$ strictification of stage one: identify
+$B^{(2)}_{\mathrm{TCFT}}$ with $B^{(2)}_{\mathrm{term}}$ at chain
+level; until then the quintic carries curved formality with Yukawa
+curving.
+\item Chain fusion in general dimension --- the bridge from this
+volume's stage-two output to the open-side primitive package of
+Volumes I and II.
+\item The non-abelian $K3$ Yangian \textup{(lattice-Hopf matching,
+Jacobi at the vertex level)}; the Fake Monster at $d=5$; the
+$\cW_\infty[\lambda]$ endpoint beyond its admissible window;
+modularity under fusion.
+\end{enumerate}
+
+The volume's architectural invention matches the Igusa companion's:
+recognition criteria with finite data lists, three-axis scope
+signatures, and the discipline that a character identity is never
+promoted to an algebra identification. The geometric source is
+constructed exactly as far as the obstructions permit, and the
+obstructions are theorems.
+
+\end{document}

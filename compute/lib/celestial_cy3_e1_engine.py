@@ -59,7 +59,7 @@ MATHEMATICAL CONTENT:
     dim(conformally soft at spin s) = dim H^s(B^{E_1}(A_{CY3})).
 
 CONVENTIONS:
-  - Cohomological grading (|d| = +1). Bar uses desuspension (AP45).
+  - Cohomological grading (|d| = +1). Bar uses desuspension (desuspension convention).
   - r-matrix pole = OPE pole - 1 (AP19: d log extraction).
   - kappa(W_N) = c * (H_N - 1), NOT c/2 (AP9).
   - kappa_channel(s) = c/s for spin-s self-coupling.
@@ -689,9 +689,10 @@ def yang_r_matrix_check(c: Fraction) -> Dict[str, Any]:
 
     For the Heisenberg (spin-1) sector:
       OPE: J(z) J(w) ~ k / (z-w)^2  (level k)
-      r-matrix: r(z) = k/z (single pole, AP19: 2 -> 1)
+      r-matrix tensor: k*Omega_H/z (single pole, coefficient k/z)
 
-    This is exactly R(z) = 1 + (k/z) P in the Yang form,
+    After evaluation in the rank-one sector this is
+    R(z) = 1 + (k/z) P in the Yang form,
     where P is the permutation operator on the 2-particle space.
 
     For gl_1 (single generator): P = 1, so R = 1 + k/z.

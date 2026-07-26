@@ -219,18 +219,18 @@ MATHEMATICAL CONTENT
 
        G_{ij}(eps) = G_{ij}(0) + eps * G_{ij}^{(1)} + eps^2 * G_{ij}^{(2)} + ...
 
-   For the K3 x E BKM lattice II_{2,1}:
+   For the K3 x E BKM lattice Lambda^{2,1}_{II}:
 
        The equivariant deformation preserves the lattice to ALL ORDERS
        in eps if the Omega-background is an ISOMETRY of the lattice.
 
-       The key question: is the Omega-background an isometry of II_{2,1}?
+       The key question: is the Omega-background an isometry of Lambda^{2,1}_{II}?
 
        For C^3 with the trivial lattice (Z, inner product = 0):
        yes, the Omega-background is trivially an isometry.
 
-       For K3 x E with II_{2,1}: the Omega-background acts on the
-       E (elliptic curve) factor. The II_{2,1} lattice parameterizes
+       For K3 x E with Lambda^{2,1}_{II}: the Omega-background acts on the
+       E (elliptic curve) factor. The Lambda^{2,1}_{II} lattice parameterizes
        the BKM roots, which come from the PHYSICAL K3 geometry.
        The Omega-background on E DOES NOT modify the K3 lattice.
 
@@ -262,7 +262,7 @@ MATHEMATICAL CONTENT
 
    At O(eps^2), BOTH K_1^2 cross-contraction and K_2 contribute.
 
-   FOR K3 x E (II_{2,1}):
+   FOR K3 x E (Lambda^{2,1}_{II}):
 
    The key physical input: the Omega-background on the E direction
    is a FLAT deformation (E is 1-dimensional). On a flat 1d space,
@@ -322,7 +322,7 @@ MATHEMATICAL CONTENT
    CORRECT DERIVATION from conformal perturbation theory:
 
    The deformed vertex operator on the lattice VOA V_{L} with
-   lattice L = II_{2,1} is:
+   lattice L = Lambda^{2,1}_{II} is:
 
        V_eps(alpha, z) = :exp(i * alpha_eps . X(z)):
 
@@ -343,7 +343,7 @@ MATHEMATICAL CONTENT
    ... no, rho must be a fixed vector independent of alpha.
 
    The spectral flow vector rho for BKM is the WEYL VECTOR:
-       rho = (delta_{-1}, 0, 0) in II_{2,1}
+       rho = (delta_{-1}, 0, 0) in Lambda^{2,1}_{II}
 
    with (rho, rho) = -2*(-1) = 2 and (rho, alpha) = depends on alpha.
 

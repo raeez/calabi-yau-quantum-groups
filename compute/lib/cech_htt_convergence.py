@@ -139,7 +139,7 @@ SCOPE:
 CONVENTIONS
 ===========
   - Cohomological grading: |d| = +1
-  - Bar uses desuspension: |s^{-1}v| = |v| - 1 (AP45)
+  - Bar uses desuspension: |s^{-1}v| = |v| - 1 (desuspension convention)
   - CY dimension d = 3 throughout
   - Exact arithmetic via fractions.Fraction
   - AP-CY11: all downstream results conditional on CY-A_3
@@ -1026,7 +1026,7 @@ def corrected_obstruction_scope(
 class CechHTTConvergenceResult:
     r"""Complete convergence analysis for a CY3 geometry.
 
-    Combines all five attack vectors into a single result.
+    Combines all five obstructions into a single result.
 
     The main conclusion:
 
@@ -1210,7 +1210,7 @@ def analyze_octic_double_solid() -> CechHTTConvergenceResult:
     class-M discriminant datum kappa_ch^3*S_4 > 0.
 
     This is the KEY TEST CASE: a compact, non-toric, non-formal CY3
-    where all three attack vectors are needed.
+    where all three obstructions are needed.
     """
     return analyze_convergence(octic_double_solid_cover())
 

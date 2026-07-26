@@ -66,7 +66,7 @@ CONVENTIONS
 - dim H^*(B^{E_1}) = unsigned microstate count (UPPER BOUND on |Omega|)
 - All exact arithmetic via fractions.Fraction where possible
 - Cohomological grading: |d| = +1
-- Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (AP45)
+- Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (desuspension convention)
 - kappa_shadow = modular characteristic in the selected lane
   (AP1, AP20, AP48: family-specific!)
 

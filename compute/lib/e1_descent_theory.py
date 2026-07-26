@@ -126,7 +126,7 @@ CONVENTIONS
 ===========
 
 - Cohomological grading: |d| = +1
-- Bar uses desuspension: |s^{-1}v| = |v| - 1 (AP45)
+- Bar uses desuspension: |s^{-1}v| = |v| - 1 (desuspension convention)
 - E_n denotes the little n-disks operad
 - Ass = E_1 = associahedron operad (Stasheff)
 - Conf_k(R^n) = ordered configuration space of k distinct points in R^n

@@ -32,7 +32,8 @@ Ground truth:
 Manuscript references:
   holomorphic_cs_chiral_engine.py: E3BarComplexBetaGamma class
   cross_volume_shadow_bridge.py: class C classification for betagamma
-  hms_shadow_equivalence.py: betagamma shadow data (kappa = -1/2)
+  hms_shadow_equivalence.py: lambda=1 betagamma shadow data (kappa = 1);
+    lambda=1/2 symplectic bosons have kappa = -1/2.
 """
 
 import pytest
@@ -112,16 +113,16 @@ class TestBetaGammaClassification:
         assert self.bg.alpha == Rational(0)
 
     def test_S4_value(self):
-        """Q^contact = 1 for standard betagamma at c = -2."""
-        assert self.bg.S4 == Rational(1)
+        """Charged class-C normalization gives S_4 = -5/12."""
+        assert self.bg.S4 == Rational(-5, 12)
 
     def test_central_charge(self):
-        """c = -2 for betagamma with lambda = 1."""
-        assert self.bg.central_charge == Rational(-2)
+        """c = 2 for bosonic betagamma with lambda = 1."""
+        assert self.bg.central_charge == Rational(2)
 
     def test_kappa_ch(self):
-        """kappa_ch = -1/2."""
-        assert self.bg.kappa_ch() == Rational(-1, 2)
+        """kappa_ch = 1 for lambda = 1 betagamma."""
+        assert self.bg.kappa_ch() == Rational(1)
 
     def test_d4_vanishes_on_e3_page(self):
         """d_4 from S_4 vanishes on E_3 page by charge conservation."""
@@ -434,32 +435,32 @@ class TestChainVsCohomology:
 # =========================================================================
 
 class TestKappaAndConductor:
-    """kappa_ch = -1/2, conductor rho_K = -5/12 (nonzero for class C)."""
+    """kappa_ch = 1 and rho_K = 0 for the matching bc dual convention."""
 
     def setup_method(self):
         self.bg = E3BarComplexBetaGamma()
 
     def test_kappa_ch(self):
-        assert self.bg.kappa_ch() == Rational(-1, 2)
+        assert self.bg.kappa_ch() == Rational(1)
 
     def test_kappa_ch_dual(self):
-        """Koszul dual (bc system) has kappa = 1/12."""
-        assert self.bg.kappa_ch_dual() == Rational(1, 12)
+        """Koszul dual (bc system) has kappa = -1."""
+        assert self.bg.kappa_ch_dual() == Rational(-1)
 
-    def test_koszul_conductor_nonzero(self):
-        """rho_K = -1/2 + 1/12 = -5/12 != 0 (class C hallmark)."""
-        assert self.bg.koszul_conductor() == Rational(-5, 12)
-        assert self.bg.koszul_conductor() != 0
+    def test_koszul_conductor_zero(self):
+        """rho_K = 1 + (-1) = 0 in the matching lambda = 1 convention."""
+        assert self.bg.koszul_conductor() == Rational(0)
 
     def test_kappa_complementarity(self):
         """kappa + kappa^! = rho_K (tautological but API-consistent)."""
         assert self.bg.verify_kappa_complementarity()
 
-    def test_conductor_nonzero_distinguishes_from_class_G(self):
-        """Class G (Heisenberg) has rho_K = 0; class C has rho_K != 0."""
+    def test_quartic_shadow_distinguishes_from_class_G(self):
+        """Class C is detected here by S_4 != 0, not by rho_K != 0."""
         heisenberg = E3BarComplexHeisenberg(OmegaBackground(1, 0))
         assert heisenberg.koszul_conductor() == Rational(0)
-        assert self.bg.koszul_conductor() != Rational(0)
+        assert self.bg.koszul_conductor() == Rational(0)
+        assert self.bg.S4 != Rational(0)
 
 
 # =========================================================================
@@ -555,7 +556,7 @@ class TestFullInvestigation:
         assert self.result["num_generators"] == 2
 
     def test_kappa(self):
-        assert self.result["kappa_ch"] == Rational(-1, 2)
+        assert self.result["kappa_ch"] == Rational(1)
 
     def test_chain_dimensions_present(self):
         assert self.result["chain_dimensions (P(q)^6)"][:4] == [1, 6, 27, 98]
@@ -580,7 +581,7 @@ class TestFullInvestigation:
         assert self.result["d4_vanishes_on_e3"] is True
 
     def test_S4_present(self):
-        assert self.result["S4 (quartic shadow)"] == Rational(1)
+        assert self.result["S4 (quartic shadow)"] == Rational(-5, 12)
 
 
 # =========================================================================

@@ -40,7 +40,7 @@ The mu_k = a_{k-2} are the A_infinity structure constants:
 THE INDEPENDENT VERIFICATION CHAIN:
 
   (1) kappa_ch = c/2       [from 2-point Wick: G_2 = c/2 * z_{12}^{-4}]
-  (2) alpha = 2c           [from 3-point Wick: G_3^{conn} = c * prod z_{ij}^{-2}]
+  (2) alpha = 2            [from the normalized 3-point Wick coefficient]
   (3) S_4 = 10/(c(5c+22))  [Zamolodchikov formula from Virasoro Gram matrix]
   (4) Q_L quadratic        [TT OPE has finite pole order 4]
   (5) a_3 = -a_1*a_2/a_0   [from q_3 = 0]
@@ -253,13 +253,14 @@ def extract_alpha(c: Fraction = Fraction(1)) -> Dict[str, Any]:
     The connected 3-point function of T on the sphere:
       G_3^{conn}(z_1,z_2,z_3) = c / (z_{12}^2 * z_{23}^2 * z_{13}^2)
 
-    This determines alpha = 2c (the cubic shadow / m_3 coefficient).
+    After the standard Virasoro normalization, this determines alpha = 2
+    (the cubic shadow / m_3 coefficient).
 
     At c=1: Wick gives G_3^{conn} = 1/(z12^2*z23^2*z13^2).
-    The relation: m_3(T,T,T) = -2c * T => alpha = |coefficient| = 2c.
+    The relation: m_3(T,T,T) = -2 * T => alpha = |coefficient| = 2.
     """
     if c != Fraction(1):
-        return {"alpha": Fraction(2) * c, "wick_verified": False}
+        return {"alpha": Fraction(2), "wick_verified": False}
 
     wick = ExactWick()
     # Test at three sets of rational points for robustness
@@ -282,7 +283,7 @@ def extract_alpha(c: Fraction = Fraction(1)) -> Dict[str, Any]:
                 "error": f"Wick {G3_wick} != predicted {G3_predicted} at {zs}",
             }
 
-    return {"alpha": Fraction(2) * c, "wick_verified": True}
+    return {"alpha": Fraction(2), "wick_verified": True}
 
 
 def extract_S4_zamolodchikov(c: Fraction = Fraction(1)) -> Fraction:
@@ -439,7 +440,7 @@ def compute_mu5_independent(c: Fraction = Fraction(1)) -> Dict[str, Any]:
     THE INDEPENDENT COMPUTATION:
 
     Step 1: kappa = c/2 from the 2-point normalization.
-    Step 2: alpha = 2c from the 3-point Wick computation.
+    Step 2: alpha = 2 from the normalized 3-point Wick computation.
     Step 3: S_4 = 10/(c(5c+22)) from the Zamolodchikov formula.
     Step 4: Q_L(t) = 4*kappa^2 + 12*kappa*alpha*t + (9*alpha^2 + 16*kappa*S_4)*t^2
             is a QUADRATIC polynomial (because the TT OPE has poles up to order 4).
@@ -461,7 +462,7 @@ def compute_mu5_independent(c: Fraction = Fraction(1)) -> Dict[str, Any]:
     is finite.
     """
     kappa = c / Fraction(2)
-    alpha = Fraction(2) * c
+    alpha = Fraction(2)
     S4 = Fraction(10) / (c * (5 * c + 22))
 
     # Shadow landscape Q_L(t) = q_0 + q_1*t + q_2*t^2
@@ -650,7 +651,7 @@ def verify_m5_from_five_point(c: Optional[Fraction] = None) -> Dict[str, Any]:
         },
         "verification_chain": [
             f"(1) kappa_ch = c/2 = {kappa} [2-point normalization]",
-            f"(2) alpha = 2c = {alpha} [3-point Wick, verified={alpha_result.get('wick_verified')}]",
+            f"(2) alpha = 2 = {alpha} [3-point Wick, verified={alpha_result.get('wick_verified')}]",
             f"(3) S_4 = 10/(c(5c+22)) = {S4} [Zamolodchikov/Gram matrix]",
             "(4) Q_L(t) quadratic [TT OPE pole order 4, 3 parameters]",
             f"(5) q_3=0 => a_3 = -a_1*a_2/a_0 = {mu5_result['a3']}",

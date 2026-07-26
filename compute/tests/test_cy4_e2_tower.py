@@ -29,8 +29,12 @@ GROUND TRUTH:
 
 import math
 from fractions import Fraction
+from pathlib import Path
 
 import pytest
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
+CY4_E2_TOWER_LIB = REPO_ROOT / "compute/lib/cy4_e2_tower.py"
 
 from compute.lib.cy4_e2_tower import (
     CY4CechDescentResult,
@@ -789,6 +793,14 @@ class TestMultiPathVerification:
         """Path 5: SO(4) Z_2 quotient obstructs E_2."""
         v = verify_cy4_not_e2()
         assert v.path5_so4
+
+    def test_path5_so4_is_hom_side_not_independent_within_surface(self):
+        """Path 5 must not reintroduce two independent within-surface E_1s."""
+        source = " ".join(CY4_E2_TOWER_LIB.read_text().split())
+        assert "two Hom-side E_1 actions on equivariant Hochschild cochains" in source
+        assert "They are not two independent within-surface E_1 structures" in source
+        stale = "two " + "INDEPENDENT E_1 structures"
+        assert stale not in source
 
     def test_path6_product(self):
         """Path 6: CY4 trace couples K3 factors, blocking Dunn."""

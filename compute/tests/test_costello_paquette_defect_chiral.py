@@ -642,11 +642,11 @@ class TestK3UniversalDefect:
         assert result["K4_kappa_additivity"] is True
 
     def test_verify_k3_koszul_conductors(self):
-        """Two Koszul branches: K=0 (free-field) and K=5 (BKM)."""
+        """The free-field conductor and Borcherds weight are distinct."""
         k3 = K3UniversalDefect()
         result = k3.verify_k3_defect()
         assert result["K5_koszul_conductor_ff"] == Rational(0)
-        assert result["K5_koszul_conductor_bkm"] == Rational(5)
+        assert result["K5_bkm_weight_characteristic"] == Rational(5)
 
 
 # =========================================================================

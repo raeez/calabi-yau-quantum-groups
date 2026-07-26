@@ -104,7 +104,7 @@ Symbolic computations at low order avoid floating-point contamination.
 CONVENTIONS
 ===========
   - Cohomological grading: |d| = +1
-  - Bar uses DESUSPENSION: |s⁻¹v| = |v| - 1 (AP45)
+  - Bar uses DESUSPENSION: |s⁻¹v| = |v| - 1 (desuspension convention)
   - CY condition: h₁ + h₂ + h₃ = 0 (AP-CY1: CY dim = complex dim = 3)
   - σ₃ = h₁h₂h₃ = -ε₁ε₂(ε₁+ε₂) at h₁=ε₁, h₂=ε₂
   - κ(H_k) = k for Heisenberg at level k (AP48)

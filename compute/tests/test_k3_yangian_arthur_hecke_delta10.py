@@ -1,6 +1,6 @@
 """Tests for the Arthur-Hecke eigenvalue compute module (Wave 15 closure)."""
 # Raeez Lorgat -- Wave 15 compute tests for the Saito-Kurokawa / Ikeda
-# lift of the weight-16 elliptic newform to Delta_10.
+# lift of the weight-18 elliptic newform to Delta_10.
 
 from __future__ import annotations
 
@@ -21,21 +21,21 @@ from compute.lib.k3_yangian_arthur_hecke_delta10 import (
 
 
 # ----------------------------------------------------------------------
-# Primary-source reproduction: first-principles a_p from E_4 * Delta
+# Primary-source reproduction: first-principles a_p from E_6 * Delta
 # ----------------------------------------------------------------------
 
 
 @pytest.mark.parametrize("p", PRIMES)
 def test_first_principles_matches_table(p: int) -> None:
-    """a_p in the table matches the first-principles E_4 * Delta computation."""
+    """a_p in the table matches the first-principles E_6 * Delta computation."""
     assert DELTA_E6_AP[p] == first_principles_a_p(p)
 
 
 @pytest.mark.parametrize("p", PRIMES)
 def test_deligne_bound(p: int) -> None:
-    """|a_p| <= 2 p^{15/2} for all tabulated primes."""
+    """|a_p| <= 2 p^{17/2} for all tabulated primes."""
     a_p = DELTA_E6_AP[p]
-    assert abs(a_p) <= 2 * p ** (15 / 2)
+    assert abs(a_p) <= 2 * p ** (17 / 2)
 
 
 # ----------------------------------------------------------------------
@@ -56,17 +56,17 @@ def test_hecke_multiplicativity(m: int, n: int) -> None:
 
     N = m * n + 1
 
-    def _sigma3(k: int) -> int:
+    def _sigma5(k: int) -> int:
         s = 0
         for d in range(1, k + 1):
             if k % d == 0:
-                s += d ** 3
+                s += d ** 5
         return s
 
-    e4 = [0] * (N + 1)
-    e4[0] = 1
+    e6 = [0] * (N + 1)
+    e6[0] = 1
     for k in range(1, N + 1):
-        e4[k] = 240 * _sigma3(k)
+        e6[k] = -504 * _sigma5(k)
 
     eta24 = [0] * (N + 1)
     eta24[0] = 1
@@ -89,36 +89,36 @@ def test_hecke_multiplicativity(m: int, n: int) -> None:
     for i in range(N):
         delta[i + 1] = eta24[i]
 
-    f16 = [0] * (N + 1)
+    f18 = [0] * (N + 1)
     for i in range(N + 1):
-        if e4[i] == 0:
+        if e6[i] == 0:
             continue
         for j in range(N + 1 - i):
-            f16[i + j] += e4[i] * delta[j]
+            f18[i + j] += e6[i] * delta[j]
 
-    assert f16[m * n] == f16[m] * f16[n]
+    assert f18[m * n] == f18[m] * f18[n]
 
 
 def test_hecke_recursion_p_equals_2() -> None:
-    """a_{p^2} = a_p^2 - p^{15} at p = 2.
+    """a_{p^2} = a_p^2 - p^{17} at p = 2.
 
-    216^2 - 2^15 = 46656 - 32768 = 13888.
+    (-528)^2 - 2^17 = 278784 - 131072 = 147712.
     """
     from math import comb
 
     N = 5
 
-    def _sigma3(k: int) -> int:
+    def _sigma5(k: int) -> int:
         s = 0
         for d in range(1, k + 1):
             if k % d == 0:
-                s += d ** 3
+                s += d ** 5
         return s
 
-    e4 = [0] * (N + 1)
-    e4[0] = 1
+    e6 = [0] * (N + 1)
+    e6[0] = 1
     for k in range(1, N + 1):
-        e4[k] = 240 * _sigma3(k)
+        e6[k] = -504 * _sigma5(k)
 
     eta24 = [0] * (N + 1)
     eta24[0] = 1
@@ -141,16 +141,16 @@ def test_hecke_recursion_p_equals_2() -> None:
     for i in range(N):
         delta[i + 1] = eta24[i]
 
-    f16 = [0] * (N + 1)
+    f18 = [0] * (N + 1)
     for i in range(N + 1):
-        if e4[i] == 0:
+        if e6[i] == 0:
             continue
         for j in range(N + 1 - i):
-            f16[i + j] += e4[i] * delta[j]
+            f18[i + j] += e6[i] * delta[j]
 
-    # a_2^2 - 2^15 = a_4
-    assert DELTA_E6_AP[2] ** 2 - 2 ** 15 == f16[4]
-    assert f16[2] == DELTA_E6_AP[2]
+    # a_2^2 - 2^17 = a_4
+    assert DELTA_E6_AP[2] ** 2 - 2 ** 17 == f18[4]
+    assert f18[2] == DELTA_E6_AP[2]
 
 
 # ----------------------------------------------------------------------
@@ -168,7 +168,7 @@ def test_saito_kurokawa_formula(p: int) -> None:
 
 @pytest.mark.parametrize("p", PRIMES)
 def test_weissauer_ramanujan_petersson(p: int) -> None:
-    """Weissauer 2009 RP: |lambda_p - p^8 - p^9| <= 2 p^{15/2}."""
+    """Weissauer 2009 RP: |lambda_p - p^8 - p^9| <= 2 p^{17/2}."""
     a_p = DELTA_E6_AP[p]
     lam = lambda_p_from_delta_e6(p, a_p)
     assert ramanujan_petersson_check(p, lam, a_p)
@@ -195,13 +195,13 @@ def test_spinor_euler_factor_at_centre(p: int) -> None:
 
 @pytest.mark.parametrize("p", PRIMES)
 def test_satake_roots_unitary(p: int) -> None:
-    """Reciprocal roots alpha, beta of 1 - a_p x + p^{15} x^2 have |alpha beta| = p^{15}."""
+    """Reciprocal roots alpha, beta of 1 - a_p x + p^{17} x^2 have |alpha beta| = p^{17}."""
     a_p = DELTA_E6_AP[p]
     alpha, beta = spinor_satake_roots(p, a_p)
-    # Product of reciprocal roots = p^{15} (Vieta's)
+    # Product of reciprocal roots = p^{17} (Vieta's)
     prod = alpha * beta
-    assert abs(prod.real - p ** 15) < 1e-3 * p ** 15
-    assert abs(prod.imag) < 1e-3 * p ** 15
+    assert abs(prod.real - p ** 17) < 1e-3 * p ** 17
+    assert abs(prod.imag) < 1e-3 * p ** 17
 
 
 # ----------------------------------------------------------------------
@@ -245,7 +245,7 @@ def test_w17_primes_first_principles_match() -> None:
 
 
 def test_w17_deligne_bound() -> None:
-    """|a_p| <= 2 p^{15/2} for all Wave 17 primes."""
+    """|a_p| <= 2 p^{17/2} for all Wave 17 primes."""
     from compute.lib.k3_yangian_arthur_hecke_delta10 import (
         DELTA_E6_AP_W17,
         PRIMES_W17,
@@ -253,10 +253,10 @@ def test_w17_deligne_bound() -> None:
 
     for p in PRIMES_W17:
         a_p = DELTA_E6_AP_W17[p]
-        bound = 2 * (p ** 7.5)
+        bound = 2 * (p ** 8.5)
         assert abs(a_p) <= bound, (
             f"Deligne bound violated at p = {p}: "
-            f"|a_p| = {abs(a_p)} > 2 p^(15/2) = {bound}"
+            f"|a_p| = {abs(a_p)} > 2 p^(17/2) = {bound}"
         )
 
 
@@ -285,16 +285,16 @@ def test_w17_saito_kurokawa_eigenvalues() -> None:
     )
 
     expected = {
-        41: 337008833641284,
-        43: 513788409105136,
-        47: 1139531074811904,
-        53: 3368820433869396,
-        59: 8819685113074800,
-        61: 11890785248458324,
-        67: 27583764247226224,
-        71: 46619304364609344,
-        73: 59595875344648516,
-        79: 121343291713830400,
+        41: 384231010625364,
+        43: 423260837896600,
+        47: 1093636765488480,
+        53: 3384963735409260,
+        59: 8842521346989240,
+        61: 10577567550962044,
+        67: 32808745935835720,
+        71: 42784764372282384,
+        73: 63080419768434580,
+        79: 123735238733833120,
     }
     for p in PRIMES_W17:
         a_p = DELTA_E6_AP_W17[p]
@@ -384,7 +384,7 @@ def test_w18_primes_first_principles_match() -> None:
 
 
 def test_w18_deligne_bound() -> None:
-    """|a_p| <= 2 p^{15/2} for all Wave 18 primes."""
+    """|a_p| <= 2 p^{17/2} for all Wave 18 primes."""
     from compute.lib.k3_yangian_arthur_hecke_delta10 import (
         DELTA_E6_AP_W18,
         W18_ADDITIONAL_PRIMES,
@@ -392,10 +392,10 @@ def test_w18_deligne_bound() -> None:
 
     for p in W18_ADDITIONAL_PRIMES:
         a_p = DELTA_E6_AP_W18[p]
-        bound = 2 * (p ** 7.5)
+        bound = 2 * (p ** 8.5)
         assert abs(a_p) <= bound, (
             f"Deligne bound violated at p = {p}: "
-            f"|a_p| = {abs(a_p)} > 2 p^(15/2) = {bound}"
+            f"|a_p| = {abs(a_p)} > 2 p^(17/2) = {bound}"
         )
 
 
@@ -405,10 +405,10 @@ def test_w18_deligne_bound() -> None:
 #   (i) binomial eta^24 convolution (first_principles_a_p);
 #   (ii) Jacobi pentagonal raised to the 24th power
 #        (first_principles_a_p_jacobi);
-#   (iii) Deligne bound |a_p| <= 2 p^{15/2};
+#   (iii) Deligne bound |a_p| <= 2 p^{17/2};
 # plus Hecke multiplicativity a_2 * a_p = a_{2p} and the
 # Saito-Kurokawa identity lambda_p = a_p + p^8 + p^9
-# agreeing with the W22.4 pseudo-character S^{ps}_1(T_p).
+# agreeing with the Chenevier determinant component Sigma_1(T_p).
 # ----------------------------------------------------------------------
 
 
@@ -451,7 +451,7 @@ def test_w20_primes_jacobi_agrees() -> None:
 
 
 def test_w20_deligne_bound() -> None:
-    """|a_p| <= 2 p^{15/2} for all Wave 20 primes."""
+    """|a_p| <= 2 p^{17/2} for all Wave 20 primes."""
     from compute.lib.k3_yangian_arthur_hecke_delta10 import (
         DELTA_E6_AP_W20,
         W20_ADDITIONAL_PRIMES,
@@ -459,10 +459,10 @@ def test_w20_deligne_bound() -> None:
 
     for p in W20_ADDITIONAL_PRIMES:
         a_p = DELTA_E6_AP_W20[p]
-        bound = 2 * (p ** 7.5)
+        bound = 2 * (p ** 8.5)
         assert abs(a_p) <= bound, (
             f"Deligne bound violated at p = {p}: "
-            f"|a_p| = {abs(a_p)} > 2 p^(15/2) = {bound}"
+            f"|a_p| = {abs(a_p)} > 2 p^(17/2) = {bound}"
         )
 
 
@@ -485,8 +485,8 @@ def test_w20_satake_cosine_in_unitary_range() -> None:
 def test_w20_saito_kurokawa_eigenvalues() -> None:
     """lambda_p(Delta_10) = a_p + p^8 + p^9 at Wave 20 primes.
 
-    The SK eigenvalue is identical to the W22.4 pseudo-character value
-    S^{ps}_1(T_p) = a_p(f_16) + p^8 + p^9 (Andrianov 1974; Ikeda 2001
+    The SK eigenvalue is identical to the Chenevier determinant value
+    Sigma_1(T_p) = a_p(f_18) + p^8 + p^9 (Andrianov 1974; Ikeda 2001
     Cor. 16.2; Chenevier 2014 Section 1.2). Strict positivity at every
     prime witnesses p^9-dominance over |a_p| (Deligne).
     """
@@ -504,7 +504,7 @@ def test_w20_saito_kurokawa_eigenvalues() -> None:
 
 
 def test_w20_ramanujan_discriminant_negative() -> None:
-    """Discriminant a_p^2 - 4 p^{15} < 0 (complex conjugate Satake pair)."""
+    """Discriminant a_p^2 - 4 p^{17} < 0 (complex conjugate Satake pair)."""
     from compute.lib.k3_yangian_arthur_hecke_delta10 import (
         DELTA_E6_AP_W20,
         W20_ADDITIONAL_PRIMES,
@@ -512,7 +512,7 @@ def test_w20_ramanujan_discriminant_negative() -> None:
 
     for p in W20_ADDITIONAL_PRIMES:
         a_p = DELTA_E6_AP_W20[p]
-        disc = a_p * a_p - 4 * p ** 15
+        disc = a_p * a_p - 4 * p ** 17
         assert disc < 0, (
             f"Ramanujan discriminant non-negative at p = {p}: {disc}"
         )
@@ -593,7 +593,7 @@ def test_w25_primes_first_principles_match() -> None:
 
 
 def test_w25_deligne_bound() -> None:
-    """|a_p| <= 2 p^{15/2} for all Wave 25 primes."""
+    """|a_p| <= 2 p^{17/2} for all Wave 25 primes."""
     from compute.lib.k3_yangian_arthur_hecke_delta10 import (
         DELTA_E6_AP_W25,
         W25_ADDITIONAL_PRIMES,
@@ -601,10 +601,10 @@ def test_w25_deligne_bound() -> None:
 
     for p in W25_ADDITIONAL_PRIMES:
         a_p = DELTA_E6_AP_W25[p]
-        bound = 2 * (p ** 7.5)
+        bound = 2 * (p ** 8.5)
         assert abs(a_p) <= bound, (
             f"Deligne bound violated at p = {p}: "
-            f"|a_p| = {abs(a_p)} > 2 p^(15/2) = {bound}"
+            f"|a_p| = {abs(a_p)} > 2 p^(17/2) = {bound}"
         )
 
 
@@ -616,7 +616,7 @@ def test_w25_deligne_bound() -> None:
 #       (first_principles_a_p_jacobi);
 #   (c) Ramanujan mod-691 congruence tau(p) == 1 + p^11 (mod 691)
 #       on the driving tau coefficient;
-#   (d) Deligne bound |a_p| <= 2 p^{15/2};
+#   (d) Deligne bound |a_p| <= 2 p^{17/2};
 #   (e) Chenevier determinant Sigma_1(T_p) = a_p + p^8 + p^9 evaluated
 #       integrally and equal to lambda_p(Delta_{10}).
 # ----------------------------------------------------------------------
@@ -673,7 +673,7 @@ def test_w26_tau_ramanujan_mod_691() -> None:
 
 
 def test_w26_deligne_bound() -> None:
-    """|a_p| <= 2 p^{15/2} for all Wave 26 primes (weight 16)."""
+    """|a_p| <= 2 p^{17/2} for all Wave 26 primes (weight 18)."""
     from compute.lib.k3_yangian_arthur_hecke_delta10 import (
         DELTA_E6_AP_W26,
         W26_ADDITIONAL_PRIMES,
@@ -681,10 +681,10 @@ def test_w26_deligne_bound() -> None:
 
     for p in W26_ADDITIONAL_PRIMES:
         a_p = DELTA_E6_AP_W26[p]
-        bound = 2 * (p ** 7.5)
+        bound = 2 * (p ** 8.5)
         assert abs(a_p) <= bound, (
             f"Deligne bound violated at p = {p}: "
-            f"|a_p| = {abs(a_p)} > 2 p^(15/2) = {bound}"
+            f"|a_p| = {abs(a_p)} > 2 p^(17/2) = {bound}"
         )
 
 
@@ -705,13 +705,13 @@ def test_w26_satake_cosine_in_unitary_range() -> None:
 
 
 def test_w26_chenevier_determinant_identity() -> None:
-    """Chenevier determinant Sigma_1(T_p) = a_p(f_16) + p^8 + p^9 at W26 primes.
+    """Chenevier determinant Sigma_1(T_p) = a_p(f_18) + p^8 + p^9 at W26 primes.
 
     Independent verification of the Saito-Kurokawa trace formula
     (Andrianov 1974 / Ikeda 2001) via the Chenevier determinant
     framework (Chenevier 2014 arXiv:1301.0635 Prop.~1.9), pinning
     the spinor trace of phi_{Delta_10}(Frob_p) on the Vol I
-    pseudo-character register.
+    determinant register.
     """
     from compute.lib.k3_yangian_arthur_hecke_delta10 import (
         DELTA_E6_AP_W26,

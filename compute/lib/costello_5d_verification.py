@@ -78,7 +78,9 @@ algebra from the classical (commutative) limit to the full quantum
 Yangian:
 
   - At sigma_3 = h_1 h_2 h_3 = 0 (self-dual point, one h_i = 0):
-    g(u) = 1, the R-matrix is trivial, Y degenerates to Heisenberg.
+    g(u) = 1, the Yangian/MO nonabelian R-matrix is trivial, and
+    Y degenerates to Heisenberg.  The ordered-bar Heisenberg scalar
+    braid remains R_ord(z)=exp(k*hbar/z) at k != 0.
 
   - At generic (h_1, h_2): g(u) has poles at u = -h_i and zeros at
     u = h_i, giving a nontrivial R-matrix and full Yangian structure.
@@ -606,7 +608,9 @@ class OmegaBackgroundDeformation:
     """The Omega-background (h_1, h_2) on C^2 deforms the boundary algebra.
 
     The deformation has three regimes:
-    1. sigma_3 = 0 (self-dual): g(u) = 1, trivial R-matrix, Heisenberg.
+    1. sigma_3 = 0 (self-dual): g(u) = 1, trivial nonabelian
+       Yangian/MO R-matrix, Heisenberg.  The ordered-bar Heisenberg
+       braiding is separately scalar R_ord(z)=exp(k*hbar/z).
     2. sigma_3 generic: full affine Yangian with nontrivial braiding.
     3. Special values: sigma_3 -> 0 or inf limit.
 
@@ -641,8 +645,9 @@ class OmegaBackgroundDeformation:
 
         At sigma_3 = 0:
           - g(u) = 1
-          - R-matrix = identity
+          - Yangian/MO R-matrix = identity
           - Algebra = Heisenberg H_1 (free boson)
+          - Ordered-bar Heisenberg R_ord(z) = exp(k*hbar/z)
           - Central charge c = 1
 
         At sigma_3 != 0:
@@ -663,6 +668,8 @@ class OmegaBackgroundDeformation:
             "is_self_dual": self.is_classical_limit(),
             "structure_function": self.structure_function_at_self_dual(),
             "r_matrix_trivial": self.is_classical_limit(),
+            "r_matrix_trivial_scope": "Yangian/MO nonabelian part",
+            "ordered_bar_scalar_r": "exp(k*hbar/z) for Heisenberg at k != 0",
             "central_charge": Rational(1),  # c = 1 for gl_1
             "c_independent_of_deformation": True,
             "algebra_type": "Heisenberg" if self.is_classical_limit() else "Yangian",

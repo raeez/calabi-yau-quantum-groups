@@ -5,7 +5,7 @@ and the Niemeier lattice shadow landscape.
 Covers:
 1. ADE root system data (dimensions, Coxeter numbers, determinants)
 2. The 24 Niemeier lattices (ranks, root counts, classification)
-3. Lattice VOA shadow data (kappa_ch = 24, class G for all 24)
+3. Lattice VOA current-shadow data (kappa_ch = 24; Leech G, rootful L)
 4. Affine KM shadow data (level 1 central charges, shadow classes)
 5. kappa_ch moduli independence (= 2 at all enhancement points)
 6. Theta series coefficients (Leech kissing number, integrality)
@@ -18,7 +18,7 @@ Manuscript references:
     toroidal_elliptic.tex: sec:k3-chiral-algebra, prop:kappa-k3
     cy_to_chiral.tex: prop:kummer-orbifold
 
-67 tests total.
+72 tests total.
 """
 
 import math
@@ -197,7 +197,7 @@ class TestNiemeierLattices:
 # =========================================================================
 
 class TestLatticeVOAShadow:
-    """Verify shadow data for Niemeier lattice VOAs."""
+    """Verify current-shadow data for Niemeier lattice VOAs."""
 
     def test_all_kappa_ch_24(self):
         """All 24 Niemeier lattice VOAs have kappa_ch = 24."""
@@ -206,52 +206,47 @@ class TestLatticeVOAShadow:
             vs = nsl.niemeier_voa_shadow(i)
             assert vs.kappa_ch == 24
 
-    def test_all_class_G(self):
-        """All 24 Niemeier lattice VOAs are class G (Gaussian/free-field)."""
-        # VERIFIED [DC] shadow class computation [CF] AP-CY12 compliant
-        for i in range(1, 25):
-            vs = nsl.niemeier_voa_shadow(i)
-            assert vs.shadow_class == 'G'
+    def test_leech_class_G(self):
+        """The rootless Leech current shadow is class G."""
+        # VERIFIED [DC] shadow class computation [CF] no root currents
+        vs = nsl.niemeier_voa_shadow(1)
+        assert vs.shadow_class == 'G'
+        assert vs.shadow_depth == 2
+        assert vs.S3 == 0
 
-    def test_all_depth_2(self):
-        """All 24 Niemeier lattice VOAs have shadow depth 2."""
-        # VERIFIED [DC] shadow tower computation [CF] class G => depth 2
-        for i in range(1, 25):
+    def test_rootful_class_L(self):
+        """Rootful Niemeier current shadows are class L."""
+        # VERIFIED [DC] shadow class computation [CF] ADE current algebra
+        for i in range(2, 25):
             vs = nsl.niemeier_voa_shadow(i)
-            assert vs.shadow_depth == 2
-
-    def test_all_S3_zero(self):
-        """Cubic shadow S_3 = 0 for all lattice VOAs (E_infty, no cubic)."""
-        # VERIFIED [DC] structural property [CF] lattice VOAs are E_infty
-        for i in range(1, 25):
-            vs = nsl.niemeier_voa_shadow(i)
-            assert vs.S3 == 0
+            assert vs.shadow_class == 'L'
+            assert vs.shadow_depth == 3
+            assert vs.S3 != 0
 
     def test_all_S4_zero(self):
-        """Quartic shadow S_4 = 0 for all lattice VOAs (free-field)."""
-        # VERIFIED [DC] structural property [CF] free-field => S_4 = 0
+        """Quartic shadow S_4 = 0 at the level-one current coordinate."""
+        # VERIFIED [DC] structural property [CF] level-one ADE current coordinate
         for i in range(1, 25):
             vs = nsl.niemeier_voa_shadow(i)
             assert vs.S4 == 0
 
     def test_all_discriminant_zero(self):
-        """Critical discriminant Delta = 0 for all (=> class G)."""
-        # VERIFIED [DC] shadow tower computation [CF] class G criterion
+        """Critical discriminant Delta = 0 for all current shadows."""
+        # VERIFIED [DC] shadow tower computation [CF] S4 vanishes here
         for i in range(1, 25):
             vs = nsl.niemeier_voa_shadow(i)
             assert vs.discriminant == 0
 
-    def test_shadow_blind_to_root_system(self):
-        """The shadow tower is IDENTICAL for all 24 Niemeier lattice VOAs.
-
-        This is a fundamental result: the shadow tower cannot distinguish
-        the 24 Niemeier lattices.  All produce (kappa_ch=24, G, depth 2).
-        """
+    def test_shadow_detects_rootfulness_not_root_type(self):
+        """The current shadow detects roots but not the 23 rootful types."""
+        # VERIFIED [DC] shadow split [CF] theta series needed for root type
         shadows = [nsl.niemeier_voa_shadow(i) for i in range(1, 25)]
-        # All should be identical
-        for s in shadows[1:]:
-            # VERIFIED [DC] shadow indistinguishability
-            assert s == shadows[0]
+        leech_shadow = shadows[0]
+        rootful_shadows = shadows[1:]
+        assert leech_shadow.shadow_class == 'G'
+        assert {s.shadow_class for s in rootful_shadows} == {'L'}
+        assert {s.shadow_depth for s in rootful_shadows} == {3}
+        assert len({s for s in rootful_shadows}) == 1
 
     def test_non_leech_siblings_are_not_fake_monster_hosts(self):
         """Rooted Niemeier lattices fail the rootless Leech witness."""
@@ -494,14 +489,18 @@ class TestNiemeierLandscape:
         for entry in nsl.compute_full_niemeier_landscape():
             assert entry.sigma_model_kappa_ch == 2
 
-    def test_all_lattice_voa_identical_shadow(self):
-        """All 24 lattice VOAs have identical shadow data."""
-        # VERIFIED [DC] shadow indistinguishability
+    def test_lattice_voa_current_shadow_split(self):
+        """Current shadows split Leech from the 23 rootful Niemeier lattices."""
+        # VERIFIED [DC] shadow split [CF] ADE current algebra
         landscape = nsl.compute_full_niemeier_landscape()
-        for entry in landscape:
+        leech = landscape[0]
+        assert leech.lattice_voa_kappa_ch == 24
+        assert leech.lattice_voa_shadow_class == 'G'
+        assert leech.lattice_voa_shadow_depth == 2
+        for entry in landscape[1:]:
             assert entry.lattice_voa_kappa_ch == 24
-            assert entry.lattice_voa_shadow_class == 'G'
-            assert entry.lattice_voa_shadow_depth == 2
+            assert entry.lattice_voa_shadow_class == 'L'
+            assert entry.lattice_voa_shadow_depth == 3
 
     def test_root_counts_descending(self):
         """Entries 2-24 have root counts in roughly descending order.

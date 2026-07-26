@@ -105,14 +105,14 @@ BEILINSON WARNINGS
           as the derived center. We work with the E_1 (associative) setting.
     AP10: Tests use multiple independent verification paths.
     AP19: The bar propagator absorbs a grading shift; bimodule bar complex
-          uses desuspension |s^{-1}v| = |v|-1 (AP45).
+          uses desuspension |s^{-1}v| = |v|-1 (desuspension convention).
     AP43: The Koszul wall is a CONJECTURE, not a theorem. We provide
           computational evidence but do not claim a proof.
 
 CONVENTIONS
 ===========
     - Cohomological grading (|d| = +1).
-    - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (AP45).
+    - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (desuspension convention).
     - Exact arithmetic via fractions.Fraction.
     - Bimodule generators: m_gamma for gamma in the positive cone.
     - Exchange matrix: B_{ij} = #(i->j) - #(j->i).
@@ -653,7 +653,7 @@ class BimoduleBarElement:
                   = -p - q + sum|a_i| + |m| + sum|b_j|
 
     For degree-0 generators of the CoHA and bimodule:
-        |element| = -p - q  (each desuspension contributes -1, AP45).
+        |element| = -p - q  (each desuspension contributes -1, desuspension convention).
     """
     left_charges: List[Tuple[int, ...]]   # charges of s^{-1}a_1, ..., s^{-1}a_p
     module_charge: Tuple[int, ...]         # charge of m
@@ -683,7 +683,7 @@ class BimoduleBarElement:
 
     @property
     def bar_degree(self) -> int:
-        """Cohomological degree from desuspension (AP45)."""
+        """Cohomological degree from desuspension (desuspension convention)."""
         return -(self.left_arity + self.right_arity)
 
 
@@ -1219,7 +1219,7 @@ def koszul_dual_bimodule_dimensions(
         dims[total_arity] = arity_data
 
     # Cohomology dimension (bar complex degree)
-    # At total arity n: bar degree = -n (from desuspensions, AP45)
+    # At total arity n: bar degree = -n (from desuspensions, desuspension convention)
     # The bar cohomology H^{-n}(B(A,M,B)) encodes the Koszul dual
     # bimodule at degree n.
     cohom_degrees = {}

@@ -89,7 +89,7 @@ A_X requires the full CY-A_3 programme.
 CONVENTIONS
 ===========
   - Cohomological grading: |d| = +1
-  - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (AP45)
+  - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (desuspension convention)
   - CY dimension d = 3: Serre functor S = [3]
   - AP-CY2: CY trace is HC^-_3(C), NOT just HH_3 -> k
   - AP-CY6: A_X for CY3 is CONDITIONAL on this construction

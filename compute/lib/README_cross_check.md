@@ -16,7 +16,7 @@ non-abelian K3 chiral bialgebra $\mathbf{H}_{\Delta_5}$.
 | D | $\mathrm{wt}(\Delta_5) = 5$ | $\eta^9 \theta_1$ weight $9/2 + 1/2$ | $\chi(\mathcal{O}_{\mathrm{K3}}) + $ Kodaira $= 2 + 3$; paramodular anomaly |
 | E | Five-frame duality convergence | Harvey-Moore het $K3 \times T^2$ | IIA DMVV; IIB D1-D5; M on $K3 \times T^3$; F on elliptic-$K3$ |
 | F | Heegner pattern $c_n \propto [H_n]$ | Bruinier Prop 5.1 multiplicities | EOT 2011 $c_{K3}$ table at disc $\in \{-1, 0, 3\}$ |
-| G | Arthur $\psi_{\Delta_{10}} = \phi_{\Delta_{E_6}} \boxplus \mathrm{Sym}^1$ | Ikeda / Andrianov Hecke formula | First-principles $a_p(f_{16}) = a_p(E_4 \Delta)$; Ramanujan-Petersson |
+| G | Arthur $\psi_{\Delta_{10}} = \phi_{\Delta_{E_6}} \boxplus \mathrm{Sym}^1$ | Ikeda / Andrianov Hecke formula | First-principles $a_p(f_{18}) = a_p(E_6 \Delta)$; Ramanujan-Petersson |
 | H | Schur index $\mathrm{PE}[(72q - 22q^2)/(1-q)]$ | Gadde-Rastelli-Razamat-Yan | BLLPRvR; Beem-Peelaers-Rastelli 2014 |
 
 ## How to run
@@ -58,8 +58,8 @@ re-derive — it cross-binds.
 - **F fail**: EOT $c_{K3}$ table drift (disc $-1, 0, 3$). A silent
   re-indexing of the Heegner label convention (e.g. $H_n$ vs disc $4n-1$)
   would trigger this.
-- **G fail**: first-principles $a_p(f_{16})$ disagrees with the transcribed
-  table OR Ramanujan-Petersson bound fails. Former indicates an $E_4$ or
+- **G fail**: first-principles $a_p(f_{18})$ disagrees with the transcribed
+  table OR Ramanujan-Petersson bound fails. Former indicates an $E_6$ or
   $\Delta$ Fourier-expansion error; latter indicates a stale Hecke
   eigenvalue.
 - **H fail**: Schur-index plethystic expansion disagrees with manuscript

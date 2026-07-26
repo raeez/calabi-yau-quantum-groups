@@ -139,7 +139,7 @@ WARNING (AP113): kappa_ch is always subscripted (from chiral algebra).
 CONVENTIONS
 ===========
 
-- Cohomological grading (|d| = +1), bar uses desuspension (AP45).
+- Cohomological grading (|d| = +1), bar uses desuspension (desuspension convention).
 - kappa_ch = modular characteristic from Vol I (AP1: family-specific).
 - S_k = shadow invariant at arity k (Vol I shadow tower).
 - F_g = genus-g topological string free energy.

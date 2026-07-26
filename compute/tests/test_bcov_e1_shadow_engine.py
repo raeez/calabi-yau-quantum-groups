@@ -721,7 +721,7 @@ class TestPropagator:
     def test_symmetry_mismatch(self):
         """The symmetry property does NOT naively match:
         S^{ij} = S^{ji} (symmetric) vs d log E(z,w) = -d log E(w,z) (anti-symmetric).
-        Resolution: desuspension sign (AP45) restores symmetry.
+        Resolution: desuspension sign (desuspension convention) restores symmetry.
         """
         entries = propagator_comparison()
         symmetry_entry = [e for e in entries if e.property_name == "Symmetry"][0]

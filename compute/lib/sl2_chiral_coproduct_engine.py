@@ -178,7 +178,7 @@ CONVENTIONS
   - Affine Cartan matrix A_1^{(1)}: C = ((2,-2),(-2,2)).
   - Color function c: {z-variables} -> {0,1} (quiver node).
   - Exact arithmetic via fractions.Fraction where possible.
-  - Cohomological grading (|d|=+1), bar uses desuspension (AP45).
+  - Cohomological grading (|d|=+1), bar uses desuspension (desuspension convention).
 """
 
 from __future__ import annotations

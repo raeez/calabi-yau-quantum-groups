@@ -387,8 +387,9 @@ def _random_hochschild_3cocycle(
                                 + m_3(a, m_2(b,c), d) - m_3(a, b, m_2(c,d))
                                 + m_2(m_3(a,b,c), d)
 
-    A cocycle satisfies delta m_3 = 0, which is exactly the Stasheff
-    identity (S2) at arity 4 with m_1 = m_4 = 0.
+    A cocycle satisfies delta m_3 = 0, which is exactly the minimal
+    arity-four Stasheff source identity with m_1 = 0. The transferred
+    m_4 first enters the minimal identities at arity five.
 
     Strategy: generate a random element of Hom(V^3, V), then project
     onto the kernel of delta^3 using the SVD.

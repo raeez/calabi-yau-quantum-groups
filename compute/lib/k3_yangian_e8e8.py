@@ -922,7 +922,7 @@ def enhancement_comparison() -> List[Dict[str, Any]]:
 
     Notable points:
     1. Generic: no enhancement (class G, 24 Heisenberg generators)
-    2. A_1: simplest du Val singularity (node, class L subalgebra)
+    2. A_1: simplest du Val singularity (node, class L affine-current subalgebra)
     3. D_4: triality point (class L, 3 equivalent 8-dim reps)
     4. E_8: largest simple factor (adjoint = smallest rep)
     5. E_8 x E_8: maximal enhancement (rank 16 in Mukai lattice)

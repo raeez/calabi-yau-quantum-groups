@@ -4,8 +4,8 @@ Verifies the E_2 bar complex, Koszul dual, and landscape data for:
   (i)   Generic K3 (H_Muk, rank 24, class G)
   (ii)  Kummer K3 (H_Muk, class G)
   (iii) Fermat quartic K3 (H_Muk, class G)
-  (iv)  A_1 singular K3 (V_1(sl_2) tensor H_21, class L)
-  (v)   E_8 x E_8 K3 (V_1(e_8)^2 tensor H_8, class G)
+  (iv)  A_1 singular K3 (V_1(sl_2) tensor H_23, class L)
+  (v)   E_8 x E_8 K3 (V_1(e_8)^2 tensor H_8, class L)
 
 SIX CLAIMS verified:
   (1) Both E_2 bar differentials vanish for class G (d_X = d_Y = 0)
@@ -339,19 +339,19 @@ class TestK3Landscape:
     def test_a1_is_class_L(self):
         alg = a1_singular_k3()
         assert alg.shadow_class == "L"
-        assert alg.heisenberg_rank == 21
-        assert alg.enhanced_rank == 3
+        assert alg.heisenberg_rank == 23
+        assert alg.enhanced_rank == 1
         assert alg.total_rank == 24
         assert not alg.e2_bar_differential_trivial
 
-    def test_e8_is_class_G(self):
-        """E_8 x E_8 at level 1 is a lattice VOA (class G)."""
+    def test_e8_is_class_L(self):
+        """E_8 x E_8 has nonzero affine-current bar differential."""
         alg = e8_k3()
-        assert alg.shadow_class == "G"
+        assert alg.shadow_class == "L"
         assert alg.heisenberg_rank == 8
         assert alg.enhanced_rank == 16
         assert alg.total_rank == 24
-        assert alg.e2_bar_differential_trivial
+        assert not alg.e2_bar_differential_trivial
 
     def test_all_total_rank_24(self):
         """Total rank = 24 for all K3 (Mukai lattice rank invariant)."""
@@ -380,7 +380,9 @@ class TestE2BarLandscapeData:
         data = e2_bar_data_k3(a1_singular_k3(), max_n=3)
         assert data["shadow_class"] == "L"
         assert data["kappa_complementarity"]
+        assert data["e2_bar_power"] == 48
         assert "e2_bar_chain_dimensions" in data
+        assert data["e2_bar_chain_dimensions"][1] == 48
         assert data["e2_bar_cohomology"] == "requires spectral sequence"
 
     def test_landscape_bar_data_all_kappa_ok(self):
@@ -395,10 +397,10 @@ class TestE2BarLandscapeData:
             assert entry["braiding_reversed"]
 
     def test_class_G_dimensions_match(self):
-        """All class G algebras with rank 24 have the same E_2 bar dimensions."""
+        """All pure class G Heisenberg rows have the same E_2 bar dimensions."""
         class_g_entries = [
             e2_bar_data_k3(f(), max_n=3)
-            for f in [generic_k3, kummer_k3, fermat_k3, e8_k3]
+            for f in [generic_k3, kummer_k3, fermat_k3]
         ]
         ref_dims = class_g_entries[0]["e2_bar_dimensions"]
         for entry in class_g_entries[1:]:
@@ -421,30 +423,30 @@ class TestADEEnhancement:
         enh = ade_enhancement("A_1")
         assert enh.g_rank == 1
         assert enh.heisenberg_remainder == 23
-        assert enh.is_lattice_voa  # level 1
-        assert enh.koszul_dual_level == -1
-        assert enh.shadow_class == "G"
+        assert enh.is_lattice_voa  # level 1 Frenkel-Kac realization
+        assert enh.koszul_dual_level == -5
+        assert enh.shadow_class == "L"
 
     def test_e8_enhancement(self):
         enh = ade_enhancement("E_8")
         assert enh.g_rank == 8
         assert enh.heisenberg_remainder == 16
         assert enh.is_lattice_voa
-        assert enh.koszul_dual_level == -1
+        assert enh.koszul_dual_level == -61
         assert enh.dual_coxeter == 30
 
     def test_all_level1_are_lattice_voa(self):
-        """At level 1, all simply-laced ADE algebras are lattice VOAs."""
+        """At level 1, all simply-laced ADE algebras have Frenkel-Kac realizations."""
         for ade_type in ADE_DATA:
             enh = ade_enhancement(ade_type, level=1)
             assert enh.is_lattice_voa, f"{ade_type} at level 1 should be lattice VOA"
-            assert enh.shadow_class == "G"
+            assert enh.shadow_class == "L"
 
-    def test_all_level1_koszul_dual_level_minus_1(self):
-        """At level 1 (lattice VOA), Koszul dual level = -1."""
-        for ade_type in ADE_DATA:
+    def test_all_level1_koszul_dual_level_feigin_frenkel(self):
+        """At level 1, reflected current level is -1 - 2h^v."""
+        for ade_type, data in ADE_DATA.items():
             enh = ade_enhancement(ade_type, level=1)
-            assert enh.koszul_dual_level == -1
+            assert enh.koszul_dual_level == -1 - 2 * data["dual_coxeter"]
 
     def test_all_kappa_ch_equal_2(self):
         """kappa_ch = 2 for all K3 ADE enhancements."""

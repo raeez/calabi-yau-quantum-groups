@@ -132,7 +132,7 @@ MATHEMATICAL FRAMEWORK
 
 CONVENTIONS:
   - Cohomological grading (|d| = +1).
-  - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (AP45).
+  - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (desuspension convention).
   - kappa from Vol I is the modular characteristic.
   - For 3d N=2 from CY3: the relation to chi(X) depends on the algebra.
   - All Fraction arithmetic for exact computations.
@@ -585,13 +585,14 @@ def ht_algebra_deformed_conifold() -> HTChiralAlgebra:
     For the Heisenberg: H_k^{!} has kappa = -k.
     So kappa(H_{-1}) = -(-1) ... no.
 
-    From Vol I (AP33): H_k^! = Sym^ch(V*) with kappa(H_k^!) = -k.
+    From Vol I (AP33): H_k^! is the curved Sym^ch(V*[1]) branch with
+    scalar kappa(H_k^!) = -k.
     So for H_1: kappa(H_1^!) = -1.
     c(H_1^!) relates to c(H_1) = 1 via the Feigin-Frenkel involution for
     Heisenberg: k -> -k, so c(H_{-1}) = 1, kappa(H_{-1}) = -1.
 
     Actually kappa(H_k) = k (from Vol I, authoritative). So:
-      kappa(H_1) = 1, kappa(H_1^!) = kappa(H_{-1}) = -1.
+      kappa(H_1) = 1, scalar kappa(H_1^!) = kappa(H_{-1}) = -1.
     Complementarity: kappa + kappa' = 1 + (-1) = 0. Correct for KM/free
     fields (AP24: kappa + kappa' = 0 for this family).
     """

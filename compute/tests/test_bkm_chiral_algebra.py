@@ -26,7 +26,7 @@ Manuscript references:
 import pytest
 
 from compute.lib.bkm_chiral_algebra import (
-    GRAM_MATRIX_II21,
+    GRAM_MATRIX_LAMBDA21II,
     LATTICE_RANK,
     LATTICE_SIGNATURE,
     LATTICE_VOA_CENTRAL_CHARGE,
@@ -48,18 +48,18 @@ from compute.lib.bkm_chiral_algebra import (
 # ===========================================================================
 
 class TestLatticeData:
-    """Lattice II_{2,1} and VOA data for the BRST construction."""
+    """Lattice Lambda^{2,1}_{II} and VOA data for the BRST construction."""
 
     def test_gram_matrix_symmetric(self):
         """Gram matrix A_{ij} = A_{ji}."""
-        A = GRAM_MATRIX_II21
+        A = GRAM_MATRIX_LAMBDA21II
         for i in range(3):
             for j in range(3):
                 assert A[i][j] == A[j][i]
 
     def test_gram_matrix_diagonal(self):
         """Diagonal entries are 2 (even lattice)."""
-        A = GRAM_MATRIX_II21
+        A = GRAM_MATRIX_LAMBDA21II
         # VERIFIED [DC] direct computation [LT] k3_times_e.tex sec:k3e-reflections
         # [CF] cross-engine: matches bkm_shadow_tower.GRAM_MATRIX
         for i in range(3):
@@ -67,7 +67,7 @@ class TestLatticeData:
 
     def test_gram_matrix_off_diagonal(self):
         """Off-diagonal entries are -2."""
-        A = GRAM_MATRIX_II21
+        A = GRAM_MATRIX_LAMBDA21II
         # VERIFIED [DC] direct computation [LT] k3_times_e.tex sec:k3e-reflections
         # [CF] cross-engine: matches bkm_shadow_tower.GRAM_MATRIX
         for i in range(3):
@@ -81,12 +81,12 @@ class TestLatticeData:
         # VERIFIED [CF] cross-engine agreement
         for i in range(3):
             for j in range(3):
-                assert GRAM_MATRIX_II21[i][j] == GRAM_MATRIX[i][j]
+                assert GRAM_MATRIX_LAMBDA21II[i][j] == GRAM_MATRIX[i][j]
 
     def test_gram_matrix_signature(self):
         """Cross-check: eigenvalue signature is (2,1)."""
         import numpy as np
-        A = np.array(GRAM_MATRIX_II21, dtype=float)
+        A = np.array(GRAM_MATRIX_LAMBDA21II, dtype=float)
         eigvals = sorted(np.linalg.eigvalsh(A))
         # VERIFIED [DC] numpy eigvalsh [SY] signature from Sylvester's law
         n_pos = sum(1 for e in eigvals if e > 0.01)
@@ -94,7 +94,7 @@ class TestLatticeData:
         assert (n_pos, n_neg) == (2, 1)
 
     def test_lattice_rank(self):
-        """Lattice II_{2,1} has rank 3."""
+        """Lattice Lambda^{2,1}_{II} has rank 3."""
         # VERIFIED [DC] definition [LT] Gritsenko-Nikulin 1998 Thm 2.1
         # [DA] rank = p + q for signature (p,q) = (2,1)
         assert LATTICE_RANK == 3
@@ -106,7 +106,7 @@ class TestLatticeData:
         assert LATTICE_SIGNATURE == (2, 1)
 
     def test_lattice_voa_central_charge(self):
-        """Lattice VOA V_{II_{2,1}} has central charge = rank = 3."""
+        """Lattice VOA V_{Lambda^{2,1}_{II}}^{formal} has central charge = rank = 3."""
         # VERIFIED [DC] lattice VOA c = rank [LT] Frenkel-Lepowsky-Meurman 1988
         # [DA] c = rank for any lattice VOA
         assert LATTICE_VOA_CENTRAL_CHARGE == 3
@@ -145,12 +145,12 @@ class TestVertexAlgebraStatus:
         """g_{Delta_5} arises as BRST cohomology of a vertex algebra."""
         status = vertex_algebra_status()
         assert 'BRST' in status['brst_origin']
-        assert 'V_{II_{2,1}}' in status['brst_origin']
+        assert 'V_{Lambda^{2,1}_{II}}^{formal}' in status['brst_origin']
 
     def test_lattice_voa_exists(self):
-        """The lattice VOA V_{II_{2,1}} is the vertex algebra source."""
+        """The lattice VOA V_{Lambda^{2,1}_{II}}^{formal} is the vertex algebra source."""
         status = vertex_algebra_status()
-        assert status['lattice_voa'] == 'V_{II_{2,1}}'
+        assert status['lattice_voa'] == 'V_{Lambda^{2,1}_{II}}^{formal}'
         assert status['lattice_voa_central_charge'] == 3
 
     def test_total_central_charge_zero(self):
@@ -193,10 +193,10 @@ class TestBorcherdsRealization:
         assert cmp['fake_monster']['lattice'] == 'II_{25,1}'
 
     def test_g_delta5_rank_3(self):
-        """g_{Delta_5} has rank-3 root lattice II_{2,1}."""
+        """g_{Delta_5} has rank-3 root lattice Lambda^{2,1}_{II}."""
         cmp = borcherds_realization_comparison()
         # VERIFIED [LT] Gritsenko-Nikulin 1998 [DA] rank = p+q = 2+1 = 3
-        assert cmp['g_delta5']['lattice'] == 'II_{2,1}'
+        assert cmp['g_delta5']['lattice'] == 'Lambda^{2,1}_{II}'
 
     def test_g_delta5_root_mults_from_phi01(self):
         """g_{Delta_5} root multiplicities come from phi_{0,1}."""

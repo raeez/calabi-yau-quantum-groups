@@ -57,9 +57,13 @@ This module computes six things:
 
 4. ADE enhancement: at special moduli where the K3 develops ADE singularities,
    the chiral algebra enhances from H_Muk to V_1(g_ADE) tensor H_{24-r}
-   where r = rank(g_ADE). The E_2 Koszul dual of V_k(g) tensor H_m is:
-     (V_k(g) tensor H_m)^! = V_{k'}(g) tensor H_{-m}
-   where k' = -k - 2h^v (Feigin-Frenkel). For V_1(sl_2), k'=-5.
+   where r = rank(g_ADE).  At level 1 and for simply-laced g, Frenkel-Kac
+   identifies V_1(g_ADE) with the root-lattice VOA V_{Q_g}; this fixes the
+   root-rank complement but does not make the affine current OPE Gaussian.
+   The nonabelian current sector is class L.  Its reflected current
+   presentation is:
+     CE_ch(V_{k'}(g)) tensor H_{-m}
+   where k' = -k - 2h^v (Feigin-Frenkel).
 
 5. E_2 -> E_3 promotion: the extra direction from the elliptic curve E in
    K3 x E. B_{E_3}(A) has 3 commuting differentials and trigraded dimension
@@ -73,12 +77,13 @@ THE FIVE STANDARD K3 CHIRAL ALGEBRAS
   (i)   Generic K3: H_Muk (rank 24, class G, kappa_ch = 2)
   (ii)  Kummer K3 = T^4/Z_2: H_{Muk,Kummer} (class G, kappa_ch = 2)
   (iii) Fermat quartic K3: H_Muk (class G, kappa_ch = 2, Picard rho=20)
-  (iv)  A_1 singular K3: V_1(sl_2) tensor H_{21} (class L, kappa_ch = 2)
-  (v)   E_8 x E_8 K3: V_1(e_8)^2 tensor H_8 (class G, kappa_ch = 2)
+  (iv)  A_1 singular K3: V_1(sl_2) tensor H_{23} (class L, kappa_ch = 2)
+  (v)   E_8 x E_8 K3: V_1(e_8)^2 tensor H_8 (class L, kappa_ch = 2)
 
 ALL have kappa_ch = 2 (a K3 invariant: kappa_ch = chi(O_K3) by CY-A_2).
-The shadow class varies: the generic, Kummer, Fermat, and E_8 K3s are class G
-(free-field/lattice); the A_1 singular K3 is class L (non-free-field).
+The pure Heisenberg rows are class G.  The nonabelian ADE rows are class L:
+Frenkel-Kac gives a lattice realization and the correct root-rank complement,
+but the current OPE still has the first-order Lie-bracket pole.
 
 CONVENTIONS
 ===========
@@ -576,45 +581,45 @@ def fermat_k3() -> K3ChiralAlgebra:
 
 
 def a1_singular_k3() -> K3ChiralAlgebra:
-    r"""A_1 singular K3: V_1(sl_2) tensor H_{21}.
+    r"""A_1 singular K3: V_1(sl_2) tensor H_{23}.
 
     At the A_1 singularity (rational double point), the K3 surface
     develops a node. The chiral algebra enhances:
-      H_Muk -> V_1(sl_2) tensor H_{21}
+      H_Muk -> V_1(sl_2) tensor H_{23}
 
-    where V_1(sl_2) is the affine sl_2 at level 1. This uses 3 of the
-    24 Heisenberg generators (the 3 generators of sl_2), leaving 21 free.
+    where V_1(sl_2) is the affine sl_2 at level 1.  By Frenkel-Kac,
+    V_1(sl_2) is the lattice VOA of the A_1 root lattice.  It uses one
+    independent Mukai root-lattice direction, not three independent
+    Heisenberg directions; the e,f currents are lattice vertex operators.
 
-    CLASS L: V_1(sl_2) has a nonlinear OPE (the Sugawara construction
-    gives a Virasoro subalgebra with c = 1). The E_2 bar differentials
-    are NONZERO on the V_1(sl_2) sector (the first-order pole in the
-    sl_2 current OPE gives d != 0). The H_21 sector has d = 0 (free).
+    CLASS L in the current coordinate: V_1(sl_2) = V_{A_1} by Frenkel-Kac,
+    but the current OPE still has the first-order pole e(z)f(w) ~ h/(z-w).
+    Frenkel-Kac fixes the root rank; it does not make the nonabelian sector
+    a pure Heisenberg algebra.
 
-    The Koszul dual:
-      (V_1(sl_2) tensor H_{21})^! = V_{-5}(sl_2) tensor H_{-21}
-    where -5 = -1 - 2*h^v(sl_2) = -1 - 4 (Feigin-Frenkel involution).
+    The Koszul target:
+      (V_1(sl_2) tensor H_{23})^! has reflected current presentation
+      CE_ch(V_{-5}(sl_2)) tensor H_{-23},
+    where -5 = -1 - 2*h^v(sl_2) = -1 - 4.
 
     kappa_ch COMPUTATION:
-      kappa_ch(V_1(sl_2)) = dim(sl_2)(1+2)/(2*2) = 3*3/4 = 9/4
-      kappa_ch(H_{21}) = 21 * k_{Heis} (level of each Heisenberg)
-
-    ACTUALLY: kappa_ch(A_{K3}) = 2 for ALL K3 (CY-A_2 proved). The decomposition
-    kappa_ch = kappa(V_1(sl_2)) + kappa(H_rest) must sum to 2.
-    This determines the effective Heisenberg level in the tensor product.
+      kappa_ch(A_{K3}) = 2 for ALL K3 (CY-A_2 proved). The affine-current
+      modular characteristic of the sl_2 factor is not added as if the
+      three currents were three independent Mukai Heisenberg directions.
     """
     return K3ChiralAlgebra(
-        name="A_1 singular K3: V_1(sl_2) tensor H_21",
+        name="A_1 singular K3: V_1(sl_2) tensor H_23",
         short_name="a1",
         picard_rank=17,  # rho increases by 1 at each ADE enhancement
         shadow_class="L",
         kappa_ch=Fraction(2),
-        heisenberg_rank=21,  # 24 - 3 (dim sl_2) = 21
+        heisenberg_rank=23,  # 24 - rank(A_1) = 23
         enhanced_algebra="sl_2",
-        enhanced_rank=3,
+        enhanced_rank=1,
         enhanced_dual_coxeter=2,
         enhanced_level=1,
-        e2_bar_differential_trivial=False,  # d != 0 on sl_2 sector
-        notes="ADE enhancement at A_1 node. Feigin-Frenkel: k'=-5.",
+        e2_bar_differential_trivial=False,
+        notes="ADE enhancement at A_1 node. Root rank 1; affine-current class L.",
     )
 
 
@@ -628,38 +633,30 @@ def e8_k3() -> K3ChiralAlgebra:
     Each V_1(e_8) uses 8 generators (rank of E_8), so 2*8=16 are used,
     leaving 24-16=8 free Heisenberg generators.
 
-    CLASS G: V_1(e_8) at level 1 is a LATTICE VOA (the E_8 lattice VOA).
-    At level 1, the affine e_8 algebra is actually FREE-FIELD equivalent
-    (the Frenkel-Kac construction): V_1(e_8) = lattice VOA of E_8 lattice.
-    Therefore, the E_2 bar differentials VANISH even on the V_1(e_8) sectors.
+    CLASS L: V_1(e_8) at level 1 is the E_8 lattice VOA by Frenkel-Kac, but
+    the affine e_8 current OPE has a nonzero first-order Lie-bracket pole.
+    The E_2 bar differential is therefore nonzero on the current sector.
 
-    This is the UNIQUE property of level 1: the OPE coefficients at level 1
-    for simply-laced g produce a lattice VOA, which is class G.
+    The reflected current presentation of the Koszul target:
+      (V_1(e_8)^2 tensor H_8)^! = CE_ch(V_{-61}(e_8)^2) tensor H_{-8}
+    where h^v(E_8) = 30, so k' = -1 - 2*30 = -61.
 
-    The Koszul dual:
-      (V_1(e_8)^2 tensor H_8)^! = V_{-31}(e_8)^2 tensor H_{-8}
-    where -31 = -1 - 2*h^v(e_8) = -1 - 2*30 = -61? NO:
-    h^v(E_8) = 30, so k' = -1 - 2*30 = -61.
-
-    BUT at level 1, V_1(e_8) is a lattice VOA, so its Koszul dual is the
-    Koszul dual of the lattice VOA, which is the lattice VOA at level -1.
-    The Feigin-Frenkel formula k' = -k - 2h^v applies to the affine algebra
-    at generic level; at level 1 (lattice VOA, class G), the free-field
-    Koszul dual simply negates the level: k^! = -1.
+    The Frenkel-Kac realization controls the rank accounting; the
+    Feigin-Frenkel formula controls the reflected current level.
     """
     return K3ChiralAlgebra(
         name="E_8 x E_8 K3: V_1(e_8)^2 tensor H_8",
         short_name="e8",
         picard_rank=18,  # Two E_8 roots: rho = 2 + 16 = 18 (base + two E_8)
-        shadow_class="G",
+        shadow_class="L",
         kappa_ch=Fraction(2),
         heisenberg_rank=8,  # 24 - 2*8 = 8
         enhanced_algebra="e_8 x e_8",
         enhanced_rank=16,  # 2 * 8
         enhanced_dual_coxeter=30,  # h^v(E_8) = 30
         enhanced_level=1,
-        e2_bar_differential_trivial=True,  # level 1: lattice VOA = free-field
-        notes="Maximal ADE. V_1(e_8) is a lattice VOA (class G at level 1).",
+        e2_bar_differential_trivial=False,
+        notes="Maximal ADE. Root rank 16; affine-current class L.",
     )
 
 
@@ -736,12 +733,12 @@ class ADEEnhancement:
       A = V_1(g) tensor H_{24-r}
     where r = rank(g).
 
-    The E_2 Koszul dual (CLAIM, proved for class G = level 1):
+    The E_2 Koszul target in the nonabelian current coordinate:
       A^! = V_{1}(g)^!_{E_2} tensor H_{24-r}^!
-          = V_{k'}(g) tensor H_{-(24-r)}
-    where k' depends on the shadow class:
-      - Class G (level 1, lattice VOA): k^! = -1 (free-field Koszul)
-      - Class L (level > 1): k^! = -k - 2h^v (Feigin-Frenkel)
+          has reflected current presentation CE_ch(V_{k'}(g)) tensor H_{-(24-r)}
+    where k' = -k - 2h^v (Feigin-Frenkel).  Frenkel-Kac at level 1 gives a
+    root-lattice realization and the complement H_{24-r}; it does not remove
+    the current OPE's first-order pole.
 
     The braiding is ALWAYS reversed.
 
@@ -752,7 +749,8 @@ class ADEEnhancement:
         dual_coxeter: dual Coxeter number h^v
         level: affine level k (= 1 for K3 enhancement)
         heisenberg_remainder: 24 - g_rank
-        is_lattice_voa: True if V_k(g) is a lattice VOA (level 1, simply-laced)
+        is_lattice_voa: True if V_k(g) has the level-one Frenkel-Kac lattice
+            realization.
     """
     g_type: str
     g_rank: int
@@ -764,18 +762,15 @@ class ADEEnhancement:
 
     def __post_init__(self):
         self.heisenberg_remainder = RANK - self.g_rank
-        # Level 1 + simply-laced => lattice VOA => class G
+        # Level 1 + simply-laced => Frenkel-Kac lattice realization.
         self.is_lattice_voa = (self.level == 1)
 
     @property
     def koszul_dual_level(self) -> int:
         """Level of the Koszul dual affine algebra.
 
-        For class G (lattice VOA at level 1): k^! = -1.
-        For class L (general level): k^! = -k - 2*h^v (Feigin-Frenkel).
+        Reflected current level: k^! = -k - 2*h^v (Feigin-Frenkel).
         """
-        if self.is_lattice_voa:
-            return -self.level  # = -1
         return -self.level - 2 * self.dual_coxeter
 
     @property
@@ -793,8 +788,6 @@ class ADEEnhancement:
 
     @property
     def shadow_class(self) -> str:
-        if self.is_lattice_voa:
-            return "G"
         return "L"
 
     def summary(self) -> Dict[str, Any]:

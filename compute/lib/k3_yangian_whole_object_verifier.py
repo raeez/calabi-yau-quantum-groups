@@ -38,9 +38,9 @@ The ten whole-object coherence checks (each labelled WOV-k):
          cross-checked against phi_{10,1}/eta^24 derivation.
 
   WOV-6  Arthur packet chain:   a_p(Delta_E6) + p^8 + p^9 = lambda_p(Delta_10)
-         (Saito-Kurokawa Euler factor), verified for ALL 22 primes p <= 79
+         (Saito-Kurokawa Euler factor), verified for all 56 tabulated primes p <= 263
          currently first-principles-verified.  Deligne bound
-         |a_p| <= 2 p^{15/2} must hold for all 22.  Spinor Euler factor
+         |a_p| <= 2 p^{17/2} must hold for all 56.  Spinor Euler factor
          Z_p(s) = zeta_p(s-8) zeta_p(s-9) L_p(s, Delta_E6) satisfies
          Ramanujan-Petersson at all p.
 
@@ -93,10 +93,9 @@ MANUSCRIPT_FOURIER_COEFFICIENTS = [
     304799105, 3720945220, 40716498035, 405322063500,
 ]
 from .k3_yangian_arthur_hecke_delta10 import (
-    DELTA_E6_AP,
-    PRIMES,
+    delta_e6_coefficients_all,
     first_principles_a_p,
-    hecke_eigenvalues,
+    target_primes_all,
     lambda_p_from_delta_e6,
     ramanujan_petersson_check,
 )
@@ -434,25 +433,22 @@ def wov_6_arthur_hecke_chain() -> Dict[str, object]:
     """WOV-6: Saito-Kurokawa Arthur chain for all verified primes.
 
     lambda_p(Delta_10) = a_p(Delta_E6) + p^8 + p^9
-    for p in 22 verified primes. Deligne bound |a_p| <= 2 p^{15/2} must hold.
+    for p in 56 verified primes. Deligne bound |a_p| <= 2 p^{17/2} must hold.
     """
-    primes_verified = PRIMES
+    primes_verified = tuple(target_primes_all())
+    coeffs = delta_e6_coefficients_all()
     chain_ok = True
     rp_ok = True
     detail = []
-    # hecke_eigenvalues() returns {p: lambda_p} for all primes
-    lambdas = hecke_eigenvalues()
     for p in primes_verified:
-        a_p = DELTA_E6_AP.get(p)
+        a_p = coeffs.get(p)
         if a_p is None:
             continue
-        lam_p = lambdas.get(p)
-        if lam_p is None:
-            continue
+        lam_p = lambda_p_from_delta_e6(p, a_p)
         expected = a_p + p**8 + p**9
         match = (lam_p == expected)
         # Deligne bound as float
-        deligne_bound_f = 2 * (p ** 7.5)
+        deligne_bound_f = 2 * (p ** 8.5)
         rp = (abs(a_p) <= deligne_bound_f)
         # wave14 module's RP check
         wave14_rp_for_p = ramanujan_petersson_check(p, lam_p, a_p)
@@ -713,14 +709,14 @@ def test_wov_5_corrected_heegner_not_176256() -> None:
     print("test_wov_5_corrected_heegner_not_176256: PASSED")
 
 
-def test_wov_6_22_primes_arthur_chain_and_rp() -> None:
+def test_wov_6_56_primes_arthur_chain_and_rp() -> None:
     r = wov_6_arthur_hecke_chain()
-    assert r["primes_verified_count"] >= 5, (
-        f"Only {r['primes_verified_count']} primes in module; expected >=5"
+    assert r["primes_verified_count"] >= 56, (
+        f"Only {r['primes_verified_count']} primes in module; expected >=56"
     )
     assert r["saito_kurokawa_chain_ok"] is True, "SK chain broken"
     assert r["deligne_bound_ok_all_primes"] is True, "Deligne bound failed on some prime"
-    print(f"test_wov_6_22_primes_arthur_chain_and_rp: PASSED"
+    print(f"test_wov_6_56_primes_arthur_chain_and_rp: PASSED"
           f" ({r['primes_verified_count']} primes, {r.get('primes_with_data', '?')} with data)")
 
 
@@ -767,7 +763,7 @@ ALL_WOV_TESTS = [
     test_wov_3_siegel_weight_five_four_routes,
     test_wov_4_bkm_rank_3_mukai_rank_24_orthogonal,
     test_wov_5_corrected_heegner_not_176256,
-    test_wov_6_22_primes_arthur_chain_and_rp,
+    test_wov_6_56_primes_arthur_chain_and_rp,
     test_wov_7_schur_index_10_coefficients,
     test_wov_8_padovan_borcherds_dominance,
     test_wov_9_N_family_umbral_niemeier,

@@ -55,7 +55,7 @@ THE FIVE STANDARD CY3 FAMILIES:
 
   (d) K3 x E:
       R_{K3xE} = Q[q, t]   (elliptic deformation parameters)
-      Undeformed (q=0 or t=1): lattice VOA from K3.  E_infty (lattice = cocycle-twisted commutative).
+      Undeformed (q=0 or t=1): Mukai-Heisenberg/free-field K3 branch.  E_infty.
       Generic (q,t): elliptic Hall algebra E_{q,t}.  E_1.
 
   (e) Quintic:
@@ -128,8 +128,11 @@ VERIFICATION ARCHITECTURE:
       zeta(x) - zeta(1/x) != 0 iff sigma_3 != 0.
 
   (3) R-MATRIX NONTRIVIALITY:
-      The Yang R-matrix R(u) = 1 + sum_n r_n u^{-n} has r_1 = P/sigma_3.
-      At sigma_3 = 0: R(u) = 1 (trivial braiding, E_infty).
+      The Yang R-matrix R_Y(u) = 1 + sum_n r_n u^{-n} has
+      r_1 = P/sigma_3.
+      At sigma_3 = 0: R_Y(u) = 1 (trivial nonabelian Yangian braiding,
+      E_infty).  This is distinct from the scalar ordered-bar
+      Heisenberg braid R_ord(z)=exp(k*hbar/z).
       At sigma_3 != 0: R(u) nontrivial (nontrivial braiding exists,
       but only via Drinfeld center, not in the algebra itself).
 
@@ -493,8 +496,10 @@ def r_matrix_leading_coefficient(h1: Fraction, h2: Fraction) -> Fraction:
 
     where P is the permutation operator and sigma_3 = h1*h2*h3.
 
-    At sigma_3 = 0: r_1 is UNDEFINED (pole), but the R-matrix
-    degenerates to the identity: R(u) = 1 (trivial braiding).
+    At sigma_3 = 0: r_1 is UNDEFINED (pole), but the Yangian R-matrix
+    degenerates to the identity: R_Y(u) = 1 (trivial nonabelian braiding).
+    This is distinct from the scalar ordered-bar Heisenberg braid
+    R_ord(z)=exp(k*hbar/z).
 
     At sigma_3 != 0: r_1 = 1/sigma_3 (nontrivial braiding exists
     in the Drinfeld center).
@@ -668,7 +673,7 @@ def classify_en_c3(h1: Fraction, h2: Fraction) -> EnLevelData:
         desc = "Trivial (fully undeformed): no algebra structure"
         param = "h1 = h2 = h3 = 0 (origin)"
     elif sigma_3 == Fraction(0):
-        desc = "Heisenberg H_1 (self-dual): free boson, E_infty"
+        desc = "Heisenberg H_1 (sigma_3=0 parameter-fixed free boson, E_infty)"
         param = f"sigma_3 = 0 (h1={h1}, h2={h2}, h3={h3})"
     else:
         desc = f"W_{{1+infty}} at generic parameters: E_1 (sigma_3 = {sigma_3})"
@@ -773,7 +778,7 @@ def classify_en_k3xe(q_nonzero: bool, t_generic: bool) -> EnLevelData:
 
     The E_n classification:
       (q, t) generic: E_1 (from the elliptic Hall algebra E_{q,t} structure)
-      q -> 0 or t -> 1: E_infty (lattice VOA limit, commutative)
+      q -> 0 or t -> 1: E_infty (Mukai-Heisenberg/free-field limit)
 
     The sigma_3 analogue for K3 x E is the combination sigma_3 ~ q * (t - 1),
     which controls the noncommutativity of the elliptic Hall algebra.
@@ -1406,7 +1411,8 @@ def sigma3_is_master_switch(h1: Fraction, h2: Fraction) -> Dict[str, bool]:
     Five independent tests all agree: the E_n level is determined by
     whether sigma_3 vanishes.
 
-    sigma_3 = 0 <=> E_infty <=> commutative <=> trivial R-matrix
+    sigma_3 = 0 <=> E_infty <=> commutative
+                <=> trivial nonabelian Yangian R-matrix
                 <=> g(z) commutative sector trivial
                 <=> shuffle product commutes.
 

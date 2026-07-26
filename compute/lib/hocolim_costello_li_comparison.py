@@ -83,7 +83,7 @@ KEY VERIFICATION EXAMPLES:
 
 CONVENTIONS:
     - Cohomological grading (|d| = +1).
-    - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (AP45).
+    - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (desuspension convention).
     - Exact arithmetic via fractions.Fraction.
     - kappa formulas are family-specific (AP1).
     - The structure function g(z) uses the CY convention g(-z) = 1/g(z).

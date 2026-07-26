@@ -5,12 +5,20 @@ to the K3-orbifold Borcherds ladder.
 MATHEMATICAL OVERVIEW
 =====================
 
-The programme-active CHL ladder has smooth CY3 host geometry at
-N in {1, 2, 3, 4, 6}.  The Mukai-admissible extensions N in {5, 7, 8}
-record the same Borcherds-weight normalization but their smooth
-K3 x E host status is conjectural.  The invariant computed here is
-kappa_BKM = c_N(0)/2, the Borcherds product weight.  It is not
+The programme-active diagonal Siegel K3-orbifold ladder has smooth CY3
+host geometry at N in {1, 2, 3, 4, 6}.  The Mukai-admissible extensions
+N in {5, 7, 8} record the same Borcherds-weight normalization but their
+smooth K3 x E host status is conjectural.  The invariant computed here
+is kappa_BKM = c_N(0)/2, the Borcherds product weight.  It is not
 kappa_cat and it is not the compact Hodge/PhiFA supertrace.
+
+This ladder is NOT the primitive CHL/Jatkar-Sen BKM-denominator ladder:
+the CHL denominators on N in {1, 2, 3, 4, 6} have weights
+(5, 3, 2, 3/2, 1) with c_N(0) = (10, 6, 4, 3, 2) (Jatkar-Sen JHEP 11
+(2006) 072; Govindarajan-Krishna arXiv:0907.1410 = JHEP 05 (2010) 014),
+with a half-integral N=4 entry carried by a multiplier system.  The
+N=2 row below is the Enriques (non-symplectic) Allcock form of weight
+4; the two ladders coincide only at N=1 (Delta_5).
 
 The eight cases are:
 
@@ -30,9 +38,9 @@ The eight cases are:
          the Z/3Z-orbifold elliptic genus.  Weight = 3.
          kappa_BKM = 3.
 
-    N=4: CHL K3-orbifold ladder entry.  Weight = 2.  kappa_BKM = 2.
+    N=4: diagonal K3-orbifold ladder entry.  Weight = 2.  kappa_BKM = 2.
     N=5: Mukai-admissible extension.  Weight = 2.  kappa_BKM = 2.
-    N=6: CHL K3-orbifold ladder entry.  Weight = 1.  kappa_BKM = 1.
+    N=6: diagonal K3-orbifold ladder entry.  Weight = 1.  kappa_BKM = 1.
     N=7: Mukai-admissible extension.  Weight = 1.  kappa_BKM = 1.
     N=8: Mukai-admissible extension.  Weight = 1.  kappa_BKM = 1.
 
@@ -77,7 +85,9 @@ The key data (from the Frame shape / cycle shape of g in M_24):
 
     For phi_{0,1}: c(D=0) = f(0,0) + f(1,2) + f(1,-2) + ... = 10.
     Actually: f(0,0) = 10 (the constant term in the (n,l)-expansion with
-    D = 4*0 - 0^2 = 0).  And the EZ convention gives c(-1) = 2, c(0) = 10.
+    D = 4*0 - 0^2 = 0).  The EZ convention gives c(-1) = 1 and c(0) = 10;
+    summing the two polar monomials \(y^{\pm 1}\) gives total polar
+    multiplicity \(2\).
     So weight = 10/2 = 5.  Correct.
 
 THE ORBIFOLD CONSTANT TERM AND BORCHERDS WEIGHT
@@ -160,9 +170,9 @@ The net effect on the orbifold Borcherds weight is:
 
 where c_N(D=0) is the orbifold-averaged discriminant-0 coefficient.
 
-AP-CY6 WARNING: the CHL host entries are CY3 orbifold data conditional
+AP-CY6 WARNING: the smooth-host entries are CY3 orbifold data conditional
 on CY-A_3.  The N in {5, 7, 8} extensions record Borcherds-weight
-normalization but do not have the same smooth K3 x E CHL host status.
+normalization but do not have the same smooth K3 x E orbifold host status.
 All results involving G(X_N) remain CONJECTURAL.  Use
 ClaimStatusConjectured.
 
@@ -789,7 +799,7 @@ def landscape_table() -> List[Dict[str, Any]]:
     """Generate the full landscape table for the eight diagonal forms.
 
     Returns a list of dicts, one per N, containing the Borcherds ladder
-    data.  The CHL host interpretation is programme-active at
+    data.  The smooth K3 x E orbifold host interpretation is programme-active at
     N in {1, 2, 3, 4, 6}; N in {5, 7, 8} are Mukai-admissible
     Borcherds extensions with conjectural CY3 host status.
 

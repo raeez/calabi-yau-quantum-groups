@@ -62,6 +62,7 @@ from compute.lib.bps_microstate_shadow import (
     # Summary
     bps_microstate_shadow_summary,
 )
+from compute.lib.bps_entropy_shadow import compact_siegel_log_normalization
 
 
 # =========================================================================
@@ -327,18 +328,23 @@ class TestRademacherConvergence:
 class TestSubleadingCorrections:
     """Verify subleading corrections to S_BH from the shadow tower."""
 
-    def test_log_correction_sign(self):
-        """The logarithmic correction is negative."""
+    def test_log_coefficient_unpinned_by_default(self):
+        """The compact Siegel logarithmic coefficient is not inserted by default."""
         corrs = subleading_corrections(100)
         log_corr = corrs[0]
         assert log_corr.genus == 0
-        assert log_corr.correction_value < 0
+        assert log_corr.correction_value == 0.0
+        assert "UNPINNED_NORMALIZATION" in log_corr.source
 
-    def test_log_correction_value(self):
-        """delta_S_log = -(3/2)*log(D) at D=100."""
-        corrs = subleading_corrections(100)
-        expected = -1.5 * math.log(100)
-        assert abs(corrs[0].correction_value - expected) < 1e-10
+    def test_log_normalization_gate_lists_missing_inputs(self):
+        """The normalisation gate names the missing compact Siegel inputs."""
+        norm = compact_siegel_log_normalization()
+        assert norm.status == "UNPINNED_NORMALIZATION"
+        assert norm.accepted_coefficient is None
+        assert "contour_normalization" in norm.missing_inputs
+        assert "polar_data" in norm.missing_inputs
+        assert "measure_normalization" in norm.missing_inputs
+        assert "primitive_square_convention" in norm.missing_inputs
 
     def test_genus1_positive(self):
         """Genus-1 correction is positive (kappa_ch > 0, A_hat_1 > 0)."""
@@ -354,29 +360,14 @@ class TestSubleadingCorrections:
         for i in range(len(genus_corrs) - 1):
             assert abs(genus_corrs[i + 1].correction_value) < abs(genus_corrs[i].correction_value)
 
-    def test_entropy_with_corrections_overshoots_stored_small_D(self):
-        """The logarithmic correction overshoots on the stored small-D data.
-
-        The Rademacher expansion is ASYMPTOTIC: corrections improve the
-        fit only for D >> 1.  The stored exact table stops at small
-        discriminants, where the -(3/2)*log(D) correction is still a
-        large fraction of S_BH and worsens the absolute comparison.
-
-        Multi-path: verify via both entropy_with_corrections and
-        independent calculation of S_BH - 1.5*log(D).
-        """
+    def test_entropy_with_corrections_uses_no_unpinned_log_term(self):
+        """The corrected entropy contains no compact log term by default."""
         for D in [15, 16]:
             result = entropy_with_corrections(D)
-            if result["error_bare"] is not None and result["error_corrected"] is not None:
-                assert result["error_corrected"] > result["error_bare"], \
-                    f"D={D}: corrected {result['error_corrected']:.4f} <= bare {result['error_bare']:.4f}"
-                # Multi-path: independent calculation
-                S_BH = math.pi * math.sqrt(D)
-                S_corrected_manual = S_BH - 1.5 * math.log(D)
-                exact = microstate_count(D)
-                if exact is not None:
-                    err_manual = abs(S_corrected_manual - exact) / abs(exact)
-                    assert abs(err_manual - result["error_corrected"]) < 0.05
+            log_rows = [c for c in result["corrections"] if c["genus"] == 0]
+            assert len(log_rows) == 1
+            assert log_rows[0]["value"] == 0.0
+            assert "UNPINNED_NORMALIZATION" in log_rows[0]["source"]
 
     def test_a_hat_coefficients(self):
         """A-hat coefficients match known values."""
@@ -511,21 +502,22 @@ class TestPhysicalPrediction:
         assert "delta_S_log" in pred
         assert "hierarchy" in pred
 
-    def test_log_dominates_genus(self):
-        """The log correction dominates over genus expansion at D=100."""
+    def test_log_coefficient_unpinned_in_prediction(self):
+        """The physical prediction exposes the unpinned log coefficient."""
         pred = physical_prediction_subleading(100)
-        assert abs(pred["delta_S_log"]) > abs(pred["delta_S_shadow_total"])
+        assert pred["delta_S_log"] == 0.0
+        assert pred["log_normalization_status"] == "UNPINNED_NORMALIZATION"
+        assert "contour_normalization" in pred["log_normalization_missing_inputs"]
 
     def test_nonpert_tiny_at_D100(self):
         """Non-perturbative correction is tiny at D=100."""
         pred = physical_prediction_subleading(100)
         assert pred["delta_S_np_ratio"] < 1e-6
 
-    def test_hierarchy_ordering(self):
-        """S_BH >> |delta_S_log| >> |delta_S_shadow| >> delta_S_np."""
+    def test_hierarchy_ordering_without_log_number(self):
+        """The computed hierarchy excludes the unpinned log number."""
         pred = physical_prediction_subleading(100)
-        assert pred["S_BH"] > abs(pred["delta_S_log"])
-        assert abs(pred["delta_S_log"]) > abs(pred["delta_S_shadow_total"])
+        assert pred["S_BH"] > abs(pred["delta_S_shadow_total"])
         assert abs(pred["delta_S_shadow_total"]) > pred["delta_S_np_ratio"]
 
     def test_physical_prediction_string(self):

@@ -771,10 +771,10 @@ class TestCrossEngineConsistency:
         assert fd[3]["loop_order"] == 2  # two-loop
 
     def test_euler_char_vanishes_universally(self):
-        """Euler characteristic vanishes for all n >= 1.
+        """Finite tricomplex Euler characteristic vanishes for n >= 1.
 
         This is consistent with prop:mc-tangent-euler-char in the manuscript:
-        chi(CE^*(L)) = 0 for n >= 1.
+        the finite exterior/Rees-truncated Euler characteristic is zero.
         """
         # VERIFIED [DC] (1-1)^{3n} = 0 [LT] binomial theorem
         for n in [1, 3, 10, 24]:

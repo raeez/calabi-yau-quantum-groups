@@ -569,7 +569,7 @@ def bkm_data() -> dict:
     """
     return {
         'algebra': 'g_{Delta_5}',
-        'lattice': 'II_{2,1} (hyperbolic)',
+        'lattice': 'Lambda^{2,1}_{II} (hyperbolic)',
         'input_jacobi_form': 'phi_{0,1} (weight 0, index 1)',
         'denominator_form': 'BP (Borcherds product, weight 5)',
         'denominator_squared': 'chi_10 = BP^2 (weight 10, Sp(4,Z))',

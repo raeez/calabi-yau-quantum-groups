@@ -111,7 +111,7 @@ CONVENTIONS
   - χ(L^k) = 1 for all k (Euler characteristic of A^k is 1)
   - χ_y(L^k) = (-y)^k (Hodge specialization)
   - Cohomological grading: |d| = +1
-  - Bar uses DESUSPENSION: |s⁻¹v| = |v| - 1 (AP45)
+  - Bar uses DESUSPENSION: |s⁻¹v| = |v| - 1 (desuspension convention)
   - Quantum torus: YX = L^{<d,e>} XY (motivic quantum parameter)
 
 REFERENCES

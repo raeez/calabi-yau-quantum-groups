@@ -49,6 +49,8 @@ References
 from __future__ import annotations
 
 import math
+from fractions import Fraction
+
 import numpy as np
 from typing import Dict, Optional, Tuple, Callable
 
@@ -141,8 +143,155 @@ def borcherds_lift(
 
 
 def borcherds_lift_weight(c_table: Dict[int, int]) -> float:
-    """Return the weight of the Borcherds lift: c(0)/2."""
+    r"""
+    Weight of the Borcherds lift, read off the Jacobi-side input: c(0)/2.
+
+    This is the Borcherds weight formula (Borcherds 1998, Theorem 13.3;
+    Gritsenko-Nikulin 1998): the multiplicative lift of a weakly
+    holomorphic weight-0 index-1 Jacobi form with Fourier coefficients
+    c(D) is a Siegel modular form of weight c(0)/2.
+
+    HONESTY NOTE.  As implemented, this function is DEFINITIONAL: it
+    reads the constant term of the input table and halves it.  It does
+    not derive the weight.  A test asserting
+    ``borcherds_lift_weight(c) == c[0]/2`` verifies nothing.
+
+    The independent computation of the same weight, on the CHL ladder
+    N in {1, 2, 3, 4, 6}, is the frame-shape half-sum route:
+    ``chl_square_root_weight(N)`` derives the weight from the M24 frame
+    shape of the Z/N orbifold generator, with no reference to Fourier
+    coefficients.  The test suite compares the two routes; see the
+    frame-shape section below for exactly what that comparison does and
+    does not establish at each N.
+    """
     return c_table.get(0, 0) / 2.0
+
+
+# ---------------------------------------------------------------------------
+# 1b. CHL frame shapes: the frame-shape route to the lift weight
+# ---------------------------------------------------------------------------
+#
+# The CHL Z/N orbifolds of K3 x E (N in {1, 2, 3, 4, 6}, the orders of
+# automorphisms an elliptic curve carries) have orbifold generators
+# acting on the 24-dimensional K3 lattice representation with M24 frame
+# (cycle) shapes
+#
+#     N = 1:  1^24              N = 2:  1^8 2^8        N = 3:  1^6 3^6
+#     N = 4:  1^4 2^2 4^4       N = 6:  1^2 2^2 3^2 6^2
+#
+# (Jatkar-Sen, "Dyon spectrum in CHL models", arXiv:hep-th/0510147;
+# Govindarajan-Krishna, "BKM Lie superalgebras from dyon spectra in
+# Z_N CHL orbifolds", arXiv:0907.1410.  In-manuscript anchors:
+# chapters/theory/gluing/sec_7_lattice_automorphic.tex and
+# chapters/theory/phi_universal_trace_platonic.tex, which record the
+# same frame shapes and both ladder weight tuples.)
+#
+# A frame shape prod_i d_i^{r_i} determines the eta product
+# eta_rho(tau) = prod_i eta(d_i * tau)^{r_i}, a modular form of weight
+# (1/2) * sum_i r_i.  The Jatkar-Sen dyon form Phi_k attached to the
+# Z/N CHL orbifold has weight
+#
+#     k(N) = (1/2) * sum_i r_i - 2,
+#
+# giving k = (10, 6, 4, 3, 2) for N = (1, 2, 3, 4, 6).  The
+# Govindarajan-Krishna square roots Delta_{k/2} (N = 1 member: Delta_5,
+# the lift of phi_{0,1}) have weight k/2 = (5, 3, 2, 3/2, 1); the
+# weight-0 Jacobi seed of Delta_{k/2} has constant term c_N(0) = k(N),
+# so the frame-shape route reproduces the universal Borcherds-weight
+# identity kappa_BKM(Phi_N) = c_N(0)/2 on this ladder.
+#
+# LADDER DISCIPLINE.  Two ladders live on the same CHL slice and are
+# never mixed: this square-root ladder (weights (5, 3, 2, 3/2, 1),
+# seed constants (10, 6, 4, 3, 2)) and the Mathieu-twined ladder
+# (weights (10, 4, 3, 2, 1), constants (20, 8, 6, 4, 2)).  The
+# geometric-orbifold table in kappa_bkm_adversarial.py (c_N(0) =
+# (10, 8, 6, 4, 2)) is a third, distinct family (Enriques-type
+# quotients); its N >= 2 rows are NOT the CHL square-root rows here.
+#
+# NOTE ON THE FAKE MONSTER.  For the Leech/II_{25,1} lift Phi_12 the
+# eta-product weight of the frame shape 1^24 (namely 12) equals the
+# lift weight directly, with no "-2" shift: the shift is specific to
+# the Jatkar-Sen K3 x E dyon-form normalisation, not a universal law.
+
+CHL_FRAME_SHAPES: Dict[int, Dict[int, int]] = {
+    1: {1: 24},
+    2: {1: 8, 2: 8},
+    3: {1: 6, 3: 6},
+    4: {1: 4, 2: 2, 4: 4},
+    6: {1: 2, 2: 2, 3: 2, 6: 2},
+}
+
+# Constant terms c_N(0) of the weight-0 Jacobi seeds of the square-root
+# forms Delta_{k/2}.  For N = 1 the value 10 is computed exactly
+# in-repo (phi01_fourier.py, constant term of phi_{0,1}); for N >= 2
+# the values are recorded from Jatkar-Sen / Govindarajan-Krishna --
+# no in-repo Fourier computation of the twisted seeds exists yet, so
+# comparisons against them at N >= 2 are literature-consistency
+# checks, not two-sided computations.
+
+CHL_SQUARE_ROOT_SEED_C0: Dict[int, int] = {1: 10, 2: 6, 3: 4, 4: 3, 6: 2}
+
+
+def frame_shape_degree(frame_shape: Dict[int, int]) -> int:
+    r"""
+    Degree sum_i r_i * d_i of a frame shape prod_i d_i^{r_i}.
+
+    Every CHL frame shape arises from an action on the 24-dimensional
+    lattice representation, so its degree must equal 24.
+    """
+    return sum(d * r for d, r in frame_shape.items())
+
+
+def eta_product_weight(frame_shape: Dict[int, int]) -> Fraction:
+    r"""
+    Weight of the eta product eta_rho(tau) = prod_i eta(d_i*tau)^{r_i}
+    attached to the frame shape prod_i d_i^{r_i}:
+
+        wt(eta_rho) = (1/2) * sum_i r_i.
+
+    (Each eta factor has weight 1/2 regardless of its argument
+    rescaling.)  Exact rational output.
+    """
+    return Fraction(sum(frame_shape.values()), 2)
+
+
+def jatkar_sen_dyon_weight(N: int) -> Fraction:
+    r"""
+    Weight k(N) of the Jatkar-Sen dyon form Phi_k for the Z/N CHL
+    orbifold, computed from the frame shape alone:
+
+        k(N) = (1/2) * sum_i r_i - 2.
+
+    Yields k = (10, 6, 4, 3, 2) for N = (1, 2, 3, 4, 6).  Validates
+    that the frame shape has degree 24 before using it.
+    """
+    frame_shape = CHL_FRAME_SHAPES[N]
+    deg = frame_shape_degree(frame_shape)
+    assert deg == 24, (
+        f"CHL frame shape for N={N} has degree {deg}, expected 24"
+    )
+    return eta_product_weight(frame_shape) - 2
+
+
+def chl_square_root_weight(N: int) -> Fraction:
+    r"""
+    kappa_BKM on the CHL square-root ladder: the weight of the
+    Govindarajan-Krishna square root Delta_{k/2} of the Jatkar-Sen
+    dyon form Phi_k, computed from the frame shape alone:
+
+        wt(Delta_{k/2}) = k(N)/2 = ((1/2) * sum_i r_i - 2) / 2.
+
+    Yields (5, 3, 2, 3/2, 1) for N = (1, 2, 3, 4, 6).  This function
+    never consults a Fourier coefficient table, so at N = 1 -- where
+    the seed constant c_1(0) = 10 is computed independently and
+    exactly by phi01_fourier.py -- the agreement
+    ``chl_square_root_weight(1) == borcherds_lift_weight(phi01_c_table())``
+    is a genuine two-path verification of kappa_BKM = c(0)/2.  At
+    N >= 2 the seed constants in CHL_SQUARE_ROOT_SEED_C0 are
+    literature values, so the same comparison is a consistency check
+    of the frame-shape computation against the recorded constants.
+    """
+    return jatkar_sen_dyon_weight(N) / 2
 
 
 # ---------------------------------------------------------------------------

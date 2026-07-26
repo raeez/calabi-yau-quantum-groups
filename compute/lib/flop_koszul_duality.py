@@ -91,7 +91,7 @@ MATHEMATICAL FRAMEWORK
 CONVENTIONS
 ===========
   - Cohomological grading (|d| = +1).
-  - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (AP45).
+  - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (desuspension convention).
   - Exact arithmetic via fractions.Fraction.
   - DT invariants: Omega(gamma) = -(-1)^{dim M(gamma)} chi(M(gamma))
     (motivic DT invariant with the refined sign).

@@ -138,7 +138,7 @@ CONVENTIONS
   - chi_y(L^k) = (-y)^k (Hodge specialization)
   - Geometric Frobenius: L -> p^2 (so L^{k/2} -> p^k)
   - Cohomological grading: |d| = +1
-  - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (AP45)
+  - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (desuspension convention)
 
 REFERENCES
 ==========

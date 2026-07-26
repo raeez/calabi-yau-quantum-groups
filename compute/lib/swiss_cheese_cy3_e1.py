@@ -137,7 +137,7 @@ MATHEMATICAL BACKGROUND:
 
 CONVENTIONS:
   - Cohomological grading (|d| = +1).
-  - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (AP45).
+  - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (desuspension convention).
   - E_1 bar = ordered bar (no S_n coinvariants).
   - E_inf bar = symmetric bar (S_n coinvariants).
   - Shadow computations use the scalar appropriate to the chosen channel.
@@ -431,7 +431,7 @@ def cy3_shadow_data_conifold() -> CY3ShadowData:
         h11=1,
         h21=0,
         bps_finite=True,
-        e1_koszul_dual="H_{-1} (Heisenberg at level -1, same class as H_1^!)",
+        e1_koszul_dual="curved Sym^ch(V*[1]) branch (same scalar kappa as H_{-1})",
         reasoning=(
             "Single compact cycle: Heisenberg H_1. Alpha=0, S_4=0. "
             "Gaussian shadow terminates at arity 2. SC formal. "
@@ -686,7 +686,8 @@ def e1_koszul_dual_heisenberg(k: Fraction) -> E1KoszulDualData:
     Actually: B^{ord}_n has dim = 1 for each n (one element [a|a|...|a]).
     B^{Sigma}_n has dim = 1 (same, since S_n acts trivially on identical elements).
 
-    kappa_dual = -k (from Koszul duality, AP33: H_k^! = Sym^ch(V*)).
+    kappa_dual = -k (from Koszul duality, AP33: H_k^! is the curved
+    Sym^ch(V*[1]) branch).
     """
     bar_e1: Dict[int, int] = {}
     bar_einf: Dict[int, int] = {}
@@ -696,8 +697,8 @@ def e1_koszul_dual_heisenberg(k: Fraction) -> E1KoszulDualData:
 
     return E1KoszulDualData(
         name=f"H_{k}",
-        e1_dual_name=f"H_{k}^{{!,E_1}} = Sym^ch(V*)",
-        einf_dual_name=f"H_{k}^{{!,E_inf}} = Sym^ch(V*)",
+        e1_dual_name=f"H_{k}^{{!,E_1}} = curved Sym^ch(V*[1])",
+        einf_dual_name=f"H_{k}^{{!,E_inf}} = curved Sym^ch(V*[1])",
         bar_dim_e1=bar_e1,
         bar_dim_einf=bar_einf,
         excess_dim={n: 0 for n in range(1, 7)},

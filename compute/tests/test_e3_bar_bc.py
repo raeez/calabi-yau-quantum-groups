@@ -137,13 +137,17 @@ class TestBcClassification:
         """alpha = 0 for bc (no cubic shadow, same as betagamma)."""
         assert self.bc.alpha == Rational(0)
 
+    def test_S4_value(self):
+        """Charged class-C normalization gives S_4 = -5/12."""
+        assert self.bc.S4 == Rational(-5, 12)
+
     def test_central_charge(self):
-        """c = 2 for bc (opposite sign from betagamma c = -2)."""
-        assert self.bc.central_charge == Rational(2)
+        """c = -2 for bc (opposite sign from lambda=1 betagamma c = 2)."""
+        assert self.bc.central_charge == Rational(-2)
 
     def test_kappa_ch(self):
-        """kappa_ch = 1/12 (AP113: always subscripted)."""
-        assert self.bc.kappa_ch() == Rational(1, 12)
+        """kappa_ch = -1 (AP113: always subscripted)."""
+        assert self.bc.kappa_ch() == Rational(-1)
 
     def test_d4_vanishes_on_e3_page(self):
         """d_4 from S_4 vanishes on E_3 page by charge conservation."""
@@ -559,25 +563,26 @@ class TestChainVsCohomology:
 # =========================================================================
 
 class TestKappaAndConductor:
-    """kappa_ch = 1/12, conductor rho_K = -5/12 (same as from betagamma side)."""
+    """kappa_ch = -1 and rho_K = 0 for the matching betagamma dual convention."""
 
     def setup_method(self):
         self.bc = E3BarComplexBc()
 
     def test_kappa_ch(self):
-        assert self.bc.kappa_ch() == Rational(1, 12)
+        assert self.bc.kappa_ch() == Rational(-1)
 
     def test_kappa_ch_dual(self):
-        """Koszul dual (betagamma) has kappa_ch = -1/2."""
-        assert self.bc.kappa_ch_dual() == Rational(-1, 2)
+        """Koszul dual (betagamma) has kappa_ch = 1."""
+        assert self.bc.kappa_ch_dual() == Rational(1)
 
     def test_koszul_conductor(self):
-        """rho_K = 1/12 + (-1/2) = -5/12."""
-        assert self.bc.koszul_conductor() == Rational(-5, 12)
+        """rho_K = -1 + 1 = 0."""
+        assert self.bc.koszul_conductor() == Rational(0)
 
-    def test_conductor_nonzero(self):
-        """Nonzero conductor: hallmark of class C."""
-        assert self.bc.koszul_conductor() != 0
+    def test_conductor_zero(self):
+        """The class-C signal is S_4 != 0, not a nonzero conductor."""
+        assert self.bc.koszul_conductor() == Rational(0)
+        assert self.bc.S4 != Rational(0)
 
     def test_kappa_complementarity(self):
         """kappa + kappa^! = rho_K."""
@@ -589,12 +594,12 @@ class TestKappaAndConductor:
         assert self.bc.koszul_conductor() == bg.koszul_conductor()
 
     def test_kappa_ch_different_from_betagamma(self):
-        """kappa_ch(bc) = 1/12 != kappa_ch(bg) = -1/2."""
+        """kappa_ch(bc) = -1 != kappa_ch(bg) = 1."""
         bg = E3BarComplexBetaGamma()
         assert self.bc.kappa_ch() != bg.kappa_ch()
 
     def test_kappa_ch_sum_is_conductor(self):
-        """kappa_ch(bc) + kappa_ch(bg) = rho_K."""
+        """kappa_ch(bc) + kappa_ch(bg) = rho_K = 0."""
         bg = E3BarComplexBetaGamma()
         assert self.bc.kappa_ch() + bg.kappa_ch() == self.bc.koszul_conductor()
 

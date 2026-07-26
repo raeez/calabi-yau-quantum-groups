@@ -124,7 +124,7 @@ CONVENTIONS
     - chi(L^k) = 1 for all k (Euler characteristic)
     - Geometric Frobenius convention: L -> p^2
     - Cohomological grading: |d| = +1
-    - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (AP45)
+    - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (desuspension convention)
     - Frobenius eigenvalues: |alpha_{i,p}| = p^{w/2} for weight w (Weil)
 
 REFERENCES

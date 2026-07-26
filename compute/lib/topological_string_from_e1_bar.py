@@ -81,7 +81,7 @@ CONVENTIONS
   - All coefficients exact (Fraction arithmetic)
   - kappa = modular characteristic of A_X (AP48: family-specific)
   - A-hat coefficients are POSITIVE after i-rotation (AP22)
-  - Bar uses desuspension: |s^{-1}v| = |v| - 1 (AP45)
+  - Bar uses desuspension: |s^{-1}v| = |v| - 1 (desuspension convention)
 
 REFERENCES:
   [AKMV] Aganagic-Klemm-Marino-Vafa, hep-th/0305132

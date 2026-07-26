@@ -120,7 +120,7 @@ For L = Heisenberg: CE^*(Heis) = Lambda^*(Heis^*) with d = 0.
 CONVENTIONS
 ===========
 - Cohomological grading (|d| = +1).
-- Bar desuspension: |s^{-1}a| = |a| - 1 (AP45).
+- Bar desuspension: |s^{-1}a| = |a| - 1 (desuspension convention).
 - The exterior power Lambda^k is the antisymmetric part of the tensor power.
 - kappa_ch subscript (AP113): always from the chiral algebra.
 - The "CE complex" in this module is the CHAIN complex CE_* (homological),
@@ -708,17 +708,17 @@ def virasoro_linfinity(c: Fraction = Fraction(1)) -> LInfinityData:
     r"""L_infinity data for the Virasoro at central charge c (class M).
 
     l_2 = the Virasoro Lie bracket: [L_m, L_n] = (m-n)*L_{m+n} + c/12*m(m^2-1)*delta
-    l_3 = non-zero (m_3(T,T,T) = -2c * T from a_infinity_bar_w1inf.py)
+    l_3 = non-zero (m_3(T,T,T) = -2 * T from a_infinity_bar_w1inf.py)
     l_4 = non-zero (m_4(T,T,T,T) = (40/27) * T at c=1)
     l_k != 0 for all k: class M, infinite shadow tower.
 
     Shadow data (from a_infinity_bar_w1inf.py, c3_shadow_tower.py):
       kappa_ch = c/2 = 1/2 at c=1
-      alpha = 2 at c=1
+      alpha = 2
       S_4 = 10/(c*(5c+22)) = 10/27 at c=1
     """
-    # l_3(T,T,T) = -2c (the cubic shadow coefficient alpha = 2 at c=1)
-    l3_coeff = Fraction(-2) * c
+    # l_3(T,T,T) = -2 (the cubic shadow coefficient alpha = 2)
+    l3_coeff = Fraction(-2)
 
     # l_4(T,T,T,T) = 40/27 at c=1 (from the quartic shadow S_4 = 10/27)
     S4 = Fraction(10) / (c * (5 * c + 22))
@@ -947,15 +947,17 @@ class LInfinityCEComplex:
                 tower[2] = Fraction(0)
         elif self.linf.name == "Vir_Linf":
             # Virasoro: kappa_ch = c/2
-            # Extract c from the l3 coefficient: l3(T,T,T) = -2c
-            l3_TTT = self.linf.l3_jacobiator.get(("T", "T", "T"), Fraction(0))
-            c = -l3_TTT / Fraction(2)
+            # Extract c from the Virasoro central lambda^3 coefficient.
+            c = Fraction(1)
+            T = self.lca.gen("T")
+            for term in self.lca.lambda_bracket(T, T):
+                if term.lambda_power == 3 and term.output is None:
+                    c = 2 * term.coeff
+                    break
             tower[2] = c / Fraction(2)  # kappa_ch = c/2
 
-            # S_3 = |alpha| = |l3_coeff| / something
-            # From a_infinity_bar_w1inf: alpha_T = 2 at c=1
-            # l3(T,T,T) = -2c, and alpha = 2 at c=1
-            tower[3] = Fraction(2) * c  # alpha = 2c
+            # S_3 = alpha = 2, independent of c.
+            tower[3] = Fraction(2)
 
             # S_4 from l4
             l4_TTTT = self.linf.l4_quartic.get(

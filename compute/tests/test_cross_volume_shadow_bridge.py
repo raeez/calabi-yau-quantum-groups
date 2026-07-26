@@ -729,6 +729,11 @@ class TestCYCorrelation:
         # VERIFIED [DC] dimension count [CF] cross-family census
         assert data["CY2_K3"]["cy_dim"] == 2
 
+    def test_cy2_rootful_is_L(self):
+        data = cy_dimension_correlation()
+        assert data["CY2_K3_rootful"]["shadow_class"] == "L"
+        assert data["CY2_K3_rootful"]["shadow_depth"] == 3
+
     def test_cy3_conifold_is_C(self):
         data = cy_dimension_correlation()
         # VERIFIED [DC] structural property [CF] cross-family census

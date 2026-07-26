@@ -1061,8 +1061,8 @@ def product_shadow_identification(N: int = 30) -> Dict[str, Any]:
 def complementarity_c3() -> Dict[str, Any]:
     r"""Verify complementarity for C^3 / Heisenberg.
 
-    For Heisenberg H_k: the Koszul dual is H_k^! = Sym^ch(V*) with
-    kappa(H_k^!) = -k.
+    For Heisenberg H_k at k != 0: the Koszul dual is the curved
+    Sym^ch(V*[1]) branch with scalar kappa(H_k^!) = -k.
 
     Complementarity: kappa(A) + kappa(A!) = 0 for free fields.
     kappa(H_1) + kappa(H_1^!) = 1 + (-1) = 0. CHECK.

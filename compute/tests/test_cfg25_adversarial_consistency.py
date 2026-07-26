@@ -1,7 +1,7 @@
 """Tests for the CFG25 adversarial consistency engine.
 
 Verifies that the 6d E_1-chiral framework is consistent with the 3d
-Chern-Simons results of CFG25. Tests each of the six attack vectors
+Chern-Simons results of CFG25. Tests each of the six obstructions
 and the overall hierarchy.
 
 Test count: 51 tests (42 primary + 9 multi-path cross-checks).
@@ -44,7 +44,7 @@ class TestDimensionalHierarchy:
         assert result["sum"] == 0
 
     def test_3d_projection_g_trivial(self):
-        """At h2=0, g(u) = 1 identically (Kac-Moody = trivial R-matrix)."""
+        """At h2=0, g(u) = 1 identically (Kac-Moody = trivial Yangian part)."""
         result = self.checker.verify_3d_projection()
         assert result["g_trivial"]
 
@@ -314,7 +314,7 @@ class TestMasterSuite:
         assert results["all_checks_passed"]
 
     def test_gap_summary_complete(self):
-        """Gap summary covers all six attack vectors."""
+        """Gap summary covers all six obstructions."""
         results = self.suite.run_all()
         assert len(results["gap_summary"]) == 6
 

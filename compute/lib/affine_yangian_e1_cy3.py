@@ -192,7 +192,7 @@ CONVENTIONS:
   - g(z) = prod (z-h_a)/(z+h_a): the structure function
   - phi_j: coefficients of g(z) = sum phi_j z^{-j}
   - r(z): classical r-matrix = singular part of g(z)
-  - Cohomological grading (|d|=+1), bar uses desuspension (AP45)
+  - Cohomological grading (|d|=+1), bar uses desuspension (desuspension convention)
   - The bar propagator d log E(z,w) has weight 1 (AP27)
   - r-matrix poles are ONE LESS than OPE poles (AP19)
 

@@ -536,13 +536,12 @@ def w_n_conductor(N: int, c: Fraction = Fraction(1)) -> ConductorFormulaResult:
 def k3_mukai_conductor() -> ConductorFormulaResult:
     """Conductor formula for the K3 Mukai Heisenberg (class G).
 
-    The K3 chiral algebra A_{K3} at level k=1 (lattice VOA for the
-    Mukai lattice Lambda_{3,19}) has:
+    The K3 chiral algebra A_{K3} on the Mukai-Heisenberg branch has:
         kappa_ch = chi(O_{K3}) = 2
         kappa_ch^! = -2  (Verdier negation, Mukai self-duality)
         rho_K = 0
 
-    This is class G (lattice VOA, free-field) with conductor 0.
+    This is class G (free-field Mukai branch) with conductor 0.
     The Mukai self-duality Lambda_{K3} ~ Lambda_{K3}^v ensures that
     the Koszul dual K3 VOA has negated kappa_ch.
     """
@@ -831,7 +830,7 @@ def cy_b_for_cy3_free_field(chi_top: Fraction) -> Dict[str, Any]:
     """CY-B for CY3 on the free-field/KM branch.
 
     On the free-field branch, the conductor is 0 regardless of d.
-    The chiral algebra is class G (lattice VOA) or class L (Kac-Moody),
+    The chiral algebra is class G (free-field branch) or class L (Kac-Moody),
     both with rho_K = 0.
 
     For a CY3 X with topological Euler characteristic chi_top:

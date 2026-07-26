@@ -224,13 +224,22 @@ class CHLAdditiveSplitData(NamedTuple):
 
         kappa_BKM(Phi_N) = kappa_ch(A_{X_N}) + chi(O_{fiber_N}).
 
-    For N=4 and N=6 the source records the mismatch but this compute
-    surface does not reconstruct the right-hand side; leaving it absent
-    is preferable to guessing a formula.
+    Ladder discipline: the constants here are the SQUARE-ROOT CHL ladder
+    c_N(0) = (10, 6, 4, 3, 2), kappa_BKM = (5, 3, 2, 3/2, 1) per
+    Jatkar--Sen (hep-th/0510147) / Govindarajan--Krishna (0907.1410),
+    N = 4 half-integral.  The Mathieu-twined ladder (20,8,6,4,2) and the
+    geometric orbifold family (ORBIFOLD_KAPPA_TABLE above, Enriques
+    weight 4 at N=2) are distinct families; do not mix.
+
+    Where the right-hand side has not been reconstructed against the
+    corrected ladder, it is recorded as None; leaving it absent is
+    preferable to guessing a formula.  Source: cy_d_kappa_stratification
+    rem:kbkm-additive-failure-per-ladder (failure holds per ladder, both
+    normalisations).
     """
     N: int
     c_N_0: int
-    kappa_BKM: int
+    kappa_BKM: "int | Fraction"
     kappa_ch: Optional[int]
     chi_O_fiber: Optional[int]
     additive_rhs: Optional[int]
@@ -311,32 +320,20 @@ CHL_LITERAL_ADDITIVE_TABLE: Dict[int, CHLAdditiveSplitData] = {
     ),
     2: CHLAdditiveSplitData(
         N=2,
-        c_N_0=8,
-        kappa_BKM=4,
+        c_N_0=6,
+        kappa_BKM=3,
         kappa_ch=1,
         chi_O_fiber=0,
         additive_rhs=1,
         additive_identity_holds=False,
         source_status=(
-            "Exact: kappa_ch(A_{Z_2}) + chi(O_{E_2}) = 1 + 0 = 1; "
-            "cy_d_kappa_stratification.tex thm:borcherds-weight-kappa-BKM-universal."
+            "Exact: kappa_ch(A_{Z_2}) + chi(O_{E_2}) = 1 + 0 = 1 vs "
+            "kappa_BKM = c_2(0)/2 = 6/2 = 3 (square-root CHL ladder); "
+            "cy_d_kappa_stratification.tex summary refutation ('3 vs 1')."
         ),
     ),
     3: CHLAdditiveSplitData(
         N=3,
-        c_N_0=6,
-        kappa_BKM=3,
-        kappa_ch=2,
-        chi_O_fiber=0,
-        additive_rhs=2,
-        additive_identity_holds=False,
-        source_status=(
-            "Exact RHS = 2 from AP-CY168/AP-CY255 cache entry; "
-            "matches the manuscript's direct-evaluation failure."
-        ),
-    ),
-    4: CHLAdditiveSplitData(
-        N=4,
         c_N_0=4,
         kappa_BKM=2,
         kappa_ch=None,
@@ -344,8 +341,28 @@ CHL_LITERAL_ADDITIVE_TABLE: Dict[int, CHLAdditiveSplitData] = {
         additive_rhs=None,
         additive_identity_holds=False,
         source_status=(
-            "Source-level failure recorded in cy_d_kappa_stratification.tex "
-            "and AP-CY168/AP-CY255; exact RHS not reconstructed here."
+            "Failure recorded at source level "
+            "(rem:kbkm-additive-failure-per-ladder, both normalisations). "
+            "The pre-correction cache RHS = 2 (AP-CY168/AP-CY255) was "
+            "computed against the retracted ladder; it numerically "
+            "coincides with the corrected kappa_BKM = 2 and must not be "
+            "read as the identity holding.  RHS not yet reconstructed "
+            "against the corrected ladder."
+        ),
+    ),
+    4: CHLAdditiveSplitData(
+        N=4,
+        c_N_0=3,
+        kappa_BKM=Fraction(3, 2),
+        kappa_ch=None,
+        chi_O_fiber=None,
+        additive_rhs=None,
+        additive_identity_holds=False,
+        source_status=(
+            "Source-level failure recorded in cy_d_kappa_stratification.tex; "
+            "kappa_BKM = 3/2 is half-integral (weight of the N=4 square-root "
+            "seed), so no integral additive split can reproduce it; exact "
+            "RHS not reconstructed here."
         ),
     ),
     6: CHLAdditiveSplitData(
@@ -999,7 +1016,7 @@ def verdict() -> Dict[str, Any]:
 def run_full_adversarial_analysis(verbose: bool = True) -> Dict[str, Any]:
     """Run the complete adversarial analysis of the kappa_BKM equality.
 
-    Returns a comprehensive dict with all attack vectors and results.
+    Returns a comprehensive dict with all obstructions and results.
     """
     results: Dict[str, Any] = {}
 

@@ -2,7 +2,7 @@ r"""Tests for k3_yangian_adversarial.py: adversarial analysis of Y(g_{K3}).
 
 STATUS: ALL results are CONJECTURAL (AP-CY14).
 Tests verify that the adversarial analysis is internally consistent
-and that the six attack vectors are correctly resolved.
+and that the six obstructions are correctly resolved.
 
 ATTACK VECTORS:
     1. Indefinite signature (4,20): P_omega^2 spectrum (5 tests)
@@ -265,7 +265,7 @@ class TestFullAdversarialReport:
     """Tests for the combined adversarial report."""
 
     def test_six_attacks(self):
-        """All six attack vectors are present."""
+        """All six obstructions are present."""
         result = full_adversarial_report()
         assert len(result['attacks']) == 6
 

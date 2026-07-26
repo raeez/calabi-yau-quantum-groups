@@ -408,7 +408,7 @@ class TestBorcherdsWeightUniversal:
         ],
         verified_against=[
             "Borcherds Invent Math 132 (1998) Automorphic forms with singularities on Grassmannians Theorem 13.3 giving weight of Borcherds product as c(0)/2 from the product-expansion at a 0-cusp of the singular theta lift",
-            "Gritsenko 1999 Selecta + Allcock 2000 + Gritsenko-Nikulin 1998 independently listing paramodular weights {5, 4, 3, 2, 1} for N=1,2,3,4,6 without reference to BKM denominator identity",
+            "Gritsenko 1999 Selecta (Delta_5, weight 5) + Allcock 2000 (Enriques form, weight 4) + Gritsenko 1994 / Clery-Gritsenko 2013 listing the diagonal Siegel K3-orbifold weights {5, 4, 3, 2, 1} on N=1,2,3,4,6; and Jatkar-Sen JHEP 04 (2006) 018 + Govindarajan-Krishna JHEP 05 (2010) 014 listing the primitive CHL BKM-denominator weights (5, 3, 2, 3/2, 1) with c_N(0) = (10, 6, 4, 3, 2)",
         ],
         disjoint_rationale=(
             "The derivation route uses the frame-shape tabulation "
@@ -417,42 +417,71 @@ class TestBorcherdsWeightUniversal:
             "routes cite Borcherds 1998 (Invent. Math. 132) Theorem 13.3 (theta-lift "
             "weight formula, proved independently of any BKM algebra) "
             "and the paramodular-form literature (Gritsenko 1999 "
-            "Selecta on Delta_5; Allcock 2000; Gritsenko-Nikulin 1998 "
-            "on automorphic forms and Lorentzian KM algebras II). Both "
-            "verification sources give the "
-            "weights {5, 4, 3, 2, 1} without invoking root "
-            "multiplicities, denominators, or frame shapes. Three "
-            "disjoint derivations."
+            "Selecta on Delta_5; Allcock 2000 on the Enriques form; "
+            "Gritsenko 1994; Jatkar-Sen 2006 and Govindarajan-Krishna "
+            "2010 on the CHL dyon forms and their square roots). The "
+            "verification sources give the per-family weights without "
+            "invoking root multiplicities, denominators, or frame "
+            "shapes. Three disjoint derivations. The once-recorded "
+            "attribution of {5, 4, 3, 2, 1} to the CHL BKM-denominator "
+            "ladder is retracted: that tuple is the diagonal Siegel "
+            "K3-orbifold ladder (Enriques row at N=2), while the CHL "
+            "ladder has weights (5, 3, 2, 3/2, 1)."
         ),
     )
     def test_borcherds_weights_universal(self):
         """c_N(0)/2 matches the known Siegel paramodular weights.
 
-        Canonical values from Gritsenko 1999 Selecta (Delta_5 paramodular
-        weight-5 level-1 cusp form) + Allcock 2000 + Gritsenko-Nikulin
-        1998 "Automorphic forms and Lorentzian KM algebras II":
+        Two families on the index set N in {1, 2, 3, 4, 6}, never mixed:
+
+        (a) Diagonal Siegel K3-orbifold ladder (engine ground truth:
+        compute/lib/diagonal_siegel_cy_orbifolds.py FRAME_SHAPE_DATA;
+        Gritsenko 1999 Selecta at N=1, Allcock 2000 Enriques at N=2,
+        Gritsenko 1994 / Clery-Gritsenko 2013 at N=3,4,6):
         N=1: Delta_5,  weight 5, c_1(0) = 10.
-        N=2: weight 4, c_2(0) = 8  (Allcock 2000).
-        N=3: Phi_3,    weight 3, c_3(0) = 6.
-        N=4: Phi_2,    weight 2, c_4(0) = 4.
-        N=6: Phi_1,    weight 1, c_6(0) = 2.
-        Engine ground truth: compute/lib/diagonal_siegel_cy_orbifolds.py
-        FRAME_SHAPE_DATA. Earlier programme notes mislabelled N=1 as
-        Igusa Phi_10 (Siegel genus-2 level-1 weight-10) and doubled N=2
-        analogously; retracted here per Wave-8 heal.
+        N=2: Enriques Allcock form, weight 4, c_2(0) = 8.
+        N=3: weight 3, c_3(0) = 6.
+        N=4: weight 2, c_4(0) = 4.
+        N=6: weight 1, c_6(0) = 2.
+        This ladder is NOT the CHL/Jatkar-Sen BKM-denominator ladder.
+
+        (b) Primitive CHL BKM-denominator ladder (Jatkar-Sen 2006;
+        Govindarajan-Krishna arXiv:0907.1410 = JHEP 05 (2010) 014):
+        weights (5, 3, 2, 3/2, 1), c_N(0) = (10, 6, 4, 3, 2); the N=4
+        entry is half-integral via a multiplier system.
+
+        Earlier programme notes mislabelled N=1 as Igusa Phi_10 (Siegel
+        genus-2 level-1 weight-10), doubled N=2 analogously, and
+        attributed ladder (a)'s weights to the CHL family; retracted.
         """
-        borcherds_table: List[Tuple[int, int, int]] = [
-            # (N, c_N(0), weight)
+        diagonal_table: List[Tuple[int, int, int]] = [
+            # (N, c_N(0), weight) -- diagonal Siegel K3-orbifold ladder
             (1, 10, 5),
             (2, 8, 4),
             (3, 6, 3),
             (4, 4, 2),
             (6, 2, 1),
         ]
-        for N, c0, weight in borcherds_table:
+        for N, c0, weight in diagonal_table:
             assert F(c0, 2) == F(weight), (
                 f"N={N}: c_{N}(0)/2 = {F(c0, 2)} != weight = {weight}"
             )
+        chl_table: List[Tuple[int, F, F]] = [
+            # (N, c_N(0), weight) -- primitive CHL BKM-denominator ladder
+            (1, F(10), F(5)),
+            (2, F(6), F(3)),
+            (3, F(4), F(2)),
+            (4, F(3), F(3, 2)),
+            (6, F(2), F(1)),
+        ]
+        for N, c0, weight in chl_table:
+            assert c0 / 2 == weight, (
+                f"CHL N={N}: c_{N}(0)/2 = {c0 / 2} != weight = {weight}"
+            )
+        # The two ladders coincide only at N = 1 (Delta_5).
+        assert [w for (_, _, w) in diagonal_table] != [
+            w for (_, _, w) in chl_table
+        ]
 
     def test_N1_naive_decomposition_fails(self):
         """kappa_BKM(Delta_5) = 5 is NOT kappa_ch(K3xE) + chi(O_E) = 0+0 = 0.

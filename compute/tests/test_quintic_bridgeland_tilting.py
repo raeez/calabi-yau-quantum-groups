@@ -456,11 +456,11 @@ class TestUnifiedObstructionTheorem:
 
 
 # =========================================================================
-# 10. The Platonic statement (residual open problem)
+# 10. The structural statement (residual open problem)
 # =========================================================================
 
 class TestPlatonicStatement:
-    """Verify the Platonic ideal admitting a proof of Kapranov 3-shifted Koszul."""
+    """Verify the structural target admitting a proof of Kapranov 3-shifted Koszul."""
 
     def test_bvdb_proved(self):
         """Ingredient (a): BVDB compact generator is PROVED."""

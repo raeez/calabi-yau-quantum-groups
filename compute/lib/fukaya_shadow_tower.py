@@ -545,8 +545,10 @@ class FukayaK3:
     def shadow_invariants(cls, picard_number: int = 0) -> Dict[str, Any]:
         r"""Shadow obstruction tower invariants of A_{Fuk(K3)}.
 
-        For a lattice VOA of rank r: class G (Gaussian), depth 2.
-        kappa = r (Vol I formula), all higher shadows vanish.
+        This is the transcendental/rootless lattice branch: class G
+        (Gaussian), depth 2.  Rootful algebraic enhancements are a
+        different current-shadow coordinate; their ADE current algebra
+        has nonzero cubic shadow.
         """
         kappa = cls.kappa_transcendental(picard_number)
         return {
@@ -1257,13 +1259,15 @@ class CYToChiral:
         r"""Estimate shadow depth from CY dimension and generator count.
 
         CY1 (elliptic curve): 1 generator -> class G, depth 2.
-        CY2 (K3): lattice VOA -> class G, depth 2.
+        CY2 (generic K3): Mukai/Heisenberg branch -> class G, depth 2.
+        CY2 (rootful enhancement): ADE current coordinate -> class L, depth 3.
         CY3 (quintic): sigma model CFT -> class M (generally), depth infinity.
         """
         if cy_dim == 1:
             return {'depth': 2, 'class': 'G', 'remark': 'Heisenberg'}
         elif cy_dim == 2:
-            return {'depth': 2, 'class': 'G', 'remark': 'lattice VOA'}
+            return {'depth': 2, 'class': 'G',
+                    'remark': 'generic Mukai/Heisenberg branch'}
         elif cy_dim == 3:
             if n_generators == 1:
                 return {'depth': 2, 'class': 'G',
@@ -1486,7 +1490,7 @@ class EllipticCurveAInfinity:
         C (cubic shadow): determined by m_3.
             Formality implies m_3 = 0 (up to gauge), hence C = 0.
 
-        Q (quartic shadow): determined by m_4.
+        Q (quartic shadow): computed from the chosen transferred m_4.
             Formality implies m_4 = 0 (up to gauge), hence Q = 0.
         """
         return {
@@ -1576,25 +1580,26 @@ class MukaiLattice:
         return Fraction(rank)
 
     @staticmethod
-    def lattice_voa_shadow_invariants(rank: int) -> Dict[str, Any]:
-        r"""Shadow invariants for a lattice VOA of given rank.
+    def lattice_voa_shadow_invariants(rank: int, root_count: int = 0) -> Dict[str, Any]:
+        r"""Shadow invariants for a lattice VOA current coordinate.
 
-        Lattice VOAs are ALWAYS class G (Gaussian):
+        Rank fixes kappa, not the shadow class:
         - kappa = rank (Vol I: kappa(lattice VOA rank r) = r)
-        - All higher shadows vanish
-        - Shadow depth = 2
+        - root_count = 0 gives the rootless/Heisenberg branch, class G
+        - root_count > 0 gives a nonabelian ADE current branch, class L
 
-        This is because the OPE of free bosons is purely quadratic
-        (no cubic or higher terms), making all A-infinity operations
-        m_k = 0 for k >= 3.
+        The rootful branch has nonzero cubic shadow from Lie structure
+        constants and vanishing quartic shadow at the level-one current
+        coordinate.
         """
         kappa = Fraction(rank)
+        has_roots = root_count > 0
         return {
             'kappa': kappa,
-            'cubic_shadow': Fraction(0),
+            'cubic_shadow': Fraction(1) if has_roots else Fraction(0),
             'quartic_shadow': Fraction(0),
-            'shadow_depth': 2,
-            'depth_class': 'G',
+            'shadow_depth': 3 if has_roots else 2,
+            'depth_class': 'L' if has_roots else 'G',
             'F_1': kappa * lambda_fp(1),
             'F_2': kappa * lambda_fp(2),
             'F_3': kappa * lambda_fp(3),

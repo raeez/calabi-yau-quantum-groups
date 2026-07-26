@@ -70,7 +70,7 @@ MATHEMATICAL CONTENT
 CONVENTIONS
 ===========
 - Cohomological grading (|d| = +1).
-- Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (AP45).
+- Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (desuspension convention).
 - E1 bar differential: ADJACENT multiplications only (Hochschild).
 - The full A-infinity bar differential uses ALL mu_k (not just mu_2).
 - Floer cohomology graded by Maslov index (= cohomological degree).

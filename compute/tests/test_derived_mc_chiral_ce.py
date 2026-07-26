@@ -7,7 +7,7 @@ Verifies the derived moduli of chiral deformations for all shadow classes:
   3. Virasoro (class M): MC = projective structures, L_infinity corrections
   4. K3 Mukai Heisenberg (class G): MC = point, ADE deformations
   5. Yangian Y(gl_hat_1) (class L): Nomizu cohomology of nilpotent algebra
-  6. Tangent complex: Euler characteristic vanishes for all n >= 1
+  6. Finite exterior tangent complex: Euler characteristic vanishes for n >= 1
   7. ADE deformation data: rank constraints, Lie algebra dimensions
 
 Every test uses AT LEAST 2 independent verification paths (AP10).

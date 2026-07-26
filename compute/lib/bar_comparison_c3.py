@@ -68,7 +68,7 @@ DT PARTITION FUNCTION AND BAR COMPLEXES:
 CONVENTIONS:
   - Cohomological grading (differentials have degree +1)
   - Bar degree = tensor length (arity n)
-  - Desuspension: |s^{-1}v| = |v| - 1 (AP45)
+  - Desuspension: |s^{-1}v| = |v| - 1 (desuspension convention)
   - The E∞ bar uses Sym^n(A[1]) = (A[1])^{⊗n} / S_n, NOT A^{⊗n} / S_n
     (the [1] shift matters for Koszul signs)
 

@@ -321,7 +321,7 @@ class TestFullReport:
     """Tests for the full adversarial report."""
 
     def test_all_resolved(self):
-        """All four attack vectors are resolved (no genuine inconsistencies)."""
+        """All four obstructions are resolved (no genuine inconsistencies)."""
         result = full_adversarial_report()
         assert result['all_resolved'] is True
 
@@ -331,7 +331,7 @@ class TestFullReport:
         assert result['num_inconsistencies'] == 0
 
     def test_four_attack_vectors(self):
-        """Report contains results for all four attack vectors (plus sub-attacks)."""
+        """Report contains results for all four obstructions (plus sub-obstructions)."""
         result = full_adversarial_report()
         vectors = result['attack_vectors']
         assert '1_central_charge' in vectors
@@ -340,7 +340,7 @@ class TestFullReport:
         assert '4_yangian' in vectors
 
     def test_nine_sub_analyses(self):
-        """Report contains 9 sub-analyses (4 main + 5 sub-attacks)."""
+        """Report contains 9 sub-analyses (4 main + 5 sub-obstructions)."""
         result = full_adversarial_report()
         assert len(result['attack_vectors']) == 9
 

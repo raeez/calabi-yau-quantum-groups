@@ -175,7 +175,8 @@ if __name__ == "__main__":
 
     print("\nFull table (d=2,3,4; g=0,1,2,3):")
     table = euler_table([2, 3, 4], [0, 1, 2, 3])
-    print(f"  {'d\\g':>4}  {'g=0':>6}  {'g=1':>6}  {'g=2':>6}  {'g=3':>6}")
+    header = "d\\g"
+    print(f"  {header:>4}  {'g=0':>6}  {'g=1':>6}  {'g=2':>6}  {'g=3':>6}")
     for d in [2, 3, 4]:
         row = "  "
         row += f"{d:>4}  "

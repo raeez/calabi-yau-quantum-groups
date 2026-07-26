@@ -134,7 +134,7 @@ The OBSTRUCTION to chiral extension:
 CONVENTIONS
 ===========
   - Cohomological grading: |d| = +1
-  - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (AP45)
+  - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (desuspension convention)
   - CY dimension d = 3: Serre functor S = [3]
   - AP44: OPE mode coefficient / n! = lambda-bracket coefficient
   - AP19: bar propagator absorbs one pole order

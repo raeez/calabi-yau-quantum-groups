@@ -70,7 +70,7 @@ CONVENTIONS
 ===========
 - Lambda-bracket convention: {a_lambda b} = sum (a_{(n)} b) lambda^(n)
   with lambda^(n) = lambda^n / n! (divided powers, per AP44)
-- Bar desuspension: |s^{-1}a| = |a| - 1 (AP45)
+- Bar desuspension: |s^{-1}a| = |a| - 1 (desuspension convention)
 - kappa_ch subscript (AP113): always from the chiral algebra
 - Cohomological grading: |d| = +1
 
@@ -964,7 +964,8 @@ class EnChiralEnvelope:
       - The combined E_n = min(E_n(L), E_2(C)) for d >= 2
 
     KEY PRINCIPLE: the envelope does NOT raise E_n level.
-    av(r(z)) = kappa_ch: E_1 -> E_inf loses the R-matrix.
+    E_1 -> E_inf averaging loses the R-matrix; on abelian/CY-normalized
+    branches the scalar shadow is av(r(z)) = kappa_ch.
 
     For 6d hCS:
       E_3 from C^3 -> E_1 on C x R via holomorphic-topological split

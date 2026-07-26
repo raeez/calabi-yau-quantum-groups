@@ -61,11 +61,12 @@ precise hypotheses of that assembly:
  identification of these two dgLAs factors through the first stage
  $\PhiFA_3$ of the two-stage factorisation
  $\Phi_3 = \SpCh_{\Sigma_2,C} \circ \PhiFA_3$
- (Theorem~\ref{thm:cy-to-chiral-d3};
- $\infty$-categorical, chain-level for non-formal algebras conditional
- on CY-A$_3$): the bridge $(\PhiFA_3)_*$ is proved for $\mathbb{C}^3$
- (RSYZ plus the conifold bar-complex engine) and conditional on CY-A$_3$
- outside that case. Wall-crossing automorphisms on
+(Theorem~\ref{thm:cy-to-chiral-d3};
+$\infty$-categorical, with chain models on toric and formal charts):
+the bridge $(\PhiFA_3)_*$ is proved for $\mathbb{C}^3$
+by RSYZ together with the conifold bar-complex calculation. On compact
+non-formal charts it is the comparison between the motivic Hall dgLA
+and the framed $\Phi_3$-stage chiral dgLA. Wall-crossing automorphisms on
  $\mathfrak{g}_{\mathrm{KS}}(X)$ therefore give automorphisms of
  the canonical $\PhiFA_3$-stage output $A_X$, with the
  $\SpCh$-specialisation inheriting those automorphisms after
@@ -385,6 +386,7 @@ recorded first.
 
 \begin{lemma}[Serre antisymmetry of the Euler form on CY$_3$]
 \label{lem:serre-antisymmetry-cy3}
+\ClaimStatusProvedHere
 Let $\mathcal{C}$ be a Calabi--Yau triangulated category of dimension
 $d = 3$ (Serre functor $S_{\mathcal{C}} = [3]$), and
 $\chi(\gamma, \gamma') = \sum_{i \in \mathbb{Z}} (-1)^i \dim
@@ -644,9 +646,7 @@ becomes the Rogers five-term relation
 $L(x) + L(y) = L(xy) + L(x(1-y)/(1-xy)) + L(y(1-x)/(1-xy))$
 (Rogers 1907; Kirillov \textup{math/9408113} for the Hall-Lie
 derivation). A height-$2$ algebraic check of the $q$-commutator
-pentagon appears in
-\texttt{compute/tests/test\_conifold\_wall\_crossing.py} (73 tests, at
-general $\mathbb{L}^{1/2}$).
+pentagon holds at general $\mathbb{L}^{1/2}$.
 \end{proof}
 
 \begin{remark}[The quantum/classical ambient distinction is load-bearing]
@@ -723,8 +723,8 @@ for $\mathbb{C}^3$ and conjectural for toric CY$_3$ without compact
 $4$-cycles (conditional on the RSYZ identification plus the
 $\mathbb{C}^3$-local chart-gluing of
 Theorem~\ref{thm:toric-chart-gluing}). Outside this locus the
-compatibility lies in the non-formal chain-level extension of
-CY-A$_3$.
+compatibility is the non-formal chain-level Hall--chiral comparison
+over the framed $\Phi_3$ output.
 \end{remark}
 
 % ========================================================================
@@ -766,8 +766,7 @@ Section~3; Nagao--Nakajima \textup{arXiv:0809.2992} Section~2). Then:
  bar-complex dimensions of these chamber subalgebras are
  $\dim B^k(\mathcal{H}_{\mathrm{I}}) = 2^k$ (two stable simples) and
  $\dim B^k(\mathcal{H}_{\mathrm{II}}) = 3^k$ (three stable simples
- after mutation), computed through degree $k = 12$
- (\textup{124} tests in \texttt{conifold\_bar\_complex.py}). The
+ after mutation), computed through degree \(k=12\). The
  ambient $Y^+(\widehat{\mathfrak{g}}_{Q_{\mathrm{con}}})$ is one fixed
  algebra; the two chamber subalgebras are distinct subalgebras of it,
  exchanged by the pentagon mutation.
@@ -826,7 +825,7 @@ exchange.
 $\mathcal{H}_{\mathrm{I}}, \mathcal{H}_{\mathrm{II}} \subset
 \mathcal{H}(Q_{\mathrm{con}}, W_{\mathrm{con}})$
 (Construction~\ref{constr:conifold-bar} in
-Chapter~\ref{ch:toric-coha}, with the engine verification cited). The
+Chapter~\ref{ch:toric-coha}). The
 count $2^k$ in $\mathcal{H}_{\mathrm{I}}$ reflects two stable simples
 in the resolved chamber; the $3^k$ in $\mathcal{H}_{\mathrm{II}}$
 reflects three stable simples after the mutation. Chamber-independence
@@ -1281,7 +1280,7 @@ $\kappa_{\mathrm{BKM}}(\Phi_{N}) = c_{N}(0)/2$ identity of
 Chapter~\ref{ch:cy-d-kappa-stratification}
 Theorem~\ref{thm:borcherds-weight-kappa-BKM-universal}. The chiral
 invariant
-$\kappa_{\mathrm{ch}}(A_{K3 \times E}) = \chi(\cO_{K3 \times E})
+$\kappa_{\mathrm{ch}}^{\mathrm{Hodge}}(A_{K3 \times E}) = \chi(\cO_{K3 \times E})
  = \chi(\cO_{K3}) \cdot \chi(\cO_{E}) = 2 \cdot 0 = 0$
 is K\"unneth-multiplicative on the total space and is a different
 invariant from the Borcherds weight of the automorphic denominator;
@@ -1365,7 +1364,7 @@ Pandharipande--Thomas stable-pairs DT endpoint of segment~(i).
 \label{cor:y-plus-vs-full-Y}
 \begin{enumerate}[label=\textup{(\roman*)}]
  \item $\mathcal{H}(\mathbb{C}^3) \simeq Y^+(\widehat{\mathfrak{gl}}_1)$
- is the POSITIVE HALF of the affine Yangian
+ is the positive half of the affine Yangian
  $Y(\widehat{\mathfrak{gl}}_1)$
  (Schiffmann--Vasserot 2013 \textup{arXiv:1202.2756}, Theorem~A).
  \item The full affine Yangian
@@ -1375,13 +1374,12 @@ Pandharipande--Thomas stable-pairs DT endpoint of segment~(i).
  $D(\mathcal{H}(\mathbb{C}^3))$ with respect to the non-degenerate
  Hopf pairing constructed in Procha\'zka--Rap\v{c}\'ak 2018
  \textup{arXiv:1807.11304}, Section~4.
- \item Conditional on clause~(ii): the identification
- $Y(\widehat{\mathfrak{gl}}_1) \simeq \mathcal{W}_{1+\infty}$
- at the self-dual level $\psi = 1$ (Procha\'zka--Rap\v{c}\'ak)
- is a statement about the FULL double, not about the positive
- half alone; the Cartan factor $Y^0$ supplies the
- $\mathcal{W}_{1+\infty}$ $U(1)$ current and $Y^-$ the negative modes
- absent from $\mathcal{H}(\mathbb{C}^3)$.
+ \item Conditional on clause~(ii), the full affine Yangian acts on the
+ $\mathcal{W}_{1+\infty}$ vacuum module at the self-dual level
+ $\psi=1$ through the Procha\'zka--Rap\v{c}\'ak evaluation map. This is
+ a statement about the full double, not about the positive half alone:
+ the Cartan factor $Y^0$ supplies the $U(1)$ current and $Y^-$ supplies
+ the negative modes absent from $\mathcal{H}(\mathbb{C}^3)$.
  \item For general toric CY$_3$ $X$ without compact $4$-cycles, the
  CoHA $\mathcal{H}(Q_X, W_X) \simeq Y^+(\widehat{\mathfrak{g}}_{Q_X})$
  identifies with the positive half of an affine super Yangian (RSYZ
@@ -1407,12 +1405,12 @@ The identification of $(Y^+)^*$ with $Y^-(\widehat{\mathfrak{gl}}_1)$
 (the CoHA of the opposite quiver) uses the CY$_3$-duality
 Koszul pairing.
 
-(iii) by direct inspection of the Procha\'zka--Rap\v{c}\'ak
-isomorphism: their identification is between the full Drinfeld
-double and $\mathcal{W}_{1+\infty}$, which requires both positive
-and negative modes. The positive half $Y^+$ alone is isomorphic to the
-positive-mode subalgebra of $\mathcal{W}_{1+\infty}$, but the full
-W-algebra structure requires the double.
+(iii) follows from the Procha\'zka--Rap\v{c}\'ak construction of the
+vacuum evaluation. The full Drinfeld double acts on the
+$\mathcal{W}_{1+\infty}$ vacuum module; the vertex algebra is the
+evaluation target, not the positive Hall algebra. The positive half
+$Y^+$ maps to the positive-mode algebra, while the full mode algebra
+uses the Cartan and negative halves.
 
 (iv) for general toric $X$, RSYZ 2020 \textup{arXiv:2004.07841}
 Theorem~1.1 proves
@@ -1751,13 +1749,13 @@ subalgebra of this Heisenberg vertex algebra, and Negu\c{t}~(2022)
 provides the K-theoretic refinement at generic equivariant parameter.
 $\Phi_2(D^b\mathrm{Coh}(S))$ is the Mukai-lattice vertex algebra by
 Theorem~\ref{thm:phi-k3-explicit}, and the positive-Borel identification
-is the five-step functor chain of Chapter~\ref{ch:toric-coha}
+is the five-arrow functor chain of Chapter~\ref{ch:toric-coha}
 specialised to CY-$2$ without potential. The Drinfeld double construction
 supplies the negative modes via the Mukai pairing (non-degenerate Hopf
 pairing by Serre duality, Proposition~\ref{prop:serre-duality-cy}).
 \end{proof}
 
-\begin{remark}[Bridgeland wall-crossing and the \texorpdfstring{$\hbar^2 = -1/8$}{hbar-2 = -1/8} specialisation]
+\begin{remark}[Bridgeland wall-crossing and the order-eight branch]
 \label{rem:cwc-k3-bridgeland-wall}
 For each Bridgeland stability condition $\sigma\in\Stab(D^b\mathrm{Coh}(S))$
 there is a $\sigma$-version
@@ -1782,26 +1780,19 @@ $\Stab(D^b\mathrm{Coh}(S))$ are distinguished.
  This is the $(R_7)$ structural refinement of the K3 chiral
  bialgebra (see Theorem~\ref{thm:humbert-order-K-kappa} of
  Chapter~\ref{ch:k3-chiral-bialgebra-platonic}).
- \item \emph{Self-dual-R point.} At the deformation-quantisation point
- $\hbar^2 = -1/8$, the R-matrix $R_{\mathrm{Sieg,dyn}}$ of the
+ \item \emph{Self-dual-\(R\) point.} On the order-eight root-of-unity
+ branch, the \(R\)-matrix \(R_{\mathrm{Sieg,dyn}}\) of the
  Hall--Drinfeld double satisfies $R\cdot R^{\mathrm{op}} = 1$
  (\emph{unitarity}) and $\mathbf{H}_{\Delta_5}^\vee \simeq \mathbf{H}_{\Delta_5}$
  (\emph{self-duality in the Lusztig~$u_\zeta$ sense at $\ell=8$},
  Lusztig 1993 \emph{Introduction to Quantum Groups}, Chapter~9).
- The universal identity
- $\hbar^2 \cdot K^{\kappa_{\mathrm{ch}}} = -1$
- (Theorem~\ref{thm:humbert-order-K-kappa} of
- Chapter~\ref{ch:k3-chiral-bialgebra-platonic} combined with
- $K^{\kappa_{\mathrm{ch}}} = 8$ from Mukai doubling) fixes
- $\hbar^2 = -1/8$ as the chiral quantum-group avatar of the Humbert
- $H_1$ monodromy order.
+ This is a comparison statement about \(q\) at \(q^8=1\), not a
+ canonical value of \(\hbar^2\).
 \end{enumerate}
-The two walls coincide (Gepner = self-dual-R) because the Humbert-$H_1$
-monodromy $\mathbb{Z}/8$ is both the Bridgeland-stability monodromy of
-the K3 period domain at the Gepner locus and the chiral
-quantum-group monodromy at the deformation-quantisation self-dual
-point; this is the Etingof--Beilinson
-convergence. Kontsevich--Soibelman
+The expected coincidence of the two walls is a comparison problem:
+the Humbert-\(H_1\) datum, the Bridgeland-stability monodromy, and the
+root-of-unity \(R\)-matrix branch must be identified by an explicit
+bridge. Kontsevich--Soibelman
 (2008, Section~4) and Bridgeland (2007 \textup{Commentarii~Math.~Helv.}~81,
 \textup{arXiv:math/0307164}) supply the wall-crossing formalism in each
 lane; their compatibility through the CY-$2$ restriction of
@@ -1868,7 +1859,7 @@ generators and relations, parity blocks, radical descent with
 PBW/no-extra-relations, compatible HN/$\hbar$ completion, and Heegner
 characteristic comparison with $\Delta_5$. The Etingof--Kazhdan functor
 supplies the target gauge class; the scalar automorphic comparison is a
-test of that target class, not a construction of the compact Hall source.
+criterion for that target class, not a construction of the compact Hall source.
 Then:
 \begin{enumerate}[label=\textup{(\roman*)}]
 \item The $\sigma$-adapted K3 cohomological Hall algebra
@@ -2021,7 +2012,7 @@ where $\pi$ is the Bayer--Macr\`i period map (Bayer--Macr\`i 2014
 group $\Gamma=\mathrm{Aut}(D^b\mathrm{Coh}(K3))$, and $\mathrm{Sieg}$
 is the period restriction from the $\widetilde{\Lambda}_{K3}$-period
 domain to the Siegel upper half-space $\mathbb{H}_2$ along the hyperbolic
-$\mathrm{II}_{2,1}$ core (Gritsenko--Nikulin 1998
+$\Lambda^{2,1}_{II}$ core (Gritsenko--Nikulin 1998
 \emph{Internat.\ J.\ Math.}~9 Section~5 for the explicit $\mathbb{H}_2$
 embedding). The composite $\iota$ is Igusa-compatible: it intertwines
 the autoequivalence group $\Gamma$ with the paramodular group
@@ -2136,7 +2127,7 @@ Stability chamber & Period image & $R$-matrix & $\hbar^2$ behaviour \\
 Large volume & cusp of $\overline{\mathcal{A}_2}$ &
  $R^{\mathrm{rat}}_{\mathrm{Yang}}(u)$ & generic \\
 Gepner $(\omega_0,0)$ & $\mathbb{Z}/8$-fixed Heegner point &
- $R^{\mathrm{trig}}_{q=\zeta_8}(u)$ & $\hbar^2=-1/8$ \\
+ $R^{\mathrm{trig}}_{q=\zeta_8}(u)$ & order-eight branch \\
 Humbert $H_1$ boundary & $\rho\to i\infty$ &
  $R^{\mathrm{ell,dyn}}_{\mathrm{Felder}}(u,\lambda,\tau)$ &
  continuous \\
@@ -2191,31 +2182,19 @@ Chapter~\ref{ch:derived-cy}).
 \label{subsec:cwc-global-bridgeland-crossverif}
 
 Theorem~\ref{thm:cwc-global-dictionary} is checked along three
-logically independent paths. The product K3 CY-$2$ factor contributes rank
-$\widetilde\Lambda_{K3}=\mathbb{Z}^{4,20}$ and the $E$ CY-$1$ factor
-contributes rank $\Lambda_E=\mathbb{Z}^{1,1}$; the full product
-stability manifold has complex dimension
+logically independent paths. In the Bridgeland path the relevant K3
+lattice is the algebraic numerical Mukai lattice
 \[
- \dim_\mathbb{C}\mathrm{Stab}^\dagger\bigl(D^b\mathrm{Coh}(K3\times E)\bigr)
- \;=\;
- \mathrm{rk}\widetilde\Lambda_{K3}+\mathrm{rk}\Lambda_E+2
- \;=\;
- 24+2+2
- \;=\;
- 28,
+ \widetilde{N}(S)=H^0(S,\mathbb{Z})\oplus\NS(S)\oplus H^4(S,\mathbb{Z})
 \]
-and the K\"unneth-factorising slice
-$\mathrm{Stab}^\Phi=\mathrm{Stab}^\dagger(K3)\times\mathrm{Stab}^\dagger(E)$
-has complex dimension $26+4-2=28$ after the central-charge identification,
-and embeds as a dense open submanifold; the transcendental lattice
-$T_{K3}\subset\widetilde\Lambda_{K3}$ of rank $22$ at Picard rank $\rho=1$
-supplies the codimension-$22$ non-factorising mixed-charge locus
-$\mathrm{Stab}^{\mathrm{mix}}=\mathrm{Stab}(D^b\mathrm{Coh}(K3\times
-E))\setminus\mathrm{Stab}^\Phi$, on which Fourier--Mukai mixing between
-$K3$ and $E$ factors is nontrivial (Bridgeland 2008 \emph{Ann.\
-Math.}~166 Theorem~1.1 for the $K3$ component; Bayer--Macr\`i 2014
-\emph{Invent.\ Math.}~198 Corollary~1.2 for the K\"unneth splitting in
-the projective CY $D^b$ sense).
+of rank $\rho+2$, where $\rho=\rk\NS(S)$. Thus
+$K_{\mathrm{num}}(S\times E)$ has rank $2(\rho+2)$, not $48$. The
+rank-$24$ topological Mukai lattice $\widetilde{\Lambda}_{K3}$ and its
+rank-$48$ product completion are period and BKM data. Product central
+charges form the Segre cone of decomposable tensors
+$K_{\mathrm{num}}(S)^\vee_\mathbb{C}\otimes
+K_{\mathrm{num}}(E)^\vee_\mathbb{C}$, of dimension $\rho+3$; its normal
+dimension in the Bridgeland central-charge target is $\rho+1$.
 
 \begin{theorem}[Three independent constructions of the global Bridgeland dictionary]
 \label{thm:cwc-global-dictionary-crossverif}
@@ -2238,9 +2217,8 @@ independent constructions:
  determinant, van der Geer 1988 \emph{Hilbert Modular Surfaces}
  Chapter~I Theorem~1.2; Gritsenko--Nikulin 1998 Proposition~2.1).
  The Bridgeland wall-crossing of $\mathbf{H}_{\Delta_5}$-module
- stratification at codimension $\le 3$ in
- $\Stab^\dagger/\Gamma$ corresponds under $\iota$ to the
- Humbert bi-crossing
+ stratification in the discriminant range $D<5$ corresponds under
+ $\iota$ to the Humbert bi-crossing
  $\mathcal{H}_{\le 3}=H_1\cup H_3\cup H_4\subset\overline{\mathcal{A}_2}$,
  and the bijection is witnessed by:
  \begin{enumerate}[label=\textup{(\alph*)}]
@@ -2264,11 +2242,12 @@ independent constructions:
  (Theorem~\ref{thm:cwc-global-dictionary}(iii) supra, second
  Humbert component).
  \end{enumerate}
- Codimensions match: each $H_n\subset\overline{\mathcal{A}_2}$ is a
- divisor (codimension-$1$ Siegel-modular locus), and
+ The geometric codimension is independent of the Humbert discriminant
+ label: each $H_n\subset\overline{\mathcal{A}_2}$ is a divisor
+ (codimension-$1$ Siegel-modular locus), and
  $\dim_\mathbb{C}\overline{\mathcal{A}_2}=3$, so
  $\dim\mathcal{H}_{\le 3}=2$ and the bi-crossing is
- Cartier-effectively of codimension $\le 3$. Cross-check: this
+ Cartier-effectively built from at most three divisor components. Cross-check: this
  matches the universal genus-$2$ truncation
  $k_{\max}(2)=3$ exactly.
 \item \textbf{Oberdieck--Pandharipande / Oberdieck--Pixton reduced DT refinement.} The
@@ -2324,50 +2303,39 @@ independent constructions:
  $\overline{\mathcal{A}_2}\setminus\mathcal{H}_{\le 3}$ by
  Theorem~\ref{thm:cwc-global-dictionary} and extend to
  $\mathcal{H}_{\le 3}$ by the three-Humbert bijection of (P1).
-\item \textbf{Non-factorising class-$\mathcal{S}$ mixed-charge sector at
- codimension $22$.} The K\"unneth-factorising subvariety
- $\mathrm{Stab}^\Phi=\mathrm{Stab}^\dagger(K3)\times\mathrm{Stab}^\dagger(E)\subset
- \mathrm{Stab}^\dagger(K3\times E)$ has codimension-$22$ complement
- $\mathrm{Stab}^{\mathrm{mix}}$ equal to the transcendental-lattice
- fibre of rank $\mathrm{rk}\,T_{K3}=22$ at Picard rank $\rho=1$
- (Huybrechts 2016 \emph{Lectures on K3 Surfaces} Chapter~3
- Proposition~4.1; generic-Picard hypothesis). On
- $\mathrm{Stab}^{\mathrm{mix}}$, the Fourier--Mukai kernel does not
- split as $\mathcal{K}_{K3}\boxtimes\mathcal{K}_E$, and the
- corresponding $R$-matrix does not factorise as
- $R^{K3}\otimes R^E$; it is the \emph{class-$\mathcal{S}$
- mixed-charge $R$-matrix} of
- Theorem~\ref{thm:R-sieg-fourth-class} of
- Chapter~\ref{ch:k3-chiral-bialgebra-platonic} (the
- fourth-class $R$-matrix occupying the generic interior of
- $\overline{\mathcal{A}_2}$). The codimension-$22$ statement is
- obtained by three independent computations:
+\item \textbf{Algebraic non-factorising central-charge sector.} Let
+ $S$ have Picard rank $\rho$. The K\"unneth-factorising central charges
+ are the decomposable tensors $Z_S\otimes Z_E$ in
+ $K_{\mathrm{num}}(S)^\vee_\mathbb{C}\otimes
+ K_{\mathrm{num}}(E)^\vee_\mathbb{C}$. At a smooth decomposable point
+ the normal space is
+ \[
+  \frac{K_{\mathrm{num}}(S)^\vee_\mathbb{C}}{\mathbb{C}Z_S}
+  \otimes
+  \frac{K_{\mathrm{num}}(E)^\vee_\mathbb{C}}{\mathbb{C}Z_E},
+ \]
+ of dimension $\rho+1$. A non-factorising class-$\mathcal{S}$ $R$-matrix
+ can be attached to these normal directions only after the conditional
+ CY$_3$ stability and chain-level comparison data are fixed; it is not
+ the rank-$22$ K3 transcendental lattice. The corrected codimension is
+ obtained by three checks:
  \begin{enumerate}[label=\textup{(\alph*)}]
- \item Hodge-theoretic: $h^{2,0}(K3)\oplus h^{0,2}(K3)=1+1=2$ and
- $h^{1,1}(K3)=20$, giving $\mathrm{rk}\,T_{K3}=h^{2,0}+h^{1,1}+h^{0,2}-\rho
- =2+20+\rho-\rho=22$ at $\rho=1$ (Huybrechts 2016 Chapter~1
- Theorem~1.1);
- \item Mukai-lattice: $\widetilde{H}(K3,\mathbb{Z})=\mathbb{Z}^{4,20}$
- has signature $(4,20)$; the algebraic sublattice has rank
- $2+\rho$, so the transcendental complement has rank
- $24-(2+\rho)=22-\rho=21$ at $\rho=1$ plus the extra $2$-shift
- from the algebraic-transcendental orthogonality, giving total
- codimension $22$
- in the product Mukai lattice
- $\widetilde{H}(K3)\oplus \widetilde{H}(E)=\mathbb{Z}^{4,20}\oplus\mathbb{Z}^{1,1}$
- (Mukai 1984 \emph{Invent.\ Math.}~77 Theorem~2.2);
- \item DT-generating-function: the Oberdieck--Pandharipande reduced
- stable-pair/GW source with the OP normalisation
- $Z^{\mathrm{OP/DT}}=-4096\Delta_5^{-2}$ has support in the degenerate
- Jacobi--Fourier expansion of codimension-$22$ depth,
- specifically the doubled $n=22$ coefficient $2f(22\cdot 4)$ of
- $\phi_{0,1}$ controls the leading mixed-charge correction, while
- $f(22\cdot4)$ remains the primitive BKM multiplicity
- (Oberdieck--Pandharipande 2016 Section~5 degenerate-fibre
- computation).
+ \item Algebraic K3 numerical theory gives
+ $K_{\mathrm{num}}(S)_\mathbb{Q}\simeq
+ H^0(S,\mathbb{Q})\oplus\NS(S)_\mathbb{Q}\oplus H^4(S,\mathbb{Q})$,
+ hence rank $\rho+2$.
+ \item The elliptic factor contributes rank $2$, and the Segre tangent
+ at $Z_S\otimes Z_E$ is
+ $Z_S\otimes K_{\mathrm{num}}(E)^\vee_\mathbb{C}
+ +K_{\mathrm{num}}(S)^\vee_\mathbb{C}\otimes Z_E$.
+ The quotient has dimension $(\rho+2-1)(2-1)=\rho+1$.
+ \item The topological completion adds
+ $T(S)_\mathbb{Q}\otimes H^{\mathrm{even}}(E,\mathbb{Q})$, of rank
+ $2(22-\rho)$; this proves that the rank-$48$ Mukai count lies outside
+ Bridgeland numerical stability.
  \end{enumerate}
- All three computations give codimension $22$ for the non-factorising
- sector.
+ Thus the algebraic non-factorising central-charge sector has normal
+ dimension $\rho+1$.
 \end{enumerate}
 \end{theorem}
 
@@ -2383,9 +2351,9 @@ polarisation of $K3$). Each $H_n$ is a divisor in
 $\overline{\mathcal{A}_2}$
 (van der Geer 1988 Chapter~I Theorem~1.2). The Bayer--Macr\`i--Igusa
 map $\iota$ of Remark~\ref{rem:cwc-iota-map} sends each Bridgeland
-wall of codimension $n$ in $\Stab^\dagger/\Gamma$ to the Humbert
-divisor $H_n$ precisely when $n\in\{1,3,4\}$ (admissible), and sends
-all other walls to the Koszul-locus interior; this is the K3-avatar of
+wall carrying admissible discriminant label $n$ to the Humbert
+divisor $H_n$ precisely when $n\in\{1,3,4\}$, and sends
+non-admissible labels to the Koszul-locus interior; this is the K3-avatar of
 the Chern character computation in Bayer--Macr\`i 2014 Theorem~1.1
 combined with the $\mathrm{Sp}_4(\mathbb{Z})$-compatibility of
 Igusa 1964 Theorem~3.
@@ -2405,18 +2373,17 @@ $\overline{\mathcal{A}_2}\setminus\mathcal{H}_{\le 3}$ is immediate
 from Theorem~\ref{thm:cwc-global-dictionary}; the extension to the
 Humbert bi-crossing $\mathcal{H}_{\le 3}$ is by (P1).
 
-Path (P3): (a) Hodge decomposition of $H^2(K3,\mathbb{Z})$ is
-Huybrechts 2016 Chapter~1 Theorem~1.1, giving
-$\mathrm{rk}\,T_{K3}=22$ at generic Picard rank. (b) Mukai pairing
-on $\widetilde{H}(K3)=H^0\oplus H^2\oplus H^4$ with Mukai
-lattice of signature $(4,20)$ and algebraic sublattice of rank
-$2+\rho$ is Mukai 1984 Theorem~2.2; the codimension-$22$ count
-arises from the $\widetilde{H}(K3)\oplus\widetilde{H}(E)$ splitting.
-(c) The Oberdieck--Pandharipande degenerate-fibre computation
-(Section~5 of arXiv:1411.1514) shows the leading non-factorising
-correction of the reduced DT partition function occurs at
-$n=22$-Fourier depth. All three computations give the same
-codimension $22$.
+Path (P3): Huybrechts' K3 lattice decomposition gives
+$H^2(S,\mathbb{Z})=\NS(S)\oplus T(S)$ up to finite index, with
+$\rk T(S)=22-\rho$. Mukai's algebraic numerical lattice for
+$D^b\Coh(S)$ is $H^0\oplus\NS(S)\oplus H^4$, of rank $\rho+2$.
+Tensoring with the rank-$2$ elliptic numerical lattice gives the
+Bridgeland central-charge target of dimension $2(\rho+2)$. The
+decomposable product central charges are the Segre cone, and the
+standard tangent calculation gives normal dimension $\rho+1$. The
+Oberdieck--Pandharipande Fourier coefficients remain DT and BKM
+period data; their Fourier depth is not a codimension in
+$K_{\mathrm{num}}(S\times E)$.
 \end{proof}
 
 \begin{remark}[Humbert divisors and Bridgeland shadows]
@@ -2432,8 +2399,9 @@ $H_1\cup H_4$ as the classically paramodular pair on
 $\overline{\mathcal A_2}$, and
 Gritsenko--Nikulin 1998 Proposition~2.1 adds $H_3$ as the third
 admissible discriminant. The three Humbert divisors
-$H_1,H_3,H_4$ jointly cut out the zero-dimensional CM locus on
-$\overline{\mathcal A_2}$ of dimension $3$. The Bridgeland
+$H_1,H_3,H_4$ are divisors on the three-dimensional stack
+$\overline{\mathcal A_2}$; their transverse triple intersection is a
+zero-dimensional CM locus. The Bridgeland
 stratification and the Humbert stratification agree because the
 Bayer--Macr\`i--Igusa map $\iota$ of
 Remark~\ref{rem:cwc-iota-map} is an isomorphism onto its image
@@ -2448,15 +2416,17 @@ standing hypotheses of
 Remark~\ref{rem:cwc-scope} together with:
 \begin{enumerate}[label=\textup{(\alph*)}]
 \item the genus-$2$ octachotomy closure is used at the chain-level
- ambient tower level, giving closure at codimension $3$ on
+ ambient tower level, giving closure under three divisor components on
  $\overline{\mathcal A_2}$ with the
  three admissible Humbert divisors $H_1,H_3,H_4$;
 \item Oberdieck--Pandharipande 2016 Theorem~1 for the reduced DT
  partition function of $K3\times E$ supplies the DT input;
-\item Picard rank $\rho=1$ is the generic-K3 hypothesis in which
- the codimension-$22$ transcendental-lattice count is sharp; at
- higher Picard rank the codimension drops to $22-\rho+1$,
- modifying the mixed-charge sector dimension correspondingly.
+\item Picard rank $\rho$ is retained in the Bridgeland calculation:
+ the algebraic normal dimension is $\rho+1$, so the generic projective
+ case $\rho=1$ has normal dimension $2$. The rank-$22$ middle
+ cohomology and the rank-$(22-\rho)$ transcendental lattice belong to
+ the topological period completion, not to the codimension of the
+ numerical stability target.
 \end{enumerate}
 Beyond the $g=2$ Bridgeland locus, the expected target is the
 $\overline{\mathcal A_3}$ Noether--Lefschetz tower: the octachotomy
@@ -2639,12 +2609,12 @@ At a joint where walls $\mathcal{W}(\gamma_i, \gamma_j)$ meet (five rays in gene
 
 \begin{remark}[Scattering diagram as tropical \texorpdfstring{$L_\infty$}{L-inf} data]
 \label{rem:phys-scattering-tropical}
-A Kontsevich--Soibelman scattering diagram is a combinatorial object: a collection of walls $\mathfrak{d} = \{(\mathfrak{d}_i, f_{\mathfrak{d}_i})\}$ in $\Gamma_\mathbb{R}$ carrying attached Lie algebra elements, subject to the consistency (trivial monodromy) condition. This condition is \emph{exactly} the MC equation $D\Theta + \frac{1}{2}[\Theta, \Theta] = 0$ restricted to the tropical limit of the charge lattice: the ``walls'' are the tropical supports of the $L_\infty$-brackets, and the attached Lie algebra elements are the degree-graded components $\Theta^{(r)}_A$. Consistency = MC; inconsistency = nontrivial holonomy = MC obstruction. This is the chain-level explanation for why scattering diagrams in mirror symmetry (Gross--Siebert programme) are governed by MC equations on tropical dgLas.
+A Kontsevich--Soibelman scattering diagram is a combinatorial object: a collection of walls $\mathfrak{d} = \{(\mathfrak{d}_i, f_{\mathfrak{d}_i})\}$ in $\Gamma_\mathbb{R}$ carrying attached Lie algebra elements, subject to the consistency (trivial monodromy) condition. This condition is \emph{exactly} the MC equation $D\Theta + \frac{1}{2}[\Theta, \Theta] = 0$ restricted to the tropical limit of the charge lattice: the ``walls'' are the tropical supports of the $L_\infty$-brackets, and the attached Lie algebra elements are the degree-graded components $\Theta^{(r)}_A$. Consistency = MC; inconsistency = nontrivial holonomy = MC obstruction. This is the chain-level explanation for why scattering diagrams in mirror symmetry (Gross--Siebert scattering theory) are governed by MC equations on tropical dgLas.
 \end{remark}
 
-\begin{remark}[Miki \texorpdfstring{$\mathfrak{S}_3$}{S-3}-triality acts on \texorpdfstring{$\mathrm{CoHA}(\mathbb{C}^3) = Y^+(\widehat{\mathfrak{gl}}_1)$}{CoHA(C-3) = Y-+(widehatgl-1)}, not on \texorpdfstring{$\mathcal{W}_{1+\infty}$}{W-1+inf}]
+\begin{remark}[Parameter \texorpdfstring{$\mathfrak{S}_3$}{S-3} on the positive half and Miki triality after doubling]
 \label{rem:miki-triality-on-coha}
-The Calabi--Yau condition $\epsilon_1 + \epsilon_2 + \epsilon_3 = 0$ cuts the Calabi--Yau subtorus $T_{\mathrm{CY}} \subset (\mathbb{C}^\times)^3$ out of the torus permuting the three coordinate axes of $\mathbb{C}^3$, and the symmetric group $\mathfrak{S}_3$ descends to the Calabi--Yau base. The Schiffmann--Vasserot cohomological Hall algebra $\mathrm{CoHA}(\mathbb{C}^3) = Y^+(\widehat{\mathfrak{gl}}_1)$ (positive half of the affine Yangian) carries an $\mathfrak{S}_3$-action by $\epsilon$-permutation whose shuffle kernel $f(x_1, x_2, x_3) = \prod_{i, j}(x_i - x_j + \epsilon_1)/(x_i - x_j)$ is symmetric in $(\epsilon_1, \epsilon_2, \epsilon_3)$. Miki's 2007 automorphism on the one-parameter family $\mathcal{W}_{1+\infty}[\lambda]$ (Proch\'azka--Rap\v{c}\'ak 2018) is the image of this $\mathfrak{S}_3$ under the Gaiotto--Rap\v{c}\'ak evaluation
+The Calabi--Yau condition $\epsilon_1 + \epsilon_2 + \epsilon_3 = 0$ cuts the Calabi--Yau subtorus $T_{\mathrm{CY}} \subset (\mathbb{C}^\times)^3$ out of the torus permuting the three coordinate axes of $\mathbb{C}^3$, and the symmetric group $\mathfrak{S}_3$ descends to the Calabi--Yau base. The Schiffmann--Vasserot cohomological Hall algebra $\mathrm{CoHA}(\mathbb{C}^3) = Y^+(\widehat{\mathfrak{gl}}_1)$ (positive half of the affine Yangian) carries the parameter $\mathfrak{S}_3$ by $\epsilon$-permutation whose shuffle kernel is symmetric in $(\epsilon_1, \epsilon_2, \epsilon_3)$. Miki's automorphism is a statement about the doubled algebra and its $\mathcal{W}_{1+\infty}$ evaluation, not about the positive half alone. Under the Gaiotto--Rap\v{c}\'ak evaluation
 \[
  \mathrm{ev}_\lambda \colon Y(\widehat{\mathfrak{gl}}_1) \;\longrightarrow\; \mathcal{W}_{1+\infty}[\lambda],
 \]
@@ -2655,7 +2625,7 @@ surjective with $\lambda$-dependent kernel. The evaluation chain
  \;\xrightarrow{\;\mathrm{ev}_\lambda\;}\;
  \mathrm{End}\bigl(\mathcal{W}_{1+\infty}[\lambda]\text{-vacuum}\bigr)
 \]
-exhibits $\mathcal{W}_{1+\infty}[\lambda]$ as the evaluation image of the full Drinfeld-doubled Yangian, not as an isomorphic copy: the triality lifts to the CoHA via the positive half, and the identification $\mathrm{CoHA}(\mathbb{C}^3) = Y^+ \neq \mathcal{W}_{1+\infty}$ is preserved, with $\mathfrak{S}_3$ acting compatibly on the four layers $\mathrm{CoHA}(\mathbb{C}^3) = Y^+ \subset Y = Y^+ \otimes Y^0 \otimes Y^- \twoheadrightarrow \mathcal{W}_{1+\infty}[\lambda]$ via $\epsilon_i \leftrightarrow \lambda_i$ permutation. For generic CY$_3$ targets, the plane-partition triality of pit asymptotes on $\mathrm{Hilb}^n(\mathbb{C}^3)$ is the cohomological-Hall-algebra shadow of Miki's $\mathcal{W}$-algebra automorphism.
+exhibits $\mathcal{W}_{1+\infty}[\lambda]$ as the evaluation image of the full Drinfeld-doubled Yangian, not as an isomorphic copy. The positive half sees the parameter permutation; Miki triality belongs to \(Y=Y^+\otimes Y^0\otimes Y^-\) and to its \(\mathcal W_{1+\infty}\)-evaluation. No generic compact CY$_3$ target has the plane-partition pit-asymptote triality of \(\Hilb^n(\mathbb C^3)\).
 \end{remark}
 
 % ========================================================================

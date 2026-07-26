@@ -5,12 +5,21 @@ Verifies:
 1. The lift of phi_{0,1} produces (1/64)*Delta_5 (weight 5, ratio = -1)
 2. The lift of the constant form phi=12 produces an eta-product (weight 6)
 3. The lift of 2*phi_{0,1} produces the SQUARE of the lift of phi_{0,1}
-4. Weight computation: c(0)/2
+4. Weight identity wt = c(0)/2 via TWO routes on the CHL ladder:
+   the frame-shape half-sum route (independent of Fourier data) against
+   the Jacobi-side constant term.  At N = 1 both sides are computed
+   in-repo (genuine two-path independence); at N in {2, 3, 4, 6} the
+   Fourier side is a recorded literature constant, so the comparison is
+   a consistency check of the frame-shape computation, not a two-sided
+   computation.  borcherds_lift_weight itself is definitional (c(0)/2
+   by fiat) and is never tested against its own definition.
 5. Structural properties: H_2 validation, convergence, sign convention
 6. Reverse engineering analysis for M_2(Gamma_2, nu_4)
 
 Numerical agreements checked to at least 10 digits where convergence permits.
 """
+
+from fractions import Fraction
 
 import numpy as np
 import pytest
@@ -30,6 +39,12 @@ from compute.lib.borcherds_lift import (
     phi01_numerical,
     _even_theta_characteristics,
     KNOWN_BORCHERDS_LIFTS,
+    CHL_FRAME_SHAPES,
+    CHL_SQUARE_ROOT_SEED_C0,
+    frame_shape_degree,
+    eta_product_weight,
+    jatkar_sen_dyon_weight,
+    chl_square_root_weight,
 )
 
 
@@ -90,7 +105,16 @@ class TestPhi01CTable:
 # ---------------------------------------------------------------------------
 
 class TestLiftWeight:
-    """Test the weight formula: weight = c(0)/2."""
+    """
+    Smoke tests of borcherds_lift_weight's definitional behaviour.
+
+    borcherds_lift_weight returns c(0)/2 BY DEFINITION, so nothing in
+    this class verifies the Borcherds weight identity itself -- these
+    tests only pin the function's input/output contract (table lookup,
+    default 0, halving).  The mathematical content of wt = c(0)/2 is
+    tested non-circularly in TestFrameShapeWeight below, via the
+    frame-shape half-sum route.
+    """
 
     def test_phi01_weight(self):
         c = phi01_c_table(10)
@@ -117,6 +141,123 @@ class TestLiftWeight:
         assert borcherds_lift_weight({0: 24}) == 12.0
         # VERIFIED [DC] conformal weight [LT] Borcherds product theory
         assert borcherds_lift_weight({0: 2, -1: 5}) == 1.0
+
+
+# ---------------------------------------------------------------------------
+# Test: Frame-shape route to the lift weight (non-circular)
+# ---------------------------------------------------------------------------
+
+class TestFrameShapeWeight:
+    """
+    The weight identity kappa_BKM(Phi_N) = c_N(0)/2 on the CHL ladder
+    N in {1, 2, 3, 4, 6}, tested via the frame-shape half-sum route.
+
+    chl_square_root_weight(N) computes the weight of the
+    Govindarajan-Krishna square root Delta_{k/2} purely from the M24
+    frame shape of the Z/N orbifold generator (Jatkar-Sen
+    hep-th/0510147; Govindarajan-Krishna arXiv:0907.1410):
+    wt = ((1/2) sum_i r_i - 2)/2.  No Fourier coefficient enters.
+
+    Independence vs consistency, stated honestly:
+    - N = 1: the seed constant c_1(0) = 10 is computed exactly in-repo
+      (phi01_fourier.py), so frame-shape route vs Fourier route is a
+      genuine TWO-PATH INDEPENDENT verification of wt = c(0)/2.
+    - N in {2, 3, 4, 6}: the seed constants (6, 4, 3, 2) are recorded
+      literature values (no in-repo twisted-seed Fourier computation
+      exists), so the comparison is a CONSISTENCY check of the
+      frame-shape computation against the recorded constants.
+
+    Manuscript anchors: sec_7_lattice_automorphic.tex,
+    phi_universal_trace_platonic.tex (square-root ladder
+    (5, 3, 2, 3/2, 1); never mixed with the Mathieu-twined ladder
+    (10, 4, 3, 2, 1) or the geometric-orbifold family in
+    kappa_bkm_adversarial.py).
+    """
+
+    CHL_LADDER = (1, 2, 3, 4, 6)
+
+    EXPECTED_KAPPA = {
+        1: Fraction(5),
+        2: Fraction(3),
+        3: Fraction(2),
+        4: Fraction(3, 2),
+        6: Fraction(1),
+    }
+
+    def test_frame_shapes_have_degree_24(self):
+        """Each CHL frame shape acts on the 24-dim lattice rep."""
+        for N in self.CHL_LADDER:
+            # VERIFIED [DC] lattice degree [LT] Jatkar-Sen hep-th/0510147
+            assert frame_shape_degree(CHL_FRAME_SHAPES[N]) == 24
+
+    def test_eta_product_weights(self):
+        """wt(eta_rho) = (1/2) sum r_i = (12, 8, 6, 5, 4)."""
+        expected = {1: 12, 2: 8, 3: 6, 4: 5, 6: 4}
+        for N in self.CHL_LADDER:
+            # VERIFIED [DC] eta-product weight [LT] standard eta-quotient theory
+            assert eta_product_weight(CHL_FRAME_SHAPES[N]) == expected[N]
+
+    def test_jatkar_sen_dyon_weights(self):
+        """Phi_k weights k(N) = (1/2) sum r_i - 2 = (10, 6, 4, 3, 2)."""
+        expected = {1: 10, 2: 6, 3: 4, 4: 3, 6: 2}
+        for N in self.CHL_LADDER:
+            # VERIFIED [DC] dyon-form weight [LT] Jatkar-Sen hep-th/0510147
+            assert jatkar_sen_dyon_weight(N) == expected[N]
+
+    def test_square_root_weights(self):
+        """Delta_{k/2} weights = kappa_BKM = (5, 3, 2, 3/2, 1)."""
+        for N in self.CHL_LADDER:
+            # VERIFIED [DC] frame-shape half-sum [LT] Govindarajan-Krishna 0907.1410
+            assert chl_square_root_weight(N) == self.EXPECTED_KAPPA[N]
+
+    def test_N1_two_path_independence(self):
+        """
+        N = 1: genuine two-path verification of wt = c(0)/2.
+
+        Path A (frame shape): 1^24 -> ((24/2) - 2)/2 = 5, no Fourier data.
+        Path B (Fourier): constant term of phi_{0,1} computed exactly by
+        phi01_fourier.py, halved by the Borcherds weight formula.
+        """
+        wt_frame = chl_square_root_weight(1)
+        c_table = phi01_c_table(10)
+        wt_fourier = borcherds_lift_weight(c_table)
+        # VERIFIED [DC] two independent computation paths agree
+        assert wt_frame == Fraction(5)
+        assert wt_fourier == 5.0
+        assert float(wt_frame) == wt_fourier
+
+    def test_weight_identity_across_chl_ladder(self):
+        """
+        wt(Delta_{k/2}) == c_N(0)/2 for N in {1, 2, 3, 4, 6}.
+
+        CONSISTENCY at N >= 2 (recorded literature constants), genuine
+        independence only at N = 1 (see test_N1_two_path_independence).
+        """
+        for N in self.CHL_LADDER:
+            wt_frame = chl_square_root_weight(N)
+            c0 = CHL_SQUARE_ROOT_SEED_C0[N]
+            # VERIFIED [DC] frame-shape route vs recorded c_N(0)
+            # [LT] Jatkar-Sen / Govindarajan-Krishna
+            assert wt_frame == Fraction(c0, 2), (
+                f"N={N}: frame-shape weight {wt_frame} != c_N(0)/2 = {c0}/2"
+            )
+            assert wt_frame == self.EXPECTED_KAPPA[N]
+
+    def test_seed_c0_N1_matches_exact_fourier(self):
+        """The recorded c_1(0) = 10 equals the exact in-repo computation."""
+        c_table = phi01_c_table(10)
+        # VERIFIED [DC] exact arithmetic (phi01_fourier.py)
+        assert CHL_SQUARE_ROOT_SEED_C0[1] == c_table[0] == 10
+
+    def test_fake_monster_eta24_no_shift(self):
+        """
+        Leech/II_{25,1}: the Phi_12 weight equals the eta-product weight
+        of 1^24 directly (12 = 24/2), with no "-2" shift -- the shift is
+        specific to the Jatkar-Sen K3 x E normalisation.
+        """
+        # VERIFIED [DC] eta-product weight [LT] Borcherds 1995
+        assert eta_product_weight({1: 24}) == 12
+        assert KNOWN_BORCHERDS_LIFTS['Phi_12_fake_monster']['weight'] == 12
 
 
 # ---------------------------------------------------------------------------

@@ -83,7 +83,7 @@ MATHEMATICAL CONTENT
 CONVENTIONS
 ===========
   - Cohomological grading (|d| = +1).
-  - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (AP45).
+  - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (desuspension convention).
   - Exact arithmetic via fractions.Fraction.
   - CY dimension d = 3 throughout this module.
   - Floer cohomology graded by Maslov index (= cohomological degree).

@@ -684,21 +684,18 @@ class TestCentralCharge:
     """Test central charges at critical and generic levels."""
 
     def test_critical_charge_sl2(self):
-        """c_{eff}(sl_2, k=-2) = -dim(sl_2) = -3."""
+        """Sugawara central charge has no critical value for sl_2."""
         c = critical_level_central_charge('A_1')
-        # VERIFIED [DC] structural property [LT] chiral algebra theory
-        assert c == Fraction(-3, 1)
+        assert c is None
 
     def test_critical_charge_sl3(self):
-        """c_{eff}(sl_3, k=-3) = -dim(sl_3) = -8."""
+        """Sugawara central charge has no critical value for sl_3."""
         c = critical_level_central_charge('A_2')
-        # VERIFIED [DC] structural property [LT] chiral algebra theory
-        assert c == Fraction(-8, 1)
+        assert c is None
 
     def test_critical_charge_e8(self):
         c = critical_level_central_charge('E_8')
-        # VERIFIED [DC] structural property [LT] chiral algebra theory
-        assert c == Fraction(-248, 1)
+        assert c is None
 
     def test_generic_charge_sl2_k1(self):
         """c(sl_2, k=1) = 1*3/(1+2) = 1."""

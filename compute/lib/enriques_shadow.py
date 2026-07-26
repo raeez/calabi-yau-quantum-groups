@@ -365,8 +365,9 @@ def enriques_elliptic_genus_table(max_n: int = 10) -> Dict[Tuple[int, int], Frac
 def verify_enriques_genus_integrality(max_n: int = 10) -> bool:
     """Verify that all Enriques elliptic genus coefficients are integers.
 
-    This follows from the K3 coefficients being even (phi_{0,1}(tau,0) = 12,
-    and all c(D) for D >= -1 are even: c(-1)=2, c(0)=20, c(3)=-64, etc.).
+    This follows in the doubled K3 elliptic-genus convention, where
+    Z_ell(K3;tau,0)=24 and the coefficients are even:
+    c(-1)=2, c(0)=20, c(3)=-128, etc.
 
     Actually: NOT all K3 coefficients are even. c(0) = 20 (even), c(-1) = 2 (even),
     but we need to check systematically.

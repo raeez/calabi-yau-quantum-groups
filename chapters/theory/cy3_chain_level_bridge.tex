@@ -885,6 +885,7 @@ proper pushforward, lci pullback, and the chosen completions.
 
 \begin{lemma}[Relative Fourier--BV Rees identification]
 \label{lem:relative-fourier-bv-rees-identification}
+\ClaimStatusProvedHere
 Let $V$ be a smooth affine complex vector space of dimension $n$ with a
 $G$-invariant algebraic volume form $\omega$, and let
 $W\in\Gamma(V,\mathcal O_V)^G\otimes\Omega^\bullet(\Delta^p)$. Put
@@ -1686,7 +1687,7 @@ $4$ on $\mathfrak g$: the quartic Casimir datum in the Costello--Li
 local Lie-algebra cohomology
 description~\cite{CostelloLi2016, CostelloLi2020}. The cubic slot
 governs the complex-surface and five-dimensional hCS descendants on a
-separate strand of the family.
+different dimensional component of the family.
 \end{proposition}
 
 \begin{proof}
@@ -2423,10 +2424,8 @@ locally constant abelian shadow makes $d_{\mathrm{coll}}$ and
 $d_{\mathrm{br}}$ invisible and kills the repeated-input sector, so the
 quotient becomes the familiar finite CE model. Before that quotient,
 the repeated-input sector is part of the deformation complex, hence an
-exterior CE engine can be a consistency check but not the controller of
-the chiral deformation problem. The finite witness
-\texttt{compute/lib/ordered\_chiral\_e3\_bar.py} implements exactly this
-ordered-versus-exterior quotient: for the Virasoro generator $T$, the
+exterior CE calculation can be a consistency check but not the controller
+of the chiral deformation problem. For the Virasoro generator $T$, the
 ordered words $(T,T,T)$ and $(T,T,T,T)$ survive and carry the existing
 $L_\infty$ coefficients $l_3(T,T,T)=-2T$ and
 $l_4(T,T,T,T)=\frac{40}{27}T$, while their exterior CE projections
@@ -2628,15 +2627,15 @@ Yang--Baxter obstruction
 \[
  \frac{a}{uv(u-v)}(P_{12}P_{23}-P_{23}P_{12}),
 \]
-so no order-$\hbar^4$ two-loop counterterm can repair the one-loop fish term
-before the one-loop obstruction is removed. The one-loop repair is the
+so no order-$\hbar^4$ two-loop counterterm can cancel the one-loop fish term
+before the one-loop obstruction is removed. The one-loop normalisation is the
 Yang-coupling normalisation
 \[
  R_{\mathrm{tree}}(u;\hbar)+R_{\mathrm{fish}}(u;\hbar)+CT_1(u;\hbar)
  =
  R_{\mathrm{tree}}(u;\hbar+a\hbar^2).
 \]
-After this repair, the raw sunset tensor still has a non-zero
+After this normalisation, the raw sunset tensor still has a non-zero
 linearised order-$\hbar^5$ obstruction. The constructed algebraic
 two-loop YBE counterterm is therefore the projection of the sunset
 tensor to the tangent line of the rational Yang family:
@@ -2649,12 +2648,12 @@ tensor to the tangent line of the rational Yang family:
  Q^{\mathrm{sunset,raw}}_{2,ij},
  \qquad b=A_2\ \textup{by default}.
 \end{equation}
-Equivalently, the repaired order-$\hbar^4$ contribution is
+Equivalently, the renormalised order-$\hbar^4$ contribution is
 $b(P_{ij}-1)/u_{ij}$, which is an infinitesimal change of the Yang
 coupling and hence has zero linearised Yang--Baxter obstruction. For
 $\mathfrak{sl}_2$ the executable exact oracle gives $A_2=506/3$ and
 verifies that the raw $\hbar^5$ obstruction is non-zero while the
-repaired obstruction is zero in the group algebra of $S_3$.
+renormalised obstruction is zero in the group algebra of $S_3$.
 \end{proposition}
 
 \begin{proof}
@@ -2681,12 +2680,9 @@ $Q^{\mathrm{sunset,raw}}_{2,ij}$ has non-zero image, while
 $b(P_{ij}-1)/u_{ij}$ has zero image. Hence
 \eqref{eq:k3-hcs-two-loop-yang-counterterm} is the unique minimal
 YBE-normalising correction modulo the tangent coefficient $b$ and
-central scalar terms. The exact arithmetic is implemented in
-\texttt{compute/lib/k3\_hcs\_6d\_twoloop.py} by
-\texttt{twoloop\_yang\_normalization\_condition}; the regression test
-\texttt{compute/tests/test\_k3\_hcs\_6d\_twoloop.py} checks the
-$\mathfrak{sl}_2$ coefficient and the vanishing of the repaired
-linearised obstruction.
+central scalar terms. The exact arithmetic is the
+\(\mathfrak{sl}_2\) coefficient calculation together with the vanishing
+of the renormalised linearised obstruction.
 \end{proof}
 
 \begin{definition}[Hall--Borcherds bialgebra datum]
@@ -2871,11 +2867,8 @@ The ordered deformation controller attached to this datum is
  \mathfrak L_{\cC}^{\widehat\otimes_\pi n}[n],
 \]
 with differential $d_{\FM}+d_{\dbar}+d_{\mathfrak l}
-+d_{\mathrm{coll}}+d_{\mathrm{br}}$. Its finite exact truncations are
-computed by
-\texttt{compute/lib/ordered\_chiral\_e3\_bar.py}; the aggregate witness
-for the seven rigidifications is
-\texttt{compute/lib/cy3\_platonic\_bridge.py}.
++d_{\mathrm{coll}}+d_{\mathrm{br}}$. Its finite exact truncations give
+the seven rigidifications used below.
 \end{construction}
 
 \begin{theorem}[Exact witnessed packages realise the seven constructions]
@@ -2968,10 +2961,9 @@ X_5\textup{ curved witness},\quad
 \textup{holography},\quad
 CT_2
 \]
-are represented by finite witness data in
-\texttt{compute/lib/cy3\_platonic\_bridge.py}. This layer proves that
+are represented by finite witness data. This layer proves that
 no item remains an untyped slogan: every item is represented by a
-typed object, a list of structure maps, and a testable obstruction
+typed object, a list of structure maps, and an explicit obstruction
 tuple. It does not assert that the raw
 $B_{\mathrm{term}}^{(2)}$ commutator vanishes, nor that a finite witness
 constructs compact Hall/CoHA, PBW, or no-extra-relations data.
@@ -3005,9 +2997,8 @@ existence theorem.
 \end{proposition}
 
 \begin{proof}
-The seven gates in (i) are precisely the seven fields of the
-\texttt{FrontierRealisationPackage}. Its test suite checks: full
-simplex coverage on the DWR/Ran nerve; finite representatives for the
+The seven gates in (i) are precisely the seven finite algebraic data:
+full simplex coverage on the DWR/Ran nerve; finite representatives for the
 five obstruction components and their named nullhomotopies; non-formal
 strictification only through the corrected TCFT or filtered
 $\HH^{-2}$ routes of
@@ -3067,7 +3058,7 @@ pair
  [\mathrm{ob}_Z]\in H^2(\mathfrak g_{CYC}),
 \]
 where the first class measures degeneracy after completion and the
-second measures failure of derived-centre continuity. The repaired
+second measures failure of derived-centre continuity. The required
 datum is a compact positive half, compact negative half, non-degenerate
 Hopf pairing after radical quotient, completed topology, and continuous
 centre transport.
@@ -3132,7 +3123,7 @@ symmetric-monoidal protected-trace coherence complex
 The physical bridge and the finite protected-trace normal form prove no
 pure functor by themselves. The first obstruction is the product,
 coproduct, orientation, wall-crossing, and Drinfeld-centre
-half-braiding coherence class for protected traces. The repaired datum
+half-braiding coherence class for protected traces. The required datum
 is a product-, coproduct-, and orientation-coherent functor from
 oriented BPS factorisation homology to the completed chiral/BKM trace
 category, preserving Hall products, Hall coproducts, wall-crossing, and
@@ -3154,7 +3145,7 @@ obstruction is
  [\,\rho_{\mathrm{YBE}}(CT_2^{\mathrm{Feyn/RG}})
  - CT_2^{\mathrm{Yang}}\,]\in H^1(\mathfrak g_{\hCS}^{(2)}).
 \]
-The sunset-only repair leaves this class non-zero. The global theorem
+The sunset-only counterterm leaves this class non-zero. The global theorem
 requires a Feynman/RG derivation of the same $CT_2^{\mathrm{Yang}}$
 already forced by the algebraic oracle.
 \end{enumerate}
@@ -3423,7 +3414,7 @@ with the homology operad.
 
 \begin{proposition}[The \texorpdfstring{$E_3$}{E3} lift is Stage-\texorpdfstring{$1$}{1} data]
 \label{prop:cy3-e3-structure-hochschild}
-\noindent\emph{Hypotheses.} Work on the verified Stage-$1$ CY$_3$
+\noindent\emph{Hypotheses.} Work on the constructed Stage-$1$ CY$_3$
 locus, after fixing the formality point, CY$_3$ chain-level framing, and
 Costello--Li holomorphic witness.
 For a smooth proper cyclic $\Ainf$-category $\cC$ of CY dimension $3$,
@@ -3432,7 +3423,7 @@ give a framed $\Etwo$ / $\BV_\infty$ structure on
 $\HH^\bullet(\cC)$. They do not by themselves produce an $\Ethree$
 structure. An $\Ethree$-algebra structure on the same Hochschild
 cochain complex is the extra Stage-$1$ datum fixed by
-Proposition~\ref{prop:phi-fa-three-step-assembly}: a formality point
+Proposition~\ref{prop:phi-fa-three-arrow-assembly}: a formality point
 $F\in\mathrm{Form}_3(\Q)$ together with the CY$_3$ chain-level
 framing and Costello--Li holomorphic witness. With that datum fixed,
 write the resulting object as
@@ -3452,7 +3443,7 @@ a source of the missing $\Eone$-object. The cyclic Deligne theorem
 supplies the framed $\Etwo$ layer of
 Proposition~\ref{prop:cy3-tmg-bv}; the third direction is the
 configuration-space/formality datum named in
-Proposition~\ref{prop:phi-fa-three-step-assembly}. Willwacher's graph
+Proposition~\ref{prop:phi-fa-three-arrow-assembly}. Willwacher's graph
 complex computation identifies the resulting space of rational
 formality choices with the $\GRT_1(\Q)$-torsor already recorded in
 Chapter~\ref{ch:cy-to-chiral}. The Costello--Li witness transports
@@ -3495,7 +3486,7 @@ Theorem~\ref{thm:phi-two-stage-factorisation}, with the stated formality
 and holomorphic witnesses fixed.
 Let $(\cC,\mu_n,\langle-,-\rangle)$ be a smooth proper cyclic
 $\Ainf$-category of CY dimension $3$ satisfying \textup{(H1)--(H3)} of
-Proposition~\ref{prop:phi-fa-three-step-assembly}. Let $X$ be a smooth
+Proposition~\ref{prop:phi-fa-three-arrow-assembly}. Let $X$ be a smooth
 complex CY$_3$ variety with CY form $\Omega_X\in H^0(X,K_X)$. The
 Stage-$1$ native factorisation algebra
 $\PhiFA_3(\cC)\in\EdHolFA(X)$ of
@@ -3529,13 +3520,13 @@ canonical equality before the datum is fixed.
 \end{theorem}
 
 \begin{proof}
-The three steps of Proposition~\ref{prop:phi-fa-three-step-assembly}
+The three components of Proposition~\ref{prop:phi-fa-three-arrow-assembly}
 match item-by-item:
 \begin{itemize}
 \item[(a)] Kontsevich $E_d$-formality plus Tamarkin
 deformation-quantisation is exactly
 Propositions~\ref{prop:cy3-braces-action}--\ref{prop:cy3-e3-structure-hochschild}
-at $d=3$: braces and cyclicity give the framed $\Etwo$ compatibility,
+at $d=3$: braces and cyclicity give the framed transverse $\Etwo$ compatibility,
 while the chosen formality point $F$ and the CY$_3$ chain-level witness
 give the actual $\Ethree$ lift $\HH^\bullet(\cC)_F$.
 \item[(b)] Costello--Gwilliam locality on the topological space
@@ -3936,9 +3927,11 @@ these coefficients into a CoHA class. The composite
 \bigoplus_{n,\pi}\C\cdot\iota_\pi^*[I_\pi]
 \xrightarrow{\mu_{\CoHA}^\vee}
 \bigoplus_n H^*_T(\Hilb^n(\C^3))
-=\CoHA(\C^3)
+=\mathcal F_{\C^3}^{\mathrm{fr}}
 \]
-is the expected target shape of the missing chart map. The present
+where \(\mathcal F_{\C^3}^{\mathrm{fr}}\) is the framed DT/Fock module
+on which \(\CoHA(\C^3)=Y^+(\widehat{\mathfrak{gl}}_1)\) acts.  This is
+the expected target shape of the missing chart map. The present
 theorem does not prove that this formula is a continuous chain map,
 multiplicative for BV/Hall products, compatible with the renormalised
 differential, or a quasi-isomorphism. Those properties are precisely
@@ -4199,11 +4192,8 @@ the completed filtration. Surjectivity onto the stated subalgebra is
 tautological from generation by the images of the $J_r$, and
 injectivity follows because the source is the corresponding
 shuffle-normal-form quotient, not the unquotiented abstract free tensor
-algebra. The executable
-witness \texttt{compute/lib/c3\_hcs\_hall\_theta.py}, tested by
-\texttt{compute/tests/test\_c3\_hcs\_hall\_theta.py}, records the
-kernel, the two-point localization formula, the zero differential, and
-the filtration bound.
+algebra. The witness consists of the kernel, the two-point localization
+formula, the zero differential, and the filtration bound.
 
 Thus the Maurer--Cartan, differential, multiplicativity, and continuity
 pieces of $o_\theta$ are killed on the projected fixed abelian
@@ -4263,9 +4253,8 @@ $\CoHA(\C^3)=Y^+(\ghat)$, with $\cW_{1+\infty}$ reached only after
 Drinfeld doubling and Fock/evaluation. Equivalently,
 Theorem~\ref{thm:c3-local-bridge-closure-criterion} says that the base
 case closes precisely when the local bridge obstruction vector
-$\mathfrak o_{\C^3}^{\mathrm{br}}$ vanishes. The executable witness
-\texttt{compute/lib/cy3\_bridge\_normal\_form.py} mirrors this gate
-calculus: deleting $o_{\theta}$ keeps only normal-form strength, while
+$\mathfrak o_{\C^3}^{\mathrm{br}}$ vanishes. Deleting \(o_{\theta}\)
+keeps only normal-form strength, while
 adding the chart map is the first strict increase in bridge strength.
 Theorem~\ref{thm:c3-fixed-abelian-chart-map} performs that increase on
 the positive torus-fixed abelian finite-mode chart; it reduces the
@@ -4279,15 +4268,16 @@ Assume the exact local $\C^3$ bridge datum of
 Theorem~\ref{thm:c3-local-bridge-closure-criterion}; equivalently, fix
 $\theta_{\C^3}$ with
 $\mathfrak o_{\C^3}^{\mathrm{br}}=\mathbf 0$. Then
-The Nakajima convolution product
-$\mu_{\CoHA}=p_{2,*}\circ p_1^*$ on $\bigoplus H^*_T(\Hilb^n(\C^3))$
+The Nakajima convolution action
+$\mu_{\mathcal F}=p_{2,*}\circ p_1^*$ on the framed DT/Fock module
+$\bigoplus H^*_T(\Hilb^n(\C^3))$
 and the Feynman-expansion BV bracket
 $\{-,-\}_{\BV}$ on $\Obs_{\hCS}^{q}(\R_t\times\C^2;\ghat)$ are
 intertwined by $\Theta^{\C^3}_{\hCS\to\Hall}$ up to a chain homotopy
 $h=O(\hbar)$ built from the Costello--Li propagator
 $P^\beta_\varepsilon\propto\dbar^{-1}\delta$ on $\R_t\times\C^2$.
 At the tree level $\hbar\to 0$ the homotopy vanishes and
-$\mu_{\CoHA}$ and $\{-,-\}_{\BV}$ coincide strictly; at higher loops
+$\mu_{\mathcal F}$ and $\{-,-\}_{\BV}$ coincide strictly; at higher loops
 $h$ encodes the BV Laplacian counter-terms. The cohomology-level
 identification is strict.
 \end{proposition}
@@ -4372,7 +4362,7 @@ Costello--Yagi~$2018$ one-loop $5$d hCS anomaly vanish identically:
 the kinetic-field class
 $A_{\mathrm{w.f.}}=-C_2/(2\pi)^3$ with quadratic Casimir $C_2=2h^\vee$
 is zero because $h^\vee=0$ for abelian $\ghat$, and the cohomological
-true anomaly $A_{\mathrm{anom}}=d^{abc}d^{abc}/(2\pi)^3$ is zero
+true anomaly $A_{\mathrm{anom}}=d^{abc}d_{abc}/(2\pi)^3$ is zero
 because the structure constants $f^{abc}$ vanish for abelian
 $\ghat$, forcing $d^{abc}=0$.
 \end{proposition}
@@ -4381,7 +4371,7 @@ $\ghat$, forcing $d^{abc}=0$.
 The Costello--Yagi~$2018$ anomaly-splitting theorem
 \textup{(}Theorem~$4.1$\textup{)} attributes the $5$d hCS one-loop
 anomaly to two invariants of the gauge Lie algebra:
-$C_2$ and $d^{abc}d^{abc}$. Both are built from contractions of the
+$C_2$ and $d^{abc}d_{abc}$. Both are built from contractions of the
 structure constants with the Killing form; for abelian $\ghat$, every
 such contraction vanishes. The $A_{\mathrm{w.f.}}$ component is
 scheme-dependent and absorbed by a BV-trivial counter-term even in
@@ -4709,12 +4699,13 @@ Three scope conditions are recorded:
 \item \emph{Abelian gauge is assumed}, with $\ghat=\C\cdot T$
 throughout; the anomaly-vanishing argument of
 Proposition~\ref{prop:r6-chartwise-anomaly-vanish-k3e-inscribed} uses
-$f^{abc}=d^{abc}=0$. For non-abelian ADE simply-laced $\frakg$, the
-identity $\mathrm{tr}(T^a\{T^b,T^c\})=0$ gives $d^{abc}=0$ and
-$A_{\mathrm{anom}}=0$, but $A_{\mathrm{w.f.}}=-C_2/(2\pi)^3$ is
-non-zero; this is scheme-dependent and absorbed by a BV-trivial
-counter-term, so the quasi-isomorphism extends after that
-counter-term choice is fixed.
+$f^{abc}=d^{abc}=0$. For a non-abelian simple $\frakg$, the same
+conclusion requires the invariant-theoretic condition
+$d^{abc}_\frakg=0$; it holds for $A_1, B_n, C_n, D_n, E_6, E_7, E_8,
+F_4, G_2$ and fails for $A_n$, $n\geq2$. Even when it holds,
+$A_{\mathrm{w.f.}}=-C_2/(2\pi)^3$ is non-zero; this is
+scheme-dependent and absorbed by a BV-trivial counter-term, so the
+quasi-isomorphism extends after that counter-term choice is fixed.
 \item \emph{Toric DWR cover assumed} (K3 a Kummer surface). For
 generic K3 without toric structure, the cover is by
 Stein-contractible polydiscs; a comparison would require a
@@ -4730,11 +4721,12 @@ global trivialisation $\Omega_{K3\times E}=\Omega_{K3}\wedge\Omega_E$
 is required. For a twisted K\"ahler deformation of K3 this may fail
 and an additional $\mathbb Z/2$ cocycle appears.
 \end{enumerate}
-For non-simply-laced $\frakg$, the cubic Casimir $d^{abc}$ may not
-vanish and the anomaly gate of
+For $A_n$, $n\geq2$, the cubic Casimir $d^{abc}$ does not vanish and
+the anomaly gate of
 Proposition~\ref{prop:cy3-hcs-quartic-anomaly-slot} activates;
 Theorem~\ref{thm:r6-k3e-local-chart-qiso-inscribed} does not
-apply. The programme scope is simply-laced throughout this chapter.
+apply. The correspondence scope in this chapter is abelian unless the
+vanishing of $d^{abc}$ and the BV counter-term are supplied.
 \end{remark}
 
 \begin{remark}[Seven compatibility equations for

@@ -15,7 +15,8 @@ GROUND TRUTH (from CLAUDE.md, manuscript, and existing engines):
     Shadow class: G, shadow depth: 2
 
   K3 x E BKM (d=3, CONJECTURAL):
-    kappa_ch = 3, kappa_ch^! = 2, K = 5 = kappa_BKM
+    kappa_ch = 3, kappa_BKM = 5 as Borcherds weight characteristic;
+    no Koszul conductor is inferred from kappa_BKM
     Shadow class: M, shadow depth: infinite
 
   C^3 (d=3, partially proved):
@@ -93,7 +94,7 @@ class TestK3Pipeline:
         assert self.pipeline.bulk.kappa_ch == Fraction(2)
 
     def test_k3_bulk_shadow_class_G(self):
-        """K3 lattice VOA is class G (free-field)."""
+        """K3 Mukai/Heisenberg branch is class G (free-field)."""
         assert self.pipeline.bulk.shadow_class == ShadowClass.G
 
     def test_k3_bulk_shadow_depth_2(self):
@@ -243,7 +244,7 @@ class TestK3xEFreeFieldPipeline:
 # =========================================================================
 
 class TestK3xEBKMPipeline:
-    """K3 x E BKM/holographic branch: K = 5 (nonzero conductor)."""
+    """K3 x E BKM/holographic branch: BKM weight is separate from K."""
 
     def setup_method(self):
         self.pipeline = k3xe_bkm_pipeline()
@@ -258,18 +259,18 @@ class TestK3xEBKMPipeline:
         assert self.pipeline.bulk.shadow_depth is None
 
     def test_k3xe_bkm_defect_kappa_ch(self):
-        """kappa_ch(A^!) = 2 on the BKM branch (K=5, kappa=3)."""
-        assert self.pipeline.defect.kappa_ch == Fraction(2)
+        """kappa_BKM does not determine kappa_ch(A^!)."""
+        assert self.pipeline.defect.kappa_ch == Fraction(-3)
 
-    def test_k3xe_bkm_conductor_five(self):
-        """K = 5 = kappa_BKM on the BKM branch."""
-        assert self.pipeline.defect.koszul_conductor == Fraction(5)
+    def test_k3xe_bkm_conductor_not_inferred(self):
+        """K is not inferred from kappa_BKM on the BKM branch."""
+        assert self.pipeline.defect.koszul_conductor is None
 
-    def test_k3xe_bkm_conductor_verified(self):
-        """3 + 2 = 5 verified."""
+    def test_k3xe_bkm_conductor_not_verified_from_weight(self):
+        """The BKM weight is not a conductor verification."""
         result = self.pipeline.verify_conductor()
-        assert result['verified'] is True
-        assert result['kappa_sum'] == Fraction(5)
+        assert result['verified'] is False
+        assert result['koszul_conductor'] is None
 
     def test_k3xe_bkm_kappa_spectrum(self):
         """Full kappa spectrum: ch=3, BKM=5, cat=2, fiber=24."""
@@ -531,7 +532,7 @@ class TestMasterVerification:
     """Run all pipelines and check global consistency."""
 
     def test_all_conductors_verified(self):
-        """All Koszul conductors verified across all standard targets."""
+        """All known Koszul conductors verify across standard targets."""
         results = verify_all_conductors()
         for name, verified in results.items():
             assert verified, f"Conductor verification failed for {name}"
@@ -557,10 +558,11 @@ class TestMasterVerification:
             assert K == Fraction(0), f"{name}: expected K=0, got {K}"
 
     def test_class_M_conductors_positive(self):
-        """Class M targets have K > 0 (when BKM data available)."""
+        """Virasoro has positive K; BKM weight is a separate scalar."""
         results = master_verification()
         k3xe_bkm = results['k3xe_bkm']
-        assert k3xe_bkm['stage_4_conductor']['koszul_conductor'] == Fraction(5)
+        assert k3xe_bkm['stage_4_conductor']['koszul_conductor'] is None
+        assert k3xe_bkm['kappa_spectrum']['kappa_BKM'] == Fraction(5)
 
     def test_virasoro_conductor_13(self):
         """All Virasoro targets have K = 13."""

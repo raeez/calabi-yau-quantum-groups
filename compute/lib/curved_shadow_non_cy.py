@@ -63,7 +63,8 @@ changes fundamentally.
 3. THE CURVED BAR COMPLEX.
 
    For a curved A_infinity algebra with curvature m_0:
-     - The bar complex B(A) = (T^c(s^{-1} A), d_B) has d_B^2 = m_0 * id.
+     - The reduced curved bar complex B(A) = (T^c(s^{-1} \bar A), d_B)
+       has d_B^2 = m_0 * id.
      - B(A) is NOT a dg coalgebra (since d^2 != 0).
      - B(A) is a CURVED dg coalgebra (Positselski).
      - The bar cohomology H^*(B(A)) is ILL-DEFINED in the naive sense.
@@ -140,7 +141,7 @@ changes fundamentally.
 
 CONVENTIONS:
   - Cohomological grading (|d| = +1).
-  - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (AP45).
+  - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (desuspension convention).
   - delta = CY defect = c_1(E) + c_1(K_C) for Tot(E -> C).
   - For P^1: deg(K_{P^1}) = -2. For genus g: deg(K_C) = 2g - 2.
   - m_0 = delta * omega where omega is the Kahler form on C (normalized

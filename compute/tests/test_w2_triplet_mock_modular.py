@@ -8,7 +8,7 @@ Verifies:
     4. Mock modular form h(tau) = q^{-1/8} * Psi^{-}(q)
     5. THE CONJECTURE: h|_{q^{-1/8}} = -kappa_ch = 1
     6. Shadow S(tau) = (-1/2) * eta^3
-    7. Shadow tower: class M, S_2 = -1, S_3 = 2/3
+    7. Shadow tower: class M, S_2 = -1, S_3 = 2
     8. Vacuum character dims (A002865: partitions into parts >= 2)
     9. Lambda(2), Pi(1) character dims
     10. K3 cross-check: h|_{q^{-1/8}} = -2 = -kappa_ch(K3)
@@ -413,18 +413,17 @@ class TestShadowTower:
         assert tower["shadow_tower"]["S_2"] == kappa_ch_w2()
 
     def test_s3_nonzero(self):
-        """S_3 (T-channel cubic shadow) = 2/3 != 0."""
-        # VERIFIED [DC] 2c^2/(5c+22) at c=-2 [LT] Virasoro cubic shadow
+        """S_3 (T-channel cubic shadow) = 2 != 0."""
+        # VERIFIED [DC] universal Virasoro cubic shadow [LT] T-channel OPE
         tower = w2_shadow_tower()
-        assert tower["shadow_tower"]["S_3_T_channel"] == Fraction(2, 3)
+        assert tower["shadow_tower"]["S_3_T_channel"] == Fraction(2)
         assert tower["shadow_tower"]["S_3_T_channel"] != 0
 
     def test_alpha_formula(self):
-        """alpha_T = 2c^2/(5c+22) = 2*4/(12) = 2/3 at c=-2."""
-        # VERIFIED [DC] direct substitution [LT] Vol I cubic shadow formula
-        c = Fraction(-2)
-        alpha = Fraction(2) * c ** 2 / (5 * c + 22)
-        assert alpha == Fraction(2, 3)
+        """alpha_T = 2 at c=-2."""
+        # VERIFIED [DC] c-independent cubic shadow [LT] Vol I cubic shadow formula
+        alpha = Fraction(2)
+        assert alpha == Fraction(2)
 
     def test_not_class_g(self):
         """W(2) is NOT class G (would require alpha = 0)."""

@@ -502,7 +502,9 @@ def defect_restriction_check(
          = (u-h_1)(u+h_1)/(u+h_1)(u-h_1) * u/u = 1.
 
     This is the SELF-DUAL POINT: the Yangian degenerates to the
-    Heisenberg (trivial R-matrix).  To get a nontrivial Yangian,
+    Heisenberg with trivial nonabelian Yangian structure function.
+    This does not kill the scalar ordered-bar Heisenberg braiding
+    R_ord(z)=exp(k*hbar/z).  To get a nontrivial Yangian,
     the defect must be a FINITE-SIZE boundary (R = [0, L]) rather
     than an infinitesimal one.  The finite-size boundary preserves
     h_3 = -(h_1 + h_2) as a nonzero Dirichlet mass.

@@ -18,7 +18,7 @@ Every read, grep, edit, inscription, refactor, retraction serves advancing the m
 
 ## The mathematics
 
-**One functor, two stages.** Stage-1 $\Phi^{\mathrm{FA}}_d : \mathrm{CY}_d\text{-cat} \to E_d\text{-HolFA}(X)$ is a canonical functor at fixed $d$, unique up to a $\mathrm{GRT}_1(\mathbb{Q})$-torsor (Kontsevich–Tamarkin $E_d$-formality + Costello–Gwilliam–Li holomorphic locality). Stage-2 $\mathrm{Sp}^{\mathrm{ch}}_{\Sigma_{d-1}, C}$ is chart-specialisation: factorisation homology over a $(d{-}1)$-cycle restricted to a reference curve. The collection $\{\Phi_d\}$ is a per-$d$ correspondence programme; the target $E_{n(d)}\text{-ChirAlg}$ depends on $d$ ($n = \infty, 2, 1, 1, 1$ at $d = 1, 2, 3, 4, 5$ via the shift law $(d, \text{shift}, E_n^{\mathrm{cl}})$). $\{\Phi_d\}$ does not assemble into a single functor across $d$; the framing "correspondence programme, not unified functor" lives at `chapters/theory/cy_to_chiral.tex:2840-2856`.
+**One functor, two stages.** Stage-1 $\Phi^{\mathrm{FA}}_d : \mathrm{CY}_d\text{-cat} \to E_d\text{-HolFA}(X)$ is a canonical functor at fixed $d$, unique up to a $\mathrm{GRT}_1(\mathbb{Q})$-torsor (Kontsevich–Tamarkin $E_d$-formality + Costello–Gwilliam–Li holomorphic locality). Stage-2 $\mathrm{Sp}^{\mathrm{ch}}_{\Sigma_{d-1}, C}$ is chart-specialisation: factorisation homology over a $(d{-}1)$-cycle restricted to a reference curve. The collection $\{\Phi_d\}$ is a per-$d$ correspondence programme; the target $E_{n(d)}\text{-ChirAlg}$ depends on $d$: $n(3) = 1$ is derived (Dunn factorisation; trivial braiding from $\pi_1(\mathrm{Conf}_2(\mathbb{R}^3)) = 0$); $n(d) = 1$ at $d \geq 4$ is the same Dunn output stated as hypothesis; $n(2) = 2$ and $n(1) = \infty$ are conditional enhancements (the $d = 2$ braided enhancement needs the chain-level $\mathbb{S}^2$-framing action; the $d = 1$ $E_\infty$ claim needs a chain-level argument — the constructed rank-2 Heisenberg output has singular OPE and is not commutative). See `prop:native-en-level`. $\{\Phi_d\}$ does not assemble into a single functor across $d$; the framing "correspondence programme, not unified functor" lives at `chapters/theory/cy_to_chiral.tex:2840-2856`.
 
 **Four $\kappa$-invariants, never conflated.**
 
@@ -29,7 +29,7 @@ Every read, grep, edit, inscription, refactor, retraction serves advancing the m
 
 Bare $\kappa$ forbidden (HZ-7 / AP-CY113). Subscript at every use, including in conversation turns.
 
-**The chain fusion conjecture.** $A_X = \Phi^{(\Sigma_{d-1}, C)}_d(\mathcal{C}_X)$ on the curve $C$ is the boundary algebra $A_{b(X, \Sigma, C)}$ for a canonical boundary vacuum in an open factorisation dg-category on $(C, D_C, \tau_C)$, where $D_C$ encodes the CY data's special points (orbifold loci, fibration punctures, conifold singularities). The conjecture is verified at $\mathbb{C}^3$, local $\mathbb{P}^2$, conifold, $K3 \times E$. It is the bridge from Vol III's Stage-2 output to Vol I/II's open-side primitive package $(X, D, \tau; \mathcal{C}^{\mathrm{op}}, b, A_b, Z^{\mathrm{der}}_{\mathrm{ch}}(\mathcal{C}), \Theta_\mathcal{C}, \mathrm{Tr}_\mathcal{C})$. See `notes/chatgpt_critique_consequence_map_adversarial_review.md` §III.
+**The chain fusion conjecture.** $A_X = \Phi^{(\Sigma_{d-1}, C)}_d(\mathcal{C}_X)$ on the curve $C$ is the boundary algebra $A_{b(X, \Sigma, C)}$ for a canonical boundary vacuum in an open factorisation dg-category on $(C, D_C, \tau_C)$, where $D_C$ encodes the CY data's special points (orbifold loci, fibration punctures, conifold singularities). The conjecture is supported by model cases: constructed local comparison models at $\mathbb{C}^3$, local $\mathbb{P}^2$, conifold (Hall-side identifications; the $\mathbb{C}^3$ hCS$\leftrightarrow$Hall comparison is Open Problem `op:cy3-hcs-hall-comparison`), and a conditional comparison target at $K3 \times E$; no end-to-end verification exists. It is the bridge from Vol III's Stage-2 output to Vol I/II's open-side primitive package $(X, D, \tau; \mathcal{C}^{\mathrm{op}}, b, A_b, Z^{\mathrm{der}}_{\mathrm{ch}}(\mathcal{C}), \Theta_\mathcal{C}, \mathrm{Tr}_\mathcal{C})$. See `notes/chatgpt_critique_consequence_map_adversarial_review.md` §III.
 
 ## Three-axis scope discipline
 
@@ -70,7 +70,7 @@ III. **The bulk** (level 3). $Z^{\mathrm{der}}_{\mathrm{ch}}(A_X)$, $Y^+(X)$, $G
 
 IV. **The seven-faced R-matrix $r_{\mathrm{CY}}$** (level-2 cross-axis). Three tiers (`working_notes.tex:742-752`) × seven algebraic presentations (bar–cobar / CoHA / coisson / MO stable envelope / Yangian / Sklyanin / Gaudin). MO as gluing-cocycle residue. The bar-of-$\Phi$ shadow — the level-2 crystallisation that organises the entire output side.
 
-V. **The CY landscape** (level-2 instances by chart class). Toric ($\mathbb{C}^3$, local $\mathbb{P}^2$, conifold), reduced + Aut ($K3 \times E$ central), orbifold inertia, lattice-polarised. Cross-stratum sibling census ($d = 1, 2, 3, 4, 5$). The K3 × E five $\kappa$-values $\{0, 0, 3, 5, 24\}$ vs the $\mathsf{G}/\mathsf{L}/\mathsf{C}/\mathsf{M}/\mathsf{B}$ five-archetype landmark $\{0, 8, 13, 250/3, 98/3\}$ — two distinct fives, common cell $\mathsf{B}$-row.
+V. **The CY landscape** (level-2 instances by chart class). Toric ($\mathbb{C}^3$, local $\mathbb{P}^2$, conifold), reduced + Aut ($K3 \times E$ central), orbifold inertia, lattice-polarised. Cross-stratum sibling census ($d = 1, 2, 3, 4, 5$). The K3 × E five $\kappa$-values $\{0, 0, 3, 5, 24\}$ vs the $\mathsf{G}/\mathsf{L}/\mathsf{C}/\mathsf{M}/\mathsf{B}$ five-archetype landmark $\{0, 8, 13, 250/3, 25/3\}$ — two distinct fives, common cell $\mathsf{B}$-row.
 
 VI. **The terminal scalar shadow** (level 4). Universal Borcherds-weight identity. CHL ladder $N \in \{1, 2, 3, 4, 6\}$. Gritsenko–Cléry 8-form catalogue. Cross-volume terminal-shadow disclaimer (`~/igusa-cusp-form/main.tex:96` cited): scalar is not Hilbert space, not Hall pairing, not orientation, not BPS operator product.
 
@@ -80,7 +80,7 @@ Reorganisation is iterative refinement: current Part III ($E_n$ hierarchy) absor
 
 ## Five theorems (shared with Vol I)
 
-A bar–cobar; B chiral Positselski; C derived-centre complementarity ($\kappa + \kappa^! \in \{0, 8, 13, 250/3, 98/3\}$ on the canonical $\mathsf{G}/\mathsf{L}/\mathsf{C}/\mathsf{M}/\mathsf{B}$ landmark, with $\mathsf{B}$-row $K^\kappa = 8$ the Vol III Mukai-enhanced K3 Heisenberg witness via Bruinier Heegner Chern-class reciprocity); D obstruction-tower universality; H Hochschild concentration.
+A bar–cobar; B chiral Positselski; C derived-centre complementarity ($\kappa + \kappa^! \in \{0, 8, 13, 250/3, 25/3\}$ on the canonical $\mathsf{G}/\mathsf{L}/\mathsf{C}/\mathsf{M}/\mathsf{B}$ landmark, with $\mathsf{B}$-row $K^\kappa = 8$ the Vol III Mukai-enhanced K3 Heisenberg witness via Bruinier Heegner Chern-class reciprocity); D obstruction-tower universality; H Hochschild concentration.
 
 Vol III-specific contributions: the CY-A$_3$ object-level + $E_1$-rigidity theorem (`working_notes.tex:762-768`), the K3 abelian-Yangian presentation, the ZTE $T$-matrix exact rational, the CY-D dimensional stratification ($\kappa_{\mathrm{ch}}^{\mathrm{Hodge}} = \chi(\mathcal{O})$ Hodge supertrace on compact CY$_d$), the universal Borcherds-weight identity across $N \in \{1, 2, 3, 4, 6\}$.
 
@@ -136,7 +136,7 @@ State each theorem in the lane in which its proof actually works. Ambient-qualif
 
 - $\kappa_{\mathrm{ch}}^{\mathrm{Hodge}}(A_X) = \sum_q (-1)^q h^{0, q}(X)$ on compact CY$_d$.
 - $\kappa_{\mathrm{BKM}}(\Phi_N) = c_N(0)/2$ across $N \in \{1, 2, 3, 4, 6\}$. $N = 1$: Gritsenko $\Delta_5$ weight $5$, $c_1(0) = 10$, $\kappa_{\mathrm{BKM}} = 5$. Fake Monster $\Phi_{12}$: weight $12$, $c_\Lambda(0) = 24$, $\kappa_{\mathrm{BKM}} = 12$. Always name the input denominator (cache row 65, AP-CY49).
-- $K3 \times E$ spectrum: $\{0, 0, 3, 5, 24\}$ from five distinct constructions: $\kappa_{\mathrm{cat}} = 0$ (Künneth multiplicative), $\kappa_{\mathrm{ch}}^{\mathrm{Hodge}} = 0$, $\kappa_{\mathrm{ch}}^{\mathrm{Heis}} = 3$, $\kappa_{\mathrm{BKM}}(\Delta_5) = 5$, $\kappa_{\mathrm{fiber}} = 24$. Distinct from the $\mathsf{G}/\mathsf{L}/\mathsf{C}/\mathsf{M}/\mathsf{B}$ five-archetype landmark $\{0, 8, 13, 250/3, 98/3\}$.
+- $K3 \times E$ spectrum: $\{0, 0, 3, 5, 24\}$ from five distinct constructions: $\kappa_{\mathrm{cat}} = 0$ (Künneth multiplicative), $\kappa_{\mathrm{ch}}^{\mathrm{Hodge}} = 0$, $\kappa_{\mathrm{ch}}^{\mathrm{Heis}} = 3$, $\kappa_{\mathrm{BKM}}(\Delta_5) = 5$, $\kappa_{\mathrm{fiber}} = 24$. Distinct from the $\mathsf{G}/\mathsf{L}/\mathsf{C}/\mathsf{M}/\mathsf{B}$ five-archetype landmark $\{0, 8, 13, 250/3, 25/3\}$.
 - Theorem-C $\mathsf{B}$-row Mukai-doubling face: $K^{\kappa_{\mathrm{ch}}} = 8 = \mathrm{ord}(H_1)$; $\hbar^2 K^{\kappa_{\mathrm{ch}}} = -1$.
 - Local $\mathbb{P}^2$: $\kappa_{\mathrm{ch}}^{\mathrm{loc}} = 3/2$ via direct McKay shadow at $d = 3$.
 - Conifold: not a local surface; $\kappa_{\mathrm{ch}} = 1$ via direct McKay.

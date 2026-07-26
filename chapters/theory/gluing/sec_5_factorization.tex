@@ -249,7 +249,7 @@ determined by restriction to each multi-point stratum.
 \label{subsec:finite-dwr-ran-rees-comparison}
 
 The Weiss condition is infinite in arity, but every perturbative
-hCS--Hall comparison is tested at finite height before any completed
+hCS--Hall comparison is made at finite height before any completed
 limit is taken. Fix a subordinate DWR polydisc refinement
 $\mathfrak U$, a charge monoid $\Gamma$, and finite bounds
 \[
@@ -403,6 +403,728 @@ completed Drinfeld double; hence they cannot be consequences of the
 finite DWR/Ran descent alone.
 \end{proof}
 
+\begin{proposition}[Finite total \v{C}ech/Ran Maurer--Cartan gate]
+\label{prop:finite-total-cech-ran-maurer-cartan-gate}
+\ClaimStatusProvedHere
+At a fixed finite bound \((N,r,L,m)\), let
+\[
+ \mathfrak M^{N,r,L,m}_{\mathrm{hCS},\Hall}
+ =
+ \operatorname{Tot}_{\sigma\in
+ \mathsf N^{\Ran,\ord}_{\le m}(\mathfrak U;\Gamma_{\le L})}
+ \operatorname{Hom}\!\left(
+ B\Obs_{\mathrm{hCS}}^{q,\le r,\le N}(\sigma)_{\le L},
+ \Hall_{\sigma,\le L}^{\mathrm{Rees},\mathrm{or}}
+ \right)
+\]
+be the finite total convolution complex, with differential
+\[
+D_{\mathrm{tot}}=D_{\mathrm{bar}}+\delta_{\check C/\Ran}.
+\]
+Suppose finite bases have been chosen. Let
+\(\Theta\in \mathfrak M^{N,r,L,m}_{\mathrm{hCS},\Hall}\) be a supplied
+finite cochain, and let \(B_\Theta\) be the already evaluated vector
+representing \(\frac12[\Theta,\Theta]\) in the bar--Rees convolution
+Lie algebra. Then \(\Theta\) is a finite total Maurer--Cartan element
+exactly when
+\[
+D_{\mathrm{tot}}\Theta+B_\Theta=0.
+\]
+Equivalently, the exact rank of the finite vector
+\[
+\mathcal O_{\mathrm{MC}}(\Theta)
+=D_{\mathrm{tot}}\Theta+B_\Theta
+\]
+is zero. If a finite obstruction cochain \(\mathcal O\) and a proposed
+primitive \(\eta\) are also supplied, then \(\mathcal O\) is killed by
+\(\eta\) in this finite total complex exactly when
+\[
+D_{\mathrm{tot}}\mathcal O=0,\qquad
+D_{\mathrm{tot}}\eta=\mathcal O .
+\]
+\end{proposition}
+
+\begin{proof}
+The finite sub-nerve and the finite charge, jet, and renormalisation
+bounds make \(\mathfrak M^{N,r,L,m}_{\mathrm{hCS},\Hall}\) a finite
+complex of vector spaces. After bases are chosen, the differential is a
+square matrix. The finite total complex is a dg object only when
+\(D_{\mathrm{tot}}^2=0\); this is the square-zero condition for
+\(D_{\mathrm{bar}}+\delta_{\check C/\Ran}\).
+
+In any dg Lie algebra the Maurer--Cartan equation is
+\[
+D\Theta+\frac12[\Theta,\Theta]=0.
+\]
+Here the bracket is the convolution bracket built from the bar
+coalgebra of hCS observables and the Rees Hall product. Once this
+half-bracket term is evaluated on the supplied finite cochain, it is a
+finite vector \(B_\Theta\). Thus the Maurer--Cartan equation is exactly
+the displayed finite vector equality, and a finite vector vanishes if
+and only if its one-column rank is zero.
+
+The obstruction-primitive statement is the same finite cohomology
+criterion. A cochain \(\mathcal O\) represents an obstruction class only
+after \(D_{\mathrm{tot}}\mathcal O=0\). A supplied primitive kills that
+class precisely when \(D_{\mathrm{tot}}\eta-\mathcal O=0\). These are
+finite vector equalities, hence exact rank-zero tests. The executable
+witness is
+\texttt{finite\_total\_cech\_ran\_maurer\_cartan\_gate}; it records
+\(D_{\mathrm{tot}}^2\), \(D_{\mathrm{tot}}\Theta+B_\Theta\), and, when
+supplied, the cocycle and primitive-defect vectors. The witness checks
+finite total convolution data; it does not construct the relative maps
+\(\theta_\sigma^{\mathrm{rel}}\), the higher-simplex primitives, or the
+completed DWR/Ran natural transformation.
+\end{proof}
+
+\begin{proposition}[Finite cyclic SDR block-compatibility gate]
+\label{prop:finite-cyclic-sdr-block-compatibility-gate}
+Fix one finite bound \((N,r,L,m)\) and one disjoint ordered pair of
+finite DWR/Ran supports of charges \(d,e\). Let \(A\) be the finite
+hCS/BV chart complex before transfer and let \(M\) be the finite cyclic
+critical model. Suppose finite bases have been chosen for \(A\) and
+\(M\). A supplied cyclic strong deformation retract
+\[
+(M,d_M)
+\xrightarrow{\ i\ }
+(A,d_A)
+\xrightarrow{\ p\ }
+(M,d_M),
+\qquad
+h\colon A\to A[-1],
+\]
+with cyclic pairing matrix \(\omega_A\), is a finite cyclic SDR exactly
+when
+\[
+pi=1_M,\qquad d_A i=i d_M,\qquad p d_A=d_M p,
+\qquad ip+d_Ah+hd_A=1_A,
+\]
+and
+\[
+h^{t}\omega_A+\omega_Ah=0.
+\]
+Assume further that a block homotopy
+\[
+h_{\mathrm{bl}}=h_d\oplus h_e\oplus h_{\mathrm{off}}
+\]
+has been supplied for the short-exact-sequence block decomposition,
+and that the transferred action difference is represented by a supplied
+finite boundary \(B_S\):
+\[
+S_{d+e}^{\mathrm{tr}}-S_d^{\mathrm{tr}}-S_e^{\mathrm{tr}}
+-S_{\mathrm{off}}^{\mathrm{quad}}=B_S .
+\]
+Let \(H_{\mathrm{off}}\) be the off-block Hessian matrix and let
+\(\Pi_{\mathrm{odd}}\) be the finite odd contraction matrix. The
+off-block Gaussian/Koszul cancellation holds at the finite bound
+exactly when
+\[
+H_{\mathrm{off}}^t=H_{\mathrm{off}},\qquad
+\Pi_{\mathrm{odd}}^t=-\Pi_{\mathrm{odd}},\qquad
+\sum_{i,j}(H_{\mathrm{off}})_{ij}(\Pi_{\mathrm{odd}})_{ij}=0.
+\]
+Finally let \(m_S\) be the source product, \(m_T\) the target Rees
+Hall product before the normal Euler factor, \(E_{d,e}^{\mathrm{vir}}\)
+the finite Rees Euler matrix, and let
+\(\theta_d,\theta_e,\theta_{d+e}\) be the three finite chart maps.
+Then the block-compatible cyclic transfer gives the ordered Hall
+product at this finite bound exactly when
+\[
+E_{d,e}^{\mathrm{vir}}\,
+m_T(\theta_d\otimes\theta_e)
+=
+\theta_{d+e}m_S .
+\]
+Equivalently, after bases are chosen, the exact ranks of the following
+finite defect matrices all vanish:
+\[
+pi-1_M,\quad d_A i-i d_M,\quad p d_A-d_M p,\quad
+ip+d_Ah+hd_A-1_A,\quad h^t\omega_A+\omega_Ah,
+\]
+\[
+h-h_{\mathrm{bl}},\qquad
+S_{d+e}^{\mathrm{tr}}-S_d^{\mathrm{tr}}-S_e^{\mathrm{tr}}
+-S_{\mathrm{off}}^{\mathrm{quad}}-B_S,
+\]
+\[
+H_{\mathrm{off}}-H_{\mathrm{off}}^t,\qquad
+\Pi_{\mathrm{odd}}+\Pi_{\mathrm{odd}}^t,\qquad
+E_{d,e}^{\mathrm{vir}}m_T(\theta_d\otimes\theta_e)
+-\theta_{d+e}m_S,
+\]
+together with the scalar off-block contraction displayed above.
+\end{proposition}
+
+\begin{proof}
+In finite dimension the datum \((i,p,h)\) is a strong deformation
+retract precisely when the four displayed SDR identities hold. The
+three chain-map identities say that \(i\) and \(p\) intertwine the
+differentials and that \(p\) retracts \(i\). The fourth identity says
+that \(h\) is the chain homotopy from \(ip\) to the identity of \(A\).
+Each identity is an equality of finite matrices; it holds exactly when
+the corresponding difference has rank zero.
+
+The cyclic condition is the matrix form of skew-adjointness of the
+homotopy with respect to the finite cyclic pairing. Thus the transferred
+operations obtained from homological perturbation inherit the cyclic
+pairing on the finite model precisely when
+\(h^{t}\omega_A+\omega_Ah\) has rank zero. The block condition is again
+an equality of finite matrices: the chosen homotopy is the direct-sum
+block homotopy exactly when \(h-h_{\mathrm{bl}}\) has rank zero. The
+transferred action condition says that the non-split part of the action
+is a supplied boundary; in finite bases this is the displayed action
+defect matrix.
+
+For the off-block quadratic term, the Hessian of the even potential is
+symmetric and the odd contraction operator is skew-symmetric. Over the
+ground field of characteristic zero the componentwise contraction of a
+symmetric matrix with a skew-symmetric matrix is zero, since the
+\((i,j)\)-term cancels the \((j,i)\)-term and the diagonal entries of a
+skew-symmetric matrix vanish. The finite scalar condition records this
+cancellation after the supplied bases and signs have been fixed.
+
+The multiplicativity square compares two maps
+\(C_{S,d}\otimes C_{S,e}\to C_{T,d+e}\). The first applies the two
+chart maps, the target Hall product, and the finite Rees Euler factor;
+the second applies the source product and then the union chart map.
+Tensoring the component maps is the Kronecker product
+\(\theta_d\otimes\theta_e\). Hence the square commutes exactly when the
+last displayed matrix has rank zero. The executable witness
+\texttt{finite\_cyclic\_sdr\_block\_compatibility\_gate} records these
+defect matrices, their exact ranks, and the off-block contraction
+scalar. It checks supplied finite cyclic transfer data; the construction
+of face-compatible contractions over the whole DWR/Ran nerve remains a
+separate input to Proposition~\ref{prop:finite-dwr-ran-rees-ordered-hall-layer}.
+\end{proof}
+
+\begin{proposition}[Finite simplicial cyclic contraction gate]
+\label{prop:finite-simplicial-cyclic-contraction-gate}
+Fix one finite DWR/Ran simplex \(\sigma\) at the bound \((N,r,L,m)\).
+Let \(A_\sigma\) be the finite Dolbeault--polynomial ambient complex
+over \(\Omega^\bullet(\Delta^p)\), and let \(M_\sigma\) be the finite
+cyclic model. Suppose finite bases have been chosen and a contraction
+datum
+\[
+(M_\sigma,d_M)
+\xrightarrow{\ i_\sigma\ }
+(A_\sigma,d_A)
+\xrightarrow{\ p_\sigma\ }
+(M_\sigma,d_M),
+\qquad
+h_\sigma\colon A_\sigma\to A_\sigma[-1],
+\]
+with cyclic pairing matrix \(\omega_\sigma\), has been supplied. For
+each face \(\partial_a\sigma\), suppose also that the face contraction
+\((i_{\partial_a},p_{\partial_a},h_{\partial_a})\), the ambient
+restriction \(R_A^a\colon A_\sigma\to A_{\partial_a\sigma}\), and the
+model restriction \(R_M^a\colon M_\sigma\to M_{\partial_a\sigma}\) have
+been supplied. Then the datum is a finite face-compatible simplicial
+cyclic contraction exactly when the following finite matrices all have
+rank zero:
+\[
+p_\sigma i_\sigma-1_{M_\sigma},\qquad
+d_A i_\sigma-i_\sigma d_M,\qquad
+p_\sigma d_A-d_Mp_\sigma,\qquad
+i_\sigma p_\sigma+d_Ah_\sigma+h_\sigma d_A-1_{A_\sigma},
+\]
+\[
+h_\sigma^2,\qquad h_\sigma i_\sigma,\qquad
+p_\sigma h_\sigma,\qquad
+h_\sigma^t\omega_\sigma+\omega_\sigma h_\sigma,
+\]
+and, for every face \(\partial_a\sigma\),
+\[
+R_A^a i_\sigma-i_{\partial_a}R_M^a,\qquad
+R_M^a p_\sigma-p_{\partial_a}R_A^a,\qquad
+R_A^a h_\sigma-h_{\partial_a}R_A^a .
+\]
+For a \(0\)-simplex the face list is empty, and the face-compatibility
+part of the condition is vacuous.
+\end{proposition}
+
+\begin{proof}
+The first four matrices are the finite form of the contraction identity
+\[
+d_Ah_\sigma+h_\sigma d_A
+=
+1_{A_\sigma}-i_\sigma p_\sigma
+\]
+together with the two chain-map equations and the retraction equation
+\(p_\sigma i_\sigma=1_{M_\sigma}\). Since the complexes are finite at
+the chosen bound, each identity holds exactly when the rank of its
+difference matrix is zero.
+
+The three side-condition matrices are the standard Dupont--HPT
+normalisation \(h_\sigma^2=0\), \(h_\sigma i_\sigma=0\),
+\(p_\sigma h_\sigma=0\). The cyclic matrix is the skew-adjointness of
+the homotopy with respect to the finite cyclic pairing. These four
+conditions are again finite linear equalities.
+
+The equality \(\partial_a^*H_\sigma=H_{\partial_a\sigma}\) means that
+restriction to the face commutes with all three pieces of the
+contraction datum. Written in the chosen bases, it is exactly the three
+displayed face equations for \(i,p,h\). Hence the finite simplex
+contraction and all supplied face contractions form a face-compatible
+simplicial cyclic system precisely when all displayed ranks vanish. The
+executable witness is
+\texttt{finite\_simplicial\_cyclic\_contraction\_gate}; it stores the
+SDR, side-condition, cyclicity, and face-defect matrices and their
+exact ranks. It checks a supplied finite simplicial contraction system;
+constructing such systems uniformly by Dupont contraction and Dolbeault
+transfer remains an input to
+Proposition~\ref{prop:finite-dwr-ran-rees-ordered-hall-layer}.
+\end{proof}
+
+\begin{proposition}[Finite Stokes hCS--Hall source criterion]
+\label{prop:finite-stokes-hcs-hall-source-gate}
+Fix one finite bound \((N,r,L,m)\) in
+Proposition~\ref{prop:finite-dwr-ran-rees-ordered-hall-layer}. Let
+\[
+ C_S=(B\Obs_{\mathrm{hCS}}^{q,\le r,\le N})_{\le L},
+ \qquad
+ C_T=\Hall_{\mathrm{crit}}^{\mathrm{Rees},\mathrm{or},\le N,\le L}
+\]
+be the corresponding finite source and Rees-Hall target pieces. Suppose
+finite bases have been chosen, and suppose the supplied graph-integral
+map, the supplied half-convolution bracket term, and the supplied
+ordered products are represented by matrices
+\[
+ \Theta\colon C_S\to C_T,\qquad
+ B_\Theta\colon C_S\to C_T,\qquad
+ m_S\colon C_{S,1}\otimes C_{S,2}\to C_{S,\sqcup},
+ \qquad
+ m_T\colon C_{T,1}\otimes C_{T,2}\to C_{T,\sqcup}.
+\]
+Write \(D_S\) and \(D_T\) for the finite source and target
+differentials. Then the supplied finite Stokes/Maurer--Cartan equation
+holds exactly when
+\[
+ D_T\Theta-\Theta D_S+B_\Theta=0.
+\]
+Equivalently, the exact rank of the finite defect matrix
+\[
+ \mathcal M_\Theta:=D_T\Theta-\Theta D_S+B_\Theta
+\]
+is zero. For two disjoint ordered supports, with finite component maps
+\(\Theta_1,\Theta_2\) and union map \(\Theta_\sqcup\), ordered
+\(E_1\)-multiplicativity holds exactly when
+\[
+ m_T(\Theta_1\otimes \Theta_2)=\Theta_\sqcup m_S,
+\]
+equivalently when the exact rank of
+\[
+ \mathcal P_\Theta
+ :=
+ m_T(\Theta_1\otimes \Theta_2)-\Theta_\sqcup m_S
+\]
+is zero.
+
+If both ranks vanish for every retained simplex and every retained
+disjoint ordered pair, the supplied finite DWR/Ran/Rees data satisfy
+the algebraic Stokes equation and the ordered \(E_1\) product equation
+at the bound \((N,r,L,m)\).
+\end{proposition}
+
+\begin{proof}
+All vector spaces in the finite bound are finite-dimensional after the
+chosen truncations. The relative master equation displayed in the proof
+of Proposition~\ref{prop:finite-dwr-ran-rees-ordered-hall-layer} is a
+linear equality \(C_S\to C_T\) once the half-bracket
+\(\frac12[\Theta,\Theta]_{\mathrm{conv}}\) is evaluated on the supplied
+finite data; this evaluated term is the matrix \(B_\Theta\). A finite
+linear map is zero if and only if its matrix has rank zero, proving the
+first assertion.
+
+For disjoint supports, the ordered product square compares two linear
+maps \(C_{S,1}\otimes C_{S,2}\to C_{T,\sqcup}\). The first applies the
+two component comparison maps and then the Rees Thom--Sebastiani Hall
+product; the second applies the source ordered product and then the
+union comparison map. After bases are chosen, tensoring the component
+maps is the Kronecker product \(\Theta_1\otimes\Theta_2\). Hence the
+square commutes exactly when the displayed matrix
+\(\mathcal P_\Theta\) vanishes, again equivalent to rank zero.
+
+The proposition begins with the finite graph-integral map, bracket
+term, and ordered products already supplied. It does not construct the
+DWR compactified configuration-space integrals, the Joyce--Kontsevich--
+Soibelman orientation branch, the compact critical CoHA, or a Drinfeld
+double. The executable witness is
+\texttt{finite\_stokes\_hcs\_hall\_source\_gate}; it records the two
+finite defect matrices and their exact ranks.
+\end{proof}
+
+\begin{proposition}[Finite Rees-to-vanishing-cycle realisation criterion]
+\label{prop:finite-rees-vanishing-cycle-realization-gate}
+Fix one finite bound in
+Proposition~\ref{prop:finite-dwr-ran-rees-ordered-hall-layer}. Let
+\[
+ K=\Hall_{\mathrm{crit}}^{\mathrm{Rees},\mathrm{or},\le N,\le L},
+ \qquad
+ V=R\Gamma^{\mathrm{BM}}_G(\Crit(W),\varphi_W\otimes o)_{\le N,\le L}
+\]
+be the finite Rees critical Hall complex and the finite
+Borel--Moore vanishing-cycle target. Suppose bases have been chosen and
+suppose the microlocal realisation is supplied by a finite matrix
+\[
+ R_W\colon K\longrightarrow V .
+\]
+Let \(D_K,D_V\) be the differentials. For a disjoint pair let
+\[
+ \mathrm{TS}_{\mathrm{Rees}}\colon K_1\otimes K_2\to K_\sqcup,\qquad
+ \mathrm{TS}_{\varphi}\colon V_1\otimes V_2\to V_\sqcup
+\]
+be the supplied Rees and vanishing-cycle Thom--Sebastiani matrices, and
+let \(R_1,R_2,R_\sqcup\) be the three corresponding realisation
+matrices. Then the supplied data define a finite realisation of the
+Rees Hall product in ordinary critical CoHA at this bound exactly when
+\[
+ D_VR_W-R_WD_K=0,
+ \qquad
+ R_\sqcup\,\mathrm{TS}_{\mathrm{Rees}}
+ =
+ \mathrm{TS}_{\varphi}(R_1\otimes R_2),
+\]
+and, for every retained structure operator
+\[
+ S\in\{\text{equivariance generators, proper pushforward,
+ lci pullback, orientation line, shift/Tate operator,
+ Borel--Moore support projection, completion projection}\},
+\]
+one has
+\[
+ S_VR_W=R_WS_K .
+\]
+Equivalently, the exact ranks of the finite matrices
+\[
+ D_VR_W-R_WD_K,\qquad
+ R_\sqcup\,\mathrm{TS}_{\mathrm{Rees}}
+ -
+ \mathrm{TS}_{\varphi}(R_1\otimes R_2),
+ \qquad
+ S_VR_W-R_WS_K
+\]
+are all zero.
+\end{proposition}
+
+\begin{proof}
+The first equation is the definition of a chain map from the finite
+Rees critical complex to the finite vanishing-cycle complex. The second
+equation compares two maps \(K_1\otimes K_2\to V_\sqcup\): first take
+the Rees Thom--Sebastiani product and then realise, or first realise
+the two factors and then apply Thom--Sebastiani for vanishing cycles.
+After bases are fixed, \(R_1\otimes R_2\) is the Kronecker product of
+the two component matrices.
+
+The remaining equations state that realisation intertwines the finite
+operators carrying equivariance, proper pushforward, lci pullback,
+orientation, shifts/Tate twists, Borel--Moore support, and completion.
+Every displayed equality is an equality of finite-dimensional rational
+matrices, and a finite matrix vanishes exactly when its exact rank is
+zero. The executable witness
+\texttt{finite\_rees\_vanishing\_cycle\_realization\_gate} stores the
+chain, Thom--Sebastiani, proper-pushforward, lci-pullback, orientation,
+Tate, support, completion, and equivariance defect matrices and their
+ranks.
+
+The proposition checks a supplied finite \(R_W\). It does not construct
+the microlocal Riemann--Hilbert realisation functor, the
+vanishing-cycle sheaf, compact-support Hall pushforwards, or the
+completed critical CoHA.
+\end{proof}
+
+\begin{proposition}[Finite compact-support Beck--Chevalley criterion]
+\label{prop:finite-compact-support-beck-chevalley-gate}
+Fix one finite Hall correspondence square
+\[
+\begin{tikzcd}
+ X' \arrow[r,"g'"] \arrow[d,"f'"'] & X \arrow[d,"f"]\\
+ Y' \arrow[r,"g"'] & Y
+\end{tikzcd}
+\]
+with \(f\) and \(f'\) proper on the retained compact-support locus and
+with \(g\) and \(g'\) lci. Suppose finite Borel--Moore bases have been
+chosen. Let
+\[
+ F\colon H_X\to H_Y,\qquad
+ G_Y\colon H_Y\to H_{Y'},\qquad
+ G_X\colon H_X\to H_{X'},\qquad
+ F'\colon H_{X'}\to H_{Y'}
+\]
+be the finite matrices for \(f_*,g^!,g'^!,f'_*\). Let
+\(P_X,P_Y,P_{X'},P_{Y'}\) be the supplied compact-support projection
+matrices. Then the finite compact-support Beck--Chevalley datum is
+closed exactly when
+\[
+ G_YF=F'G_X
+\]
+and the four compact-support intertwinings
+\[
+ P_YF=FP_X,\qquad
+ P_{Y'}G_Y=G_YP_Y,\qquad
+ P_{X'}G_X=G_XP_X,\qquad
+ P_{Y'}F'=F'P_{X'}
+\]
+hold. Equivalently, the exact ranks of the five displayed defect
+matrices are zero.
+\end{proposition}
+
+\begin{proof}
+The Beck--Chevalley condition for a proper/lci Cartesian square is the
+base-change equality \(g^!f_*=f'_*g'^!\). After choosing finite bases
+on the retained Borel--Moore groups, this is the matrix equality
+\(G_YF=F'G_X\). A finite matrix equality holds precisely when the
+rank of its difference is zero.
+
+Compact-support functoriality is separate from base change. The
+proper pushforward and the two lci pullbacks must preserve the retained
+compact-support summands, and the pulled proper pushforward must do the
+same on the pulled square. These are exactly the four projection
+intertwining equations displayed above. The executable witness
+\texttt{finite\_compact\_support\_beck\_chevalley\_gate} stores the
+Beck--Chevalley defect, the four compact-support defects, and their
+exact ranks. It checks a supplied finite correspondence square; it does
+not construct the compact-support Hall correspondences, the global
+Borel--Moore functor, or the completed compact critical CoHA.
+\end{proof}
+
+\begin{proposition}[Finite realised hCS-to-critical-CoHA composite criterion]
+\label{prop:finite-realized-hcs-hall-composite-gate}
+Fix one finite bound and write
+\[
+ C_S=B\Obs_{\mathrm{hCS}}^{q,\le r,\le N}{}_{\le L},\qquad
+ K=\Hall_{\mathrm{crit}}^{\mathrm{Rees},\mathrm{or},\le N,\le L},
+ \qquad
+ V=R\Gamma^{\mathrm{BM}}_G(\Crit(W),\varphi_W\otimes o)_{\le N,\le L}.
+\]
+Suppose finite bases have been chosen. Let
+\[
+ \Theta\colon C_S\to K,\qquad R\colon K\to V
+\]
+be the supplied Rees comparison and realisation matrices, with
+differentials \(D_S,D_K,D_V\). Let \(B_K\) and \(B_V\) be the supplied
+half-convolution bracket matrices in the Rees and realised targets.
+Define
+\[
+ \Theta^{\mathrm{or}}:=R\Theta\colon C_S\to V .
+\]
+Then the supplied matrices give a finite realised hCS-to-critical-CoHA
+comparison through the displayed composite exactly when the exact ranks
+of
+\[
+ D_VR-RD_K,\qquad
+ D_K\Theta-\Theta D_S+B_K,\qquad
+ B_V-RB_K,\qquad
+ D_VR\Theta-R\Theta D_S+B_V
+\]
+are zero, and, for every disjoint ordered pair, the exact ranks of
+\[
+ m_K(\Theta_1\otimes\Theta_2)-\Theta_\sqcup m_S,
+\]
+\[
+ m_V(R_1\otimes R_2)-R_\sqcup m_K,
+\]
+\[
+ m_V((R_1\Theta_1)\otimes(R_2\Theta_2))
+ -R_\sqcup\Theta_\sqcup m_S
+\]
+are zero. Here \(m_S,m_K,m_V\) are respectively the source ordered
+product, the Rees Hall product, and the realised critical-CoHA product.
+\end{proposition}
+
+\begin{proof}
+The first three chain-level defects control the ingredients. The matrix
+\(D_VR-RD_K\) states that realisation is a chain map. The matrix
+\(D_K\Theta-\Theta D_S+B_K\) is the finite Rees Maurer--Cartan defect
+of Proposition~\ref{prop:finite-stokes-hcs-hall-source-gate}. The
+matrix \(B_V-RB_K\) states that the realised half-bracket term is the
+image of the Rees half-bracket under \(R\).
+
+The realised Maurer--Cartan defect of \(\Theta^{\mathrm{or}}=R\Theta\)
+is
+\[
+ D_VR\Theta-R\Theta D_S+B_V
+ =
+ (D_VR-RD_K)\Theta
+ +R(D_K\Theta-\Theta D_S+B_K)
+ +(B_V-RB_K).
+\]
+Thus the first three defects vanish only if the displayed realised
+defect vanishes. The criterion also records the realised defect itself;
+this excludes a proof by cancellation among unrelated errors.
+
+For products, the Rees square is the first displayed product defect and
+the realisation of Hall products is the second. The realised product
+defect satisfies
+\[
+\begin{aligned}
+&m_V((R_1\Theta_1)\otimes(R_2\Theta_2))
+ -R_\sqcup\Theta_\sqcup m_S\\
+&\qquad =
+\bigl(m_V(R_1\otimes R_2)-R_\sqcup m_K\bigr)
+(\Theta_1\otimes\Theta_2)
+ +R_\sqcup\bigl(m_K(\Theta_1\otimes\Theta_2)-\Theta_\sqcup m_S\bigr).
+\end{aligned}
+\]
+The two ingredient product defects therefore force the realised product
+defect to vanish, and the latter is again recorded as an independent
+rank-zero condition. All spaces are finite-dimensional at the fixed
+bound, so each equality is equivalent to exact rank zero.
+
+The executable witness
+\texttt{finite\_realized\_hcs\_hall\_composite\_gate} stores the
+realised composite matrix, the three chain-level ingredient defects,
+the realised Maurer--Cartan defect, the two product ingredient defects,
+and the realised product defect. It checks a supplied finite composite;
+it does not construct \(R\), the compact critical CoHA, the
+compact-support Beck--Chevalley pushforwards, or the completed DWR/Ran
+natural transformation.
+\end{proof}
+
+\begin{proposition}[Finite CY$_3$ shifted-bracket compatibility after realisation]
+\label{prop:finite-realized-cy3-shifted-bracket-gate}
+\ClaimStatusProvedHere
+Fix one finite bound. Let
+\[
+ b_S\colon C_{S,1}\otimes C_{S,2}\to C_{S,\sqcup},\qquad
+ b_K\colon K_1\otimes K_2\to K_\sqcup,\qquad
+ b_V\colon V_1\otimes V_2\to V_\sqcup
+\]
+be the supplied finite matrices of the CY$_3$ shifted brackets on the
+source, Rees target, and realised target, after the degree shifts have
+been absorbed into the chosen bases. Let
+\[
+ \Theta_i\colon C_{S,i}\to K_i,\qquad
+ R_i\colon K_i\to V_i
+ \qquad (i=1,2,\sqcup)
+\]
+be the supplied finite Rees comparison and realisation matrices. Then
+the realised comparison preserves the CY$_3$ shifted bracket at this
+finite bound exactly when the exact ranks of
+\[
+ b_K(\Theta_1\otimes\Theta_2)-\Theta_\sqcup b_S,
+\]
+\[
+ b_V(R_1\otimes R_2)-R_\sqcup b_K,
+\]
+and
+\[
+ b_V((R_1\Theta_1)\otimes(R_2\Theta_2))
+ -R_\sqcup\Theta_\sqcup b_S
+\]
+are zero.
+\end{proposition}
+
+\begin{proof}
+The first matrix is the finite Rees bracket-compatibility square. The
+second is the assertion that realisation transports the Rees shifted
+bracket to the Borel--Moore vanishing-cycle target. The realised bracket
+defect satisfies
+\[
+\begin{aligned}
+&b_V((R_1\Theta_1)\otimes(R_2\Theta_2))
+ -R_\sqcup\Theta_\sqcup b_S\\
+&\qquad =
+\bigl(b_V(R_1\otimes R_2)-R_\sqcup b_K\bigr)
+(\Theta_1\otimes\Theta_2)
+ +R_\sqcup\bigl(b_K(\Theta_1\otimes\Theta_2)-\Theta_\sqcup b_S\bigr).
+\end{aligned}
+\]
+Thus the two ingredient bracket defects force the realised bracket
+defect to vanish, and the direct realised defect is retained as a
+separate rank-zero condition. The finite degree shift of the CY$_3$
+bracket is part of the basis convention; after suspension the displayed
+maps are ordinary finite matrices. The executable witness
+\texttt{finite\_realized\_cy3\_shifted\_bracket\_gate} stores the three
+defect matrices and their exact ranks. It checks supplied finite
+bracket data; it does not construct the BV bracket on hCS observables,
+the compact critical-CoHA bracket, or the global realised comparison.
+\end{proof}
+
+\begin{proposition}[Completed realised comparison from finite transition data]
+\label{prop:completed-realized-hcs-hall-transition-ml-gate}
+Let \(\{C_{S,a}\}_{a\in A}\) and \(\{V_a\}_{a\in A}\) be inverse
+systems over the finite bounds \(a=(N,r,L,m)\), ordered by refinement
+of bounds. Suppose that for every \(a\) a finite realised composite
+\[
+ \Theta^{\mathrm{or}}_a\colon C_{S,a}\longrightarrow V_a
+\]
+satisfies Proposition~\ref{prop:finite-realized-hcs-hall-composite-gate}.
+For every adjacent transition \(b\ge a\), let
+\[
+ P^S_{b,a}\colon C_{S,b}\to C_{S,a},\qquad
+ P^V_{b,a}\colon V_b\to V_a
+\]
+be the source and realised-target transition maps. If
+\[
+ P^V_{b,a}\Theta^{\mathrm{or}}_b
+ =
+ \Theta^{\mathrm{or}}_aP^S_{b,a}
+\]
+for every adjacent transition, then the finite maps assemble to a
+continuous morphism of completed inverse systems
+\[
+ \widehat\Theta^{\mathrm{or}}\colon
+ \varprojlim_a C_{S,a}\longrightarrow\varprojlim_a V_a .
+\]
+If, in addition, the cohomology inverse systems satisfy the
+Mittag--Leffler condition
+\[
+ \varprojlim\nolimits^{1}_{a}\,
+ H^{q-1}\!\left(\Cone(\Theta^{\mathrm{or}}_a)\right)=0
+ \qquad\text{for all }q,
+\]
+then cohomology commutes with the completed cone:
+\[
+ H^q\!\left(\Cone(\widehat\Theta^{\mathrm{or}})\right)
+ \cong
+ \varprojlim_a
+ H^q\!\left(\Cone(\Theta^{\mathrm{or}}_a)\right).
+\]
+Consequently, if every finite vertex map is a quasi-isomorphism and the
+same Mittag--Leffler condition holds for the finite DWR/Ran descent
+cones, then \(\widehat\Theta^{\mathrm{or}}\) is a quasi-isomorphism on
+completed DWR/Ran descent.
+\end{proposition}
+
+\begin{proof}
+The transition equation says exactly that the matrices
+\(\Theta^{\mathrm{or}}_a\) form a morphism in the category of inverse
+systems of complexes. Taking inverse limits gives the displayed
+continuous map. In the inverse-limit topology, continuity means that
+the preimage of the kernel of a finite-bound projection contains the
+kernel of a sufficiently fine finite-bound projection; this follows
+from the transition equation.
+
+The cone construction is functorial for morphisms of inverse systems,
+so the completed cone fits into the standard Milnor exact sequence
+\[
+ 0\to
+ \varprojlim\nolimits^{1}_{a}
+ H^{q-1}\!\left(\Cone(\Theta^{\mathrm{or}}_a)\right)
+ \to
+ H^q\!\left(\varprojlim_a\Cone(\Theta^{\mathrm{or}}_a)\right)
+ \to
+ \varprojlim_a
+ H^q\!\left(\Cone(\Theta^{\mathrm{or}}_a)\right)
+ \to 0 .
+\]
+Under the stated Mittag--Leffler hypothesis the left term vanishes, and
+cohomology of the completed cone is the inverse limit of the finite
+cohomologies. If the finite vertex maps are quasi-isomorphisms, the
+finite descent cone has zero cohomology after the finite DWR/Ran
+totalisation. The displayed isomorphism therefore forces the completed
+descent cone to have zero cohomology.
+
+The executable witness
+\texttt{finite\_realized\_composite\_transition\_ml\_gate} checks the
+finite part of one adjacent transition: it records the defect matrix
+\(P^V_{b,a}\Theta^{\mathrm{or}}_b-\Theta^{\mathrm{or}}_aP^S_{b,a}\)
+and the degreewise surjectivity ranks of the supplied finite
+cohomology transition matrices. It does not prove uniform
+Mittag--Leffler for the whole tower or construct the completed compact
+critical CoHA.
+\end{proof}
+
 \subsubsection{Beilinson--Drinfeld chiral algebras as factorisation cosheaves}
 
 A \emph{chiral algebra} on $C$ in the sense of Beilinson--Drinfeld
@@ -443,6 +1165,7 @@ tensor-product factorisation of \eqref{eq:fact-envelope-sections}.
  criterion Theorem~$5.2.1$; Beilinson--Drinfeld
  \protect{\cite{BeilinsonDrinfeld}}~\S$3.4.11$ and Theorem~$3.4.9$]
 \label{thm:fg-chiral-koszul}
+\ClaimStatusProvedElsewhere
 There is an $(\infty, 1)$-categorical Koszul-duality equivalence, on a
 smooth complex curve $C$, between chiral Lie algebras on $\Ran C$
 supported on $C$ and factorisation coalgebras on $\Ran(C)$
@@ -504,6 +1227,7 @@ $n_{\mathrm{discs}}$ pairwise-disjoint $n$-discs in $M$.
 \begin{theorem}[Francis $E_n$-Koszul duality;
  \protect{\cite{Francis2013}} Theorem~1.1]
 \label{thm:francis-en-koszul}
+\ClaimStatusProvedElsewhere
 There is an equivalence between the $(\infty, 1)$-category of
 $E_n$-factorisation algebras on a smooth $n$-manifold $M$ and the
 $(\infty, 1)$-category of $E_n$-algebras in $\Ch(k)$ augmented over
@@ -570,10 +1294,10 @@ Fix a CY$_3$ category $\cC$ and a smooth complex CY$_3$ variety $X$
 with Calabi--Yau form $\Omega_X \in H^0(X, K_X)$. Stage~1 of the
 two-stage factorisation assembles an $E_3$-holomorphic factorisation
 algebra $\PhiFA_3(\cC)$ on $X$ from the Hochschild-cochain $E_3$-algebra
-of $\cC$. The assembly proceeds in three steps, each elementary but
+of $\cC$. The assembly has three components, each elementary but
 each drawing on a distinct piece of first-principles input.
 
-\paragraph{Step (a): Kontsevich--Tamarkin formality.}
+\paragraph{Arrow (a): Kontsevich--Tamarkin formality.}
 The Hochschild cochain complex $\HH^\bullet(\cC)$ carries a Gerstenhaber
 bracket of degree $1 - d$, descending on cohomology from the
 composition-circle $\circ$ of cochain operations
@@ -591,10 +1315,10 @@ space. At $d = 3$ the lift supplies an $E_3$-algebra in $\Ch(k)$.
 \emph{Super caveat}: in the super-graded case $\HH^\bullet(\cC_{\sVect})$,
 Ginzburg--Schedler (arXiv:$0807.0174$) establish super-formality
 only at $E_2$, not at $E_3$; the $E_3$-lift on super Hochschild cochains
-is open, bounding the applicability of Step~(a) to the bosonic
+is open, bounding the applicability of Arrow~(a) to the bosonic
 Gerstenhaber side unless a super-extension is supplied by hand.
 
-\paragraph{Step (b): Costello--Gwilliam factorisation envelope on $X$.}
+\paragraph{Arrow (b): Costello--Gwilliam factorisation envelope on $X$.}
 An $E_3$-algebra $A$ in $\Ch(k)$ assembles, by the factorisation-envelope
 construction of \cite{CostelloGwilliam} Vol.~I~\S$3.6$ and Theorem
 $3.4.0.1$ (locally constant factorisation algebras on framed
@@ -611,7 +1335,7 @@ real $6$-manifold $M \cong X_{\mathrm{top}}$. At this step the algebra
 is still topological: it uses only the framed real $6$-manifold
 structure of $X$, ignoring the complex structure on $X$.
 
-\paragraph{Step (c): Costello--Li holomorphic refinement via $\Omega_X$.}
+\paragraph{Arrow (c): Costello--Li holomorphic refinement via $\Omega_X$.}
 The Calabi--Yau form $\Omega_X \in H^0(X, K_X)$ supplies, by contraction
 with the Dolbeault operator $\bar\partial_X$, the BV pairing of 6D
 holomorphic Chern--Simons on $X$~\cite{CostelloLi2016,CostelloLi2020}:
@@ -620,7 +1344,7 @@ the $(0, \bullet)$-form part of a connection $A$ against the CY form,
 producing a $(-1)$-shifted symplectic structure on the BV phase space.
 The BV-quantised observables of 6D hCS form a holomorphic
 $E_3$-factorisation algebra on $X$ which, by Costello--Li's
-classification, is equivalent to the topological $E_3$-FA of Step~(b)
+classification, is equivalent to the topological $E_3$-FA of Arrow~(b)
 refined by $\bar\partial_X$ and the $\Omega_X$-induced CY pairing. The
 holomorphic refinement is unconditional at $d = 1, 2$ and is the
 chain-level CY-A$_d$ obstruction at $d = 3$, resolved
@@ -636,9 +1360,9 @@ The composite assembles
 \end{equation}
 as an $E_3$-holomorphic factorisation algebra on $X$. Stage~1 is
 canonical up to the contractible space of choices jointly controlled
-by Kontsevich--Tamarkin $E_3$-formality (Step~(a), torsor under
+by Kontsevich--Tamarkin $E_3$-formality (Arrow~(a), torsor under
 $\GRT_1(\Q)$) and Costello--Gwilliam--Li holomorphic locality
-(Step~(c), torsor under gauge transformations of the BV action); the
+(Arrow~(c), torsor under gauge transformations of the BV action); the
 space of Stage~1 liftings is contractible as a fibration of two
 contractible torsors over the initial datum $(\cC, X, \Omega_X)$. The
 factorisation axiom
@@ -946,6 +1670,7 @@ Proposition~\ref{prop:nonabelian-5d-hcs-yangian-voa}.
  bosonic; Costello--Yagi~\cite{CostelloYagi2018} (arXiv:$1810.01970$,
  two-author paper), Theorem~$4.1$]
 \label{prop:nonabelian-5d-hcs-yangian-voa}
+\ClaimStatusProvedElsewhere
 Let $\fg$ be a finite-dimensional simply-laced bosonic simple Lie
 algebra (of type $A_n, D_n, E_6, E_7, E_8$) with non-degenerate
 invariant Killing form. The BV-quantised factorisation algebra of
@@ -961,7 +1686,9 @@ $Y^{\mathrm{VOA}}(\fg)$ to all orders in $\hbar$:
  Y^{\mathrm{VOA}}(\fg).
 \end{equation}
 The perturbative expansion is convergent, not merely asymptotic, by
-two rigidity inputs. First, Kontsevich--Tamarkin $E_2$-formality on the
+the Costello--Yagi construction. This is not the consequence of the
+vanishing of a cubic invariant on every ADE algebra. First,
+Kontsevich--Tamarkin $E_2$-formality on the
 holomorphic factor $\C^2$ (two-dimensional Deligne conjecture;
 Kontsevich~\cite{Kontsevich1999}, Tamarkin~\cite{Tamarkin2007}) collapses
 the $\hbar$-tower on $\Obs^{\mathrm{4D\,hol}}(\C^2)$ to its tree-level
@@ -985,7 +1712,7 @@ splits as
 \label{eq:5d-hCS-anomaly-split}
  A^{(1)}(\fg) \;=\; A^{(1)}_{\mathrm{cohom}} \;+\; A^{(1)}_{\mathrm{w.f.}},
  \qquad
- A^{(1)}_{\mathrm{cohom}}(\fg) \;=\; d^{abc}\, d^{abc},
+ A^{(1)}_{\mathrm{cohom}}(\fg) \;=\; \frac{d^{abc}\, d_{abc}}{(2\pi)^3},
  \qquad
  A^{(1)}_{\mathrm{w.f.}}(\fg) \;=\; -\,\frac{C_2(\fg)}{(2\pi)^3}
  \;=\; -\,\frac{2 h^\vee}{(2\pi)^3},
@@ -995,18 +1722,14 @@ invariant tensor and $C_2(\fg) = 2 h^\vee$ the quadratic Casimir of
 the adjoint (dual Coxeter number $h^\vee$). The cohomological
 component $A^{(1)}_{\mathrm{cohom}}$ is scheme-independent and carries
 the obstruction; the field-renormalisation component $A^{(1)}_{\mathrm{ren}}$
-is scheme-dependent and absorbed into a BV-trivial counter-term. For
-$\fg$ simply-laced of type $A_n, D_n, E_6, E_7, E_8$ the totally
-symmetric invariant $3$-tensor vanishes on the adjoint (equivalently:
-the only $\fg$-invariant in $S^3(\fg^\vee)$ is $0$ for simply-laced
-Dynkin types; reducing to $\mathfrak{sl}_2$ gives $d^{abc} =
-\frac{1}{4}\epsilon^{abc}$ antisymmetric, so $d^{abc} d^{abc} = 0$
-upon symmetrised contraction). Consequently $A^{(1)}_{\mathrm{cohom}}
-= 0$ on the simply-laced locus. Non-simply-laced bosonic $\fg$ of
-types $B_n, C_n, F_4, G_2$ has $d^{abc} \neq 0$, obstructing the
-$\hbar$-tower collapse beyond second order; the quantisation in that
-regime is the twisted Yangian, and the all-orders identification
-remains open.
+is scheme-dependent and absorbed into a BV-trivial counter-term. The
+cubic tensor vanishes for the simple types whose exponent list does
+not contain $2$: $A_1, B_n, C_n, D_n, E_6, E_7, E_8, F_4, G_2$.
+It is non-zero for $A_n$, $n \geq 2$. Thus cubic-anomaly freedom is
+not the same condition as simple-lacing. The Costello--Yagi theorem
+for simply-laced $\fg$ is an external all-orders theorem for the
+5d theory; the cubic-Casimir gate used later for 6d hCS must be
+applied separately.
 \end{proposition}
 
 \begin{remark}[Super gauge algebras: all-orders open]
@@ -1014,7 +1737,7 @@ remains open.
 The Costello--Yagi all-orders equivalence is established for
 simply-laced \emph{bosonic} $\fg$. The super case
 $\fg \in \{\widehat{\mathfrak{gl}}(m|n), \widehat{\mathfrak{osp}}(m|2n)\}$
--- the regime of the K$3$ Yangian envelopes $Y_\hbar(\mathfrak{so}(4, 20))$ and its Hodge-parity $\Z/2$-super-extension $Y_\hbar(\mathfrak{so}(4 \mid 20))$ (programme-specific, non-Kac; Kac $\mathfrak{osp}(4 \mid 20)$ excluded because its odd form is symplectic) and
+-- the regime of the K$3$ Yangian envelopes $Y_\hbar(\mathfrak{so}(4, 20))$ and its Hodge-parity $\Z/2$-super-extension $Y_\hbar(\mathfrak{so}(4 \mid 20))$ (Hodge-parity, non-Kac; Kac $\mathfrak{osp}(4 \mid 20)$ excluded because its odd form is symplectic) and
 the conifold two-chart super-Yangian; requires super
 Kontsevich--Tamarkin formality, and
 Ginzburg--Schedler~\cite{GinzburgSchedler2008} (Selecta Math.~$16$,
@@ -1175,7 +1898,7 @@ ignores the toric equivariance structure.
 
 \begin{remark}[Connection to Costello--Paquette $\C^3$ M-theory]
 \label{rem:costello-paquette-c3-m-theory}
-The Costello--Paquette programme (Costello--Paquette arXiv:$1810.06490$
+The Costello--Paquette construction (Costello--Paquette arXiv:$1810.06490$
 for $\C^3$ and arXiv:$2009.04834$ for the Omega-background extension)
 identifies the twisted M-theory factorisation algebra on $\R \times
 \C^2 \times S^1$ with the $\R$-quantised 5D hCS theory of
@@ -1257,11 +1980,12 @@ holomorphic-topological splitting~\cite{Francis2013} Theorem~$1.1$;
 Kontsevich--Tamarkin formality then identifies the operad with $E_3$
 via~\eqref{eq:dunn-lurie-e1-top-e2-hol}. Non-abelian 5D hCS converges
 to the Yangian VOA at all orders for simply-laced bosonic $\fg$ of
-types $A_n, D_n, E_6, E_7, E_8$ by the cubic anomaly $d^{abc} d^{abc}
-= 0$ (the totally symmetric invariant $3$-tensor vanishes on
-simply-laced adjoint) and the scheme-dependent $2 h^\vee$-counter-term
-(Proposition~\ref{prop:nonabelian-5d-hcs-yangian-voa}), and the super
-case remains open except for the verified $1$-loop cancellation on
+types $A_n, D_n, E_6, E_7, E_8$ by the Costello--Yagi theorem
+(Proposition~\ref{prop:nonabelian-5d-hcs-yangian-voa}). This is not
+the same as cubic-anomaly freedom: $d^{abc}$ is non-zero for
+$A_n$, $n \geq 2$, and the cubic-Casimir gate is a separate 6d hCS
+condition. The super case remains open except for the verified
+$1$-loop cancellation on
 $\mathfrak{gl}(1|1)$ (Remark~\ref{rem:5d-super-hcs-open}). Stratified Weiss covers
 (Definition~\ref{def:stratified-weiss-cover}; Ayala--Francis--Tanaka
 \cite{AyalaFrancisTanaka2017,AyalaFrancisTanaka2017Strat}) extend the

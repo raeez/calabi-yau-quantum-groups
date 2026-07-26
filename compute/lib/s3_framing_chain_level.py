@@ -180,7 +180,7 @@ No floating-point approximations.
 CONVENTIONS
 ===========
   - Cohomological grading: |d| = +1
-  - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (AP45)
+  - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (desuspension convention)
   - CY dimension d: the Serre functor is S = [d]
   - AP-CY2: CY trace is HC^-_d(C), NOT just HH_d -> k
   - AP-CY3: E_2 != commutative. E_2 has braiding, NOT symmetric.
@@ -347,7 +347,7 @@ class CyclicBarElement:
     def total_degree(self) -> int:
         """Total cohomological degree after desuspension.
 
-        Each factor in the bar has desuspended degree |a_i| - 1 (AP45).
+        Each factor in the bar has desuspended degree |a_i| - 1 (desuspension convention).
         The first factor a_0 is NOT desuspended (it is the cyclic element).
         """
         n = len(self.factors)

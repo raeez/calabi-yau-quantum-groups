@@ -81,7 +81,7 @@ CONVENTIONS
   - lambda_g^FP = Faber-Pandharipande intersection number
   - kappa_ch = modular characteristic from chiral algebra A_X
   - All coefficients exact (Fraction arithmetic)
-  - Cohomological grading (|d| = +1), bar uses desuspension (AP45)
+  - Cohomological grading (|d| = +1), bar uses desuspension (desuspension convention)
 
 REFERENCES:
   [BCOV] Bershadsky-Cecotti-Ooguri-Vafa, hep-th/9309140, hep-th/9405126
@@ -631,32 +631,21 @@ def gv_integrality_check(gv_invariants: Dict[Tuple[int, int], int],
 # Section 5: TASK 4 -- K3 x E: DMVV formula as bar complex GF
 # =====================================================================
 
-# phi_{0,1} discriminant coefficients (EZ normalisation)
+# K3 elliptic-genus discriminant coefficients (doubled normalisation)
 # c(D) for D = -1, 0, 3, 4, 7, 8, 11, 12, ...
-# c(-1) = 2 (AP-CY9: NOT 1; EZ convention)
-PHI01_DISCRIMINANT_COEFFS: Dict[int, int] = {
+K3_ELLIPTIC_GENUS_DISCRIMINANT_COEFFS: Dict[int, int] = {
     -1: 2,
-    0: -1,   # Wait: DMVV uses c(D) where D = 4nm - l^2
-    # Actually the standard coefficients of phi_{0,1} by discriminant:
-    # In the expansion phi_{0,1}(tau, z) = sum_{D,l} c(D) q^n y^l
-    # where D = 4n - l^2, the coefficients are:
-    # c(-1) = 2, c(0) = -1 (NOT standard).
-    # Let me use the standard: f(D) in the Borcherds product.
-    # The DMVV product uses c(4nm - l^2) where c(-1) = 2.
+    0: 20,
+    3: -128,
+    4: 216,
 }
 
 # More complete discriminant table
-# D: c(D)  [from phi_{0,1} Fourier-Jacobi expansion, EZ normalization]
-# D = -1: 2 (polar term)
-# D = 0: -2 (NOT -1; careful with conventions)
-# D = 3: 248  ... no wait.
-# Let me use the standard from the K3 elliptic genus.
+# D: c(D) from the full K3 elliptic genus.
 # The K3 elliptic genus: chi(K3, q, y) = 2*phi_{0,1}(tau, z)
 # phi_{0,1}(tau, z) has the expansion indexed by discriminant D = 4n - l^2.
-# At the polar term D = -1: c(-1) = 2 (in EZ normalization, AP-CY9).
+# At the polar term D = -1: c(-1) = 2 in the doubled elliptic-genus trace.
 # At D = 0: c(0) = 20 (not -1 or -2).
-# Actually: c(0) is the coefficient at 4n - l^2 = 0, summed over all (n, l).
-# This needs the actual phi01 computation.
 
 # For the DMVV product, we need the Fourier coefficients of the K3
 # elliptic genus. Rather than hardcode them (risk AP-CY24), we compute

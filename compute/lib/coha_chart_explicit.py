@@ -61,7 +61,7 @@ THE PBW THEOREM (Davison-Meinhardt):
 CONVENTIONS:
     - Exact arithmetic via fractions.Fraction throughout
     - Cohomological grading: |d_bar| = +1
-    - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (AP45)
+    - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (desuspension convention)
     - q = formal variable / box-counting fugacity
     - M(q) = MacMahon = prod_{n>=1} 1/(1-q^n)^n
     - P(q) = Euler = prod_{n>=1} 1/(1-q^n)

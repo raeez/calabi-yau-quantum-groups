@@ -62,7 +62,8 @@ Key computation: the operad-level structure descends from E_2 x E_infty to E_1.
     Tr: HH_3 -> k, which involves ALL three Hodge directions.
 
     The E_1 obstruction is measured by the ASSOCIAHEDRON obstruction class:
-      o_{E_2} in H^2(E_1 bar, d_1) = obstruction to promoting E_1 to E_2.
+      o_{E_2} in H^2(E_1 bar, d_1) = obstruction to a native E_2
+      structure on A rather than on its Drinfeld centre.
 
     For K3 x E: this obstruction is NONTRIVIAL because:
     (a) The CY3 Serre duality mixes K3 and E cohomological directions.
@@ -204,7 +205,7 @@ Multiple kappa values are relevant for K3 x E (AP20, AP48):
 THE E_1 OBSTRUCTION CLASS
 ==========================
 
-The obstruction to promoting E_1 to E_2 is measured by:
+The obstruction to a native E_2 structure on A is measured by:
 
   o_{E_2} in HH^2(B_{E_1}(A), d_1)
 

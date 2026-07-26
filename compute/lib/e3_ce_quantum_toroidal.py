@@ -108,8 +108,8 @@ The E_n Koszul dual D_E_n(B_{E_n}(A)) at each factorization level:
 
 E_1 Koszul dual:
   D_{E_1}(B_{E_1}(A)) = A itself (the chiral algebra is E_1-Koszul self-dual
-  up to a level shift: V_k(g)^! = V_{k'}(g) at k' = -k - 2h^vee).
-  For gl_1 (h^vee = 0): A^! = V_{-k}(gl_1).
+  up to the reflected current presentation at k' = -k - 2h^vee).
+  For gl_1 (h^vee = 0): the reflected current presentation is V_{-k}(gl_1).
   Modules: Rep^{E_0}(A^!) = ordinary modules of V_{-k}(gl_1).
 
 E_2 Koszul dual:
@@ -162,7 +162,7 @@ CONVENTIONS
 - sigma_3 = e_3(epsilon) = epsilon_1 epsilon_2 epsilon_3.
 - (q, t) = (exp(epsilon_1), exp(-epsilon_2)): Macdonald convention.
 - Cohomological grading (|d| = +1).
-- Bar desuspension: |s^{-1}a| = |a| - 1 (AP45).
+- Bar desuspension: |s^{-1}a| = |a| - 1 (desuspension convention).
 
 MANUSCRIPT REFERENCES
 =====================
@@ -578,8 +578,8 @@ class ChiralCEAtLevel:
             #             = (u-e1)(u-e2) / ((u+e1)(u+e2))
             base.update({
                 "parameters": {"sigma_2": lvl.sigma2, "k": lvl.kac_moody_level},
-                "rep_category": "Rep^{E_1}(Y): braided monoidal (from Drinfeld center)",
-                "braiding": "E_1-braiding from R-matrix R(u) = (u + sigma_2 * P)/(u + sigma_2)",
+                "rep_category": "Z(Rep^{E_1}(Y)): braided monoidal (Drinfeld center)",
+                "braiding": "Drinfeld-center braiding from R-matrix R(u) = (u + sigma_2 * P)/(u + sigma_2)",
                 "structure_function": (
                     f"g(u) = (u - {e1})(u - {e2}) / ((u + {e1})(u + {e2})) "
                     f"(E_2 point: e3 = 0 cancels)"
@@ -596,11 +596,11 @@ class ChiralCEAtLevel:
                     "sigma_3": lvl.sigma3,
                 },
                 "rep_category": (
-                    "Rep^{E_2}(U_{q,t}): braided monoidal "
+                    "Z(Rep^{E_2}(U_{q,t})): braided monoidal "
                     "(from E_3 bar complex) [CONJECTURAL]"
                 ),
                 "braiding": (
-                    "E_2-braiding from two-parameter R-matrix "
+                    "center-level E_2-braiding from two-parameter R-matrix "
                     "R(u, v) = R_1(u) R_2(v) R_{12}(u-v)"
                 ),
                 "structure_function": (

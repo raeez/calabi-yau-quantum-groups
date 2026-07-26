@@ -338,7 +338,8 @@ class DimensionalHierarchyChecker:
             "ok": g_at_h2_zero == 1 and k_3d != 0,
             "interpretation": (
                 "3d projection: h2=0 collapses one C-direction, giving "
-                f"g(u)=1 (trivial R-matrix = Kac-Moody). Level k = h1^2 = {k_3d}."
+                f"g(u)=1 (trivial nonabelian Yangian part = Kac-Moody). "
+                f"Level k = h1^2 = {k_3d}."
             )
         }
 
@@ -1066,7 +1067,7 @@ class ZTEObstructionChecker:
 # =========================================================================
 
 class CFG25AdversarialSuite:
-    """Master suite: all six attack vectors tested together.
+    """Master suite: all six obstructions tested together.
 
     Produces a unified report of 3d-vs-6d consistency gaps.
     """
@@ -1080,7 +1081,7 @@ class CFG25AdversarialSuite:
         self.zte = ZTEObstructionChecker(float(h1), float(h2))
 
     def run_all(self) -> Dict[str, object]:
-        """Run all six attack vectors and produce a unified report."""
+        """Run all six obstructions and produce a unified report."""
         results = {}
 
         # Attack 1: Kontsevich integral

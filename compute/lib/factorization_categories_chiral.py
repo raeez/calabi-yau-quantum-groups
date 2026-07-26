@@ -876,7 +876,7 @@ def factorization_algebra_vs_category() -> AlgebraVsCategoryComparison:
         algebra_en_structure='E_n structure from S^d framing (n = 4 - d for d <= 3)',
         category_en_structure=(
             'E_n-monoidal category (n=1: monoidal, n=2: braided). '
-            'The Drinfeld center promotes E_1 -> E_2.'
+            'The Drinfeld center carries the categorical E_2 braiding.'
         ),
         example_kl=(
             'V_k(g) -> Rep(V_k(g)|_U) -> int_C Rep(V_k(g)) = Verlinde -> '

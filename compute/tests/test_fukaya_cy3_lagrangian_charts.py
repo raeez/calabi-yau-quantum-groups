@@ -15,7 +15,7 @@ Tests organized by section:
    11.  Multi-path verification (engine-level): all claims cross-checked
    12.  Consistency with fukaya_e1_bar_engine data
    13.  Edge cases and robustness
-   14.  Koszul sign utilities (AP45 desuspension convention)
+   14.  Koszul sign utilities (desuspension convention desuspension convention)
    15.  Binomial and factorial exact arithmetic
    16.  Generator immutability (frozen dataclass)
    17.  Wrapped Floer associativity and unit axiom
@@ -100,18 +100,18 @@ class TestLagrangianGenerator:
         g = LagrangianGenerator("1", degree=0)
         # VERIFIED [DC] degree count [DA] dimensional consistency
         assert g.degree == 0
-        # VERIFIED [DC] structural property [LT] AP45
+        # VERIFIED [DC] structural property [LT] desuspension convention
         assert g.desuspended_degree() == -1
 
     def test_degree_three(self):
         g = LagrangianGenerator("omega", degree=3)
         # VERIFIED [DC] degree count [DA] dimensional consistency
         assert g.degree == 3
-        # VERIFIED [DC] structural property [LT] AP45
+        # VERIFIED [DC] structural property [LT] desuspension convention
         assert g.desuspended_degree() == 2
 
     def test_desuspension_formula(self):
-        """AP45: |s^{-1}v| = |v| - 1, NOT |v| + 1."""
+        """desuspension convention: |s^{-1}v| = |v| - 1, NOT |v| + 1."""
         for d in range(4):
             g = LagrangianGenerator(f"x_{d}", degree=d)
             assert g.desuspended_degree() == d - 1
@@ -1123,16 +1123,16 @@ class TestKoszulSign:
         assert _koszul_sign([0, 3], 1) == -1
 
     def test_koszul_sign_desuspension_ap45(self):
-        """AP45: bar uses DESUSPENSION |s^{-1}v| = |v| - 1, NOT |v| + 1.
+        """desuspension convention: bar uses DESUSPENSION |s^{-1}v| = |v| - 1, NOT |v| + 1.
         Three independent checks for multi-path verification:
         Path 1: [2] at pos 0 => desuspended = 1, sign = (-1)^1 = -1.
         Path 2: [1, 1] at pos 1 => sum = 0 + 0 = 0, sign = 1.
         Path 3: [0, 0] at pos 1 => sum = -1 + -1 = -2, sign = 1."""
-        # VERIFIED [DC] Koszul structure [LT] AP45
+        # VERIFIED [DC] Koszul structure [LT] desuspension convention
         assert _koszul_sign([2], 0) == -1       # Path 1
-        # VERIFIED [DC] Koszul structure [LT] AP45
+        # VERIFIED [DC] Koszul structure [LT] desuspension convention
         assert _koszul_sign([1, 1], 1) == 1      # Path 2
-        # VERIFIED [DC] Koszul structure [LT] AP45
+        # VERIFIED [DC] Koszul structure [LT] desuspension convention
         assert _koszul_sign([0, 0], 1) == 1      # Path 3
 
     def test_koszul_sign_consistency_with_generator(self):

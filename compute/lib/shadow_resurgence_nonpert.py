@@ -135,7 +135,7 @@ AP-CY14 COMPLIANCE: No theorem environment for unconstructed objects.
 CONVENTIONS
 ===========
   - Cohomological grading (|d| = +1)
-  - Bar uses desuspension (AP45)
+  - Bar uses desuspension (desuspension convention)
   - kappa always subscripted: kappa_ch (AP113)
   - S_k is the k-th shadow invariant from the tower
   - Q_L is the shadow quadratic (Vol I)

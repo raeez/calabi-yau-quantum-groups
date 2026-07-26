@@ -497,7 +497,7 @@ class HitchinChiralData(NamedTuple):
     rank: int
     genus: int
     chiral_algebra_type: str    # description of the chiral algebra
-    central_charge: Fraction    # c of the associated Virasoro
+    central_charge: Optional[Fraction]  # Sugawara c, absent at critical level
     level: str                  # 'critical' or parametric
     n_generators: int           # number of generating currents
     generator_spins: Tuple[int, ...]  # conformal weights of generators
@@ -597,7 +597,7 @@ def _lie_type_from_group(group: str) -> str:
     raise ValueError(f"Cannot determine Lie type from group '{group}'")
 
 
-def critical_level_central_charge(lie_type: str) -> Fraction:
+def critical_level_central_charge(lie_type: str) -> None:
     """Central charge of the affine vertex algebra at the critical level.
 
     At the critical level k = -h^v, the Segal-Sugawara construction
@@ -610,23 +610,14 @@ def critical_level_central_charge(lie_type: str) -> Fraction:
 
         c(k) = k * dim(g) / (k + h^v)
 
-    At k = -h^v, this has a pole.  The correct statement: at the
-    critical level, the Segal-Sugawara vector becomes a CENTRAL
-    element, and the effective central charge contribution is
-
-        c_{eff} = -dim(g)
-
-    (the numerator k * dim(g) evaluated at k = -h^v).
-    This is sometimes written as the limit c -> -infinity,
-    but the precise meaning is that the Sugawara vector is central
-    and does not generate a Virasoro action.
+    At k = -h^v, this has a pole.  There is no finite Sugawara central
+    charge at the critical level.  The Laurent numerator evaluates to
+    -h^v * dim(g), and the Segal-Sugawara fields pass to the
+    Feigin-Frenkel centre rather than to a Virasoro action.
     """
     if lie_type not in DUAL_COXETER:
         raise ValueError(f"Unknown Lie type '{lie_type}'")
-    dim_g = LIE_DIM[lie_type]
-    # At critical level: c_{eff} = -dim(g)
-    # This is the coefficient in the Sugawara OPE at k = -h^v
-    return Fraction(-dim_g, 1)
+    return None
 
 
 def affine_central_charge(lie_type: str, level: Fraction) -> Fraction:
@@ -681,8 +672,8 @@ def hitchin_chiral_data(lie_type: str, g: int) -> HitchinChiralData:
     # Hitchin base dimension
     dim_base = sum((2 * d - 1) * (g - 1) for d in casimirs)
 
-    # At the critical level, the "central charge" is -dim(g)
-    c_eff = Fraction(-dim_g, 1)
+    # At the critical level, the Sugawara central charge has no value.
+    c_eff = None
 
     # Group name for SL
     if lie_type.startswith('A_'):
@@ -783,7 +774,7 @@ def quantum_spectral_curve(lie_type: str, g: int,
         classical_curve_genus=cl_genus,
         oper_order=oper_ord,
         n_hamiltonians=n_casimirs,
-        ns_central_charge=f'c = -dim(g) + O(hbar) at critical, generic otherwise',
+        ns_central_charge='Sugawara c has a critical pole; opers replace the Virasoro action',
         is_wkb_exact=is_wkb,
         quantization_condition='Bohr-Sommerfeld: oint_{A_i} p dz in hbar * Z',
     )

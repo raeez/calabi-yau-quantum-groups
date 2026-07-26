@@ -21,7 +21,10 @@ from the Gerstenhaber structure).
 
 KEY RESULT FOR H_k:
 The Heisenberg VOA is a *free* field: a(z)a(w) ~ k/(z-w)^2 with NO
-first-order pole. The OPE is symmetric (no monodromy), so:
+first-order field-valued pole. The OPE is local, so the E2
+Gerstenhaber/nonabelian monodromy vanishes. The ordered-bar descent
+still has scalar braiding R(z) = exp(k*hbar/z), nontrivial for k != 0.
+Thus:
   - The E_2 structure is E_infty (symmetric braiding).
   - The Gerstenhaber bracket vanishes: [a,a] = 0.
   - d_Y = 0 (the CE differential is trivial).
@@ -246,17 +249,19 @@ class HeisenbergOPE:
     ) -> object:
         """The Gerstenhaber bracket [g1, g2] in the E_2 structure.
 
-        For Heisenberg: this is ZERO because the braiding is symmetric.
-        The Gerstenhaber bracket measures the infinitesimal monodromy
-        of the braiding around the configuration space, and for a free
-        field (symmetric OPE) there is no monodromy.
+        For Heisenberg: this is ZERO because the field-valued
+        E2/Gerstenhaber braiding is symmetric.  This does not say the
+        ordered-bar scalar braiding is trivial; at level k it is
+        R(z) = exp(k*hbar/z), central and nontrivial for k != 0.
         """
         return 0
 
     def r_matrix_classical(self) -> object:
         """Classical r-matrix r(z) in End(V tensor V) tensor k((z)).
 
-        For Heisenberg: r = 0 (trivial braiding, no monodromy).
+        For Heisenberg: the E2/Gerstenhaber r = 0.  The ordered-bar
+        scalar collision kernel is separately r_ord(z) = k/z, with
+        quantum R_ord(z) = exp(k*hbar/z).
         """
         return 0
 

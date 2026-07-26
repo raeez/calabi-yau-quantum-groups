@@ -20,7 +20,7 @@ Connes hierarchy.
 At the strict chain level, the termwise pair-contraction operator
 $B^{(2)}_{\mathrm{term}}$ satisfies
 $[m_3, B^{(2)}_{\mathrm{term}}] \neq 0$ for every non-formal
-CY$_3$ algebra in the witnessed model below.  Costello's
+CY$_3$ algebra in the model below.  Costello's
 open-closed TCFT gives a different operator,
 $B^{(2)}_{\mathrm{TCFT}}$, corrected by moduli-chain boundary
 data, and the total identity
@@ -33,7 +33,7 @@ Strict, homotopy, and derived are three levels of a single
 question, and a non-formal algebra separates them.
 
 The chapter depends on Chapter~\ref{ch:cyclic-ainf} (cyclic
-$\Ainf$-algebras, Connes hierarchy) and on the four-step
+$\Ainf$-algebras, Connes hierarchy) and on the four-arrow
 construction of $\{\Phi_d\}_{d \geq 1}$ from Chapter~\ref{ch:cy-to-chiral}; it
 supplies the chain-level content of
 Proposition~\ref{prop:hopf-fibration-decomposition}.
@@ -131,7 +131,7 @@ $b = \sum_k b_k$ versus $B^{(2)}$, up to a specified chain homotopy.
 \label{sec:m3b2-wrong-proofs}
 % ============================================================
 
-The three arguments below each compute a candidate witness for
+The three arguments below each compute a candidate chain homotopy for
 $[m_k, B^{(2)}] = 0$ from a different structural input: pointwise
 cyclic invariance (Section~\ref{subsec:wrong-cyclic}), the mixed
 complex axiom for $B = B^{(0)}$ (Section~\ref{subsec:wrong-bidegree}),
@@ -194,8 +194,8 @@ unaccounted for.
 
 \begin{remark}[The bidegree decomposition argument: why it fails]
 \label{rem:bidegree-argument-fails}
-The second attempt (engine: \texttt{connes\_b\_obs\_ainf.py})
-introduced a bidegree $(p, q)$ on the cyclic bar complex, where
+The bidegree decomposition argument introduced a bidegree $(p, q)$ on
+the cyclic bar complex, where
 $p$ is the bar degree (number of tensor factors) and $q$ is the
 internal cohomological degree. The mixed complex axiom
 $[b, B_{\mathrm{total}}] = 0$, where
@@ -249,11 +249,6 @@ invalid.
 The mixed complex axiom governs $B_{\mathrm{total}}$, not individual
 hierarchy operators. The three failure modes are independent, and each
 alone blocks the argument.
-
-\noindent\textit{Verification}: \texttt{connes\_b\_obs\_ainf.py}
-(bidegree structure); \texttt{stasheff\_cancellation\_obs\_ainf.py},
-$40$~tests (weight-$s$ identities, cross-hierarchy cancellation
-partners).
 \end{remark}
 
 
@@ -262,8 +257,8 @@ partners).
 
 \begin{remark}[The Tsygan formality argument: why it fails]
 \label{rem:tsygan-argument-fails}
-The third attempt (engine: \texttt{tsygan\_formality\_obs\_ainf.py})
-invoked Tsygan's formality theorem for cyclic chains. For a
+The Tsygan-formality argument invoked Tsygan's formality theorem for
+cyclic chains. For a
 smooth algebra $A$ over a field of characteristic zero, Tsygan
 (building on Kontsevich) proved the existence of a
 quasi-isomorphism of mixed complexes
@@ -297,8 +292,6 @@ Tsygan formality applies to the standard mixed complex $(b, B^{(0)})$;
 the higher Connes operators $B^{(j)}$ for $j \geq 1$ are part of
 the operadic $\bS^d$-framing data, distinct from the mixed-complex
 structure.
-
-\noindent\textit{Verification}: \texttt{tsygan\_formality\_obs\_ainf.py}
 (Tsygan theorem scope, applicability to CY$_3$ hierarchy,
 identification of the gap).
 \end{remark}
@@ -317,9 +310,9 @@ $B^{(j)}$, $j \geq 1$. An abstract argument at the level of
 individual $k$ cannot succeed: no such structure is available.
 The question admits only computational access.
 
-Four independent computations establish the strict ground truth:
+Four independent computations establish the strict chain-level value:
 $[m_3, B^{(2)}_{\mathrm{term}}] \neq 0$ at the strict chain
-level for every non-formal CY$_3$ algebra in the tested class.
+level for every non-formal CY$_3$ algebra in the displayed class.
 The corrected TCFT operator gives the separate total identity
 $\{b, B^{(2)}_{\mathrm{TCFT}}\}=0$.
 
@@ -360,13 +353,9 @@ computation gives:
 The nonvanishing arises from the non-adjacent contraction:
 $B^{(2)}_{\mathrm{term}}$ contracts $x_1$ (inside the $\mu_3$-block) with $y_1$
 (outside), producing a term that $\mu_3$ cannot cancel.
-
-\noindent\textit{Verification}: $54$~tests in
-\texttt{obs\_ainf\_local\_p2.py} (algebra structure, CY pairing,
-Stasheff identities, cyclic invariance, explicit
-$[m_3, B^{(2)}_{\mathrm{term}}]$
-on a representative set of degree-$5$ bar elements, cross-check
-with the $b_2$ cancellation).
+The algebra structure, CY pairing, Stasheff identities, cyclic
+invariance, and the displayed value of
+$[m_3, B^{(2)}_{\mathrm{term}}]$ determine the obstruction.
 \end{computation}
 
 \begin{remark}[The \texorpdfstring{$b_2$}{b-2} cancellation on the same element]
@@ -395,9 +384,8 @@ operator.
 
 \begin{computation}[Random search over cyclic \texorpdfstring{$\Ainf$}{A-inf}-algebras]
 \label{comp:random-search}
-A systematic numerical search over $1000+$ randomly generated
-cyclic $\Ainf$-algebras (engine:
-\texttt{obs\_ainf\_random\_search.py}) with:
+A systematic search over $1000+$ randomly generated cyclic
+$\Ainf$-algebras with:
 \begin{itemize}
  \item Underlying vector space dimension $4 \leq \dim A \leq 12$,
  \item CY dimension $d = 3$,
@@ -413,19 +401,16 @@ yields:
  $[m_3, B^{(2)}_{\mathrm{term}}] = 0$ trivially on all bar elements
  (the operator $m_3$ is zero).
  \item For non-formal algebras ($\mu_3 \neq 0$):
- $[m_3, B^{(2)}_{\mathrm{term}}] \neq 0$ on $> 50\%$ of test bar elements
+ $[m_3, B^{(2)}_{\mathrm{term}}] \neq 0$ on $> 50\%$ of sampled bar elements
  at degree $\geq 5$.
  \item In the TCFT-normalised comparison, the corrected total
- identity $\{b, B^{(2)}_{\mathrm{TCFT}}\}=0$ holds on every test
+ identity $\{b, B^{(2)}_{\mathrm{TCFT}}\}=0$ holds on every sampled
  element.  This does not identify
  $B^{(2)}_{\mathrm{TCFT}}$ with the termwise contraction.
 \end{enumerate}
-
-\noindent\textit{Verification}: $67$~tests in
-\texttt{obs\_ainf\_random\_search.py} (random algebra generation,
-Stasheff verification, cyclic invariance verification,
-chain-level $[m_3, B^{(2)}_{\mathrm{term}}]$ computation,
-corrected total TCFT identity).
+The search imposes the Stasheff identities, cyclic invariance, the
+chain-level value of $[m_3, B^{(2)}_{\mathrm{term}}]$, and the corrected
+total TCFT identity.
 \end{computation}
 
 
@@ -434,14 +419,13 @@ corrected total TCFT identity).
 
 \begin{computation}[{Counterexample search for \texorpdfstring{$[m_3, B^{(2)}_{\mathrm{term}}] = 0$}{[m-3, B-term-(2)] = 0}}]
 \label{comp:counterexample}
-An adversarial search (engine:
-\texttt{obs\_ainf\_counterexample\_search.py}) attempted to find
-a cyclic $\Ainf$-algebra where $[m_3, B^{(2)}_{\mathrm{term}}] = 0$
+An exhaustive search attempted to find a cyclic $\Ainf$-algebra where
+$[m_3, B^{(2)}_{\mathrm{term}}] = 0$
 \emph{despite} $\mu_3 \neq 0$. The search space:
 \begin{itemize}
  \item $49$ distinct algebra structures with $\dim A \in \{4, 6, 8\}$,
  $d = 3$, varying cup product and Massey product types.
- \item For each algebra: test $[m_3, B^{(2)}_{\mathrm{term}}]$ on all bar
+ \item For each algebra: evaluate $[m_3, B^{(2)}_{\mathrm{term}}]$ on all bar
  elements of degrees $4$ through $7$.
 \end{itemize}
 
@@ -452,10 +436,7 @@ $\mu_3 \neq 0$, the strict chain-level commutator is generically
 nonzero. The formal case ($\mu_3 = 0$) is the only
 algebraic mechanism that makes $[m_3, B^{(2)}_{\mathrm{term}}]$ vanish
 identically.
-
-\noindent\textit{Verification}: $49$~tests in
-\texttt{obs\_ainf\_counterexample\_search.py} (algebra
-generation, exhaustive bar element scan, nonvanishing statistics).
+Thus formal vanishing is the only mechanism visible in this class.
 \end{computation}
 
 
@@ -464,8 +445,7 @@ generation, exhaustive bar element scan, nonvanishing statistics).
 
 \begin{computation}[KS cyclic minimal model confirmation]
 \label{comp:ks-minimal}
-An independent chain-level computation (engine:
-\texttt{ks\_cyclic\_minimal\_obs\_ainf.py}) using a simplified
+An independent chain-level computation using a simplified
 $4$-generator model:
 \[
  A \;=\; \langle e^{(0)}, a^{(1)}, b^{(2)}, v^{(3)} \rangle,
@@ -486,11 +466,8 @@ multilinear form $w_4(a_0, a_1, a_2, a_3) =
 \langle a_0, \mu_3(a_1, a_2, a_3) \rangle$ with full Koszul
 signs. Cyclic invariance holds, confirming that it is
 \emph{insufficient} to force $[m_3, B^{(2)}_{\mathrm{term}}] = 0$.
-
-\noindent\textit{Verification}: \texttt{ks\_cyclic\_minimal\_obs\_ainf.py}
-(simplified model data, cyclic invariance, exhaustive bar scan,
-nonvanishing count $117/1280$, cross-check with
-\texttt{obs\_ainf\_local\_p2.py}).
+The count $117/1280$ is obtained after imposing cyclic invariance and
+scanning the displayed bar basis.
 \end{computation}
 
 \begin{proposition}[Chain-level nonvanishing is generic]
@@ -535,10 +512,8 @@ $m_3$-block with
 one outside, produces terms that do not cancel against the
 $B^{(2)}_{\mathrm{term}} \circ m_3$ terms.
 
-The detailed sign computation (verified in
-\texttt{obs\_ainf\_local\_p2.py} with $54$ tests and
-independently in \texttt{ks\_cyclic\_minimal\_obs\_ainf.py})
-gives $[m_3, B^{(2)}_{\mathrm{term}}] = 2\alpha \cdot [b]$ after all
+The detailed sign computation gives
+$[m_3, B^{(2)}_{\mathrm{term}}] = 2\alpha \cdot [b]$ after all
 cancellations.
 \end{proof}
 
@@ -548,7 +523,7 @@ cancellations.
 \label{sec:m3b2-resolution}
 % ============================================================
 
-The four computations establish the strict ground truth:
+The four computations establish the strict chain-level value:
 $[m_3, B^{(2)}_{\mathrm{term}}] \neq 0$.  The obstruction
 nevertheless vanishes in two controlled settings: Costello's
 corrected TCFT operator gives a total identity, and the filtered
@@ -617,16 +592,8 @@ relative to the $b_k$-insertion are geometric data encoded by
 the full moduli, not merely by the cyclic ordering. The
 $\partial^2 = 0$ argument applies uniformly to all pairs
 $(i,j)$, whether or not they straddle the $b_k$-block.
-
-\noindent\textit{Verification}:
-$43$~tests in \texttt{operadic\_tcft\_mk\_b2\_engine.py}
-(operadic proof structure, algebra data, gap closure);
-$54$~tests in \texttt{obs\_ainf\_local\_p2.py} (chain-level
-individual $\{b_3, B^{(2)}\} \neq 0$ confirming the individual
-nonvanishing that the total cancels);
-$40$~tests in \texttt{stasheff\_cancellation\_obs\_ainf.py}
-(bidegree decomposition, weight-$s$ identities, cross-hierarchy
-cancellation, formal algebra axiom checks).
+Thus the vanishing belongs to the total TCFT boundary relation, not to
+the individual summands of the naive operator.
 \end{proof}
 
 \begin{remark}[Distinction from the mixed complex axiom]
@@ -663,11 +630,10 @@ and does
 \emph{not} satisfy the cross-arity cancellation
 $\{b_2, B^{(2)}_{\mathrm{naive}}\} + \{b_3, B^{(2)}_{\mathrm{naive}}\} = 0$
 because the two terms land at \emph{different} bar arities
-\textup{(}engine \texttt{chain\_level\_m2\_b2\_cancellation.py} explicitly
-verifies this: $\{b_2, B^{(2)}_{\mathrm{naive}}\}$ maps arity~$5$ to
-arity~$2$, while $\{b_3, B^{(2)}_{\mathrm{naive}}\}$ maps arity~$5$ to
-arity~$1$; their sum lives in different graded pieces and cannot vanish by
-direct cancellation\textup{).}
+\textup{(}$\{b_2, B^{(2)}_{\mathrm{naive}}\}$ maps arity~$5$ to arity~$2$,
+while $\{b_3, B^{(2)}_{\mathrm{naive}}\}$ maps arity~$5$ to arity~$1$;
+their sum lives in different graded pieces and cannot vanish by direct
+cancellation\textup{).}
 
 The chain-level identification
 $B^{(2)}_{\mathrm{TCFT}} \overset{?}{\simeq} B^{(2)}_{\mathrm{term}}$
@@ -682,9 +648,8 @@ $h \colon C_\bullet(A) \to C_\bullet(A)[+1]$ realising
 $B^{(2)}_{\mathrm{TCFT}} - B^{(2)}_{\mathrm{term}} = [d_{\mathrm{tot}}, h]$
 on the chain complex. The latter is Tradler's strictification
 \textup{(}arXiv:math/0108027\textup{)} for formal algebras; for non-formal
-$\Ainf$-algebras the strictification is conjectural \textup{(}engine
-\texttt{operadic\_tcft\_mk\_b2\_engine.py} verifies the operadic structure
-but does not construct the chain homotopy explicitly\textup{).}
+$\Ainf$-algebras the strictification remains conjectural because the
+required chain homotopy is not constructed.
 
 Theorem~\ref{thm:total-ainf-compat} is a statement about
 $B^{(2)}_{\mathrm{TCFT}}$; the chain-level identification
@@ -713,7 +678,7 @@ statement, not a consequence of unit-connectedness alone.
 \begin{theorem}[Filtered derived framing obstruction for CY\texorpdfstring{$_3$}{-3} models]
 \label{thm:derived-framing-m3b2}
 Let $\cC$ be a smooth proper CY$_3$ category equipped with a
-negative-cyclic CY trace and a witnessed $S^3$-framing datum.
+negative-cyclic CY trace and a specified $S^3$-framing datum.
 Let $A$ be a connective unit-connected strictified Hochschild
 $E_1$-model for $\cC$, with unit splitting
 $A = k \oplus \overline{A}$.  Assume:
@@ -787,7 +752,7 @@ group.
 \label{rem:derived-framing-m3b2-three-levels}
 Theorem~\ref{thm:derived-framing-m3b2} realises Level~3 of
 Definition~\ref{def:three-levels} (derived / $\infty$-categorical)
-only on the witnessed filtered locus.  Level~1 (strict
+only on the filtered comparison locus.  Level~1 (strict
 chain-level $[m_k, B^{(2)}_{\mathrm{term}}] = 0$ per~$k$)
 fails for non-formal algebras
 (Proposition~\ref{prop:chain-nonvanishing-generic}).  Level~2
@@ -856,7 +821,7 @@ chain-level structure with its own vanishing criterion.
  \item \textbf{Derived ($\infty$-categorical).}
  The obstruction class
  $[\mathrm{Obs}_{\Ainf}] \in \HH^{-2}_{E_1}(A, A)$ vanishes on the
- witnessed filtered locus of
+ filtered comparison locus of
  Theorem~\ref{thm:derived-framing-m3b2}.
 \end{enumerate}
 \end{definition}
@@ -890,14 +855,13 @@ logically independent:
  derived obstruction class in degree~$-2$.
 \end{itemize}
 Their overlap is a comparison theorem: a chain-level map from the
-TCFT-corrected operator to the derived obstruction class, witnessed
+TCFT-corrected operator to the derived obstruction class, constructed
 on the joint locus of both vanishing criteria.
 \end{remark}
 
 \begin{remark}[Formality and the three levels]
 \label{rem:formality-three-levels}
-The three levels of formality from
-\texttt{formality\_ainf\_dcoh.py} provide additional context:
+There are three distinct levels of formality:
 \begin{enumerate}[label=\textup{(\roman*)}]
  \item \emph{de Rham formality} (DGMS 1975): holds for all compact
  K\"ahler manifolds, recording the formality of the de Rham
@@ -929,7 +893,7 @@ hypotheses of Theorem~\ref{thm:derived-framing-m3b2}.
 \label{sec:m3b2-landscape}
 % ============================================================
 
-On the witnessed TCFT and filtered-comparison locus, the
+On the TCFT-corrected and filtered-comparison locus, the
 $\Ainf$ obstruction contributes no further independent summand.
 The Hopf fibration decomposition
 $\mathrm{Obs}_{\mathrm{CY-A}_3}
@@ -959,7 +923,7 @@ filtered comparison hypotheses are supplied.
  noncompact guide \\
  Quintic & $0$ & conditional & conditional (pert.) &
  compact conditional \\
- $K3 \times E$ & $0$ & conditional & Step~5 &
+ $K3 \times E$ & $0$ & conditional & Arrow~5 &
  Kummer conditional \\
  \bottomrule
 \end{tabular}
@@ -1003,7 +967,7 @@ $\Ainf$-data: the non-formal Massey products $\mu_3$ on the K3
 fibre and the associative structure $\mu_2$ on the elliptic
 factor combine multiplicatively, and the resulting chain-level
 datum is precisely what the Kummer-route
-$\mathrm{Obs}_{\BV}$ Step~$5$ must resolve. The weight is a
+$\mathrm{Obs}_{\BV}$ Arrow~$5$ must resolve. The weight is a
 Borcherds-lift invariant, not a sum of compact or Heisenberg
 $\kappa_\bullet$-values on $K3 \times E$; the single-object
 incompatibility theorem (Theorem~\ref{thm:single-object-incompatibility}
@@ -1050,7 +1014,7 @@ $\alpha \neq 0$. We prove first $\mu_2(a, a) = 0$ from cyclic
 invariance, then use this to kill the mixed terms in the $n = 4$
 Stasheff relation.
 
-\smallskip\noindent\emph{Step 1: $\mu_2(a, a) = 0$.}
+\smallskip\noindent\emph{Arrow 1: $\mu_2(a, a) = 0$.}
 Cyclic invariance of $\mu_2$ gives
 $\langle \mu_2(a, a), a \rangle
 = (-1)^{1 + 1 \cdot (1 + 1)}\langle a, \mu_2(a, a) \rangle
@@ -1058,7 +1022,7 @@ $\langle \mu_2(a, a), a \rangle
 $\mu_2(a, a) = c\,b$ with $c \in k$ and using nondegeneracy
 of the CY$_3$ pairing, $c = -c$, hence $c = 0$.
 
-\smallskip\noindent\emph{Step 2: $\mu_2(a, b) = 0$.}
+\smallskip\noindent\emph{Arrow 2: $\mu_2(a, b) = 0$.}
 The $n = 4$ Stasheff relation on the input $(a, a, a, a)$ reads
 (with $\mu_1 = 0$, $\mu_4 = 0$):
 \[
@@ -1066,7 +1030,7 @@ The $n = 4$ Stasheff relation on the input $(a, a, a, a)$ reads
  + \sum_{i = 0}^{2}\mu_3\bigl(a^{\otimes i},\, \mu_2(a, a),\, a^{\otimes 2-i}\bigr)
  \;=\; 0.
 \]
-By Step~1, the three $\mu_3(\cdots, \mu_2(a, a), \cdots)$ terms
+By Arrow~1, the three $\mu_3(\cdots, \mu_2(a, a), \cdots)$ terms
 vanish. Expanding the first two via $\mu_3(a, a, a) = \alpha b$:
 \[
  \alpha\bigl(\mu_2(b, a) + \mu_2(a, b)\bigr) \;=\; 0.
@@ -1077,15 +1041,12 @@ $(-1)^{2 \cdot 1} = 1$), hence
 $2\alpha\,\mu_2(a, b) = 0$. As $\alpha \neq 0$ and the
 ground field has characteristic zero, $\mu_2(a, b) = 0$.
 
-\smallskip\noindent\emph{Step 3: $\mu_2(b, b) = 0$.}
+\smallskip\noindent\emph{Arrow 3: $\mu_2(b, b) = 0$.}
 Degree count: $\mu_2$ has degree $0$, so
 $\mu_2(b, b) \in A^{4} = 0$ in the bounded CY$_3$ model
 $A = A^0 \oplus A^1 \oplus A^2 \oplus A^3$.
-
-\noindent\textit{Verification}:
-$29$~tests in \texttt{chain\_level\_m2\_b2\_cancellation.py}
-(incompatibility theorem, exhaustive verification at four
-values of $\alpha$, cross-check with n=4 Stasheff relation).
+The same conclusion follows for each nonzero value of $\alpha$ and is
+forced by the $n=4$ Stasheff relation.
 \end{proof}
 
 \begin{corollary}[Naive cross-degree cancellation is impossible]
@@ -1122,11 +1083,8 @@ output degree shift is $-3$; at $k = 3$ it is $-4$. Since
 $-3 \neq -4$, the outputs of $\{b_2, B^{(2)}\}$ and
 $\{b_3, B^{(2)}\}$ live in disjoint graded components and
 cannot cancel.
-
-\noindent\textit{Verification}: $29$~tests in
-\texttt{chain\_level\_m2\_b2\_cancellation.py}
-(degree analysis, exhaustive check at degree~$5$, formal vs.\
-nonformal comparison).
+This degree analysis at degree~$5$ separates the formal and nonformal
+cases.
 \end{proof}
 
 \begin{remark}[Correcting Remark~\ref{rem:b2-cancellation}]
@@ -1160,11 +1118,8 @@ The TCFT resolution (Theorem~\ref{thm:total-ainf-compat})
 asserts $\{b, B^{(2)}_{\mathrm{TCFT}}\} = 0$, where the TCFT
 operator absorbs the $6\alpha \cdot [b]$ discrepancy through
 moduli-space corrections.
-
-\noindent\textit{Verification}: $29$~tests in
-\texttt{chain\_level\_m2\_b2\_cancellation.py}
-(trace computation, degree analysis, incompatibility theorem,
-formal vs.\ nonformal comparison, TCFT necessity).
+The trace computation and degree analysis show that the TCFT correction
+is necessary.
 \end{remark}
 
 
@@ -1220,7 +1175,8 @@ to CY-A$_3$ are:
 \begin{enumerate}[label=\textup{(\roman*)}]
  \item \emph{BV compatibility}: the holomorphic Chern--Simons
  contracting homotopy must be compatible with the full
- $E_3$-structure. For toric CY$_3$: automatic
+ $E_3$-structure supplied by the corrected TCFT/filtering datum.
+ For toric CY$_3$ the equivariance check is automatic
  ($T^3$-equivariance). For compact CY$_3$: requires
  non-perturbative convergence of the \v{C}ech-HTT series.
  \item \emph{Quantization independence}: for compact CY$_3$
@@ -1230,10 +1186,10 @@ to CY-A$_3$ are:
  \item \emph{Non-perturbative convergence}: the formal chiral
  operations from HTT must converge to holomorphic functions.
 \end{enumerate}
-None of these is removed by the strict witness
+None of these is removed by the strict non-vanishing
 $[m_3, B^{(2)}_{\mathrm{term}}] \neq 0$, and none is supplied by
 the filtered vanishing theorem.  Compact/global $\Phi_3$, Hall/CoHA
-input, and PBW/no-extra-relations remain separate proof obligations.
+input, and PBW/no-extra-relations remain separate data.
 \end{remark}
 
 \begin{remark}[Connection to the shadow tower]
@@ -1308,9 +1264,9 @@ $9 = 3^2$, $81 = 3^4$, $19683 = 3^9$ are powers of $3$: this is
 forced by the Riccati closure of Remark~\ref{rem:m3b2-riccati-3Nforce}
 below, which pins the power-of-$3$ structure to the $c = 1$ specialisation
 $5c + 22 = 27 = 3^3$ of the $\mathcal{W}$-algebra central-charge
-polynomial. The shadow-tower values are cross-verified against
-direct Virasoro OPE computation, the CoHA bar complex on $\C^3$, and
-the $6$d hCS Feynman presentation of
+polynomial. The same shadow-tower values are obtained from direct
+Virasoro OPE computation, the CoHA bar complex on $\C^3$, and the
+$6$d hCS Feynman presentation of
 Remark~\ref{rem:m3b2-6d-hcs-feynman} below.
 \end{remark}
 
@@ -1358,7 +1314,7 @@ $m_k^{\mathrm{loop}}$ is the loop correction, computable by Feynman rules
 on the $\C^3$ propagator. Cross-link to
 Section~\ref{sec:m3b2-first-order-deformation-moduli}: the one-dimensional
 first-order deformation moduli of $\Obs_{\hCS}(\C^3)$
-(Theorem~\ref{thm:plat-first-order-moduli}) is the generating witness
+(Theorem~\ref{thm:plat-first-order-moduli}) is the generating class
 for the tree-corolla identity; the Killing-form tangent vector
 $\mathrm{Kil} \in \Sym^2(\fg^\vee)^{\mathrm{inv}}$ is the coupling that
 contracts the $k$ external legs of the tree corolla at each order. The
@@ -1402,63 +1358,26 @@ factorisation is the $\infty$-categorical bridge between them.
 
 
 % ============================================================
-\section{Summary of computational engines}
-\label{sec:m3b2-engines}
+\section{Independent checks of the obstruction}
+\label{sec:m3b2-independent-checks}
 % ============================================================
 
-The following engines, totalling $500+$ tests, were involved in
-resolving the $[m_3, B^{(2)}_{\mathrm{term}}]$ question. Each engine is an
-independent module in \texttt{compute/lib/} with a corresponding
-test suite in \texttt{compute/tests/}.
+The nonvanishing of $[m_3,B^{(2)}_{\mathrm{term}}]$ is visible in
+several independent models: the local $\bP^2$ cyclic $\Ainf$ model, the
+Kontsevich--Soibelman minimal model with coefficient $117/1280$, the
+Connes-bidegree decomposition, the spectral sequence of non-adjacent
+terms, the Stasheff weight-$s$ identities, and the
+$S^1\hookrightarrow S^3\twoheadrightarrow S^2$ decomposition of the
+$S^3$-framing.  These models have disjoint failure modes: a cancellation
+in the local surface model would not force one in the Connes
+decomposition, and a Stasheff-weight identity cannot cancel the
+non-adjacent spectral-sequence term.
 
-\begin{center}
-\renewcommand{\arraystretch}{1.15}
-\small
-\begin{tabular}{lrl}
- \toprule
- \textbf{Engine} & \textbf{Tests} & \textbf{Role} \\
- \midrule
- \texttt{obs\_ainf\_local\_p2.py} & 54 &
- Explicit $[m_3, B^{(2)}_{\mathrm{term}}]$ for local $\bP^2$ \\
- \texttt{obs\_ainf\_random\_search.py} & 67 &
- Random search over cyclic $\Ainf$-algebras \\
- \texttt{obs\_ainf\_counterexample\_search.py} & 49 &
- Adversarial search for vanishing \\
- \texttt{ks\_cyclic\_minimal\_obs\_ainf.py} & -- &
- KS minimal model, $117/1280$ nonzero \\
- \texttt{connes\_b\_obs\_ainf.py} & -- &
- Bidegree decomposition analysis \\
- \texttt{spectral\_seq\_obs\_ainf.py} & -- &
- Spectral sequence, non-adjacent terms \\
- \texttt{tsygan\_formality\_obs\_ainf.py} & -- &
- Tsygan formality scope \\
- \texttt{stasheff\_cancellation\_obs\_ainf.py} & 40 &
- Weight-$s$ identities, cross-hierarchy \\
- \texttt{operadic\_tcft\_mk\_b2\_engine.py} & 43 &
- TCFT operadic proof structure \\
- \texttt{hopf\_fibration\_s3\_framing.py} & 67 &
- $S^1 \hookrightarrow S^3 \twoheadrightarrow S^2$
- fibration decomposition of the $S^3$-framing \\
- \texttt{derived\_framing\_obstruction.py} & 51 &
- Filtered $\HH^{-2}_{E_1}$ comparison, Goodwillie scope \\
- \texttt{formality\_ainf\_dcoh.py} & -- &
- Formality hierarchy for CY manifolds \\
- \texttt{cya3\_stress\_test.py} & 45 &
- Adversarial stress test of all proofs \\
- \bottomrule
-\end{tabular}
-\end{center}
-
-\begin{remark}[Computational methodology]
+\begin{remark}[Exact arithmetic]
 \label{rem:computational-methodology}
-The engines use exact rational arithmetic
-(\texttt{fractions.Fraction}) throughout, avoiding floating-point
-errors that could mask or create spurious nonvanishing. Each
-engine verifies its own input data: Stasheff identities, cyclic
-invariance, CY pairing nondegeneracy, and grading consistency
-are checked before any commutator computation. The test suites
-are integrated into the Vol~III \texttt{make test} infrastructure
-($19{,}838$~total tests).
+All rational coefficients in this section are exact.  Stasheff
+identities, cyclic invariance, CY-pairing nondegeneracy, and grading
+compatibility are imposed before the commutator is evaluated.
 \end{remark}
 
 \begin{remark}[Three faces of \texorpdfstring{$8$}{8}: where \texorpdfstring{$K^{\kappa_{\mathrm{ch}}}$}{K-kappa-ch} resurfaces]
@@ -1475,15 +1394,12 @@ order of the Hilbert modular family along the K3 locus of $A_2$
 construction); and Lusztig's $\ell = 8$ at the order at which
 the quantum group $U_\ell(\widehat{\mathfrak{sl}_2})$ admits a
 cell-theoretic Frobenius splitting producing the K3 category.
-The chain-level CY-A$_3$ data of this chapter feeds into the
-Part~\ref{part:k3-yangian} construction by multiplying
-$K^{\kappa_{\mathrm{ch}}}$ against the chiral-level parameter
-$\hbar$: on the $B$-family (analogue of the $B$-model side),
-the universal identity $\hbar^2 \cdot K^{\kappa_{\mathrm{ch}}} = -1$
-holds, pinning $\hbar^2 = -1/8$ at the critical point of the
-CY-to-chiral functor. The $[m_3, B^{(2)}_{\mathrm{term}}]$
+The chain-level CY-A$_3$ data of this chapter enters the
+Part~\ref{part:k3-yangian} construction by providing the K3
+order-eight comparison datum. The formal parameter \(\hbar\) is not
+pinned by this datum. The $[m_3, B^{(2)}_{\mathrm{term}}]$
 obstruction supplies the
-strict non-formal witness; lifting the chiral-level identity past
+strict non-formal class; lifting the chiral-level datum past
 the formality obstruction of local~$\bP^2$ and the quintic to
 K3-fibred CY$_3$ categories still requires the corrected TCFT
 operator, the filtered comparison map, and the compact analytic
@@ -1517,13 +1433,27 @@ B^{(2)}_{\mathrm{ch}}(\mathbf H_{\Delta_5}) \;=\; T^c\bigl(s^{-1}\overline{\math
 \]
 evaluated on the Siegel threefold. The MC$_3$ master conjecture
 (chiral-center complementarity) specialises at the K3 base to
-$\kappa_{\mathrm{ch}} + \kappa_{\mathrm{ch}}^! \in \{0, 13, 250/3, 98/3\}$ on the classical $\mathsf{G}/\mathsf{L}/\mathsf{C}/\mathsf{M}$ landmark ceiling, enlarged to the canonical five-archetype bucket $\{0, 8, 13, 250/3, 98/3\}$ on $\mathsf{G}/\mathsf{L}/\mathsf{C}/\mathsf{M}/\mathsf{B}$ by the Mukai-doubling witness with $\kappa_{\mathrm{ch}}(\mathbf H_{\Delta_5}) = K^{\kappa_{\mathrm{ch}}}/2 = 4 = c_+(\mathrm{Mukai}(K3))$,
-matching the Theorem~C chamber at $\kappa_{\mathrm{ch}} + \kappa_{\mathrm{ch}}^! = 0$ (scope: Heisenberg-type
-fibre stratum, single-character regime) for the fibre at the Borel cusp of $\bar{\mathcal A}_2^{\mathrm{BB}}$.
+\[
+K^{\kappa_{\mathrm{ch}}}
+=\kappa_{\mathrm{ch}}+\kappa_{\mathrm{ch}}^!
+\in \{0, 8, 13, 250/3, 25/3\}.
+\]
+The value \(8\) is the \(\mathsf B\)-row Mukai-doubling conductor
+\[
+K^{\kappa_{\mathrm{ch}}}_{\mathsf B}
+  =2\,c_+(\mathrm{Mukai}(K3))=8,
+\]
+not a chiral invariant of the Borcherds denominator object
+\(\mathbf H_{\Delta_5}\).  The latter carries its independent terminal
+scalar \(\kappa_{\mathrm{BKM}}(\Delta_5)=5\), fixed by the
+Gritsenko--Nikulin denominator weight.  The Heisenberg-type fibre
+stratum at the Borel cusp of \(\bar{\mathcal A}_2^{\mathrm{BB}}\)
+therefore contributes the conductor \(8\), while the scalar Borcherds
+face contributes the weight \(5\).
 The B$_2$ iteration refines the genus-$1$ bar
 complex, and the Gritsenko additive lift $\Delta_5$ is the universal
-witness for its modular closure. Cross-ref Vol.~I, Theorem~C, and
-Chapter~\ref{ch:k3-chiral-bialgebra-platonic}.
+automorphic form governing its modular closure; compare Vol.~I,
+Theorem~C, and Chapter~\ref{ch:k3-chiral-bialgebra-platonic}.
 \end{remark}
 
 \begin{remark}[\texorpdfstring{$k_N$}{k-N}-family lift of the \texorpdfstring{$M_3/B^{(2)}$}{M-3/B-(2)} obstruction (Gaiotto)]
@@ -1547,19 +1477,24 @@ $5$ & $\Lambda^{6,2} = II_{1,1}\oplus II_{1,1}\oplus A_4(-1)$
 \end{tabular}
 \end{center}
 
-The MC$_3$ chamber occupied by each row is predicted by
+The MC$_3$ chamber occupied by each row is controlled by the conductor
+identity
 \[
-\kappa_{\mathrm{ch}}(\mathbf{H}^{(N)}) \;=\; \tfrac{K^{\kappa_{\mathrm{ch}},(N)}}{2}
-\;=\; c_+^{(N)},
+K^{\kappa_{\mathrm{ch}},(N)}
+\;=\;2\,c_+^{(N)},
 \]
 where $c_+^{(N)}$ is the positive-signature part of the rank-$(N{+}1,2)$
-Mukai-type lattice. At $N=2$: $c_+^{(2)} = 4$ matching the K3
-data; at $N=3$: $c_+^{(3)} = 5$; at $N=4$: $c_+^{(4)} = 6$.
+Mukai-type lattice. This is not a formula for
+\(\kappa_{\mathrm{BKM}}\) and not a chiral invariant of the
+Borcherds denominator object. At $N=2$: $c_+^{(2)} = 4$, hence
+\(K^{\kappa_{\mathrm{ch}},(2)}=8\), matching the K3
+Mukai-doubling conductor; at $N=3$: $c_+^{(3)} = 5$; at $N=4$:
+$c_+^{(4)} = 6$.
 
 \textbf{Conditional cohomological comparison.} The
 Etingof cohomological comparison characteristic
 $H^2(\mathfrak{g}_{\Delta_5})^{\mathbb Z/2, K(1)} \cong \mathbb C \cdot \Delta_5$
-(one-dimensional after the finite Hall--Borcherds recognition gates and
+(one-dimensional after the finite Hall--Borcherds recognition conditions and
 Heegner comparison, with the Igusa form as comparison invariant)
 extends conjecturally to
 \[
@@ -1758,7 +1693,7 @@ The \emph{quantum master equation} (QME) for the BV action $S(\alpha) = \sum_{n\
 \label{eq:m3b2-qme}
  \hbar\,\Delta_{\BV} S + \tfrac{1}{2}\{S,S\} = 0.
 \end{equation}
-By Theorem~\ref{thm:phys-bv-qme-mc} (Chapter~\ref{ch:quantum-chiral-algebras}), the QME is equivalent to the Maurer--Cartan equation for $\Theta_A$; its genus-$g$ component is $\mathrm{obs}_g(A) = \kappa_{\mathrm{ch}}(A)\cdot\lambda_g$.
+By Theorem~\ref{thm:phys-bv-qme-mc} (Chapter~\ref{ch:quantum-chiral-algebras}), the QME is equivalent to the Maurer--Cartan equation for $\Theta_A$; its genus-$g$ scalar component is $\mathrm{obs}^{\mathrm{sc}}_g(A)=\kappa_{\mathrm{ch}}(A)\cdot\lambda_g$, unconditionally at genus~$1$ and on the uniform-weight scalar lane at all genera. Multi-weight families at $g\geq2$ retain the cross-channel summand of the full obstruction.
 
 The termwise operator
 $B^{(2)}_{\mathrm{term}}\colon C_n(A)\to C_{n-2}(A)$ of the

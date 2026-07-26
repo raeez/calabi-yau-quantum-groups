@@ -90,7 +90,7 @@ MATHEMATICAL CONTENT
    is the g-th MC obstruction class.
 
 CONVENTIONS:
-  - Cohomological grading (|d| = +1), bar uses desuspension (AP45).
+  - Cohomological grading (|d| = +1), bar uses desuspension (desuspension convention).
   - kappa(A) = modular characteristic from Vol I (AP1: family-specific).
   - The BCOV convention: F_g is the genus-g B-model free energy.
   - The E_1 shadow convention: F_g^{E_1} = kappa * lambda_g^{FP} on scalar lane.
@@ -753,7 +753,7 @@ def propagator_comparison() -> List[PropagatorComparison]:
                 "contracts two DISTINCT indices. The E_1 bar propagator is "
                 "anti-symmetric because d log E(z,w) = -d log E(w,z). The "
                 "resolution: the bar differential includes a sign from the "
-                "desuspension (AP45), and the composite S^{ij} = integral of "
+                "desuspension (desuspension convention), and the composite S^{ij} = integral of "
                 "d log E with the sign absorbed is symmetric."
             ),
         ),

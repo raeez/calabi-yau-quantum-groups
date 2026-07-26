@@ -1507,7 +1507,7 @@ def shadow_tower_collapse_gln(N: int, num_points: int = 10) -> Dict[str, Any]:
     As ε = k + N → 0:
       κ(ŝl_N) = (N²-1)ε/(2N) → 0
       F₁ = κ/24 → 0
-      F₂ = κ/1152 → 0
+      F₂ = κ · 7/5760 → 0
       All genus-g amplitudes F_g = κ · λ_g^{FP} → 0
 
     The entire shadow obstruction tower collapses.

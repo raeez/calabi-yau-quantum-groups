@@ -3,8 +3,10 @@ r"""E_1-chiral Koszul duality: explicit computations for the three standard fami
 MATHEMATICAL CONTENT (Prop prop:koszul-heisenberg, prop:koszul-kac-moody,
 Conj conj:koszul-virasoro in chapters/theory/e1_chiral_algebras.tex):
 
-Family I:  Heisenberg H_k (class G).  H_k^! = Sym^ch(V*) with kappa=-k.  rho_K = 0.
-Family II: Kac-Moody V_k(sl_2) (class L).  V_k^! = V_{-k-4}(sl_2).  rho_K = 0.
+Family I:  Heisenberg H_k (class G).  H_k^! is the curved second-kind
+Sym^ch(V*[1]) branch with scalar kappa=-k.  rho_K = 0.
+Family II: Kac-Moody V_k(sl_2) (class L).  The Koszul target is
+CE_ch(V_{-k-4}(sl_2)); rho_K = 0.
 Family III: Virasoro Vir_c (class M).  Vir_c^! = Vir_{26-c}.  rho_K = 13.
 
 For each family, this module computes:
@@ -16,7 +18,7 @@ For each family, this module computes:
 
 CONVENTIONS:
   - Cohomological grading (|d| = +1).
-  - Bar desuspension: |s^{-1}v| = |v| - 1 (AP45).
+  - Bar desuspension lowers degree by one: |s^{-1}v| = |v| - 1.
   - E_1 shift: E_1^! = E_1{-1} (shift by 1 = dim(R)).
   - Ordered bar: [a_1|...|a_n] -- the order matters.
   - The bar differential d_{E_1}([a_1|...|a_n]) =

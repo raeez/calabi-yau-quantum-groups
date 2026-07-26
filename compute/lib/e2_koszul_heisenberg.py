@@ -12,7 +12,8 @@ statement is:
 
     Rep^{E_2}(H_k)  ~=  Rep^{E_2}(H_k^!)^{rev}
 
-where H_k^! = Sym^ch(V*) with kappa_ch(H_k^!) = -k, and "rev" denotes reversal of
+where H_k^! is the curved second-kind Sym^ch(V*[1]) branch with
+scalar kappa_ch(H_k^!) = -k, and "rev" denotes reversal of
 the braiding.  The proof has FOUR independent claims:
 
 (1) VANISHING DIFFERENTIALS.  The E_2 bar complex B_{E_2}(H_k) has two

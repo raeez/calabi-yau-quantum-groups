@@ -204,7 +204,7 @@ MATHEMATICAL CONTENTS:
 
 CONVENTIONS:
   - CY defect delta = a+b+2 for Tot(O(a)+O(b) -> P^1). delta=0 is CY.
-  - Cohomological grading (|d| = +1). Bar uses desuspension (AP45).
+  - Cohomological grading (|d| = +1). Bar uses desuspension (desuspension convention).
   - kappa formulas are family-specific (AP1). The non-CY kappa includes
     an anomalous correction proportional to delta.
   - The structure function breaks CY unitarity for delta != 0.

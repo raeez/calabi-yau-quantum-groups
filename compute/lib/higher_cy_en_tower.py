@@ -1038,8 +1038,9 @@ def shadow_tower_k3_cross_k3() -> HigherCYShadowData:
     """Shadow obstruction tower for K3 x K3 (CY4).
 
     K3 x K3 has kappa = 48 (from additivity: 24 + 24).
-    The lattice VOA of rank 48 is class G (Gaussian, r_max = 2),
-    since it is a free-field algebra (Heisenberg type).
+    The product Mukai/Heisenberg branch is class G (Gaussian, r_max = 2),
+    because this branch is free-field. Rootful current enhancements are a
+    separate class-L coordinate.
     """
     es = en_structure(4)
     fo = framing_obstruction(4)

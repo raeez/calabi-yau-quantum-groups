@@ -548,13 +548,13 @@ def Q_contact_virasoro(c: Fraction) -> Fraction:
 def r_matrix_heisenberg_collision(k) -> str:
     r"""Collision residue r-matrix for Heisenberg.
 
-    By AP19 (pole absorption): the bar propagator d log E(z,w) absorbs one
-    power, so the OPE double pole k/(z-w)^2 gives collision residue k/z
-    (a simple pole).
+    By pole absorption: the bar propagator d log E(z,w) absorbs one
+    power, so the OPE double pole k/(z-w)^2 gives tensor collision
+    residue k*Omega_H/z (simple pole, coefficient k/z).
 
-    The Heisenberg r-matrix: r^{coll}(z) = k/z.
+    The Heisenberg r-matrix tensor: r^{coll}(z) = k*Omega_H/z.
     """
-    return f"k/z = {k}/z (simple pole from double-pole OPE)"
+    return f"k*Omega_H/z with coefficient {k}/z (simple pole from double-pole OPE)"
 
 
 def r_matrix_affine_sl2(k) -> Dict[str, Any]:
@@ -722,8 +722,8 @@ def cy_dimension_correlation() -> Dict[str, Dict[str, Any]]:
       Fuk(E_tau) -> Heisenberg VOA -> class G (depth 2)
 
     CY2 (K3 surfaces):
-      D^b(Coh(K3)) -> lattice VOA -> class G (depth 2)
-      (with additional structure from rational curves)
+      D^b(Coh(K3)) -> Mukai/Heisenberg branch -> class G (depth 2)
+      rootful ADE current enhancements -> class L (depth 3)
 
     CY3 (Calabi-Yau threefolds):
       MF(W) for various W -> various algebras
@@ -747,9 +747,16 @@ def cy_dimension_correlation() -> Dict[str, Dict[str, Any]]:
         },
         "CY2_K3": {
             "geometry": "D^b(Coh(K3))",
-            "algebra": "lattice VOA (Leech, E_8, etc.)",
+            "algebra": "Mukai/Heisenberg branch (rootless current coordinate)",
             "shadow_class": "G",
             "shadow_depth": 2,
+            "cy_dim": 2,
+        },
+        "CY2_K3_rootful": {
+            "geometry": "D^b(Coh(K3)) at ADE enhancement",
+            "algebra": "rootful ADE current coordinate",
+            "shadow_class": "L",
+            "shadow_depth": 3,
             "cy_dim": 2,
         },
         "CY3_conifold": {

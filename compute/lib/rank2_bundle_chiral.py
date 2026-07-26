@@ -170,7 +170,7 @@ CONVENTIONS:
   - deg(L) = degree of line bundle L.
   - CY defect delta = deg(E) - (2g - 2).
   - Cohomological grading (|d| = +1).
-  - Bar uses desuspension (AP45): |s^{-1}v| = |v| - 1.
+  - Bar uses desuspension (desuspension convention): |s^{-1}v| = |v| - 1.
   - Exact arithmetic via fractions.Fraction.
   - kappa follows Vol I: kappa(H_k) = k, kappa(Vir_c) = c/2.
 

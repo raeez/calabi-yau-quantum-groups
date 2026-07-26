@@ -149,7 +149,7 @@ CONVENTIONS
 - For K3: td^{1/2} = 1 + c_2/24 = 1 + [pt] (since c_2(K3) = 24[pt])
 - Signature (4, 20) on the full Mukai lattice U^3 + E_8(-1)^2
 - Cohomological grading: H^0 in deg 0, H^2 in deg 2, H^4 in deg 4
-- Bar uses desuspension (AP45): |s^{-1}v| = |v| - 1
+- Bar uses desuspension (desuspension convention): |s^{-1}v| = |v| - 1
 - kappa subscripts per AP113: kappa_ch, kappa_cat, kappa_BKM, kappa_fiber
 
 MULTI-PATH VERIFICATION

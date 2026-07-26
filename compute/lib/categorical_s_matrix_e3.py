@@ -675,9 +675,9 @@ def phi10_charge2_fj_coefficient(
     where q = e^{2pi i tau}, r = e^{2pi i z}, and a(n,l) are the
     coefficients coming from the c(D) with D = 8n - l^2.
 
-    The Fourier coefficients c(D) of the Gritsenko lift are:
-        c(0) = 2 (from phi_{0,1}: c(-1) = 2 in EZ convention)
-        c(3) = -2 * 24 = ... (AP-CY9: only D = 0 or D = 3 mod 4 for m=1)
+    The Fourier coefficients c(D) of the half K3 Jacobi input are:
+        c(-1) = 1, c(0) = 10, c(3) = -64.
+        AP-CY9 permits only D = 0 or D = 3 mod 4 for index 1.
 
     For a NUMERICAL APPROXIMATION, we compute the leading terms.
 
@@ -703,9 +703,9 @@ def phi10_charge2_fj_coefficient(
 
     # The c(D) coefficients of the weak Jacobi form phi_{0,1}(tau,z) * eta(tau)^{-24}
     # First few values (D = 4nm - l^2 for m=1):
-    # c(-1) = 2 (from phi_{0,1}: this is the leading term, EZ convention)
-    # c(0) = -2 (coefficient at discriminant 0)
-    # c(3) = 252 + ... (contributions from eta^{-24})
+    # c(-1) = 1 for the half K3 Jacobi input.
+    # c(0) = 10 at discriminant 0.
+    # c(3) = -64 at the first positive D = 3 channel.
     # c(4) = ...
     #
     # For the m=2 Fourier-Jacobi coefficient, we need to convolve:

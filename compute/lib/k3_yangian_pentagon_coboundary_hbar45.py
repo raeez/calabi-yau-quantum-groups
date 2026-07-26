@@ -1,43 +1,41 @@
-"""Wave-15 higher-coherence tower of the K3-chiral quasi-Hopf algebra.
+"""Higher-coherence tower of the K3-chiral quasi-Hopf algebra.
 
-Extends the Wave-14 pentagon-coboundary decomposition at hbar^3 to hbar^4
-and hbar^5, fills the leading Fourier coefficient of Phi_10 / eta^24 from
+Extends the pentagon-coboundary decomposition at hbar^3 to hbar^4
+and hbar^5, fixes the leading Fourier coefficient of the separating-normalised Phi_10 lane from
 Gritsenko-Nikulin 1997 Theorem 2.1 (the Borcherds-singular-theta lift
-of the K3 elliptic genus phi_{0,1}^{K3}), and exhibits the obstruction
+of the half K3 weak Jacobi form phi_{0,1}^{K3}), and exhibits the obstruction
 tower phi^(n) for the A_infty-quasi-Hopf algebra H_{Delta_5} governing
 the K3-chiral bialgebra.
 
-Structure. The Wave-14 result was
-  phi^(3) = zeta(3) * c_symm + (25/3) * c_timelike + (Phi_10/eta^24) * c_Phi_10
-with c_Phi_10 left as a TODO. We fill it with
-  c_Phi_10_leading = leading Fourier coefficient of Phi_10/eta^24
-                   = coeff[q_rho q_tau y^0] Phi_10/eta^24
+The cubic term is
+  phi^(3) = zeta(3) * c_symm + (25/3) * c_timelike + Phi_10_sep * c_Phi_10
+with c_Phi_10 fixed by
+  c_Phi_10_leading = leading Fourier coefficient of the separating Igusa-square lane
+                   = coeff[q_rho q_tau y^0] Phi_10_sep
                    = -2 (Gritsenko-Nikulin 1998 Thm 2.4; Eguchi-Ooguri-
-                     Tachikawa 2011 normalisation of K3 elliptic genus).
-Note. Gritsenko-Nikulin use the normalisation phi_{0,1}^{K3}(tau,z) in
-which the Fourier coefficient c_0(0) = 2 (weight 0, index 1); the
-singular-theta lift divides by eta^24, producing a weight -12, index 0
-weak Jacobi form whose Fourier expansion around (q_rho, q_tau, y) = 0
-starts with -2 q_rho q_tau * (1 + O(q)) once we strip the q_rho^1 q_tau^1
-vacuum monomial prescribed by the Gritsenko additive lift.
+                     Tachikawa 2011 full elliptic-genus trace).
+Gritsenko-Nikulin use the half K3 weak Jacobi form phi_{0,1}^{K3}(tau,z)
+with c(-1)=1 and c(0)=10 for the primitive Delta_5 denominator.  The
+Igusa-square lane doubles the primitive polar exponent, so the separating
+Fourier expansion around (q_rho, q_tau, y) = 0 starts with
+-2 q_rho q_tau * (1 + O(q)) after the vacuum monomial is stripped.
 
 At hbar^4. The free Lie algebra F_2 admits no weight-4 irreducible MZV;
 Brown 2011 "Mixed Tate motives over Z" implies all weight-4 MZVs reduce
 to zeta(3) * weight-1 (vanishing in positive-depth cohomology) plus
 rational multiples of zeta(4) = pi^4/90 (reducible). The Enriquez-Gomez-
 Gonzalez-Maassarani 2022 genus-2 associator cohomology thus predicts
-  phi^(4) = zeta(3) * c_4^{(1)}  +  c_4^{(K3)} * (Phi_10/eta^24)^2
+  phi^(4) = zeta(3) * c_4^{(1)}  +  c_4^{(K3)} * Phi_10_sep^2
 with c_4^{(1)} a rational-linear combination of pairings of the two
 Lie-algebra legs and c_4^{(K3)} the leading Fourier coefficient of
-(Phi_10/eta^24)^2, computed below.
+Phi_10_sep^2, computed below.
 
-At hbar^5. The new irreducible MZV is zeta(5); zeta(3)^2 is reducible
-via the shuffle identity zeta(3) * zeta(2) = 3 zeta(5) - zeta(3)zeta(2)?
-(Zagier shuffle relations; Brown 2011). We state
+At hbar^5 the new irreducible MZV is zeta(5).  The product zeta(3)^2
+has weight 6 and contributes no hbar^5 leg.  The fifth obstruction has
+the symbolic form
   phi^(5) = zeta(5) * c_5^{(1)}
-          + zeta(3)^2 * c_5^{(2)}
-          + c_5^{(K3)} * Phi_10^{5/2}/eta^{60}
-with the explicit rational coefficients filled.
+          + c_5^{(K3)} * Phi_10_sep^{5/2}
+with the explicit rational coefficients below.
 
 Higher-coherence tower. For BKM-flavoured inputs (Borcherds 1992,
 Gritsenko-Nikulin 1998), the imaginary-root cone contributes at every
@@ -98,66 +96,58 @@ def rk_II_25_1() -> int:
 # --------------------------------------------------------------------
 
 def k3_elliptic_genus_coefficient_c0_0() -> int:
-    """EOT 2011 normalisation: c_0(0) = 2 for phi_{0,1}^{K3}.
+    """Polar coefficient in the doubled K3 elliptic-genus trace.
 
-    The K3 elliptic genus is the weak Jacobi form of weight 0, index 1
-      phi_{0,1}^{K3}(tau, z) = 2 y + 20 + 2 y^{-1}
-                             + q * (20 y^2 - 128 y + 216 - 128 y^{-1}
-                                    + 20 y^{-2}) + O(q^2)
-    with Fourier expansion c(n, l) at (q^n, y^l). The constant term
-    c_0(0) = 20 at (n, l) = (0, 0) but the coefficient of y^0 at
-    q^0 is 20; what enters the Gritsenko-Nikulin exponents is the
-    coefficient c_0(0) = 2 of (q^0, y^{+/-1}), i.e., the marginal
-    polar term. Choice of convention per GN97 Thm 2.1.
+    The primitive Delta_5 denominator uses the half K3 weak Jacobi form
+      phi_{0,1}^{K3}(tau, z) = y + 10 + y^{-1}
+                             + q * (10 y^2 - 64 y + 108 - 64 y^{-1}
+                                    + 10 y^{-2}) + O(q^2),
+    whose polar coefficient is c(-1)=1.  The full K3 elliptic genus is
+    2 phi_{0,1}^{K3}; the Igusa-square lane therefore sees the polar
+    coefficient 2.
     """
     # In GN97 Thm 2.1, the exponent f(N) = c(n, l) of (1 - q_rho^a q_tau^b y^c)
-    # is determined by 4nm - l^2 = N; for the leading term of Phi_10/eta^24
-    # around 0 we need the coefficient of q_rho^1 q_tau^1 y^0 in Phi_10/eta^24.
-    # This equals -2 under EOT normalisation.
+    # is determined by 4nm - l^2 = N; for the leading term of the separating
+    # Igusa-square lane around 0 we need the doubled polar coefficient.
     return 2
 
 
 def phi10_over_eta24_leading_fourier_coefficient() -> int:
-    """Leading Fourier coefficient of Phi_10 / eta^24, Gritsenko-Nikulin 1997.
+    """Leading Fourier coefficient of the separating Igusa-square lane.
 
     The Igusa cusp form Phi_10 has weight 10; eta^24 has weight 12.
-    The ratio Phi_10 / eta^24 is a weak Jacobi form of weight -2
-    and index 0 (actually a meromorphic function on the Siegel upper
-    half-space quotient with controlled poles).
+    The quotient by the separating eta-factors is a meromorphic scalar on
+    the Siegel upper half-space quotient with controlled boundary poles.
 
     Gritsenko-Nikulin 1997 Thm 2.1 gives the product formula
-      Phi_10(rho, tau, z) / eta(tau)^24
+      Phi_10^{un}(rho, tau, z) / (eta(rho)^24 eta(tau)^24)
         = q_rho * [prod-formula in q_tau, y]
     where the leading coefficient at (q_rho, q_tau^0, y^0) is
       - f(-1) = - c_phi_{0,1}(-1)    [via 4*0*0 - l^2 = -1, so l = 1]
-    which in EOT normalisation gives c_phi(-1) = 2, hence leading
-    coefficient = -2.
+    which gives the doubled polar coefficient in the Igusa-square lane,
+    hence leading coefficient -2.
 
     More precisely: in the Borcherds-singular-theta-lift presentation,
-    the leading negative-Fourier-coefficient of Phi_10/eta^24 around
-    the cusp is -2 * q_rho (weight -2, index 0 weak Jacobi form,
-    second Fourier coefficient) with the normalisation fixed by
-    EOT 2011. The sign is -2 because the EOT coefficient c(-1) = 2
-    enters the GN97 exponent with a negative sign via the
-    singular-theta lift involution.
+    the leading negative Fourier coefficient of the separating quotient around
+    the cusp is -2 in the full Igusa-square normalisation. The sign is fixed
+    by the singular-theta lift involution.
 
     Returns: -2 as an integer.
     """
-    # GN97 Thm 2.1: Phi_10 = q_rho * q_tau * y * prod ... with exponents
-    # f(4nm - l^2) as in EOT. The leading coefficient of Phi_10 itself is
-    # +1; of eta^24 is +1; of Phi_10/eta^24 at the first-coefficient
-    # expansion (after absorbing q_tau) is -2.
+    # GN97 Thm 2.1: the Delta_5 product has half-genus exponents; the
+    # Igusa-square lane doubles them.  After the eta factors and the vacuum
+    # monomial are stripped, the first nontrivial coefficient is -2.
     return -2 * k3_elliptic_genus_coefficient_c0_0() // 2   # = -2
 
 
 def c_Phi_10_coefficient_leading() -> int:
-    """Leading Fourier coefficient of Phi_10/eta^24; fills Wave-14 TODO.
+    """Leading Fourier coefficient of the separating Igusa-square lane.
 
     Returns the integer leading Fourier coefficient -2 via the
     Gritsenko-Nikulin 1997 Theorem 2.1 route. This is the integer
-    multiplier c_Phi_10 in the Wave-14 formula
+    multiplier c_Phi_10 in the hbar^3 formula
       phi^(3) = zeta(3) * c_symm + (25/3) * c_timelike
-              + (Phi_10/eta^24) * c_Phi_10_leading * c_Phi_10_form
+              + Phi_10_sep * c_Phi_10_leading * c_Phi_10_form
     where c_Phi_10_form is the 3-coboundary of the imaginary-root
     cocycle in CE(super-Manin-pair) and c_Phi_10_leading = -2 is
     its scalar multiplier from the K3 side.
@@ -195,11 +185,11 @@ def phi4_zeta3_coefficient() -> Fraction:
 
 
 def phi4_K3_coefficient() -> Fraction:
-    """Coefficient of (Phi_10/eta^24)^2 in phi^(4).
+    """Coefficient of Phi_10_sep^2 in phi^(4).
 
-    At hbar^4, the K3-side Borcherds product (Phi_10/eta^24)^2
+    At hbar^4, the K3-side separating Igusa-square lane
     contributes with coefficient equal to the Poincare pairing of
-    the square of the K3 elliptic genus Jacobi form against itself
+    the square of the half K3 Jacobi form against itself
     over the moduli of genus-2 curves, divided by the Eisenstein
     denominator. Explicit formula:
       c_4^{(K3)} = <phi_{0,1}^2, phi_{0,1}^2>_Petersson / |Sp_4(Z)_cusp|
@@ -211,7 +201,7 @@ def phi4_K3_coefficient() -> Fraction:
 
 
 def phi4_total_symbolic() -> dict:
-    """Symbolic phi^(4) decomposition: zeta(3) and (Phi_10/eta^24)^2 legs."""
+    """Symbolic phi^(4) decomposition: zeta(3) and Phi_10_sep^2 legs."""
     return {
         "zeta_3_leg": {
             "coefficient": phi4_zeta3_coefficient(),
@@ -221,7 +211,7 @@ def phi4_total_symbolic() -> dict:
         "K3_leg": {
             "coefficient": phi4_K3_coefficient(),
             "coboundary_class": "c_4^{(K3)} (Gritsenko-Nikulin K3^2 face)",
-            "formula": "(1/6) * (Phi_10/eta^24)^2 * c_4^{(K3)}",
+            "formula": "(1/6) * Phi_10_sep^2 * c_4^{(K3)}",
         },
     }
 
@@ -256,8 +246,7 @@ def phi5_zeta3_squared_coefficient() -> Fraction:
     not 5). Hence phi^(5) has NO zeta(3)^2 contribution; the leg
     is TRIVIAL at weight 5.
 
-    NOTE: the Wave-15 mission statement includes zeta(3)^2 as a
-    leg at hbar^5 by analogy; the correct mathematical statement
+    The zeta(3)^2 analogy is false at hbar^5; the correct mathematical statement
     (Brown 2011 weight-grading) is that zeta(3)^2 lives at hbar^6
     (where it IS reducible). At hbar^5 the only MZV is zeta(5).
     We record this explicitly for the Beilinson audit.
@@ -346,9 +335,11 @@ def asymptotic_growth_rate() -> str:
 def obs_g_from_phi_n(g: int) -> dict:
     """Express the genus-g obstruction obs_g via phi^(n) for n <= g+1.
 
-    Vol I Theorem D:  obs_g = kappa * lambda_g
+    Vol I Theorem D on the scalar/uniform-weight K3 projection:
+      obs_g^sc = kappa * lambda_g
     where kappa = kappa_ch^{K3} is the chiral kappa of the K3 input
-    and lambda_g is the Hodge class on M_{g,n}. Wave 15 contribution:
+    and lambda_g is the Hodge class on M_{g,n}. The full all-weight
+    Wave 15 contribution:
     at genus g, the Maurer-Cartan obstruction decomposes into
     coherence contributions
       obs_g = sum_{n=1}^{g+1} phi^(n) * c_{g, n}
@@ -359,14 +350,14 @@ def obs_g_from_phi_n(g: int) -> dict:
     is the first Hodge class, and the Beilinson-Bloch height pairing
     implements
       lambda_g = (1/12) * sum_{partitions} phi^(n) * ...
-    reducing to obs_g = 24 * lambda_g = Theorem D statement.
+    reducing the scalar projection to obs_g^sc = 24 * lambda_g.
     """
     return {
         "genus": g,
         "max_coherence_level": g + 1,
         "contribution_bound": f"sum_{{n=1}}^{{{g + 1}}} phi^{{(n)}} * c_{{g,n}}",
         "kappa_ch_K3": 24,
-        "lambda_g_relation": "obs_g = 24 * lambda_g  [Theorem D specialisation]",
+        "lambda_g_relation": "obs_g^sc = 24 * lambda_g  [Theorem D scalar/uniform-weight specialisation]",
     }
 
 
@@ -375,7 +366,7 @@ def obs_g_from_phi_n(g: int) -> dict:
 # --------------------------------------------------------------------
 
 def summary() -> dict:
-    """Full Wave-15 phi^(3), phi^(4), phi^(5) decomposition."""
+    """Full phi^(3), phi^(4), phi^(5) decomposition."""
     return {
         "wave14_phi3": {
             "zeta_3_coeff": 1.0,

@@ -3,7 +3,7 @@ K3 elliptic genus -> BKM algebra -> bar complex identification chain.
 
 This engine traces the complete chain:
 
-    phi_{0,1}(tau,z) --Borcherds-lift--> Delta_5 --denominator--> g_{Delta_5}
+    phi_{0,1}^{half}(tau,z) --Borcherds-lift--> Delta_5 --denominator--> g_{Delta_5}
                                                                        |
     root multiplicities = c(D) of phi_{0,1}  <-------------------------+
                                                                        |
@@ -12,8 +12,8 @@ This engine traces the complete chain:
 CHAIN SUMMARY
 =============
 
-Step 1: K3 elliptic genus phi_{0,1}(tau,z) = 2y + 20 + 2y^{-1} + ...
-        The unique weak Jacobi form of weight 0, index 1.
+Step 1: Half K3 weak Jacobi form phi_{0,1}(tau,z) = y + 10 + y^{-1} + ...
+        The unique weak Jacobi form of weight 0, index 1 in EZ normalisation.
         Fourier expansion: phi_{0,1} = sum_{n,l} f(n,l) q^n y^l
         where f(n,l) = c(4n - l^2) depends only on discriminant D = 4n - l^2.
 
@@ -30,7 +30,7 @@ Step 3: Denominator identity of g_{Delta_5}
 Step 4: Root multiplicities = c(D) from phi_{0,1}
         mult(n,l,m) = c(4nm - l^2)
         Only discriminants D = 0 or 3 mod 4 appear (index 1 constraint, AP-CY9).
-        c(-1)=2, c(0)=10, c(3)=-64, c(4)=108, c(7)=-513, c(8)=808, ...
+        c(-1)=1, c(0)=10, c(3)=-64, c(4)=108, c(7)=-513, c(8)=808, ...
 
 Step 5: Bar Euler product identification (CONDITIONAL on CY-A_3)
         IF the chiral algebra A_{K3xE} exists (CY-A_3), THEN the bar
@@ -99,10 +99,8 @@ def _import_bar_euler():
 
 # Known exact values of c(D) for phi_{0,1} (Eichler-Zagier convention).
 # AP-CY9: only D equiv 0 or 3 mod 4 can appear for index 1.
-# c(-1) = 2 in EZ convention (counting both l=+1 and l=-1 at n=0).
-# But in the TWO-INDEX convention f(n,l), c(-1) corresponds to
-# f(0,1) = f(0,-1) = 1 each. The discriminant-indexed c(D) sums
-# over all (n,l) pairs with 4n-l^2 = D.
+# c(-1) = 1 in EZ convention.  The two monomials l=+1 and l=-1
+# contribute total polar multiplicity 2 at n=0.
 #
 # VERIFIED: these values are computed exactly by phi01_fourier.py
 # from the theta-ratio formula in exact rational arithmetic.

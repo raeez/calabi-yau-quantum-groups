@@ -763,22 +763,22 @@ class TestAutomorphicShadow:
         assert F1 == Fraction(1, 8)
 
     def test_F2_sl2_level1(self):
-        """F_2(sl_2, k=1) = (9/4)/1152 = 3/1536 = 1/512."""
+        """F_2(sl_2, k=1) = (9/4)*(7/5760) = 7/2560."""
         F2 = shadow_amplitude_genus2('A', 1, 1)
         # VERIFIED [DC] structural property [CF] cross-family census
-        assert F2 == Fraction(9, 4) / 1152
-        # Simplify: 9/(4*1152) = 9/4608 = 3/1536 = 1/512
+        assert F2 == Fraction(9, 4) * Fraction(7, 5760)
         # VERIFIED [DC] structural property [CF] cross-family census
-        assert F2 == Fraction(1, 512)
+        assert F2 == Fraction(7, 2560)
+        assert F2 != Fraction(1, 512)
 
     def test_generating_function_sl2_level1(self):
         """Shadow generating function for sl_2, k=1."""
         gf = shadow_generating_function_coefficients('A', 1, 1, max_genus=2)
         # VERIFIED [DC] structural property [CF] cross-family census
         assert gf[1] == Fraction(3, 32)
-        # F_2 = kappa * lambda_2^FP = (9/4) * (1/1152) = 9/4608 = 1/512
+        # F_2 = kappa * lambda_2^FP = (9/4) * (7/5760) = 7/2560
         # VERIFIED [DC] structural property [CF] cross-family census
-        assert gf[2] == Fraction(1, 512)
+        assert gf[2] == Fraction(7, 2560)
 
     def test_generating_function_consistency(self):
         """GF coefficients match direct F_g computations."""

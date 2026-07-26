@@ -27,18 +27,18 @@ Q1: The BKM superalgebra g_{Delta_5} itself is NOT a vertex algebra. It is a Lie
     "physical state Lie algebra" of a vertex algebra: the BRST cohomology of a
     vertex algebra tensored with ghosts. The correct statement is:
 
-        g_{Delta_5} = H^1_BRST(V_{II_{2,1}} tensor V_ghost)
+        g_{Delta_5} = H^1_BRST(V_{Lambda^{2,1}_{II}}^{formal} tensor V_ghost)
 
-    where V_{II_{2,1}} is a lattice vertex algebra and the BRST complex computes
-    the physical states of the bosonic string on the lattice II_{2,1}.
+    where V_{Lambda^{2,1}_{II}}^{formal} is a formal hyperbolic lattice vertex construction and the BRST complex computes
+    the physical states of the bosonic string on the lattice Lambda^{2,1}_{II}.
 
 Q2: For the Fake Monster (II_{25,1}), the vertex algebra is the Leech lattice VOA
-    V_Lambda. For g_{Delta_5} (II_{2,1}), the analogous object is V_{II_{2,1}}, the
-    lattice vertex algebra of the rank-3 hyperbolic lattice. But V_{II_{2,1}} is NOT
+    V_Lambda. For g_{Delta_5} (Lambda^{2,1}_{II}), the analogous object is V_{Lambda^{2,1}_{II}}^{formal}, the
+    formal hyperbolic lattice vertex construction for the rank-3 hyperbolic core. But V_{Lambda^{2,1}_{II}}^{formal} is NOT
     the "chiral algebra of K3 x E" -- it is a free-field VOA with central charge 3
     (not the interacting theory). The relationship is:
 
-        V_{II_{2,1}} --BRST--> g_{Delta_5} (physical states)
+        V_{Lambda^{2,1}_{II}}^{formal} --BRST--> g_{Delta_5} (physical states)
         A_{K3xE}     --bar-->  B(A_{K3xE}) --Euler product--> 1/Delta_5
 
     These are DIFFERENT constructions. The first uses the bosonic string BRST complex;
@@ -148,10 +148,10 @@ def _import_bkm_bar():
 # The BKM superalgebra g_{Delta_5} is a Lie superalgebra, not a vertex algebra.
 # The relationship to vertex algebras is through the BRST construction:
 #
-#   g_{Delta_5} = H^1_BRST(V_{II_{2,1}} tensor V_{ghost})
+#   g_{Delta_5} = H^1_BRST(V_{Lambda^{2,1}_{II}}^{formal} tensor V_{ghost})
 #
-# where V_{II_{2,1}} is the lattice vertex algebra of the rank-3 even
-# hyperbolic lattice II_{2,1} with Gram matrix:
+# where V_{Lambda^{2,1}_{II}}^{formal} is the lattice vertex algebra of the rank-3 even
+# hyperbolic lattice Lambda^{2,1}_{II} with Gram matrix:
 #
 #   A = ((2,-2,-2),(-2,2,-2),(-2,-2,2))
 #
@@ -160,22 +160,22 @@ def _import_bkm_bar():
 # number 1) of the bosonic string compactified on the lattice.
 #
 # The analogous construction for the Fake Monster uses V_{Leech} (the Leech
-# lattice VOA, c=24); here the lattice is II_{2,1} (rank 3, c=3).
+# lattice VOA, c=24); here the lattice is Lambda^{2,1}_{II} (rank 3, c=3).
 
-# Lattice data for II_{2,1}
-GRAM_MATRIX_II21 = ((2, -2, -2), (-2, 2, -2), (-2, -2, 2))
+# Lattice data for Lambda^{2,1}_{II}
+GRAM_MATRIX_LAMBDA21II = ((2, -2, -2), (-2, 2, -2), (-2, -2, 2))
 LATTICE_RANK = 3
 LATTICE_SIGNATURE = (2, 1)  # Lorentzian
 
-# The lattice VOA V_{II_{2,1}} has central charge = rank = 3
+# The formal hyperbolic lattice vertex construction V_{Lambda^{2,1}_{II}}^{formal} has central charge = rank = 3
 LATTICE_VOA_CENTRAL_CHARGE = 3
 
 # For the BRST construction, the ghost system contributes c_ghost = -26
 # (standard bosonic string). The total central charge vanishes iff
 # c_matter + c_ghost = 0, i.e., c_matter = 26.
 #
-# For g_{Delta_5}: c_matter = 3 (the lattice VOA) + 23 (additional free bosons)
-# = 26. The 23 "transverse" directions are NOT part of II_{2,1}; they come
+# For g_{Delta_5}: c_matter = 3 (the formal hyperbolic lattice piece) + 23 (additional free bosons)
+# = 26. The 23 "transverse" directions are NOT part of Lambda^{2,1}_{II}; they come
 # from the K3 x E sigma model.
 #
 # In the Borcherds construction, the "additional" central charge is absorbed
@@ -190,9 +190,9 @@ def vertex_algebra_status() -> Dict[str, object]:
     Assessment of whether g_{Delta_5} can be given a vertex algebra structure.
 
     ANSWER: g_{Delta_5} is NOT itself a vertex algebra. It is the BRST
-    cohomology of a vertex algebra (the lattice VOA V_{II_{2,1}} tensored
+    cohomology of a vertex algebra (the formal hyperbolic lattice vertex construction V_{Lambda^{2,1}_{II}}^{formal} tensored
     with the bosonic string ghost system). The vertex algebra that "knows
-    about" g_{Delta_5} is the lattice VOA, not the BKM algebra.
+    about" g_{Delta_5} is the formal hyperbolic lattice vertex construction, not the BKM algebra.
 
     Comparison with the Fake Monster:
     - Fake Monster: g_{FM} = H^1_BRST(V_{II_{25,1}} tensor V_ghost)
@@ -201,15 +201,15 @@ def vertex_algebra_status() -> Dict[str, object]:
       Vertex algebra: V_{Leech} (Leech lattice VOA, c=24, after removing
       the lightcone directions)
 
-    - g_{Delta_5}: g_{Delta_5} = H^1_BRST(V_{II_{2,1}} tensor V_ghost)
-      = physical states of the bosonic string on II_{2,1}
-      Root lattice: II_{2,1} (rank 3, signature (2,1))
-      Vertex algebra: V_{II_{2,1}} (lattice VOA, c=3, needs c=23 from
+    - g_{Delta_5}: g_{Delta_5} = H^1_BRST(V_{Lambda^{2,1}_{II}}^{formal} tensor V_ghost)
+      = physical states of the bosonic string on Lambda^{2,1}_{II}
+      Root lattice: Lambda^{2,1}_{II} (rank 3, signature (2,1))
+      Vertex algebra: V_{Lambda^{2,1}_{II}}^{formal} (formal hyperbolic lattice vertex construction, c=3, needs c=23 from
       the K3 x E sigma model to reach c=26)
 
     KEY DIFFERENCE: The Fake Monster lives on a rank-26 lattice (natural
     for the bosonic string), so V_{II_{25,1}} IS the full matter system.
-    g_{Delta_5} lives on a rank-3 lattice, so V_{II_{2,1}} alone does NOT
+    g_{Delta_5} lives on a rank-3 lattice, so V_{Lambda^{2,1}_{II}}^{formal} alone does NOT
     provide the full matter system; the remaining c=23 comes from the
     K3 x E internal theory, and the root multiplicities c(D) encode
     precisely the K3 elliptic genus (= partition function of the internal
@@ -220,8 +220,8 @@ def vertex_algebra_status() -> Dict[str, object]:
     return {
         'is_vertex_algebra': False,
         'is_lie_superalgebra': True,
-        'brst_origin': 'H^1_BRST(V_{II_{2,1}} tensor V_ghost)',
-        'lattice_voa': 'V_{II_{2,1}}',
+        'brst_origin': 'H^1_BRST(V_{Lambda^{2,1}_{II}}^{formal} tensor V_ghost)',
+        'lattice_voa': 'V_{Lambda^{2,1}_{II}}^{formal}',
         'lattice_voa_central_charge': LATTICE_VOA_CENTRAL_CHARGE,
         'transverse_central_charge': TRANSVERSE_CENTRAL_CHARGE,
         'total_matter_central_charge': LATTICE_VOA_CENTRAL_CHARGE + TRANSVERSE_CENTRAL_CHARGE,
@@ -272,7 +272,7 @@ def borcherds_realization_comparison() -> Dict[str, object]:
         Root mults: 24 for all imaginary roots (= rank of Leech lattice)
 
     (3) g_{Delta_5}:
-        V = V_{K3 x E} (K3 sigma model tensor E, c=23) tensor V_{II_{2,1}} (c=3)
+        V = V_{K3 x E} (K3 sigma model tensor E, c=23) tensor V_{Lambda^{2,1}_{II}}^{formal} (c=3)
         g = g_{Delta_5}
         Root mults = c(D) from phi_{0,1} (= K3 elliptic genus)
 
@@ -309,8 +309,8 @@ def borcherds_realization_comparison() -> Dict[str, object]:
             'type': 'rank 26 Lorentzian',
         },
         'g_delta5': {
-            'lattice': 'II_{2,1}',
-            'voa': 'V_{K3xE} tensor V_{II_{2,1}}',
+            'lattice': 'Lambda^{2,1}_{II}',
+            'voa': 'V_{K3xE} tensor V_{Lambda^{2,1}_{II}}^{formal}',
             'voa_c': 26,
             'root_mults': 'c(D) from phi_{0,1} (K3 elliptic genus)',
             'denominator': 'Delta_5 (weight 5 on O(3,2) = Sp_4)',
@@ -318,7 +318,7 @@ def borcherds_realization_comparison() -> Dict[str, object]:
         },
         'structural_lesson': (
             'g_{Delta_5} is NOT a chiral algebra. It is the BRST cohomology '
-            'of a chiral algebra (V_{K3xE} tensor V_{II_{2,1}}). The chiral '
+            'of a chiral algebra (V_{K3xE} tensor V_{Lambda^{2,1}_{II}}^{formal}). The chiral '
             'algebra that produces the denominator product through its bar '
             'complex is the target-space algebra A_{K3xE} = Phi(D^b(Coh(K3xE))), '
             'whose existence is Conjecture CY-A_3.'
@@ -829,7 +829,7 @@ def bkm_chiral_status_summary() -> Dict[str, object]:
         'answer': 'NO. g_{Delta_5} is a Lie superalgebra, not a chiral algebra.',
         'nuanced_answer': (
             'g_{Delta_5} is the BRST cohomology of a vertex algebra '
-            '(V_{K3xE} tensor V_{II_{2,1}}). It encodes the root data '
+            '(V_{K3xE} tensor V_{Lambda^{2,1}_{II}}^{formal}). It encodes the root data '
             '(multiplicities, parity, Weyl group) that a conjectural chiral '
             'algebra A_{K3xE} must reproduce through its bar complex. The '
             'identification requires CY-A_3.'
@@ -840,7 +840,7 @@ def bkm_chiral_status_summary() -> Dict[str, object]:
         },
         'q2_borcherds_realization': {
             'answer': 'YES, via BRST (not directly)',
-            'detail': 'H^1_BRST(V_{K3xE} tensor V_{II_{2,1}} tensor V_ghost)',
+            'detail': 'H^1_BRST(V_{K3xE} tensor V_{Lambda^{2,1}_{II}}^{formal} tensor V_ghost)',
             'comparison': 'Analogous to Fake Monster = H^1_BRST(V_{II_{25,1}} tensor V_ghost)',
         },
         'q3_coha_identification': {

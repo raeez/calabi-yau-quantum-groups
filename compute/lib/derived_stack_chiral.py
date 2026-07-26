@@ -441,7 +441,7 @@ def tangent_complex_wzw(
     if residual_rank == 0:
         residual_rank = V_DIM - g_rank
 
-    # WZW at level 1: rigid, no deformations of the WZW factor
+    # WZW at level 1: rigid within the current stratum, but not Gaussian.
     # Deformations come only from the residual Heisenberg
     hh0 = 1
     # WZW(g,1) contributes 0 deformations (rigid at level 1)
@@ -461,7 +461,7 @@ def tangent_complex_wzw(
 
     return TangentComplexData(
         algebra_name=f"WZW({lie_type}, k={level}) x H(C^{residual_rank})",
-        algebra_class="G",  # level 1 WZW on simply-laced is still class G (lattice VOA)
+        algebra_class="L",  # affine current OPE has a first-order Lie bracket
         v_dim=V_DIM,
         hh0_dim=hh0,
         hh1_dim=hh1,
@@ -586,7 +586,8 @@ class ADEStratumData:
     tangent_complex: TangentComplexData
     wzw_central_charge: int  # c(WZW(g, k=1)) = rank(G) for simply-laced
     total_central_charge: int  # always 24 for K3
-    is_lattice_voa: bool  # True for simply-laced at level 1
+    is_lattice_voa: bool  # True for Frenkel-Kac-Segal realization at level 1
+    shadow_class: str  # L for nonabelian affine-current sector
 
 
 def ade_stratum(lie_type: str) -> ADEStratumData:
@@ -597,6 +598,8 @@ def ade_stratum(lie_type: str) -> ADEStratumData:
       - Chiral algebra = WZW(g, k=1) x H(C^{24-rank(G)}, omega')
       - The WZW(g, k=1) for simply-laced g is a LATTICE VOA V_{L_G}
         (Frenkel-Kac-Segal construction)
+      - The current presentation is nevertheless class L: its first-order
+        OPE pole is the Lie bracket of g
       - Central charge: c(WZW) = rank(G), c(Heis) = 24 - rank(G), total = 24
 
     The codimension in K3 moduli equals rank(G):
@@ -625,6 +628,7 @@ def ade_stratum(lie_type: str) -> ADEStratumData:
         wzw_central_charge=rank,  # c(g, k=1) = rank for simply-laced
         total_central_charge=V_DIM,  # always 24
         is_lattice_voa=True,  # simply-laced at level 1 -> Frenkel-Kac-Segal
+        shadow_class="L",
     )
 
 

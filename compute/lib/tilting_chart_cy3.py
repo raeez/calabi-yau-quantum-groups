@@ -48,7 +48,7 @@ MATHEMATICAL CONTENT
 CONVENTIONS
 ===========
   - Cohomological grading (|d| = +1).
-  - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (AP45).
+  - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (desuspension convention).
   - Exact arithmetic via fractions.Fraction.
   - Quiver arrows i -> j represented as (i, j, multiplicity).
   - Potential W represented as a list of cyclic words (vertex sequences).

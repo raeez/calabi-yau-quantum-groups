@@ -80,7 +80,7 @@ from compute.lib.borcherds_vertex_yangian import (
 # ===========================================================================
 
 class TestLatticeVertexOperators:
-    """Vertex operators V(alpha, z) on V_{II_{2,1}}."""
+    """Vertex operators V(alpha, z) on V_{Lambda^{2,1}_{II}}^{formal}."""
 
     def test_central_charge_cancellation(self):
         """Total central charge c_lattice + c_trans + c_ghost = 0.
@@ -100,7 +100,7 @@ class TestLatticeVertexOperators:
     def test_central_charge_values(self):
         """Individual central charge values match BRST construction.
 
-        Multi-path: c_lattice = rank(II_{2,1}) = 3.
+        Multi-path: c_lattice = rank(Lambda^{2,1}_{II}) = 3.
         """
         # VERIFIED [DC] c=rank for free boson [LT] Borcherds 1986 eq. BRST
         assert C_LATTICE == 3
@@ -112,7 +112,7 @@ class TestLatticeVertexOperators:
         assert C_LATTICE == LATTICE_RANK
 
     def test_lattice_rank_and_signature(self):
-        """II_{2,1} has rank 3 and Lorentzian signature (2,1).
+        """Lambda^{2,1}_{II} has rank 3 and Lorentzian signature (2,1).
 
         Multi-path: cross-check against bkm_chiral_algebra.py.
         """
@@ -126,13 +126,13 @@ class TestLatticeVertexOperators:
         assert LATTICE_RANK == bkm_chiral.LATTICE_RANK
 
     def test_gram_matrix_symmetric(self):
-        """Gram matrix of II_{2,1} is symmetric."""
+        """Gram matrix of Lambda^{2,1}_{II} is symmetric."""
         for i in range(3):
             for j in range(3):
                 assert GRAM_MATRIX[i][j] == GRAM_MATRIX[j][i]
 
     def test_gram_matrix_values(self):
-        """Gram matrix matches II_{2,1}: diagonal 2, off-diagonal -2.
+        """Gram matrix matches Lambda^{2,1}_{II}: diagonal 2, off-diagonal -2.
 
         Multi-path: cross-check against both bkm_yangian_generators and
         bkm_chiral_algebra Gram matrices.
@@ -144,7 +144,7 @@ class TestLatticeVertexOperators:
         assert GRAM_MATRIX == bkm_yang.GRAM_MATRIX
         # Cross-check against bkm_chiral_algebra
         bkm_chiral = _import_bkm_chiral()
-        assert GRAM_MATRIX == bkm_chiral.GRAM_MATRIX_II21
+        assert GRAM_MATRIX == bkm_chiral.GRAM_MATRIX_LAMBDA21II
 
     def test_vertex_ops_nonempty(self):
         """At least one vertex operator exists."""

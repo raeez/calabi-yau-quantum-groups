@@ -66,7 +66,7 @@ MATHEMATICAL CONTENT:
 
 CONVENTIONS:
   - Cohomological grading (|d| = +1).
-  - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (AP45).
+  - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (desuspension convention).
   - q = formal quantum parameter (or q = exp(g_s) in string theory).
   - Exact arithmetic via fractions.Fraction.
 
@@ -204,7 +204,7 @@ class BarElement:
       - charge = sum of charges of a_i
       - cohomological degree = sum(|a_i| - 1) = -k (since all |a_i| = 0)
 
-    The desuspension s^{-1} shifts degree by -1 (AP45).
+    The desuspension s^{-1} shifts degree by -1 (desuspension convention).
     """
 
     def __init__(self, factors: List[Tuple[int, int]], coefficient: Fraction = Fraction(1)):

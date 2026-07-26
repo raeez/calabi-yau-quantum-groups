@@ -426,8 +426,8 @@ class TestKSKoszulDuality:
         # VERIFIED [DC] kappa formula [LC] boundary/limiting case
         assert result['kappa_dual'] == Fraction(25, 3)
 
-    def test_mirror_complementarity_universal(self):
-        """kappa + kappa' = 0 for all mirror pairs (chi -> -chi)."""
+    def test_mirror_euler_complementarity(self):
+        """Mirror-Euler lane: kappa + kappa' = 0 when chi -> -chi."""
         test_pairs = [
             (1, 101),    # quintic
             (1, 0),      # conifold

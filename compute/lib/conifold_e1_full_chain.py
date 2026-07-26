@@ -78,7 +78,7 @@ The identification is:
 CONVENTIONS
 ===========
   - Cohomological grading (|d| = +1).
-  - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (AP45).
+  - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (desuspension convention).
   - Exact arithmetic via fractions.Fraction.
   - GL(1|1): we use the standard basis E_{ij} with
     str(E_{ij}) = (-1)^{|i|} delta_{ij}.

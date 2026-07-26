@@ -797,12 +797,13 @@ def nonsemisimple_detector(k_max: int = 5) -> Dict[str, Any]:
     At q = root of unity: the category truncates and becomes nonsemisimple.
 
     The shadow obstruction tower detects this transition through:
-      1. κ(ĝ_k) → 0 as k → 0 (the critical level)
+      1. κ(ĝ_k) = dim(g)(k+h^∨)/(2h^∨), so the critical level is k=-h^∨
       2. Quantum dimensions [n]_q → 0 for n ≥ k+2 (truncation)
       3. Total quantum dimension D² → ∞ as k → ∞ (semisimple limit)
       4. The discriminant Δ remains 0 for all k (class L invariant)
 
-    At the critical level k → -h∨ = -2: κ → ∞ (Sugawara is undefined).
+    At the critical level k → -h∨ = -2: κ → 0, while the generic
+    Sugawara formula has a pole.
     The approach to a root of unity is singular in the shadow data.
 
     Parameters

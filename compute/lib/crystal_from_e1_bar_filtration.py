@@ -53,7 +53,7 @@ CONVENTIONS:
     - Plane partitions encoded as List[List[int]] (2D array of heights)
     - Crystal operators e_i, f_i are partial maps on crystal elements
     - Weight lattice is Z^r where r = number of quiver vertices
-    - Bar degree = tensor degree in the bar complex (AP45: desuspension)
+    - Bar degree = tensor degree in the bar complex (desuspension convention: desuspension)
     - Crystal graph edges: b --f_i--> b' means f_i(b) = b'
 
 LITERATURE:

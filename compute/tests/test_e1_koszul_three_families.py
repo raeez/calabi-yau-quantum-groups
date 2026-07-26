@@ -60,7 +60,7 @@ from compute.lib.e1_koszul_three_families import (
 # ================================================================
 
 class TestHeisenbergKoszulDuality:
-    """Proposition prop:koszul-heisenberg: H_k^! = Sym^ch(V*), kappa(H_k^!)=-k, rho_K = 0."""
+    """Proposition prop:koszul-heisenberg: H_k^! is curved Sym^ch(V*[1]); scalar kappa=-k, rho_K=0."""
 
     def test_kappa_ch_heisenberg(self):
         """kappa_ch(H_k) = k."""
@@ -142,7 +142,7 @@ class TestHeisenbergKoszulDuality:
 # ================================================================
 
 class TestKacMoodyKoszulDuality:
-    """Proposition prop:koszul-kac-moody: V_k(sl_2)^! = V_{-k-4}(sl_2), rho_K = 0."""
+    """Proposition prop:koszul-kac-moody: CE_ch(V_{-k-4}(sl_2)) is the target; rho_K = 0."""
 
     def test_dual_level_formula(self):
         """k' = -k - 2h^v = -k - 4 for sl_2 (h^v = 2)."""

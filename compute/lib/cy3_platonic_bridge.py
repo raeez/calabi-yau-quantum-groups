@@ -17,8 +17,11 @@ repository:
 * Protected BPS-to-chiral index comparison.
 
 The normalization of the CHL ladder is
-``kappa_BKM(Phi_N) = c_N(0)/2 = (5, 4, 3, 2, 1)`` for
-``N = 1, 2, 3, 4, 6``.
+``kappa_BKM(Phi_N) = c_N(0)/2 = (5, 3, 2, 3/2, 1)`` for
+``N = 1, 2, 3, 4, 6``, with ``c_N(0) = (10, 6, 4, 3, 2)``
+(Jatkar--Sen; Govindarajan--Krishna; the once-recorded ladder
+``(5, 4, 3, 2, 1)`` is retracted; the ``N = 4`` weight is
+half-integral, carried by a multiplier system).
 The separate Gritsenko--Clery eight-form atlas is recorded below by
 ``(t, N, c_0, weight)`` and is not the CHL ladder.
 """
@@ -258,9 +261,9 @@ GLOBAL_WITNESS_ATTACKS: Mapping[str, Mapping[str, str]] = {
 
 CHL_KAPPA_BKM: Dict[int, Fraction] = {
     1: Fraction(5),
-    2: Fraction(4),
-    3: Fraction(3),
-    4: Fraction(2),
+    2: Fraction(3),
+    3: Fraction(2),
+    4: Fraction(3, 2),
     6: Fraction(1),
 }
 

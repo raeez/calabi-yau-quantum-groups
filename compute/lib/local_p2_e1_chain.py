@@ -617,7 +617,7 @@ def quantum_vertex_group_local_p2() -> QuantumVertexGroup:
     where:
       A_{LP2} = the chiral algebra (from factorization envelope)
       A^!_{LP2} = the Koszul dual (Verdier intertwining, Thm A)
-      C = the chiral derived center (universal bulk)
+      C = the chiral derived center (algebraic closed-sector vertex)
       r(z) = the R-matrix (collision residue of Theta)
       Theta_{LP2} = the shadow MC element (bar-intrinsic, Thm MC2)
       nabla^{hol} = the shadow modular connection

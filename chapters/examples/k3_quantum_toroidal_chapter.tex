@@ -10,8 +10,9 @@ the tropical cluster algebra structure.
 \begin{remark}[Three-axis coordinates of this chapter]
 \label{rem:k3-quantum-toroidal-three-axis-coords}
 Every algebra of this chapter sits at \emph{level $3$} (the bulk),
-\emph{chart} reduced $\mathbb C^{\times} + \Aut(K3)$ on the $K3$ surface
-with $(\Sigma_1, C) = (\Sigma_1^{\mathrm{Nakajima}}, C \hookrightarrow K3)$,
+\emph{chart} the lattice-polarised K3 period branch, with
+Maulik--Okounkov equivariance confined to ADE/Kummer reduced-automorphism
+charts and with $(\Sigma_1, C) = (\Sigma_1^{\mathrm{Nakajima}}, C \hookrightarrow K3)$,
 and the rational $\to$ trigonometric $\to$ elliptic deformation
 hierarchy is a Stage-$2$ specialisation deformation of one canonical
 $\PhiFA_2(D^b\Coh(K3))$ (Theorem~\ref{thm:bulk-k3-yangian}).
@@ -78,12 +79,15 @@ The passage from the Yangian (rational) to the quantum toroidal
 (trigonometric) stage is the exponentiation
 $u \mapsto x = e^u$, $h_a \mapsto q_a = e^{h_a}$,
 which replaces the additive spectral parameter by a multiplicative
-one and the Arnold relation by the Fay trisecant identity
-(Theorem~\ref{thm:fay}). The CY$_2$ constraint
-$\sum h_a = 0$ becomes $\prod q_a = 1$.
+one; at the further elliptic stage the three-term calculus is
+governed by the quartic Fay trisecant identity
+(Theorem~\ref{thm:fay}), the naive Arnold relation acquiring the
+quasi-modular defect of Theorem~\ref{thm:elliptic-arnold-fails}. The
+CY$_2$ constraint $\sum h_a = 0$ becomes $\prod q_a = 1$.
 
 \begin{conjecture}[K3 quantum toroidal algebra]
 \label{conj:k3-quantum-toroidal}
+\ClaimStatusConjectured
 There exists a two-parameter algebra
 $U_{q,t}(\fg_{K3}^{\mathrm{tor}})$ with the following properties.
 \begin{enumerate}[label=\textup{(\roman*)}]
@@ -128,8 +132,8 @@ The bar Euler product is $\prod_{n \geq 1}(1-q^n)^{24}
 Flatness of the trigonometric deformation preserves the PBW
 filtration, so the bar Euler product depends only on the
 associated graded (= $H_{\mathrm{Muk}}$, class~$G$, $24$ generators).
-\emph{Note}: the counting parameter~$q$ in the bar Euler product is the
-bar-complex weight grading, not the nome of~$E$.
+The counting parameter~$q$ in the bar Euler product is the bar-complex
+weight grading, not the nome of~$E$.
 
 \item \emph{Charge-$n$ representation.}
 At charge $n$, $U_{q,t}(\fg_{K3}^{\mathrm{tor}})$ acts on the
@@ -203,14 +207,15 @@ $S_3$ symmetry requires the $(\bC^*)^3$ torus of $\bC^3$; the
 $\SL_2(\Z)$ symmetry requires the elliptic factor of $K3 \times E$.
 \end{proof}
 
-\begin{theorem}[Miki \texorpdfstring{$S_3$}{S-3} on three structurally distinct algebras]
+\begin{theorem}[\texorpdfstring{$\epsilon$}{epsilon}-relabelling \texorpdfstring{$S_3$}{S-3}-equivariance on three structurally distinct algebras]
 \label{thm:plat-Miki-S3}
 Fix $(\epsilon_1,\epsilon_2,\epsilon_3)$ with $\epsilon_1+\epsilon_2+\epsilon_3=0$
 and let $Y=Y_{\epsilon_1,\epsilon_2,\epsilon_3}(\widehat{\gl}_1)$ denote the
-affine Yangian on $\bC^3$. The Miki~$2007$
-$S_3$-automorphism of $\mathcal W_{1+\infty}[\lambda]$
-descends to three structurally distinct levels, each equivariant under
-the cyclic permutation of the epsilon parameters:
+affine Yangian on $\bC^3$. The $S_3$-permutation of the epsilon
+parameters --- the relabelling of the three coordinate directions of
+$\bC^3$, the rational shadow of the parameter action of the Miki
+$\SL_2(\Z)$ --- acts equivariantly at three structurally distinct
+levels:
 \begin{enumerate}[label=\textup{(\alph*)}]
 \item \emph{Drinfeld double.} Write $Y=Y^+\otimes Y^0\otimes Y^-$ for
  the triangular decomposition into positive, Cartan, and negative
@@ -235,6 +240,25 @@ the $S_3$ on $(\epsilon_1,\epsilon_2,\epsilon_3)$ descends along
 $\mathrm{ev}_\lambda$ to the $S_3$ on the $\lambda$-parameter space
 of $\mathcal W_{1+\infty}[\lambda]$.
 \end{theorem}
+
+\begin{remark}[What the \texorpdfstring{$\epsilon$}{epsilon}-relabelling does not prove: Miki's exchange]
+\label{rem:plat-miki-vs-relabelling}
+Theorem~\ref{thm:plat-Miki-S3} proves equivariance under the
+relabelling of the epsilon parameters: every structure in sight ---
+shuffle kernel, coproduct, Ran fusion --- is manifestly symmetric in
+$(\epsilon_1,\epsilon_2,\epsilon_3)$, and the theorem's content is
+that this symmetry descends through the triangular and factorisation
+constructions. Miki's theorem~\cite{Miki07} is a different and deeper
+statement: the $\SL_2(\Z)$-automorphism $S$ of the quantum toroidal
+algebra $U_{q,t}(\widehat{\widehat{\gl}}_1)$ exchanges the horizontal
+and vertical subalgebras --- current generators against Cartan
+currents --- and is not a relabelling of manifest parameters; no
+shuffle-kernel symmetry argument produces it. The rational $S_3$ of
+the present theorem is the degeneration of the \emph{parameter}
+action of Miki's $\SL_2(\Z)$
+(Remark~\ref{rem:miki-automorphism}), not of its
+horizontal--vertical exchange.
+\end{remark}
 
 \begin{proof}
 \emph{(a).} The Hopf structure of $Y$ is controlled by the
@@ -342,30 +366,10 @@ Shadow class & $M$ (mock modular) & $G$ (free field, class $G$) \\
 \end{tabular}
 \end{center}
 The K3 version replaces the equivariant torus $(\bC^*)^3$ by the Mukai
-lattice $U^3 \oplus E_8(-1)^2$, gaining rank ($24$ vs~$3$) at the cost
+lattice $U^4 \oplus E_8(-1)^2$, gaining rank ($24$ vs~$3$) at the cost
 of the $S_3$ symmetry. The indefinite signature $(4,20)$ poses no
 obstruction to the construction (Proposition~\ref{prop:mukai-indefinite-yangian}).
 \end{remark}
-
-\noindent\textit{Verification}: $51$~tests in
-\texttt{k3\_quantum\_toroidal.py}
-covering trigonometric structure function ($8$~tests), inversion
-identity ($4$~tests), factorisation ($4$~tests), Yangian limit
-($5$~tests), Miki analysis ($5$~tests compliance),
-deformation chain ($4$~tests), representation theory ($6$~tests),
-bar Euler product ($3$~tests), cross-family structure ($3$~tests),
-full verification ($2$~tests), and multi-path cross-checks ($7$~tests).
-
-
-\noindent\textit{Verification (topological-string shadow cross-check)}:
-$65$ tests in \texttt{k3e\_topological\_string\_shadow.py} covering
-G\"ottsche's formula through $n = 15$, Ramanujan's $\tau$-function
-through $n = 15$ (including Hecke multiplicativity), $\eta^{24}$ and
-$1/\eta^{24}$ product expansions, bar-Euler versus G\"ottsche
-agreement, $\kappa_\bullet$-spectrum four-distinctness, DT degree-$0$
-triviality, the DT/PT identity, BPS/shadow-class identification
-(rank-$1$~= G, full~= M), the Borcherds discriminant constraint, and
-the wall-crossing/shadow dictionary.
 
 \section{The AGT correspondence for K3: Nekrasov partition function vs conformal blocks}
 \label{sec:k3e-agt}
@@ -418,8 +422,6 @@ Both sides are the generating function of $24$-coloured partitions $p_{24}(n)$, 
 \end{proof}
 
 \noindent This is the \emph{classical} AGT for K3: no quantum group structure is needed. The identification is purely at the level of generating functions.
-
-\noindent\textit{Verification}: 79 tests in \texttt{nekrasov\_agt\_k3.py}; coefficient match through $n = 6$, three independent computation paths (eta product, coloured partition recursion, cross-engine).
 
 \subsection{The refined Vafa--Witten partition function and the \texorpdfstring{$\chi_y$}{chi-y} genus}
 \label{subsec:k3e-refined-vw}
@@ -486,19 +488,20 @@ Theorem~\ref{thm:omega-bg-two-point-match} identifies this two-point
 function with the matrix element
 $\langle e_1 \otimes e_0 | R_{\mathrm{KS}}(u - v) | e_0 \otimes e_1\rangle$
 of the Kulish--Sklyanin super $R$-matrix on
-$\C^{1 \mid 1} \otimes \C^{1 \mid 1}$ under the identification
-$\hbar = \epsilon_1\epsilon_2/(\epsilon_1 + \epsilon_2)$.
+\(\C^{1 \mid 1} \otimes \C^{1 \mid 1}\), after a choice of
+normalisation of the quantisation parameter.  The invariant data are the
+equivariant weights \((\epsilon_1,\epsilon_2)\) and the CY-completed
+triple \((\epsilon_1,\epsilon_2,\epsilon_3)\), not a canonical quotient
+formula for \(\hbar\).
 \item \emph{CY$_3$ closure identifies the third weight.} Under the
 CY$_3$ closure $\epsilon_1 + \epsilon_2 + \epsilon_3 = 0$ the
 denominator $(u - v + \epsilon_1 + \epsilon_2) = (u - v - \epsilon_3)$
 supplies the third spectral direction, and the Nekrasov--Okounkov
-expansion parameter becomes
-\[
- \hbar \;=\; \frac{\epsilon_1\epsilon_2}{\epsilon_1 + \epsilon_2}
- \;=\; -\frac{\epsilon_1\epsilon_2}{\epsilon_3},
-\]
-the genus-expansion coupling of
-\cite{NekrasovOkounkov2003}.
+expansion is expressed in the elementary symmetric functions of
+\((\epsilon_1,\epsilon_2,\epsilon_3)\).  Different conventions package
+the same data as \(b^2=\epsilon_1/\epsilon_2\), as
+\((\epsilon_1+\epsilon_2)/\sqrt{\epsilon_1\epsilon_2}\), or as the
+affine-Yangian weights \(h_i=\epsilon_i\) with \(\sum_i h_i=0\).
 \item \emph{Automorphic uplift to $\mathrm K3 \times E$.} The rank-$N$
 equivariant instanton sum of Nakajima--Yoshioka
 \cite{NakajimaYoshioka2003a,NakajimaYoshioka2003b} on
@@ -540,8 +543,8 @@ $\epsilon_1 + \epsilon_2 = -\epsilon_3$ substituted into the $\hbar$-identificat
 of (i). (iii) combines G\"ottsche~$1990$ with the
 Nakajima--Yoshioka~$2003$ equivariant blow-up formula and the
 Mukai-diagonalisation of Remark~\ref{rem:ks-to-osp-lift}; the
-orthosymplectic reduction is the signature $(4, 20)$ applied to
-the $24$-copy Kulish--Sklyanin kernel. The $(q, t)$-lift and the NS
+orthogonal reduction is the signature $(4, 20)$ applied to the
+$24$-copy Kulish--Sklyanin kernel. The $(q, t)$-lift and the NS
 degeneration are
 Proposition~\ref{prop:qt-to-omega} and
 Theorem~\ref{thm:ns-limit-xxx} of Chapter~\ref{ch:k3-yangian}.
@@ -552,6 +555,7 @@ Theorem~\ref{thm:ns-limit-xxx} of Chapter~\ref{ch:k3-yangian}.
 
 \begin{conjecture}[K3 Yangian character = VW partition function]
 \label{conj:k3e-yangian-agt}
+\ClaimStatusConjectured
 If the K3 Yangian $Y(\fg_{K3})$ exists (Conjecture~\ref{conj:k3-yangian}), then
 \[
  \mathrm{ch}(\mathrm{Fock}(Y(\fg_{K3})))
@@ -565,12 +569,12 @@ If the K3 Yangian $Y(\fg_{K3})$ exists (Conjecture~\ref{conj:k3-yangian}), then
 \subsection{The Kummer point and the orbifold AGT}
 \label{subsec:k3e-kummer-agt}
 
-At the Kummer point $K3 = T^4/\bZ_2$ (resolved), the VW partition function decomposes via the orbifold formula. The Kummer route through Steps~1--4 is Proposition~\ref{prop:kummer-orbifold}:
-\begin{enumerate}[label=\textbf{Step~\arabic*}:]
+At the Kummer point $K3 = T^4/\bZ_2$ (resolved), the VW partition function decomposes via the orbifold formula. The Kummer route through Arrows~1--4 is Proposition~\ref{prop:kummer-orbifold}:
+\begin{enumerate}[label=\textbf{Arrow~\arabic*}:]
 \item $T^4$ Heisenberg: rank-$16$ lattice from $b_\ast(T^4) = 1 + 4 + 6 + 4 + 1 = 16$.
 \item $\bZ_2$-invariant sublattice: rank~$8$.
 \item $16$ twisted sectors from the $2^4 = 16$ fixed points, each at conformal weight $h = 1/2$.
-\item Orbifold total: $\kappa_{\mathrm{ch}} = 2 = \chi(\cO_{K3})$; exponent $24 = 8 + 16$.
+\item Orbifold total: $\kappa_{\mathrm{ch}}^{\mathrm{Hodge}} = 2 = \chi(\cO_{K3})$; exponent $24 = 8 + 16$.
 \end{enumerate}
 The Kummer Yangian parameters specialise through the
 $\mathbb{Z}_2$-equivariant reduction of the $\Omega$-background
@@ -578,26 +582,22 @@ free-field system of
 Theorem~\ref{rem:k3e-omega-free-field-link}. On the resolved $A_1$
 singularity at each of the $16$ fixed points, the $T = (\C^\times)^2$
 action descends to the $\mathbb{Z}_2$-quotient with equivariant weights
-$(\epsilon_1, -\epsilon_1)$ on the exceptional $\bP^1$; the resulting
-Kummer Yangian parameters are
-$\{h_a\}_{a = 1, \ldots, 24} =
-\{\epsilon_1\}^{\times 4}
- \cup \{-\epsilon_1/5\}^{\times 20}$
-on the $(4, 20)$-Mukai decomposition, with
-$\sum_a h_a = 4\epsilon_1 - 4\epsilon_1 = 0$ (CY$_2$~closure). The
-rank-$4$ positive Mukai sublattice $U^2 \subset \mathrm{II}_{4, 20}$
-carries the $T^4$-Heisenberg of Step~1 (four untwisted creation
-operators) and the rank-$20$ negative Mukai sublattice
-$E_8(-1)^2 \oplus \langle -2\rangle^4$ carries the twisted-sector
-states of Step~3; the ratio $1 : -1/5 = 4 : 1$ tracks the $(4, 20)$
-signature. The Fock character
+$(\epsilon_1, -\epsilon_1)$ on the local \(A_1\) surface chart.  The \(8+16\) orbifold split gives
+the untwisted and exceptional-sector character decomposition, but it
+does not by itself assign \(24\) global Mukai weights.  Any such
+assignment requires a stable-envelope or Hall weight calculation on the
+chosen Kummer chart. The rank-$4$ positive Mukai sublattice
+\(U^2 \subset \mathrm{II}_{4, 20}\) carries the \(T^4\)-Heisenberg of
+Arrow~1 (four untwisted creation operators) and the rank-$20$ negative
+Mukai sublattice \(E_8(-1)^2 \oplus \langle -2\rangle^4\) carries the twisted-sector
+states of Arrow~3. The Fock character
 $\prod_{k \geq 1}(1 - q^k)^{-24}$ is independent of parameter choice
 by flat deformation invariance, so the orbifold Kummer character
 agrees with the generic K3 character.
 
 \begin{remark}[Kummer Yangian identification]
 \label{rem:k3e-kummer-yangian-agt}
-The identification of the Kummer Yangian character with $Z_{\mathrm{VW}}$ at the Kummer point (Step~5 of the Kummer route, \ref{conj:kummer-route}) remains conjectural. The match of generating functions is guaranteed by flat deformation, but the match of the \emph{algebraic structure} (R-matrix, coproduct, fusion rules) is a deeper statement.
+The identification of the Kummer Yangian character with $Z_{\mathrm{VW}}$ at the Kummer point (Arrow~5 of the Kummer route, \ref{conj:kummer-route}) remains conjectural. The match of generating functions is guaranteed by flat deformation, but the match of the \emph{algebraic structure} (R-matrix, coproduct, fusion rules) is a deeper statement.
 \end{remark}
 
 \subsection{Modularity: VW weight \texorpdfstring{$-12$}{-12} and the K3 Yangian character}
@@ -616,7 +616,7 @@ At genus~$g$, the Heisenberg conformal block has modular weight $-12g$ on the mo
 \subsection{Wall-crossing and K3 Yangian fusion rules}
 \label{subsec:k3e-agt-wall-crossing}
 
-For rank~$1$ (Hilbert schemes), the VW partition function is stability-independent ($\mathrm{Hilb}^n(K3)$ is smooth for all~$n$; Fogarty 1968), so there is no wall-crossing and no fusion rules to test.
+For rank~$1$ (Hilbert schemes), the VW partition function is stability-independent ($\mathrm{Hilb}^n(K3)$ is smooth for all~$n$; Fogarty 1968), so there is no wall-crossing and no nontrivial fusion rule.
 
 For rank~$\geq 2$, the walls of marginal stability in the Bridgeland stability manifold $\mathrm{Stab}(K3)$ produce nontrivial jumps governed by the Kontsevich--Soibelman formula. The conjectural K3 Yangian interpretation:
 \begin{itemize}
@@ -634,10 +634,9 @@ $E_3$ corrections beyond pairwise products
 (Theorem~\ref{thm:zte-failure}).
 \end{remark}
 
-\noindent\textit{Verification}: \texttt{nekrasov\_agt\_k3.py}, 79 tests: genus-$1$ AGT identification, $\chi_y$ specialisations, modular weight $-12$, Kummer decomposition $24 = 8 + 16$, Ramanujan $\tau$ through $n = 10$ (including Hecke multiplicativity), BPS asymptotic growth, refined VW at $y = 0$ and $y = 1$, cross-consistency with four independent engines (\texttt{vafa\_witten\_k3}, \texttt{vafa\_witten\_shadow}, \texttt{k3\_double\_current\_algebra}, \texttt{k3\_yangian}), and nine multi-path verification tests.
-
 \begin{conjecture}[Higher-rank AGT for K3: from \texorpdfstring{$\fgl_1$}{fgl-1} to \texorpdfstring{$\fgl_N$}{fgl-N}]
 \label{conj:k3e-agt-higher-rank}
+\ClaimStatusConjectured
 For $N$ D3-branes wrapping K3, the rank-$N$ Vafa--Witten partition function
 $Z_{\mathrm{VW}}^{U(N)}(K3; q)$ satisfies the following.
 \begin{enumerate}[label=\textup{(\alph*)}]
@@ -691,14 +690,13 @@ the rank-$N$ coefficient is extracted. The AGT identification~(b)
 is the conjectural algebraic interpretation of this coefficient
 as a $W_N^{\otimes 24}$ genus-$1$ partition function.
 \end{conjecture}
-
-\noindent\textit{Verification}: $127$ tests in
-\texttt{agt\_higher\_rank\_k3.py} covering rank-$1$ VW baseline
-($p_{24}(n)$ for $n = 0, \ldots, 6$), rank-$2$ VW from symmetric
-product and DMVV, $W_N$ vacuum characters at $N = 1, 2, 3, 4$,
-AGT matching at genus~$1$ for $N = 1, 2$, structure function degree
-scaling $(24N, 24N)$, unitarity, nonabelian $R$-matrix block
-structure, central charge $c = 24(N-1)$, log expansion coefficients,
+The rank-$1$ VW baseline \(p_{24}(n)\) for \(0\leq n\leq6\), the
+rank-$2$ VW coefficient from the symmetric product and DMVV, the
+\(W_N\)-vacuum characters for \(N=1,2,3,4\), the genus-$1$ AGT
+matching for \(N=1,2\), the degree scaling \((24N,24N)\), unitarity,
+the nonabelian \(R\)-matrix block structure, the central charge
+\(c=24(N-1)\), and the logarithmic expansion coefficients
+all obey the same DMVV coefficient extraction.
 bar-Euler product at ranks $1$--$4$, and the Kummer route at rank $2$.
 
 %% =====================================================================
@@ -743,10 +741,11 @@ $0$d & $K3$ sigma model (bosonic sector) & $H_{\mathrm{Muk}}$ & $E_1$ & Mukai He
 \label{sec:kappa-spectrum-web}
 
 \noindent\textbf{Local convention.} In this subsection $\kappa_\bullet$
-abbreviates the four-element set
-$\{\kappa_{\mathrm{cat}}, \kappa_{\mathrm{fiber}}, \kappa_{\mathrm{ch}},
+abbreviates the five-element set
+$\{\kappa_{\mathrm{cat}}, \kappa_{\mathrm{fiber}},
+\kappa_{\mathrm{ch}}^{\mathrm{Hodge}}, \kappa_{\mathrm{ch}}^{\mathrm{Heis}},
  \kappa_{\mathrm{BKM}}\}$; every value appearing below is one of
-these four subscripted invariants.
+these subscripted invariants.
 
 The four $\kappa_\bullet$-invariants are extracted at each node.
 They fall into two types: manifold invariants (topological,
@@ -761,8 +760,9 @@ on the constructed algebra). For the $K3 \times E$ tower:
 \hline
 $\kappa_{\mathrm{cat}}$ & $2$ & $0$ & $\chi(\mathcal{O}_X)$ (Kunneth) & manifold \\
 $\kappa_{\mathrm{fiber}}$ & $24$ & $24$ & Mukai lattice rank & manifold \\
+$\kappa_{\mathrm{ch}}^{\mathrm{Hodge}}$ & $2$ & $0$ & Hodge supertrace & algebraization \\
 $\kappa_{\mathrm{ch}}^{\mathrm{Heis}}$ & $2$ & $3$ & Heisenberg-additive reading & algebraization \\
-$\kappa_{\mathrm{BKM}}$ &; & $5$ & Weight of $\Delta_5$ & algebraization \\
+$\kappa_{\mathrm{BKM}}$ & -- & $5$ & Weight of $\Delta_5$ & algebraization \\
 \hline
 \end{tabular}
 \end{center}
@@ -783,7 +783,7 @@ $\kappa_{\mathrm{ch}}^{\mathrm{Hodge}} = \chi(\mathcal{O}_{K3 \times E}) = 0$.
 The Borcherds-side invariant is
 \begin{equation}
 \label{eq:kappa-bkm-decomposition}
- \kappa_{\mathrm{BKM}}(K3 \times E)
+ \kappa_{\mathrm{BKM}}(\Delta_5)
  = \left.c_N(0)/2\right|_{N=1}
  = 10/2 = 5.
 \end{equation}
@@ -872,11 +872,11 @@ $0$d: $K3$ sigma model & $G$ & trivial &; \\
 \end{tabular}
 \end{center}
 
-\subsection{Dimensional reduction and the correspondence programme \texorpdfstring{$\{\Phi_d\}$}{Phi-d}}
+\subsection{Dimensional reduction and the correspondence \texorpdfstring{$\{\Phi_d\}$}{Phi-d}}
 \label{sec:dimred-commutativity}
 
-The central consistency question: does the CY-to-chiral correspondence
-programme $\{\Phi_d\}$ commute with dimensional reduction?
+The central consistency question is whether the CY-to-chiral
+correspondence $\{\Phi_d\}$ commutes with dimensional reduction.
 \[
 \begin{tikzcd}
  \mathcal{C}\!\mathit{Y}_d(X) \ar[r, "\Phi"] \ar[d, "\text{reduce}"]
@@ -888,7 +888,8 @@ programme $\{\Phi_d\}$ commute with dimensional reduction?
 
 \begin{conjecture}[Compactification commutativity]
 \label{conj:compactification-commutativity}
-The correspondence programme $\{\Phi_d\}$ commutes with the
+\ClaimStatusConjectured
+The correspondence $\{\Phi_d\}$ commutes with the
 $6$d~$\to$~$5$d reduction (shrink $E$, $q \to 1$), in the sense that
 $\Phi_3(K3 \times E)|_{q \to 1} = \Phi_2(K3)$:
 \[
@@ -914,16 +915,15 @@ The K3 quantum toroidal algebra of this chapter is a stage-$2$ shadow of the can
 \subsection{Independent consistency checks}
 \label{sec:web-consistency-checks}
 
-The compactification web provides the following independent checks,
-all verified in \texttt{twisted\_m\_theory\_web.py} ($76$~tests):
+The compactification web provides the following independent checks:
 
 \begin{enumerate}
-\item \textbf{$\kappa_{\mathrm{ch}}$ preservation} under proper reductions:
- $\kappa_{\mathrm{ch}}$ is constant along reduction edges with the same
+\item \textbf{$\kappa_{\mathrm{ch}}^{\mathrm{Hodge}}$ preservation} under proper reductions:
+ $\kappa_{\mathrm{ch}}^{\mathrm{Hodge}}$ is constant along reduction edges with the same
  CY dimension.
 
 \item \textbf{$\kappa_{\mathrm{BKM}}$ value}:
- $\kappa_{\mathrm{BKM}} = c_1(0)/2 = 5$ (Borcherds weight theorem); the adjacent Heisenberg/fibre arithmetic in \eqref{eq:kappa-bkm-decomposition} is recorded only as an $N = 1$ convention-mixing accident, not as a derivation.
+ $\kappa_{\mathrm{BKM}}(\Delta_5) = c_1(0)/2 = 5$ (Borcherds weight theorem); the adjacent Heisenberg/fibre arithmetic in \eqref{eq:kappa-bkm-decomposition} is recorded only as an $N = 1$ convention-mixing accident, not as a derivation.
 
 \item \textbf{$R$-matrix degeneration}: two-parameter $\to$ rational
  $\to$ trivial along the hCS hierarchy.
@@ -946,10 +946,10 @@ all verified in \texttt{twisted\_m\_theory\_web.py} ($76$~tests):
 
 The $\cN = (4,4)$ SCFT on $K3$ at $c = 6$ is \emph{proved}
 (Aspinwall--Morrison, Nahm--Wendland). The K3 Yangian $Y(\fg_{K3})$
-is \emph{conjectural} (the geometric construction of $Y(\fg_{K3})$ requires more than the inf-cat existence of CY-A$_3$, which is proved). The sigma model provides seven
+is \emph{conjectural}; its geometric construction requires more than
+the framed \((\infty,1)\)-categorical CY-A$_3$ existence statement. The
+sigma model provides seven
 independent data that any candidate K3 chiral algebra must match.
-All seven are verified in
-\texttt{physical\_k3\_sigma\_check.py} ($73$~tests).
 
 \begin{enumerate}
 \item \textbf{$\cN = 4$ SCA at $c = 6$, $k_R = 1$.}
@@ -965,9 +965,9 @@ All seven are verified in
 \item \textbf{Elliptic genus $\phi_{0,1}$ vs.\ bar Euler product.}
  The K3 elliptic genus is $Z_{K3} = 2\,\phi_{0,1}$, where
  $\phi_{0,1}(\tau, z)$ is the unique weak Jacobi form of weight~$0$,
- index~$1$, and the factor $2 = \kappa_{\mathrm{ch}}(K3)$.
+ index~$1$, and the factor $2 = \kappa_{\mathrm{ch}}^{\mathrm{Hodge}}(K3)$.
  At $q^0$: $\phi_{0,1} = y^{-1} + 10 + y$,
- so $\kappa_{\mathrm{ch}} \cdot (1 + 10 + 1) = 24 = \chi_{\mathrm{top}}(K3)$.
+ so $\kappa_{\mathrm{ch}}^{\mathrm{Hodge}} \cdot (1 + 10 + 1) = 24 = \chi_{\mathrm{top}}(K3)$.
  The bar Euler product $\prod(1 - q^n)^{24} = \eta(q)^{24}/q$ computes
  the Ramanujan $\tau$-function.
  These are \emph{different} modular objects: $\phi_{0,1}$ (Jacobi form,
@@ -980,10 +980,10 @@ All seven are verified in
  The discriminant function $c(D)$ of $\phi_{0,1}$ ($D = 4n - l^2$,
  index~$1$) gives BPS multiplicities: $c(-1) = 1$, $c(0) = 10$
  (normalized $\phi_{0,1}$).
- The Borcherds weight is $c(0)/2 = 5 = \kappa_{\mathrm{BKM}}$.
+ The Borcherds weight is $c(0)/2 = 5 = \kappa_{\mathrm{BKM}}(\Delta_5)$.
  Only discriminants $D \equiv 0$ or $3 \pmod{4}$ appear.
  Negative values ($c(3) = -64$) indicate fermionic/odd BKM roots.
- The Witten index is $\kappa_{\mathrm{ch}} \cdot c(-1) = 2$.
+ The Witten index is $\kappa_{\mathrm{ch}}^{\mathrm{Hodge}} \cdot c(-1) = 2$.
 
 \item \textbf{Spectral parameter origin}.
  The Yangian spectral parameter $u$ arises from the
@@ -1023,7 +1023,7 @@ All seven are verified in
  At $K3 = T^4/\mathbb{Z}_2$: $8$ untwisted bosons (rank-$4$ lattice,
  $\mathbb{Z}_2$-invariant), $16$ twisted sectors ($h = 1/2$), enhanced
  gauge algebra $\mathfrak{so}(4)^4$ at level~$1$ (rank~$8$, $c = 8$),
- $\kappa_{\mathrm{ch}} = 2$. The Yangian structure function
+ $\kappa_{\mathrm{ch}}^{\mathrm{Hodge}} = 2$. The Yangian structure function
  $g_{K3}(z) = \prod_{i=1}^{24}(z - h_i)/(z + h_i)$ at the Kummer
  point has $h_i = +1$ ($i = 1, \ldots, 4$), $h_i = -1/5$
  ($i = 5, \ldots, 24$), satisfying $\sum h_i = 0$, $g(0) = 1$,
@@ -1033,9 +1033,9 @@ All seven are verified in
 \item \textbf{Mathieu $M_{24}$ moonshine} (Eguchi--Ooguri--Tachikawa 2010).
  The massive BPS multiplicities decompose as $M_{24}$ representations:
  $A_1 = 2 \times 45 = 90$, $A_2 = 2 \times 231 = 462$,
- $A_3 = 2 \times 770 = 1540$. The factor~$2 = \kappa_{\mathrm{ch}}$.
+ $A_3 = 2 \times 770 = 1540$. The factor~$2 = \kappa_{\mathrm{ch}}^{\mathrm{Hodge}}$.
  The Yangian does \emph{not} see $M_{24}$ directly: the bar complex
- provides the universal coefficient $\kappa_{\mathrm{ch}} \cdot
+ provides the universal coefficient $\kappa_{\mathrm{ch}}^{\mathrm{Hodge}} \cdot
  \dim(\rho_n)$ but cannot detect which specific finite group acts.
  This is a structural limitation: the $M_{24}$ action is a symmetry
  of the \emph{spectrum}, not of the algebra.
@@ -1046,8 +1046,8 @@ All seven are verified in
 All seven checks pass (the K3 Yangian is \emph{consistent} with the
 physical sigma model), but consistency does not imply existence.
 The checks verify that $Y(\fg_{K3})$, if it exists, produces data
-compatible with the known sigma model. CY-A$_3$ is proved in the
-infinity-categorical framework (Theorem~\ref{thm:derived-framing-obstruction});
+compatible with the known sigma model. The framed \((\infty,1)\)-categorical
+CY-A$_3$ existence statement is Theorem~\ref{thm:derived-framing-obstruction};
 the explicit chain-level geometric construction of $Y(\fg_{K3})$
 remains conjectural.
 \end{remark}
@@ -1059,7 +1059,17 @@ remains conjectural.
 \section{Tropical limit and cluster algebra structure}
 \label{sec:k3e-tropical}
 
-The large complex structure limit (maximally unipotent monodromy, i.e.\ the MUM degeneration) of $K3$ produces a \emph{tropical K3}: the dual intersection complex $\Delta(K3)$ of a type~III Kulikov degeneration is a triangulated $S^2$ with $24$~marked points, one for each direction in the Mukai lattice $\Lambda_{\mathrm{Muk}} \simeq U^3 \oplus E_8(-1)^2$. The shadow tower, scattering diagram, and Yangian parameters each acquire a tropical (piecewise-linear) incarnation in this limit, governed by the cluster algebra structure of Gross--Hacking--Keel--Kontsevich.
+The large complex structure limit (maximally unipotent monodromy, i.e.\
+the MUM degeneration) of \(K3\) produces a \emph{tropical K3}: the dual
+intersection complex \(\Delta(K3)\) of a type~III Kulikov degeneration
+is a triangulated \(S^2\).  In an elliptic or affine-sphere model the
+integral affine structure has \(24\) focus-focus singularities, counted
+by the Euler class and monodromy, but these singularities are not
+canonically the vertices of an arbitrary triangulation and are not in
+bijection with Mukai-lattice directions. The shadow tower, scattering
+diagram, and Yangian parameters each acquire a tropical
+(piecewise-linear) incarnation in this limit, governed by the cluster
+algebra structure of Gross--Hacking--Keel--Kontsevich.
 
 \subsection{The tropical K3}
 \label{subsec:tropical-k3}
@@ -1069,9 +1079,14 @@ The large complex structure limit (maximally unipotent monodromy, i.e.\ the MUM 
 Let $\pi \colon \cX \to \Delta$ be a type~III Kulikov degeneration of K3 surfaces. The \emph{dual intersection complex} $\Delta(K3) = \Delta(\pi)$ is the simplicial complex whose vertices are the irreducible components of the central fibre $X_0$, with a $k$-simplex for each $(k+1)$-fold intersection. For a maximally degenerate K3:
 \begin{enumerate}[label=\textup{(\roman*)}]
 \item $\Delta(K3)$ is homeomorphic to $S^2$ (by Friedman--Morrison).
-\item $|\Delta(K3)_0| = 24$ (the number of vertices equals $\rank(\Lambda_{\mathrm{Muk}})$).
-\item The $1$-skeleton carries an integral affine structure on $S^2 \setminus \{24\text{ singular points}\}$, with focus-focus singularities at each vertex.
-\item The edge weights are determined by the Mukai pairing $\omega^{ij}$ restricted to adjacent components.
+\item The number of vertices depends on the chosen Kulikov model and
+semistable refinement; it is not a Mukai-rank invariant.
+\item The $1$-skeleton carries an integral affine structure on
+\(S^2\setminus\{24\text{ affine singularities}\}\) in the elliptic
+affine-sphere model, with focus-focus monodromy at the singularities.
+\item The edge weights are determined by the intersection data of the
+central fibre.  A Mukai-pairing interpretation requires a separate
+marking of the limiting mixed Hodge structure.
 \end{enumerate}
 \end{definition}
 
@@ -1087,6 +1102,7 @@ The shadow obstruction tower $\Theta_A = \kappa_{\mathrm{ch}} + C + Q + \cdots$ 
 
 \begin{conjecture}[Tropical shadow tower]
 \label{conj:tropical-shadow}
+\ClaimStatusConjectured
 Let $A_{K3}$ be the chiral algebra of a K3 surface via CY-A$_2$ \textup{(}proved\textup{)}, and let $\Theta_A \in \mathrm{MC}(\mathrm{Def}_{\mathrm{cyc}}^{\mathrm{mod}}(A_{K3}))$ be its shadow MC element. In the type~III Kulikov degeneration:
 \begin{enumerate}[label=\textup{(\roman*)}]
 \item The shadow tower $\Theta_A$ degenerates to a PL function $\Theta^{\mathrm{trop}} \colon \Delta(K3) \to \R$, affine on each maximal cell.
@@ -1102,10 +1118,11 @@ At the generic point of K3 moduli \textup{(}shadow class~$G$, free-field Heisenb
 \subsection{Cluster algebra structure on the scattering diagram}
 \label{subsec:tropical-cluster}
 
-The Gross--Hacking--Keel--Kontsevich (GHKK) programme endows the scattering diagram $\mathfrak{D}_{K3 \times E}$ with a cluster algebra structure.
+The Gross--Hacking--Keel--Kontsevich (GHKK) scattering construction endows the scattering diagram $\mathfrak{D}_{K3 \times E}$ with a cluster algebra structure.
 
 \begin{conjecture}[Cluster--shadow correspondence]
 \label{conj:cluster-shadow}
+\ClaimStatusConjectured
 The scattering diagram $\mathfrak{D}_{K3 \times E}$ \textup{(}Definition~\textup{\ref{def:k3e-scattering})} carries a cluster algebra structure with:
 \begin{enumerate}[label=\textup{(\roman*)}]
 \item \emph{Exchange matrix}: $B_{ij} = \chi(S_i, S_j) - \chi(S_j, S_i)$, the antisymmetric part of the Euler form on $K_0(D^b(\Coh(K3)))$.
@@ -1113,12 +1130,12 @@ The scattering diagram $\mathfrak{D}_{K3 \times E}$ \textup{(}Definition~\textup
 \item \emph{Cluster variables}: the canonical theta functions $\vartheta_\gamma$ on the mirror dual algebraic torus are the cluster variables, with the structure constants computed by broken-line counting \textup{(}GPS tropical vertex\textup{)}.
 \item \emph{Shadow compatibility}: the tropical shadow $\Theta^{\mathrm{trop},\leq r}$ at degree $r$ is a PL function whose bending locus lies within the walls of the scattering diagram at heights $\leq r$.
 \end{enumerate}
-CY-A$_3$ is proved in the infinity-categorical framework; the explicit chain-level construction for $K3 \times E$ remains conditional. The tropical vertex computation is unconditional \textup{(}GPS is a theorem\textup{)}.
+The framed \((\infty,1)\)-categorical CY-A$_3$ input is available; the explicit chain-level construction for \(K3\times E\) remains conditional. The tropical vertex computation is unconditional \textup{(}GPS is a theorem\textup{)}.
 \end{conjecture}
 
 \begin{remark}[GPS tropical vertex and the pentagon identity]
 \label{rem:gps-pentagon}
-The Gross--Pandharipande--Siebert tropical vertex algorithm computes the consistent scattering diagram iteratively. In the simplest case \textup{(}two seed walls at directions $(1,0)$ and $(0,1)$ with multiplicity~$1$\textup{)}, the consistency condition forces a wall at $(1,1)$ with multiplicity~$1$: this is the tropical incarnation of the pentagon identity \textup{(}Theorem~\textup{\ref{thm:scattering-mc}(ii)}, $A_2$ case\textup{)}. The broken-line count at charge $(a,b)$ equals the wall multiplicity, which is the tropical Hurwitz number $N_{(a,b)}^{\mathrm{trop}}$. Verification: $100$ tests in \texttt{tropical\_shadow\_cluster.py}, including GPS consistency through height~$8$ and broken-line/wall-multiplicity cross-checks.
+The Gross--Pandharipande--Siebert tropical vertex algorithm computes the consistent scattering diagram iteratively. In the simplest case \textup{(}two seed walls at directions $(1,0)$ and $(0,1)$ with multiplicity~$1$\textup{)}, the consistency condition forces a wall at $(1,1)$ with multiplicity~$1$: this is the tropical incarnation of the pentagon identity \textup{(}Theorem~\textup{\ref{thm:scattering-mc}(ii)}, $A_2$ case\textup{)}. The broken-line count at charge $(a,b)$ equals the wall multiplicity, which is the tropical Hurwitz number $N_{(a,b)}^{\mathrm{trop}}$.
 \end{remark}
 
 \subsection{Tropical BPS states and broken lines}
@@ -1128,6 +1145,7 @@ The BPS states of $K3 \times E$ tropicalize to \emph{broken lines} on the scatte
 
 \begin{conjecture}[Tropical BPS correspondence]
 \label{conj:tropical-bps}
+\ClaimStatusConjectured
 At the MUM point \textup{(}large complex structure degeneration\textup{)} of K3, the tropical BPS invariant
 \[
  \Omega^{\mathrm{trop}}(\gamma) \;=\; \lim_{t \to 0} \Omega(\gamma; \sigma_t)
@@ -1138,7 +1156,8 @@ At the MUM point \textup{(}large complex structure degeneration\textup{)} of K3,
 \item The broken-line count $b(\gamma) = \#\{$broken lines of total charge $\gamma\}$.
 \item The coefficient of $x^\gamma$ in the theta function $\vartheta_\gamma$ \textup{(}cluster variable\textup{)}.
 \end{enumerate}
-CY-A$_3$ is proved (inf-cat); the explicit chain-level $K3 \times E$ identification remains conditional.
+The framed \((\infty,1)\)-categorical CY-A$_3$ input is available; the
+explicit chain-level \(K3\times E\) identification remains conditional.
 \end{conjecture}
 
 \subsection{Cluster structure on the K3 Yangian}
@@ -1146,7 +1165,10 @@ CY-A$_3$ is proved (inf-cat); the explicit chain-level $K3 \times E$ identificat
 
 \begin{conjecture}[Cluster Yangian]
 \label{conj:cluster-yangian}
-The K3 Yangian $Y(\fg_{K3})$ \textup{(}CY-A$_3$ proved inf-cat; explicit geometric construction conjectural\textup{)} carries a cluster algebra structure from the Maulik--Okounkov construction:
+\ClaimStatusConjectured
+The K3 Yangian \(Y(\fg_{K3})\), once geometrically constructed, is
+expected to carry a cluster algebra structure compatible with the
+Maulik--Okounkov wall-crossing package:
 \begin{enumerate}[label=\textup{(\roman*)}]
 \item The Yangian parameters $h_1, \ldots, h_{24}$ transform under cluster mutations as
 \[
@@ -1157,15 +1179,14 @@ where $B_{ij}$ is the exchange matrix.
 \item Different stability conditions in $\Stab^\dagger(K3)$ correspond to different cluster seeds, related by mutation sequences. The exchange graph is the Bridgeland--Smith stability graph.
 \item In the tropical limit, the $R$-matrix becomes piecewise-constant: $R^{\mathrm{trop}}_{ii}(z) = (z - h_i)/(z + h_i)$ on each chamber, with wall-crossing given by the mutation rule~\textup{(i)}.
 \end{enumerate}
-This is doubly conjectural: conditional on both the explicit geometric construction of $Y(\fg_{K3})$ \textup{(}CY-A$_3$ proved inf-cat; chain-level construction open\textup{)} and its cluster structure \textup{(}open\textup{)}.
+This is doubly conjectural: conditional on both the explicit geometric
+construction of \(Y(\fg_{K3})\) and its cluster structure.
 \end{conjecture}
 
 \begin{remark}[Unitarity is unconditional]
 \label{rem:tropical-unitarity}
-The identity $g_{K3}(z) \cdot g_{K3}(-z) = 1$ is a purely algebraic consequence of the product structure and holds for arbitrary parameters $h_i$, including the CY$_2$ locus $\sum h_i = 0$. This is verified computationally for $3$-, $24$-, and $2$-parameter systems in \texttt{tropical\_shadow\_cluster.py}.
+The identity $g_{K3}(z) \cdot g_{K3}(-z) = 1$ is a purely algebraic consequence of the product structure and holds for arbitrary parameters $h_i$, including the CY$_2$ locus $\sum h_i = 0$.
 \end{remark}
-
-\noindent\textit{Verification}: $100$~tests in \texttt{tropical\_shadow\_cluster.py} covering the tropical K3 ($24$~vertices, PL functions, tropical Laplacian), shadow tower (arities~$2$--$4$, class G/L, MC equation), GPS tropical vertex (pentagon identity, consistency through height~$8$, broken-line counts), cluster algebra ($A_2$/$A_3$/local~$\bP^2$ exchange matrices, mutation involution, antisymmetry preservation), Yangian (unitarity, parameter mutation, pole detection), and $14$~multi-path cross-verification tests (GPS vs broken-line, mutation involution via two paths, wall-count monotonicity, Laplacian conservation law).
 
 
 %% ===================================================================
@@ -1175,17 +1196,18 @@ The identity $g_{K3}(z) \cdot g_{K3}(-z) = 1$ is a purely algebraic consequence 
 \section{BFN quantised Coulomb branch route to the K3 Yangian}
 \label{sec:bfn-coulomb-k3}
 
-The Braverman--Finkelberg--Nakajima (BFN) programme constructs
+The Braverman--Finkelberg--Nakajima (BFN) construction constructs
 \emph{quantised Coulomb branch algebras} $A_\hbar(G, N)$ from $3d$
 $\cN = 4$ gauge theories $(G, N)$ via convolution on the affine
 Grassmannian $\mathrm{Gr}_G = G(\!(t)\!)/G[\![t]\!]$
 (arXiv:1601.03586, 1604.03625). This route is \emph{independent} of
-the CY-to-chiral correspondence programme $\{\Phi_d\}$ and of CY-A$_3$, providing a third
+the CY-to-chiral correspondence $\{\Phi_d\}$ and of CY-A$_3$, providing a third
 construction of the K3 Yangian alongside the CY-to-chiral route~(a) and
 the CoHA route~(b).
 
 \begin{conjecture}[BFN identification for K3, Mukai-lattice form]
 \label{conj:bfn-k3-yangian-mukai}
+\ClaimStatusConjectured
 \index{BFN Coulomb branch!K3 Yangian}%
 Let $(G, N)$ be the gauge theory data of the Vafa--Witten twist
 on $K3 \times \R^3$. The BFN quantised Coulomb branch algebra satisfies
@@ -1202,8 +1224,9 @@ The evidence for this identification is:
  \item The BFN $R$-matrix from Maulik--Okounkov stable envelopes
  matches the K3 structure function
  $g_{K3}(z) = \prod_{i=1}^{24} (z - h_i)/(z + h_i)$.
- \item The BFN Fock space $K_T(\mathrm{Hilb}^n(K3 \times E))$ has
- character $\sum_n \chi(\mathrm{Hilb}^n(K3))\, q^n
+ \item The Nakajima--Grojnowski surface Fock shadow
+ \(\bigoplus_{n\geq 0}H^\bullet(\mathrm{Hilb}^n(K3))\) has
+ Euler character $\sum_n \chi(\mathrm{Hilb}^n(K3))\, q^n
  = \prod_{k \geq 1}(1 - q^k)^{-24} = 1/\Delta(q)$.
  \item At the $A_1$ orbifold point $K3 = T^4/\Z_2$
  \textup{(}resolved\textup{)}, BFN gives
@@ -1238,22 +1261,13 @@ step captured by Conjecture~\ref{conj:bfn-k3-yangian-mukai}.
 The Hilbert scheme Euler characteristics $\chi(\mathrm{Hilb}^n(K3))$
 provide a strong consistency check: $\chi_0 = 1$, $\chi_1 = 24$,
 $\chi_2 = 324$, $\chi_3 = 3200$, $\chi_4 = 25650$, $\chi_5 = 176256$
-(G\"ottsche 1990), matching $\prod(1 - q^k)^{-24}$ exactly (verified
-computationally through $n = 10$).
-
-\noindent\textit{Verification}: $93$ tests in
-\texttt{bfn\_coulomb\_k3\_yangian.py} covering ADE quiver data for
-all types through $E_8$, Jordan quiver BFN (proved template),
-Hilbert scheme Euler characteristics through $n = 10$,
-Kummer orbifold specialisation, stable envelope $R$-matrix
-matching, and cross-engine consistency with \texttt{k3\_yangian.py}.
+(G\"ottsche 1990), matching $\prod(1 - q^k)^{-24}$ exactly.
 \end{remark}
 
 \section{Root-of-unity S-matrix: abelian rigidity and the \texorpdfstring{$N \geq 3$}{N >= 3} threshold}
 \label{sec:root-unity-smatrix}
 
 At level $N = 2$, the $324 = p_{24}(2)$-module MTC
-(\texttt{root\_of\_unity\_n2\_explicit.py}, $59$~tests)
 has a block-diagonal S-matrix: $24$ Hadamard blocks of size~$2 \times 2$
 (Ising sectors) and $276$ trivial $1 \times 1$ blocks.
 All quantum dimensions equal~$1$ (pointed category), and the braiding
@@ -1261,6 +1275,7 @@ is completely determined by the charge lattice $(\bZ/2\bZ)^{24}$.
 
 \begin{conjecture}[Non-abelian S-matrix rigidity at \texorpdfstring{$N = 2$}{N = 2}]
 \label{conj:n2-smatrix-rigidity}
+\ClaimStatusConjectured
 At an $A_1$ enhancement point in K3 moduli space, the MTC S-matrix
 for the $N = 2$ truncation of $U_{q,t}(\fg_{K3}^{\mathrm{tor}})$ is
 \emph{unchanged}:
@@ -1294,6 +1309,7 @@ which the $A_1$ enhancement preserves.
 
 \begin{conjecture}[Non-abelian threshold at \texorpdfstring{$N = 3$}{N = 3}]
 \label{conj:n3-nonabelian-threshold}
+\ClaimStatusConjectured
 At $N = 3$ ($q = e^{2\pi i/3}$), the $A_1$ enhancement produces
 \emph{genuine} off-diagonal corrections to the MTC S-matrix.
 The double braiding eigenvalue $q^2 = e^{4\pi i/3} \neq 1$ is
@@ -1303,14 +1319,13 @@ The quantum integer $[2]_q = 2\cos(2\pi/3) = -1 \neq 0$
 permits non-trivial representations; $[3]_q = 0$ provides the
 truncation.
 \end{conjecture}
-
-\noindent\textit{Verification}: $59$ tests in
-\texttt{root\_of\_unity\_smatrix.py} covering the Drinfeld--Jimbo
-R-check eigenvalues at $q = -1$, double braiding triviality,
-S-matrix identity $S^{A_1} = S^{\mathrm{ab}}$, module
-classification at the $A_1$ point ($5 + 44 + 44 + 231 = 324$),
-Verlinde fusion ($\bZ/2\bZ$ per Ising sector, unchanged),
-the $N \geq 3$ threshold analysis, and Yang R-matrix unitarity.
+At \(q=-1\), the Drinfeld--Jimbo eigenvalues, double-braiding
+triviality, \(S\)-matrix identity \(S^{A_1}=S^{\mathrm{ab}}\), module
+classification at the \(A_1\) point
+\(5+44+44+231=324\), Verlinde fusion
+(\(\mathbb Z/2\mathbb Z\) per Ising sector), the \(N\geq3\) threshold,
+and Yang \(R\)-matrix unitarity are simultaneous consequences of the
+same root-of-unity truncation.
 
 \subsection{The \texorpdfstring{$N = 3$}{N = 3} MTC: first non-abelian level}
 \label{subsec:n3-mtc}
@@ -1334,6 +1349,7 @@ sectors (charge spread across three directions).
 
 \begin{conjecture}[Non-abelian quantum dimensions at \texorpdfstring{$N = 3$}{N = 3}]
 \label{conj:n3-nonabelian-qdims}
+\ClaimStatusConjectured
 Within each Ising sector, the three modules carry quantum dimensions
 \[
  d_{V_0} = 1, \qquad d_{V_1} = \sqrt{2}, \qquad d_{V_2} = 1,
@@ -1370,6 +1386,7 @@ pointed MTC where all fusions are single-valued.
 
 \begin{conjecture}[Charge-1 sector at \texorpdfstring{$A_1$}{A-1} enhancement]
 \label{conj:n3-charge1-a1}
+\ClaimStatusConjectured
 The $24 \times 24$ sub-matrix of the abelian S-matrix restricted
 to the $24$ Type~$C_1$ modules $(1_a^3)$ is diagonal with
 $S_{aa} = \tfrac{1}{2}$.
@@ -1407,14 +1424,12 @@ provides the level-$2$ cutoff. The Ising MTC
 and it appears here as the \emph{universal local factor} in
 each of the $24$ Mukai-direction sectors.
 \end{remark}
-
-\noindent\textit{Verification}: $80$ tests in
-\texttt{root\_of\_unity\_n3\_mtc.py} covering module enumeration
-($3200 = 24 + 24 + 24 + 552 + 552 + 2024$, six types),
-sector decomposition ($24 + 552 + 2024 = 2600$ sectors),
-Ising S-matrix properties (symmetric, unitary, $S^2 = I$,
-$\det = -1$, quantum dimensions $1, \sqrt{2}, 1$),
-Verlinde fusion rules (non-abelian: $V_1 \otimes V_1 = V_0 \oplus V_2$,
+The \(N=3\) root-of-unity category has module enumeration
+\(3200=24+24+24+552+552+2024\) in six types, sector decomposition
+\(24+552+2024=2600\), Ising \(S\)-matrix properties
+\((S=S^T,\ S^\ast S=I,\ S^2=I,\ \det S=-1)\), quantum dimensions
+\(1,\sqrt2,1\), and nonabelian Verlinde fusion
+\(V_1\otimes V_1=V_0\oplus V_2\).
 non-negative integer coefficients, Verlinde consistency
 $\sum_k N^k_{ij} d_k = d_i d_j$),
 DJ R-matrix eigenvalues at $q = e^{2\pi i/3}$
@@ -1453,7 +1468,7 @@ Theorem~\ref{thm:k3-pentagon-E1-edge-architecture},
 with diagonal entries $(0, 5, -16, 11)$ at $K3 \times E$.
 \end{theorem}
 
-\begin{proof}[Proof sketch]
+\begin{proof}
 The K$3$ Mukai cell decomposes into two fragments:
 (a) ADE simply-laced (covered by the Vol II affine-Yangian fibre),
 (b) abelian Heisenberg $\widehat{\fu}(1)^{24}$ (covered by the
@@ -1645,7 +1660,7 @@ comparison, not an equality. One may align:
 \begin{itemize}
 \item the K3 branch parameters
 $(q_1,q_2,q_3)=(e^{2\pi i\hbar},e^{-2\pi i\hbar},1)$ with the
-Mukai-doubling value $\hbar^2=-1/8$;
+order-eight branch datum;
 \item the $24$ Mukai currents with the Mukai lattice
 $\Lambda_{\mathrm{Muk}}\otimes\mathbb C$;
 \item the BKM boundary associator governed by the unnormalised
@@ -1929,6 +1944,7 @@ Section~\ref{subsec:k3-quantum-toroidal}.
 
 \begin{conjecture}[\texorpdfstring{$K$}{K}-theoretic K3 quantum toroidal]
 \label{conj:k3qt-k-theoretic}
+\ClaimStatusConjectured
 There is a $K$-theoretic refinement
 $U^{K}_{q, t}(\mathfrak{g}_{\mathrm{K3}}^{\mathrm{tor}})$ of the K3
 quantum-toroidal algebra of Conjecture~\ref{conj:k3-quantum-toroidal}
@@ -2058,10 +2074,10 @@ Aganagic--Okounkov~$2016$ arXiv:1604.00423; Oberdieck--Pixton~$2016$
 arXiv:1706.10100.
 \end{remark}
 
-\noindent\textit{Finite checks}:
-$41$ tests in \texttt{k3\_yangian\_K\_theoretic\_coha.py}
-(co-located with Chapter~\ref{ch:toric-coha}
-Section~\ref{sec:tcy3-k-theoretic-coha}) cross-check
+\noindent\textit{Finite comparisons}:
+The finite \(K\)-theoretic CoHA identities of
+Chapter~\ref{ch:toric-coha}, Section~\ref{sec:tcy3-k-theoretic-coha},
+compare
 Conjecture~\ref{conj:k3qt-k-theoretic} at the structural level:
 Mukai rank $24$ and signature $(4, 20)$; CY-$3$ volume-class degree
 $6$; $K$-theoretic grading lattice of rank $26 = 24 + 2$; $\Phi_3^K$
@@ -2069,7 +2085,7 @@ grading preservation and classical-limit match with cohomological
 $\Phi_3$; one-parameter collapse versus toric two-parameter structure;
 specialisation $q^8 = 1$ with $\hbar_{\mathrm{formal}} = 1/8$;
 classical-limit graded character before the BKM completion boundary;
-Drinfeld triangular decomposition with Cartan rank $23$; $(3, 1)$-channel
+auxiliary fibre-line Mukai quotient of rank \(23\), with no Cartan claim; $(3, 1)$-channel
 commutator survival under classical limit matching Proposition
 \textup{\ref{prop:tcy3-sv-degree-3-generator}};
 the separation between the finite stable-envelope branch and the
@@ -2099,13 +2115,14 @@ Reshetikhin--Turaev invariant of coloured links in $3$-manifolds.
 
 \begin{conjecture}[Root-of-unity and categorification frontier for \texorpdfstring{$\mathbf H_{\Delta_5}$}{H-Delta-5}]
 \label{conj:root-unity-categorification-frontier}
+\ClaimStatusConjectured
 The root-of-unity and categorification frontier for the K3 chiral bialgebra $\mathbf H_{\Delta_5}$ consists of:
 \begin{enumerate}[label=\textup{(U\arabic*)}]
  \item \emph{Small quantum group $u_{\zeta_N}(\fg_{\Delta_5})$.} For each $N \in \{2, 3, 4, 6\}$, the Bozec--Schiffmann integral form $U^{\mathrm{res}, \mathrm{BKM}}_\zeta(\fg_{\Delta_5})$ specialises to a finite-dimensional small quantum group over $\Z[\zeta_N]$ on the $\ell_i$-torsion sublattice $\mathrm{II}_{4, 20}/N\,\mathrm{II}_{4, 20} \cong (\Z/N\Z)^{24}$, with the divided-power truncation of Conjecture~\ref{conj:k3qt-small-quantum-group-delta5-rootofunity}.
  \item \emph{Eighth-root specialisation $\ell = 8$.} At the K3 input, the finite Mukai positive half has Lusztig level $\ell = 8$ from the Mukai-doubling / Humbert monodromy / Lusztig parameter concurrence. A canonical specialisation $u_{\zeta_8}(\mathbf H_{\Delta_5})$ belongs to the completed Hall--Drinfeld-double branch and therefore requires that completion (Chapter~\ref{ch:k3-chiral-bialgebra-platonic}).
  \item \emph{Simple-module count at $N = 2$.} The number of simple modules of $\overline{\mathrm{Rep}}(u_{\zeta_2}(\fg_{\Delta_5}))$ is $324 = p_{24}(2) = \chi(\mathrm{Hilb}^2(K3))$, matching the G\"ottsche count via the Kazhdan--Lusztig tensor equivalence $u_{\zeta_N}(\fg_{\Delta_5})\text{-}\mathrm{Mod} \simeq \mathrm{Rep}(\fg_{\Delta_5}, \zeta_N)$ (Corollary~\ref{cor:k3qt-324-gottsche-uzeta}, after the equivalence is supplied).
  \item \emph{Khovanov dg-category $\mathrm{Kh}_{\Delta_5}$.} The cohomological CoHA on $\oplus_n H^*(\mathrm{Hilb}^n(K3))$ and its $K$-theoretic refinement sit one rung below a dg-category $\mathrm{Kh}_{\Delta_5}$ (Definition~\ref{def:k3qt-khovanov-dg-category}) whose $K_0$-decategorification recovers them (Theorem~\ref{thm:k3qt-k0-decategorification}, after the Rouquier--Webster framework is supplied). The four categorifications (cohomological, $K$-theoretic, motivic, Khovanov) are stratified in Remark~\ref{rem:k3qt-four-categorifications}.
- \item \emph{BPS-labelled Reshetikhin--Turaev invariants.} The Kazhdan--Lusztig tensor category $\overline{\mathrm{Rep}}(u_{\zeta_N}(\fg_{\Delta_5}))$ is a unitary modular tensor category for $N \geq 3$ (rigidity inherited from the $K$-theoretic Maulik--Okounkov $R$-matrix on $\varinjlim_N D^b_T(\mathrm{Hilb}^{[N]}(K3))$); it produces Reshetikhin--Turaev invariants of coloured links in $3$-manifolds, labelled by BPS charges in the Mukai lattice.
+ \item \emph{BPS-labelled Reshetikhin--Turaev invariants.} A semisimple ribbon quotient of $\overline{\mathrm{Rep}}(u_{\zeta_N}(\fg_{\Delta_5}))$, if constructed with nondegenerate modified trace and anomaly line, would produce Reshetikhin--Turaev type invariants of coloured links in $3$-manifolds, labelled by BPS charges in the Mukai lattice. Unitarity and modularity do not follow from the local Maulik--Okounkov $R$-matrix alone.
  \item \emph{Logarithmic modular-tensor extension.} At $N = 2$, the tensor category is not semisimple: the non-semisimple Kazhdan--Lusztig negligible quotient produces logarithmic modular data and a non-semisimple RT invariant (Costantino--Geer--Patureau-Mirand extension).
 \end{enumerate}
 Statements (U3) and (U4) require the Kazhdan--Lusztig equivalence and
@@ -2115,7 +2132,10 @@ the Rouquier--Webster framework respectively; (U1), (U2), (U5), and
 
 \begin{remark}[Root of unity as the Koszul conductor face]
 \label{rem:root-unity-koszul-conductor-face}
-The eighth root of unity $\zeta_8$ of (U2) is the same $8$ that appears through the Mukai doubling, Humbert monodromy order, and Lusztig parameter (Chapter~\ref{ch:k3-chiral-bialgebra-platonic}); the concurrence $8 = K^{\kappa_{\mathrm{ch}}}$ on the $\mathcal B$-bucket of Vol~I Theorem C identifies this as the Koszul conductor face of the $K3$ input. The three $8$'s; Mukai doubling ($\hbar^2 = -1/8$), Humbert $H_1$ monodromy (Bruinier 2002 Proposition 5.1), and Lusztig $\ell = 8$; are three algebraically independent computations agreeing numerically; the K3 chiral bialgebra is the place where they coalesce.
+The eighth root of unity \(\zeta_8\) of (U2) is compared with the same
+integer that appears through Mukai doubling and the Humbert datum
+(Chapter~\ref{ch:k3-chiral-bialgebra-platonic}). This is a branch
+comparison, not a canonical numerical value of \(\hbar^2\).
 \end{remark}
 
 \subsection{Khovanov-type categorification: the dg-category \texorpdfstring{$\mathrm{Kh}_{\Delta_5}$}{Kh-Delta-5}}
@@ -2147,14 +2167,14 @@ The \emph{Khovanov dg-category} $\mathrm{Kh}_{\Delta_5}$ attached to
 $\mathbf H_{\Delta_5}$ has the following data.
 \begin{enumerate}[label=\textup{(\roman*)}]
 \item \emph{Object indexing.} Let $\Lambda_{\mathrm{K3}}^+\subset
-\mathrm{II}_{3, 2}\oplus(c_{\mathrm K3}(4mn - \ell^2)$-multiplicities of
+\Lambda^{3,2}\oplus(c_{\mathrm K3}(4mn - \ell^2)$-multiplicities of
 Chapter~\ref{ch:k3-chiral-bialgebra-platonic}
 Theorem~\ref{thm:kcb-chevalley-bkm-generators}) denote the
 \emph{Humbert-admissible weight lattice}: dominant weights
 $\lambda = (\lambda_{\mathrm{re}}, \lambda_{\mathrm{im}})$ with
 $\lambda_{\mathrm{re}}$ ranging over the three real simple root
 directions of the K3 BKM Cartan
-$\mathfrak h_{\mathrm{BKM}} = \mathrm{II}_{2, 1}$ (Feingold--Frenkel~$1983$
+$\mathfrak h_{\mathrm{BKM}} = \Lambda^{2,1}_{\mathrm{II}}$ (Feingold--Frenkel~$1983$
 \emph{Math.\ Ann.}~$263$ Thm.\ $5.2$; Gritsenko--Nikulin~$1998$
 arXiv:alg-geom/9504006 \S $3$) and $\lambda_{\mathrm{im}}$ over the
 imaginary-root component with multiplicity $m_\beta =
@@ -2327,10 +2347,12 @@ Stable-envelope equivariance at the $K$-theoretic level is
 Aganagic--Okounkov~$2016$ Thm.\ $1.2$. The Nakajima--Webster
 categorification pattern (Nakajima~$2001$ Thm.\ $2$ for
 quiver-variety realisation; Webster~$2017$ Thm.\ A for the
-tensor-product extension) applies because
-$\mathrm{Hilb}^n(\mathrm{K3})$ is a Nakajima quiver variety
-for the affine $A_0$-type quiver (Nakajima~$1999$
-\emph{Lectures on Hilbert Schemes} Thm.\ $7.3.1$).
+tensor-product extension) applies on the local Nakajima charts:
+\(\mathrm{Hilb}^n(\C^2)\) is the Jordan-quiver variety, and ADE/Kummer
+surface charts are Nakajima varieties.  The compact surface
+\(\mathrm{Hilb}^n(K3)\) carries Nakajima's Heisenberg action on Hilbert
+schemes of surfaces; it is not globally the affine \(A_0\) Nakajima
+quiver variety.
 Compatibility of the $Y^{\mathrm{MO}}$-action with the dg-module
 structure of Definition~\ref{def:k3qt-khovanov-dg-category} is
 inherited from the finite positive stable-envelope structure of
@@ -2377,18 +2399,6 @@ is Chacaltana--Distler~$2010$ \S $5.14$ via the Gaiotto
 $4d$--$2d$ pants decomposition. Primary: BFN~$2019$ Thm.\ $4.12$;
 Nakajima~$1999$ Thm.\ $7.3.1$; Chacaltana--Distler~$2010$ \S $5.14$.
 \end{proof}
-
-\noindent\textit{Verification:}
-$27$ tests in \texttt{k3\_yangian\_khovanov\_categorification.py}
-covering Humbert-admissible weight-lattice enumeration ($3$ real plus
-$c_{\mathrm K3}(\Delta)$ imaginary multiplicities through
-$\Delta\leq 20$; $6$ tests), compact-projective generator Koszul
-resolution ($4$ tests), $K_0$-freeness and $\mathbb Z[q^\pm]$-module
-rank ($5$ tests), classical-limit identification
-with $\mathrm{CoHA}_{\mathrm{K3}\times E}\text{-Mod}$
-($4$ tests), $\zeta_8$-specialisation to Lusztig small form ($3$ tests),
-Serre-functor integrality at $q = \zeta_8$ ($3$ tests),
-MO action through $K$-theoretic stable envelope ($2$ tests).
 
 \begin{remark}[Distinction of four categorifications]
 \label{rem:k3qt-four-categorifications}
@@ -2455,6 +2465,7 @@ Prop.~$2.9$).
 count, Kazhdan--Lusztig tensor structure, BPS-labelled Reshetikhin--Turaev
 invariant]
 \label{conj:k3qt-small-quantum-group-delta5-rootofunity}
+\ClaimStatusConjectured
 Fix $N \in \{2, 3, 4, 6\}$ and $\zeta = \zeta_N = e^{2\pi i/N}$.
 \begin{enumerate}[label=\textup{(\roman*)}]
 \item \emph{Small form.} The \emph{$\Delta_5$ small quantum group}
@@ -2489,11 +2500,10 @@ the Kazhdan--Lusztig negligible quotient
 where $\mathcal N$ is the tilting ideal of modules with vanishing
 quantum trace (Andersen--Paradowski~$1995$ \emph{Comm.~Math.~Phys.}~$169$
 \S$4$; Bozec~$2014$ \S$5$ for the BKM inheritance).
-$\overline{\mathrm{Rep}}(u_\zeta(\mathfrak g_{\Delta_5}))$ carries the
-structure of a unitary modular tensor category with braiding inherited
-from the $K$-theoretic Maulik--Okounkov R-matrix on
-$\varinjlim_N D^b_T(\mathrm{Hilb}^{[N]}(\mathrm K3))$
-(Remark~\ref{rem:k3qt-four-categorifications}).
+The quotient is expected to be ribbon after the modified trace and
+anomaly line are constructed. A unitary modular tensor category is not
+obtained merely by inheriting the local Maulik--Okounkov \(R\)-matrix on
+ADE/Kummer surface Fock charts.
 
 \item \emph{Simple-module count at $N = 2$.} The number of isomorphism
 classes of simple objects in
@@ -2594,7 +2604,7 @@ Conjecture~\ref{conj:k3qt-small-quantum-group-delta5-rootofunity}.
 \emph{(i) Mukai-doubling.} The root-of-unity order is constrained to
 $N \mid 8$ by the Drinfeld Mukai-doubling
 $\ell_{\mathrm{K3}} = 2\,c_+(\mathrm{II}_{4, 20}) = 8$
-(Remark~\ref{rem:k3qt-orthogonal-refinements}), so the programme-active
+(Remark~\ref{rem:k3qt-orthogonal-refinements}), so the constructed
 orders $N \in \{2, 3, 4, 6\}$ are precisely those compatible with a
 finite-order Lusztig Frobenius on the real $\Delta_5$-triangle
 subalgebra. $N = 3, 6$ require the imaginary-ramification of
@@ -2684,35 +2694,33 @@ the Ding--Iohara structure function. The question this section answers
 is whether this presentation admits a K3-fibred lift to
 $\mathrm{K3} \times E$.
 
-\begin{conjecture}[Shuffle-algebra presentation of
-\texorpdfstring{$\mathrm{CoHA}(\mathrm{K3}\times E)$}{CoHA(K3x E)} with Igusa kernel]
+\begin{conjecture}[Local shuffle algebra and the compact
+\texorpdfstring{$\mathrm{CoHA}(\mathrm{K3}\times E)$}{CoHA(K3x E)} comparison]
 \label{conj:k3qt-shuffle-coha-k3xE-igusa-kernel}
-Let $\mathrm{CoHA}(\mathrm{K3} \times E) =
-H^{\mathrm{BM}}_*(\coprod_v \mathfrak{Coh}_v(\mathrm{K3} \times E))$
-be the Schiffmann--Vasserot cohomological Hall algebra of the CY$_3$
-fibration $\mathrm{K3} \times E \to E$.
+\ClaimStatusConjectured
+Let \(U\) be an ADE/Kummer surface chart of K3. The shuffle algebra
+constructed by fixed-point localisation belongs to the local chart
+\(U\) and to its toric \(\Omega\)-background. The compact
+\(\mathrm{CoHA}(K3\times E)\) is a separate DT/Hall object and requires
+orientation, vanishing cycles, coproduct, PBW, and completion data.
 \begin{enumerate}[label=\textup{(\roman*)}]
-\item \emph{Shuffle domain.} Localisation against the $T = T_{\mathrm{K3}}
-\times T_E$-fixed locus of $\mathrm{Hilb}^n(\mathrm{K3} \times E)$
-embeds
+\item \emph{Shuffle domain.} Localisation against the \(T_U\)-fixed
+locus of \(\mathrm{Hilb}^n(U)\) embeds the local positive half into
 \[
-\mathrm{CoHA}(\mathrm{K3} \times E)
+\mathrm{CoHA}_{\mathrm{loc}}(U)
 \;\hookrightarrow\;
-\mathrm{Sym}\bigl(V_{\mathrm{K3}\times E}[[z, \tau]]\bigr),
+\mathrm{Sym}\bigl(V_{U}[[z, \tau]]\bigr),
 \qquad
-V_{\mathrm{K3}\times E}
+V_{U}
 \;=\;
-H^*_T(\mathrm{Hilb}^{\mathrm{pt}}(\mathrm K3))
-\;\otimes\;
-H^*_{T_E}(E)
+H^*_{T_U}(\mathrm{Hilb}^{\mathrm{pt}}(U))
 \;\simeq\;
-\mathrm{II}_{4, 20}\!\otimes\!\mathbb Q(t_1, t_2) \oplus
-\mathbb Q(\tau, z),
+\mathrm{II}_{4,20}\!\otimes\!\mathbb Q(t_1,t_2)
+\quad\text{on the chosen Mukai-coloured chart}.
 \]
-where $\tau = 2\pi i \log q$ is the elliptic nome on $E$ and $z$ is
-the additive Jacobi coordinate on $E$; the K\"unneth decomposition
-identifies $V_{\mathrm{K3}\times E} = V_{\mathrm{K3}} \otimes V_E$
-with $V_E = \mathbb Q[\tau, z]$.
+The elliptic variables \((\tau,z)\) enter only after compact Hall
+descent to the \(E\)-fibration; they are not obtained from a
+\(\mathbb G_m\)-axis on the elliptic curve.
 \item \emph{Igusa-compatible positive shuffle kernel.} The convolution product is the shuffle
 \begin{equation}
 \label{eq:k3qt-shuffle-igusa}
@@ -2729,7 +2737,7 @@ with $V_E = \mathbb Q[\tau, z]$.
 with positive-half shuffle kernel
 \begin{equation}
 \label{eq:k3qt-igusa-kernel}
-k^+_{\mathrm{K3}\times E}(z,\tau)
+k^+_{U,E}(z,\tau)
 \;=\;
 \prod_{a = 1}^{24}\frac{\theta_1(z - h_a \mid \tau)}
  {\theta_1(z + h_a \mid \tau)},
@@ -2747,16 +2755,15 @@ Drinfeld doubling and DT evaluation:
 \]
 Setting $\tau \to i\infty$ (Yangian limit) reduces
 $\theta_1(z\mid\tau)$ to $z$ and
-$k^+_{\mathrm{K3}\times E}$ degenerates to the Negut rational kernel
+\(k^+_{U,E}\) degenerates to the Negut rational kernel
 $k_{\mathbb A^2}$ fibred over the $24$ Mukai directions of
 Equation~\eqref{eq:k3qt-shuffle-convolution-negut}, verifying
 consistency with Schiffmann--Vasserot~$2013$ \emph{Duke}~$162$
 Thm.~$4.5.2$.
-\item \emph{Positive half only.} The shuffle algebra
-$(\mathrm{Sym}(V_{\mathrm{K3}\times E}[[z, \tau]]), \star,
-k^+_{\mathrm{K3} \times E})$ is the \emph{positive half}
-$Y^+(\mathfrak g_{\Delta_5})$ in the conjectural $K3\times E$ Hall--Drinfeld
-deformation branch, not the full double. The full $\mathfrak g_{\Delta_5}$ recovery requires Drinfeld
+\item \emph{Positive half only.} The local shuffle algebra
+\((\mathrm{Sym}(V_U[[z,\tau]]),\star,k^+_U)\) is a positive-half
+model for the conjectural \(K3\times E\) Hall--Drinfeld deformation
+branch, not the full double. The full $\mathfrak g_{\Delta_5}$ recovery would require Drinfeld
 doubling against the Heisenberg central extension of the Mukai
 lattice $\mathrm{II}_{4, 20}$, consistent with the local model
 $\mathrm{CoHA}(\mathbb C^3) = Y^+$ (positive half of the affine
@@ -2781,8 +2788,7 @@ p = e^{2\pi i\sigma},
 recovers the Dijkgraaf--Verlinde--Verlinde~$1997$ / Gaiotto--Strominger--
 Yin~$2006$ second-quantised elliptic genus (KKV conjecture, proved by
 Pandharipande--Thomas~$2016$ \emph{Forum Math. Pi}~$4$). The zeros and
-poles of the positive kernel
-$k^+_{\mathrm{K3}\times E}$ encode the $24$ Mukai-direction BPS
+poles of the local positive kernel encode the \(24\) Mukai-direction BPS
 currents. The BKM reflection walls generating
 $W^{(2)}(\Lambda_{\mathrm{II}}^{2,1})$ of
 Section~\ref{sec:k3qt-small-qgroup-delta5} appear only in the completed
@@ -2801,23 +2807,24 @@ threads four independent constraints.
 Writing $\mathrm{CoHA}(\mathrm{K3} \times E)$ as the full K3 BKM
 superalgebra conflates half-Hopf with full Drinfeld double; the local
 identification $\mathrm{CoHA}(\mathbb C^3) = Y^+$ (positive half only)
-applies mutatis mutandis at $\mathrm{K3} \times E$, where the double
-requires the Heisenberg extension of $\mathrm{II}_{4, 20}$. The
-shuffle-algebra presentation is the positive half only; the full
-$\mathfrak g_{\Delta_5}$ is $\mathrm{CoHA} \otimes \mathrm{CoHA}^{\mathrm{op}} /
-\text{(Heisenberg central relation)}$.
+is the positive-half prototype for the \(K3\times E\) compact Hall
+target.
+The double requires the Heisenberg extension of \(\mathrm{II}_{4,20}\)
+and the compact Hall pairing. The shuffle-algebra presentation is the
+positive half only; the full \(\mathfrak g_{\Delta_5}\) would be reached
+only after adjoining the negative half and imposing the Heisenberg
+central relation.
 
-\emph{(ii) K\"unneth on Hilbert scheme, not on
-$V_{\mathrm{K3}\times E}$ directly.}
-$V_{\mathrm{K3}\times E} = V_{\mathrm K3} \otimes V_E$ is
-K\"unneth-multiplicative on cohomology,
-$H^*(\mathrm{K3})\otimes H^*(E)$, but
+\emph{(ii) K\"unneth on the target space, not a shuffle-domain
+construction.}
+The cohomology of \(K3\times E\) is K\"unneth-multiplicative, but
 $\kappa_{\mathrm{cat}}(\mathrm{K3} \times E) = 0$ on the total space
 (K\"unneth-multiplicative $\chi(\mathcal O)$); the
 CoHA grading lifts to the Hilbert scheme via G\"ottsche's formula
 $\sum_n \chi(\mathrm{Hilb}^n \mathrm{K3}) q^n = \prod(1 - q^k)^{-24}
-= 1/\Delta(q)$, and it is this Hilbert-scheme $H^*$ that enters the
-shuffle domain, not the K3 surface cohomology itself.
+= 1/\Delta(q)$ on the surface. It is this surface Hilbert-scheme
+cohomology that enters the local shuffle domain, not the ordinary
+threefold Hilbert scheme.
 
 \emph{(iii) Unnormalised Igusa pole order $=$ Borcherds weight
 $\times 2$.} The completed BKM/DT boundary denominator
@@ -2858,7 +2865,7 @@ the Pandharipande--Thomas KKV pole expansion constrain the completed
 BKM/DT boundary, not the finite positive-half kernel itself.
 
 The hidden identification is split in two: the zeros and poles of
-$k^+_{\mathrm{K3}\times E}$ encode the $24$ Mukai positive currents,
+\(k^+_{U,E}\) encode the \(24\) Mukai positive currents on the local chart,
 while the pole of \(1/\Phi_{10}^{\mathrm{un}}\) belongs to the rank-$1$ DT stratum of
 $\mathrm{K3}\times E$ after the Hall double and DT evaluation. Primary:
 Katz--Klemm--Vafa~$1999$
@@ -2897,35 +2904,33 @@ the trigonometric stage (Proposition~\ref{prop:k3-qt-no-s3-miki}):
 $\mathrm K3 \times E$ carries no algebraic $3$-torus, and the would-be
 shuffle algebra on $24$ Mukai-generators lacks the doubly-periodic
 cocycle that makes the $\gl_1$-shuffle closed under Negut's wheel
-conditions. The surviving construction routes through the
-$K$-theoretic Maulik--Okounkov stable envelope of
-Conjecture~\ref{conj:k3qt-k-theoretic} applied to
-$\mathrm{Hilb}^{[n]}(\mathrm K3 \times E)$.
+conditions. The surviving construction cannot be the ordinary
+Maulik--Okounkov theory of the threefold Hilbert scheme. It must be a
+compact Hall/elliptic stable-envelope replacement, with orientation,
+vanishing cycles, PBW filtration, Hall pairing, and elliptic descent
+supplied as part of the datum.
 
-\begin{conjecture}[\texorpdfstring{$\ddot U_{q, \tau}(\mathrm K3 \times E)$}{ddot U-q, tau(K3 x E)}: MO
-presentation, bispectral \texorpdfstring{$(q, \tau_E)$}{(q, tau-E)}-involution, and BKM boundary comparison]
+\begin{conjecture}[\texorpdfstring{$\ddot U_{q, \tau}(\mathrm K3 \times E)$}{ddot U-q, tau(K3 x E)}: compact Hall presentation, bispectral \texorpdfstring{$(q, \tau_E)$}{(q, tau-E)}-involution, and BKM boundary comparison]
 \label{conj:k3qt-doubly-affine-uuy-mo-bispectral}
+\ClaimStatusConjectured
 Assume Conjectures~\ref{conj:k3-yangian},
 \ref{conj:k3-quantum-toroidal} and~\ref{conj:k3qt-k-theoretic}. Then
 there exists a two-parameter algebra
 $\ddot U_{q, \tau}(\mathrm K3 \times E)$, the \emph{doubly-affinised K3
 quantum toroidal algebra}, determined by the following four data.
 \begin{enumerate}[label=\textup{(\roman*)}]
-\item \emph{MO stable-envelope presentation.}
-$\ddot U_{q, \tau}(\mathrm K3 \times E)$ acts on the tower
+\item \emph{Compact Hall/elliptic stable-envelope presentation.}
+$\ddot U_{q, \tau}(\mathrm K3 \times E)$ acts, if it exists, on a
+completed compact Hall Fock module
 \[
- \bigoplus_{n \geq 0}
- K_T\bigl(\mathrm{Hilb}^{[n]}(\mathrm K3 \times E)\bigr)
- \;\otimes_{K_T(\mathrm{pt})}\;
- \mathrm{Frac}\,K_T(\mathrm{pt}),
+ \mathcal F^{\mathrm{Hall}}_{K3\times E}
 \]
-the $T$-equivariant $K$-theory of Hilbert schemes of
-$\mathrm K3 \times E$, with $T = (\C^*)^{24} \rtimes E$ the Mukai-torus
-extended by elliptic translation along~$E$, and is generated by
-Maulik--Okounkov stable-envelope operators
-$\mathrm{Stab}_{\mathrm K3 \times E}^{\mathfrak s, \tau_E}$ indexed by
-a slope chamber $\mathfrak s$ on the K3 Mukai lattice and by the
-elliptic modulus $\tau_E$. The structure function is
+built from the oriented DT/Hall replacement for \(K3\times E\), not from
+ordinary equivariant \(K\)-theory of the threefold Hilbert scheme. The
+generators are elliptic Hall wall-crossing operators
+\(\mathrm{Stab}_{\mathrm{Hall}}^{\mathfrak s,\tau_E}\), indexed by a
+slope chamber \(\mathfrak s\) on the K3 Mukai lattice and by the
+elliptic modulus \(\tau_E\). The conjectural structure function is
 \[
  G_{\mathrm K3 \times E}(x;\, q, \tau)
  \;=\;
@@ -2954,10 +2959,8 @@ Miki~$2007$, $\varpi_{\mathrm K3 \times E}$ does \emph{not} extend to
 an $S_3$-action: no third spectral direction is available because
 $\mathrm K3$ admits no algebraic torus
 (Proposition~\ref{prop:k3-qt-no-s3-miki}). The involution is a
-$\Z/2\Z$ and realises the Fourier--Mukai duality between
-$\mathrm{Hilb}^{[n]}(\mathrm K3 \times E)$ and its dual
-$\mathrm{Hilb}^{[n]}(\mathrm K3 \times E^\vee)$ at the level of
-stable-envelope operators.
+$\Z/2\Z$ and realises the Fourier--Mukai duality between the compact
+Hall Fock modules for \(K3\times E\) and \(K3\times E^\vee\).
 
 \item \emph{$q \to 1$ boundary comparison.}
 At $q = 1$ with $\tau_E$ fixed, $\ddot U_{q, \tau}(\mathrm K3 \times E)$
@@ -2996,28 +2999,26 @@ doubly-affine algebra interpolates between the trigonometric K3
 quantum toroidal branch and the positive BKM boundary. The full BKM
 superalgebra appears only after the Hall--Drinfeld completion.
 \end{enumerate}
-\emph{Dependency chain:} Conjecture~\ref{conj:k3-yangian} (rational
-K3 Yangian existence), Conjecture~\ref{conj:k3-quantum-toroidal}
-(trigonometric K3 quantum toroidal existence),
-Conjecture~\ref{conj:k3qt-k-theoretic} ($K$-theoretic MO action);
-Theorem~\ref{thm:kcb-chevalley-bkm-generators} (Chevalley generators
-for $\fg_{\Delta_5}$); Gritsenko--Nikulin~$1997$ (Igusa denominator
-formula). The algebra $\fg_{\Delta_5}$ itself is conjectural per the
-Vol III scope declaration; part~(iii) supplies only the positive
-boundary comparison until the $\fg_{\Delta_5}$ Hall--Drinfeld
-completion is constructed.
-Primary: Miki~$2007$ \emph{JMP}~$48$ Thm.~$1$ ($\gl_1$ bispectral
-involution); Feigin--Hashizume--Hoshino--Shiraishi--Yanagida~$2009$
-\texttt{arXiv:0904.1679} (Fock realisation); Negut~$2020$
-\emph{Sel.~Math.}~$26$ Thm.~$7.1$ (shuffle presentation of $\gl_1$
-quantum toroidal); Negut~$2023$ \texttt{arXiv:2112.14504}
-($K$-theoretic shuffle for surfaces); Maulik--Okounkov~$2019$
-\emph{Ast\'erisque}~$408$ (stable-envelope algebra on equivariant
-$K$-theory of Hilbert schemes); Okounkov~$2017$
-\texttt{arXiv:1512.07363} (elliptic stable envelopes and
-$\vartheta$-function structure constants); Gritsenko--Nikulin~$1997$
-\emph{Int.~J.~Math.}~$8$ (\(\Phi_{10}^{\mathrm{un}}\) Borcherds lift to
-$\fg_{\Delta_5}$).
+The comparison uses Conjecture~\ref{conj:k3-yangian} for the rational
+K3 Yangian, Conjecture~\ref{conj:k3-quantum-toroidal} for the
+trigonometric K3 quantum toroidal algebra,
+Conjecture~\ref{conj:k3qt-k-theoretic} for the $K$-theoretic MO action,
+Theorem~\ref{thm:kcb-chevalley-bkm-generators} for the Chevalley
+generators of $\fg_{\Delta_5}$, and the Gritsenko--Nikulin~$1997$
+Igusa denominator formula. The algebra $\fg_{\Delta_5}$ itself is
+conjectural; part~\textup{(iii)} supplies only the positive boundary
+comparison until the $\fg_{\Delta_5}$ Hall--Drinfeld completion is
+constructed. Miki~$2007$ \emph{JMP}~$48$ Thm.~$1$ gives the $\gl_1$
+bispectral involution; Feigin--Hashizume--Hoshino--Shiraishi--Yanagida~$2009$
+gives the Fock realisation; Negut~$2020$
+\emph{Sel.~Math.}~$26$ Thm.~$7.1$ gives the shuffle presentation of the
+$\gl_1$ quantum toroidal algebra; Negut~$2023$ gives the $K$-theoretic
+shuffle algebra for surfaces; Maulik--Okounkov~$2019$
+\emph{Ast\'erisque}~$408$ gives the stable-envelope algebra on
+equivariant $K$-theory of Hilbert schemes; Okounkov~$2017$ gives
+elliptic stable envelopes and $\vartheta$-function structure constants;
+Gritsenko--Nikulin~$1997$ gives the
+\(\Phi_{10}^{\mathrm{un}}\) Borcherds lift to $\fg_{\Delta_5}$.
 \end{conjecture}
 
 \begin{remark}[Three failures of the naive double-affine, the
@@ -3074,24 +3075,25 @@ what the MO route in part~(i) constructs via stable
 envelopes, so the RTT presentation is a consequence, not a
 foundation.
 
-\emph{(b$^\star$) Surviving: $K$-theoretic MO stable envelopes.}
-The Maulik--Okounkov stable-envelope route of part~(i) of the
-conjecture bypasses all three failures. The stable envelopes
-$\mathrm{Stab}_{\mathrm K3 \times E}^{\mathfrak s, \tau_E}$ on
-$\mathrm{Hilb}^{[n]}(\mathrm K3 \times E)$ are defined by a geometric
-positivity condition on the equivariant $K$-theory class
-(Okounkov~$2017$ \texttt{arXiv:1512.07363} \S$2$) and depend on a
-slope parameter $\mathfrak s \in \mathrm{Pic}(\mathrm{Hilb}^{[n]})
-\otimes \R$ and the elliptic modulus $\tau_E$ of $E$. The algebra
+\emph{(b$^\star$) Surviving: compact Hall elliptic stable envelopes.}
+The stable-envelope route of part~(i) bypasses all three failures only
+after the compact Hall replacement has been constructed. Its
+wall-crossing operators
+\(\mathrm{Stab}_{\mathrm{Hall}}^{\mathfrak s,\tau_E}\) are required to
+act on \(\mathcal F^{\mathrm{Hall}}_{K3\times E}\), to depend on a Mukai
+slope parameter \(\mathfrak s\) and the elliptic modulus \(\tau_E\), and
+to specialise on ADE/Kummer surface charts to the ordinary
+Maulik--Okounkov stable envelopes. The algebra
 generated by wall-crossings $\mathrm{Stab}^{\mathfrak s}_+ \circ
 (\mathrm{Stab}^{\mathfrak s}_-)^{-1}$ across chambers, together with
 the mapping-class elliptic shift $\tau_E \to \tau_E + 1$ and the
-$S$-modular inversion $\tau_E \to -1/\tau_E$, generates
-$\ddot U_{q, \tau}(\mathrm K3 \times E)$ by fiat. The bispectral
-involution $\varpi_{\mathrm K3 \times E}$ of part~(ii) is the
-Fourier--Mukai duality $\mathrm{FM}_{\mathrm{Poincar\'e}}$ on
-$E \times E^\vee$ lifted to the Hilbert scheme; it preserves stable
-envelopes by Okounkov~$2017$ \S$3$ modular-invariance.
+$S$-modular inversion $\tau_E \to -1/\tau_E$, defines
+$\ddot U_{q, \tau}(\mathrm K3 \times E)$ only after the Hall module and
+wall-crossing functoriality are supplied. The bispectral involution
+$\varpi_{\mathrm K3 \times E}$ of part~(ii) is the Fourier--Mukai
+duality $\mathrm{FM}_{\mathrm{Poincar\'e}}$ on $E \times E^\vee$ lifted
+to the compact Hall Fock module; compatibility with the elliptic
+stable-envelope operators is an axiom of this conjectural package.
 
 \emph{Boundary: $q \to 1$ comparison with the positive BKM layer.}
 Part~(iii) of the conjecture encodes a degeneration to a positive
@@ -3140,7 +3142,7 @@ Hall--Drinfeld double.
 Conjecture~\ref{conj:k3qt-doubly-affine-uuy-mo-bispectral} is the
 interpolation that survives the three failures of Serre, shuffle, and
 RTT routes, realises the doubly-affine data geometrically through MO
-stable envelopes on $\mathrm{Hilb}^{[n]}(\mathrm K3 \times E)$, and
+stable envelopes on ADE/Kummer surface Fock charts of K3, and
 degenerates to the positive $\fg_{\Delta_5}$ boundary through the
 $q\to1$ channel witnessed by modular forms, denominator formulas, and
 classical Heisenberg limits.
@@ -3385,7 +3387,7 @@ Conjecture~\ref{conj:k3qt-shuffle-coha-k3xE-igusa-kernel}.
 The factor $R_{\mathrm{ell}}(z, \tau_E)$ of
 Proposition~\ref{prop:k3qt-elliptic-bkm-dim-extension}(iii) is the
 $\mathrm K3 \times E$ face of the seven-face $r_{\mathrm{CY}}$ of
-the Vol III programme (\ref{part:connections}). Four identifications
+the Vol III correspondence (\ref{part:connections}). Four identifications
 close this reading.
 
 \emph{(i) Spectral parameter from elliptic fibre period.} The
@@ -3593,7 +3595,7 @@ $E(\mathrm{Hilb}^n(K3 \times E); u, v)$ carrying the Hodge-refined
 Göttsche content of Göttsche-Soergel~$1993$ Theorem~$3$.
 \end{theorem}
 
-\begin{proof}[Proof sketch]
+\begin{proof}
 \emph{(i)} Göttsche-Soergel $1993$ Theorem~$1$ proves the motivic
 Göttsche formula for a smooth surface $S$, stating
 $\sum_n [\mathrm{Hilb}^n(S)]_{\mathrm{mot}} p^n =

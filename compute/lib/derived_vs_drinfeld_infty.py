@@ -605,7 +605,7 @@ class ThreeCentersInfty(NamedTuple):
     (a) Drinfeld center Z(C): input E_1-monoidal infty-category C,
         output E_2-monoidal infty-category Z(C).
         Mechanism: half-braiding SPACES (not sets).
-        One-step promotion: E_1 -> E_2 only.
+        One-step categorical passage: E_1 -> E_2 only.
 
     (b) Derived center HH^*(B, B): input E_n-algebra B in a stable infty-cat,
         output E_{n+1}-algebra HH^*(B, B).
@@ -656,7 +656,7 @@ def three_centers_infty() -> ThreeCentersInfty:
             'output': 'E_2-monoidal infinity-category Z(C)',
             'mechanism': 'half-braiding SPACES with E_2 coherences from Conf_2(R^2)',
             'iteration': 'Z(Z(C)) = C boxtimes C^{rev} (E_2-doubling, NOT E_3)',
-            'key_property': 'one-step only: E_1 -> E_2, no further promotion',
+            'key_property': 'one-step categorical passage: E_1 -> E_2, no further iteration',
         },
         derived={
             'input': 'E_n-algebra B in stable infinity-category',

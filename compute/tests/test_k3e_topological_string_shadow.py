@@ -611,7 +611,7 @@ class TestClassGNoInstantonsIV:
             "intersection number int c_g(E) on M_g (Hodge bundle "
             "top class)",
             "Frenkel-Lepowsky-Meurman 1988 'Vertex Operator Algebras "
-            "and the Monster': lattice VOAs (free-field) have no "
+            "and the Monster': rootless/free-field lattice VOAs have no "
             "worldsheet instanton corrections; classical free-field "
             "VOA theorem INDEPENDENT of class G classification",
         ],
@@ -667,7 +667,7 @@ class TestClassGNoInstantonsIV:
         assert FP_lambda_g_classical
 
         # (vi) Frenkel-Lepowsky-Meurman 1988 free-field VOA theorem:
-        # lattice VOAs (canonical class G examples) have no
+        # rootless/free-field lattice VOAs (canonical class G examples) have no
         # instanton corrections.
         FLM_no_instantons = True
         assert FLM_no_instantons

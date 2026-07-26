@@ -210,7 +210,7 @@ def quintic_chain_level_obstruction() -> Dict[str, object]:
 
 
 def quintic_kapranov_3shifted_target() -> Dict[str, str]:
-    """The Platonic ideal: the actual conjectural Koszul dual for the quintic.
+    """The structural target: the actual conjectural Koszul dual for the quintic.
 
     By conj:kapranov-3shifted-exterior-koszul (c), the conjectural
     Koszul dual of D^b(Coh(X_5)) is

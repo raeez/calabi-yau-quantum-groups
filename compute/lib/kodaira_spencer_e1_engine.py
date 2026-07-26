@@ -137,7 +137,7 @@ CONVENTIONS
 ===========
 
 - Cohomological grading (|d| = +1).
-- Bar uses desuspension (AP45): |s^{-1}v| = |v| - 1.
+- Bar uses desuspension (desuspension convention): |s^{-1}v| = |v| - 1.
 - Lambda-brackets use divided powers (AP44): lambda^(n) = lambda^n / n!.
 - The SN bracket has degree -2 on HH_*, compatible with the [2]-shift for CY3.
 - kappa formulas are family-specific (AP1). Never copy between families.

@@ -41,18 +41,14 @@ any candidate K3 chiral algebra:
    where the factor 2 = kappa_ch(K3) is the modular characteristic
    (Theorem thm:k3-kappa in k3_times_e.tex).
 
-   Fourier expansion: phi_{0,1} = 2y + 20 + 2y^{-1} + ...
+   Fourier expansion: Z_ell(K3) = 2 phi_{0,1} = 2y + 20 + 2y^{-1} + ...
    where y = exp(2*pi*i*z), i.e.
      phi_{0,1}(tau, z) = sum_{n >= 0, l in Z} c(4n - l^2) q^n y^l
 
-   with c(-1) = 2, c(0) = 20 (NOT 10: the discrepancy is that
-   phi_{0,1} itself has c(0) = 20 as the y^0 coefficient at q^0,
-   while the BKM convention uses f(0) = 10 after a Fourier-Jacobi
-   decomposition factor).
-
-   ACTUALLY: in the Eichler-Zagier convention used in phi01_fourier.py,
-   the discriminant function gives c(-1) = 2, c(0) = 10 (corrected
-   by the index-1 normalization). See AP-CY9.
+   In the Eichler-Zagier convention used in phi01_fourier.py,
+   phi_{0,1}=y+10+y^{-1}+O(q), with c(-1)=1 and c(0)=10.
+   The doubled elliptic-genus trace has polar coefficient 2 and
+   constant coefficient 20.
 
    CONSTRAINT ON Y(g_{K3}): the graded character of the K3 Yangian
    representation theory must be compatible with the elliptic genus.
@@ -416,14 +412,14 @@ def discriminant_coefficients(max_n: int = 5) -> Dict[int, Fraction]:
     c(D) = f(n, l) where D = 4n - l^2 (depends only on D).
 
     The first several values:
-      c(-1) = 2   (AP-CY9: in EZ convention)
-      c(0) = 20   (massless states)
-      c(3) = -128 (first massive level at D = 3 mod 4)
+      c(-1) = 1   (EZ half-genus convention)
+      c(0) = 10   (massless states)
+      c(3) = -64  (first massive level at D = 3 mod 4)
 
-    Wait -- the actual c(D) values from phi01_fourier are:
-      f(0, 0) = 20, f(0, +/-1) = 2
-    So D = 4*0 - 0^2 = 0 gives c(0) = 20,
-    and D = 4*0 - 1 = -1 gives c(-1) = 2.
+    The actual f(n,l) values from phi01_fourier are:
+      f(0, 0) = 10, f(0, +/-1) = 1
+    So D = 4*0 - 0^2 = 0 gives c(0) = 10,
+    and D = 4*0 - 1 = -1 gives c(-1) = 1.
     At (n=1, l=0): D = 4, f(1,0) = ?
     At (n=1, l=+/-1): D = 3, f(1,+/-1) = ?
     At (n=1, l=+/-2): D = 0, f(1,+/-2) = ?
@@ -450,8 +446,8 @@ def check_elliptic_genus() -> Dict[str, Any]:
     The K3 sigma model predicts:
     (a) Z_K3 = 2 * phi_{0,1} (the factor 2 = kappa_ch)
     (b) phi_{0,1} is the UNIQUE weak Jacobi form of weight 0, index 1
-    (c) The leading coefficient c(-1) = 2 (AP-CY9, EZ convention)
-    (d) The q^0 Fourier-Jacobi coefficient is 2y + 20 + 2y^{-1}
+    (c) The leading half-genus coefficient c(-1) = 1
+    (d) The q^0 Fourier-Jacobi coefficient is y + 10 + y^{-1}
     (e) The TOTAL coefficient at q^0 level is 24 = chi_top(K3)
         (since 2 + 20 + 2 = 24)
 
@@ -547,14 +543,14 @@ def check_bps_spectrum() -> Dict[str, Any]:
     ordinary dimension in this check.
 
     Key values (AP-CY9 compliant):
-      c(-1) = 2   (ground states = Witten index)
-      c(0)  = 20  (massless)
-      c(3)  = ?   (first massive at D = 3 mod 4)
-      c(4)  = ?   (first massive at D = 0 mod 4)
+      c(-1) = 1   (half-genus polar coefficient)
+      c(0)  = 10  (massless half-genus coefficient)
+      c(3)  = -64 (first massive at D = 3 mod 4)
+      c(4)  = 108 (first massive at D = 0 mod 4)
 
     Constraints (AP-CY9):
       - Only D with D = 0 or 3 mod 4 appear (for index 1)
-      - c(-1) = 2 in EZ convention, NOT 1
+      - c(-1) = 1 in EZ convention; the doubled elliptic genus has value 2
 
     The signed Borcherds superdimension at each level h (summing c(D)
     over all roots at height h) is 24 = chi_top(K3).  Ordinary

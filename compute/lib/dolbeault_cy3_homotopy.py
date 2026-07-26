@@ -194,7 +194,7 @@ from different directions.
 
 Conventions:
     Cohomological grading: |dbar| = +1
-    Bar desuspension: |s^{-1} v| = |v| - 1  (AP45)
+    Bar desuspension: |s^{-1} v| = |v| - 1  (desuspension convention)
     CY dimension d = 3 throughout
     Exact arithmetic via fractions.Fraction
 

@@ -73,9 +73,10 @@ Path 4: CECH DESCENT.  For E_2 algebras, the spectral sequence does NOT
          For CY4 chart gluing, the spectral sequence DOES degenerate
          (since the algebra is E_1), confirming E_1 not E_2.
 Path 5: REPRESENTATION THEORY.  SO(4) = (SU(2) × SU(2))/Z_2, and the
-         two SU(2) factors give two INDEPENDENT E_1 structures on the
-         equivariant HH. But these do NOT combine to E_2 because the
-         Z_2 quotient introduces a TWIST (the p_1 obstruction).
+         two SU(2) factors give two Hom-side E_1 actions on equivariant
+         Hochschild cochains. They are not two independent within-surface
+         E_1 structures; the Z_2 quotient couples them by a TWIST (the
+         p_1 obstruction), so they do NOT combine to native E_2.
 Path 6: K3 × K3 PRODUCT.  The external tensor product A_{K3} ⊗ A_{K3}
          is E_1 ⊗ E_1.  Dunn gives E_2 for the TENSOR PRODUCT qua
          abstract E_1 algebras.  But the CY4 trace couples the factors,

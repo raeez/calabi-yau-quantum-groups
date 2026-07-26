@@ -559,22 +559,20 @@ def reconstruct_delta5_from_bar_exponents(
 
     # Verify degree 1: should be 24 (fundamental result for K3 x E)
     # At height 1: (n,l,m) with n+m=1.
-    # n=1,m=0: D = -l^2, l in Z: c(-l^2) for l=0 -> c(0)=10, l=+/-1 -> c(-1)=2.
-    #   Total: c(0) + 2*c(-1) = 10 + 2*2 = 14. But also n=0,m=1: same.
-    # Total at height 1: 14 + 14 = 28... no, this overcounts.
+    # n=1,m=0: D = -l^2, l in Z: c(-l^2) for l=0 -> c(0)=10, l=+/-1 -> c(-1)=1.
+    #   Total: c(0) + 2*c(-1) = 10 + 2*1 = 12. But also n=0,m=1: same.
+    # Total at height 1: 12 + 12 = 24 before chamber identifications.
     #
     # Actually: n+m = 1 means either (n=1,m=0) or (n=0,m=1).
     # For (1,l,0): D = 0 - l^2 = -l^2. Positive: n=1>0. c(-l^2) for |l| <= 1.
-    #   l=0: c(0)=10. l=+/-1: c(-1)=2 each. Sum = 10+2+2 = 14.
-    # For (0,l,1): D = 0 - l^2 = -l^2. Positive: m=1>0. Same sum = 14.
+    #   l=0: c(0)=10. l=+/-1: c(-1)=1 each. Sum = 10+1+1 = 12.
+    # For (0,l,1): D = 0 - l^2 = -l^2. Positive: m=1>0. Same sum = 12.
     # But wait, (n=0,m=0) doesn't appear here since n+m=1.
     # ALSO: for n=1,m=0, ALL l with D >= -1 contribute: D=-l^2 >= -1 means l^2 <= 1.
-    #   So l in {-1,0,1}. c(-1)=2, c(0)=10, c(-1)=2. Sum = 14.
-    # Similarly n=0,m=1. Total = 14+14 = 28.
+    #   So l in {-1,0,1}. c(-1)=1, c(0)=10, c(-1)=1. Sum = 12.
+    # Similarly n=0,m=1. Total = 12+12 = 24.
     #
-    # BUT the known result is 24 at degree 1. The discrepancy is because
-    # the n=m=0 sector contributes NEGATIVELY at effective degree 0
-    # (Weyl vector), and the actual 1D product has effective exponent 24.
+    # The known result is 24 at degree 1, matching the half-genus table.
     # The effective exponent 24 at ALL degrees is the content of the
     # "1D universality" result: for any lattice VOA of rank r,
     # the 1D bar Euler product is eta^r.

@@ -62,7 +62,7 @@ kappa(deformed) = 0 (no compact cycles, trivial DT).
 CONVENTIONS
 ===========
   - Cohomological grading (|d| = +1).
-  - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (AP45).
+  - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (desuspension convention).
   - Exact arithmetic via fractions.Fraction.
   - Euler form chi(g1, g2) = g1[0]*g2[1] - g1[1]*g2[0] (antisymmetric).
   - Reineke convention: Omega = +1 for hypers.

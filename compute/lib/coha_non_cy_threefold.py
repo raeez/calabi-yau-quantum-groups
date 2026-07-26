@@ -70,7 +70,7 @@ THE CHIRAL ALGEBRA IDENTIFICATION:
 CONVENTIONS:
     - Exact arithmetic via fractions.Fraction throughout
     - Cohomological grading: |d_bar| = +1
-    - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (AP45)
+    - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (desuspension convention)
     - CY defect s(d1,d2) = chi(d1,d2) + chi(d2,d1)
     - Curvature m_0: degree-0 element with d^2 = [m_0, -]
 

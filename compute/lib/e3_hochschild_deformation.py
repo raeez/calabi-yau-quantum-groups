@@ -1038,7 +1038,7 @@ def virasoro_e3_hochschild(
     shadow_tower = {
         1: kappa_ch,
         2: kappa_ch,
-        3: Fraction(2) * c,  # alpha = 2c (at c=1: alpha=2)
+        3: Fraction(2),  # alpha = 2, independent of c
         4: Fraction(10, 27),  # S_4 = 10/27 (at c=1)
     }
 

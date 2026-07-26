@@ -1,9 +1,9 @@
 """Pentagon coboundary decomposition at hbar^3 for the Siegel-Borcherds associator.
 
-The twisted Siegel-Borcherds associator tilde Phi^{Sieg-Bor}_{Sp_4}[Phi_10/eta^24]
+The twisted Siegel-Borcherds associator tilde Phi^{Sieg-Bor}_{Sp_4}[Phi_10_sep]
 satisfies the pentagon equation at order hbar^{<=3} with the explicit coboundary
 
-    phi^(3) = zeta(3) * c_symm + (25/3) * c_timelike + (Phi_10/eta^24) * c_Phi_10
+    phi^(3) = zeta(3) * c_symm + (25/3) * c_timelike + Phi_10_sep * c_Phi_10
 
 where the three c_* are linearly independent 3-coboundaries on the home Lie
 algebra L = t^Sieg_{2,[2]} oplus n_+^imag.
@@ -22,7 +22,6 @@ from __future__ import annotations
 
 def zeta_3() -> float:
     """Apery's constant zeta(3) = 1.2020569...."""
-    # TODO: high-precision value
     return 1.2020569031595942854
 
 
@@ -53,22 +52,22 @@ def c_timelike_coefficient() -> float:
 
 
 def c_Phi_10_coefficient_leading() -> int:
-    """Leading Fourier coefficient of Phi_10 / eta^24 as a Jacobi form.
+    """Leading Fourier coefficient of the separating-normalised Igusa-square lane.
 
     Per Gritsenko-Nikulin 1997 Theorem 2.1 (the Igusa modular forms
     and Lorentzian Kac-Moody algebras, Math. USSR Sb. 187),
-    the Igusa cusp form Phi_10 has weight 10 on Sp_4(Z) and the
-    Borcherds-singular-theta lift of the K3 elliptic genus phi_{0,1}^{K3}
-    expresses Phi_10/eta^24 as a weight -2 weak Jacobi form of index 0
+    the Igusa cusp form Phi_10^{un}=Delta_5^2 has weight 10 on Sp_4(Z) and
+    the Borcherds-singular-theta lift of the half K3 weak Jacobi form
+    phi_{0,1}^{K3} expresses the primitive Delta_5 denominator; its square is
+    the separating-normalised Igusa lane
     with leading Fourier coefficient
 
-      coeff[q_rho q_tau y^0]  Phi_10/eta^24  =  -2.
+      coeff[q_rho q_tau y^0]  Phi_10_sep  =  -2.
 
-    The integer -2 comes from the Eguchi-Ooguri-Tachikawa 2011
-    normalisation c(-1) = 2 of phi_{0,1}^{K3}, entering with a
-    negative sign via the singular-theta lift involution.
+    The primitive Delta_5 lane has polar coefficient c(-1)=1; the Igusa-square
+    lane doubles it and the singular-theta lift contributes the sign.
 
-    Wave-15 extension: see
+    Higher-order extension:
       compute/lib/k3_yangian_pentagon_coboundary_hbar45.py
     for phi^(4), phi^(5), the obstruction-tower closure question,
     and the genus-g curved-Dunn bridge.

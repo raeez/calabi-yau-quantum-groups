@@ -549,7 +549,7 @@ class TestCentralCharges:
 
         This is the celebrated fact that for simply-laced (ADE) Lie algebras
         at level k=1:
-            c(\hat{g}_1) = dim(g) / (1 + h^vee) = rank(g)
+            c(\\hat{g}_1) = dim(g) / (1 + h^vee) = rank(g)
 
         This follows from the Freudenthal-de Vries formula:
             dim(g) = rank(g) * (1 + h^vee)
@@ -627,20 +627,21 @@ class TestADEKoszulLandscapeIV:
 
     The proposition states: at each ADE singularity of type g on K3,
     the chiral algebra enhances to V_1(g) tensor H_{24-r} where
-    r = rank(g); V_1(g) is a lattice VOA (Frenkel-Kac, class G);
-    the E_2 Koszul dual has level k^! = -1 (free-field negation); for
+    r = rank(g); V_1(g) has a Frenkel-Kac root-lattice realization,
+    but its current presentation is class L.  The reflected current
+    level is k' = -1 - 2h^v.  For
     all six types (A_1, A_2, D_4, E_6, E_7, E_8):
-        kappa_ch(A) + kappa_ch(A^!) = 2 + (-2) = 0, rho_K = 0
+        kappa_ch^Hodge(A) + kappa_ch^Hodge(A^!) = 2 + (-2) = 0,
+        and the affine-current conductor is rho_K = 0.
 
     Disjoint sources:
     - DERIVATION: Frenkel-Kac 1980 lattice VOA V_1(g) = V_{root lattice}
-      at level 1 for simply-laced g; free-field Koszul dual negates
-      level.
+      at level 1 for simply-laced g; Feigin-Frenkel reflection gives
+      the current presentation of the Koszul dual.
     - VERIFICATION: independent classical rank + dimension counting
-      for ADE Dynkin types, Kac-Peterson 1984 level-rank duality,
-      Feigin-Frenkel 1988 level reflection at k^! = -k - 2h^v
-      specialising to k = 1, and Vol I Koszul conductor rho_K = 0
-      for class G.
+      for ADE Dynkin types, Frenkel-Kac lattice realisation at level 1,
+      Mukai rank arithmetic, and Vol I Koszul conductor rho_K = 0 for
+      class G.
     """
 
     @independent_verification(
@@ -648,8 +649,8 @@ class TestADEKoszulLandscapeIV:
         derived_from=[
             "Frenkel-Kac 1980 lattice VOA construction: at level 1, "
             "V_1(g) = V_{root lattice of g} for simply-laced g",
-            "Free-field Koszul duality: level negation k -> -k "
-            "for lattice VOAs",
+            "Feigin-Frenkel current reflection: k -> -k - 2h^v for "
+            "the affine Kac-Moody presentation",
             "K3 chiral enhancement: V_1(g) tensor H_{24 - rank(g)} "
             "by Mukai lattice decomposition",
         ],
@@ -662,29 +663,30 @@ class TestADEKoszulLandscapeIV:
             "A_1 = 2, A_2 = 3; D_4 = 6; E_6 = 12, E_7 = 18, E_8 = "
             "30 (classical Lie theory, independent of Koszul "
             "duality)",
-            "Feigin-Frenkel 1988 level reflection k^! = -k - 2h^v: "
-            "at level k = 1 and h^v = 0 for free-field / abelianisation, "
-            "gives k^! = -1 matching the proposition",
+            "Frenkel-Kac level-one realisation: the simply-laced "
+            "affine VOA V_1(g) is realised as the root-lattice VOA, "
+            "which fixes the root-rank complement but keeps the affine "
+            "current OPE",
             "Mukai lattice rank 24 consistency: r + (24 - r) = 24 "
             "holds for all ADE ranks r = 1, 2, 4, 6, 7, 8 "
             "(elementary arithmetic, no VOA)",
             "Vol I thm:koszul-reflection: kappa_ch(A) + kappa_ch(A^!) "
-            "= rho_K; for class G (free-field, depth 2) rho_K = 0, "
-            "so kappa_ch(A) = -kappa_ch(A^!)",
+            "= rho_K; for the Kac-Moody class L family rho_K = 0 by "
+            "Feigin-Frenkel level reflection",
         ],
         disjoint_rationale=(
             "The DERIVATION uses Frenkel-Kac 1980 lattice VOA + "
-            "free-field level negation. The VERIFICATION uses "
+            "Feigin-Frenkel current reflection. The VERIFICATION uses "
             "(i) classical Bourbaki ADE Dynkin rank table (no VOA), "
             "(ii) classical ADE dual Coxeter numbers, (iii) "
-            "Feigin-Frenkel 1988 level reflection framework, "
+            "Frenkel-Kac level-one lattice realisation, "
             "(iv) Mukai lattice rank 24 arithmetic, and (v) Vol I "
-            "Koszul conductor theorem for class G. Five disjoint "
+            "Koszul conductor theorem for class L. Five disjoint "
             "verification routes."),
     )
     def test_ade_koszul_landscape_at_six_standard_types(self):
         """The KEY THEOREM: ADE Koszul landscape at level 1, verified
-        via classical Dynkin table + Feigin-Frenkel + Mukai arithmetic.
+        via classical Dynkin table + Frenkel-Kac + Mukai arithmetic.
         """
         # (i) Classical ADE Dynkin ranks (Bourbaki).
         ade_ranks = {
@@ -724,18 +726,27 @@ class TestADEKoszulLandscapeIV:
             complement = mukai_rank - r
             assert r + complement == mukai_rank
 
-        # (iv) Koszul duality at level 1: k = 1 -> k^! = -1 by
-        # free-field level negation. (Feigin-Frenkel at k -> -k
-        # for free-field, corresponding to h^v = 0 branch since
-        # we're in the lattice-VOA sector, not the affine-KM sector
-        # with Weyl denominator.)
-        k = 1
-        k_dual_free_field = -k
-        assert k_dual_free_field == -1
+        # (iv) Koszul duality at level 1 in the current coordinate:
+        # k' = -1 - 2h^v, and the affine modular characteristics cancel.
+        ade_dims = {
+            'A_1': 3,
+            'A_2': 8,
+            'D_4': 28,
+            'E_6': 78,
+            'E_7': 133,
+            'E_8': 248,
+        }
+        for label, h_v in ade_h_v.items():
+            dim_g = ade_dims[label]
+            k = 1
+            k_dual = -k - 2 * h_v
+            kappa_aff = Fraction(dim_g * (k + h_v), 2 * h_v)
+            kappa_aff_dual = Fraction(dim_g * (k_dual + h_v), 2 * h_v)
+            assert kappa_aff + kappa_aff_dual == 0
 
-        # (v) kappa_ch(A) + kappa_ch(A^!) = 2 + (-2) = 0 for class G
-        # (Vol I Koszul conductor rho_K = 0).
-        kappa_ch_A = 2           # K3 invariant
-        kappa_ch_A_dual = -2     # free-field negation
+        # (v) kappa_ch^Hodge(A) + kappa_ch^Hodge(A^!) = 2 + (-2) = 0
+        # for the K3 Hodge reading.
+        kappa_ch_hodge_A = 2           # K3 Hodge invariant
+        kappa_ch_hodge_A_dual = -2     # free-field negation
         rho_K_class_G = 0
-        assert kappa_ch_A + kappa_ch_A_dual == rho_K_class_G
+        assert kappa_ch_hodge_A + kappa_ch_hodge_A_dual == rho_K_class_G

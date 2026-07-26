@@ -188,14 +188,18 @@ class TestE2BarBraiding:
     """Test the braiding structure on B_{E_2}(A)."""
 
     def test_heisenberg_braiding_symmetric(self):
-        """B_{E_2}(H_k) has symmetric braiding (R = id)."""
+        """B_{E_2}(H_k) has symmetric E2 braiding.
+
+        The ordered-bar scalar braiding R_ord(z) = exp(k*hbar/z) is a
+        separate descent datum.
+        """
         data = e2_bar_braiding_heisenberg()
         # VERIFIED [DC] symmetry check [LT] operadic Koszul theory
         assert data["braiding_type"] == "symmetric (E_infty)"
         assert data["is_cocommutative"] is True
 
     def test_heisenberg_r_matrix_identity(self):
-        """The R-matrix for Heisenberg is the identity."""
+        """The E2/Gerstenhaber R-matrix for Heisenberg is the identity."""
         data = e2_bar_braiding_heisenberg()
         np.testing.assert_allclose(data["r_matrix"], np.eye(1))
 

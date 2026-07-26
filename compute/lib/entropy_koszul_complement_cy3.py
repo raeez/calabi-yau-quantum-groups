@@ -309,8 +309,8 @@ def c3_kappa() -> CY3KappaData:
 
     Complementarity sum = 0 (anti-symmetric, KM/free field family).
 
-    NOTE: H_1^! = H_{-1} as a Koszul pair, but H_1^! != H_{-1} as chiral
-    algebras (AP33: Koszul dual != negative-level substitution). The
+    NOTE: H_1^! is the curved second-kind branch, not H_{-1} as a chiral
+    algebra (AP33: Koszul dual != negative-level substitution). The
     modular characteristics happen to match: kappa(H_1^!) = kappa(H_{-1}) = -1.
     """
     return CY3KappaData(
@@ -981,11 +981,10 @@ def dt_entropy_k3e_exact(D_max: int = 20) -> Dict[int, float]:
     Uses the Fourier expansion of 1/Delta_5^2 to extract BPS degeneracies,
     then computes S = log(|Omega(D)|) for each discriminant D.
 
-    The Rademacher expansion gives the asymptotic:
-        Omega(D) ~ C(D) * exp(pi * sqrt(D)) * D^{-5/4}
-    for some explicit prefactor C(D).
-
-    So S_micro = log(|Omega|) ~ pi*sqrt(D) - (5/4)*log(D) + O(1).
+    The Rademacher expansion gives the leading asymptotic
+        log|Omega(D)| = pi*sqrt(D) + O(log D).
+    This module does not fix the coefficient of log(D); that coefficient
+    belongs to the compact Siegel normalization gate.
 
     The Bekenstein-Hawking entropy S_BH = pi*sqrt(D) agrees at leading order.
     """
@@ -1022,25 +1021,17 @@ def dt_entropy_k3e_exact(D_max: int = 20) -> Dict[int, float]:
 def rademacher_leading_order(D: int, kappa: int = 5) -> float:
     """Leading-order Rademacher asymptotic for BPS degeneracy.
 
-    For a weight-k Siegel cusp form, the Fourier coefficients satisfy:
-        |a(T)| ~ C * exp(pi * sqrt(D)) * D^{-(k+1)/2}
-    where D = disc(T) and C is a computable constant.
+    This helper returns only the common leading saddle
+        S = log|Omega| = pi*sqrt(D) + O(log D).
 
-    For Delta_5 (k=5):
-        |a(T)| ~ C * exp(pi*sqrt(D)) * D^{-3}
-
-    For 1/Delta_5^2: the Rademacher formula gives a different exponent
-    because the inverse involves convolutions:
-        Omega(D) ~ C' * exp(pi*sqrt(D)) * D^{-5/4}
-    (This is the d_{-1/2}(D) coefficient in the c=24 partition function
-    analogy; the exact exponent depends on the modular weight.)
-
-    The ENTROPY is:
-        S = log|Omega| ~ pi*sqrt(D) - (5/4)*log(D) + O(1)
+    The coefficient of log(D) for the compact reciprocal Siegel form
+    1/Delta_5^2 is not pinned by this complementarity module.  It requires
+    the same contour, polar-data, measure, and primitive/square convention
+    gate used in bps_entropy_shadow.compact_siegel_log_normalization().
     """
     if D <= 0:
         return 0.0
-    return math.pi * math.sqrt(D) - 1.25 * math.log(D)
+    return math.pi * math.sqrt(D)
 
 
 # ===========================================================================
@@ -1065,7 +1056,7 @@ def entropy_comparison_k3e(D_values: Optional[List[int]] = None) -> List[Entropy
     For each discriminant D, compute:
     - S_BH = pi * sqrt(D)
     - S_micro = log|Omega(D)| from exact BPS count
-    - S_Rademacher = pi*sqrt(D) - 5/4 * log(D) (Rademacher asymptotic)
+    - S_Rademacher = pi*sqrt(D), the pinned leading Rademacher saddle
     - S_defect = pi*sqrt(D) (from complementarity, at leading order)
     """
     if D_values is None:

@@ -99,7 +99,7 @@ class TestE1BarElement:
     def test_arity(self):
         g = E1Generator("a")
         elem = E1BarElement(factors=(g, g, g))
-        # VERIFIED [DC] structural property [LT] AP45
+        # VERIFIED [DC] structural property [LT] desuspension convention
         assert elem.arity == 3
 
     def test_total_weight(self):
@@ -109,7 +109,7 @@ class TestE1BarElement:
         assert elem.total_weight == 2
 
     def test_cohomological_degree(self):
-        """Desuspension: |s⁻¹a| = |a| - 1 (AP45).
+        """Desuspension: |s⁻¹a| = |a| - 1 (desuspension convention).
         For degree-0 generators: |s⁻¹a| = -1.
         Total for n factors: n * (-1) = -n.
         """
@@ -1017,7 +1017,7 @@ class TestKoszulSigns:
         assert sign == 1  # (-1)^(-2) = 1
 
     def test_desuspension_lowers_degree(self):
-        """AP45: s⁻¹ lowers degree by 1, NOT raises."""
+        """desuspension convention: s⁻¹ lowers degree by 1, NOT raises."""
         g = E1Generator("a", weight=1, degree=0)
         elem = E1BarElement(factors=(g,))
         # |s⁻¹a| = |a| - 1 = 0 - 1 = -1

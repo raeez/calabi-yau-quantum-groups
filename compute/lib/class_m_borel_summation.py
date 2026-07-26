@@ -90,7 +90,7 @@ d=3 programme).  It is not a CY-A_3 closure theorem.
 CONVENTIONS
 ===========
   - Cohomological grading (|d| = +1)
-  - Bar uses desuspension (AP45)
+  - Bar uses desuspension (desuspension convention)
   - kappa always subscripted: kappa_ch (AP113)
   - S_4 is the quartic shadow from the shadow tower
   - Alpha is the cubic shadow coefficient

@@ -756,7 +756,9 @@ def yangian_existence_comparison() -> Dict[str, Any]:
     and R-matrix from the Yang solution.
 
     Route C (sigma model, 3d): No Yangian. The sigma model produces
-      H_Muk (Heisenberg) with TRIVIAL R-matrix (r(u) = 0).
+      H_Muk (Heisenberg) with trivial nonabelian Yangian part.  Its
+      ordered-bar Heisenberg braiding remains scalar,
+      R_ord(u)=exp(k*hbar/u), and is nontrivial for k != 0.
 
     The "contradiction": the sigma model has no quantum group structure,
     but hCS produces one.
@@ -767,7 +769,7 @@ def yangian_existence_comparison() -> Dict[str, Any]:
     sigma model on K3.  In the limit h_a -> 0:
       Y(g_{K3}) -> U(g_{K3}) = H_Muk   (universal enveloping -> Heisenberg)
       g_{K3}(u) -> 1                     (structure function trivializes)
-      R(u) -> 1 tensor 1                 (R-matrix trivializes)
+      R_Yangian(u) -> 1 tensor 1         (nonabelian Yangian part trivializes)
       Delta_z -> Delta_0 (primitive)     (coproduct becomes primitive)
 
     The sigma model is the CLASSICAL LIMIT of the hCS construction.
@@ -822,7 +824,7 @@ def yangian_existence_comparison() -> Dict[str, Any]:
         },
         'route_sigma': {
             'algebra': 'H_Muk (Heisenberg)',
-            'structure_function': 'g(u) = 1 (trivial)',
+            'structure_function': 'g(u) = 1 (trivial nonabelian Yangian part)',
             'en_level': 'E_2 (from S^2-framing, upgrades to E_inf)',
             'omega_background': 'NONE (h_a = 0)',
             'status': 'PROVED (CY-A_2)',
@@ -914,9 +916,9 @@ def structure_function_classical_limit() -> Dict[str, Any]:
 
 
 def full_adversarial_report() -> Dict[str, Any]:
-    r"""Run all four attack vectors and produce a summary.
+    r"""Run all four obstructions and produce a summary.
 
-    Each attack vector returns a dict with 'genuine_inconsistency' key.
+    Each obstruction returns a dict with 'genuine_inconsistency' key.
     The report collects all results and produces a final verdict.
     """
     attack1 = central_charge_comparison()
@@ -956,7 +958,7 @@ def full_adversarial_report() -> Dict[str, Any]:
         'num_inconsistencies': len(inconsistencies),
         'all_resolved': len(inconsistencies) == 0,
         'summary': (
-            'All four attack vectors are RESOLVED. The apparent contradictions '
+            'All four obstructions are RESOLVED. The apparent contradictions '
             'arise from conflating different algebraizations of the same geometry: '
             '(1) c=24 (H_Muk) vs c=6 (N=4 SCA) are different algebras with same '
             'kappa_ch=2. (2) Class G (H_Muk) vs class M (N=4 SCA) reflect free-field '

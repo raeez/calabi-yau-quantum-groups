@@ -46,8 +46,11 @@ This module quantifies three aspects of the E_1 -> E_2 passage for K3 x E:
     obstruction.  It provides an E_2 braiding on the K-theory of Hilb^n
     without passing through the Drinfeld center at all.
 
-    The self-dual limit h1 = -h2, h3 = 0 gives g(u) = 1 (trivial R-matrix).
-    This reflects: hyper-Kahler-preserved K3 has NO quantum group structure.
+    The self-dual limit h1 = -h2, h3 = 0 gives g(u) = 1 (trivial
+    nonabelian MO/Yangian structure function). This reflects:
+    hyper-Kahler-preserved K3 has no nonabelian quantum-group
+    deformation; it does not erase the scalar ordered-bar Heisenberg
+    braid R_ord(z)=exp(k*hbar/z).
     Breaking hyper-Kahler (h1 != -h2) activates the braiding.
 
 (3) THE DERIVED CENTER Z^{der}_{ch}(H_Muk).
@@ -366,7 +369,8 @@ def mo_bypass_analysis(h1: Fraction = F(1), h2: Fraction = F(2)) -> MOBypassData
     KEY PROPERTIES:
     (a) g(u) * g(-u) = 1  (unitarity, from CY condition).
     (b) g(u) is degree (3,3) in u (CY_3: three equivariant weights).
-    (c) Self-dual limit h1 = -h2: g(u) = 1 (trivial braiding).
+    (c) Self-dual limit h1 = -h2: g(u) = 1 (trivial nonabelian
+        MO/Yangian braiding).
     (d) The R-matrix is defined WITHOUT computing the Drinfeld center.
 
     The MO construction gives the E_2 braiding on K_T(Hilb^n(K3xE))

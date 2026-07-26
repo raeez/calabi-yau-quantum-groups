@@ -47,9 +47,9 @@ F. Heegner divisor conjecture $c_n \propto [H_n]$ at $n = 1, 2, 3$.
 
 G. Arthur packet $\psi_{\Delta_{10}} = \phi_{\Delta_{E_6}} \boxplus \mathrm{Sym}^1$.
    First-principles $a_p(\Delta_{E_6})$ at $p \le 11$ computed via
-   $f_{16} = E_4 \cdot \Delta$; Saito-Kurokawa Hecke eigenvalue
+   $f_{18} = E_6 \cdot \Delta$; Saito-Kurokawa Hecke eigenvalue
    $\lambda_p(\Delta_{10}) = a_p + p^8 + p^9$; Ramanujan-Petersson
-   bound $|a_p| \le 2 p^{15/2}$.
+   bound $|a_p| \le 2 p^{17/2}$.
 
 H. Schur-index 10 Fourier coefficients: $\{1, 72, 2678, 68474, 1351775, ...\}$
    from $\mathrm{PE}[(72q - 22q^2)/(1-q)]$ through $q^{10}$.
@@ -482,11 +482,11 @@ def verify_arthur_packet_delta10() -> Dict[str, object]:
 
     Ikeda 2001 / Andrianov 1974 Saito-Kurokawa Hecke eigenvalue:
       $\lambda_p(\Delta_{10}) = a_p(\Delta_{E_6}) + p^8 + p^9$
-    with $\Delta_{E_6} = E_4 \cdot \Delta$ the weight-16 elliptic cusp form
-    (dim $S_{16}(\mathrm{SL}_2(\mathbb{Z})) = 1$).
+    with $\Delta_{E_6} = E_6 \cdot \Delta$ the weight-18 elliptic cusp form
+    (dim $S_{18}(\mathrm{SL}_2(\mathbb{Z})) = 1$).
 
     Ramanujan-Petersson bound (Deligne 1974 / Weissauer 2009):
-      $|\lambda_p - p^8 - p^9| = |a_p| \le 2 p^{15/2}$.
+      $|\lambda_p - p^8 - p^9| = |a_p| \le 2 p^{17/2}$.
     """
     small_primes = [2, 3, 5, 7, 11]
 
@@ -514,8 +514,8 @@ def verify_arthur_packet_delta10() -> Dict[str, object]:
 
     # Expected spinor factorisation at p=2: Satake roots complex conjugate
     alpha, beta = spinor_satake_roots(2, first_principles[2])
-    modulus_product_squared = abs(alpha * beta)  # should equal p^15 = 32768
-    satake_product_ok = abs(modulus_product_squared - 32768) < 1e-6
+    modulus_product_squared = abs(alpha * beta)  # should equal p^17 = 131072
+    satake_product_ok = abs(modulus_product_squared - 131072) < 1e-6
 
     return {
         "small_primes": small_primes,
@@ -528,13 +528,13 @@ def verify_arthur_packet_delta10() -> Dict[str, object]:
         "all_rp_bound_ok": all_rp_ok,
         "satake_alpha_2": alpha,
         "satake_beta_2": beta,
-        "satake_product_modulus_eq_p15": satake_product_ok,
+        "satake_product_modulus_eq_p17": satake_product_ok,
         "primary_citations": [
             "Ikeda 2001 Ann. Math. 154, 641-681",
             "Andrianov 1974 Russian Math. Surveys 29:3",
             "Deligne 1974 (RH for RH_p)",
             "Weissauer 2009 Siegel Ramanujan-Petersson",
-            "LMFDB modular form 16.1.a.a",
+            "LMFDB modular form 18.1.a.a",
         ],
     }
 

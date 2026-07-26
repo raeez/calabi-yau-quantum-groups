@@ -37,10 +37,13 @@ from compute.lib.bps_entropy_shadow import (
     # BPS degeneracies
     discriminant_k3e, verify_discriminant_constraint,
     BPS_DEGENERACIES_K3E, bps_degeneracy_k3e, bps_entropy_exact,
+    PHI01_ROOT_EXPONENTS_K3E, root_bps_coefficient_firewall,
     # Bekenstein-Hawking
     bekenstein_hawking_k3e, verify_strominger_vafa_k3e,
     # Rademacher
     rademacher_leading_k3e, rademacher_first_correction_k3e,
+    compact_siegel_log_normalization,
+    paramodular_order_tower_audit, chl_scalar_identity_gate,
     # Shadow tower
     ShadowEntropyData, shadow_entropy_scalar, shadow_tower_corrections_k3e,
     shadow_entropy_full,
@@ -236,6 +239,21 @@ class TestBPSDegeneracies:
         for i in range(len(omegas) - 1):
             assert omegas[i + 1] > omegas[i]
 
+    def test_phi01_root_exponent_not_bps_coefficient_D3(self):
+        """At D=3 the denominator exponent and BPS coefficient differ."""
+        assert PHI01_ROOT_EXPONENTS_K3E[3] == -64
+        assert BPS_DEGENERACIES_K3E[3] == 248
+        assert PHI01_ROOT_EXPONENTS_K3E[3] != BPS_DEGENERACIES_K3E[3]
+
+    def test_root_bps_firewall_rejects_coefficientwise_equality(self):
+        """Root exponents and reciprocal-Igusa coefficients are product-related."""
+        firewall = root_bps_coefficient_firewall()
+        assert firewall.status == "ROOT_EXPONENTS_DISTINCT_FROM_BPS_COEFFICIENTS"
+        assert firewall.relation == "PRODUCT_LEVEL_BORCHERDS_DMVV_NOT_COEFFICIENTWISE"
+        assert firewall.any_nonpolar_equal is False
+        for row in firewall.rows:
+            assert row.phi01_root_exponent != row.bps_coefficient
+
 
 # =========================================================================
 # 5. BEKENSTEIN-HAWKING ENTROPY
@@ -271,21 +289,39 @@ class TestRademacher:
     """Verify the Rademacher expansion for K3 x E BPS degeneracies."""
 
     def test_rademacher_leading_is_bh(self):
-        """Leading Rademacher term matches Bekenstein-Hawking at large D."""
+        """Leading Rademacher saddle equals Bekenstein-Hawking."""
         D = 1000
         S_rad = rademacher_leading_k3e(D)
         S_BH = bekenstein_hawking_k3e(D)
-        # At D=1000, the log correction is small relative to sqrt
-        assert abs(S_rad - S_BH) / S_BH < 0.15
+        assert abs(S_rad - S_BH) < 1e-10
 
-    def test_rademacher_includes_log_correction(self):
-        """Rademacher has a -3/2 * log(D) subleading term."""
+    def test_compact_siegel_log_coefficient_unpinned(self):
+        """The compact Siegel log coefficient is not installed by default."""
+        norm = compact_siegel_log_normalization()
+        assert norm.status == "UNPINNED_NORMALIZATION"
+        assert norm.accepted_coefficient is None
+        assert "contour_normalization" in norm.missing_inputs
+        assert "polar_data" in norm.missing_inputs
+        assert "measure_normalization" in norm.missing_inputs
+        assert "primitive_square_convention" in norm.missing_inputs
+
+    def test_false_arithmetic_log_formula_rejected(self):
+        """The formula (kappa_BKM+1)/2 = 3/2 is rejected arithmetically."""
+        norm = compact_siegel_log_normalization()
+        assert norm.arithmetic_formula_valid is False
+        scalar_candidates = [
+            c for c in norm.candidates
+            if c.coefficient == Fraction(3, 2)
+        ]
+        assert scalar_candidates
+        assert scalar_candidates[0].status == "UNPINNED_CANDIDATE"
+
+    def test_rademacher_leading_has_no_default_log_correction(self):
+        """The leading helper does not smuggle in a logarithmic coefficient."""
         D = 100
         S_rad = rademacher_leading_k3e(D)
         S_BH = bekenstein_hawking_k3e(D)
-        expected_correction = -1.5 * math.log(D)
-        actual_diff = S_rad - S_BH
-        assert abs(actual_diff - expected_correction) < 1e-10
+        assert abs(S_rad - S_BH) < 1e-10
 
     def test_rademacher_d0_is_zero(self):
         """Rademacher gives 0 for D <= 0."""
@@ -304,6 +340,89 @@ class TestRademacher:
         r1 = rademacher_first_correction_k3e(10)
         r2 = rademacher_first_correction_k3e(100)
         assert r2 < r1
+
+
+class TestParamodularTowerAudit:
+    """Separate JS physical dyons from primitive BKM denominators."""
+
+    def test_js_and_bkm_order_sets_differ(self):
+        audit = paramodular_order_tower_audit()
+        assert audit.js_physical.orders == (1, 2, 3, 5, 7, 11)
+        assert audit.bkm_primitive.orders == (1, 2, 3, 4, 6)
+        assert audit.intersection == (1, 2, 3)
+
+    def test_js_formula_weights(self):
+        audit = paramodular_order_tower_audit()
+        assert audit.js_physical.weights == (
+            Fraction(10), Fraction(6), Fraction(4),
+            Fraction(2), Fraction(1), Fraction(0),
+        )
+
+    def test_bkm_primitive_weights(self):
+        """Corrected ladder (Jatkar-Sen; Govindarajan-Krishna); (5,4,3,2,1) retracted."""
+        audit = paramodular_order_tower_audit()
+        assert audit.bkm_primitive.weights == (
+            Fraction(5), Fraction(3), Fraction(2), Fraction(3, 2), Fraction(1),
+        )
+
+    def test_js_formula_rejects_bkm_orders_4_and_6(self):
+        audit = paramodular_order_tower_audit()
+        assert audit.js_formula_on_bkm_orders[4] == Fraction(14, 5)
+        assert audit.js_formula_on_bkm_orders[6] == Fraction(10, 7)
+        assert audit.js_formula_integral_on_bkm_orders is False
+
+    def test_no_uniform_square_across_towers(self):
+        audit = paramodular_order_tower_audit()
+        assert audit.js_physical.denominator_power == 1
+        assert audit.bkm_primitive.denominator_power is None
+        assert audit.uniform_square_valid is False
+
+    def test_js_weight_zero_endpoint_is_not_bkm_denominator(self):
+        audit = paramodular_order_tower_audit()
+        assert audit.js_weight_zero_order == 11
+        assert audit.js_physical.weights[-1] == Fraction(0)
+        assert audit.js_weight_zero_is_bkm_denominator is False
+        assert audit.js_weight_zero_order not in audit.bkm_primitive.orders
+        assert audit.js_weight_zero_status == "JS_WEIGHT_ZERO_SCALAR_BOUNDARY_NOT_BKM_DENOMINATOR"
+
+    def test_js_weight_zero_endpoint_lists_missing_bkm_data(self):
+        audit = paramodular_order_tower_audit()
+        missing = set(audit.js_weight_zero_missing_for_bkm)
+        assert "Borcherds denominator algebra" in missing
+        assert "root lattice and Weyl vector" in missing
+        assert "finite Hall-Borcherds recognition datum" in missing
+
+
+class TestCHLScalarIdentityGate:
+    """Keep N=2,3 CHL scalar identities conditional until the gates close."""
+
+    def test_n23_scalar_identity_is_not_unconditional(self):
+        gate = chl_scalar_identity_gate()
+        assert gate.orders == (2, 3)
+        assert gate.unconditional_orders == ()
+        assert gate.conditional_orders == (2, 3)
+        assert set(gate.status_by_order.values()) == {
+            "CONDITIONAL_NEEDS_CHL_DT_AND_NORMALIZATION_GATE"
+        }
+
+    def test_bkm_square_weights_equal_bryan_oberdieck_weights_but_forms_open(self):
+        """Corrected squares (6,4) match BO weights; form identification stays open."""
+        gate = chl_scalar_identity_gate()
+        assert gate.primitive_bkm_weights == {2: Fraction(3), 3: Fraction(2)}
+        assert gate.bkm_scalar_square_weights == {2: Fraction(6), 3: Fraction(4)}
+        assert gate.bryan_oberdieck_denominator_weights == {
+            2: Fraction(6), 3: Fraction(4),
+        }
+        assert gate.scalar_square_weights_match_bryan_oberdieck is True
+        assert "does not identify the forms" in gate.normalization_warning
+
+    def test_n23_missing_gates_include_full_chl_dt_and_normalization(self):
+        gate = chl_scalar_identity_gate()
+        missing = set(gate.missing_gates)
+        assert "all-class proof of Bryan-Oberdieck Conjecture 0.1" in missing
+        assert "normalization bridge from the Bryan-Oberdieck denominator to the primitive BKM scalar square" in missing
+        assert "reduced multiple-cover formula from primitive to imprimitive classes" in missing
+        assert any("first t^{-1/N}" in case for case in gate.bryan_oberdieck_base_cases)
 
 
 # =========================================================================
@@ -482,10 +601,9 @@ class TestCrossVerifications:
     def test_bps_entropy_relative_error_small(self):
         """Relative error |S_micro - S_BH|/S_BH is small at moderate D.
 
-        The ratio S_micro/S_BH oscillates around 1 at small D (the
-        Rademacher expansion is asymptotic, not monotone). We verify
-        that the relative error is bounded by 2% for D >= 7, consistent
-        with the subleading -3/2 * log(D) correction dominating at finite D.
+        The ratio S_micro/S_BH oscillates around 1 at small D. We verify
+        that the relative error is bounded by 2% for D >= 7, without
+        asserting a compact Siegel logarithmic coefficient.
         """
         for D in [7, 8, 11, 12]:
             S_BH = bekenstein_hawking_k3e(D)
@@ -535,11 +653,11 @@ class TestEntropyTable:
             if row.ratio_micro_BH is not None:
                 assert 0 < row.ratio_micro_BH < 2
 
-    def test_table_rademacher_less_than_bh(self):
-        """Rademacher (with log correction) is less than bare S_BH."""
+    def test_table_rademacher_is_pinned_leading_saddle(self):
+        """Rademacher table stores the pinned leading saddle."""
         table = entropy_comparison_table()
         for row in table:
-            assert row.S_rademacher < row.S_BH
+            assert abs(row.S_rademacher - row.S_BH) < 1e-10
 
 
 # =========================================================================

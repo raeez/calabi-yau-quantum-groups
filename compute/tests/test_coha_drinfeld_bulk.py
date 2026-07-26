@@ -21,7 +21,8 @@ Ground truth references:
 
 Manuscript references:
   Vol I: bar complex = factorization coalgebra, shadows = MC projections
-  Vol II: Z^der_ch(A) = universal bulk (thm:thqg-swiss-cheese)
+  Vol II: Z^der_ch(A) is the algebraic closed-sector vertex
+  (thm:thqg-swiss-cheese); physical bulk uses the HT comparison datum.
   Vol III: Z(Rep(CoHA)) = Rep(Y(gl_hat_1)) (E_1 -> E_2 passage)
 """
 

@@ -45,7 +45,7 @@ EXAMPLES
 CONVENTIONS
 ===========
   - Cohomological grading (|d| = +1).
-  - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (AP45).
+  - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (desuspension convention).
   - Exact arithmetic via fractions.Fraction.
   - Euler form chi(g1, g2) = g1[0]*g2[1] - g1[1]*g2[0] (antisymmetric, conifold).
   - kappa = -chi(X) for the Euler-characteristic convention (CY3).
@@ -1116,14 +1116,16 @@ class E1KoszulMirrorDuality:
     This is the KOSZUL DUALITY incarnation of mirror symmetry at the E_1 level.
 
     MATHEMATICAL CONTENT:
-      - The E_1 bar complex B^{E_1}(A) = T^c(s^{-1} A) with the bar differential.
+      - The reduced E_1 bar complex B^{E_1}(A) = T^c(s^{-1} \bar A)
+        with the bar differential.
       - The E_1 cobar complex Omega^{E_1}(C) = T(s C) with the cobar differential.
       - Mirror = Koszul duality: A_X^{!,E_1} ~ A_{X^v}.
       - At the bar/cobar level: B^{E_1}(A_X) ~ Omega^{E_1}(A_{X^v}).
 
     CONVENTIONS:
-      - kappa(A_X) + kappa(A_{X^v}) = 0 (Koszul complementarity).
-      - Desuspension: |s^{-1}v| = |v| - 1 (AP45).
+      - kappa(A_X) + kappa(A_{X^v}) = 0 on the mirror-Euler lane
+        implemented here; this is not a universal Koszul-conductor rule.
+      - Desuspension: |s^{-1}v| = |v| - 1 (desuspension convention).
       - The bar/cobar are DUAL operations (adjoint at the category level).
     """
 
@@ -1276,7 +1278,7 @@ class E1KoszulMirrorDuality:
         return hh
 
     def koszul_complementarity(self) -> Dict[str, Any]:
-        """Verify kappa + kappa^v = 0 (Koszul complementarity)."""
+        """Verify mirror-Euler kappa + kappa^v = 0 for this chart."""
         comp_sum = self.kappa + self.kappa_mirror
         return {
             'kappa_X': self.kappa,

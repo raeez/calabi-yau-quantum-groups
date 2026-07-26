@@ -429,8 +429,10 @@ Explicit null states: at level 2, the current $L_{-1}J^a_{-1} = J^a_{-2} + $ rea
 
 **Unrefined $q^2$:** after Sugawara-corrected null subtraction, $30876$ (Cordova--Shao confirmed).
 
-**Level 3:** Symmetric cubes $\mathrm{Sym}^3(\mathbf{248})$ decomposed:
-$\mathrm{Sym}^3(\mathbf{248}) = \mathbf{1} \oplus \mathbf{248} \oplus \mathbf{3875} \oplus \mathbf{27000} \oplus \mathbf{30380}_{\mathrm{sym}} \oplus \mathbf{779247}_{\mathrm{sym}} \oplus$ ..., with $\dim = \binom{248+2}{3} = 2573000$.
+**Level 3:** Symmetric cubes $\mathrm{Sym}^3(\mathbf{248})$ have total
+dimension $\binom{248+2}{3}=2573000$.  We do not assert a full
+$E_8$-irreducible decomposition here; the previously circulated
+$779247$ summand is excluded by the local $E_8$ dimension census.
 
 Plus $J^a_{-1}J^b_{-2}|0\rangle$ = $248 \cdot 248 = 61504$; plus $J^a_{-3}|0\rangle = 248$; plus level-3 null subtractions.
 

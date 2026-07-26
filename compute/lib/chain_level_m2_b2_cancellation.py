@@ -401,7 +401,7 @@ def apply_b2(elem: BarElt, alg: CyclicAinfCY3) -> LinComb:
 
     B^{(2)}([a_0|...|a_n]) = sum_{i<j} (-1)^{sgn} <a_i, a_j> * [remaining]
 
-    Signs use DESUSPENDED degrees |s^{-1}a| = |a| - 1 (AP45).
+    Signs use DESUSPENDED degrees |s^{-1}a| = |a| - 1 (desuspension convention).
     """
     n = elem.arity
     factors = elem.factors
@@ -449,7 +449,7 @@ def apply_bk(elem: BarElt, alg: CyclicAinfCY3, k: int) -> LinComb:
     b_k([a_0|...|a_n]) = sum_{i=0}^{n-k} (-1)^{sgn_i}
         [a_0|...|mu_k(a_i,...,a_{i+k-1})|...|a_n]
 
-    Sign: (-1)^{sum_{j<i} (|a_j| - 1)} (desuspended, AP45).
+    Sign: (-1)^{sum_{j<i} (|a_j| - 1)} (desuspended, desuspension convention).
     """
     n = elem.arity
     factors = elem.factors

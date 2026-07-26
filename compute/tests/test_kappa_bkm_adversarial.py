@@ -128,15 +128,18 @@ class TestLiteralCHLAdditiveSplit:
         assert CHL_LEVELS == (1, 2, 3, 4, 6)
 
     def test_chl_bkm_constants(self):
-        """Exact constants: kappa_BKM(Phi_N)=c_N(0)/2 on the CHL ladder."""
+        """Exact constants: kappa_BKM(Phi_N)=c_N(0)/2 on the square-root
+        CHL ladder (Jatkar--Sen / Govindarajan--Krishna); N=4 half-integral."""
         expected = {
             1: {"c_N_0": 10, "kappa_BKM": 5},
-            2: {"c_N_0": 8, "kappa_BKM": 4},
-            3: {"c_N_0": 6, "kappa_BKM": 3},
-            4: {"c_N_0": 4, "kappa_BKM": 2},
+            2: {"c_N_0": 6, "kappa_BKM": 3},
+            3: {"c_N_0": 4, "kappa_BKM": 2},
+            4: {"c_N_0": 3, "kappa_BKM": Fraction(3, 2)},
             6: {"c_N_0": 2, "kappa_BKM": 1},
         }
         assert chl_bkm_constants() == expected
+        for N, row in expected.items():
+            assert row["kappa_BKM"] == Fraction(row["c_N_0"], 2)
 
     def test_literal_split_has_zero_successes(self):
         """The literal additive split fails at every CHL level."""
@@ -151,18 +154,22 @@ class TestLiteralCHLAdditiveSplit:
             assert not row["additive_identity_holds"], f"N={N} should fail"
 
     def test_exact_rhs_values_where_reconstructed(self):
-        """Exact RHS values currently reconstructed for N=1,2,3."""
+        """Exact RHS values currently reconstructed for N=1,2 only."""
         assert CHL_LITERAL_ADDITIVE_TABLE[1].additive_rhs == 0
         assert CHL_LITERAL_ADDITIVE_TABLE[2].additive_rhs == 1
-        assert CHL_LITERAL_ADDITIVE_TABLE[3].additive_rhs == 2
         assert CHL_LITERAL_ADDITIVE_TABLE[1].kappa_BKM != 0
         assert CHL_LITERAL_ADDITIVE_TABLE[2].kappa_BKM != 1
-        assert CHL_LITERAL_ADDITIVE_TABLE[3].kappa_BKM != 2
 
-    def test_N4_N6_not_guessed(self):
-        """The oracle records N=4,6 failure status without inventing RHS values."""
+    def test_N3_N4_N6_not_guessed(self):
+        """The oracle records N=3,4,6 failure status without inventing RHS
+        values.  The pre-correction N=3 cache RHS (=2) was computed against
+        the retracted ladder; it numerically coincides with the corrected
+        kappa_BKM = 2 and is deliberately absent rather than misread as the
+        identity holding."""
+        assert CHL_LITERAL_ADDITIVE_TABLE[3].additive_rhs is None
         assert CHL_LITERAL_ADDITIVE_TABLE[4].additive_rhs is None
         assert CHL_LITERAL_ADDITIVE_TABLE[6].additive_rhs is None
+        assert CHL_LITERAL_ADDITIVE_TABLE[4].kappa_BKM == Fraction(3, 2)
         assert "exact RHS not reconstructed" in CHL_LITERAL_ADDITIVE_TABLE[4].source_status
         assert "exact RHS not reconstructed" in CHL_LITERAL_ADDITIVE_TABLE[6].source_status
 
@@ -634,7 +641,7 @@ class TestCrossChecksMultiPath:
     # --- Path E: bkm_chiral_algebra.py ---
 
     def test_lattice_voa_central_charge(self):
-        """Cross-check c=3 for V_{II_{2,1}} against bkm_chiral_algebra."""
+        """Cross-check c=3 for V_{Lambda^{2,1}_{II}}^{formal} against bkm_chiral_algebra."""
         from bkm_chiral_algebra import LATTICE_VOA_CENTRAL_CHARGE
         assert LATTICE_VOA_CENTRAL_CHARGE == 3
 

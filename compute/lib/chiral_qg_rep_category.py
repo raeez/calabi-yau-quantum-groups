@@ -981,8 +981,9 @@ def modularity_obstruction(
                 'name': 'Self-dual trivialization',
                 'description': (
                     'At the hyper-Kahler-preserving point eps1 = -eps2, the '
-                    'structure function g(u) = 1 (trivial R-matrix). The '
-                    'Muger center contains this entire subcategory.'
+                    'structure function g(u) = 1 (trivial nonabelian '
+                    'MO/Yangian part). The Muger center contains this entire '
+                    'subcategory.'
                 ),
             },
             {

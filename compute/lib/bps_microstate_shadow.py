@@ -15,14 +15,12 @@ THE MICROSTATE COUNTING PROBLEM:
 
   where Phi_{10} is the Igusa cusp form of weight 10 on Sp_4(Z).
 
-  The Bekenstein-Hawking entropy is S_BH = 4*pi*sqrt(Delta), and the
-  Rademacher expansion gives:
-
-    d(Delta) = (2*pi / sqrt(Delta)) * sum_{c >= 1}
-               (K(c, Delta) / c) * I_{27/2}(4*pi*sqrt(Delta)/c) + polar
-
-  where I_{27/2} is the modified Bessel function of order 27/2 and
-  K(c, Delta) is the Sp_4 Kloosterman sum.
+  The Bekenstein-Hawking entropy is S_BH = 4*pi*sqrt(Delta) in the
+  four-dimensional dyon convention.  The exact Rademacher expansion of
+  1/Phi_{10} depends on the contour, polar orbit, charge-lattice measure,
+  and primitive/square convention.  This module uses the rank-one
+  phi_{0,1} Rademacher lane as an executable witness and does not pin the
+  compact Siegel logarithmic coefficient by default.
 
 THE SHADOW TOWER CONTRIBUTION:
 
@@ -60,8 +58,8 @@ THE SUBLEADING ENTROPY CORRECTION:
   The leading BH entropy is S_0 = 4*pi*sqrt(Delta).
   The subleading corrections come from:
 
-  (a) LOGARITHMIC (Rademacher/Sen): delta_S_log = -(29/4)*log(Delta) + O(1)
-      from the Bessel prefactor D^{-29/4} * exp(4*pi*sqrt(Delta)).
+  (a) LOGARITHMIC (Rademacher/Sen): the coefficient of log(Delta) is
+      unpinned here until the compact Siegel normalization data are fixed.
 
   (b) SHADOW TOWER (genus expansion):
       delta_S^{(g)} ~ kappa_ch * A_hat_g * (4*pi^2 / S_0)^{2g-1}
@@ -137,6 +135,11 @@ from __future__ import annotations
 import math
 from fractions import Fraction
 from typing import Any, Dict, List, NamedTuple, Optional, Tuple
+
+try:
+    from compute.lib.bps_entropy_shadow import compact_siegel_log_normalization
+except (ImportError, ModuleNotFoundError):  # pragma: no cover - direct script fallback
+    from bps_entropy_shadow import compact_siegel_log_normalization
 
 
 # ===========================================================================
@@ -604,7 +607,7 @@ def subleading_corrections(D: int,
 
     where:
       S_BH = pi * sqrt(D)  (leading Bekenstein-Hawking, 5d convention)
-      delta_S_log = -3/2 * log(D)  (Rademacher/Wald, from kappa_BKM = 5)
+      delta_S_log is included only after compact Siegel normalization pins it
       delta_S^{(g)} ~ kappa_ch * A_hat_g * (4*pi^2 / S_BH)^{2g-1}
 
     The genus-g correction is a higher-derivative Wald entropy term
@@ -617,14 +620,28 @@ def subleading_corrections(D: int,
     S0 = math.pi * math.sqrt(D)
     corrections = []
 
-    # Logarithmic correction (Rademacher subleading, from kappa_BKM)
-    log_correction = -1.5 * math.log(D)
+    # Compact Siegel logarithmic correction.  The default classifier refuses
+    # to install a number until the contour, polar orbit, measure, and
+    # primitive/square convention are fixed in one normalization.
+    log_norm = compact_siegel_log_normalization()
+    if log_norm.accepted_coefficient is None:
+        log_correction = 0.0
+        log_source = (
+            f"{log_norm.status}: compact Siegel log coefficient not inserted; "
+            f"missing {', '.join(log_norm.missing_inputs)}"
+        )
+    else:
+        log_correction = -float(log_norm.accepted_coefficient) * math.log(D)
+        log_source = (
+            f"PINNED: -{log_norm.accepted_coefficient} * log(D) after compact "
+            f"Siegel normalization"
+        )
     corrections.append(SubleadingCorrection(
         genus=0,
         a_hat_g=Fraction(0),
         correction_value=log_correction,
         correction_relative=log_correction / S0 if S0 > 0 else 0.0,
-        source="Rademacher log correction: -(kappa_BKM+1)/2 * log(D) = -3*log(D)/2",
+        source=log_source,
     ))
 
     # Genus expansion corrections
@@ -919,21 +936,21 @@ def physical_prediction_subleading(D: int = 100) -> Dict[str, Any]:
 
     where:
       S_BH = pi * sqrt(D)                     (Bekenstein-Hawking)
-      delta_S_log = -(3/2) * log(D)            (Rademacher/Wald logarithmic)
+      delta_S_log is compact-Siegel-normalization dependent
       delta_S_shadow = sum_{g=1}^{5} delta^{(g)}  (shadow tower genus expansion)
       delta_S_np = O(exp(-pi*sqrt(D)/2))        (non-perturbative Rademacher c>=2)
 
     The shadow tower prediction for the subleading correction combines:
-    (a) The kappa_BKM = 5 controlled logarithmic term (universal, proved).
+    (a) The compact Siegel logarithmic term after normalization is fixed.
     (b) The kappa_ch_Heis = 3 controlled genus expansion (shadow tower).
     (c) The exponentially small Rademacher corrections.
 
-    The PHYSICAL PREDICTION is:
-      The dominant subleading correction is -3/2 * log(D), with
-      the shadow tower genus expansion providing sub-subleading terms
-      that are O(1/S_BH) = O(1/sqrt(D)).
+    The physical prediction in this module is the leading saddle together
+    with the normalized genus expansion.  A numerical logarithmic coefficient
+    is deliberately absent unless the normalization gate is closed.
     """
     S_BH = math.pi * math.sqrt(D) if D > 0 else 0.0
+    log_norm = compact_siegel_log_normalization()
     corrs = subleading_corrections(D, max_genus=5)
     exact = microstate_count(D)
 
@@ -953,6 +970,8 @@ def physical_prediction_subleading(D: int = 100) -> Dict[str, Any]:
         "D": D,
         "S_BH": S_BH,
         "delta_S_log": log_corr,
+        "log_normalization_status": log_norm.status,
+        "log_normalization_missing_inputs": log_norm.missing_inputs,
         "delta_S_shadow_genus": genus_corrs,
         "delta_S_shadow_total": sum(genus_corrs),
         "delta_S_np_ratio": np_corr_ratio,
@@ -960,18 +979,21 @@ def physical_prediction_subleading(D: int = 100) -> Dict[str, Any]:
         "S_exact": exact,
         "hierarchy": {
             "leading": f"S_BH = pi*sqrt({D}) = {S_BH:.6f}",
-            "log_correction": f"-(3/2)*log({D}) = {log_corr:.6f}",
+            "log_correction": (
+                f"{log_norm.status}: no numeric compact Siegel coefficient inserted"
+                if log_norm.accepted_coefficient is None
+                else f"-{log_norm.accepted_coefficient}*log({D}) = {log_corr:.6f}"
+            ),
             "genus_1": f"kappa_ch * A_hat_1 * epsilon = {genus_corrs[0]:.6e}" if genus_corrs else "N/A",
             "genus_2": f"kappa_ch * A_hat_2 * epsilon^3 = {genus_corrs[1]:.6e}" if len(genus_corrs) > 1 else "N/A",
             "nonpert": f"exp(-pi*sqrt({D})/2) ~ {np_corr_ratio:.2e}",
         },
         "physical_prediction": (
-            f"S = {S_BH:.4f} + ({log_corr:.4f}) + ({sum(genus_corrs):.6f}) + O(e^{{-pi*sqrt({D})/2}}). "
-            f"The dominant subleading correction is the logarithmic term "
-            f"-(kappa_BKM+1)/2 * log(D) = -3/2 * log({D}) = {log_corr:.4f}, "
-            f"controlled by kappa_BKM = {KAPPA_BKM} (AP113). "
-            f"The shadow tower genus expansion gives sub-subleading corrections "
-            f"of order 1/sqrt(D)."
+            f"S = {S_BH:.4f} + alpha_log(D) + ({sum(genus_corrs):.6f}) "
+            f"+ O(e^{{-pi*sqrt({D})/2}}). The leading BPS saddle is fixed, "
+            f"kappa_BKM = {KAPPA_BKM} fixes the Borcherds output weight, and "
+            f"alpha_log(D) is not assigned a number while the compact Siegel "
+            f"normalization status is {log_norm.status}."
         ),
     }
 

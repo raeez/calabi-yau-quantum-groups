@@ -37,7 +37,7 @@ CONTENTS:
 
 CONVENTIONS:
     - Cohomological grading (|d| = +1).
-    - Bar uses DESUSPENSION: |s⁻¹v| = |v| − 1 (AP45).
+    - Bar uses DESUSPENSION: |s⁻¹v| = |v| − 1 (desuspension convention).
     - E₁ bar: ordered tensor products, Hochschild differential.
     - Exact arithmetic via fractions.Fraction.
     - κ follows Vol I conventions: κ(H_k) = k, κ(Vir_c) = c/2.

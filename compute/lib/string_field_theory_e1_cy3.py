@@ -182,7 +182,7 @@ No floating-point approximations.
 CONVENTIONS
 ===========
   - Cohomological grading: |d| = +1
-  - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (AP45)
+  - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (desuspension convention)
   - E_1 = associative (ordered); E_2 = braided; E_infty = commutative
   - kappa(H_k) = k for Heisenberg at level k (AP48)
   - CoHA != E_1-chiral algebra (AP-CY7): CoHA is the TARGET that the
@@ -935,15 +935,16 @@ class CSFTData:
         )
 
     def verify_center_upgrading(self) -> bool:
-        """Verify that the center upgrades E_1 to E_2.
+        """Verify that the center carries the categorical E_2 braiding.
 
-        The Drinfeld center Z(A) of an E_1 algebra A has an E_2 structure.
-        This is the algebraic incarnation of the open -> closed string map.
+        The Drinfeld center of the E_1 representation category has an
+        E_2 structure. This is the algebraic incarnation of the
+        open -> closed string map.
 
         The L_infty structure of CSFT arises from the E_2 Lie algebra
         structure on Z(A)[1].
         """
-        # E_1 -> E_2 upgrading via center is a theorem (Lurie HA)
+        # The categorical center carries E_2 braiding (Lurie HA).
         return True
 
 
@@ -1154,8 +1155,9 @@ def conifold_tachyon_condensation() -> TachyonCondensation:
 def c3_koszul_data() -> KoszulDualityData:
     """Koszul duality for C^3 (Heisenberg H_1).
 
-    H_1 is E_1 Koszul self-dual (up to shift):
-        H_1^{!,E_1} = H_{-1}  (Heisenberg at level -1)
+    H_1 is not E_1 Koszul self-dual:
+        H_1^{!,E_1} is the curved Sym^ch(V*[1]) branch with the same
+        scalar kappa as H_{-1}
 
     kappa(H_1) = 1, kappa(H_{-1}) = -1.
     kappa + kappa^! = 0 (Koszul complementarity).
@@ -1166,7 +1168,7 @@ def c3_koszul_data() -> KoszulDualityData:
         kappa_dual=Fraction(-1),
         n_generators_original=1,
         n_generators_dual=1,
-        is_self_dual=True,
+        is_self_dual=False,
     )
 
 
@@ -1343,7 +1345,7 @@ def verify_c3_sft(N: int = 15, max_arity: int = 6) -> SFTVerificationResult:
       Path 3: Partition function = MacMahon (Z_top identification)
       Path 4: kappa from log Z matches kappa(H_1) = 1
       Path 5: Koszul complementarity (kappa + kappa^! = 0)
-      Path 6: CSFT from Drinfeld center (E_1 -> E_2 upgrading)
+      Path 6: CSFT from Drinfeld center (categorical E_2 braiding)
       Path 7: Cyclic bar complex dimensions (necklace counts)
     """
     osft = c3_osft_data()

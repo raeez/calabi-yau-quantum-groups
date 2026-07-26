@@ -242,7 +242,8 @@ class UniversalDefect:
         For the free-field branch (gl_1 gauge, class G or L):
             K = 0 (the Koszul dual has kappa_ch^! = -kappa_ch).
         For the BKM branch (K3 x E, class M):
-            K = kappa_BKM = 5.  [CONJECTURAL]
+            kappa_BKM = 5 is a Borcherds weight characteristic, not
+            the Koszul conductor.
         """
         # Free-field branch: K = 0
         return Rational(0)
@@ -806,7 +807,8 @@ class K3UniversalDefect:
           (K2) Structure function degree: (24, 24).
           (K3) Dimensional hierarchy: 3d -> 5d -> 6d.
           (K4) kappa_ch additivity: kappa_ch(K3 x E) = kappa_ch(K3) + kappa_ch(E).
-          (K5) Koszul conductor: K = 0 (free-field) or K = 5 (BKM).
+          (K5) Koszul conductor: K = 0 on the free-field branch;
+               kappa_BKM = 5 is the Borcherds weight characteristic.
         """
         ks = self.kappa_spectrum()
         ba = self.boundary_algebras()
@@ -823,7 +825,7 @@ class K3UniversalDefect:
         )
         k4 = self.kappa_ch == Rational(2) + Rational(1)  # 3 = 2 + 1
         k5_ff = Rational(0)  # free-field conductor
-        k5_bkm = self.kappa_BKM  # BKM conductor
+        k5_bkm = self.kappa_BKM  # Borcherds weight characteristic
 
         return {
             "ok": k1 and k2 and k3 and k4,
@@ -832,7 +834,7 @@ class K3UniversalDefect:
             "K3_dimensional_hierarchy": k3,
             "K4_kappa_additivity": k4,
             "K5_koszul_conductor_ff": k5_ff,
-            "K5_koszul_conductor_bkm": k5_bkm,
+            "K5_bkm_weight_characteristic": k5_bkm,
             "kappa_spectrum": ks,
             "boundary_algebras": ba,
         }

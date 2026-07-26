@@ -545,10 +545,10 @@ class TestKoszulDuality:
     """Tests for E_1 Koszul duality = tachyon condensation."""
 
     def test_c3_koszul_complementarity(self):
-        """kappa(H_1) + kappa(H_{-1}) = 1 + (-1) = 0.
+        """kappa(H_1) plus scalar kappa(H_1^!) is 1 + (-1) = 0.
 
         The Heisenberg at level k has kappa = k.
-        The E_1 Koszul dual of H_k is H_{-k}.
+        The E_1 Koszul dual of H_k is the curved branch with scalar kappa -k.
         Complementarity: k + (-k) = 0.
         """
         kd = c3_koszul_data()
@@ -557,9 +557,9 @@ class TestKoszulDuality:
         assert kd.kappa_sum == Fraction(0)
 
     def test_c3_koszul_self_dual(self):
-        """H_1 is self-dual (up to sign flip of the level)."""
+        """H_1 is not object-level Koszul self-dual."""
         kd = c3_koszul_data()
-        assert kd.is_self_dual
+        assert not kd.is_self_dual
 
     def test_conifold_koszul_complementarity(self):
         """kappa(conifold) + kappa(conifold^!) = 0 + 0 = 0.
@@ -600,7 +600,7 @@ class TestCSFT:
     """Tests for closed string field theory from the Drinfeld center."""
 
     def test_c3_csft_center_upgrading(self):
-        """Z(H_1) upgrades E_1 to E_2 (Drinfeld center gives braiding)."""
+        """Z(Rep^{E_1}(H_1)) carries E_2 braiding."""
         csft = c3_csft_data()
         assert csft.verify_center_upgrading()
 

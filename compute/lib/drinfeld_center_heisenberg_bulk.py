@@ -19,11 +19,12 @@ A. The Drinfeld center side (categorical).
     lambda in C, with tensor product F_lambda tensor F_mu = F_{lambda+mu}.
 
     The Drinfeld double:
-        U_{H_k} = H_k tensor H_k^!  where  H_k^! = Sym^{ch}(V^*)
-    For the Heisenberg, H_k^! is the level-inverted Heisenberg H_{-k}
-    (since the Koszul dual of the free chiral algebra is the cofree one
-    at negated level; see landscape_census.tex).  The double is:
-        Drin(H_k) = H_k tensor H_{-k}  /  (c = c')
+        U_{H_k} = H_k tensor H_k^!
+    For the Heisenberg at k != 0, H_k^! is the curved second-kind
+    Sym^{ch}(V^*[1]) branch.  The level-inverted Heisenberg H_{-k}
+    has the same scalar kappa but is not the Koszul dual object.  The
+    scalar-shadow double is modelled as:
+        Drin(H_k) = H_k tensor H_k^!  /  (c = c')
     with generators J (from H_k), J' (from H_{-k}), and central c.
 
     Brackets:
@@ -91,8 +92,9 @@ C. Comparison (Grothendieck group and E_2 structure).
 
     E_2 structure comparison:
         The Gerstenhaber bracket on Z^{der}_{ch}(H_k) with {J,J} = k
-        corresponds to the R-matrix R(z) = k/z on the Drinfeld center
-        (both are the SAME E_2 coherence datum).
+        corresponds to the coefficient of the rank-one R-matrix tensor
+        k*Omega_H/z on the Drinfeld center (both are the SAME E_2
+        coherence datum).
 
     LIMITATION: the full E_2-algebra isomorphism Z(U_A) = Z^{der}_{ch}(A)
     is not proved even for the Heisenberg.  The computation here verifies
@@ -103,7 +105,8 @@ C. Comparison (Grothendieck group and E_2 structure).
 CONVENTIONS
 ===========
   kappa_ch(H_k) = k (AP113: subscripted; C1: kappa(H_k) = k)
-  r-matrix: r^{Heis}(z) = k/z (AP126/C10: level prefix mandatory)
+  r-matrix tensor: r^{Heis}(z) = k*Omega_H/z; coefficient k/z
+      (AP126/C10: level prefix mandatory)
   Bar complex: B(H_k) = T^c(s^{-1} H_k-bar) (AP132: augmentation ideal)
   Desuspension: |s^{-1} v| = |v| - 1 (AP22/C15)
   Chiral Hochschild: concentrated in degrees {0,1,2} (Theorem H/C27)
@@ -192,7 +195,7 @@ def drinfeld_double_hk(k: Fraction) -> DrinfeldDoubleRank1:
     with cross-bracket [J, J'] = k*c.
 
     The cross-bracket coefficient is k (the level), which is the
-    r-matrix coefficient: r^{Heis}(z) = k/z (C10).
+    r-matrix tensor: r^{Heis}(z)=k*Omega_H/z; coefficient k/z (C10).
     """
     return DrinfeldDoubleRank1(
         dim=DRIN_HK_DIM,
@@ -269,7 +272,8 @@ def chiral_derived_center_hk() -> Dict[str, Any]:
         All other brackets vanish.
 
     The bracket {J, J} = k is the E_2 coherence datum that corresponds
-    to the R-matrix r^{Heis}(z) = k/z (C10) on the Drinfeld center side.
+    to the coefficient of r^{Heis}(z)=k*Omega_H/z (C10) on the
+    Drinfeld center side.
     """
     return {
         "graded_dims": CHIRHOCH_DIMS,
@@ -313,7 +317,7 @@ def chirhoch_euler_char() -> int:
 def r_matrix_heisenberg(k: Fraction) -> Dict[str, Any]:
     r"""Classical r-matrix data for H_k.
 
-    r^{Heis}(z) = k/z  (C10)
+    r^{Heis}(z) = k*Omega_H/z; stored coefficient k/z  (C10)
 
     AP126 check: r(z)|_{k=0} = 0/z = 0.  PASS.
     AP141 check: no bare 1/z without level prefix.
@@ -374,8 +378,9 @@ def kappa_heisenberg(k: Fraction) -> Fraction:
 def kappa_dual_heisenberg(k: Fraction) -> Fraction:
     r"""kappa_ch(H_k^!) = -k.
 
-    The Koszul dual H_k^! = Sym^ch(V*) (curved commutative, class G).
-    kappa_ch(H_k^!) = -k (same value as kappa_ch(H_{-k}), different algebra).
+    The Koszul dual H_k^! is the curved second-kind Sym^ch(V*[1])
+    branch (class G).  kappa_ch(H_k^!) = -k (same scalar value as
+    kappa_ch(H_{-k}), different algebra).
     """
     return -k
 
@@ -427,7 +432,7 @@ def compare_grothendieck_invariants(k: Fraction) -> Dict[str, Any]:
     checks = {}
 
     # (1) R-matrix / bracket coefficient
-    # Drinfeld side: r(z) = k/z, coefficient = k
+    # Drinfeld side: tensor kernel k*Omega_H/z, coefficient = k
     # ChirHoch side: {J, J} = k
     checks["r_matrix_vs_bracket"] = {
         "drinfeld_r_coeff": r_data["coefficient"],
@@ -491,8 +496,10 @@ def compare_e2_structure(k: Fraction) -> Dict[str, Any]:
 
     On Z(Drin(H_k)):
         The center of the Drinfeld double carries an E_2 structure
-        from the braiding.  The R-matrix R(z) = exp(k/z) determines
-        the E_2 braiding on Rep^{E_2}(Drin(H_k)).
+        from its categorical half-braiding.  The spectral family
+        R(z) = exp(k/z) is the evaluation/matrix coefficient of that
+        half-braiding on Fock modules, not the single categorical
+        braiding natural transformation itself.
         At the algebra level, the E_2 coherence datum is the r-matrix
         coefficient k.
 
@@ -517,7 +524,7 @@ def compare_e2_structure(k: Fraction) -> Dict[str, Any]:
             "a_inf_depth": 2,
         },
         "drinfeld_e2_data": {
-            "braiding_source": "R-matrix of Drin(H_k)",
+            "braiding_source": "Drinfeld-center half-braiding; R(z) is its evaluation family",
             "r_matrix": f"R(z) = exp(({k})/z)",
             "r_matrix_leading_coeff": k,
         },
@@ -643,7 +650,7 @@ def ap126_r_matrix_check(k: Fraction) -> Dict[str, Any]:
         "r_at_k0": r_at_k0["coefficient"],
         "vanishes_at_k0": r_at_k0["coefficient"] == F(0),
         "r_at_k": r_at_k["coefficient"],
-        "level_prefix_present": True,  # r(z) = k/z has explicit k
+        "level_prefix_present": True,  # coefficient k/z has explicit k
     }
 
 
@@ -795,12 +802,14 @@ def cross_verify_kappa_heisenberg() -> Dict[str, Any]:
         The formula is ill-defined at h^v = 0 (abelian).
         Instead: for abelian g, kappa = k directly (no Sugawara shift).
         This is because for abelian algebras, av(r(z)) = kappa (C13).
-        r^{Heis}(z) = k/z, so av(k/z) = k = kappa.
+        r^{Heis}(z) = k*Omega_H/z, so the averaged coefficient is
+        k = kappa.
 
     Path 3 [LC]: OPE pole analysis.
-        J(z)J(w) ~ k/(z-w)^2.  The d-log extraction gives r(z) = k/z.
-        The averaging map av: g^{E_1} -> g^{mod} sends r(z) to kappa.
-        For abelian algebras: av(k/z) = k (no Sugawara shift, C13 abelian).
+        J(z)J(w) ~ k/(z-w)^2.  The d-log extraction gives the tensor
+        kernel k*Omega_H/z. The averaging map av: g^{E_1} -> g^{mod}
+        followed by the rank-one trace sends its coefficient to kappa.
+        For abelian algebras: av_coeff(k/z) = k (no Sugawara shift).
     """
     # Path 1: census direct
     path1_kappa = lambda k: k
@@ -810,7 +819,7 @@ def cross_verify_kappa_heisenberg() -> Dict[str, Any]:
     path2_kappa = lambda k: k
 
     # Path 3: OPE -> r-matrix -> averaging
-    # r(z) = k/z, av(k/z) = k for abelian
+    # tensor kernel k*Omega_H/z, coefficient trace k for abelian
     path3_kappa = lambda k: k
 
     test_levels = [F(0), F(1), F(-1), F(1, 2), F(7)]

@@ -99,7 +99,7 @@ CONVENTIONS
 ===========
   - Cohomological grading (|d| = +1)
   - E_n Koszul shift: E_n^! = E_n{-n}
-  - Bar desuspension: |s^{-1}v| = |v| - 1 (AP45)
+  - Bar desuspension: |s^{-1}v| = |v| - 1 (desuspension convention)
   - kappa_ch always subscripted (AP113)
   - CY-A_3 conditional results use ClaimStatusConditional (AP-CY6)
   - Shadow class from full tower computation (AP-CY12)

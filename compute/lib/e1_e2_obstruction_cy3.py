@@ -377,7 +377,9 @@ def hexagon_obstruction(
         # CORRECTION: at h₃ = 0, the CY condition gives g(z) = z(z-ε₁)(z-ε₂)/
         # (z(z+ε₁)(z+ε₂)) = (z-ε₁)(z-ε₂)/((z+ε₁)(z+ε₂)).
         # With ε₂ = -ε₁: g(z) = (z-ε)(z+ε)/((z+ε)(z-ε)) = 1.
-        # So R(u) = 1 (trivial braiding = symmetric = E_∞).
+        # So R_Y(u) = 1 (trivial nonabelian Yangian braiding = symmetric
+        # E_infty shadow).  The Heisenberg ordered-bar scalar braid is a
+        # separate exp(k*hbar/z) descent datum.
         # Hence O₂ = 0 at the self-dual point.
         deformation_factor = Fraction(0)
     else:
@@ -1061,7 +1063,8 @@ def deformation_factor(eps1: Fraction, eps2: Fraction) -> Fraction:
 
     Special values:
       D(0, 0) = 0/0 → 0 (undeformed: classical limit, commutative)
-      D(ε, -ε) = 0/0 → 0 (self-dual: g(z) = 1, trivial braiding)
+      D(ε, -ε) = 0/0 → 0 (self-dual: g(z) = 1, trivial nonabelian
+      Yangian braiding)
       D(ε, ε) = 0 (symmetric: h₁ = h₂, partial simplification)
       D(1, 2) = 1/9 (generic: nontrivial obstruction)
       D(1, 0) = 1 (maximally asymmetric with one parameter zero)

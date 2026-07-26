@@ -39,6 +39,7 @@ AP COMPLIANCE:
 """
 
 import math
+from pathlib import Path
 
 import numpy as np
 import pytest
@@ -68,6 +69,9 @@ from compute.lib.genus2_chiral_partition import (
     verify_sp4_modularity_delta5,
 )
 
+REPO_ROOT = Path(__file__).resolve().parents[2]
+TOROIDAL_ELLIPTIC_TEX = REPO_ROOT / "chapters/examples/toroidal_elliptic.tex"
+
 
 # ================================================================
 # STANDARD TEST PARAMETERS
@@ -85,6 +89,49 @@ SIGMA_DEEP = 0.0 + 2.0j
 
 # N_terms for theta sums (trade-off: accuracy vs speed)
 N_THETA = 15
+
+
+def test_toroidal_elliptic_uses_theta_one_not_vartheta_one():
+    """The toroidal elliptic chapter uses theta_1 uniformly."""
+    tex = TOROIDAL_ELLIPTIC_TEX.read_text()
+
+    assert r"\theta_1" in tex
+    assert r"\vartheta_1" not in tex
+    assert (
+        r"K^{\mathrm{ell}}(z,w;\tau) = \theta_1(z-w;\tau)/\theta_1'(0;\tau)"
+        in tex
+    )
+
+
+def test_toroidal_elliptic_lattice_kappa_uses_heisenberg_route():
+    """The lattice rank curvature is not written as bare kappa_ch=rank."""
+    tex = TOROIDAL_ELLIPTIC_TEX.read_text()
+
+    assert r"\kappa_{\mathrm{ch}} = \operatorname{rank}(\Lambda)" not in tex
+    assert r"\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(V_\Lambda)" in tex
+    assert "not the compact CY Route~A Hodge" in tex
+
+
+def test_toroidal_elliptic_records_hbar_bridge():
+    """The hbar_1,hbar_2 convention is bridged to the rational hbar."""
+    tex = TOROIDAL_ELLIPTIC_TEX.read_text()
+
+    assert r"q=e^{\hbar_1}" in tex
+    assert r"t=e^{-\hbar_2}" in tex
+    assert r"\hbar=\hbar_1" in tex
+
+
+def test_toroidal_elliptic_k3xe_bridge_separates_five_invariants():
+    """The K3xE bridge separates fiber rank, Hodge, Heisenberg, and BKM values."""
+    tex = TOROIDAL_ELLIPTIC_TEX.read_text()
+
+    assert "rank of free-boson lattice" not in tex
+    assert r"\kappa_{\mathrm{ch}}(A_E)=24" not in tex
+    assert r"\chi(K3)" not in tex
+    assert r"\kappa_{\mathrm{fiber}} = 24" in tex
+    assert r"\kappa_{\mathrm{ch}}^{\mathrm{Hodge}} = 0" in tex
+    assert r"\kappa_{\mathrm{ch}}^{\mathrm{Heis}} = 3" in tex
+    assert r"\kappa_{\mathrm{BKM}}(\Delta_5) = 5" in tex
 
 
 # ================================================================

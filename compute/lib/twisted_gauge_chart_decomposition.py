@@ -61,7 +61,7 @@ CONVENTIONS
 - q = instanton counting parameter
 - Exact arithmetic via fractions.Fraction
 - Cohomological grading (differentials degree +1)
-- Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (AP45)
+- Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (desuspension convention)
 - MacMahon convention M(q) = prod_{n>=1} 1/(1-q^n)^n (AP38)
 - CY condition: h_1 + h_2 + h_3 = 0
 

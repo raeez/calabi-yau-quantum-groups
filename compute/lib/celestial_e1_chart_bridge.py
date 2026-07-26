@@ -83,7 +83,7 @@ The core identification:
 CONVENTIONS:
     - Exact arithmetic via fractions.Fraction throughout.
     - Cohomological grading (|d| = +1).
-    - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (AP45).
+    - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (desuspension convention).
     - r-matrix pole = OPE pole - 1 (AP19: d log extraction).
     - kappa(W_N) = c * H_N, NOT c/2 (AP48 for full algebra).
     - CY condition: h1+h2+h3 = 0.

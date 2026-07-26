@@ -60,7 +60,7 @@ CONVENTIONS:
   - CY condition: q_1 q_2 q_3 = 1 (multiplicative) / h_1 + h_2 + h_3 = 0
   - (q, t) convention: q = q_1, t = q_2^{-1}, q_3 = t/q
   - Exact arithmetic via fractions.Fraction throughout
-  - Bar uses desuspension: |s^{-1}v| = |v| - 1 (AP45)
+  - Bar uses desuspension: |s^{-1}v| = |v| - 1 (desuspension convention)
   - kappa follows Vol I/III conventions
 
 REFERENCES:

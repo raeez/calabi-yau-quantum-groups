@@ -247,13 +247,13 @@ def test_F_c3_eq_216_disc_3():
 
 def test_G_first_principles_a_p_match_transcribed_at_small_primes():
     G = verify_arthur_packet_delta10()
-    # 2, 3, 5, 7, 11 should all match; p=11 at 20586852 is the key cross-check
+    # 2, 3, 5, 7, 11 should all match; p=11 is the first large negative check.
     assert G["all_first_principles_match"] is True
-    assert G["a_p_first_principles"][2] == 216
-    assert G["a_p_first_principles"][3] == -3348
-    assert G["a_p_first_principles"][5] == 52110
-    assert G["a_p_first_principles"][7] == 2822456
-    assert G["a_p_first_principles"][11] == 20586852
+    assert G["a_p_first_principles"][2] == -528
+    assert G["a_p_first_principles"][3] == -4284
+    assert G["a_p_first_principles"][5] == -1025850
+    assert G["a_p_first_principles"][7] == 3225992
+    assert G["a_p_first_principles"][11] == -753618228
 
 
 def test_G_lambda_p_formula():
@@ -273,10 +273,10 @@ def test_G_ramanujan_petersson_all_primes():
         assert G["ramanujan_petersson_checks"][p] is True
 
 
-def test_G_satake_product_modulus_p15():
+def test_G_satake_product_modulus_p17():
     G = verify_arthur_packet_delta10()
-    # alpha_p * beta_p has modulus |p^15| for p=2, i.e. 2^15 = 32768
-    assert G["satake_product_modulus_eq_p15"] is True
+    # alpha_p * beta_p has modulus |p^17| for p=2, i.e. 2^17 = 131072.
+    assert G["satake_product_modulus_eq_p17"] is True
 
 
 # ------------------------------------------------------------------
@@ -447,10 +447,10 @@ def test_F_heegner_c_K3_neg_one_equals_face_a_doubling_over_4():
 
 
 def test_G_a_2_satisfies_rp_via_c_A1_scope():
-    """Arthur packet a_p at p=2: |216| <= 2 * 2^{15/2} approx 362."""
+    """Arthur packet a_p at p=2: |-528| <= 2 * 2^{17/2}."""
     G = verify_arthur_packet_delta10()
     a_2 = G["a_p_first_principles"][2]
-    assert abs(a_2) <= 2 * (2 ** 7.5) + 1
+    assert abs(a_2) <= 2 * (2 ** 8.5) + 1
 
 
 # ------------------------------------------------------------------

@@ -4,9 +4,12 @@ MATHEMATICAL FRAMEWORK
 =======================
 
 For a Lie conformal algebra L with lambda-bracket {a_lambda b}, the chiral
-CE cochain complex CE^*(L) = Hom(Lambda^*(L), k) carries a dg Lie algebra
-structure (the Gerstenhaber bracket).  The Maurer-Cartan equation in this
-dg Lie algebra is:
+CE cochain complex carries a dg Lie algebra structure (the Gerstenhaber
+bracket).  The finite routines in this engine use the exterior model
+CE^*(L_gen) = Hom(Lambda^*(L_gen), k) on a selected finite generator
+space L_gen, or equivalently a finite Rees/DWR truncation.  They do not
+model the full completed chiral CE object with the derivative-descendant
+tower.  The Maurer-Cartan equation in this finite dg Lie model is:
 
     d_CE(alpha) + (1/2) [alpha, alpha] = 0,   alpha in CE^1(L)
 
@@ -266,7 +269,7 @@ class MCObstructionTheory:
     Note the shift: CE^k(L)[1] has degree k-1, so
       g^0 = CE^1(L), g^1 = CE^2(L), g^2 = CE^3(L).
 
-    For a Lie conformal algebra L with n generators:
+    In the finite exterior model on n selected generators:
       dim g^k = binom(n, k+1)     (from the shift)
 
     At the undeformed point alpha=0:
@@ -296,7 +299,8 @@ class ADEDeformationData:
       - dim deformation = r (one direction per simple root)
       - The deformed algebra has dim(g) non-abelian generators
         (where g is the ADE Lie algebra) and 24 - r abelian generators.
-      - kappa_ch of the deformed algebra: kappa_ch(V_k(g)) = dim(g)*k/(2*h^v)
+      - kappa_ch of the deformed algebra: kappa_ch(V_k(g)) =
+        dim(g)*(k+h^v)/(2*h^v)
         for the non-abelian part, plus the abelian part unchanged.
 
     IMPORTANT (AP-CY14): the quantization of these ADE-enhanced algebras
@@ -586,10 +590,10 @@ def compute_obstruction_theory(
 ) -> MCObstructionTheory:
     r"""Compute the obstruction theory for MC(CE^{ch,*}(L)).
 
-    For a Lie conformal algebra L with n generators:
+    For the finite exterior model on n selected generators:
 
     CE dimensions:
-      dim CE^k(L) = binom(n, k)
+      dim CE^k(L_gen) = binom(n, k)
 
     Tangent complex (shifted by 1):
       dim g^k = dim CE^{k+1} = binom(n, k+1)
@@ -796,16 +800,21 @@ def mc_tangent_complex_dims(n: int) -> Dict[str, int]:
 
 
 def mc_euler_characteristic_tangent(n: int) -> int:
-    r"""Euler characteristic of the tangent complex.
+    r"""Euler characteristic of the finite exterior tangent complex.
 
-    chi(T_0 MC) = sum_{k} (-1)^k dim T^k
-                = sum_{k=-1}^{n-1} (-1)^k binom(n, k+1)
-                = -sum_{j=0}^{n} (-1)^j binom(n, j)   (substituting j=k+1)
-                = -(1-1)^n
-                = 0   for n >= 1.
+    For the finite generator model
+    T_0^{fin} MC = Hom(Lambda^*(k^n), k)[1]:
 
-    The Euler characteristic of the tangent complex VANISHES for all n >= 1.
-    This is a consequence of the binomial theorem: sum (-1)^j binom(n,j) = 0.
+        chi(T_0^{fin} MC)
+          = sum_{k=-1}^{n-1} (-1)^k binom(n, k+1)
+          = -sum_{j=0}^{n} (-1)^j binom(n, j)
+          = -(1-1)^n
+          = 0   for n >= 1.
+
+    This verifies the finite exterior/Rees-truncated model only.  The full
+    chiral CE complex can be filtered or pro-infinite because of
+    derivative descendants, and needs its own completion or regularization
+    before an Euler characteristic is defined.
     """
     total = 0
     for k in range(-1, n):
@@ -875,7 +884,7 @@ def verify_mc_all_families() -> Dict[str, Any]:
     }
 
     # 6. Cross-family verification
-    # The Euler characteristic of the tangent complex vanishes for all n >= 1
+    # The finite exterior tangent Euler characteristic vanishes for n >= 1.
     results["euler_char_vanishes"] = {
         n: mc_euler_characteristic_tangent(n) for n in range(1, 30)
     }

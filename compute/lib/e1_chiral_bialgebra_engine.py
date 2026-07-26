@@ -49,8 +49,9 @@ The averaging map sends everything to the SYMMETRIC side:
   - Coproduct: coshuffle on B^{Sigma}
   - R-matrix: trivialised to kappa_ch
 
-The key observation is that av(r(z)) = kappa_ch: the full R-matrix data
-reduces to the scalar collision residue upon symmetrization.
+In this Heisenberg-normalized W_{1+infinity} model, the key observation
+is that av(r(z)) = kappa_ch: the full R-matrix data reduces to the scalar
+collision residue upon symmetrization.
 
 CONVENTIONS
 ===========

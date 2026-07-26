@@ -59,7 +59,7 @@ CONVENTIONS
 ===========
   - Cohomological grading: |d| = +1.
   - E_1 shift: E_1^! = E_1{-1} (shift 1 = dim(R)).
-  - Bar desuspension: |s^{-1}v| = |v| - 1 (AP45).
+  - Bar desuspension: |s^{-1}v| = |v| - 1 (desuspension convention).
   - kappa_CY(X) = -chi(X) (constant-map convention).
   - Exact arithmetic via fractions.Fraction throughout.
 
@@ -641,10 +641,10 @@ class YangianKoszulSelfDualityData:
     self-dual parameters has a Koszul self-duality.
 
     EVIDENCE:
-    1. The Heisenberg H_1 (= Y^+ at the self-dual point h_1=1, h_2=0, h_3=-1)
-       is Koszul self-dual: H_1^{!, E_1} = H_{-1} ~ H_1 (at the level of
-       the bar complex, since the bar complex with zero differential has
-       the same cohomology).
+    1. The Heisenberg H_1 (= Y^+ at the self-dual parameter point
+       h_1=1, h_2=0, h_3=-1) has curved dual branch with scalar
+       kappa -1.  The zero-differential bar complex supplies evidence
+       for the scalar row, not object-level self-duality.
     2. At general parameters: the Koszul dual Y^{+,!} has parameters
        (h_1, h_2, h_3) -> (-h_1, -h_2, -h_3) (by the complementarity
        kappa -> -kappa, and kappa = -h_1*h_2*h_3 up to normalization).
@@ -1026,9 +1026,10 @@ class S3FramingKoszulData:
 
     EXPLICIT COMPUTATION:
     For the Heisenberg H_1 (the C^3 case):
-      F = identity (trivial framing, since H_1 is self-dual).
-      F^! = identity (Koszul dual framing is also trivial).
-      Constraint: F = F^!. Satisfied trivially.
+      F is the trivial framing on H_1.
+      F^! is the corresponding trivial framing on the curved dual branch.
+      Constraint: F = F^! in the scalar framing row. Satisfied there,
+      not an object-level self-duality statement.
 
     For a general CY3 with chi != 0:
       The framing F involves the CY volume form omega.

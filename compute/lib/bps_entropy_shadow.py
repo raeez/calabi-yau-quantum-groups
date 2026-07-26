@@ -43,16 +43,14 @@ THE FOURIER COEFFICIENTS OF 1/Delta_5:
   cusp form of weight 10.  The BPS degeneracies are the Fourier coefficients
   of 1/Phi_{10}.
 
-  For a Siegel modular form of weight k, the Fourier coefficients at
-  discriminant D grow as:
-
-    |a(T)| ~ C * exp(pi * sqrt(D)) * D^{-(k+1)/2}     (Rademacher)
-
   For 1/Phi_{10}: the asymptotic growth of the BPS degeneracy Omega(D) is
 
     log|Omega(D)| ~ pi * sqrt(D) + subleading
 
   matching S_BH = pi * sqrt(D) (identifying D = 4*n_1*n_5*n_p).
+  The coefficient of log(D) is a compact Siegel normalization question:
+  one must fix the contour, polar orbit, measure, and Delta_5/Phi_{10}
+  convention in the same normalization before quoting a number.
 
 THE CARDY FORMULA:
 
@@ -65,16 +63,13 @@ THE CARDY FORMULA:
   For a single copy of the K3 sigma model: c = 6.
 
   But the BPS degeneracies come from 1/Delta_5^2.  The automorphic
-  denominator Delta_5 has BKM weight 5.  For a scalar modular form, the
-  Rademacher expansion gives:
+  denominator Delta_5 has BKM weight 5.  The Rademacher expansion fixes
+  the exponential saddle:
 
     log|a(D)| ~ pi * sqrt(D)   (independent of k at leading order)
 
-  Subleading corrections remember the relevant automorphic weight:
-
-    log|a(D)| = pi * sqrt(D) - ((k+1)/2) * log(D) + O(1)
-
-  This is where kappa_BKM enters: the automorphic weight is
+  The logarithmic coefficient is not a scalar-weight substitution.  This
+  is where kappa_BKM enters cleanly: the automorphic weight is
   kappa_BKM(Delta5) = c_N(0)/2 at N=1 = 10/2 = 5.
 
 THE SHADOW PARTITION FUNCTION:
@@ -93,12 +88,10 @@ THE SHADOW PARTITION FUNCTION:
     kappa_ch^Heis = 3 (Heisenberg shadow specialisation)
     kappa_BKM = 5 (weight of Delta_5, from c_N(0)/2 at N=1)
 
-  The entropy comes from the BPS state count, controlled by kappa_BKM:
-
-    S ~ pi * sqrt(D) - (3/2) * log(D) + O(1)
-
-  The -3/2 coefficient is the standard K3 x E Rademacher correction.
-  It is not a proof of kappa_BKM by an additive kappa identity.
+  The entropy comes from the BPS state count.  The leading saddle is
+  pi*sqrt(D).  A numerical logarithmic coefficient is not a consequence
+  of kappa_BKM alone and is not a proof of kappa_BKM by an additive
+  kappa identity.
 
   The shadow tower ITSELF is indexed by kappa_ch^Heis = 3 (the
   Heisenberg-specialised chiral algebra).
@@ -117,12 +110,10 @@ THE RADEMACHER EXPANSION:
   where Kl is the Kloosterman sum and I_v is the modified Bessel function.
 
   For 1/Delta_5^2 (a Siegel modular form), the Rademacher expansion is
-  more complex (involves the Petersson inner product and Kloosterman-type
-  sums for Sp_4).  The leading term gives:
-
-    Omega(D) ~ C(D) * I_{9/2}(pi * sqrt(D)) ~ C' * exp(pi*sqrt(D)) / D^{11/4}
-
-  where the 9/2 = (weight of Phi_10 - 1)/2 and C, C' are computable.
+  more complex (involves contour choice, polar orbits, measure factors,
+  and Kloosterman-type sums for Sp_4).  The rank-one phi_{0,1} coefficient
+  lane has a finite I_{3/2} Rademacher witness; that witness is not a
+  compact Siegel logarithmic-coefficient computation.
 
   The SHADOW TOWER RESUMMATION at arity r captures the first r terms of
   the Rademacher expansion.  At arity 2 (scalar, kappa only):
@@ -147,8 +138,9 @@ KAPPA-SPECTRUM AND BLACK HOLES (AP113):
 
   Which kappa controls the black hole entropy?
 
-  ANSWER: kappa_BKM = 5.  The entropy is S = log|Omega(D)|, and Omega(D)
-  are Fourier coefficients of 1/Delta_5^2.  The weight 5 of Delta_5 is
+  ANSWER: kappa_BKM = 5 controls the automorphic output.  The entropy is
+  S = log|Omega(D)|, and Omega(D) are Fourier coefficients of 1/Delta_5^2.
+  The weight 5 of Delta_5 is
   kappa_BKM(Delta5) = c_N(0)/2 at N=1.  The Heisenberg-specialised chiral
   kappa_ch^Heis = 3 controls the shadow tower, which PRODUCES Delta_5
   through the bar Euler product (CY-A_2 at d=2, conjectural at d=3).  So:
@@ -156,8 +148,9 @@ KAPPA-SPECTRUM AND BLACK HOLES (AP113):
     kappa_ch^Heis (shadow tower) --[bar Euler product]--> Delta_5 (wt = kappa_BKM)
     --[Fourier coefficients]--> Omega(D) --[log]--> S_BH
 
-  The Heisenberg shadow is the INPUT; the BKM algebra is the OUTPUT.
-  The entropy formula uses the OUTPUT weight kappa_BKM.
+  The Heisenberg shadow is the INPUT; the BKM algebra is the OUTPUT.  The
+  leading entropy uses the output BPS count; the compact Siegel logarithmic
+  coefficient waits on the normalisation gate above.
 
 CONVENTIONS
 ===========
@@ -245,6 +238,261 @@ K3E_KAPPA_SPECTRUM = KappaSpectrum(
     kappa_cat_fiber=2,
     kappa_fiber=24,
 )
+
+
+class EntropyLogCoefficientCandidate(NamedTuple):
+    """Candidate coefficient alpha in log|Omega(D)| = pi*sqrt(D)-alpha*log(D)+O(1)."""
+    lane: str
+    coefficient: Optional[Fraction]
+    status: str
+    source: str
+
+
+class EntropyLogNormalization(NamedTuple):
+    """Normalisation gate for compact Siegel logarithmic entropy coefficients."""
+    object_name: str
+    leading_term: str
+    accepted_coefficient: Optional[Fraction]
+    status: str
+    missing_inputs: Tuple[str, ...]
+    candidates: Tuple[EntropyLogCoefficientCandidate, ...]
+    arithmetic_formula_valid: bool
+
+
+class ParamodularOrderTower(NamedTuple):
+    """Order-indexed paramodular tower with its own convention."""
+    name: str
+    orders: Tuple[int, ...]
+    weights: Tuple[Fraction, ...]
+    denominator_power: Optional[int]
+    convention: str
+
+
+class ParamodularTowerAudit(NamedTuple):
+    """Separation of the JS physical dyon tower from the primitive BKM tower."""
+    js_physical: ParamodularOrderTower
+    bkm_primitive: ParamodularOrderTower
+    intersection: Tuple[int, ...]
+    js_formula_on_bkm_orders: Dict[int, Fraction]
+    js_formula_integral_on_bkm_orders: bool
+    uniform_square_valid: bool
+    js_weight_zero_order: int
+    js_weight_zero_is_bkm_denominator: bool
+    js_weight_zero_status: str
+    js_weight_zero_missing_for_bkm: Tuple[str, ...]
+
+
+class CHLScalarIdentityGate(NamedTuple):
+    """Status gate for the N=2,3 CHL reduced-DT scalar identity."""
+    orders: Tuple[int, ...]
+    primitive_bkm_weights: Dict[int, Fraction]
+    bkm_scalar_square_weights: Dict[int, Fraction]
+    bryan_oberdieck_denominator_weights: Dict[int, Fraction]
+    scalar_square_weights_match_bryan_oberdieck: bool
+    claimed_identity: str
+    unconditional_orders: Tuple[int, ...]
+    conditional_orders: Tuple[int, ...]
+    status_by_order: Dict[int, str]
+    bryan_oberdieck_base_cases: Tuple[str, ...]
+    missing_gates: Tuple[str, ...]
+    source: str
+    normalization_warning: str
+
+
+def paramodular_order_tower_audit() -> ParamodularTowerAudit:
+    r"""Audit the two order-indexed towers carried by the symbol Phi_N.
+
+    The Jatkar--Sen physical dyon tower and the primitive BKM denominator
+    tower are different order sets.  The formula 24/(N+1)-2 belongs to the
+    JS physical tower.  Applying it to the primitive BKM orders N=4,6 gives
+    the values 14/5 and 10/7, so it does not reproduce the primitive BKM
+    tuple (5, 3, 2, 3/2, 1) (Jatkar--Sen; Govindarajan--Krishna; the
+    once-recorded tuple (5, 4, 3, 2, 1) is retracted).
+
+    The endpoint N=11 has JS weight zero.  This records a physical scalar
+    boundary, not a primitive BKM denominator: N=11 is outside the BKM order
+    set and lacks the denominator algebra, root lattice, Weyl vector, and
+    finite Hall--Borcherds recognition data required for a kappa_BKM claim.
+    """
+    js_orders = (1, 2, 3, 5, 7, 11)
+    js_weights = tuple(Fraction(24, N + 1) - 2 for N in js_orders)
+    bkm_orders = (1, 2, 3, 4, 6)
+    bkm_weights = (Fraction(5), Fraction(3), Fraction(2), Fraction(3, 2), Fraction(1))
+    mixed = {N: Fraction(24, N + 1) - 2 for N in bkm_orders}
+
+    return ParamodularTowerAudit(
+        js_physical=ParamodularOrderTower(
+            name="Jatkar-Sen physical dyon tower",
+            orders=js_orders,
+            weights=js_weights,
+            denominator_power=1,
+            convention="Z_N^{dyon}=1/Phi_{k_N}^{JS}; k_N=24/(N+1)-2",
+        ),
+        bkm_primitive=ParamodularOrderTower(
+            name="primitive BKM denominator tower",
+            orders=bkm_orders,
+            weights=bkm_weights,
+            denominator_power=None,
+            convention="kappa_BKM(Phi_N)=c_N(0)/2",
+        ),
+        intersection=tuple(N for N in js_orders if N in bkm_orders),
+        js_formula_on_bkm_orders=mixed,
+        js_formula_integral_on_bkm_orders=all(v.denominator == 1 for v in mixed.values()),
+        uniform_square_valid=False,
+        js_weight_zero_order=11,
+        js_weight_zero_is_bkm_denominator=False,
+        js_weight_zero_status="JS_WEIGHT_ZERO_SCALAR_BOUNDARY_NOT_BKM_DENOMINATOR",
+        js_weight_zero_missing_for_bkm=(
+            "Borcherds denominator algebra",
+            "root lattice and Weyl vector",
+            "signed root-character exponents",
+            "finite Hall-Borcherds recognition datum",
+        ),
+    )
+
+
+def chl_scalar_identity_gate() -> CHLScalarIdentityGate:
+    r"""Guard the N=2,3 reduced-DT scalar identity from overpromotion.
+
+    Bryan--Oberdieck formulate the primitive CHL Donaldson--Thomas formula
+    as Conjecture 0.1 and prove coefficient/base cases in Theorem 0.1.
+    The manuscript's primitive BKM convention has weights c_N(0)/2=(3,2)
+    at N=2,3 (the once-recorded (4,3) is retracted), so its scalar square
+    has weights (6,4).  The denominator in the Bryan--Oberdieck convention
+    has weights ceil(24/(N+1))-2=(6,4).  The weights now agree, but equal
+    weight does not identify the forms: the comparison between the two
+    denominators remains a load-bearing normalization theorem, not a
+    formal consequence of the weight identity.
+    """
+    orders = (2, 3)
+    primitive_bkm_weights = {2: Fraction(3), 3: Fraction(2)}
+    bkm_scalar_square_weights = {
+        N: 2 * weight for N, weight in primitive_bkm_weights.items()
+    }
+    bryan_oberdieck_denominator_weights = {
+        N: Fraction(math.ceil(Fraction(24, N + 1)) - 2) for N in orders
+    }
+
+    return CHLScalarIdentityGate(
+        orders=orders,
+        primitive_bkm_weights=primitive_bkm_weights,
+        bkm_scalar_square_weights=bkm_scalar_square_weights,
+        bryan_oberdieck_denominator_weights=bryan_oberdieck_denominator_weights,
+        scalar_square_weights_match_bryan_oberdieck=(
+            bkm_scalar_square_weights == bryan_oberdieck_denominator_weights
+        ),
+        claimed_identity="Z_DT^red(X_N) = -1/(F_N^CHL)^2 for N=2,3",
+        unconditional_orders=(),
+        conditional_orders=orders,
+        status_by_order={
+            2: "CONDITIONAL_NEEDS_CHL_DT_AND_NORMALIZATION_GATE",
+            3: "CONDITIONAL_NEEDS_CHL_DT_AND_NORMALIZATION_GATE",
+        },
+        bryan_oberdieck_base_cases=(
+            "first t^{-1/N} coefficient",
+            "first q^{-1} coefficient",
+            "t^0 coefficient conditional on the Bryan-Kool Behrend-function conjecture",
+        ),
+        missing_gates=(
+            "all-class proof of Bryan-Oberdieck Conjecture 0.1",
+            "reduced multiple-cover formula from primitive to imprimitive classes",
+            "normalization bridge from the Bryan-Oberdieck denominator to the primitive BKM scalar square",
+            "Behrend-sign and E-quotient convention match with the N=1 OP sign",
+        ),
+        source="Bryan-Oberdieck 2018 arXiv:1811.06102 Conjecture 0.1 and Theorem 0.1",
+        normalization_warning=(
+            "BO denominator weights (6,4) equal primitive BKM square weights (6,4); "
+            "equal weight does not identify the forms - the normalization bridge remains open"
+        ),
+    )
+
+
+def compact_siegel_log_normalization(
+    *,
+    contour_normalized: bool = False,
+    polar_data_matched: bool = False,
+    measure_fixed: bool = False,
+    primitive_square_convention_fixed: bool = False,
+    coefficient: Optional[Fraction] = None,
+) -> EntropyLogNormalization:
+    r"""Classify the logarithmic coefficient for the compact Siegel BPS count.
+
+    The existing engines prove the leading term
+        log|Omega(D)| = pi*sqrt(D) + O(log D)
+    for the K3 x E convention used here.  They do not by themselves fix the
+    coefficient of log(D) for the compact reciprocal Siegel form
+    (Phi_{10}^{un})^{-1}.  That coefficient depends on four normalization
+    choices being made in the same convention:
+
+    * the contour normalization in the DMZ/Sen integral;
+    * the polar orbit and polar coefficient data;
+    * the measure and charge-lattice normalization;
+    * the primitive Delta_5 versus squared Phi_{10}^{un} convention.
+
+    The rank-one phi_{0,1} Rademacher packet is an independent arithmetic
+    witness, but it is not a compact Siegel logarithmic-coefficient witness.
+    """
+    required = {
+        "contour_normalization": contour_normalized,
+        "polar_data": polar_data_matched,
+        "measure_normalization": measure_fixed,
+        "primitive_square_convention": primitive_square_convention_fixed,
+    }
+    missing = tuple(name for name, present in required.items() if not present)
+
+    candidates = (
+        EntropyLogCoefficientCandidate(
+            lane="rank_one_phi01",
+            coefficient=None,
+            status="DIFFERENT_LANE",
+            source="finite I_{3/2} Jacobi packet; does not determine the compact Siegel logarithmic coefficient",
+        ),
+        EntropyLogCoefficientCandidate(
+            lane="scalar_5d_BMPV",
+            coefficient=Fraction(3, 2),
+            status="UNPINNED_CANDIDATE",
+            source="previous scalar shorthand; lacks the compact contour/polar/measure comparison",
+        ),
+        EntropyLogCoefficientCandidate(
+            lane="complementarity_shadow",
+            coefficient=Fraction(5, 4),
+            status="UNPINNED_CANDIDATE",
+            source="older complementarity engine convention; not matched to the compact Siegel contour",
+        ),
+        EntropyLogCoefficientCandidate(
+            lane="four_dimensional_dyon",
+            coefficient=Fraction(27, 4),
+            status="UNPINNED_CANDIDATE",
+            source="4d Siegel/dyon convention appearing in the local surface; convention conversion missing",
+        ),
+        EntropyLogCoefficientCandidate(
+            lane="sen_quantum_entropy",
+            coefficient=Fraction(29, 4),
+            status="UNPINNED_CANDIDATE",
+            source="Sen logarithmic-correction convention appearing in the local surface; convention conversion missing",
+        ),
+    )
+
+    arithmetic_formula_valid = (
+        Fraction(K3E_KAPPA_SPECTRUM.kappa_BKM + 1, 2) == Fraction(3, 2)
+    )
+
+    if not missing and coefficient is not None:
+        status = "PINNED_COMPACT_SIEGEL_LOG_COEFFICIENT"
+        accepted = coefficient
+    else:
+        status = "UNPINNED_NORMALIZATION"
+        accepted = None
+
+    return EntropyLogNormalization(
+        object_name="(Phi_10^{un})^{-1}=Delta_5^{-2}",
+        leading_term="pi*sqrt(D)",
+        accepted_coefficient=accepted,
+        status=status,
+        missing_inputs=missing,
+        candidates=candidates,
+        arithmetic_formula_valid=arithmetic_formula_valid,
+    )
 
 
 def verify_kappa_spectrum() -> Dict[str, bool]:
@@ -480,6 +728,69 @@ BPS_DEGENERACIES_K3E = {
 }
 
 
+# Primitive denominator exponents from the Eichler-Zagier normalized phi_{0,1}.
+# These are root-character exponents for Delta_5, not coefficients of
+# 1/Phi_{10}^{un}.
+PHI01_ROOT_EXPONENTS_K3E = {
+    -1: 1,
+    0: 10,
+    3: -64,
+    4: 108,
+    7: -513,
+    8: 808,
+    11: -2752,
+    12: 4016,
+    15: -11775,
+    16: 16524,
+}
+
+
+class RootBPSCoefficientFirewallRow(NamedTuple):
+    """One discriminant row separating root exponents from BPS coefficients."""
+    D: int
+    phi01_root_exponent: int
+    bps_coefficient: int
+    coefficientwise_equal: bool
+
+
+class RootBPSCoefficientFirewall(NamedTuple):
+    """Firewall between primitive denominator exponents and reciprocal-Igusa coefficients."""
+    rows: Tuple[RootBPSCoefficientFirewallRow, ...]
+    any_nonpolar_equal: bool
+    relation: str
+    status: str
+
+
+def root_bps_coefficient_firewall(
+    D_values: Tuple[int, ...] = (3, 4, 7, 8, 11, 12, 15, 16),
+) -> RootBPSCoefficientFirewall:
+    r"""Compare phi_{0,1} root exponents with 1/Phi_{10}^{un} BPS coefficients.
+
+    The primitive BKM denominator uses the phi_{0,1} coefficients as product
+    exponents.  The physical BPS index uses coefficients of the reciprocal
+    Igusa square.  These are related by the Borcherds/DMVV product, not by
+    coefficientwise equality.
+    """
+    rows = []
+    for D in D_values:
+        root = PHI01_ROOT_EXPONENTS_K3E[D]
+        bps = BPS_DEGENERACIES_K3E[D]
+        rows.append(RootBPSCoefficientFirewallRow(
+            D=D,
+            phi01_root_exponent=root,
+            bps_coefficient=bps,
+            coefficientwise_equal=(root == bps),
+        ))
+
+    any_equal = any(row.coefficientwise_equal for row in rows)
+    return RootBPSCoefficientFirewall(
+        rows=tuple(rows),
+        any_nonpolar_equal=any_equal,
+        relation="PRODUCT_LEVEL_BORCHERDS_DMVV_NOT_COEFFICIENTWISE",
+        status="ROOT_EXPONENTS_DISTINCT_FROM_BPS_COEFFICIENTS",
+    )
+
+
 def bps_degeneracy_k3e(D: int) -> Optional[int]:
     """Return the BPS degeneracy Omega(D) for K3 x E at discriminant D.
 
@@ -555,46 +866,31 @@ def verify_strominger_vafa_k3e(n: int, l: int, m: int) -> Dict[str, Any]:
 # ===========================================================================
 
 def rademacher_leading_k3e(D: int) -> float:
-    """Leading-order Rademacher asymptotic for 1/Delta_5^2 at discriminant D.
+    """Leading Rademacher saddle for the compact K3 x E BPS count.
 
-    For a weight-k Siegel modular form:
-      |a(T)| ~ C * exp(pi * sqrt(D)) * D^{-(k+1)/2}
+    This function deliberately returns only the pinned leading term
+        pi * sqrt(D).
 
-    For Phi_{10} = (Delta_5)^2 (weight 10):
-      The reciprocal 1/Phi_{10} has Fourier coefficients growing as
-      Omega(D) ~ C * exp(pi * sqrt(D)) * D^{-11/4}
-
-    The entropy (leading + first subleading):
-      S = log|Omega(D)| ~ pi * sqrt(D) - (11/4) * log(D) + O(1)
-
-    The coefficient 11/4 comes from the weight of Phi_{10}: (10+1)/4 = 11/4.
-    (For a SCALAR modular form the exponent is (k+1)/2, but for Siegel
-    forms the dimension formula gives (2k+1)/4 in the Fourier coefficient
-    asymptotic. With k=10: (2*10+1)/4 = 21/4 for the form itself, and
-    for the RECIPROCAL the sign flips relative to the Rademacher formula.)
-
-    SIMPLIFIED: use the standard result for K3 x E from the literature:
-      S ~ pi * sqrt(D) - (3/2) * log(D) + O(1)
-
-    where the -3/2 coefficient is the Bessel function correction for
-    the Rademacher expansion of 1/Delta_5^2 (see Dabholkar-Murthy-Zagier).
+    The coefficient of log(D) for the compact reciprocal Siegel form
+    (Phi_{10}^{un})^{-1}=Delta_5^{-2} is not fixed by this helper.  Use
+    compact_siegel_log_normalization() to decide whether the contour,
+    polar data, measure, and primitive/square convention have been fixed
+    strongly enough to attach a numeric logarithmic coefficient.
     """
     if D <= 0:
         return 0.0
-    return math.pi * math.sqrt(D) - 1.5 * math.log(D)
+    return math.pi * math.sqrt(D)
 
 
 def rademacher_first_correction_k3e(D: int) -> float:
-    """First Rademacher correction to the BPS entropy.
+    """Exponential scale of the first non-principal Rademacher conductor.
 
     The Rademacher expansion:
       Omega(D) = sum_{c >= 1} C_c(D)
 
-    The c=1 term gives:
-      C_1(D) ~ (2*pi) * (1/D)^{3/4} * I_{9/2}(pi*sqrt(D))
-
-    For large D, I_{9/2}(x) ~ exp(x) / sqrt(2*pi*x), so:
-      C_1(D) ~ sqrt(2) * D^{-1} * exp(pi*sqrt(D))
+    This helper estimates the ratio C_2/C_1 at the level of exponential
+    saddle separation.  It is not a compact Siegel Bessel-index or
+    logarithmic-coefficient computation.
 
     The c=2 correction is exponentially suppressed:
       C_2(D) ~ exp(pi*sqrt(D)/2) * (subleading)
@@ -606,10 +902,8 @@ def rademacher_first_correction_k3e(D: int) -> float:
 
     # Leading Rademacher term (c=1):
     sqrt_D = math.sqrt(D)
-    # I_{9/2}(pi*sqrt(D)): for large argument, I_v(x) ~ e^x / sqrt(2*pi*x)
+    # Large-argument Bessel scale: I_v(x) ~ e^x / sqrt(2*pi*x).
     x = math.pi * sqrt_D
-    # I_{9/2}(x) ~ e^x / sqrt(2*pi*x) * (1 - (81/2 - 1/4)/(8*x) + ...)
-    # = e^x / sqrt(2*pi*x) * (1 - 10.0625/(x) + ...)
     if x > 0:
         bessel_approx = math.exp(x) / math.sqrt(2 * math.pi * x)
     else:
@@ -789,8 +1083,8 @@ def shadow_vs_rademacher(D: int) -> ResummationComparison:
     # Shadow resummed = leading + all corrections
     S_shadow = S_BH + sum(corrections.values())
 
-    # Subleading Rademacher
-    S_rad_sub = S_rad_leading  # already includes -3/2 * log(D)
+    # Subleading compact log coefficient is gated by compact_siegel_log_normalization().
+    S_rad_sub = S_rad_leading
 
     # Rademacher correction ratio
     rad_ratio = rademacher_first_correction_k3e(D)
@@ -824,13 +1118,17 @@ def kappa_entropy_analysis() -> Dict[str, Any]:
     Auxiliary fiber datum:
       chi_O_K3_fiber = 2: K3-fiber holomorphic Euler characteristic
 
-    ANSWER: kappa_BKM = 5 controls the black hole entropy.
+    ANSWER: kappa_BKM = 5 controls the automorphic output whose Fourier
+    coefficients give the entropy.  It does not, by itself, pin the
+    compact Siegel coefficient of log(D).
 
     REASONING:
     1. The BPS degeneracies Omega(D) are Fourier coefficients of 1/Delta_5^2.
     2. Delta_5 has weight kappa_BKM(Delta5) = c_N(0)/2 at N=1 = 10/2 = 5.
-    3. The Rademacher subleading correction involves kappa_BKM:
-         S = pi*sqrt(D) - f(kappa_BKM) * log(D) + O(1)
+    3. The logarithmic coefficient is a compact Siegel normalisation
+       problem: contour, polar orbit, measure, and primitive/square
+       conventions must be fixed in one convention before a number is
+       asserted.
     4. The SHADOW TOWER uses kappa_ch^Heis = 3 as input, but PRODUCES
        Delta_5 (with weight kappa_BKM = 5) through the bar Euler product.
     5. The bar Euler product is the Borcherds multiplicative lift
@@ -855,7 +1153,8 @@ def kappa_entropy_analysis() -> Dict[str, Any]:
         ks.kappa_BKM == int(ks.kappa_ch_Heis) + ks.kappa_cat_fiber
     )
 
-    # Rademacher subleading with each kappa candidate:
+    # Rademacher subleading coefficient candidates.  These are deliberately
+    # not accepted without the compact Siegel normalization gate.
     D_test = 100
     candidates = {
         "kappa_ch": float(ks.kappa_ch),
@@ -866,18 +1165,14 @@ def kappa_entropy_analysis() -> Dict[str, Any]:
         "kappa_fiber": float(ks.kappa_fiber),
     }
 
+    normalization = compact_siegel_log_normalization()
     rademacher_predictions = {}
     for name, k in candidates.items():
-        # Subleading coefficient in the Rademacher expansion:
-        # S ~ pi*sqrt(D) - alpha_k * log(D) where alpha_k depends on k
-        # For a Siegel form of weight k: alpha = (k+1)/2
-        # But kappa_BKM = 5 corresponds to weight 5, giving alpha = 3
-        # For Phi_{10}: weight 10, alpha = 11/2 = 5.5
-        # For 1/Delta_5^2: the reciprocal changes the sign/value.
-        # Standard result: -3/2 * log(D) for 1/Phi_{10} (Dabholkar-Murthy-Zagier)
         rademacher_predictions[name] = {
             "kappa_value": k,
-            "S_prediction": math.pi * math.sqrt(D_test) - (k + 1) / 2 * math.log(D_test),
+            "leading_entropy": math.pi * math.sqrt(D_test),
+            "log_coefficient_status": normalization.status,
+            "accepted_log_coefficient": normalization.accepted_coefficient,
         }
 
     return {
@@ -900,7 +1195,9 @@ def kappa_entropy_analysis() -> Dict[str, Any]:
             "Delta_5 has weight kappa_BKM = c_N(0)/2 at N=1, equal to 5. The shadow tower "
             "(kappa_ch^Heis = 3) PRODUCES Delta_5 through the bar Euler product. "
             "The entropy uses the OUTPUT weight kappa_BKM, not compact kappa_ch "
-            "and not the Heisenberg input as an additive proof."
+            "and not the Heisenberg input as an additive proof. The compact Siegel "
+            "logarithmic coefficient remains unpinned until contour, polar, measure, "
+            "and primitive/square conventions are fixed together."
         ),
         "key_identity": (
             "canonical kappa_BKM(Delta5) = c_N(0)/2 at N=1 = 5; false additive "
@@ -908,6 +1205,7 @@ def kappa_entropy_analysis() -> Dict[str, Any]:
             "coincidence only: kappa_ch^Heis + chi(O_K3) = 3 + 2 = 5"
         ),
         "rademacher_predictions": rademacher_predictions,
+        "log_normalization": normalization._asdict(),
     }
 
 
@@ -935,7 +1233,7 @@ def entropy_comparison_table(
     - Omega(D): exact BPS degeneracy
     - S_BH = pi * sqrt(D)
     - S_micro = log|Omega(D)|
-    - S_Rademacher = pi*sqrt(D) - 3/2 * log(D)
+    - S_Rademacher = pi*sqrt(D), the pinned leading Rademacher saddle
     - S_shadow = pi*sqrt(D) + shadow corrections
     """
     if D_values is None:

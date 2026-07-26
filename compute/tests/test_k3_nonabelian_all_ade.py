@@ -133,11 +133,13 @@ class TestOffdiagonalCount:
 
     @pytest.mark.parametrize("ade_type", ADE_TYPES_ORDERED)
     def test_complement_rank(self, ade_type):
-        """Complement rank = 24 - n_mukai_dirs.
+        """State and Heisenberg complements use the correct ranks.
         # VERIFIED: [DA]
         """
         result = offdiagonal_count_general(ade_type)
         assert result['complement_rank'] == 24 - result['n_mukai_dirs']
+        assert result['state_complement_rank'] == 24 - result['n_mukai_dirs']
+        assert result['heisenberg_complement_rank'] == 24 - result['rank']
 
     def test_offdiag_a1_cross_check(self):
         """A1 off-diagonal cross-check with k3_rmatrix_enhanced.
@@ -502,10 +504,11 @@ class TestK3Embedding:
 
     @pytest.mark.parametrize("ade_type", ADE_TYPES_ORDERED)
     def test_central_charge_24(self, ade_type):
-        """Central charge = 24 at level 1.
+        """Central charge = c(g,1) + c_Heis(24-r) = 24 at level 1.
         # VERIFIED: [DA]
         """
         result = k3_embedding_parameters(ade_type)
+        assert result['heisenberg_complement_rank'] == 24 - result['rank']
         assert result['central_charge']['c_total_is_24']
 
 

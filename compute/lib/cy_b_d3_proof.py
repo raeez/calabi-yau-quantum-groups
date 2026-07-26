@@ -607,7 +607,7 @@ def cy_b2_d3_quintic() -> CYB2D3ProofData:
     """CY-B2 at d=3 for the quintic CY_3 (free-field branch, class G).
 
     The quintic threefold X in P^4 has chi_top(X) = -200.
-    On the free-field branch (lattice VOA / class G):
+    On the free-field branch (class G):
       kappa_BCOV_shadow_conjectural = chi_top / 24 = -25/3
       dual BCOV-shadow scalar = 25/3
       Conductor: rho_K = 0

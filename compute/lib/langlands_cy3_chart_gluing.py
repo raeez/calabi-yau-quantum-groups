@@ -624,9 +624,9 @@ class KapustinWittenData(NamedTuple):
     psi_b_twist: Optional[Fraction]      # Ψ at k→∞ (B-twist, limiting)
     psi_critical: Optional[Fraction]     # Ψ at k=-h^∨ (pole)
 
-    # E₁ Koszul duality realization
+    # E₁ bar/Koszul-duality comparison data
     a_twist_algebra: str        # A_X at k (A-twist encodes Hitchin side)
-    b_twist_algebra: str        # B^{E₁}(A_X) (B-twist = Koszul dual)
+    b_twist_algebra: str        # B-twist branch; dual algebra needs the bar-dual/cobar package
     koszul_dual_level: Fraction # FF dual level
 
     # Quantum GL dual level (for duality Ψ·Ψ^∨ = 1)
@@ -643,7 +643,9 @@ def kapustin_witten_data_sln(N: int) -> KapustinWittenData:
 
     In the E₁ framework:
       A-twist ↔ E₁ algebra A_X (the CY3 chiral algebra)
-      B-twist ↔ B^{E₁}(A_X) (the E₁ bar complex = Koszul dual)
+      B-twist ↔ the E₁ bar/Koszul-dual branch of A_X; the bar complex is
+                  the coalgebraic input, and the dual algebra requires the
+                  Verdier/linear-dual plus cobar comparison package.
 
     E₁ Koszul duality = Langlands duality (CONJECTURAL).
 

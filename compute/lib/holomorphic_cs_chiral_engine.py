@@ -36,7 +36,8 @@ CHIRAL CE COMPLEX:
 
 KOSZUL DUAL (defect algebra):
   A^! = D_{Ran}(B(A))  (Verdier dual of bar complex)
-  At n=1: A^! = V_{k'}(g) at reflected level k' = -k - 2h^vee
+  At n=1: A^! is the chiral CE/bar-cochain target whose reflected
+          current presentation has level k' = -k - 2h^vee
   At n=2: A^! carries E_2-chiral structure
   At n=3: A^! carries E_3-chiral structure (conjectural)
 
@@ -395,7 +396,8 @@ class KoszulDual:
     """Koszul dual A^! = D_{Ran}(B(A)) of a boundary chiral algebra.
 
     The Koszul dual is the defect algebra controlling line operators.
-    At n=1: A^! = V_{k'}(g) at reflected level k' = -k - 2h^vee.
+    At n=1: A^! is the chiral CE/bar-cochain target whose reflected
+    current presentation has level k' = -k - 2h^vee.
     At n=2,3: A^! carries E_n-chiral structure (conjectural at n=3).
     """
 
@@ -792,10 +794,11 @@ class E3BarComplexHeisenberg:
         return OmegaBackground(-self.omega.h1, -self.omega.h2)
 
     def is_koszul_self_dual(self) -> bool:
-        """H_1 is Koszul self-dual at the self-dual point.
+        """The omega-background point is fixed by parameter inversion up to relabeling.
 
         At (1,0,-1), the inversion gives (-1,0,1), which is a relabeling
-        (swap z_1 <-> z_3). The algebra is isomorphic.
+        (swap z_1 <-> z_3). This is parameter-level self-duality, not
+        the Vol I object-level claim H_1 ~= H_1^!.
         """
         if not self.is_self_dual_point:
             return False
@@ -1479,10 +1482,10 @@ def _hexapartition_count(n: int) -> int:
 
 
 class E3BarComplexBetaGamma:
-    r"""E_3 bar complex of the betagamma system, the simplest class C algebra.
+    r"""E_3 bar complex of the bosonic betagamma system.
 
-    CLASSIFICATION: The betagamma system (beta-gamma ghosts, bc system)
-    is class C (contact, shadow depth r_max = 4).  This is the FIRST case
+    CLASSIFICATION: The bosonic betagamma system is class C (contact,
+    shadow depth r_max = 4).  This is the FIRST case
     where the quartic shadow S_4 is nonzero, distinguishing it from class L.
 
     OPE: beta(z)gamma(w) ~ 1/(z-w).
@@ -1552,13 +1555,16 @@ class E3BarComplexBetaGamma:
     The pattern: for class >= L with g generators per direction, the E_3
     bar cohomology is (1+t)^{3g} = H*(T^{3g}), total dim = 2^{3g}.
 
-    kappa_ch = -1/2 (from the conformal anomaly of the betagamma system
-    with lambda = 1, central charge c = -2).
+    For the standard lambda = 1 convention used here, the bosonic
+    betagamma system has central charge c = 2 and kappa_ch = c/2 = 1.
+    The value kappa_ch = -1/2 belongs to the lambda = 1/2 symplectic
+    boson convention, not to this lambda = 1 E_3 model.
 
     The Koszul dual of betagamma is the bc system (exterior algebra).
-    Koszul conductor: rho_K = kappa_ch(bg) + kappa_ch(bc)
-    For bc with lambda = 0: c = 2, kappa_ch = 1/12.
-    Conductor: rho_K = -1/2 + 1/12 = -5/12.
+    With the matching lambda = 1 convention, bc has c = -2 and
+    kappa_ch = -1, so the dual kappa sum vanishes:
+
+      rho_K = kappa_ch(bg) + kappa_ch(bc) = 1 + (-1) = 0.
 
     WARNING: The "class C" designation refers to the A_infinity structure
     having m_4 != 0 (shadow depth 4), NOT to the E_3 bar cohomology being
@@ -1568,7 +1574,7 @@ class E3BarComplexBetaGamma:
     replaces one direction with the Koszul dual.
 
     Attributes:
-        kappa_ch_val: kappa_ch = -1/2 (betagamma conformal anomaly, AP113)
+        kappa_ch_val: kappa_ch = 1 (betagamma conformal anomaly, AP113)
         S4: quartic shadow contact invariant
         num_generators: 2 (beta, gamma)
     """
@@ -1578,14 +1584,12 @@ class E3BarComplexBetaGamma:
 
         Args:
             S4: quartic shadow contact invariant.
-                Default: Q^contact = 1 for standard betagamma at c = -2.
+                Default: S_4 = -5/12 in the charged class-C normalization.
         """
         self.num_generators = 2
-        self.kappa_ch_val = Rational(-1, 2)  # AP113: always subscripted
-        self.central_charge = Rational(-2)
-        # Q^contact = -24/(c*(5c+22)) for betagamma;
-        # at c = -2: -24/((-2)*(5*(-2)+22)) = -24/(-2*12) = -24/(-24) = 1
-        self.S4 = S4 if S4 is not None else Rational(1)
+        self.kappa_ch_val = Rational(1)  # AP113: always subscripted
+        self.central_charge = Rational(2)
+        self.S4 = S4 if S4 is not None else Rational(-5, 12)
         self.alpha = Rational(0)  # cubic shadow vanishes for betagamma
 
     @property
@@ -1716,27 +1720,23 @@ class E3BarComplexBetaGamma:
         return sum((-1)**n * self.cohomology_dimension(n) for n in range(7))
 
     def kappa_ch(self) -> Rational:
-        """kappa_ch = -1/2 for the betagamma system."""
+        """kappa_ch = 1 for the lambda = 1 betagamma system."""
         return self.kappa_ch_val
 
     def kappa_ch_dual(self) -> Rational:
         """kappa_ch of the Koszul dual (bc system).
 
-        bc with lambda = 0 has c = 2.  kappa_ch(bc) = c/24 ... no.
-        Actually: betagamma Koszul conductor is nonzero for class C.
-        For the standard conventions: kappa_ch(bg^!) = -(kappa_ch + rho_K).
-        But we use the direct formula: bc at lambda=0 gives kappa_ch = 1/12.
-
-        rho_K = kappa_ch + kappa_ch^! = -1/2 + 1/12 = -5/12.
+        In the matching lambda = 1 convention, bc has c = -2 and
+        kappa_ch = -1.
         """
-        return Rational(1, 12)
+        return Rational(-1)
 
     def koszul_conductor(self) -> Rational:
         """Koszul conductor rho_K = kappa_ch(A) + kappa_ch(A^!).
 
-        For betagamma + bc: rho_K = -1/2 + 1/12 = -5/12.
-        Nonzero conductor is a hallmark of class >= C.
-        (Compare: class G has rho_K = 0, class L has rho_K = 0.)
+        For betagamma + bc in the matching lambda = 1 convention,
+        rho_K = 1 + (-1) = 0.  The class-C signal is the nonzero
+        quartic shadow S_4, not a nonzero kappa conductor.
         """
         return self.kappa_ch() + self.kappa_ch_dual()
 
@@ -2043,14 +2043,14 @@ class E3BarComplexBc:
 
     CENTRAL CHARGE AND kappa_ch:
 
-    For bc at lambda=1: c = 2 (opposite sign from betagamma at lambda=1).
-    kappa_ch(bc) = 1/12 (AP113: always subscripted).
+    For bc at lambda=1: c = -2 (opposite sign from betagamma at lambda=1).
+    kappa_ch(bc) = -1 (AP113: always subscripted).
 
     Koszul duality: betagamma and bc are Koszul dual to each other.
-    Koszul conductor: rho_K = kappa_ch(bg) + kappa_ch(bc) = -1/2 + 1/12 = -5/12.
+    Koszul conductor: rho_K = kappa_ch(bg) + kappa_ch(bc) = 1 + (-1) = 0.
 
     Attributes:
-        kappa_ch_val: kappa_ch = 1/12 (bc conformal anomaly, AP113)
+        kappa_ch_val: kappa_ch = -1 (bc conformal anomaly, AP113)
         S4: quartic shadow contact invariant
         num_generators: 2 (b, c)
     """
@@ -2060,14 +2060,12 @@ class E3BarComplexBc:
 
         Args:
             S4: quartic shadow contact invariant.
-                Default: Q^contact for standard bc at c = 2.
+                Default: S_4 = -5/12 in the charged class-C normalization.
         """
         self.num_generators = 2
-        self.kappa_ch_val = Rational(1, 12)  # AP113: always subscripted
-        self.central_charge = Rational(2)
-        # S4 for bc: same quartic shadow structure as betagamma
-        # Q^contact = -24/(c*(5c+22)) at c = 2: -24/(2*(10+22)) = -24/64 = -3/8
-        self.S4 = S4 if S4 is not None else Rational(-3, 8)
+        self.kappa_ch_val = Rational(-1)  # AP113: always subscripted
+        self.central_charge = Rational(-2)
+        self.S4 = S4 if S4 is not None else Rational(-5, 12)
         self.alpha = Rational(0)  # cubic shadow vanishes for bc (same as betagamma)
         self.statistics = "fermionic"
 
@@ -2200,22 +2198,21 @@ class E3BarComplexBc:
         return sum((-1)**n * self.cohomology_dimension(n) for n in range(7))
 
     def kappa_ch(self) -> Rational:
-        """kappa_ch = 1/12 for the bc system (AP113)."""
+        """kappa_ch = -1 for the lambda = 1 bc system (AP113)."""
         return self.kappa_ch_val
 
     def kappa_ch_dual(self) -> Rational:
         """kappa_ch of the Koszul dual (betagamma system).
 
-        betagamma at lambda=1 has kappa_ch = -1/2.
+        betagamma at lambda=1 has kappa_ch = 1.
         """
-        return Rational(-1, 2)
+        return Rational(1)
 
     def koszul_conductor(self) -> Rational:
         """Koszul conductor rho_K = kappa_ch(bc) + kappa_ch(bg).
 
-        For bc + betagamma: rho_K = 1/12 + (-1/2) = -5/12.
-        Same conductor as when computed from the betagamma side
-        (symmetric under Koszul duality).
+        For bc + betagamma in the matching lambda = 1 convention,
+        rho_K = -1 + 1 = 0, symmetric under Koszul duality.
         """
         return self.kappa_ch() + self.kappa_ch_dual()
 
@@ -2344,7 +2341,7 @@ class E3BarSpectralSequenceVirasoro:
     COMPUTATION OF d_4:
 
     The d_4 differential on the volume form [e_1 ^ e_2 ^ e_3] of Lambda^3
-    is determined by m_4(T,T,T,T) after passage through the spectral
+    is computed from the chosen m_4(T,T,T,T) after passage through the spectral
     sequence. From the bar differential:
 
       d_bar = d_1 + d_2 + d_3 + d_{>=4}
@@ -2513,7 +2510,7 @@ class E3BarSpectralSequenceVirasoro:
         r"""The d_4 differential on the E_3 page: d_4(omega_3) = coefficient * 1.
 
         d_4 maps Lambda^3(k^3) -> Lambda^0(k^3) = k -> k.
-        The coefficient is determined by m_4(T,T,T,T) = Delta * T
+        The coefficient is computed from the chosen m_4(T,T,T,T) = Delta * T
         where Delta = 8 * kappa_ch * S_4 = 40/27 at c=1.
 
         After passage through the spectral sequence, d_4 on the volume

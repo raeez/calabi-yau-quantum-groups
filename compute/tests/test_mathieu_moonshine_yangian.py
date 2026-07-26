@@ -340,12 +340,13 @@ class TestUmbralMoonshine:
             assert data['rank'] == 24, f"{rs}: rank = {data['rank']}"
 
     def test_shadow_data_consistent(self):
-        """Shadow data at Niemeier points: lattice VOA kappa_ch = 24."""
+        """Shadow data at rootful Niemeier points: kappa_ch = 24, current class L."""
         for rs in ['A_1^{24}', 'E_8^3', 'D_{24}']:
             result = umbral_moonshine_at_niemeier(rs)
             assert result['shadow_data']['kappa_ch_lattice_voa'] == 24
             assert result['shadow_data']['kappa_ch_k3_sigma'] == 2
-            assert result['shadow_data']['shadow_class_lattice'] == 'G'
+            assert result['shadow_data']['shadow_class_lattice'] == 'L'
+            assert result['shadow_data']['shadow_class_current'] == 'L'
 
     def test_unknown_root_system(self):
         """Querying an unknown root system returns an error."""

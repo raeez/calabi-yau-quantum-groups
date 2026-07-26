@@ -1,7 +1,7 @@
 r"""Tests for twisted holography on K3 x E (Costello-Gaiotto programme).
 
 Verifies:
-  (1) Holographic anomaly: boundary central charge c = chi(K3) = 24
+  (1) Holographic anomaly: boundary central charge c = dim H*(K3) = 24
   (2) Bulk-boundary Koszul duality: conductor rho_K = 0
   (3) Defect algebra: E_1-chiral bialgebra axioms from Wilson lines
   (4) kappa_ch = 2 from four independent routes
@@ -40,6 +40,7 @@ References:
 from __future__ import annotations
 
 from fractions import Fraction
+from pathlib import Path
 
 import pytest
 
@@ -79,6 +80,34 @@ from compute.lib.twisted_holography_k3e import (
     twisted_holography_k3e_summary,
     wilson_line_defect_algebra,
 )
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
+K3E_PROGRAMME_TEX = REPO_ROOT / "chapters/examples/k3e_cy3_programme.tex"
+
+
+def test_k3e_programme_separates_boundary_rank_from_chiral_kappa():
+    """The programme chapter keeps boundary rank, Hodge kappa, and BKM separate."""
+    tex = K3E_PROGRAMME_TEX.read_text()
+
+    assert r"c(A_E) = \chi(K3) = 24" not in tex
+    assert r"\kappa_{\mathrm{ch}}(A_E) = 24" not in tex
+    assert r"\kappa_{\mathrm{ch}}(A_E)=24" not in tex
+    assert "rank of the free-boson lattice" not in tex
+    assert r"\kappa_{\mathrm{ch}}^{\mathrm{Hodge}} = 24" not in tex
+    assert r"\kappa_{\mathrm{ch}}(V_\Lambda) = \mathrm{rank}(\Lambda)" not in tex
+    assert r"\kappa_{\mathrm{cat}}(K3) = 2" not in tex
+    assert r"24 = \chi(K3)" not in tex
+    assert "conditional on CY-A_3" not in tex
+    assert "CY-A_3 for the existence" not in tex
+
+    assert r"\textbf{Object} & \textbf{Symbol} & $\kappa_\bullet$" in tex
+    assert r"\kappa_{\mathrm{fiber}}(K3)=24" in tex
+    assert r"24 = \chi_{\mathrm{top}}(K3)" in tex
+    assert r"\kappa_{\mathrm{ch}}^{\mathrm{Hodge}}(K3\times E)=0" in tex
+    assert r"\kappa_{\mathrm{ch}}^{\mathrm{Heis}}(V_\Lambda)" in tex
+    assert "The tempting additive formula" in tex
+    assert r"\kBKM(\Phi_N) = c_N(0)/2" in tex
+    assert "fails at every $N" in tex
 
 
 # =========================================================================

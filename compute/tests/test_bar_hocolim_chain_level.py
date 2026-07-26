@@ -228,7 +228,7 @@ class TestChainDataTypes:
                                      e1.charge[1] + e2.charge[1])
 
     def test_bar_element_cohom_degree_ap45(self):
-        """Desuspension lowers degree by 1 (AP45).
+        """Desuspension lowers degree by 1 (desuspension convention).
         |s^{-1}v| = |v| - 1, so bar element cohom_degree = sum(deg_i - 1)."""
         g = ChainGenerator("a", charge=(1,), cohom_degree=0)
         h = ChainGenerator("b", charge=(0,), cohom_degree=0)

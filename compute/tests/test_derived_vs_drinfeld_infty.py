@@ -411,7 +411,7 @@ class TestThreeCenters:
         assert 'E_2 -> E_3' in tc.divergence_level
 
     def test_drinfeld_one_step(self):
-        """Drinfeld center is a ONE-STEP promotion (E_1 -> E_2 only)."""
+        """Drinfeld center is a one-step categorical E_1 -> E_2 passage."""
         tc = three_centers_infty()
         assert 'one-step' in tc.drinfeld['key_property']
 

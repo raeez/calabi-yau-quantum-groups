@@ -300,8 +300,8 @@ class TestDBraneBKM:
         assert v.bkm_multiplicity == 10  # c(0) = 10
 
     def test_weyl_vector_multiplicity(self):
-        """c(-1) = 2 (EZ convention, AP-CY9)."""
-        assert BKM_ROOT_MULTIPLICITIES[-1] == 2
+        """c(-1) = 1 in the EZ half-genus convention."""
+        assert BKM_ROOT_MULTIPLICITIES[-1] == 1
 
     def test_lightlike_multiplicity(self):
         """c(0) = 10 determines kappa_BKM = 5."""
@@ -309,8 +309,8 @@ class TestDBraneBKM:
         assert KAPPA_BKM == BKM_ROOT_MULTIPLICITIES[0] // 2
 
     def test_fermionic_root(self):
-        """c(3) = -2 (fermionic, D = 3 mod 4)."""
-        assert BKM_ROOT_MULTIPLICITIES[3] == -2
+        """c(3) = -64 (fermionic, D = 3 mod 4)."""
+        assert BKM_ROOT_MULTIPLICITIES[3] == -64
 
     def test_odd_C_sq_raises(self):
         """Odd C^2 raises ValueError (K3 intersection form is even)."""

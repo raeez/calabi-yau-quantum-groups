@@ -429,7 +429,7 @@ class TestKSBCOVBridge:
     def test_bridge_has_quantitative_entries(self):
         bridge = ks_bcov_e1_bridge()
         quant = [e for e in bridge if "quantitative" in e.identification_level]
-        # VERIFIED [DC] structural property [LT] AP45
+        # VERIFIED [DC] structural property [LT] desuspension convention
         assert len(quant) >= 1
 
     def test_propagator_verification_passes(self):
@@ -439,9 +439,9 @@ class TestKSBCOVBridge:
         assert checks['pole_absorption_match']
 
     def test_propagator_symmetry_note(self):
-        """The symmetry mismatch is documented (AP45 desuspension sign)."""
+        """The symmetry mismatch is documented (desuspension convention desuspension sign)."""
         checks = propagator_bar_differential_verification()
-        assert 'AP45' in checks['symmetry_note'] or 'desuspension' in checks['symmetry_note']
+        assert 'desuspension convention' in checks['symmetry_note'] or 'desuspension' in checks['symmetry_note']
 
     def test_bridge_covers_derived_center(self):
         bridge = ks_bcov_e1_bridge()

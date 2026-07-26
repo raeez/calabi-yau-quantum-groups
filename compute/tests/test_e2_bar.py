@@ -91,8 +91,12 @@ class TestHeisenbergOPE:
             "Non-vanishing would indicate non-trivial E_2 structure."
         )
 
-    def test_r_matrix_trivial(self):
-        """R = id for Heisenberg: the classical r-matrix vanishes."""
+    def test_e2_gerstenhaber_r_matrix_vanishes(self):
+        """E2/Gerstenhaber r = 0 for Heisenberg.
+
+        This is not the ordered-bar scalar braiding
+        R_ord(z) = exp(k*hbar/z).
+        """
         k = Symbol("k")
         ope = HeisenbergOPE(k=k)
         # VERIFIED [DC] r-matrix coefficient [LT] operadic Koszul theory
@@ -249,16 +253,15 @@ class TestHeisenbergE2Bar:
     def test_koszul_self_duality(self, hk_result):
         """For H_k with d = 0, the Koszul dual is H_k itself.
 
-        B_{E_2}(H_k) has zero differential, so the Koszul dual
-        (cobar of the dual) recovers H_k. The E_2 Koszul dual
-        of a free field is the same free field: Sym^ch(V*) is
-        self-dual under Koszul duality.
+        B_{E_2}(H_k) has zero differential, so the scalar kappa row is
+        reflected with no conductor.  This is not the object-level claim
+        that H_k is its own Koszul dual.
         """
         # The key check: both differentials vanish and the coalgebra
         # structure is the free (cofree) one.
         assert hk_result["d_X_vanishes"]
         assert hk_result["d_Y_vanishes"]
-        # Self-duality follows formally.
+        # Vanishing differentials prove the finite bar check, not object self-duality.
 
 
 # ================================================================
@@ -522,7 +525,7 @@ class TestAffineSL2E2Bar:
         )
 
     def test_r_matrix_nontrivial(self, sl2_result):
-        """The classical r-matrix for V_k(sl_2) is Omega/z * 1/(k+2)."""
+        """The KZ-normalized r-matrix for V_k(sl_2) is Omega/((k+2)z)."""
         r = sl2_result["r_matrix"]
         assert r != 0, "R-matrix for V_k(sl_2) must be non-trivial"
 

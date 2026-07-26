@@ -314,7 +314,8 @@ def bulk_boundary_koszul_k3e() -> BulkBoundaryKoszulK3E:
     The Koszul dual is H_Muk^! with inverted level.
 
     For the Heisenberg at level k (normalized so kappa_ch = k):
-      H_k^! = Sym^ch(V*) with kappa_ch = -k
+      H_k^! is the curved second-kind Sym^ch(V*[1]) branch with
+      scalar kappa_ch = -k
       Koszul conductor: kappa_ch + kappa_ch^! = k + (-k) = 0
 
     For K3 at kappa_ch = 2:
@@ -431,7 +432,7 @@ def wilson_line_defect_algebra() -> Dict[str, Any]:
                 '(Delta_w x id) o Delta_{z+w} = (id x Delta_z) o Delta_w '
                 '(Miura multiplicativity)'
             ),
-            'axiom_5_averaging': 'av(r(z)) = kappa_ch = 2',
+            'axiom_5_averaging': 'abelian av(r(z)) = kappa_ch = 2',
         },
         'r_matrix_type': 'Diagonal (gl_1 abelian), rational in z',
         'ybe_satisfied': True,  # automatic for diagonal
@@ -1029,8 +1030,9 @@ def cross_check_with_drinfeld_center() -> Dict[str, Any]:
       The bulk defect algebra has dim = 49 (boundary + dual boundary + center).
       R-matrix: R from the bulk propagator ~ exp(omega^{-1}).
 
-    These MUST agree (Drinfeld center = bulk algebra is a theorem for the
-    Heisenberg; conjectural for the full Yangian).
+    These MUST agree on the exact Heisenberg comparison surface
+    (Drinfeld center / derived-center compatibility); the full Yangian
+    comparison remains conjectural.
     """
     # Drinfeld center data
     drinfeld_dim = 2 * MUKAI_RANK + 1  # 49
@@ -1101,7 +1103,7 @@ def cross_check_with_e1_bialgebra() -> Dict[str, Any]:
             'consistent': True,
         },
         'axiom_5': {
-            'algebraic': 'av(r(z)) = kappa_ch = 2',
+            'algebraic': 'abelian av(r(z)) = kappa_ch = 2',
             'holographic': 'Averaging over Wilson line orderings',
             'kappa_ch_value': KAPPA_CH_K3,
             'consistent': True,

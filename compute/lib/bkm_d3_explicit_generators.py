@@ -12,7 +12,7 @@ MATHEMATICAL CONTENT
 1. THE 64 ROOTS AT D=3 (Mukai norm^2 = -6).
 
    In the BKM algebra g_{Delta_5}, the imaginary simple roots at
-   discriminant D live in the lattice II_{2,1} with Gram matrix
+   discriminant D live in the lattice Lambda^{2,1}_{II} with Gram matrix
 
        A = ((2,-2,-2), (-2,2,-2), (-2,-2,2)).
 
@@ -22,7 +22,7 @@ MATHEMATICAL CONTENT
 
    At D=3: need 4nm - l^2 = 3 for the LATTICE part.  But the multiplicity
    c(3) = -64 counts BKM simple root vectors, which live in the BRST
-   cohomology H^1(V_{II_{2,1}} x V_{trans} x V_{ghost}).  The 64
+   cohomology H^1(V_{Lambda^{2,1}_{II}}^{formal} x V_{trans} x V_{ghost}).  The 64
    generators are indexed by TRANSVERSE OSCILLATOR STATES at level D+1 = 4
    (the K3 sigma model contributes c=23 oscillators, and the multiplicity
    64 = p_23(4) - p_23(3) + ... is the signed partition count from the
@@ -57,7 +57,7 @@ MATHEMATICAL CONTENT
 
 2. WEYL GROUP DECOMPOSITION OF THE 64 GENERATORS.
 
-   The Weyl group of II_{2,1} is S_3 (permutations of the 3 simple roots).
+   The Weyl group of Lambda^{2,1}_{II} is S_3 (permutations of the 3 simple roots).
    Under S_3, a representation of dimension d decomposes as:
 
        d = n_1 * trivial + n_sgn * sign + n_std * standard
@@ -379,7 +379,7 @@ D3_D4_CROSS_OPE = 12            # P_cross(3, 4, 1) = 3*4 = 12 (regular)
 # Valid discriminant residues (AP-CY9)
 VALID_DISCRIMINANT_RESIDUES = {0, 3}
 
-# Gram matrix of II_{2,1}
+# Gram matrix of Lambda^{2,1}_{II}
 GRAM_MATRIX = ((2, -2, -2), (-2, 2, -2), (-2, -2, 2))
 
 # Known c(D) values (from parent engine)
@@ -547,7 +547,7 @@ def d3_root_space() -> D3RootSpace:
     """
     # S_3 decomposition in the free field approximation
     # 64 = n_1 + n_sgn + 2 * n_std
-    # The S_3 action on 24 bosons permutes the 3 Cartan directions of II_{2,1}.
+    # The S_3 action on 24 bosons permutes the 3 Cartan directions of Lambda^{2,1}_{II}.
     # Under S_3: 24 free bosons = 3 (Cartan) + 21 (transverse to Cartan).
     # The transverse 21 bosons are S_3-invariant, while the 3 Cartan bosons
     # carry the standard representation of S_3.
@@ -568,7 +568,7 @@ def d3_root_space() -> D3RootSpace:
     # oscillator states of the Cartan + transverse system.
     #
     # Simple model: the D=3 root space is 64-dimensional.  Under the S_3
-    # Weyl group action (which permutes the 3 real simple roots of II_{2,1}),
+    # Weyl group action (which permutes the 3 real simple roots of Lambda^{2,1}_{II}),
     # the 64 generators decompose as:
     s3_decomp = {
         'trivial': 10,      # S_3-invariant generators
@@ -1531,7 +1531,7 @@ def d3_explicit_summary() -> Dict[str, Any]:
             ),
             '2_vertex_operators': (
                 f'Each generator is a vertex operator V(alpha_a, z) with '
-                f'(alpha_a, alpha_a) = {rs.norm_sq} in the lattice VOA '
+                f'(alpha_a, alpha_a) = {rs.norm_sq} in the formal hyperbolic lattice vertex construction '
                 f'V_{{II_{{2,1}}}}. Deformed to weight 1 at eps=1.'
             ),
             '3_anticommutator': (

@@ -143,7 +143,7 @@ CONVENTIONS
 ===========
 
   - Cohomological grading: |d| = +1
-  - Bar uses desuspension: |s^{-1}v| = |v| - 1 (AP45)
+  - Bar uses desuspension: |s^{-1}v| = |v| - 1 (desuspension convention)
   - Shifted symplectic: n-shifted means ω ∈ H^0(Sym^2(L[n]))
   - CY dimension d: for CY3, d=3, shifted symplectic form is (2-d)=-1
   - Virtual dimension: vdim = 1 - χ_Q(d,d) for quiver (Q,W)

@@ -818,9 +818,11 @@ def comparison_mo_vs_chiral_heisenberg(eps1, eps2):
                    / ((u + eps1)(u + eps2)(u - eps1 - eps2))
 
     In the LIMIT eps2 -> -eps1 (self-dual K3 limit):
-        g^{MO}(u) -> 1  (trivial R-matrix)
+        g^{MO}(u) -> 1  (trivial nonabelian MO/Yangian part)
 
-    This corresponds to the Heisenberg at level k = 0 (no braiding).
+    This corresponds to the Heisenberg at level k = 0 for the scalar
+    ordered-bar braid; at k != 0 the scalar R_ord(u)=exp(k*hbar/u)
+    is still nontrivial.
 
     For the NON-DEGENERATE comparison, take the K3 x E structure function
     at GENERIC (eps1, eps2) and compare with the affine Yangian Y(gl_hat_1)
@@ -1055,9 +1057,12 @@ def heisenberg_limit_comparison():
         g^{MO}(u) = (u - eps1)(u - eps2)(u + eps1 + eps2)
                    / ((u + eps1)(u + eps2)(u - eps1 - eps2))
 
-    In the Heisenberg limit: we want g(u) to reduce to the
-    Heisenberg/abelian R-matrix.  The abelian R-matrix is:
-        R(u) = 1   (trivial braiding for abelian Yangian)
+    In the Heisenberg limit, the MO/Yangian nonabelian structure
+    function reduces to the abelian value:
+        g(u) = 1   (trivial nonabelian Yangian part)
+
+    This is not the ordered-bar Heisenberg braiding, whose scalar form
+    is R_ord(u) = exp(k*hbar/u) and is nontrivial for k != 0.
 
     This matches the self-dual K3 limit (eps2 = -eps1) where g = 1.
 
@@ -1108,10 +1113,11 @@ def heisenberg_limit_comparison():
         "sigma3_leading": expand(-eps),
         "description": (
             "Heisenberg limit: eps2 -> 0 with eps1 = 1. "
-            "g(u) -> 1 (trivial R-matrix, abelian braiding). "
+            "g(u) -> 1 (trivial nonabelian MO/Yangian structure function). "
             "Leading correction: g(u) ~ 1 + 2*eps/(u(u^2-1)) + O(eps^2). "
             "This matches sigma_3 = -eps: phi_3 = -2*sigma_3 = 2*eps. "
-            "The Heisenberg subalgebra of K3 has trivial braiding (abelian); "
+            "The Heisenberg subalgebra of K3 has scalar abelian ordered-bar "
+            "braiding R_ord(u)=exp(k*hbar/u), not a nonabelian Yangian braiding; "
             "the E_2 structure arises from the FULL K3 sigma model."
         ),
     }

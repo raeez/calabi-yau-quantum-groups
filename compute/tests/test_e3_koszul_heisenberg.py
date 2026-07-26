@@ -81,7 +81,7 @@ class TestSelfDualE3Koszul:
         assert self.e3bar.structure_function_at_self_dual() == "identity"
 
     def test_koszul_self_duality(self):
-        """H_1 is E_3 Koszul self-dual at the self-dual point."""
+        """The omega-background parameters are self-dual up to relabeling."""
         assert self.e3bar.is_koszul_self_dual()
 
     def test_verdier_dual_is_relabeling(self):

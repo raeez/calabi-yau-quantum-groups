@@ -23,8 +23,10 @@ Manuscript references:
     chapters/theory/e1_chiral_algebras.tex, Section RTT relation
 """
 
-import pytest
 from fractions import Fraction
+from pathlib import Path
+
+import pytest
 
 import numpy as np
 
@@ -68,6 +70,31 @@ from compute.lib.k3_rtt_ope_dictionary import (
     # Full verification
     full_verification,
 )
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
+QUANTUM_CHIRAL_TEX = REPO_ROOT / "chapters/theory/quantum_chiral_algebras.tex"
+
+
+def test_rtt_ope_dictionary_not_full_yangian_equivalence():
+    """RTT/OPE agreement is a mode-level dictionary, not a full-definition equivalence."""
+    tex = QUANTUM_CHIRAL_TEX.read_text()
+    compact = " ".join(tex.split())
+
+    assert "admits two equivalent presentations" not in compact
+    assert "compatible presentation surfaces at the Heisenberg mode-algebra shadow" in compact
+    assert "is weaker than the full chiral quadruple" in compact
+    assert "modular MC tower" in compact
+
+
+def test_quantum_chiral_rmatrix_is_evaluation_family():
+    """The centre has the half-braiding; R(z) is its spectral realisation."""
+    tex = QUANTUM_CHIRAL_TEX.read_text()
+    compact = " ".join(tex.split())
+    stale = "Intrinsically, \\(R(z)\\) is " + "the half-braiding"
+
+    assert stale not in compact
+    assert "centre carries a half-braiding natural transformation" in compact
+    assert "\\(R(z)\\) is the meromorphic matrix-coefficient or evaluation family" in compact
 
 
 # =========================================================================

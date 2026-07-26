@@ -90,8 +90,8 @@ STRATEGY
 
 1. Fix a small graded vector space (e.g. dim = (1,2,2,1) for degrees 0-3).
 2. The CY_3 pairing is a non-degenerate bilinear form A^i x A^{3-i} -> k.
-3. Generate random m_1, m_2, m_3 satisfying Stasheff + cyclic invariance.
-   - m_1: constrained by m_1^2 = 0
+3. Generate random uncurved m_1, m_2, m_3 satisfying Stasheff + cyclic invariance.
+   - m_1: constrained by m_1^2 = 0 in the flat m_0 = 0 lane
    - m_2: constrained by m_1 . m_2 + m_2 . (m_1 x 1 + 1 x m_1) = 0
    - m_3: constrained by the n=3 Stasheff identity + cyclic invariance
 4. Compute [m_3, B_term^{(2)}] on all bar elements of a fixed arity.
@@ -140,7 +140,7 @@ CONVENTIONS
 ===========
   - Cohomological grading: |d| = +1.
   - CY dimension d = 3.
-  - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (AP45).
+  - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (desuspension convention).
   - Exact arithmetic via fractions.Fraction where possible.
   - Numerical search uses numpy float64 with tolerance 1e-10.
   - AP-CY2: CY trace is in HC^-_3(C), not just HH_3 -> k.

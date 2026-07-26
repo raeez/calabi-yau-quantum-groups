@@ -9,7 +9,8 @@ Verifies the results of subsec:k3-mirror-koszul in derived_categories_cy.tex:
    kappa_ch -> -kappa_ch on the free-field branch.
 4. HMS != Koszul duality for K3 (the kappa diagnostic).
 5. K3 x E mirror symmetry: h^{1,1} = h^{2,1} = 21, chi = 0.
-6. K3 x E Koszul conductor K = 5 (not 0, so outside free-field class).
+6. K3 x E has Borcherds weight characteristic 5, distinct from the
+   Heisenberg mirror sum 6.
 
 MATHEMATICAL CONTENT:
 
@@ -32,7 +33,8 @@ For K3 x E (d=3, all conditional on CY-A_3):
   - relative kappa_ch^Heis(K3 x E) = 3 (additivity: 2 + 1)
   - same compact/relative split for K3 x E^v
   - relative mirror sum: 3 + 3 = 6 != 0 (outside free-field class)
-  - Koszul conductor K = 5 = kappa_BKM (holographic datum)
+  - kappa_BKM = 5 is the Borcherds weight characteristic, not a
+    Koszul conductor.
 
 References:
   chapters/examples/derived_categories_cy.tex: subsec:k3-mirror-koszul
@@ -353,25 +355,20 @@ def k3e_kappa_bkm() -> Fraction:
 
 
 def k3e_koszul_conductor() -> Fraction:
-    """Koszul conductor for K3 x E.
+    """Heisenberg mirror-sum obstruction for K3 x E.
 
-    From the holographic datum (constr:k3e-holographic-datum):
-      kappa_ch^Heis(A^!) = kappa_BKM - kappa_ch^Heis = 5 - 3 = 2
-      K = kappa_ch^Heis + kappa_ch^! = 3 + 2 = 5
-
-    This is NONZERO, so K3 x E is OUTSIDE the free-field Koszul class.
+    The Borcherds weight characteristic kappa_BKM = 5 is not a Koszul
+    conductor.  The mirror product has the same Heisenberg value on both
+    sides, hence the naive Koszul sum is 3 + 3 = 6.
     """
-    kappa_ch = k3e_kappa_ch_heis() # = 3, relative branch
-    kappa_bkm = k3e_kappa_bkm()    # = 5
-    kappa_dual = kappa_bkm - kappa_ch  # = 2
-    return kappa_ch + kappa_dual   # = 5
+    return k3e_mirror_kappa_sum()
 
 
 def k3e_mirror_kappa_sum() -> Fraction:
     """The naive Koszul sum for K3 x E mirror pair.
 
     K3 x E and K3 x E^v have the same relative kappa_ch^Heis = 3.
-    The sum 3 + 3 = 6 is NOT the Koszul conductor (which is 5).
+    The sum 3 + 3 = 6 is not the Borcherds weight characteristic 5.
     This confirms that mirror symmetry != Koszul duality for K3 x E.
     """
     return k3e_kappa_ch_heis() + k3e_kappa_ch_heis()
@@ -529,8 +526,8 @@ def test_k3e_kappa_bkm():
 
 
 def test_k3e_koszul_conductor():
-    """Test 20: K3 x E Koszul conductor = 5."""
-    assert k3e_koszul_conductor() == 5
+    """Test 20: K3 x E Heisenberg mirror-sum obstruction = 6."""
+    assert k3e_koszul_conductor() == 6
 
 
 def test_k3e_mirror_kappa_sum():

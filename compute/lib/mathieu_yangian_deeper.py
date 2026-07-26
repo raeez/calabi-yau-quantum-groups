@@ -81,6 +81,7 @@ This module extends mathieu_moonshine_yangian.py along four axes:
      - All 23 have the same bar Euler product (eta^{24}, deformation-invariant).
      - All 23 have kappa_ch(lattice VOA) = 24 (rank of the lattice).
      - All 23 have kappa_ch(K3 sigma) = 2 (topological, moduli-independent).
+     - All 23 have class L in the rootful current-shadow coordinate.
      - The Umbral group G_N varies: from M_24 (largest, at A_1^{24})
        to Z_2 (smallest, at most lattices).
 
@@ -706,9 +707,10 @@ def niemeier_yangian_at_point(root_system: str) -> NiemeierYangianData:
     mock_weight = '1/2'
 
     # Shadow class at the Niemeier point:
-    # The LATTICE VOA V_N has shadow class G (class G for all lattice VOAs).
-    # The K3 SIGMA MODEL at the Niemeier point retains shadow class M.
-    shadow_class = 'M (K3 sigma model) / G (lattice VOA V_N)'
+    # All 23 Umbral Niemeier systems are rootful.  Their weight-one ADE
+    # current algebras have nonzero S_3 and S_4 = 0, hence class L in this
+    # current-shadow coordinate.  The K3 sigma model retains class M.
+    shadow_class = 'M (K3 sigma model) / L (rootful current shadow of V_N)'
 
     return NiemeierYangianData(
         root_system=root_system,
@@ -772,7 +774,7 @@ def niemeier_yangian_landscape() -> Dict[str, Any]:
             'bar_euler_product': 'eta(tau)^{24} (identical for all 23)',
             'kappa_ch_lattice': 24,
             'kappa_ch_sigma': 2,
-            'shadow_class_lattice': 'G (all lattice VOAs)',
+            'shadow_class_current': 'L (all 23 rootful Niemeier current shadows)',
             'shadow_class_sigma': 'M (all K3 sigma models)',
         },
         'interpretation': (

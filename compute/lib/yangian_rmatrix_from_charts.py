@@ -1330,7 +1330,8 @@ def k3e_rmatrix_from_charts(
     We compute:
     (a) The MO structure function for K3 x E
     (b) Its classical r-matrix (leading correction)
-    (c) The self-dual limit eps1 = -eps2 (trivial R-matrix, hyper-Kahler)
+    (c) The self-dual limit eps1 = -eps2 (trivial nonabelian Yangian part,
+        hyper-Kahler)
     (d) Comparison with the affine Yangian Y(gl_hat_1) structure function
     """
     eps3 = -(eps1 + eps2)

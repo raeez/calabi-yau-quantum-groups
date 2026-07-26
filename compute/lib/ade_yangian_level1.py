@@ -91,7 +91,7 @@ class ADEData(NamedTuple):
     dual_coxeter: int   # dual Coxeter number h^vee
     exponents: Tuple[int, ...]   # Coxeter exponents
     cartan: Tuple[Tuple[int, ...], ...]  # Cartan matrix (r x r)
-    level1_central_charge: Fraction  # c(\hat{g}_1) = rank*k/(k+h^vee)
+    level1_central_charge: Fraction  # c(\hat{g}_1) = dim(g)/(1+h^vee)
 
 
 def _cartan_A(n: int) -> Tuple[Tuple[int, ...], ...]:
@@ -1213,9 +1213,9 @@ class ADEMukaiEmbedding:
           - Full sigma model: class M (infinite depth)
 
         The central charge contribution:
-          c(\hat{g}_1) = rank * 1 / (1 + h^vee) = rank / (1 + h^vee)
+          c(\hat{g}_1) = dim(g) / (1 + h^vee) = rank(g)
           c_total = c(\hat{g}_1) + c_Heisenberg(complement)
-                  = rank/(1+h^vee) + (24 - rank)
+                  = rank(g) + (24 - rank(g)) = 24
         """
         data = self.data
         c_ade = data.level1_central_charge

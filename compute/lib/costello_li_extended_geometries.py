@@ -55,7 +55,7 @@ PROOF STRUCTURE:
 
 CONVENTIONS:
     - Cohomological grading (|d| = +1).
-    - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (AP45).
+    - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (desuspension convention).
     - Exact arithmetic via fractions.Fraction.
     - kappa = chi_top / 24 for compact CY3 (BCOV prediction, AP48 caveat).
     - The CY trace is HC^-_d(C), NOT just HH_d -> k (AP-CY2).

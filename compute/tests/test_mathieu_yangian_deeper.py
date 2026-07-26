@@ -242,6 +242,7 @@ class TestNiemeierYangians:
         assert data.umbral_group == 'M_24'
         assert data.lambency == 2
         assert data.coxeter_number == 2
+        assert 'L (rootful current shadow of V_N)' in data.shadow_class_at_point
 
     def test_e8_cubed_triality(self):
         """The E_8^3 Yangian has S_3 symmetry (triality)."""
@@ -249,6 +250,7 @@ class TestNiemeierYangians:
         assert data.umbral_group == 'S_3'
         assert data.lambency == 30
         assert data.coxeter_number == 30
+        assert 'L (rootful current shadow of V_N)' in data.shadow_class_at_point
 
     def test_d24_outer_automorphism(self):
         """The D_{24} Yangian has Z_2 symmetry (outer automorphism)."""
@@ -287,6 +289,9 @@ class TestNiemeierYangians:
         assert landscape['universal_properties']['bar_euler_product'] == 'eta(tau)^{24} (identical for all 23)'
         assert landscape['universal_properties']['kappa_ch_lattice'] == 24
         assert landscape['universal_properties']['kappa_ch_sigma'] == 2
+        assert landscape['universal_properties']['shadow_class_current'] == (
+            'L (all 23 rootful Niemeier current shadows)'
+        )
 
     def test_niemeier_landscape_verification(self):
         """The Niemeier landscape verification suite passes."""

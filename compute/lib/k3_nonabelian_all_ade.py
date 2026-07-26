@@ -10,28 +10,27 @@ type on K3 moduli: A_1, A_2, D_4, D_5, E_6, E_7, E_8.  It extends the
 A_1 results (k3_nonabelian_rmatrix_a1.py, 82 tests) and D_4 results
 (k3_yangian_d4_triality.py, 89 tests) to the FULL ADE landscape.
 
-For each type g of rank r with defining representation of dimension N:
+For each type g, this engine keeps two integers separate:
+  - r = rank(g), the number of independent root-lattice directions.
+  - d = n_mukai_dirs, the number of weight labels used by the charge-2
+    state block.  For D,E types d = r.  For A_n in the fundamental block
+    d = n + 1 while r = n.
+
+For each type with defining representation of dimension N:
   - The Yang R-matrix R(u) = u*Id_{N^2} + P on C^N x C^N is N^2 x N^2
   - At level k=1: R(u) is the COMPLETE evaluation R-matrix
-  - r Mukai directions merge into the root lattice of g
-  - (24-r) directions remain in the abelian complement Heis^{24-r}
-  - Central charge: c(g,k=1) + c_Heis(24-r) = rank + (24-rank) = 24
+  - r independent Mukai directions merge into the root lattice of g
+  - The central-charge complement is Heis^{24-r}
+  - Central charge: c(g,k=1) + c_Heis(24-r) = r + (24-r) = 24
 
 OFF-DIAGONAL COUNT IN THE 324 x 324 CHARGE-2 R-MATRIX
 =====================================================
 
 For d merged Mukai directions (d = rank for D,E types; d = rank+1 for A types
 due to the weight lattice having dim = rank+1 in the fundamental):
-
-CORRECTION: For ALL types, d = rank of the Lie algebra.  The n_mukai_dirs
-agrees with rank for D and E types.  For A_n, the fundamental representation
-has n+1 weights, but only n independent Mukai directions participate (the
-weight lattice of sl_{n+1} is rank n, embedded in the rank-24 Mukai lattice).
-
-Wait -- this needs careful treatment.  At an A_1 singularity on K3, TWO
-Mukai directions merge (the two weights of the fundamental representation
-of sl_2).  For A_2, THREE directions merge (the three weights of the
-fundamental of sl_3).  So d = n+1 for A_n, and d = rank for D_n/E_n.
+The state-complement size in this 324-dimensional model is 24-d.  This is
+not the same invariant as the Heisenberg complement rank 24-r for A-types.
+The missing d-r direction is the trace direction inside the A_n weight block.
 
 The off-diagonal count:
   States: 324 = d + d + C(d,2) + (24-d) + (24-d) + d*(24-d) + C(24-d,2)
@@ -240,16 +239,17 @@ def offdiagonal_count_general(ade_type: str) -> Dict[str, Any]:
     r = data['rank']
     d = data['n_mukai_dirs']
     N = data['dim_V']
-    n_comp = MUKAI_RANK - d
+    n_state_comp = MUKAI_RANK - d
+    n_heisenberg_comp = MUKAI_RANK - r
 
     # State decomposition
     n_ade_row = d
     n_ade_col = d
     n_ade_two = d * (d - 1) // 2
-    n_comp_row = n_comp
-    n_comp_col = n_comp
-    n_mixed_two = d * n_comp
-    n_comp_two = n_comp * (n_comp - 1) // 2
+    n_comp_row = n_state_comp
+    n_comp_col = n_state_comp
+    n_mixed_two = d * n_state_comp
+    n_comp_two = n_state_comp * (n_state_comp - 1) // 2
 
     n_total = (n_ade_row + n_ade_col + n_ade_two +
                n_comp_row + n_comp_col +
@@ -260,7 +260,7 @@ def offdiagonal_count_general(ade_type: str) -> Dict[str, Any]:
     off_ade_row = d * (d - 1)
     off_ade_col = d * (d - 1)
     off_ade_two = n_ade_two * (n_ade_two - 1)
-    off_mixed = n_comp * d * (d - 1)
+    off_mixed = n_state_comp * d * (d - 1)
     off_comp = 0
 
     n_offdiag = off_ade_row + off_ade_col + off_ade_two + off_mixed
@@ -289,7 +289,7 @@ def offdiagonal_count_general(ade_type: str) -> Dict[str, Any]:
 
     # Central charge at level 1
     c_level1 = F(data['dim_g'], 1 + data['h_dual'])
-    c_total = c_level1 + n_comp  # KM + Heisenberg
+    c_total = c_level1 + n_heisenberg_comp  # KM + Heisenberg
 
     return {
         'ade_type': ade_type,
@@ -298,7 +298,9 @@ def offdiagonal_count_general(ade_type: str) -> Dict[str, Any]:
         'dim_g': data['dim_g'],
         'dim_V': N,
         'h_dual': data['h_dual'],
-        'complement_rank': n_comp,
+        'complement_rank': n_state_comp,
+        'state_complement_rank': n_state_comp,
+        'heisenberg_complement_rank': n_heisenberg_comp,
         'state_decomposition': {
             'ade_row': n_ade_row,
             'ade_col': n_ade_col,
@@ -325,9 +327,9 @@ def offdiagonal_count_general(ade_type: str) -> Dict[str, Any]:
         },
         'central_charge': {
             'c_km_level1': str(c_level1),
-            'c_heisenberg': n_comp,
+            'c_heisenberg': n_heisenberg_comp,
             'c_total': str(c_total),
-            'c_total_is_24': c_total == 24,
+            'c_total_is_24': c_total == MUKAI_RANK,
         },
         'outer_automorphism': OUTER_AUTOMORPHISMS[ade_type],
         'total_offdiagonal_space': total_offdiag_space,
@@ -366,6 +368,8 @@ def full_ade_landscape() -> Dict[str, Any]:
             'n_offdiag': result['off_diagonal']['total'],
             'percentage': result['percentage_nonzero'],
             'complement_rank': result['complement_rank'],
+            'state_complement_rank': result['state_complement_rank'],
+            'heisenberg_complement_rank': result['heisenberg_complement_rank'],
             'c_km_level1': result['central_charge']['c_km_level1'],
             'outer_aut': result['outer_automorphism']['group'],
         }
@@ -378,6 +382,8 @@ def full_ade_landscape() -> Dict[str, Any]:
         'n_offdiag': 0,
         'percentage': 0.0,
         'complement_rank': 24,
+        'state_complement_rank': 24,
+        'heisenberg_complement_rank': 24,
         'c_km_level1': '0',
         'outer_aut': 'N/A',
     }
@@ -760,8 +766,10 @@ def k3_embedding_parameters(ade_type: str, epsilon: float = 1.0) -> Dict[str, An
     r"""K3 Yangian parameters at a general ADE enhancement point.
 
     At an ADE singularity of type g with rank r on K3:
-      - r Mukai directions merge into the root lattice
-      - (24-r) directions remain abelian
+      - r independent Mukai directions merge into the root lattice
+      - d weight labels appear in the charge-2 state block
+      - (24-r) directions remain in the Heisenberg complement
+      - (24-d) weight labels remain in the state complement
       - CY_2 constraint: sum_{i=1}^{24} h_i = 0
 
     Parameters
@@ -776,18 +784,19 @@ def k3_embedding_parameters(ade_type: str, epsilon: float = 1.0) -> Dict[str, An
     data = FULL_ADE_DATA[ade_type]
     r = data['rank']
     d = data['n_mukai_dirs']
-    n_comp = MUKAI_RANK - d
+    n_state_comp = MUKAI_RANK - d
+    n_heisenberg_comp = MUKAI_RANK - r
 
     # ADE sector: d parameters constrained by root lattice
     # Evenly spaced, centered at 0, satisfying sum = 0
     h_ade = [epsilon * (d + 1 - 2 * k) / (2.0 * d) for k in range(1, d + 1)]
 
-    # Abelian complement: n_comp parameters with sum = -sum(h_ade)
+    # State complement: n_state_comp parameters with sum = -sum(h_ade)
     ade_sum = sum(h_ade)
-    if n_comp > 0:
-        h_ab_base = -ade_sum / n_comp
-        h_ab = [h_ab_base + epsilon * 0.003 * (i - n_comp / 2.0)
-                for i in range(n_comp)]
+    if n_state_comp > 0:
+        h_ab_base = -ade_sum / n_state_comp
+        h_ab = [h_ab_base + epsilon * 0.003 * (i - n_state_comp / 2.0)
+                for i in range(n_state_comp)]
         # Correct last entry for exact CY_2
         h_ab[-1] = -ade_sum - sum(h_ab[:-1])
     else:
@@ -798,7 +807,7 @@ def k3_embedding_parameters(ade_type: str, epsilon: float = 1.0) -> Dict[str, An
 
     # Central charge
     c_km = F(data['dim_g'], 1 + data['h_dual'])
-    c_total = c_km + n_comp
+    c_total = c_km + n_heisenberg_comp
 
     # Mukai decomposition
     try:
@@ -808,7 +817,7 @@ def k3_embedding_parameters(ade_type: str, epsilon: float = 1.0) -> Dict[str, An
     except Exception:
         mukai_decomp = {
             'ade_rank': r,
-            'complement_rank': n_comp,
+            'complement_rank': n_heisenberg_comp,
             'total': MUKAI_RANK,
         }
 
@@ -817,7 +826,9 @@ def k3_embedding_parameters(ade_type: str, epsilon: float = 1.0) -> Dict[str, An
         'epsilon': epsilon,
         'rank': r,
         'n_mukai_dirs': d,
-        'complement_rank': n_comp,
+        'complement_rank': n_state_comp,
+        'state_complement_rank': n_state_comp,
+        'heisenberg_complement_rank': n_heisenberg_comp,
         'h_ade': h_ade,
         'h_abelian_sample': h_ab[:5] if len(h_ab) >= 5 else h_ab,
         'n_ade_params': len(h_ade),
@@ -827,9 +838,9 @@ def k3_embedding_parameters(ade_type: str, epsilon: float = 1.0) -> Dict[str, An
         'cy2_satisfied': abs(cy2_sum) < 1e-10,
         'central_charge': {
             'c_km_level1': str(c_km),
-            'c_heisenberg': n_comp,
+            'c_heisenberg': n_heisenberg_comp,
             'c_total': str(c_total),
-            'c_total_is_24': c_total == 24,
+            'c_total_is_24': c_total == MUKAI_RANK,
         },
         'mukai_decomposition': mukai_decomp,
         'status': STATUS,

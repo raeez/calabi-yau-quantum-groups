@@ -736,11 +736,11 @@ def coassociativity_rank24_analysis() -> Dict[str, Any]:
 
 
 def full_adversarial_report() -> Dict[str, Any]:
-    r"""Run all six attack vectors and produce a combined verdict.
+    r"""Run all six obstructions and produce a combined verdict.
 
     OVERALL CONCLUSION:
 
-    Of the six attack vectors, NONE breaks the K3 Yangian construction
+    Of the six obstructions, NONE breaks the K3 Yangian construction
     at the gl_1 (abelian) level.  Two attacks identify GENUINE issues:
 
     Attack 1 (Indefinite signature): Genuine obstruction for NON-ABELIAN g.
@@ -787,7 +787,7 @@ def full_adversarial_report() -> Dict[str, Any]:
         'non_obstructions': non_obstructions,
         'overall_verdict': (
             f'{len(genuine_obstructions)} genuine obstructions found '
-            f'(out of 6 attack vectors). '
+            f'(out of 6 obstructions). '
             f'The K3 Yangian for gl_1 at generic moduli is INTERNALLY CONSISTENT. '
             f'Genuine issues: (1) indefinite-signature crossing symmetry for '
             f'non-abelian g, (5) CY-A_3 dependence for deep identifications.'
@@ -796,7 +796,7 @@ def full_adversarial_report() -> Dict[str, Any]:
             'SCOPE the K3 Yangian conjecture into layers: '
             'Layer 1-2 (abelian, CY-A_2): accessible now. '
             'Layer 3-4 (nonabelian, CY-A_3): future programme. '
-            'Write manuscript remarks for each attack vector.'
+            'Write manuscript remarks for each obstruction.'
         ),
         'status': STATUS,
     }

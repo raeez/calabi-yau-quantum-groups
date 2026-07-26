@@ -80,7 +80,7 @@ REFERENCES:
 
 CONVENTIONS:
     - Cohomological grading (|d| = +1)
-    - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (AP45)
+    - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (desuspension convention)
     - kappa(H_k) = k for Heisenberg (AP48, NOT c/2)
     - [X] denotes the class of X in K_0(Var_k)
     - L = [A^1] is the Lefschetz motive

@@ -314,8 +314,9 @@ def phi_n_symbolic(n: int) -> dict:
 def obs_g_formula(g: int) -> dict:
     """Genus-g obstruction obs_g via phi^(n) with n <= g+1.
 
-    Vol I Theorem D:  obs_g = kappa * lambda_g,
-    Wave 15/17 decomposition:
+    Vol I Theorem D on the scalar/uniform-weight K3 projection:
+      obs_g^sc = kappa * lambda_g.
+    Full all-weight Wave 15/17 decomposition:
       obs_g = sum_{n=1}^{g+1} phi^(n) * c_{g,n}.
     """
     return {
@@ -325,7 +326,7 @@ def obs_g_formula(g: int) -> dict:
         "uses_phi_n_through_n_eq": g + 1,
         "formula": f"obs_g = sum_{{n=1}}^{{{g + 1}}} phi^({{n}}) * c_{{g,n}}",
         "kappa_ch_K3": 24,
-        "lambda_g_relation": f"obs_{g} = 24 * lambda_{g}",
+        "lambda_g_relation": f"obs_{g}^sc = 24 * lambda_{g}",
     }
 
 

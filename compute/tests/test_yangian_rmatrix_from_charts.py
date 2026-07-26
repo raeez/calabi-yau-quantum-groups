@@ -25,7 +25,7 @@ Multi-path verification:
     Path 17: Local P^2 hexagon identity (E_2 braiding axiom)
     Path 18: Local P^2 unitarity
     Path 19: K3 x E frontier: structure function
-    Path 20: K3 x E self-dual limit (trivial R-matrix)
+    Path 20: K3 x E self-dual limit (trivial nonabelian Yangian part)
     Path 21: K3 x E unitarity
     Path 22: K3 x E phi_3 = 2*sigma_3
     Path 23: Classical r-matrix from chart transition leading order
@@ -562,11 +562,12 @@ class TestK3ERMatrix:
         assert result['phi'][2] == Fraction(0), "phi_2 = 0 (CY)"
 
     def test_selfdual_trivial(self):
-        """Self-dual limit eps1 = -eps2 gives trivial R-matrix."""
+        """Self-dual limit eps1 = -eps2 gives trivial nonabelian R part."""
         result = k3e_rmatrix_from_charts(Fraction(1), Fraction(2),
                                           max_order=8)
         assert result['selfdual_trivial'] is True, (
-            "Self-dual K3 (eps1 = -eps2) must give g(u) = 1 (trivial R-matrix). "
+            "Self-dual K3 (eps1 = -eps2) must give g(u) = 1 "
+            "(trivial nonabelian Yangian part). "
             "This is the hyper-Kahler-preserved limit.")
 
     def test_unitarity(self):

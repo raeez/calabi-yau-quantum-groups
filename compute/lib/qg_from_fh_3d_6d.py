@@ -1507,7 +1507,8 @@ class StructureFunctionComparison:
 class KoszulDualityComparison:
     """Compare Koszul duality in the 3d and 6d settings.
 
-    3d: A^! = V_{k'}(g) at reflected level k' = -k - 2h^vee
+    3d: A^! is the chiral CE/bar-cochain target with reflected current
+        presentation at level k' = -k - 2h^vee
     6d: A^! carries E_3-chiral structure with (h1,h2,h3) -> (-h1,-h2,-h3)
 
     Both implement the same abstract pattern:
@@ -1523,7 +1524,8 @@ class KoszulDualityComparison:
         """Koszul duality in 3d CS.
 
         A = V_k(g): boundary algebra at level k
-        A^! = V_{k'}(g): defect algebra at reflected level k' = -k - 2h^vee
+        A^! is the chiral CE/bar-cochain defect target with reflected
+        current presentation at level k' = -k - 2h^vee
         kappa_ch(A) + kappa_ch(A^!) = rho_K (family-dependent conductor)
         """
         k_dual = -k - 2 * h_vee

@@ -21,6 +21,7 @@ Manuscript references:
 
 import pytest
 from fractions import Fraction
+from pathlib import Path
 
 from compute.lib.chiral_homology_ran_k3 import (
     # Constants
@@ -60,6 +61,8 @@ from compute.lib.chiral_homology_ran_k3 import (
 )
 
 F = Fraction
+REPO_ROOT = Path(__file__).resolve().parents[2]
+CHIRAL_HOMOLOGY_RAN_K3_SOURCE = REPO_ROOT / "compute/lib/chiral_homology_ran_k3.py"
 
 
 # =========================================================================
@@ -366,6 +369,17 @@ class TestYangianChiralHomology:
         """K3 Yangian conjectured to be class M."""
         result = yangian_chiral_homology_conjectural(1)
         assert 'M' in result.shadow_correction or 'class M' in result.shadow_correction
+
+    def test_yangian_braiding_is_half_braiding_matrix_coefficient(self):
+        """Genus-1 action distinguishes categorical half-braiding from R(z)."""
+        result = yangian_chiral_homology_conjectural(1)
+        source = CHIRAL_HOMOLOGY_RAN_K3_SOURCE.read_text()
+        compact = " ".join(source.split())
+        stale = "The braiding is " + "the R-matrix R(z)"
+
+        assert stale not in compact
+        assert "Drinfeld-center half-braiding" in result.yangian_action
+        assert "spectral matrix coefficient R(z) = g_{K3}(z)" in result.yangian_action
 
 
 # =========================================================================

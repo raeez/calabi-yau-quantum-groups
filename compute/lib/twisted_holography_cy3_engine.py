@@ -47,7 +47,8 @@ MATHEMATICAL CONTENTS:
    CAUTION (AP33): The Koszul dual A^! ≠ A at level -k. The E₁ Koszul dual
    uses the associative (Hochschild) duality, not the Lie-theoretic (FF) duality.
 
-   For the Heisenberg H_k (spin-1 sector): H_k^! = Sym^ch(V*) with kappa = -k.
+   For the Heisenberg H_k (spin-1 sector): H_k^! is the curved
+   Sym^ch(V*[1]) branch with scalar kappa = -k.
    For the full W_{1+∞}: the E₁ Koszul dual is W_{1+∞} at the REFLECTED
    parameters (h₁, h₂, h₃) → (-h₁, -h₂, -h₃), which preserves the CY
    condition h₁ + h₂ + h₃ = 0. The structure function inverts:
@@ -104,7 +105,7 @@ MATHEMATICAL CONTENTS:
 
 CONVENTIONS:
   - Cohomological grading (|d| = +1).
-  - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (AP45).
+  - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (desuspension convention).
   - CY condition: h₁ + h₂ + h₃ = 0 (equivalently epsilon_1 + epsilon_2 + epsilon_3 = 0).
   - kappa formulas are family-specific (AP1). Never copy between families.
   - kappa(W_{1+∞}) at c=1 with spin cutoff N: kappa = c * H_N (AP48).

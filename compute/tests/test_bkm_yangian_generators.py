@@ -402,12 +402,12 @@ class TestCrossVerification:
     """Cross-verify with k3_elliptic_genus_bkm_bar and bkm_chiral_algebra."""
 
     def test_gram_matrix_matches_bkm_chiral(self):
-        """Gram matrix matches bkm_chiral_algebra.GRAM_MATRIX_II21."""
+        """Gram matrix matches bkm_chiral_algebra.GRAM_MATRIX_LAMBDA21II."""
         # VERIFIED [CF] cross-engine consistency
-        from compute.lib.bkm_chiral_algebra import GRAM_MATRIX_II21
+        from compute.lib.bkm_chiral_algebra import GRAM_MATRIX_LAMBDA21II
         for i in range(3):
             for j in range(3):
-                assert GRAM_MATRIX[i][j] == GRAM_MATRIX_II21[i][j]
+                assert GRAM_MATRIX[i][j] == GRAM_MATRIX_LAMBDA21II[i][j]
 
     def test_multiplicities_match_bkm_bar(self):
         """Known multiplicities match k3_elliptic_genus_bkm_bar.KNOWN_C_TABLE."""

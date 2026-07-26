@@ -67,7 +67,7 @@ This gives a structural explanation of why BCOV has worldsheet instanton
 corrections: they come from the chart transitions in the scattering diagram.
 
 CONVENTIONS:
-    - Cohomological grading (|d| = +1), bar uses desuspension (AP45).
+    - Cohomological grading (|d| = +1), bar uses desuspension (desuspension convention).
     - kappa(A) = modular characteristic from Vol I (AP1: family-specific).
     - Exact arithmetic via fractions.Fraction throughout.
     - The Lie algebra bracket is [e_{g1}, e_{g2}] = <g1,g2> * e_{g1+g2}

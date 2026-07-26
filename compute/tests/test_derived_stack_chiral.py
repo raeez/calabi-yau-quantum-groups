@@ -252,10 +252,17 @@ class TestADEStratification:
             assert s.wzw_central_charge + s.residual_heisenberg_rank == 24
 
     def test_all_are_lattice_voa(self):
-        """Simply-laced at level 1 -> lattice VOA (Frenkel-Kac-Segal)."""
+        """Simply-laced at level 1 has a Frenkel-Kac-Segal realization."""
         for lt in ADE_DATA:
             s = ade_stratum(lt)
             assert s.is_lattice_voa is True
+
+    def test_all_ade_current_strata_are_class_L(self):
+        """Nonabelian ADE current strata are class L, not Gaussian."""
+        for lt in ADE_DATA:
+            s = ade_stratum(lt)
+            assert s.shadow_class == "L"
+            assert s.tangent_complex.algebra_class == "L"
 
     def test_all_strata_count(self):
         """We have 7 ADE types: A1, A2, D4, D5, E6, E7, E8."""

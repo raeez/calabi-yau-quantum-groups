@@ -89,7 +89,7 @@ No floating-point approximations.
 CONVENTIONS
 ===========
   - Cohomological grading: |d| = +1
-  - Bar uses DESUSPENSION: |s⁻¹v| = |v| - 1 (AP45)
+  - Bar uses DESUSPENSION: |s⁻¹v| = |v| - 1 (desuspension convention)
   - Quantum torus: YX = qXY; q = formal variable
   - Wall-crossing: K_γ = exp(Li_2(X^γ)) in motivic formalism
   - κ(H_k) = k for Heisenberg at level k (AP48: NOT c/2 for general VOA)

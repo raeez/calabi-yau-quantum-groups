@@ -15,9 +15,9 @@ the bar differential encodes extensions of quiver representations,
 and the cyclic structure comes from the trace potential.
 
 DT/SHADOW IDENTIFICATION:
-    BPS invariants = bar cohomology H^1(B(CoHA))
+    graded Euler characteristics of BPS spaces are read from bar cohomology
     kappa(A^{E_1}) encodes genus-1 DT data
-    F_g = genus-g shadow = higher DT (curve-counting) invariants
+    F_g is a scalar genus-g shadow of higher DT curve-counting data
 
 FOUR QUIVER FAMILIES:
     (a) Jordan quiver (C^3): CoHA = Y^+(gl_hat_1); chiral W_{1+infty}
@@ -39,7 +39,7 @@ REFERENCES:
 
 CONVENTIONS:
     - Cohomological grading: |d_bar| = +1
-    - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (AP45)
+    - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (desuspension convention)
     - Exact arithmetic via fractions.Fraction throughout
     - q = formal variable / box-counting fugacity
     - M(q) = MacMahon = prod_{n>=1} 1/(1-q^n)^n (plane partition GF)

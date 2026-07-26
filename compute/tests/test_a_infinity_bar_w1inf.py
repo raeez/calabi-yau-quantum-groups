@@ -109,9 +109,9 @@ class TestAInfBarElement:
         assert elem.total_spin == 6
 
     def test_cohomological_degree(self):
-        """Desuspension: |s^{-1}a| = |a| - 1 (AP45)."""
+        """Desuspension: |s^{-1}a| = |a| - 1 (desuspension convention)."""
         elem = AInfBarElement(factors=(T, T))
-        # VERIFIED [DC] degree: sum(0) - 2 = -2 [DA] AP45 desuspension
+        # VERIFIED [DC] degree: sum(0) - 2 = -2 [DA] desuspension convention desuspension
         assert elem.cohomological_degree == -2
 
     def test_repr_unit_coeff(self):
@@ -323,12 +323,12 @@ class TestM3:
     def test_m3_ttt_coefficient(self):
         """m_3(T,T,T) = -2T at c=1.
 
-        The coefficient -2c = -2 matches the cubic shadow alpha_T = 2
+        The coefficient -2 matches the cubic shadow alpha_T = 2
         from c3_shadow_tower.py spin2_shadow_data.
         """
         result = self.bar_cx.m3(T, T, T)
         s = result.simplify()
-        # VERIFIED [DC] -2c = -2 [LT] Virasoro mode algebra [CT] c3_shadow_tower
+        # VERIFIED [DC] -2 [LT] Virasoro mode algebra [CT] c3_shadow_tower
         assert len(s.terms) == 1
         assert s.terms[0].factors == (T,)
         assert s.terms[0].coeff == Fraction(-2)
@@ -811,7 +811,7 @@ class TestCrossChecks:
     """Cross-check A_∞ shadow data against c3_shadow_tower.py."""
 
     def test_alpha_matches_m3_coefficient(self):
-        """alpha_T = 2 matches |m_3(T,T,T)| = 2c = 2.
+        """alpha_T = 2 matches |m_3(T,T,T)| = 2.
 
         The cubic shadow alpha is the absolute value of the m_3 coefficient
         (up to normalization).
@@ -938,7 +938,7 @@ class TestM5:
 
     Independent input verification chain:
       kappa = c/2 = 1/2 [from 2-point <T|T> normalization]
-      alpha = 2 [from Virasoro associator m_3(T,T,T) = -2c T]
+      alpha = 2 [from Virasoro associator m_3(T,T,T) = -2T]
       S_4 = 10/(c(5c+22)) = 10/27 [Zamolodchikov formula, Gram det=196]
     """
 
@@ -1371,7 +1371,7 @@ class TestM7:
 
     Independent input verification chain:
       kappa = c/2 = 1/2 [from 2-point <T|T> normalization]
-      alpha = 2 [from Virasoro associator m_3(T,T,T) = -2c T]
+      alpha = 2 [from Virasoro associator m_3(T,T,T) = -2T]
       S_4 = 10/(c(5c+22)) = 10/27 [Zamolodchikov formula, Gram det=196]
     """
 
@@ -1840,7 +1840,7 @@ class TestM9:
 
     Independent input verification chain:
       kappa = c/2 = 1/2 [from 2-point <T|T> normalization]
-      alpha = 2 [from Virasoro associator m_3(T,T,T) = -2c T]
+      alpha = 2 [from Virasoro associator m_3(T,T,T) = -2T]
       S_4 = 10/(c(5c+22)) = 10/27 [Zamolodchikov formula, Gram det=196]
     """
 

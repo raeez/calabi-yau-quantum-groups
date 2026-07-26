@@ -71,9 +71,9 @@ The CoHA of (Q, W) at dimension vector d is:
 where phi_{Tr W} is the vanishing cycle sheaf. The dimension is:
     dim CoHA_d = #(d-dimensional representations of Jac(Q,W))
 
-For TORIC CY3s, the generating function of CoHA dimensions recovers
-the DT partition function:
-    chi(CoHA) = sum_d dim(CoHA_d) * q^d = Z_DT(X)
+For TORIC CY3s, the graded Euler characteristic of CoHA recovers the
+DT partition function:
+    chi_gr(CoHA) = sum_d chi(CoHA_d) * q^d = Z_DT(X)
 
 The E1 chiral algebra structure on CoHA makes it an associative algebra
 under the Hall product. For C^3, this is the affine Yangian Y(gl_1_hat).
@@ -1811,10 +1811,10 @@ def dt_from_atlas_conifold(order: int = 10) -> FPS:
 # ===================================================================
 
 def verify_hocolimit_c3(order: int = 10) -> bool:
-    """Verify: hocolim of chart CoHAs = DT partition function for C^3.
+    """Verify: the graded CoHA character equals the DT series for C^3.
 
     For C^3 (single chart), the hocolimit is trivially the CoHA itself.
-    The CoHA generating function = M(q) = Z_DT(C^3).
+    The graded Euler characteristic of the CoHA is M(q) = Z_DT(C^3).
     """
     coha = coha_euler_char_c3(order)
     dt = dt_from_atlas_c3(order)

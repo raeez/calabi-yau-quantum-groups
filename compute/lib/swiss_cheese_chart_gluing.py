@@ -69,7 +69,7 @@ MATHEMATICAL CONTENT
 CONVENTIONS
 ===========
   - Cohomological grading: |d| = +1
-  - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (AP45)
+  - Bar uses DESUSPENSION: |s^{-1}v| = |v| - 1 (desuspension convention)
   - E_1 = associative (ordered); E_2 = braided (cup + brace)
   - OC = open-to-closed map (A_inf, NOT algebra)
   - CH* = Hochschild cochains (E_2 algebra structure)

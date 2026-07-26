@@ -123,7 +123,7 @@ For the 6d theory on C^3 = C^2 x C_R:
 CONVENTIONS
 ===========
   - Cohomological grading: |d| = +1
-  - Bar desuspension: |s^{-1}v| = |v| - 1 (AP45)
+  - Bar desuspension: |s^{-1}v| = |v| - 1 (desuspension convention)
   - E_n levels: E_1 = ordered, E_2 = braided, E_3 = 6d topological
   - SC colors: ch = closed/holomorphic, top = open/topological
   - kappa always subscripted: kappa_ch, kappa_BKM, kappa_cat, kappa_fiber
@@ -1099,10 +1099,12 @@ class BulkBoundaryCoupling:
         # Z(Rep^{E_1}(A_open)) = Rep^{E_2}(A_closed)
         results["drinfeld_center_passage"] = True
 
-        # The averaging map av: E_1 -> E_inf kills Hopf data
+        # The averaging map av: E_1 -> E_inf kills Hopf data.
+        # This free-field branch uses the abelian/CY-normalized scalar.
         results["averaging_kills_hopf"] = True
-        # av(r(z)) = kappa_ch (scalar)
-        results["averaging_r_matrix"] = f"kappa_ch = {self.kac_moody_level}"
+        results["averaging_r_matrix"] = (
+            f"abelian scalar shadow kappa_ch = {self.kac_moody_level}"
+        )
 
         results["ok"] = True
         return results
@@ -1348,14 +1350,16 @@ def verify_defect_hierarchy() -> Dict[str, Any]:
 def verify_center_promotion_not_iterated_drinfeld() -> Dict[str, Any]:
     """Verify that E_2 -> E_3 promotion is via DERIVED center, not iterated Drinfeld.
 
-    The CORRECT route to E_3 structure is the DERIVED center (higher Deligne):
-      E_1 --(Drinfeld center Z)--> E_2 --(derived center Z^{der})--> E_3
+    The CORRECT route to E_3 structure first produces an E_2 input, then
+    applies the DERIVED center (higher Deligne):
+      E_1 --(Drinfeld center Z)--> E_2 input --(derived center Z^{der})--> E_3
 
     The INCORRECT route would be iterated Drinfeld center:
       E_1 --(Z)--> E_2 --(Z)--> E_3  (WRONG: Z(Z(C)) != E_3)
 
     The derived center Z^{der}_ch(A) = HH^*(A, A) carries E_3 structure
-    from the higher Deligne conjecture (for E_inf input algebra A).
+    from the higher Deligne conjecture only when the input has E_2/E_inf
+    structure; the E_1 case gives only E_2.
     This is the algebraic E_3 of AP154(a).
 
     For E_1 input: HH^*(A, A) carries only E_2 (Dunn: E_1 + E_1 = E_2).
@@ -1382,7 +1386,7 @@ def verify_center_promotion_not_iterated_drinfeld() -> Dict[str, Any]:
     # because Z is idempotent on modular tensor categories: Z(Z(C)) = Z(C) x Z(C)^{rev}
     results["iterated_drinfeld_not_e3"] = True  # By MTC theory
 
-    # The correct promotion: E_2 -> E_3 via derived center
+    # The correct promotion: E_2 input -> E_3 via derived center
     # Z^{der}_ch(A) for A an E_2 algebra gives E_3 (Dunn: E_2 + E_1 = E_3)
     results["derived_center_e2_gives_e3"] = True
 

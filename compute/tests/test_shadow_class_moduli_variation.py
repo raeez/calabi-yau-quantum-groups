@@ -270,7 +270,7 @@ class TestKappaCHConstant:
 # =========================================================================
 
 class TestK3SubalgebraShadowClass:
-    """Shadow class of the enhanced subalgebra varies over K3 moduli."""
+    """Shadow class of the enhanced affine-current subalgebra over K3 moduli."""
 
     def test_generic_class_G(self):
         """Generic K3: subalgebra class G (Heisenberg, free-field)."""
@@ -282,7 +282,7 @@ class TestK3SubalgebraShadowClass:
         assert pt.subalgebra_S4 == 0
 
     def test_ade_A1_class_L(self):
-        """A_1 singularity: subalgebra class L."""
+        """A_1 singularity: affine-current subalgebra class L."""
         # VERIFIED [DC] shadow tower [CF] su_2-hat_1 has S_3 != 0
         pt = k3_ade_point('A', 1)
         assert pt.subalgebra_shadow_class == 'L'
@@ -291,7 +291,7 @@ class TestK3SubalgebraShadowClass:
         assert pt.subalgebra_S4 == 0
 
     def test_all_ade_class_L(self):
-        """All ADE singularities at level 1: subalgebra class L."""
+        """All ADE singularities at level 1: affine-current subalgebra class L."""
         # VERIFIED [DC] shadow tower [CF] level 1: S_4 = 0
         for n in range(1, 9):
             pt = k3_ade_point('A', n)

@@ -722,7 +722,7 @@ class TestCYToChiral:
         assert info['depth'] == 2
 
     def test_shadow_depth_cy2(self):
-        """CY2 (K3): class G, depth 2 (lattice VOA)."""
+        """CY2 generic K3: class G, depth 2 on the Mukai/Heisenberg branch."""
         info = CYToChiral.shadow_depth_from_cy(2, 22)
         assert info['class'] == 'G'
 
@@ -998,8 +998,8 @@ class TestMukaiLattice:
         # VERIFIED [DC] kappa formula [CF] Vol I
         assert MukaiLattice.kappa_from_transcendental_rank(2) == Fraction(2)
 
-    def test_lattice_voa_shadow_class_G(self):
-        """All lattice VOAs are class G."""
+    def test_lattice_voa_rootless_shadow_class_G(self):
+        """Rootless lattice current coordinates are class G."""
         for rank in [1, 2, 4, 8, 16, 22, 24]:
             inv = MukaiLattice.lattice_voa_shadow_invariants(rank)
             assert inv['depth_class'] == 'G'
@@ -1007,6 +1007,15 @@ class TestMukaiLattice:
             assert inv['shadow_depth'] == 2
             # VERIFIED [DC] shadow structure [CF] cross-family census
             assert inv['cubic_shadow'] == Fraction(0)
+
+    def test_lattice_voa_rootful_current_shadow_class_L(self):
+        """Rootful lattice current coordinates are class L."""
+        for rank, roots in [(24, 48), (24, 720), (22, 2)]:
+            inv = MukaiLattice.lattice_voa_shadow_invariants(rank, root_count=roots)
+            assert inv['depth_class'] == 'L'
+            assert inv['shadow_depth'] == 3
+            assert inv['cubic_shadow'] != Fraction(0)
+            assert inv['quartic_shadow'] == Fraction(0)
 
     def test_lattice_voa_F1(self):
         """F_1 = kappa/24 for lattice VOA."""
@@ -1408,11 +1417,17 @@ class TestHigherGenusGVGW:
 class TestCrossFamilyConsistency:
     """Consistency checks across CY families."""
 
-    def test_all_lattice_voas_class_G(self):
-        """Every lattice VOA is class G regardless of rank."""
+    def test_rootless_lattice_voas_class_G(self):
+        """Rootless lattice current coordinates are class G for each tested rank."""
         for rank in [1, 2, 3, 4, 8, 16, 22, 24, 48]:
             inv = MukaiLattice.lattice_voa_shadow_invariants(rank)
             assert inv['depth_class'] == 'G'
+
+    def test_rootful_lattice_current_branch_class_L(self):
+        """Rootful current coordinates are class L regardless of rank."""
+        for rank in [2, 8, 16, 22, 24, 48]:
+            inv = MukaiLattice.lattice_voa_shadow_invariants(rank, root_count=2)
+            assert inv['depth_class'] == 'L'
 
     def test_kappa_scales_with_rank(self):
         """kappa = rank is linear in rank (Vol I authoritative)."""

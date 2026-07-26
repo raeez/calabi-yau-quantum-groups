@@ -3491,9 +3491,8 @@ class TestZFunctorialityKoszulReflectionsIV:
             "Universal centre Z(A) := ∫_{S^1 × Ran(X)} A naturality",
         ],
         verified_against=[
-            "Heisenberg H_1: A^! = H_1 (self-dual under Koszul, "
-            "kappa(H_1) + kappa(H_1^!) = 1 + 1 = 2; Vol I bp_self_duality "
-            "framework)",
+            "Heisenberg H_1: A^! is the curved branch, not H_1; "
+            "kappa(H_1) + kappa(H_1^!) = 1 + (-1) = 0",
             "Virasoro Vir_c: A^! = Vir_{26-c} (Koszul reflection sends "
             "c -> 26-c per Vol I climax theorem)",
             "Functoriality check: Z(K_A) commutes with Z applied to "
@@ -3502,7 +3501,7 @@ class TestZFunctorialityKoszulReflectionsIV:
         disjoint_rationale=(
             "The DERIVATION uses Lurie HA factorisation-homology functoriality "
             "machinery. The VERIFICATION uses explicit Koszul reflection "
-            "formulas for Heisenberg (self-dual) and Virasoro (c -> 26-c) "
+            "formulas for Heisenberg (curved dual branch) and Virasoro (c -> 26-c) "
             "and checks Z-functoriality directly. Both confirm the "
             "naturality structure at canonical examples via algorithmically "
             "distinct paths."
@@ -3512,18 +3511,16 @@ class TestZFunctorialityKoszulReflectionsIV:
         """The KEY PROPOSITION: Z is functorial in Koszul reflections,
         verified at Heisenberg and Virasoro examples.
         """
-        # Example 1: Heisenberg H_1 (self-dual under Koszul reflection).
-        # H_1^! = H_1 (the rank-1 Heisenberg is its own Koszul dual in the
-        # Vol I framework via bp_self_duality).
+        # Example 1: Heisenberg H_1 is not self-dual under Koszul reflection.
+        # H_1^! is the curved second-kind branch with scalar kappa -1.
         kappa_H1 = 1
-        kappa_H1_dual = 1
-        # K_H1: H_1 → H_1^! = H_1 is the identity (after the Koszul
-        # involution on the bar complex, which is identity on Heisenberg).
-        # Functoriality of Z under K_H1: Z(H_1) → Z(H_1^!) = Z(H_1)
-        # Since K_H1 = id, Z(K_H1) = id on Z(H_1). Trivially natural.
-        K_H1_is_identity = True
+        kappa_H1_dual = -1
+        # K_H1: H_1 -> H_1^! is not the identity; it lands on the curved
+        # dual branch.  The scalar complementarity row is still functorial.
+        K_H1_is_identity = False
         Z_K_H1_is_identity = K_H1_is_identity
-        assert Z_K_H1_is_identity is True
+        assert kappa_H1 + kappa_H1_dual == 0
+        assert Z_K_H1_is_identity is False
 
         # Example 2: Virasoro Vir_c.
         # Koszul reflection sends c → 26 - c (Vol I climax theorem).
@@ -3607,9 +3604,9 @@ class TestSupertraceTrinityCentreCollapseIV:
         # tr_{Z(A)}(K_A) = K(A) = -c_ghost(BRST(A)).
 
         # PATH B: explicit Vol I kappa-conductor values.
-        # Heisenberg H_1 (Vol I bp_self_duality):
-        K_H1 = 2  # = kappa(H_1) + kappa(H_1^!) = 1 + 1
-        assert K_H1 == 2
+        # Heisenberg H_1 class-G scalar row:
+        K_H1 = 0  # = kappa(H_1) + kappa(H_1^!) = 1 + (-1)
+        assert K_H1 == 0
 
         # Virasoro Vir_c at the universal level (Vol I climax theorem):
         K_Vir = 26
@@ -4206,7 +4203,8 @@ class TestAveragingForgetsHopfIV:
         verified_against=[
             "Heisenberg H_1: r(z) = k·Ω/z; S_2-coinvariant residue at "
             "z = 0 gives κ_ch(H_1) = 1 (scalar)",
-            "Virasoro Vir_c: r(z) = (c/24)·Ω/z; coinvariant residue gives "
+            "Virasoro Vir_c: collision r(z) = (c/2)/z^3 + 2T/z; "
+            "the CY-normalized coinvariant projection used here gives "
             "κ_ch(Vir_c) = c/24 (scalar in c)",
             "K3 Yangian Y(g_K3): r(z) = κ_ch(K3)·Ω/z = 2·Ω/z; coinvariant "
             "gives 2 (scalar)",
@@ -4233,8 +4231,8 @@ class TestAveragingForgetsHopfIV:
         av_r_H1 = kappa_ch_H1
         assert av_r_H1 == 1
 
-        # Virasoro Vir_c: r(z) = (c/24)·Ω/z.
-        # av(r(z)) = c/24 = κ_ch(Vir_c).
+        # Virasoro Vir_c: collision r(z) = (c/2)/z^3 + 2T/z.
+        # The CY-normalized coinvariant projection used here is c/24.
         # Test at canonical c values.
         for c, expected in [(24, 1), (1, Fraction(1, 24)),
                             (13, Fraction(13, 24))]:

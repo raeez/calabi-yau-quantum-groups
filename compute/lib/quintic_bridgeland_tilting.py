@@ -572,11 +572,11 @@ def bridgeland_tilting_obstruction_theorem() -> Dict[str, object]:
 
 
 # ===========================================================================
-# 8. The healed Platonic statement
+# 8. The healed structural statement
 # ===========================================================================
 
 def platonic_kapranov_statement() -> Dict[str, str]:
-    """The Platonic ideal admitting a proof of Kapranov 3-shifted Koszul.
+    """The structural target admitting a proof of Kapranov 3-shifted Koszul.
 
     After this wave, the Kapranov 3-shifted Koszul duality on compact CY_3
     REDUCES to:

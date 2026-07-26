@@ -10,7 +10,7 @@ of $\Phi_2 = \SpCh_{\Sigma_1, C} \circ \PhiFA_2$.
 \begin{enumerate}[label=\textup{(\roman*)}]
 \item \textbf{Stage~$1$, stable geometric input.} The canonical object
 $\PhiFA_2(D^b\Coh(X)) \in \mathrm{E}_2\text{-}\mathrm{hFA}(X)$ is the
-\emph{rigid} piece of the $p$-adic programme: its existence does not
+\emph{rigid} piece of the $p$-adic correspondence: its existence does not
 deform under Frobenius, and its rank-$24$ Mukai-Heisenberg shape is
 independent of $p$ and of any choice of $(\Sigma_1, C)$. The
 tier-(i) invariants -- Mukai lattice rank $24$, Hodge numbers
@@ -49,7 +49,7 @@ The Fermat quartic $X \subset \P^3_\Q$ is a K3 surface over $\Q$ with geometric 
 The CY-to-chiral image of $X$ at $d = 2$ is the rank-$24$ Mukai Heisenberg:
 \[
  \Phi(X) \;=\; H_{\mathrm{Muk}}(X),
- \qquad \kappa_{\mathrm{ch}}(\Phi(X)) \;=\; \chi(\cO_X)/2 \;=\; 1,
+ \qquad \kappa_{\mathrm{ch}}^{\mathrm{Hodge}}(\Phi(X)) \;=\; \chi(\cO_X) \;=\; 2,
  \qquad \kappa_{\mathrm{fiber}}(\Phi(X)) \;=\; 24.
 \]
 This identification is the $d = 2$ content of CY-A$_2$.
@@ -58,7 +58,9 @@ This identification is the $d = 2$ content of CY-A$_2$.
 \section{The lemma on \texorpdfstring{$p = 1$}{p = 1} Dirichlet coefficients}
 \label{sec:padic-fermat-lemma}
 
-The split-approximation of the engine \texttt{k3\_padic\_shadow\_zeta\_frobenius} substitutes $22 p^n$ in higher Dirichlet coefficients; the clean statement at $n = 1$ is the following lemma, which is load-bearing for the proposition.
+The higher Dirichlet coefficients require the full Frobenius spectrum.
+At $n = 1$ no approximation is needed; the clean statement is the
+following lemma, which is load-bearing for the proposition.
 
 \begin{lemma}[Fermat-quartic first Dirichlet coefficient]
 \label{lem:phi-k3-bar-shadow-hasse-weil-n1}
@@ -70,26 +72,37 @@ This equality is the specialisation $\mathbb{L} = p^2$ of the CY-A$_2$ local-fac
 \end{lemma}
 
 \begin{proof}
-By CY-A$_2$ the motivic bar dimensions of $\Phi(X)$ at charge $n$, refined by the Frobenius action on $H^\ast(X, \Q_\ell)$ and evaluated at $\mathbb{L} = p^2$, produce the shadow-zeta Dirichlet coefficients of $\Phi(X)$; see the definition of the shadow-zeta in the engine \texttt{padic\_shadow\_k3.py} and the Newton-power-sum assembly in \texttt{newton\_power\_sums\_to\_p2}. At charge $n = 1$, $a_1(p) = \Tr(\Frob_p \mid H^\ast(X))$. For a K3 surface, $H^\ast(X) = H^0(X) \oplus H^2(X) \oplus H^4(X)$ with $H^0(X) \cong \Q_\ell$ (trivial Galois action) and $H^4(X) \cong \Q_\ell(-2)$ (Tate twist, $\Frob_p$ acts as $p^2$). The odd cohomology vanishes because K3 is simply connected with $h^{1,0} = h^{2,1} = 0$. Summing the three traces yields the stated identity.
+By CY-A$_2$ the motivic bar dimensions of $\Phi(X)$ at charge $n$,
+refined by the Frobenius action on $H^\ast(X, \Q_\ell)$ and evaluated at
+$\mathbb{L} = p^2$, produce the shadow-zeta Dirichlet coefficients of
+$\Phi(X)$. At charge $n = 1$, $a_1(p) = \Tr(\Frob_p \mid H^\ast(X))$.
+For a K3 surface, $H^\ast(X) = H^0(X) \oplus H^2(X) \oplus H^4(X)$ with
+$H^0(X) \cong \Q_\ell$ (trivial Galois action) and
+$H^4(X) \cong \Q_\ell(-2)$ (Tate twist, $\Frob_p$ acts as $p^2$). The
+odd cohomology vanishes because K3 is simply connected with
+$h^{1,0} = h^{2,1} = 0$. Summing the three traces yields the stated
+identity.
 \end{proof}
 
-\noindent\textit{Verification paths for Lemma~\ref{lem:phi-k3-bar-shadow-hasse-weil-n1}:}
+\noindent\textit{Three computations of Lemma~\ref{lem:phi-k3-bar-shadow-hasse-weil-n1}:}
 
 \begin{description}
-\item[Path V1 (Gauss--Jacobi sums).]
-\texttt{derived\_from}: Frobenius eigenvalue sums from explicit Gauss--Jacobi sums on $\# X(\F_{p^n})$ for $p \in \{3, 5, 7, 11, 13\}$ and $n \in \{1, 2, 3\}$; Candelas--de la Ossa--Rodriguez-Villegas (arXiv:hep-th/0012233) equation (3.12).
-\texttt{verified\_against}: the Frobenius-trace table \texttt{k3\_frobenius\_data(p).trace\_h2}.
-\texttt{disjoint\_rationale}: Gauss--Jacobi character-sum arithmetic is algebraically disjoint from the bar-complex power-sum machinery; the only shared input is the prime $p$.
+\item[Gauss--Jacobi sums.]
+Frobenius eigenvalue sums are obtained from explicit Gauss--Jacobi sums
+on $\# X(\F_{p^n})$ for $p \in \{3, 5, 7, 11, 13\}$ and
+$n \in \{1, 2, 3\}$; see Candelas--de la Ossa--Rodriguez-Villegas
+equation (3.12).
 
-\item[Path V2 (Livne + weight-$3$ CM newform).]
-\texttt{derived\_from}: Fourier coefficients $a_p$ of $\eta(4\tau)^6 \in S_3(\Gamma_0(16), \chi_{-4})$ for $p \in \{3, 5, 7, 11, 13, 17, 19\}$, cross-checked against LMFDB label \texttt{16.3.b.a}.
-\texttt{verified\_against}: $\Tr(\Frob_p \mid T(X)) = \Tr(\Frob_p \mid H^2) - 20 p$ from \texttt{galois\_rep\_fermat\_quartic}.
-\texttt{disjoint\_rationale}: modular-form Fourier coefficients from Eichler--Shimura on $\Gamma_0(16)$ are a completely different computational path from the surface point count; they coincide only because Livne's theorem is true.
+\item[Livn\'e and the weight-$3$ CM newform.]
+The Fourier coefficients $a_p$ of
+$\eta(4\tau)^6 \in S_3(\Gamma_0(16), \chi_{-4})$ give the transcendental
+Frobenius trace through
+$\Tr(\Frob_p \mid T(X)) = \Tr(\Frob_p \mid H^2) - 20p$.
 
-\item[Path V3 (LMFDB database).]
-\texttt{derived\_from}: LMFDB entries for the singular K3 of discriminant $-4$ over $\Q$, the newform \texttt{16.3.b.a}, and the Hecke Gr\"ossencharacter $\psi$ of $\Q(i)$ of infinity type $(2, 0)$ and conductor $(1+i)^4$.
-\texttt{verified\_against}: engine-computed Frobenius traces at $p \in \{5, 13, 17, 29, 37\}$ and the level field \texttt{FERMAT\_QUARTIC\_MODULAR\_LEVEL}.
-\texttt{disjoint\_rationale}: LMFDB maintains independently computed modular-form and $L$-function data through Magma, PARI, and Sage workflows, with no shared implementation with the Vol~III engine.
+\item[Hecke Gr\"ossencharacter.]
+The singular K3 surface of discriminant $-4$ over $\Q$ is governed by
+the Hecke Gr\"ossencharacter $\psi$ of $\Q(i)$ of infinity type $(2,0)$
+and conductor $(1+i)^4$.
 \end{description}
 
 
@@ -109,7 +122,7 @@ Let $X \subset \P^3_\Q$ be the Fermat quartic and let $\Phi(X) = H_{\mathrm{Muk}
  \[
  a_n(p) \;=\; 1 + \Tr(\Frob_p^n \mid H^2) + p^{2 n}.
  \]
- At $n = 1$ this is Lemma~\ref{lem:phi-k3-bar-shadow-hasse-weil-n1} unconditionally; at $n \geq 2$ the identity holds modulo the Newton-recursion completion of the full degree-$22$ Frobenius polynomial $P_2(t)$ in $\Q[[p^{-s}]]$, equivalently modulo the functional equation $a_{22-k} = p^{22-2k} a_k$ that determines higher coefficients from $n = 1$ data.
+ At $n = 1$ this is Lemma~\ref{lem:phi-k3-bar-shadow-hasse-weil-n1} unconditionally. For $n \geq 2$ the identity requires the full degree-$22$ Frobenius polynomial $P_2(t)$, equivalently the Frobenius action on both $\mathrm{NS}(X)_{\Q_\ell}$ and $T(X)_{\Q_\ell}$. The functional equation constrains this polynomial but does not determine it from the single trace at $n=1$.
 
  \item \textup{(Livne modularity.)} The $2$-dimensional $\ell$-adic Galois sub-representation on $T(X) \otimes \Q_\ell$ is modular: there exists a weight-$3$ newform
  \[
@@ -117,26 +130,26 @@ Let $X \subset \P^3_\Q$ be the Fermat quartic and let $\Phi(X) = H_{\mathrm{Muk}
  \]
  with complex multiplication by $\Q(i)$, such that $a_p(f) = \Tr(\Frob_p \mid T(X))$ for every good prime $p$.
 
- \item \textup{(Kuga--Satake recovery.)} The Kuga--Satake abelian variety $\mathrm{KS}(X)$ of dimension $2^{b_2(X) - 2} = 2^{20}$ carries a complex multiplication structure by $\Q(i)$, and the Hecke eigensystem of $f$ is the restriction of the Galois action on $H^1(\mathrm{KS}(X), \Q_\ell)$ to the embedded piece $H^2(X, \Q_\ell)(1) \hookrightarrow \End(H^1(\mathrm{KS}(X), \Q_\ell))$. The dimension formula $2^{b_2 - 2}$ is universal for any polarised K3; the CM specialisation to $\Q(i)$ is specific to the Fermat quartic.
+ \item \textup{(Kuga--Satake recovery.)} The polarised Kuga--Satake construction applied to the primitive K3 Hodge structure of rank $21$ gives an abelian variety of dimension $2^{19}$. If one applies the even Clifford construction to the full $H^2$ instead, one obtains the unprimitive variant of dimension $2^{20}$. The Hecke eigensystem of $f$ is carried by the rank-$2$ transcendental factor $T(X)$, equivalently by a CM elliptic factor with multiplication by $\Q(i)$ inside the Kuga--Satake isogeny decomposition; it is not a statement about every factor of the full Kuga--Satake variety.
 \end{enumerate}
 
 Clause (i) at $n = 1$ is Lemma~\ref{lem:phi-k3-bar-shadow-hasse-weil-n1}; clauses (ii)--(iii) are ProvedElsewhere via the cited literature.
 \end{proposition}
 
 \begin{proof}[Attribution]
-Livne (Israel J.~Math.\ 92, 1995) proves the modularity of the $2$-dimensional orthogonal Galois representation on $T(X)$ by a weight-$3$ newform on $\Gamma_0(N)$ for any singular K3 over $\Q$. Sch\"utt (Ramanujan J.\ 19, 2009) identifies the minimal-twist representative for the Fermat quartic as $\eta(4\tau)^6 \in S_3(\Gamma_0(16), \chi_{-4})$, fixing the level $N = 16$ and Nebentypus $\chi_{-4}$. Kuga--Satake (Math.\ Ann.\ 169, 1967) constructs $\mathrm{KS}(X)$ of dimension $2^{b_2 - 2}$ and proves the Galois-equivariant embedding $H^2(X)(1) \hookrightarrow \End(H^1(\mathrm{KS}(X)))$; for the Fermat quartic, $\mathrm{KS}(X)$ is isogenous to a product of CM elliptic curves with endomorphism ring $\Z[i]$. Madapusi Pera (Invent.\ Math.\ 201, 2015) underwrites the splitting $H^2 = \mathrm{NS}(1) \oplus T$ as Galois modules. Huybrechts, \emph{Lectures on K3 Surfaces} (CUP 2016), Chapters~4 and~17 consolidate the Hodge--Galois dictionary used here. Clause (i) $n \geq 2$ invokes the Weil bounds of Deligne, \emph{La conjecture de Weil I} (Publ.\ IHES 43, 1974).
+Livne (Israel J.~Math.\ 92, 1995) proves the modularity of the $2$-dimensional orthogonal Galois representation on $T(X)$ by a weight-$3$ newform on $\Gamma_0(N)$ for any singular K3 over $\Q$. Sch\"utt (Ramanujan J.\ 19, 2009) identifies the minimal-twist representative for the Fermat quartic as $\eta(4\tau)^6 \in S_3(\Gamma_0(16), \chi_{-4})$, fixing the level $N = 16$ and Nebentypus $\chi_{-4}$. Kuga--Satake (Math.\ Ann.\ 169, 1967) constructs the Clifford abelian variety from the polarised primitive Hodge structure and gives the Galois-equivariant embedding of that primitive part into $\End(H^1(\mathrm{KS}(X)))$; for the Fermat quartic the transcendental rank-$2$ summand is realised by a CM elliptic factor with endomorphism ring $\Z[i]$. Madapusi Pera (Invent.\ Math.\ 201, 2015) underwrites the splitting $H^2 = \mathrm{NS}(1) \oplus T$ as Galois modules. Huybrechts, \emph{Lectures on K3 Surfaces} (CUP 2016), Chapters~4 and~17 consolidate the Hodge--Galois dictionary used here. Clause (i) $n \geq 2$ invokes the full Frobenius characteristic polynomial, constrained by Deligne's Weil bounds but not determined by its trace.
 \end{proof}
 
 \paragraph{Scope qualifiers.}
-The proposition is specific to the Fermat quartic, not to singular K3 surfaces of Picard rank $20$ in general: other rank-$20$ K3s (for example the $2A_1 + E_8^2$ Inose pencil with discriminant $-3$) have different CM fields and different newform levels. The good-reduction hypothesis excludes $p = 2$, where $X$ has additive reduction and the level-$16$ newform reflects the bad reduction. The Kuga--Satake dimension $2^{20}$ is universal; the complex multiplication by $\Q(i)$ is Fermat-specific. The $n \geq 2$ clause of (i) holds modulo the Newton-recursion completion of the degree-$22$ characteristic polynomial of $\Frob_p \mid H^2$, which is equivalent to the Hasse--Weil functional equation under the Weil bounds.
+The proposition is specific to the Fermat quartic, not to singular K3 surfaces of Picard rank $20$ in general: other rank-$20$ K3s (for example the $2A_1 + E_8^2$ Inose pencil with discriminant $-3$) have different CM fields and different newform levels. The good-reduction hypothesis excludes $p = 2$, where $X$ has additive reduction and the level-$16$ newform reflects the bad reduction. The standard polarised Kuga--Satake dimension is $2^{19}$ for a K3 surface; the $2^{20}$ number belongs to the full-$H^2$ Clifford variant. The $n \geq 2$ clause of (i) holds only after the degree-$22$ characteristic polynomial of $\Frob_p \mid H^2$ is supplied.
 
 
 \section{Cross-references and further reading}
 \label{sec:padic-fermat-further}
 
-The proposition addresses the $d = 2$ instance of the $p$-adic CY Langlands programme. The $d = 3$ analogue for rigid CY threefolds over $\Q$ is the Dieulefait--Manoharmayum theorem (Fields Inst.\ Commun.\ 38, 2003) on Serre modularity; its inclusion is open. The Dwork pencil at $d = 3$ (Candelas--de la Ossa--Rodriguez-Villegas, arXiv:hep-th/0012233) is a candidate for the next family-specific instance. The generic K3 (of Picard rank $< 20$) is \emph{not} covered: the transcendental lattice is then of rank $\geq 3$ and the Galois representation is not $2$-dimensional, so Livne's theorem does not apply directly.
+The proposition addresses the $d = 2$ instance of the $p$-adic CY Langlands correspondence. The $d = 3$ analogue for rigid CY threefolds over $\Q$ is the Dieulefait--Manoharmayum theorem (Fields Inst.\ Commun.\ 38, 2003) on Serre modularity; its inclusion is open. The Dwork pencil at $d = 3$ (Candelas--de la Ossa--Rodriguez-Villegas, arXiv:hep-th/0012233) is a candidate for the next family-specific instance. The generic K3 (of Picard rank $< 20$) is \emph{not} covered: the transcendental lattice is then of rank $\geq 3$ and the Galois representation is not $2$-dimensional, so Livne's theorem does not apply directly.
 
-Within Vol~III, Proposition~\ref{prop:phi-k3-padic-langlands-fermat} complements the geometric Langlands programme of Chapter~\ref{ch:geometric-langlands}: Feigin--Frenkel gives the chiral centre at the critical level in geometric characteristic, while the present proposition realises the arithmetic analogue at a fixed CM point of K3 moduli. The bridge correspondence $\Phi_2$ is the common input.
+Within Vol~III, Proposition~\ref{prop:phi-k3-padic-langlands-fermat} complements the geometric Langlands correspondence of Chapter~\ref{ch:geometric-langlands}: Feigin--Frenkel gives the chiral centre at the critical level in geometric characteristic, while the present proposition realises the arithmetic analogue at a fixed CM point of K3 moduli. The bridge correspondence $\Phi_2$ is the common input.
 
 \begin{remark}[Arithmetic CY Langlands and the 4d \texorpdfstring{$\mathcal{N}=2$}{N=2} perspective]
 \label{rem:padic-4d-n2-arithmetic}

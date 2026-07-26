@@ -606,9 +606,9 @@ def bkm_real_simple_roots() -> Dict[str, object]:
     (Chapter 4 of Gritsenko-Nikulin 1998; see also Scheithauer 2006).
 
     NOTE: the full lattice II_{3,19} decomposes as
-      II_{3,19} = II_{2,1} (+) E_8^{(2)} (+) A_1^{(2)}^{18}
+      II_{3,19} = Lambda^{2,1}_{II} (+) E_8^{(2)} (+) A_1^{(2)}^{18}
     but the BKM simple roots for Delta_5 all lie in the
-    "hyperbolic core" II_{2,1} = II_{1,1} (+) <-2>.
+    "hyperbolic core" Lambda^{2,1}_{II} = II_{1,1} (+) <-2>.
     """
     return {
         "rank": 3,
@@ -617,10 +617,10 @@ def bkm_real_simple_roots() -> Dict[str, object]:
         "signature": (2, 1),
         "determinant": -32,
         "lattice_ambient": "Lambda^{2,1}_{II} (hyperbolic core)",
-        "full_lattice": "II_{3,19} = II_{2,1} (+) E_8^{(2)} (+) A_1^{(2) ^{18}}",
+        "full_lattice": "II_{3,19} = Lambda^{2,1}_{II} (+) E_8^{(2)} (+) A_1^{(2) ^{18}}",
         "note": ("The K3 lattice has signature (3, 19); the BKM "
                  "structure for Delta_5 is on the signature-(2, 1) "
-                 "paramodular-relevant sublattice II_{2,1}, per "
+                 "paramodular-relevant sublattice Lambda^{2,1}_{II}, per "
                  "Gritsenko-Nikulin 1997 alg-geom/9612004 Section 2. "
                  "24 imaginary simple roots per n^2/2 stratum."),
         "primary_lit": "Gritsenko-Nikulin 1997 alg-geom/9612004 Sec. 2; "
@@ -712,7 +712,7 @@ def drinfeld_audit_report() -> Dict[str, object]:
                             "(Borcherds 1998) via Shimura-Waldspurger; "
                             "NOT an Ikeda lift "
                             "(Ikeda 2001 produces Delta_10 from "
-                            "weight-16 elliptic source, distinct map)",
+                            "weight-18 elliptic source, distinct map)",
     }
 
 

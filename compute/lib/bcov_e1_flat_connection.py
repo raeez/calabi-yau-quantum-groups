@@ -116,7 +116,7 @@ For CY3s with special arithmetic structure (K3 x E with chi = 0):
 CONVENTIONS
 ===========
 
-- Cohomological grading (|d| = +1), bar uses desuspension (AP45).
+- Cohomological grading (|d| = +1), bar uses desuspension (desuspension convention).
 - kappa(A) = modular characteristic from Vol I (AP1: family-specific).
 - The BCOV convention: F_g is the genus-g B-model free energy.
 - The connection convention: nabla = d + A acts on sections of End(A_t).
@@ -994,7 +994,7 @@ def propagator_bar_differential_verification() -> Dict[str, Any]:
         'gauge_freedom_match': True,
         'symmetry_note': (
             "S^{ij} is symmetric; d log E(z,w) is anti-symmetric. "
-            "The desuspension sign (AP45) resolves this: "
+            "The desuspension sign (desuspension convention) resolves this: "
             "s^{-1} applied to d log E introduces a sign, "
             "making the composite symmetric."
         ),

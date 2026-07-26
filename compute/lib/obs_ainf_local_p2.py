@@ -552,7 +552,7 @@ def b2_map(elem: BarElement, alg: MinimalCyclicCY3) -> BarLinComb:
       B^{(2)}([a_0|...|a_n]) = sum_{0<=i<j<=n} (-1)^{sgn(i,j)}
           * <a_i, a_j> * [a_0|...|hat_i|...|hat_j|...|a_n]
 
-    CRITICAL SIGN CONVENTION (AP45):
+    CRITICAL SIGN CONVENTION (desuspension convention):
     The bar complex B(A) = T^c(s^{-1} bar(A)) uses DESUSPENDED elements.
     The degree of s^{-1}a in the bar complex is |a| - 1.  All Koszul
     signs in the bar complex must therefore use the desuspended degree
@@ -591,7 +591,7 @@ def b2_map(elem: BarElement, alg: MinimalCyclicCY3) -> BarLinComb:
             if p == F(0):
                 continue
 
-            # BAR-DESUSPENDED Koszul sign (AP45: |s^{-1}a| = |a| - 1)
+            # BAR-DESUSPENDED Koszul sign (desuspension convention: |s^{-1}a| = |a| - 1)
             # Move s^{-1}a_i past s^{-1}a_0,...,s^{-1}a_{i-1}:
             sign_i = sum(factors[k].degree - 1 for k in range(i)) * (factors[i].degree - 1)
             # Move s^{-1}a_j past s^{-1}a_{i+1},...,s^{-1}a_{j-1}:
@@ -640,7 +640,7 @@ def m3_bar(elem: BarElement, alg: MinimalCyclicCY3) -> BarLinComb:
 
       (-1)^{sum_{j<i} (|a_j| - 1)}
 
-    This is the DESUSPENDED sign convention (AP45): in the bar complex
+    This is the DESUSPENDED sign convention (desuspension convention): in the bar complex
     B(A) = T^c(sA), the element s^{-1}a has degree |a|-1.
 
     Parameters

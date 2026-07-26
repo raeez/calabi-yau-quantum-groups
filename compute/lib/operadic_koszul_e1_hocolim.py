@@ -101,7 +101,7 @@ CONTENTS
 CONVENTIONS
 ===========
   - Cohomological grading: |d| = +1
-  - Bar uses DESUSPENSION: |s⁻¹v| = |v| - 1 (AP45)
+  - Bar uses DESUSPENSION: |s⁻¹v| = |v| - 1 (desuspension convention)
   - E₁ = Ass = associahedron operad (Stasheff)
   - E₁^! = E₁{-1} = Ass{-1} (Koszul self-dual with shift 1)
   - E_∞^! = Lie (commutative operad is Koszul dual to Lie)
@@ -164,7 +164,7 @@ def _catalan(n: int) -> int:
 def _koszul_sign(degrees: Sequence[int], pos: int) -> int:
     """Koszul sign for bar differential at position pos.
 
-    For [a₁|...|aₙ] with desuspended degrees |s⁻¹aᵢ| = |aᵢ| - 1 (AP45),
+    For [a₁|...|aₙ] with desuspended degrees |s⁻¹aᵢ| = |aᵢ| - 1 (desuspension convention),
     sign = (-1)^{sum_{j=1}^{pos+1} (|a_j| - 1)}.
     """
     sign_exp = sum(deg - 1 for deg in degrees[:pos + 1])
@@ -458,7 +458,7 @@ class BarElement:
 
     @property
     def cohomological_degree(self) -> int:
-        """After desuspension: |s⁻¹aᵢ| = |aᵢ| - 1 (AP45)."""
+        """After desuspension: |s⁻¹aᵢ| = |aᵢ| - 1 (desuspension convention)."""
         return sum(g.degree for g in self.factors) - self.arity
 
     def __repr__(self) -> str:

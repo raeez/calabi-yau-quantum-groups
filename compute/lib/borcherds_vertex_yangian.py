@@ -1,29 +1,33 @@
 r"""Borcherds vertex algebra approach to BKM imaginary root Yangian generators.
 
 STATUS: CONJECTURAL (AP-CY14). The Yangian deformation of BKM vertex
-operators has not been constructed. This module implements the concrete
-proposal to bypass the nonexistent Drinfeld presentation by deforming
-Borcherds' original vertex operator construction.
+operators has not been constructed. This module implements the finite
+formal ansatz for how such a deformation would interact with
+Borcherds' vertex-operator construction.
 
 THE BORCHERDS APPROACH
 ======================
 
-Borcherds constructed g_{Delta_5} via BRST cohomology of a vertex algebra:
+The Borcherds BRST template would realise g_{Delta_5} as the cohomology
+of a vertex algebra of the form:
 
-    g_{Delta_5} = H^1_BRST(V_{II_{2,1}} tensor V_trans tensor V_ghost)
+    g_{Delta_5} = H^1_BRST(V_{Lambda^{2,1}_{II}}^{formal} tensor V_trans tensor V_ghost)
 
-where V_{II_{2,1}} is the lattice VOA of II_{2,1} (c=3), V_trans is the
-transverse oscillator VOA (c=23, encoding the K3 sigma model), and V_ghost
-is the bosonic string ghost system (c=-26).
+where V_{Lambda^{2,1}_{II}}^{formal} is the formal hyperbolic lattice
+vertex construction for Lambda^{2,1}_{II} (c=3), V_trans is a supplied
+transverse vertex superalgebra (c=23) whose graded supertrace has the
+K3 elliptic-genus coefficients, and V_ghost is the bosonic string ghost
+system (c=-26). This is conditional data, not a constructed K3 x E
+worldsheet VOA.
 
-The imaginary root vectors are SPECIFIC vertex operators in the lattice VOA:
+The imaginary root vectors are SPECIFIC vertex operators in the formal hyperbolic lattice vertex construction:
 for alpha in the root lattice with norm (alpha, alpha) = -2D (discriminant D),
 the vertex operator e^{alpha . phi(z)} creates a state at level D+1.
 
-KEY INSIGHT: The Yangian deformation can be performed DIRECTLY on the vertex
-operators, without passing through a Drinfeld presentation. The deformation
-parameter comes from the Omega-background (AP-CY20: intermediary mechanism
-must be stated explicitly):
+FORMAL PROPOSAL: the Yangian deformation would be read directly from
+vertex operators, without passing through a Drinfeld presentation. The
+deformation parameter is modelled by an Omega-background correction
+(AP-CY20: intermediary mechanism must be stated explicitly):
 
     e^{alpha . phi(z)} --> e^{alpha . phi(z)} * Omega_epsilon(alpha, z)
 
@@ -34,8 +38,8 @@ MATHEMATICAL CONTENT
 
 1. LATTICE VOA VERTEX OPERATORS.
 
-   V_{II_{2,1}} has vertex operators V(alpha, z) = :e^{alpha . phi(z)}: for
-   alpha in II_{2,1}. The OPE of two such operators is:
+   V_{Lambda^{2,1}_{II}}^{formal} has vertex operators V(alpha, z) = :e^{alpha . phi(z)}: for
+   alpha in Lambda^{2,1}_{II}. The OPE of two such operators is:
 
        V(alpha, z) V(beta, w) ~ (z-w)^{(alpha,beta)} * V(alpha+beta, w)
        + (subleading)
@@ -74,10 +78,10 @@ MATHEMATICAL CONTENT
    At epsilon = 1: h = 1 (all imaginary roots contribute at level 1!).
 
    CRITICAL: This is NOT a rigorous construction. The Omega-background
-   deformation for the BKM lattice VOA has not been established.
+   deformation for the BKM formal hyperbolic lattice vertex construction has not been established.
    The above is a STRUCTURAL PROPOSAL for how the deformation could work.
 
-3. DEFORMED OPE AND YANGIAN STRUCTURE.
+3. DEFORMED OPE AND FORMAL YANGIAN STRUCTURE.
 
    The deformed vertex operators have OPE:
 
@@ -85,10 +89,12 @@ MATHEMATICAL CONTENT
        * V_eps(alpha+beta, w) * (corrections)
 
    where f(alpha,beta) is a bilinear form encoding the Omega deformation.
-   The YANGIAN STRUCTURE emerges when:
-   - The deformed OPE coefficient at (z-w)^{-1} gives the Yangian bracket
-   - The spectral parameter u arises from the formal variable z
-   - The R-matrix comes from the monodromy of V_eps around another V_eps
+   A Yangian structure would emerge only if:
+   - The deformed OPE coefficient at (z-w)^{-1} defines residue operators
+     on BRST cohomology
+   - The spectral parameter u arises from the formal current expansion
+   - The R-matrix comparison is constructed from monodromy and matched
+     to the Hall--Borcherds double
 
    For the real simple roots (standard Kac-Moody generators):
    the Omega deformation reproduces the standard affine Yangian structure.
@@ -96,19 +102,20 @@ MATHEMATICAL CONTENT
    with the known Drinfeld presentation for the real sector.
 
    For the imaginary simple roots (NO Drinfeld presentation):
-   the Omega deformation provides generators WITHOUT requiring a Drinfeld
-   presentation. The Yangian relations are INDUCED by the deformed OPE,
-   not postulated from a Cartan matrix.
+   the Omega deformation would provide candidate generators WITHOUT
+   requiring a Drinfeld presentation. The relations below are formal OPE
+   diagnostics, not constructed algebra relations.
 
 4. DISCRIMINANT-LEVEL STRUCTURE.
 
    At each discriminant D, the imaginary root space has dimension |c(D)|.
    The deformed vertex operators V_eps(alpha_a, z) for a = 1,...,|c(D)|
-   form a |c(D)|-dimensional multiplet. The Yangian currents are:
+   form a |c(D)|-dimensional multiplet. The candidate Yangian currents are:
 
        e_D^{(a)}(u) = Res_{z=u} V_eps(alpha_a, z)   (a = 1,...,|c(D)|)
 
-   These satisfy commutation relations induced by the deformed OPE:
+   After the missing residue comparison is supplied, these would satisfy
+   commutation relations induced by the deformed OPE:
 
        [e_D^{(a)}(u), e_{D'}^{(b)}(v)] = f_{D,D'}^{ab}(u-v)
 
@@ -133,7 +140,8 @@ MATHEMATICAL CONTENT
 
    (c) For K3 x E (g_{Delta_5}): the root multiplicities c(D) from
        phi_{0,1} determine the multiplet sizes. The vertex operator
-       approach gives concrete generators at each discriminant level.
+       approach gives concrete formal current candidates at each
+       discriminant level.
 
 AP COMPLIANCE
 =============
@@ -147,11 +155,12 @@ AP-CY20: The Omega-background intermediary is stated explicitly: the
           equivariant parameters epsilon_{1,2} come from the Nekrasov
           partition function, NOT directly from the normal bundle grading.
 AP-CY8:  The connection to the bar Euler product requires CY-A + Vol I.
-AP113:   kappa subscripts: kappa_BKM = 5, kappa_ch = 2.
+AP113:   kappa subscripts: kappa_BKM(Delta_5) = 5,
+          kappa_ch^Hodge(K3 x E) = 0, kappa_ch^Heis(K3 x E) = 3.
 
 CONVENTIONS
 ===========
-  - Lattice II_{2,1} with Gram matrix ((2,-2,-2),(-2,2,-2),(-2,-2,2))
+  - Lattice Lambda^{2,1}_{II} with Gram matrix ((2,-2,-2),(-2,2,-2),(-2,-2,2))
   - Vertex operators V(alpha,z) = :exp(alpha . phi(z)):
   - Deformation parameter epsilon (= hbar from Omega-background)
   - Discriminant D defined by (alpha,alpha) = -2D for the BKM convention
@@ -215,14 +224,14 @@ def _import_bkm_yangian():
 
 STATUS = 'CONJECTURAL'  # AP-CY14
 
-# Gram matrix of II_{2,1}
+# Gram matrix of Lambda^{2,1}_{II}
 GRAM_MATRIX = ((2, -2, -2), (-2, 2, -2), (-2, -2, 2))
 LATTICE_RANK = 3
 LATTICE_SIGNATURE = (2, 1)  # positive, negative
 
 # Central charges in the BRST construction
-C_LATTICE = 3       # V_{II_{2,1}}
-C_TRANSVERSE = 23   # V_trans (K3 sigma model)
+C_LATTICE = 3       # V_{Lambda^{2,1}_{II}}^{formal}
+C_TRANSVERSE = 23   # conditional transverse vertex superalgebra
 C_GHOST = -26       # V_ghost (bosonic string)
 C_TOTAL = C_LATTICE + C_TRANSVERSE + C_GHOST  # = 0
 
@@ -246,9 +255,9 @@ KNOWN_C_TABLE = {
 # =========================================================================
 
 class LatticeVertexOperator(NamedTuple):
-    """A vertex operator V(alpha, z) = :exp(alpha . phi(z)): on V_{II_{2,1}}.
+    """A vertex operator V(alpha, z) = :exp(alpha . phi(z)): on V_{Lambda^{2,1}_{II}}^{formal}.
 
-    For a root alpha in II_{2,1}, the vertex operator creates a physical
+    For a root alpha in Lambda^{2,1}_{II}, the vertex operator creates a physical
     state in the BRST cohomology. The key data:
     - norm_sq: (alpha, alpha) in the Gram matrix
     - discriminant D: related to norm by (alpha,alpha) = 2 - 2D for simple roots
@@ -280,7 +289,7 @@ def lattice_vertex_operators(D_max: int = 20) -> List[LatticeVertexOperator]:
       NOTE: The norm convention depends on the BKM convention.
       In Borcherds' convention for g_{Delta_5}: the simple imaginary root
       at D=-1 has norm^2 = -2*(-1) = 2 in the POSITIVE convention,
-      but the inner product on II_{2,1} has signature (2,1), so a root
+      but the inner product on Lambda^{2,1}_{II} has signature (2,1), so a root
       with positive norm^2 is SPACELIKE in the Lorentzian convention.
       For our purposes: the D=-1 root has (alpha,alpha) > 0, hence the
       self-OPE is regular (no pole). The conformal weight in the lattice
@@ -325,7 +334,7 @@ def lattice_vertex_operators(D_max: int = 20) -> List[LatticeVertexOperator]:
         # and the ghost contribution cancels this to give h_total = 0.
         #
         # For the vertex operator itself (before BRST):
-        # h_lattice = (alpha,alpha)/2 = -D (for the lattice VOA part)
+        # h_lattice = (alpha,alpha)/2 = -D (for the formal hyperbolic lattice part)
         # h_oscillator = D + 1 (from the transverse modes)
         # h_total_matter = -D + (D+1) = 1
         # h_ghost = -1 (ghost number 1 contribution)
@@ -619,11 +628,11 @@ def ope_coefficient_matrix(D1: int, D2: int, epsilon: float = 0.0
         'pole_order_undeformed': pole_order_undeformed,
         'pole_order_deformed': pole_order_deformed,
         'yangian_bracket_source': (
-            f'The (z-w)^{{-1}} coefficient of the deformed OPE gives the '
-            f'Yangian commutation relation [e_{{D1}}(u), e_{{D2}}(v)].'
+            f'The (z-w)^{{-1}} coefficient of the deformed OPE is the '
+            f'formal residue candidate for [e_{{D1}}(u), e_{{D2}}(v)].'
         ) if pole_order_deformed >= 1 else (
             f'No simple pole in the deformed OPE at epsilon={epsilon}. '
-            f'The Yangian bracket vanishes at this order.'
+            f'The formal ansatz has no bracket residue at this order.'
         ),
         'status': STATUS,
     }
@@ -635,9 +644,9 @@ def ope_coefficient_matrix(D1: int, D2: int, epsilon: float = 0.0
 
 def yangian_current_from_vertex_operator(D: int, epsilon: float = 1.0
                                          ) -> Dict[str, Any]:
-    r"""Extract the Yangian current from the deformed vertex operator.
+    r"""Extract the formal Yangian-current candidate from the deformed vertex operator.
 
-    The Yangian current at discriminant D is defined as:
+    The formal current candidate at discriminant D is:
 
         e_D^{(a)}(u) = Res_{z=u} V_eps(alpha_a, z)
 
@@ -650,15 +659,15 @@ def yangian_current_from_vertex_operator(D: int, epsilon: float = 1.0
     The deformed vertex operator at epsilon=1 has h=1 (formal), so:
         V_eps(alpha, z) = sum_{n in Z} V_n^{eps} z^{-n-1}
 
-    The Yangian current modes are:
+    The formal current modes are:
         e_D^{(a)}_n = V_n^{eps}(alpha_a)   for n >= 0
 
-    These are the CONCRETE GENERATORS that bypass the Drinfeld presentation:
-    they are defined directly as deformed vertex operator modes, not as
-    abstract algebra generators satisfying postulated relations.
+    These are candidate generators for a future residue construction:
+    they are read from deformed vertex operator modes, not from an
+    existing Drinfeld presentation.
 
-    The commutation relations follow from the deformed OPE, not from a
-    Cartan matrix. This is the key advantage of the Borcherds approach.
+    The commutation relations would follow from the deformed OPE only
+    after the BRST-residue and Hall--Borcherds comparisons are supplied.
 
     Parameters
     ----------
@@ -712,7 +721,7 @@ def yangian_current_from_vertex_operator(D: int, epsilon: float = 1.0
         'deformed_weight': h_deformed,
         'epsilon': epsilon,
         'current_type': (
-            f'{mult} Yangian current{"s" if mult > 1 else ""} e_{{D={D}}}^{{(a)}}(u) '
+            f'{mult} formal Yangian-current candidate{"s" if mult > 1 else ""} e_{{D={D}}}^{{(a)}}(u) '
             f'for a = 1,...,{mult}'
         ),
         'mode_expansion': (
@@ -722,12 +731,12 @@ def yangian_current_from_vertex_operator(D: int, epsilon: float = 1.0
         'self_ope_pole_order': self_ope['pole_order_deformed'],
         'definition': (
             f'e_{{D={D}}}^{{(a)}}(u) = Res_{{z=u}} V_eps(alpha_a, z), '
-            f'where V_eps is the Omega-deformed vertex operator on V_{{II_{{2,1}}}}'
+            f'where V_eps is the formal Omega-deformed vertex operator on V_{{II_{{2,1}}}}'
         ),
         'advantage_over_drinfeld': (
-            'Defined directly as vertex operator residues. '
+            'Defined as formal vertex-operator residue candidates. '
             'NO Drinfeld presentation required. '
-            'Commutation relations follow from deformed OPE.'
+            'Commutation relations require the missing residue comparison.'
         ),
         'status': STATUS,
     }
@@ -904,7 +913,7 @@ def consistency_fake_monster_check() -> Dict[str, Any]:
             'operator approach: uniform multiplicities (24) at all levels. '
             'The Omega deformation produces 24 Yangian currents at each '
             'discriminant, all flowing to weight 1. If this construction '
-            'works for II_{25,1}, extending to II_{2,1} is a matter of '
+            'works for II_{25,1}, extending to Lambda^{2,1}_{II} is a matter of '
             'replacing the uniform 24 by the varying c(D) from phi_{0,1}.'
         ),
         'status': STATUS,
@@ -917,32 +926,30 @@ def consistency_fake_monster_check() -> Dict[str, Any]:
 
 def deformed_serre_relations(D1: int, D2: int, epsilon: float = 1.0
                              ) -> Dict[str, Any]:
-    r"""Compute the Yangian Serre relations from the deformed OPE.
+    r"""Compute formal Serre diagnostics from the deformed OPE.
 
-    The KEY ADVANTAGE of the Borcherds vertex operator approach: the
-    Serre relations are NOT postulated (as in the Drinfeld presentation)
-    but rather DERIVED from the OPE structure.
+    The Borcherds vertex operator approach supplies a formal pole
+    diagnostic for the missing Serre comparison. It does not construct
+    the completed current algebra.
 
     For two vertex operators V_eps(alpha, z) and V_eps(beta, w):
     1. Compute the deformed OPE V_eps(alpha,z) V_eps(beta,w)
     2. Extract all singular terms (poles in z-w)
-    3. The Serre relations are the CONDITIONS for the OPE to close
-       (i.e., for the singular terms to be expressible in terms of
-       vertex operators in the algebra).
+    3. Record the pole layers that would become Serre data if the
+       residue operators act on BRST cohomology.
 
     For real-real (D1 < 0, D2 < 0):
-    The deformed OPE recovers the standard Yangian Serre relations
-    (Drinfeld 1985). This is a consistency check.
+    The formal OPE is required to match the standard Yangian Serre
+    relations (Drinfeld 1985). This is a consistency check.
 
     For imaginary-imaginary (D1 >= 0, D2 >= 0):
-    The deformed OPE gives NEW RELATIONS that have no analogue in the
+    The deformed OPE gives new formal diagnostics that have no direct
     Drinfeld presentation (because no Drinfeld presentation exists for
     BKM algebras with imaginary simple roots).
 
-    The closure condition: the (z-w)^{-n} coefficient must be expressible
-    as a normally-ordered product of vertex operators. This is guaranteed
-    by the vertex algebra structure of V_{II_{2,1}}, which provides an
-    automatic Serre relation from the OPE associativity.
+    The closure condition would require the (z-w)^{-n} coefficient to be
+    expressible as a normally ordered product of vertex operators after
+    BRST projection. That is part of the missing comparison datum.
 
     Parameters
     ----------
@@ -975,21 +982,21 @@ def deformed_serre_relations(D1: int, D2: int, epsilon: float = 1.0
     pole_order = ope_data['pole_order_deformed']
     if pole_order == 0:
         deformed_serre = (
-            'No pole in deformed OPE: the Yangian bracket vanishes. '
-            'The Borcherds-Serre triviality is PRESERVED by the deformation.'
+            'No pole in the formal deformed OPE: the ansatz has no bracket residue. '
+            'Borcherds-Serre triviality would require the missing comparison.'
         )
     elif pole_order == 1:
         deformed_serre = (
-            'Simple pole: the Yangian bracket is a SINGLE current. '
+            'Simple pole: one formal residue layer is present. '
             '[e_{D1}(u), e_{D2}(v)] = f(u-v) * e_{D1+D2}(v) '
-            'where f(u-v) is the residue of the deformed OPE.'
+            'would require f(u-v) to be a well-defined BRST residue.'
         )
     else:
         deformed_serre = (
-            f'Pole of order {pole_order}: the Yangian bracket involves '
-            f'{pole_order} independent terms. Higher-order relations from '
+            f'Pole of order {pole_order}: the formal ansatz has '
+            f'{pole_order} residue layers. Higher-order relations from '
             f'the (z-w)^{{-2}}, ..., (z-w)^{{-{pole_order}}} coefficients '
-            f'give additional Serre-type constraints.'
+            f'would give additional Serre-type constraints after comparison.'
         )
 
     return {
@@ -1003,8 +1010,8 @@ def deformed_serre_relations(D1: int, D2: int, epsilon: float = 1.0
         'advantage': (
             'In the Drinfeld approach: imaginary-imaginary Serre relations '
             'are UNKNOWN because no Drinfeld presentation exists for BKM. '
-            'In the Borcherds approach: the relations are DERIVED from the '
-            'vertex algebra OPE, which is WELL-DEFINED for any lattice VOA.'
+            'In the Borcherds approach: the formal pole diagnostics are read from the '
+            'vertex algebra OPE ansatz and await the BRST-residue comparison.'
         ),
         'status': STATUS,
     }
@@ -1015,11 +1022,12 @@ def deformed_serre_relations(D1: int, D2: int, epsilon: float = 1.0
 # =========================================================================
 
 def rmatrix_from_monodromy(D: int, epsilon: float = 1.0) -> Dict[str, Any]:
-    r"""Extract the R-matrix from the monodromy of deformed vertex operators.
+    r"""Extract the formal R-matrix candidate from deformed-operator monodromy.
 
-    The R-matrix of the conjectural Yangian deformation of the BKM algebra can be obtained from the
-    MONODROMY of vertex operators: the phase acquired by V_eps(alpha, z)
-    as z encircles another vertex operator V_eps(beta, w).
+    The R-matrix of the conjectural Yangian deformation would have to
+    be compared with the monodromy of vertex operators: the phase
+    acquired by V_eps(alpha, z) as z encircles another vertex operator
+    V_eps(beta, w).
 
     For the undeformed vertex operators:
         V(alpha, z) V(beta, w) = e^{2*pi*i*(alpha,beta)} * V(beta, w) V(alpha, z)
@@ -1031,8 +1039,9 @@ def rmatrix_from_monodromy(D: int, epsilon: float = 1.0) -> Dict[str, Any]:
         V_eps(alpha, z) V_eps(beta, w)
         = R(z-w; alpha, beta, eps) * V_eps(beta, w) V_eps(alpha, z)
 
-    where R(u; alpha, beta, eps) is the QUANTUM R-matrix, depending on
-    the spectral parameter u = z-w (AP-CY31: spectral, not worldsheet).
+    where R(u; alpha, beta, eps) is the formal quantum R-matrix
+    candidate, depending on the spectral parameter u = z-w (AP-CY31:
+    spectral, not worldsheet).
 
     At epsilon = 0: R = exp(2*pi*i*(alpha,beta)) (classical, no u-dependence).
     At epsilon > 0: R acquires u-dependence from the Omega deformation.
@@ -1077,7 +1086,7 @@ def rmatrix_from_monodromy(D: int, epsilon: float = 1.0) -> Dict[str, Any]:
     # (which is a consequence of the CY involution).
     # In the Borcherds approach: unitarity is guaranteed by the vertex
     # algebra duality V(alpha,z) <-> V(-alpha,-z) and the Gram matrix
-    # symmetry of II_{2,1}.
+    # symmetry of Lambda^{2,1}_{II}.
     unitarity = True  # guaranteed by lattice structure
 
     return {
@@ -1094,9 +1103,10 @@ def rmatrix_from_monodromy(D: int, epsilon: float = 1.0) -> Dict[str, Any]:
             'Algebraic, no reality assumption (AP: K3 Mukai signature).'
         ),
         'advantage': (
-            'The R-matrix is extracted from vertex operator MONODROMY, '
-            'not constructed from a Drinfeld universal R-matrix formula. '
-            'This bypasses the Drinfeld presentation entirely.'
+            'The formal R-matrix candidate is read from vertex-operator '
+            'monodromy rather than from a Drinfeld universal R-matrix formula. '
+            'It becomes algebraic only after the Hall--Borcherds comparison '
+            'is constructed.'
         ),
         'status': STATUS,
     }
@@ -1107,26 +1117,26 @@ def rmatrix_from_monodromy(D: int, epsilon: float = 1.0) -> Dict[str, Any]:
 # =========================================================================
 
 def borcherds_vertex_yangian_summary(D_max: int = 16) -> Dict[str, Any]:
-    r"""Comprehensive summary of the Borcherds vertex operator approach.
+    r"""Comprehensive summary of the formal Borcherds vertex-operator ansatz.
 
-    This approach constructs conjectural Yangian-deformation generators directly from
-    Borcherds' original vertex algebra construction, bypassing the
-    nonexistent Drinfeld presentation.
+    This approach records candidate Yangian-deformation generators
+    suggested by Borcherds' vertex-algebra construction. It does not
+    construct the completed current algebra.
 
     The three-step programme:
-    1. Start with the lattice VOA V_{II_{2,1}} and its vertex operators.
-    2. Apply Omega-background deformation to get weight-1 currents.
-    3. Extract Yangian structure from the deformed OPE and monodromy.
+    1. Start with the formal hyperbolic lattice vertex construction V_{Lambda^{2,1}_{II}}^{formal} and its vertex operators.
+    2. Apply formal Omega-background deformation to get weight-1 current candidates.
+    3. Record formal Yangian diagnostics from the deformed OPE and monodromy.
 
     Advantages over the Drinfeld approach:
     - No Drinfeld presentation required (none exists for BKM)
-    - Serre relations are DERIVED from OPE, not postulated
-    - R-matrix from monodromy, not from universal R-matrix formula
+    - Serre diagnostics are read from OPE pole data, not postulated
+    - R-matrix candidate from monodromy, not from universal R-matrix formula
     - Works uniformly for all discriminant sectors
     - Reduces to the standard affine Yangian for C^3 (consistency)
 
     Open problems:
-    - Rigorous Omega-background for BKM lattice VOA (not established)
+    - Rigorous Omega-background for BKM formal hyperbolic lattice vertex construction (not established)
     - Higher-order corrections beyond leading spectral flow
     - Convergence of the perturbation series at epsilon = 1
     - Comparison with CoHA (associative) structure (AP-CY7)
@@ -1159,24 +1169,24 @@ def borcherds_vertex_yangian_summary(D_max: int = 16) -> Dict[str, Any]:
 
     # Serre relation census
     serre_census = {
-        'real_real': 'KNOWN (standard Yangian Serre, from deformed OPE consistency)',
-        'real_imaginary': 'DERIVED (from deformed OPE of real and imaginary vertex ops)',
+        'real_real': 'KNOWN TARGET (standard Yangian Serre, used as consistency check)',
+        'real_imaginary': 'FORMAL (from deformed OPE of real and imaginary vertex ops)',
         'imaginary_imaginary': (
-            'DERIVED (from deformed OPE of imaginary vertex ops). '
-            'THIS IS THE KEY RESULT: Serre relations for imaginary-imaginary '
-            'generators that CANNOT be obtained from a Drinfeld presentation.'
+            'FORMAL (from deformed OPE of imaginary vertex ops). '
+            'This is the finite pole diagnostic for imaginary-imaginary '
+            'generators that have no existing Drinfeld presentation.'
         ),
     }
 
     return {
         'title': 'Borcherds vertex algebra approach to conjectural Yangian-deformation generators',
         'programme': [
-            '1. Start with V_{II_{2,1}} lattice VOA and its vertex operators.',
-            '2. Apply Omega-background deformation (spectral flow at leading order).',
-            '3. At epsilon=1: all vertex operators become weight-1 currents.',
-            '4. Yangian currents e_D(u) = Res_{z=u} V_eps(alpha, z).',
-            '5. Commutation relations from deformed OPE.',
-            '6. R-matrix from vertex operator monodromy.',
+            '1. Start with formal hyperbolic lattice vertex construction V_{Lambda^{2,1}_{II}}^{formal} and its vertex operators.',
+            '2. Apply formal Omega-background deformation (spectral flow at leading order).',
+            '3. At epsilon=1: all vertex operators become weight-1 current candidates.',
+            '4. Candidate currents e_D(u) = Res_{z=u} V_eps(alpha, z).',
+            '5. Formal commutation diagnostics from deformed OPE.',
+            '6. R-matrix candidate from vertex operator monodromy.',
         ],
         'generators': {
             'total': total_generators,
@@ -1197,17 +1207,18 @@ def borcherds_vertex_yangian_summary(D_max: int = 16) -> Dict[str, Any]:
         },
         'advantages': [
             'No Drinfeld presentation required (none exists for BKM).',
-            'Serre relations DERIVED from OPE, not postulated.',
-            'R-matrix from monodromy, not universal R-matrix.',
+            'Serre diagnostics read from OPE pole data, not postulated.',
+            'R-matrix candidate read from monodromy, not universal R-matrix.',
             'Uniform treatment of all discriminant sectors.',
-            'Reduces to known affine Yangian for C^3.',
+            'Recovers the known affine-Yangian pattern for C^3 as a consistency check.',
         ],
         'open_problems': [
-            'Rigorous Omega-background for BKM lattice VOA.',
+            'Rigorous Omega-background for BKM formal hyperbolic lattice vertex construction.',
             'Higher-order corrections beyond leading spectral flow.',
             'Convergence of perturbation series at epsilon = 1.',
             'Comparison with CoHA (associative) structure (AP-CY7).',
             'Explicit OPE coefficients at D > 0 (spacelike sector).',
+            'BRST-residue action on cohomology and Hall--Borcherds R-matrix comparison.',
         ],
         'status': STATUS,
     }

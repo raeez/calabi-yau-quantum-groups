@@ -1056,7 +1056,7 @@ class TestAPCompliance:
         assert phi[0] == 1  # g(z) -> 1 as z -> inf (weight-0 function)
 
     def test_ap45_desuspension(self):
-        """AP45: s^{-1} shifts degree DOWN by 1 (desuspension)."""
+        """desuspension convention: s^{-1} shifts degree DOWN by 1 (desuspension)."""
         # In the bar complex B^k(Y^+), elements are desuspended:
         # |s^{-1}a| = |a| - 1. For degree-0 elements (Y^+ concentrated
         # in cohomological degree 0), s^{-1}a has degree -1.

@@ -68,7 +68,7 @@ COMPUTATIONS:
 
 CONVENTIONS:
   - Cohomological grading (|d| = +1).
-  - Bar uses DESUSPENSION: |s⁻¹v| = |v| − 1 (AP45).
+  - Bar uses DESUSPENSION: |s⁻¹v| = |v| − 1 (desuspension convention).
   - E₁ bar: ordered tensor products, Hochschild differential.
   - Exact arithmetic via fractions.Fraction.
   - κ follows Vol I conventions: κ(H_k) = k, κ(Vir_c) = c/2.
@@ -248,7 +248,7 @@ class BarElement:
 
     @property
     def cohom_degree(self) -> int:
-        # s⁻¹ lowers by 1 (AP45): |s⁻¹a| = |a| - 1
+        # s⁻¹ lowers by 1 (desuspension convention): |s⁻¹a| = |a| - 1
         return sum(g.cohom_degree - 1 for g in self.factors)
 
     def factor_names(self) -> Tuple[str, ...]:

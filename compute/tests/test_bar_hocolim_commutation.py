@@ -186,7 +186,7 @@ class TestE1AlgebraBasics:
         assert elem.total_charge == (1, 1)
 
     def test_bar_cohom_degree(self):
-        """Cohomological degree of [a|b] with |a|=|b|=0 is -2 (AP45)."""
+        """Cohomological degree of [a|b] with |a|=|b|=0 is -2 (desuspension convention)."""
         g = E1Generator("a", charge=(1,), cohom_degree=0)
         h = E1Generator("b", charge=(0,), cohom_degree=0)
         elem = BarElement(factors=(g, h))

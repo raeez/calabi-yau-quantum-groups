@@ -450,12 +450,14 @@ class TestOmegaBackgroundDeformation:
         assert not deform.is_classical_limit()
 
     def test_deformation_hierarchy_self_dual(self):
-        """At self-dual: Heisenberg, trivial R-matrix, c = 1."""
+        """At self-dual: Heisenberg, trivial Yangian/MO R part, c = 1."""
         theory = Costello5dTheory(1, 0)
         deform = OmegaBackgroundDeformation(theory)
         result = deform.deformation_hierarchy()
         assert result["algebra_type"] == "Heisenberg"
         assert result["r_matrix_trivial"]
+        assert result["r_matrix_trivial_scope"] == "Yangian/MO nonabelian part"
+        assert "exp(k*hbar/z)" in result["ordered_bar_scalar_r"]
         assert result["central_charge"] == Rational(1)
 
     def test_deformation_hierarchy_generic(self):
@@ -787,8 +789,8 @@ class TestFivedKoszulDualIV:
     Disjoint sources:
     - DERIVATION: Costello 5d hCS computation + reflection identity
       g(u) g(-u) = 1.
-    - VERIFICATION: Feigin-Frenkel 1988 level-reflection V_k(g)^! =
-      V_{-k-2h^v}(g) for affine Kac-Moody (independent Feigin-Frenkel
+    - VERIFICATION: Feigin-Frenkel 1988 level-reflection for the
+      reflected current presentation of the affine Kac-Moody CE target
       center result predating Costello 5d hCS by 25 years), classical
       Koszul complementarity kappa(A) + kappa(A^!) = conductor rho_K
       from Vol I, and direct numerical evaluation at 4 Omega-background
@@ -806,8 +808,8 @@ class TestFivedKoszulDualIV:
             "B(Y(gl_hat_hat_1))",
         ],
         verified_against=[
-            "Feigin-Frenkel 1988 duality V_k(g)^! = V_{-k-2h^v}(g) "
-            "for affine Kac-Moody at level k (independent result, "
+            "Feigin-Frenkel 1988 reflected-current surface for the "
+            "affine Kac-Moody CE target at level k (independent result, "
             "predates Costello 5d hCS by 25 years); specialized to "
             "gl_1 (h^v = 0) gives k' = -k",
             "Classical Koszul complementarity kappa_ch(A) + "
@@ -841,8 +843,8 @@ class TestFivedKoszulDualIV:
         Feigin-Frenkel 1988 + Vol I Koszul conductor + direct
         numerical evaluation.
         """
-        # (i) Feigin-Frenkel 1988 level reflection for affine Kac-
-        # Moody: V_k(g)^! = V_{-k-2h^v}(g).
+        # (i) Feigin-Frenkel 1988 level reflection for the affine
+        # Kac-Moody reflected current presentation.
         # For gl_1: h^v = 0, so k' = -k.
         # At SV N=2: k = -3 (sigma_2), k' = -k = 3.
         h_v_gl1 = 0

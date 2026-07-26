@@ -45,9 +45,10 @@ KEY RESULTS BY DIMENSION
    - Bulk algebra: A_{K3xE} on E (not constructed; AP-CY6)
    - kappa_ch(A_{K3xE}) = 3 (by additivity: kappa_ch(K3) + kappa_ch(E) = 2+1)
    - The defect along E in K3xE: A^!|_E
-   - CRITICAL DISTINCTION: K3xE has TWO Koszul branches:
+   - CRITICAL DISTINCTION: K3xE has two scalar lanes:
      (a) Free-field branch: K = 0, kappa_ch^! = -3 (Heisenberg-type)
-     (b) BKM branch: K = 5 = kappa_BKM, kappa_ch^! = 2 (holographic)
+     (b) BKM branch: kappa_BKM = 5 is the Borcherds weight characteristic,
+         not a Koszul conductor
    - On the free-field branch: Rep^{E_2}(A^!|_E) ~ Rep^{E_2}(Y(g_{K3}))
      (the K3 quantum group; CONJECTURAL, depends on Y(g_{K3}) existing)
    - The bar-cobar adjunction: B_{E_1} -| Omega_{E_1} at the E_1 level;
@@ -67,7 +68,8 @@ For each CY target, the pipeline has FIVE verifiable stages:
   Stage 1: Bulk algebra A with kappa_ch(A) and shadow class
   Stage 2: Bar complex B(A) -- dimensions, differentials, class
   Stage 3: Verdier dual D_Ran(B(A)) = A^! with kappa_ch(A^!)
-  Stage 4: Koszul conductor K = kappa_ch(A) + kappa_ch(A^!)
+  Stage 4: Koszul conductor K = kappa_ch(A) + kappa_ch(A^!) when the
+           chiral lane is known
   Stage 5: Morita equivalence Omega(B(A)) ~ A
 
 The five stages form a DAG (directed acyclic graph) with dependencies:
@@ -91,7 +93,7 @@ ANTI-PATTERN COMPLIANCE
 CONVENTIONS
 ===========
   - Cohomological grading (|d| = +1).
-  - Bar desuspension: |s^{-1}v| = |v| - 1 (AP45).
+  - Bar desuspension: |s^{-1}v| = |v| - 1 (desuspension convention).
   - E_1 shift: E_1^! = E_1{-1} (shift 1 = dim(R)).
   - E_2 shift: E_2^! = E_2{-2} (shift 2 = dim(C)).
   - kappa_ch(H_k) = k (Heisenberg), kappa_ch(V_k(g)) = dim(g)(k+h^v)/(2h^v).
@@ -315,8 +317,8 @@ class DefectAlgebraData:
         Name of the source bulk algebra.
     kappa_ch : Fraction
         kappa_ch(A^!) of the defect algebra.
-    koszul_conductor : Fraction
-        K = kappa_ch(A) + kappa_ch(A^!).
+    koszul_conductor : Optional[Fraction]
+        K = kappa_ch(A) + kappa_ch(A^!) when known.
     shadow_class : ShadowClass
         Shadow class of A^!.
     claim_status : ClaimStatus
@@ -331,7 +333,7 @@ class DefectAlgebraData:
     name: str
     bulk_name: str
     kappa_ch: Fraction
-    koszul_conductor: Fraction
+    koszul_conductor: Optional[Fraction]
     shadow_class: ShadowClass
     claim_status: ClaimStatus
     dependencies: Tuple[str, ...]
@@ -450,9 +452,10 @@ class DefectKoszulPipeline:
         sc = self.bulk.shadow_class
         kappa_bulk = self.bulk.kappa_ch
 
-        # Koszul conductor and dual kappa depend on shadow class:
+        # Koszul conductor and dual kappa depend on the chiral lane:
         #   Class G, L: K = 0 (free-field branch), kappa^! = -kappa
-        #   Class M:    K = rho_K > 0, kappa^! = rho_K - kappa
+        #   Virasoro class M: K = 13, kappa^! = 13 - kappa
+        #   BKM weight data do not determine the Koszul conductor.
         if sc in (ShadowClass.G, ShadowClass.L):
             kappa_dual = -kappa_bulk
             conductor = Fraction(0)
@@ -461,16 +464,12 @@ class DefectKoszulPipeline:
             kappa_dual = -kappa_bulk
             conductor = Fraction(0)
         else:  # ShadowClass.M
-            # For Virasoro: rho_K = 13
-            # General class M: conductor is family-specific
-            # We use the kappa_BKM if available (holographic branch)
-            if self.kappa_spectrum.kappa_BKM is not None:
-                conductor = self.kappa_spectrum.kappa_BKM
+            if self.bulk.name.startswith("Vir_"):
+                conductor = Fraction(13)
                 kappa_dual = conductor - kappa_bulk
             else:
-                # Default: cannot determine conductor without additional data
-                kappa_dual = -kappa_bulk  # placeholder
-                conductor = Fraction(0)
+                kappa_dual = -kappa_bulk
+                conductor = None
 
         # Claim status: conditional if bulk is conditional or conjectured
         if self.bulk.claim_status in (ClaimStatus.CONDITIONAL, ClaimStatus.CONJECTURED):
@@ -503,6 +502,7 @@ class DefectKoszulPipeline:
         defect = self.defect  # triggers stages 1-3
         kappa_sum = self.bulk.kappa_ch + defect.kappa_ch
         expected_K = defect.koszul_conductor
+        verified = expected_K is not None and kappa_sum == expected_K
 
         return {
             'bulk_name': self.bulk.name,
@@ -511,7 +511,7 @@ class DefectKoszulPipeline:
             'kappa_ch_defect': defect.kappa_ch,
             'kappa_sum': kappa_sum,
             'koszul_conductor': expected_K,
-            'verified': kappa_sum == expected_K,
+            'verified': verified,
             'shadow_class': self.bulk.shadow_class.value,
             'claim_status': defect.claim_status.value,
         }
@@ -662,11 +662,11 @@ def k3xe_bkm_pipeline() -> DefectKoszulPipeline:
     """K3 x E (d=3), BKM / holographic branch: CONJECTURAL.
 
     On this branch: relative kappa_ch^Heis = 3, compact kappa_ch = 0,
-    kappa_BKM = 5, K = 5, kappa_ch^! = 2.
+    and kappa_BKM = 5 is the Borcherds weight characteristic.
     The defect algebra is a deformation of V_{g_{Delta_5}}^!.
 
     All results conditional on CY-A_3 (AP-CY6, AP-CY14).
-    The BKM branch has nonzero Koszul conductor K = kappa_BKM = 5.
+    No Koszul conductor is inferred from the Borcherds weight.
     """
     bulk = BulkAlgebraData(
         name="A_{K3xE}^{BKM}",
@@ -719,7 +719,8 @@ def elliptic_curve_pipeline() -> DefectKoszulPipeline:
     """Elliptic curve (d=1): trivial case.
 
     Bulk: H_1 (Heisenberg at level 1).
-    Defect: H_1^! = H_{-1}.
+    Defect: H_1^! is the curved Sym^ch(V*[1]) branch with the same
+    scalar kappa as H_{-1}.
     K = 0 (class G).
     """
     bulk = BulkAlgebraData(
@@ -784,10 +785,9 @@ def virasoro_pipeline(c: Fraction = Fraction(1)) -> DefectKoszulPipeline:
         central_charge=c,
         rank=1,
     )
-    # Use kappa_BKM = 13 to represent the conductor for Virasoro
     spectrum = KappaSpectrum(
         kappa_ch=Fraction(c, 2),
-        kappa_BKM=Fraction(13),
+        kappa_BKM=None,
         kappa_cat=Fraction(0),
         kappa_fiber=Fraction(1),
     )
@@ -1030,4 +1030,5 @@ def verify_all_conductors() -> Dict[str, bool]:
     return {
         name: data['stage_4_conductor']['verified']
         for name, data in targets.items()
+        if data['stage_4_conductor']['koszul_conductor'] is not None
     }

@@ -501,7 +501,7 @@ class TestCY4Examples:
         assert ex.p1_nontrivial
 
     def test_k3xk3_shadow_G(self):
-        """K3 x K3 is class G (lattice VOA = free-field)."""
+        """K3 x K3 is class G on the product Mukai/Heisenberg branch."""
         ex = k3xk3_example()
         # VERIFIED [DC] free-field classification
         assert ex.shadow_class == "G"

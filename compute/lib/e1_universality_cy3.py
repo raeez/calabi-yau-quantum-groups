@@ -35,21 +35,21 @@ THE PROOF has four independent pillars:
       requires Omega to be FIXED, not rotated.  The E_2 structure
       would require invariance under rotation of Omega, which fails.
 
-  (d) Deformation space dimension: 1 = hallmark of E_1.
+  (d) Deformation space dimension: 1 = hallmark of the native E_1 output.
       HH^2(PV*(X)) for a CY3 has the unique deformation direction
       sigma_3 = h_1 h_2 h_3 (with h_1 + h_2 + h_3 = 0).  This is
-      ONE parameter, characteristic of E_1 algebras (associative
-      deformations are 1-parameter).  An E_2 algebra would have a
-      2-dimensional deformation space (the two E_1 directions in
-      Dunn additivity E_2 = E_1 tensor E_1 each contribute one parameter).
+      ONE parameter for the native algebra.  A native E_2 structure
+      would require a second independently constructed compatible
+      direction on A; Dunn additivity does not manufacture that
+      direction from the E_1 product alone.
 
 E_2 RECOVERY VIA DRINFELD CENTER
 ==================================
 
 The E_2 structure is recovered by passing to the Drinfeld center:
     Z(Rep^{E_1}(A_C))  ~=  Rep^{E_2}(Y(g_X))
-The center construction introduces the "second E_1 direction" by
-adding the half-braiding data.  For C^3, this gives the Yang R-matrix.
+The center construction introduces the required categorical coherence
+by adding half-braiding data.  For C^3, this gives the Yang R-matrix.
 
 CONVENTIONS
 ===========
@@ -423,9 +423,10 @@ def deformation_space_dimension(cy3_name: str) -> int:
     This is the single parameter sigma_3 = h1*h2*h3 in the
     T^3-equivariant setting (with h1+h2+h3=0).
 
-    dim = 1 is the hallmark of E_1 (associative = 1-parameter deformation).
-    E_2 would require dim = 2 (Dunn: E_2 = E_1 tensor E_1, two independent
-    deformation parameters).
+    dim = 1 is the hallmark of the native E_1 algebra. A native E_2
+    structure would require a second independently constructed
+    compatible direction on A; the Drinfeld center supplies the
+    categorical half-braiding instead.
     """
     # All CY3 have 1D Omega-deformation space
     return 1
@@ -686,10 +687,10 @@ def extension_correspondence_e1_reason() -> Dict[str, Any]:
             "the R-matrix as the universal intertwiner between Delta and Delta^op"
         ),
         "dunn_interpretation": (
-            "By Dunn additivity E_2 = E_1 tensor E_1: "
-            "the first E_1 = CoHA multiplication (extension direction), "
-            "the second E_1 = Cartan/spectral-parameter direction. "
-            "The CoHA alone sees only the first E_1 factor."
+            "Dunn additivity describes the E_2 coherence once a second "
+            "compatible direction has been constructed. The native CoHA "
+            "has only the E_1 multiplication; the Drinfeld center supplies "
+            "the categorical half-braiding."
         ),
     }
 

@@ -15,8 +15,9 @@ system R(N), the lattice VOA V_N has:
 
     central charge c = 24
     kappa_ch = 24  (= rank for lattice VOAs; topological, moduli-independent)
-    shadow class = G (Gaussian, free-field)
-    shadow depth = 2
+    weight-one/current shadow class = G for the rootless Leech lattice
+    weight-one/current shadow class = L for rootful Niemeier lattices
+    shadow depth = 2 for Leech, 3 for rootful Niemeier lattices
 
 The K3 moduli space M_K3 has real dimension 80 (= dim Gr(3,19) + 2 for the
 Kahler class):
@@ -65,18 +66,22 @@ classified by its root system R(N).  The 24 root systems are:
     A_17 E_7, D_10 E_7^2, D_12^2, A_24, D_16 E_8,
     E_8^3, D_24
 
-For the lattice VOA V_N: the shadow tower is identical for all 24
-(class G, depth 2, kappa_ch = 24).  The shadow tower is BLIND to
-the root system.  Distinguishing the 24 requires the full theta series.
+For the lattice VOA V_N: kappa_ch = 24 for all 24 lattices.  The
+weight-one/current shadow detects the rootless versus rootful split:
+the Leech lattice is class G, while every rootful Niemeier lattice carries
+a nonabelian ADE current algebra and is class L in this coordinate.
+Distinguishing the 23 rootful lattices from one another requires the full
+theta series.
 
 SHADOW CLASS COMPUTATION (AP-CY12 compliant)
 ---------------------------------------------
 
 For a lattice VOA V_Lambda of rank r:
     S_2 = kappa_ch = r (the modular characteristic)
-    S_3 = 0 (lattice VOAs are E_infty, no cubic shadow)
-    S_4 = 0 (no quartic obstruction for free-field)
-    Delta = 8 * kappa_ch * S_4 = 0 => class G, shadow depth 2
+    S_3 = 0 for the rootless/free-field current shadow
+    S_3 != 0 when roots produce a nonabelian ADE current algebra
+    S_4 = 0 at the level-one ADE current coordinate
+    Delta = 8 * kappa_ch * S_4 = 0; class G if S_3 = 0, class L if S_3 != 0
 
 For affine g-hat at level k:
     S_2 = kappa_ch(g-hat_k) = k * dim(g) / (k + h^vee)
@@ -303,57 +308,58 @@ def all_niemeier_lattices() -> List[NiemeierLattice]:
 # =========================================================================
 
 class LatticeVOAShadowData(NamedTuple):
-    """Shadow obstruction tower data for a lattice VOA."""
+    """Weight-one/current shadow obstruction tower data for a lattice VOA."""
     rank: int               # lattice rank
     central_charge: int     # c = rank for lattice VOAs
     kappa_ch: int           # kappa_ch = rank for lattice VOAs
-    shadow_class: str       # 'G' for all lattice VOAs (free-field)
-    shadow_depth: int       # 2 for all class G
+    shadow_class: str       # 'G' for rootless, 'L' for rootful current shadow
+    shadow_depth: int       # 2 for G, 3 for L
     S2: int                 # = kappa_ch
-    S3: int                 # = 0 (lattice VOAs are E_infty)
-    S4: int                 # = 0 (no quartic obstruction)
+    S3: int                 # 0 for rootless, 1 marks nonzero ADE cubic shadow
+    S4: int                 # = 0 at the level-one current coordinate
     discriminant: int       # Delta = 8 * kappa_ch * S4 = 0
 
 
-def lattice_voa_shadow(rank: int) -> LatticeVOAShadowData:
-    """Compute shadow data for a lattice VOA of given rank.
+def lattice_voa_shadow(rank: int, total_roots: int = 0) -> LatticeVOAShadowData:
+    """Compute weight-one/current shadow data for a lattice VOA.
 
     For a lattice VOA V_Lambda of rank r:
         c = r
         kappa_ch = r (the rank IS the modular characteristic for lattice VOAs)
-        S_3 = 0 (E_infty, no cubic shadow)
-        S_4 = 0 (free-field, no quartic obstruction)
-        Delta = 0 => class G, shadow depth 2
+        S_3 = 0 for the rootless/free-field current shadow
+        S_3 != 0 when roots generate a nonabelian ADE current algebra
+        S_4 = 0 at the level-one current coordinate
+        Delta = 0; the S_3 gate separates class G from class L.
 
-    This is AP-CY12 compliant: the shadow class G is determined by the
-    FULL tower computation (S_3 = S_4 = 0 implies Delta = 0, which forces
-    class G by the single-line dichotomy theorem).  We do NOT determine
-    the class from generator counting.
+    The optional total_roots parameter is the root-system witness.  It does
+    not distinguish the 23 rootful Niemeier types from one another; it only
+    distinguishes rootless Leech from rootful nonabelian current shadows.
     """
+    has_roots = total_roots > 0
     return LatticeVOAShadowData(
         rank=rank,
         central_charge=rank,
         kappa_ch=rank,
-        shadow_class='G',
-        shadow_depth=2,
+        shadow_class='L' if has_roots else 'G',
+        shadow_depth=3 if has_roots else 2,
         S2=rank,
-        S3=0,
+        S3=1 if has_roots else 0,
         S4=0,
         discriminant=0,
     )
 
 
 def niemeier_voa_shadow(index: int) -> LatticeVOAShadowData:
-    """Shadow data for the lattice VOA of the index-th Niemeier lattice.
+    """Current-shadow data for the lattice VOA of the index-th Niemeier lattice.
 
-    All 24 Niemeier lattice VOAs have identical shadow data:
-        kappa_ch = 24, class G, depth 2.
-
-    The shadow tower is BLIND to the root system: it cannot distinguish
-    the Leech lattice from A_1^24 or E_8^3.  Distinguishing them requires
-    the full theta series or the root system structure.
+    All 24 Niemeier lattice VOAs have kappa_ch = 24.  The current-shadow
+    coordinate sees the rootless/rootful split: Leech is class G, while
+    every rootful Niemeier lattice is class L because its roots generate a
+    nonabelian ADE current algebra.  Distinguishing the 23 rootful types
+    still requires the theta series or the full root-system structure.
     """
-    return lattice_voa_shadow(24)
+    nl = niemeier_lattice(index)
+    return lattice_voa_shadow(24, nl.total_roots)
 
 
 # =========================================================================
@@ -594,8 +600,8 @@ class NiemeierShadowEntry(NamedTuple):
     root_system: str
     total_roots: int
     lattice_voa_kappa_ch: int          # always 24
-    lattice_voa_shadow_class: str      # always 'G'
-    lattice_voa_shadow_depth: int      # always 2
+    lattice_voa_shadow_class: str      # 'G' for Leech, 'L' for rootful
+    lattice_voa_shadow_depth: int      # 2 for Leech, 3 for rootful
     sigma_model_kappa_ch: int          # always 2 (K3 sigma model)
     theta_constant: int                # number of roots = theta(0) - 1
     # The theta series coefficient c_Delta that distinguishes the lattice:
@@ -649,8 +655,8 @@ def compute_full_niemeier_landscape() -> List[NiemeierShadowEntry]:
     """Compute the shadow landscape for all 24 Niemeier lattices.
 
     Key results (verified computationally):
-    1. All 24 lattice VOAs have kappa_ch = 24, class G, depth 2.
-    2. The shadow tower is IDENTICAL for all 24 -- it cannot distinguish them.
+    1. All 24 lattice VOAs have kappa_ch = 24.
+    2. The current shadow detects Leech versus rootful Niemeier lattices.
     3. The K3 sigma model kappa_ch = 2 at all enhancement points.
     4. The distinguishing invariant is c_Delta in the theta decomposition.
     """
@@ -909,7 +915,8 @@ def verify_niemeier_landscape() -> Dict[str, bool]:
 
     Checks:
     1. All 24 lattices have rank 24.
-    2. All 24 lattice VOAs have kappa_ch = 24 and class G.
+    2. All 24 lattice VOAs have kappa_ch = 24; Leech is class G and rootful
+       Niemeier lattices are class L in the current-shadow coordinate.
     3. The K3 sigma model has kappa_ch = 2 at all moduli points.
     4. All theta series coefficients are integers.
     5. The Leech lattice has 0 roots and q^2 coefficient 196560.
@@ -925,15 +932,22 @@ def verify_niemeier_landscape() -> Dict[str, bool]:
         niemeier_lattice(e.index).rank == 24 for e in landscape
     )
 
-    # Check 2: all kappa_ch = 24 and class G
+    # Check 2: all kappa_ch = 24; Leech is G, rootful entries are L.
     results['all_kappa_24'] = all(
         e.lattice_voa_kappa_ch == 24 for e in landscape
     )
-    results['all_class_G'] = all(
-        e.lattice_voa_shadow_class == 'G' for e in landscape
+    results['leech_class_G'] = (
+        landscape[0].lattice_voa_shadow_class == 'G'
+        and landscape[0].lattice_voa_shadow_depth == 2
     )
-    results['all_depth_2'] = all(
-        e.lattice_voa_shadow_depth == 2 for e in landscape
+    results['rootful_class_L'] = all(
+        e.lattice_voa_shadow_class == 'L'
+        and e.lattice_voa_shadow_depth == 3
+        for e in landscape[1:]
+    )
+    results['shadow_detects_rootfulness'] = (
+        {e.lattice_voa_shadow_class for e in landscape}
+        == {'G', 'L'}
     )
 
     # Check 3: sigma model kappa_ch = 2

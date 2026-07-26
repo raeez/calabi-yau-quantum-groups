@@ -857,11 +857,12 @@ def shadow_amplitude_genus1(type_: str, rank: int, k: int) -> Fraction:
 def shadow_amplitude_genus2(type_: str, rank: int, k: int) -> Fraction:
     """Genus-2 shadow amplitude F_2 = kappa * lambda_2^FP at integral level k.
 
-    lambda_2^FP = 1/1152 (Faber-Pandharipande).
-    F_2 = kappa / 1152.
+    lambda_2^FP = 7/5760 on the FP/A-hat scalar lane. The adjacent 1/1152
+    value is a Witten-Kontsevich or separating-graph number, not this scalar.
+    F_2 = kappa * 7/5760.
     """
     kap = kappa_affine(type_, rank, Fraction(k))
-    return kap / 1152
+    return kap * Fraction(7, 5760)
 
 
 def shadow_generating_function_coefficients(
@@ -872,7 +873,7 @@ def shadow_generating_function_coefficients(
     F_g = kappa * lambda_g^FP where lambda_g^FP are the Faber-Pandharipande
     Hodge integrals:
         lambda_1^FP = int_{M_{1,0}} lambda_1 = 1/24
-        lambda_2^FP = int_{M_{2,0}} lambda_2 = 1/1152
+        lambda_2^FP = int_{M_{2,0}} lambda_2 = 7/5760
         lambda_3^FP = int_{M_{3,0}} lambda_3 = 1/414720
 
     WARNING: lambda_g^FP is NOT simply |B_{2g}|/(2g*(2g)!). That naive formula
@@ -884,11 +885,11 @@ def shadow_generating_function_coefficients(
     # Faber-Pandharipande lambda values (Hodge integrals on M_{g,0})
     # These are standard results:
     # lambda_1 = 1/24 (from chi(M_{1,1}) = 1/12, or direct computation)
-    # lambda_2 = 1/1152 (Faber 1997, Faber-Pandharipande)
+    # lambda_2 = 7/5760 (Faber-Pandharipande/A-hat scalar lane)
     # lambda_3 = 1/414720 (Faber-Pandharipande)
     fp_lambda = {
         1: Fraction(1, 24),
-        2: Fraction(1, 1152),
+        2: Fraction(7, 5760),
         3: Fraction(1, 414720),
     }
 

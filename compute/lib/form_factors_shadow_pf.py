@@ -10,11 +10,12 @@ O maps to the boundary via the Koszul projection
     pi: Obs_bulk -> Obs_boundary^!
 
 This module connects form factors to the shadow partition function
-Theta_A of Volume I.  The central result:
+Theta_A of Volume I.  The working identity of the engine is:
 
-    THEOREM (Form factor--shadow PF identity, class-dependent):
-    For a chiral algebra A of shadow class X in {G, L, C, M}, the
-    integrated form factor generating function equals the shadow PF:
+    BRANCHWISE RECONSTRUCTION RULE:
+    For the model classes encoded in this file, the integrated form
+    factor data reconstructs the shadow PF by the branch-specific
+    recursion implemented below:
 
         sum_{n >= 0} (1/n!) int_{M_{0,n}} F(O; z_1,...,z_n) dz_1...dz_n
         = Theta_A(q)
@@ -42,24 +43,23 @@ The connection proceeds through three steps:
        (1/n!) int_{M_{0,n}} F(O; z_1,...,z_n) = S_n(A)
 
 3. SHADOW PF AS GENERATING FUNCTION:
-   The shadow partition function Theta_A = prod(1 - q^k)^{a_k} is the
-   exponential of the sum of shadow invariants:
-       log Theta_A = sum_{r >= 2} S_r
-   This is exactly the generating function of integrated form factors.
+   The shadow partition function Theta_A = prod(1 - q^k)^{a_k} is
+   reconstructed from the branchwise integrated shadow invariants by the
+   product recursion implemented below.
 
 SHADOW CLASS DEPENDENCE
 =======================
 
 The Koszul projection pi acts differently on each shadow class:
 
-  Class G (Heisenberg, depth 2):
+  Class G (Heisenberg / rootless free-field, depth 2):
     - pi is a quasi-isomorphism (formal algebras)
     - Form factors are Wick contractions (quadratic pairing)
     - Only F(O; z_1, z_2) is nonzero (2-particle form factor)
     - Shadow PF = Theta_A = prod(1 - q^k)^{kappa_ch} (eta-type)
     - All form factors truncate at 2 particles
 
-  Class L (Kac-Moody, depth 3):
+  Class L (Kac-Moody / rootful current, depth 3):
     - pi has a single A_inf correction from m_3
     - 3-particle form factor is nonzero (first loop correction)
     - F(O; z_1, z_2, z_3) ~ alpha (cubic shadow coefficient)

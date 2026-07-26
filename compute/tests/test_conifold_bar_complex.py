@@ -1143,7 +1143,7 @@ class TestBarDegreeStructure:
                 assert elem.cohom_degree == -k
 
     def test_desuspension_lowers_degree(self):
-        """Each s^{-1}a has degree |a| - 1 = 0 - 1 = -1 (AP45)."""
+        """Each s^{-1}a has degree |a| - 1 = 0 - 1 = -1 (desuspension convention)."""
         e = BarElement([(1, 0)])
         # s^{-1}e_1 has degree 0 - 1 = -1
         # VERIFIED [DC] degree count [DA] dimensional consistency

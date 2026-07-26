@@ -241,14 +241,15 @@ HETEROTIC_LEFT_MOVERS = 16  # 16 left-moving compact bosons
 
 # BKM root multiplicity data (from phi_{0,1})
 # c(D) for D = -1, 0, 3, 4, 7, 8, 11, 12, ...
-# Using EZ convention: c(-1) = 2 for phi_{0,1} (AP-CY9 compliant)
+# Using EZ convention: c(-1) = 1 for phi_{0,1}; the doubled elliptic
+# genus has polar coefficient 2.
 BKM_ROOT_MULTIPLICITIES = {
-    -1: 2,   # Weyl vector contribution (polar term, c(-1) = 2 in EZ)
+    -1: 1,   # Weyl vector contribution (polar term, c(-1) = 1 in EZ)
     0: 10,   # Lightlike roots, kappa_BKM = c(0)/2 = 5
-    3: -2,   # First fermionic (D = 3 mod 4), c(3) = -2
-    4: 1,    # D = 4 (bosonic), c(4) = 1
-    7: -2,   # D = 7 (fermionic), c(7) = -2
-    8: 3,    # D = 8 (bosonic), c(8) = 3
+    3: -64,  # First fermionic (D = 3 mod 4)
+    4: 108,  # D = 4 (bosonic)
+    7: -513, # D = 7 (fermionic)
+    8: 808,  # D = 8 (bosonic)
 }
 
 # kappa values (AP113 compliant: always subscripted)
@@ -809,7 +810,7 @@ def bkm_d_brane_dictionary() -> Dict[str, Any]:
               Multiplicity c(0) = 10.
     - D = 3:  v = (1, C, n) with r*n - C^2/2 = 3.
               E.g. r=1, C^2=-4, n=1 -> D = 1 + 2 = 3.
-              Multiplicity c(3) = -2 (fermionic!).
+              Multiplicity c(3) = -64 (fermionic).
     """
     dictionary = []
 
@@ -848,7 +849,7 @@ def bkm_d_brane_dictionary() -> Dict[str, Any]:
         'd_brane_type': 'D4-D2-D0 bound state (negative C^2)',
         'physical': (
             'Sub-threshold BPS bound state with D2-brane wrapping '
-            'a (-4)-curve. Fermionic multiplicity c(3) = -2.'
+            'a (-4)-curve. Fermionic multiplicity c(3) = -64.'
         ),
     })
 
@@ -861,7 +862,7 @@ def bkm_d_brane_dictionary() -> Dict[str, Any]:
         'example_charge': v_bos._asdict(),
         'd_brane_type': 'D4-D2-D0 bound state',
         'physical': (
-            'Bosonic BPS bound state. Multiplicity c(4) = 1.'
+            'Bosonic BPS bound state. Multiplicity c(4) = 108.'
         ),
     })
 

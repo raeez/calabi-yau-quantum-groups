@@ -470,9 +470,9 @@ def k3xk3_example() -> CY4ExampleData:
 
     chi(K3 x K3) = 576. kappa_ch = 48 (additive: 24+24).
     p_1 = -96 (from p_1(K3) = -48, product formula).
-    Shadow class G (lattice VOA = free-field).
+    Shadow class G on the product Mukai/Heisenberg branch.
 
-    The product structure gives two INDEPENDENT K3 lattice VOAs,
+    The product structure gives two independent K3 Mukai-Heisenberg factors,
     but the CY4 trace COUPLES them (AP-CY6 does not apply since
     this is about the combined structure, not individual factors).
     """

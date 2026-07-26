@@ -43,8 +43,11 @@ Shadow class at various moduli points:
     Generic point (rho=1):     class G (Heisenberg H_Muk, free-field)
       S_2 = kappa_ch = 2, S_3 = 0, S_4 = 0, Delta = 0 => class G, depth 2
 
-    ADE singularity (rho > 1): subalgebra class L; full sigma model class M
-      The ADE subalgebra g-hat_1 has S_3 != 0, S_4 = 0 => class L, depth 3
+    ADE singularity (rho > 1): affine-current subalgebra class L;
+      full sigma model class M. The ADE current presentation g-hat_1 has
+      S_3 != 0, S_4 = 0 => class L, depth 3. The Frenkel-Kac level-one
+      lattice realization fixes the root-lattice rank but does not remove
+      the affine first-order pole.
       The full N=4 sigma model at c=6 has S_3 = 2, S_4 = 5/156,
       Delta = 20/39 != 0 => class M
 
@@ -55,14 +58,17 @@ Shadow class at various moduli points:
       Rational N=(4,4) SCFT; the Gepner tensor product is class L as a
       standalone RCFT.  The full sigma model retains class M.
 
-    Niemeier maximal (24 pts): lattice VOA class G; enhanced subalgebra class L
-      V_N has S_3 = S_4 = 0 => class G for the lattice VOA
-      But the enhanced g-hat_1 subalgebra has class L
+    Niemeier maximal (24 pts): Leech has no root current algebra; each
+      rootful Niemeier point has enhanced affine-current subalgebra class L.
+      The lattice realization records the rank and character, while the
+      weight-one root currents carry the class-L first-order pole.
 
 CRITICAL DISTINCTION: the shadow class of the FULL sigma model (class M at
-all non-generic points) vs the shadow class of the ENHANCED SUBALGEBRA
-(class L at ADE points, class G at generic point).  The full sigma model's
-class M arises from the nonlinear N=4 OPE structure.
+all non-generic points) and the shadow class of the ENHANCED AFFINE-CURRENT
+SUBALGEBRA (class L at ADE points, class G at generic point). Frenkel-Kac
+realizes level-one ADE currents by lattice vertex operators, but the current
+OPE still carries the Lie bracket. The full sigma model's class M arises
+from the nonlinear N=4 OPE structure.
 
 
 PART 2: QUINTIC FAMILY X_psi
@@ -99,10 +105,10 @@ PART 3: WALL-CROSSING FORMULA FOR SHADOW CLASS
 
 For K3 (d=2, CY-A_2 PROVED):
 
-The shadow class of the enhanced subalgebra jumps discretely at walls of
-enhanced symmetry:
+The shadow class of the enhanced affine-current subalgebra jumps
+discretely at walls of enhanced symmetry:
 
-    WALL-CROSSING RULE (K3 enhanced subalgebra):
+    WALL-CROSSING RULE (K3 enhanced affine-current subalgebra):
     -----------------------------------------------
     Moving from generic -> ADE singularity:
         class G -> class L  (shadow depth 2 -> 3)
@@ -151,7 +157,7 @@ What changes in the OPE as K3 moves through moduli:
         No cubic term.  No quartic.  All higher contacts vanish.
         => S_3 = 0, S_4 = 0, class G.
 
-    ADE singularity: OPE acquires CUBIC terms.
+    ADE singularity, affine-current coordinate: OPE acquires CUBIC terms.
         J^a(z) J^b(w) ~ k*delta^{ab}/(z-w)^2 + if^{ab}_c J^c(w)/(z-w)
         The structure constants f^{ab}_c are the Lie bracket.
         => S_3 != 0 (from f^{ab}_c), S_4 = 0 at level 1, class L.
@@ -381,9 +387,12 @@ def k3_generic_point() -> K3ModuliPoint:
 def k3_ade_point(letter: str, rank: int) -> K3ModuliPoint:
     """Shadow class data at an ADE singularity point on K3.
 
-    At an ADE singularity of type g, the chiral algebra enhances to include
-    g-hat at level 1.  The subalgebra has class L (S_3 != 0 from the Lie
-    structure constants, S_4 = 0 at level 1).
+    At an ADE singularity of type g, the affine-current coordinate of the
+    chiral algebra includes g-hat at level 1.  This current presentation has
+    class L (S_3 != 0 from the Lie structure constants, S_4 = 0 at level 1).
+    The Frenkel-Kac lattice realization at the same level fixes the
+    root-lattice rank and character; it does not erase this class-L current
+    OPE.
 
     The full N=4 sigma model at this point has class M (the nonlinear N=4
     OPE produces S_3 = 2, S_4 = 5/156).
@@ -506,8 +515,9 @@ def k3_fermat_point() -> K3ModuliPoint:
 def k3_niemeier_point(root_system: str, total_roots: int) -> K3ModuliPoint:
     r"""Shadow class at a Niemeier maximal enhancement point.
 
-    The lattice VOA V_N has class G (free-field, S_3 = S_4 = 0).
-    The enhanced nonabelian subalgebra has class L (S_3 != 0 at level 1).
+    The Leech case has no roots and no enhanced affine-current subalgebra.
+    A rootful Niemeier lattice has a nonabelian weight-one current algebra,
+    hence class L (S_3 != 0 at level 1).
     The full sigma model has class M.
 
     Parameters
@@ -517,9 +527,8 @@ def k3_niemeier_point(root_system: str, total_roots: int) -> K3ModuliPoint:
     total_roots : int
         Total number of roots (2 * |Delta_+|).
     """
-    # The lattice VOA: class G (kappa_ch = 24, S_3 = S_4 = 0)
-    # The enhanced subalgebra: class L
-    # We report the subalgebra (which is where the moduli variation lives)
+    # We report the enhanced affine-current subalgebra, where the moduli
+    # variation lives.
 
     # For the enhanced subalgebra: all components are at level 1
     # S_3 != 0 (nonabelian), S_4 = 0 (level 1)
@@ -537,8 +546,10 @@ def k3_niemeier_point(root_system: str, total_roots: int) -> K3ModuliPoint:
         name=f"Niemeier maximal: {root_system}",
         moduli_type='Niemeier',
         picard_number=20,  # maximal enhancement points have rho = 20
-        subalgebra_name=f"V_{{{root_system}}} lattice VOA (class G) + "
-                        f"g-hat_1 enhanced (class {'L' if total_roots > 0 else 'G'})",
+        subalgebra_name=(
+            "no root current algebra" if total_roots == 0
+            else f"g-hat_1 from {root_system} roots (class L)"
+        ),
         subalgebra_kappa_ch=F(24),  # lattice VOA kappa
         subalgebra_S3=subalg_S3,
         subalgebra_S4=F(0),
@@ -547,9 +558,12 @@ def k3_niemeier_point(root_system: str, total_roots: int) -> K3ModuliPoint:
         sigma_kappa_ch=K3_KAPPA_CH,
         sigma_shadow_class='M',
         sigma_shadow_depth=float('inf'),
-        ope_mechanism=f"Lattice VOA V_N (class G, free-field). "
-                      f"Root system {root_system} produces {total_roots} "
-                      f"ADE current generators with cubic OPE at level 1.",
+        ope_mechanism=(
+            "Leech lattice: no roots, no affine-current cubic OPE."
+            if total_roots == 0
+            else f"Root system {root_system} produces {total_roots} "
+                 f"ADE current generators with cubic OPE at level 1."
+        ),
         degeneration_type=f'Niemeier maximal enhancement ({root_system})',
     )
 
@@ -1049,8 +1063,8 @@ def k3_moduli_stratification() -> List[ModuliStratum]:
             description="ADE enhancement locus (subalgebra class). "
                         "The enhanced g-hat_1 subalgebra acquires cubic OPE: "
                         "S_3 != 0, S_4 = 0 (level 1). "
-                        "Lattice VOA at Niemeier maximal points is still class G. "
-                        "The SUBALGEBRA is class L.",
+                        "Rootful Niemeier points are class L in their "
+                        "weight-one current subalgebra.",
             codimension='>= 1',
             examples=[
                 "A_1 singularity (rho=2): su_2-hat_1 subalgebra",

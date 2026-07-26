@@ -4,7 +4,8 @@ conj:v3-drinfeld-center-equals-bulk for A = Heisenberg H_k.
 CENTRAL RESULTS:
     (1) Drin(H_k) = H_k tensor H_{-k}, dim 3 (THEOREM: Drinfeld double).
     (2) ChirHoch*(H_k) = C + C[-1] + C[-2], dim 3 (THEOREM H + explicit computation).
-    (3) R-matrix r(z) = k/z matches Gerstenhaber bracket {J,J} = k (THEOREM).
+    (3) R-matrix tensor k*Omega_H/z has coefficient matching
+        Gerstenhaber bracket {J,J} = k (THEOREM).
     (4) kappa_ch(H_k) = k, kappa_ch(H_k^!) = -k, sum = 0 (THEOREM C, class G).
     (5) Euler char chi(Z^{der}_{ch}(H_k)) = 1 (THEOREM H).
     (6) Shadow class G, depth 2 (THEOREM: shadow classification).
@@ -29,6 +30,7 @@ Manuscript references:
 
 import pytest
 from fractions import Fraction
+from pathlib import Path
 
 from compute.lib.drinfeld_center_heisenberg_bulk import (
     # Constants
@@ -72,6 +74,8 @@ from compute.lib.drinfeld_center_heisenberg_bulk import (
 )
 
 F = Fraction
+REPO_ROOT = Path(__file__).resolve().parents[2]
+DRINFELD_HEISENBERG_SOURCE = REPO_ROOT / "compute/lib/drinfeld_center_heisenberg_bulk.py"
 
 
 # =========================================================================
@@ -218,11 +222,11 @@ class TestChiralDerivedCenter:
 # =========================================================================
 
 class TestRMatrix:
-    """Classical r-matrix r^{Heis}(z) = k/z."""
+    """Classical r-matrix tensor k*Omega_H/z, stored by coefficient."""
 
     def test_r_matrix_coefficient(self):
         """r-matrix coefficient = k (the level)."""
-        # VERIFIED: [DC] C10: r^{Heis}(z) = k/z.
+        # VERIFIED: [DC] C10: coefficient of r^{Heis}(z)=k*Omega_H/z is k/z.
         for k_val in [F(1), F(-1), F(1, 2)]:
             r = r_matrix_heisenberg(k_val)
             assert r["coefficient"] == k_val
@@ -274,7 +278,8 @@ class TestKappa:
 
     def test_kappa_dual_equals_minus_k(self):
         """kappa_ch(H_k^!) = -k (level inversion)."""
-        # VERIFIED: [DC] H_k^! = H_{-k}, so kappa_ch(H_{-k}) = -k.
+        # VERIFIED: [DC] H_k^! has the same scalar kappa as H_{-k},
+        # but is the curved branch, not H_{-k}.
         for k_val in [F(0), F(1), F(-1), F(1, 2)]:
             assert kappa_dual_heisenberg(k_val) == -k_val
 
@@ -319,7 +324,7 @@ class TestGrothendieckComparison:
 
     def test_r_matrix_vs_bracket(self):
         """R-matrix coefficient = Gerstenhaber bracket coefficient = k."""
-        # VERIFIED: [DC] r(z) = k/z (Drinfeld center side).
+        # VERIFIED: [DC] coefficient of k*Omega_H/z is k (Drinfeld center side).
         # [DC] {J, J} = k (chiral derived center side).
         # These are two presentations of the SAME E_2 coherence datum.
         for k_val in [F(1), F(-1), F(3)]:
@@ -363,6 +368,18 @@ class TestE2Comparison:
         """R-matrix leading coefficient = k."""
         result = compare_e2_structure(F(3))
         assert result["drinfeld_e2_data"]["r_matrix_leading_coeff"] == F(3)
+
+    def test_e2_r_matrix_is_evaluation_family(self):
+        """Spectral R(z) is the evaluated family, not the centre natural transformation."""
+        result = compare_e2_structure(F(3))
+        source = DRINFELD_HEISENBERG_SOURCE.read_text()
+        compact = " ".join(source.split())
+        stale = "determines the E_2 " + "braiding"
+
+        assert "Drinfeld-center half-braiding" in result["drinfeld_e2_data"]["braiding_source"]
+        assert "R(z) is its evaluation family" in result["drinfeld_e2_data"]["braiding_source"]
+        assert stale not in compact
+        assert "not the single categorical braiding natural transformation itself" in compact
 
     def test_e2_bracket_coefficient(self):
         """Gerstenhaber bracket {J,J} = k on ChirHoch side."""

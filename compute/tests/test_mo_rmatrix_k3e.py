@@ -2,7 +2,7 @@
 
 Verifies:
   1. Structure function properties (CY condition, inversion, limits)
-  2. Self-dual K3 limit (g = 1, trivial R-matrix)
+  2. Self-dual K3 limit (g = 1, trivial nonabelian MO/Yangian part)
   3. Unitarity R(u)*R_{21}(-u) = 1 at all charges
   4. Yang-Baxter equation at charges 1 and 2
   5. Hilbert scheme Euler characteristics (Gottsche formula)
@@ -444,7 +444,7 @@ class TestE1E2Bridge:
         assert all(result["unitarity"].values())
 
     def test_bridge_selfdual(self):
-        """Bridge at self-dual point: trivial R-matrix."""
+        """Bridge at self-dual point: trivial nonabelian MO/Yangian part."""
         result = e1_to_e2_bridge_summary(Rational(1), Rational(-1))
         assert result["is_selfdual"]
         assert all(result["unitarity"].values())
