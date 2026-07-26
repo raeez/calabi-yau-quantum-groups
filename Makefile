@@ -79,7 +79,7 @@ AUX_EXTS  := aux log out toc synctex.gz fdb_latexmk fls bbl blg \
 #  Targets
 # ============================================================================
 
-.DEFAULT_GOAL := all
+.DEFAULT_GOAL := platonic
 
 .PHONY: platonic all fast clean veryclean clean-builds count check test help release working-notes standalone dist icloud verify-independence verify-independence-verbose mathematics-publish root-publish architecture unified-architecture
 
