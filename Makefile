@@ -125,7 +125,7 @@ icloud: $(ICLOUD_MAIN_PREREQ) standalone
 		&& echo "    ✓ volumes/vol3" || true
 	@for pdf in $(OUT_DIR)/*.pdf; do \
 		name=$$(basename "$$pdf"); \
-		if [ "$$name" != "main.pdf" ]; then \
+		if [ "$$name" != "main.pdf" ] && [ "$$name" != "working_notes.pdf" ]; then \
 			cp "$$pdf" "$(ICLOUD_DIR)/vol3_6d_hcs_cy/$$name"; \
 			echo "    ✓ vol3_6d_hcs_cy/$$name"; \
 		fi; \
@@ -181,7 +181,7 @@ release:
 	@echo "  ── RELEASE BUILD (Vol III) ──"
 	@echo "  ══════════════════════════════════════════"
 	@echo ""
-	@echo "  [1/3] Main manuscript"
+	@echo "  [1/5] Main manuscript"
 	@$(BUILD_SCRIPT) $(PASSES)
 	@if [ -f $(PDF) ]; then \
 		echo "  ✓  $(PDF)"; \
@@ -191,20 +191,17 @@ release:
 		echo "  ✗  Manuscript build failed."; \
 	fi
 	@echo ""
-	@echo "  [2/3] Working notes"
-	@$(MAKE) --no-print-directory working-notes
-	@echo ""
-	@echo "  [3/6] Standalone documents and iCloud"
+	@echo "  [2/5] Standalone documents and iCloud"
 	@$(MAKE) --no-print-directory icloud
 	@echo ""
-	@echo "  [4/6] Publish to repo root (canonical PDF name)"
+	@echo "  [3/5] Publish to repo root (canonical PDF name)"
 	@$(MAKE) --no-print-directory root-publish
 	@echo ""
-	@echo "  [5/6] Publish to ~/mathematics + per-volume architecture"
+	@echo "  [4/5] Publish to ~/mathematics + per-volume architecture"
 	@$(MAKE) --no-print-directory mathematics-publish
 	@$(MAKE) --no-print-directory architecture
 	@echo ""
-	@echo "  [6/6] Cross-volume architecture aggregation"
+	@echo "  [5/5] Cross-volume architecture aggregation"
 	@$(MAKE) --no-print-directory unified-architecture
 	@echo ""
 	@echo "  ══════════════════════════════════════════"
@@ -362,10 +359,9 @@ dist: release
 	@echo "  -- Creating archive --"
 	@rm -f $(OUT_DIR)/CalabiYauQuantumGroups.zip
 	@zip -r $(OUT_DIR)/CalabiYauQuantumGroups.zip \
-		main.tex working_notes.tex chapters/ appendices/ notes/ compute/ \
+		main.tex chapters/ appendices/ compute/ \
 		Makefile CLAUDE.md scripts/ \
 		$(PDF) \
-		$(OUT_DIR)/working_notes.pdf \
 		-x '.*' -x '**/.*' -x '**/__pycache__/*' -x '**/*.pyc' \
 		-x 'compute/.venv/*' \
 		>$(LOG_DIR)/dist.log 2>&1
