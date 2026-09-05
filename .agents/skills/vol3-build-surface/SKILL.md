@@ -7,19 +7,23 @@ description: Use when the task depends on LaTeX builds, build logs, warning clas
 
 Build output is evidence only after the surface is stable enough to trust.
 
-## Standard prelude
+## Isolated verification
 
-```bash
-pkill -9 -f pdflatex 2>/dev/null || true
-sleep 2
-```
+Run builds after a coherent authorized change, in the assigned worktree. No additional build opt-in is needed.
+Run one build at a time in that worktree because output and logs are shared within it.
+The existing `scripts/build.sh` uses isolated auxiliary directories. From the worktree, `make fast` builds legacy `main.tex`.
+The current default target, `make platonic`, builds `platonic/main.tex`. Choose the entry point containing the changed source.
+Inspect its actual input graph. A legacy build does not verify the integrated manuscript.
+Do not invoke release, iCloud, publication, cleanup, or cross-repository targets as a local verification shortcut.
+Never use process-name killing. If necessary, stop only a process created by this task, after checking its PID and ownership.
+Request graceful termination first and confirm its state before considering forced termination of that same owned process.
 
-Then choose the narrowest command that can falsify the change:
+Choose the narrowest falsifying check:
 
-- `make fast`
-- targeted `python3 -m pytest ...`
+- the applicable explicit local Make target
+- targeted `python3 -m pytest compute/tests/<affected-test>.py`
 - direct log inspection
-- cross-volume builds only when the claim really propagates across volumes
+- cross-volume builds only in assigned worktrees when the claim requires them
 
 ## Classification rules
 
@@ -28,7 +32,7 @@ Then choose the narrowest command that can falsify the change:
 - Build-log warning counts are not trustworthy on a corrupted aux surface.
 - PDF/log noise in the worktree is not mathematical evidence.
 - Test oracle mismatches are mathematics bugs or convention bugs until proved otherwise.
-- Current Vol III dirty hotspots include `kappa_ch` versus `kappa_BKM`, local `P^2` class `M`, and restored level prefixes in CY `r`-matrices; read the live diff before trusting an old warning count.
+- Read the live diff and input graph before trusting historical warning counts.
 
 ## Workflow
 

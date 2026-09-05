@@ -19,7 +19,7 @@ Work on the live manuscript surface:
 
 ## Passes
 
-Run three passes:
+Cover these review dimensions as applicable, without a fixed pass count:
 
 - `RED`: logic, formulas, signs, hypotheses, scope, status honesty
 - `BLUE`: collisions across intro/chapter/examples/appendices/compute/tests/README/other volumes
@@ -30,14 +30,14 @@ Run three passes:
 - Fix in dependency order.
 - Re-read local context before each edit.
 - After each material fix, run the narrowest falsifying verification.
-- Propagate shared formulas and status changes across Volumes I, II, and III when relevant.
+- Propagate verified shared changes in assigned repositories. Return exact downstream obligations elsewhere.
 - Treat `AP40`, `AP43`, `AP-CY6`, `AP-CY7`, `AP-CY8`, and `AP49` as mandatory checks.
 
 ## Exit Rule
 
-Stop only at:
+Report the supported outcome:
 
-- `CONVERGED`: no known actionable `MODERATE+` findings remain on the modified surface and the relevant verification passes.
-- `BLOCKED`: exact blocker named.
+- `CONVERGED`: no known actionable findings remain within the requested scope on the modified surface and the relevant verification passes.
+- `BLOCKED`: exact unresolved obligation, supporting evidence, attempted routes, and next discriminating step named.
 
-Do not end halfway through the loop.
+A bounded investigation may finish with the exact unresolved obligation, tried routes, evidence, and next discriminating step. Do not report an unresolved theorem as proved.

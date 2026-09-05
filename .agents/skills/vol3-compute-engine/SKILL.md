@@ -15,12 +15,12 @@ Executable mathematics in this repo is part of the proof surface.
 4. Implement the smallest engine that exposes the mathematical claim clearly.
 5. Add tests that do not merely replay the engine's own derivation.
 6. Run the narrowest `pytest` slice that can falsify the engine.
-7. Propagate any shared formula/status change into manuscript prose and cross-volume copies when relevant.
+7. Propagate supported shared changes within assigned write scope. Report exact cross-volume obligations elsewhere.
 
 ## Test discipline
 
 - At least two independent verification paths for executable oracles.
-- Prefer three when the value is load-bearing.
+- Require three genuinely independent paths when the value is load-bearing.
 - Never update expected values from engine output.
 - If the engine formula changes, audit nearby docstrings, comments, and tests for stale reasoning.
 

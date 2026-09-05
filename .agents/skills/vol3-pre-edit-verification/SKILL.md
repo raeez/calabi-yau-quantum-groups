@@ -5,9 +5,9 @@ description: Use before editing any high-risk Vol III formula, theorem status, d
 
 # Vol III Pre-Edit Verification
 
-Before editing a high-risk surface, fill in a fenced `PRE-EDIT` block in commentary and end with `verdict: ACCEPT` or `verdict: REJECT`.
+Before changing a high-risk claim, establish the evidence listed in the relevant template below. Record a concise decision and source anchors outside the manuscript. The templates are optional formats.
 
-If a required source is blank or any boundary check fails, do not edit yet.
+If proof support is missing or a boundary check fails, investigate and repair it before promoting the claim. Continue independent authorized work.
 
 ## Triggers
 
@@ -100,4 +100,4 @@ verdict:
 
 - This block belongs in commentary, not in manuscript files.
 - Use live source, not remembered formulas.
-- If the verdict is `REJECT`, redraft before editing.
+- If evidence rejects the proposed claim, repair the argument or identify the unresolved obligation before promotion.

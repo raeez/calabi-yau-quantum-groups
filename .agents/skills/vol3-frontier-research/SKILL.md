@@ -10,7 +10,7 @@ Frontier work is allowed here, but it must still be audit-grade.
 ## Default posture
 
 - Start from the strongest established live surface, not inherited ambition.
-- Prefer a smaller theorem with a closed proof to a grand package sold as solved.
+- Preserve the requested theorem target. Report proved intermediate results without presenting them as completion of a stronger goal.
 - Separate:
   - proved core
   - conditional bridge
@@ -19,8 +19,8 @@ Frontier work is allowed here, but it must still be audit-grade.
 
 ## Vol III non-negotiables
 
-- `CY-A` is unconditional only for `d = 2`.
-- Any d=3 result passing through `A_X`, `G(X)`, `C(g,q)`, or chain-level `S^3` framing is not unconditional.
+- Locate the exact `CY-A` statement and its scope. Verify the current hypothesis package, including the conditional enhancements in `prop:native-en-level`.
+- For d=3 results through `A_X`, `G(X)`, `C(g,q)`, or chain-level `S^3` framing, identify each constructed input and outstanding hypothesis explicitly.
 - CoHA is associative evidence, not automatically the `E_1`-chiral object.
 - `MF(W)` has CY dimension `n - 2`, not `n - 1`.
 - Shadow class must come from the full tower, not a leading approximation.
@@ -49,3 +49,5 @@ Frontier work is allowed here, but it must still be audit-grade.
 
 - Do not spawn sub-agents unless the user explicitly asks for delegation, sub-agents, or parallel agent work.
 - If the user does authorize a swarm, split by independent axes with disjoint write scopes and a clear integration plan.
+
+A bounded investigation can finish with a precise unresolved obligation, failed routes, evidence, and next discriminating step. It does not establish an unproved theorem.

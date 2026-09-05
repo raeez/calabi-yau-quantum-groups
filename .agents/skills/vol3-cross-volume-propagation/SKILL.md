@@ -1,6 +1,6 @@
 ---
 name: vol3-cross-volume-propagation
-description: Use when changing formulas, definitions, theorem statuses, or terminology that may recur across Volumes I, II, and III. Trigger on propagate, cross-volume, grep other volume, update all occurrences, or changes involving kappa, Theta, bar/cobar, CoHA, E_1/E_2, Borcherds products, quantum groups, or center constructions.
+description: Verify and propagate an authorized formula, definition, status, or terminology change that recurs across Volumes I, II, and III. Do not trigger merely because a task mentions a shared mathematical object.
 ---
 
 # Vol III Cross-Volume Propagation
@@ -25,6 +25,6 @@ Before updating a matching statement, verify whether it is actually the same cla
 
 ## Update rule
 
-- Fix all genuine duplicates in the same session when feasible.
-- If not feasible, leave an explicit note about what still needs propagation and why.
+- Fix genuine duplicates only in assigned repositories and worktrees. User authorization defines the write scope.
+- Return exact paths, conventions, and required changes for unassigned downstream copies to the integration owner.
 - Never treat verbal similarity as proof that two formulas are the same object.
