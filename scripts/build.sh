@@ -28,7 +28,7 @@ cd "$SRC_DIR"
 
 MAX_PASSES=${1:-7}
 TEX="pdflatex"
-TEXFLAGS="-interaction=batchmode -file-line-error -synctex=0 -cnf-line=buf_size=1000000 -cnf-line=stack_size=20000"
+TEXFLAGS="-interaction=batchmode -file-line-error -synctex=0 -cnf-line=buf_size=1000000 -cnf-line=stack_size=20000 -cnf-line=max_print_line=10000"
 LOG_DIR="$SRC_DIR/.build_logs"
 
 mkdir -p "$LOG_DIR"
@@ -64,6 +64,9 @@ done
 export TEXINPUTS="$BUILD_DIR:$SRC_DIR:"
 
 RUN_LOG="$LOG_DIR/tex-build.stdout.log"
+TEX_FILE_LINE_PREFIX='^(/|\./)?[^[:space:]]+\.(tex|sty|cls):[0-9]+:'
+TEX_ERROR_SIGNATURE='Undefined control sequence|LaTeX Error:|Package [^[:space:]]+ Error:|Class [^[:space:]]+ Error:|Double (subscript|superscript)|Emergency stop|Runaway argument|Fatal error|File ended while scanning|Missing \$ inserted|No pages of output'
+TEX_ERROR_PATTERN="^! |${TEX_FILE_LINE_PREFIX}.*(${TEX_ERROR_SIGNATURE})|${TEX_ERROR_SIGNATURE}"
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -86,10 +89,54 @@ show_failure_summary() {
     echo "  Build dir: $BUILD_DIR"
     echo "  Logs: $RUN_LOG and $logfile"
     if [ -f "$logfile" ]; then
-        grep -aE '^! |Emergency stop|Runaway argument|Fatal error|Undefined control sequence|File ended while scanning|No pages of output' "$logfile" | head -n 20 || true
+        grep -aE "$TEX_ERROR_PATTERN" "$logfile" | head -n 20 || true
     elif [ -f "$RUN_LOG" ]; then
         tail -n 40 "$RUN_LOG" || true
     fi
+}
+
+log_has_tex_errors() {
+    local logfile=$1
+    grep -aEq "$TEX_ERROR_PATTERN" "$logfile"
+}
+
+require_clean_tex_pass() {
+    local tex_rc=$1
+    local logfile=$2
+
+    if [ "$tex_rc" -ne 0 ]; then
+        echo "  pdflatex exited with status $tex_rc."
+        show_failure_summary
+        exit "$tex_rc"
+    fi
+
+    if log_has_tex_errors "$logfile"; then
+        echo "  TeX error marker found in the final pass log."
+        show_failure_summary
+        exit 1
+    fi
+}
+
+publish_pdf() {
+    local logfile=$1
+
+    # Recheck the final log at the publication boundary.  A PDF artifact or an
+    # "Output written" marker can survive a failed pass; neither proves that
+    # the TeX pass succeeded.
+    if log_has_tex_errors "$logfile"; then
+        echo "  TeX error marker found in the final pass log."
+        show_failure_summary
+        exit 1
+    fi
+    if [ ! -f "$BUILD_DIR/main.pdf" ]; then
+        echo "  No PDF produced by the successful TeX pass."
+        show_failure_summary
+        exit 1
+    fi
+
+    mkdir -p "$SRC_DIR/out"
+    cp "$BUILD_DIR/main.pdf" "$SRC_DIR/out/main.pdf"
+    cp "$logfile" "$SRC_DIR/out/main.log" 2>/dev/null || true
 }
 
 # ---------------------------------------------------------------------------
@@ -117,6 +164,8 @@ for i in $(seq 1 $MAX_PASSES); do
         exit 1
     fi
 
+    require_clean_tex_pass "$tex_rc" "$logfile"
+
     cit=$(count_matches 'Citation.*undefined' "$logfile")
     ref=$(count_matches 'Reference.*undefined' "$logfile")
     rerun=$(count_matches 'Label\(s\) may have changed|Package rerunfilecheck Warning' "$logfile")
@@ -127,20 +176,10 @@ for i in $(seq 1 $MAX_PASSES); do
     echo "   ${pages}pp, ${cit} undef citations, ${ref} undef references, ${rerun} rerun requests, ${overfull} overfull, ${underfull} underfull"
     stats="${pages}:${cit}:${ref}:${rerun}"
 
-    # Hard failure: non-zero exit AND no PDF produced
-    if [ "$tex_rc" -ne 0 ] && \
-       { [ ! -f "$BUILD_DIR/main.pdf" ] || \
-         ! grep -aq 'Output written' "$logfile" 2>/dev/null; }; then
-        show_failure_summary
-        exit "$tex_rc"
-    fi
-
     # Convergence: all references resolved after at least 2 passes
     if [ "$i" -ge 2 ] && [ "$cit" -eq 0 ] && [ "$ref" -eq 0 ] && [ "$rerun" -eq 0 ]; then
         echo "✓ Converged after $i passes."
-        mkdir -p "$SRC_DIR/out"
-        cp "$BUILD_DIR/main.pdf" "$SRC_DIR/out/main.pdf"
-        cp "$logfile" "$SRC_DIR/out/main.log" 2>/dev/null || true
+        publish_pdf "$logfile"
         exit 0
     fi
 
@@ -150,25 +189,16 @@ for i in $(seq 1 $MAX_PASSES); do
     # the converged state is stable but not zero.
     if [ "$i" -ge 3 ] && [ "$rerun" -eq 0 ] && [ "$stats" = "$prev_stats" ]; then
         echo "✓ Stable warning state after $i passes (Cit=$cit, Ref=$ref, Rerun=$rerun)."
-        mkdir -p "$SRC_DIR/out"
-        cp "$BUILD_DIR/main.pdf" "$SRC_DIR/out/main.pdf"
-        cp "$logfile" "$SRC_DIR/out/main.log" 2>/dev/null || true
+        publish_pdf "$logfile"
         exit 0
     fi
 
     prev_stats="$stats"
 done
 
-# Did not converge but PDF was produced
-if [ ! -f "$BUILD_DIR/main.pdf" ] || \
-   ! grep -aq 'Output written' "$BUILD_DIR/main.log" 2>/dev/null; then
-    show_failure_summary
-    exit 1
-fi
-
-mkdir -p "$SRC_DIR/out"
-cp "$BUILD_DIR/main.pdf" "$SRC_DIR/out/main.pdf"
-cp "$BUILD_DIR/main.log" "$SRC_DIR/out/main.log" 2>/dev/null || true
+# Did not converge, but the last pass itself succeeded.  Publication still
+# goes through the final-log and artifact gates above.
+publish_pdf "$BUILD_DIR/main.log"
 
 if [ "$MAX_PASSES" -eq 1 ]; then
     echo "✓ Completed single pass."
