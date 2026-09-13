@@ -2,7 +2,7 @@
 
 This repository develops the Calabi–Yau-to-chiral correspondence, quantum groups, and their mathematical examples.
 `AGENTS.md` and `CLAUDE.md` share this contract and the maintained references below. Keep their substance aligned.
-Read `CLAUDE.md` before code edits. Do not load all references for every task.
+Read one root contract before code edits. Do not load both copies. Do not load all references for every task.
 
 Inherit `~/ecosystem/INVARIANTS.md` once per session and use the applicable host adapter below.
 System and developer instructions govern. Current user authorization defines task scope. Preserve the inherited safety floor.
