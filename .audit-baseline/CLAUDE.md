@@ -9,7 +9,7 @@ System and developer instructions govern. Current user authorization defines tas
 Use available host tools rather than assuming a particular tool name or unavailable reasoning setting.
 
 For Claude model controls and instruction loading, use `~/ecosystem/CLAUDE-HARNESS.md` when available.
-For Codex, use the inherited `~/ecosystem/AGENTS-HARNESS.md` adapter. Read only the adapter relevant to the active host.
+For Codex, use the inherited `AGENTS-HARNESS.md` adapter. Read only the adapter relevant to the active host.
 
 ## Safety and custody
 
