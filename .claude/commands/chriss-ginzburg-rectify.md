@@ -169,12 +169,13 @@ Execute the structural changes:
 - **Rewrite the opening** if it is a summary dump: start with the first mathematical object
 - **Rewrite the closing** to crystallize what was proved and what it forces next
 
-Build after structural edits:
+Build after structural edits. Run all builds below from the assigned isolated
+worktree. Follow `.claude/commands/build.md` for target selection, process
+ownership checks, and graceful termination of a build started by this task.
+Inspect each build's exit status and log.
+
 ```bash
-pkill -9 -f pdflatex 2>/dev/null; sleep 2
-# Vol I: cd ~/chiral-bar-cobar && make fast
-# Vol II: cd ~/chiral-bar-cobar-vol2 && make
-# Vol III: cd ~/calabi-yau-quantum-groups && pdflatex main.tex
+make fast
 ```
 
 ### 2C. Structural Convergence
@@ -453,11 +454,9 @@ WHILE cursor < end of file:
         ================================================================
         
         Apply all fixes to the chunk using the Edit tool.
-        After every 3 fixes, build:
-            pkill -9 -f pdflatex 2>/dev/null; sleep 2
-            # Vol I: cd ~/chiral-bar-cobar && make fast
-            # Vol II: cd ~/chiral-bar-cobar-vol2 && make
-            # Vol III: cd ~/calabi-yau-quantum-groups && pdflatex main.tex
+        After every 3 fixes, build from the assigned isolated worktree
+        under the build contract in Phase 2B:
+            make fast
         After every formula fix, grep all three volumes for variants (AP5):
             ~/chiral-bar-cobar, ~/chiral-bar-cobar-vol2,
             ~/calabi-yau-quantum-groups
@@ -569,13 +568,18 @@ If structural rewrites needed: apply them, re-run Phase 3 on affected chunks onl
 
 ### 5B. Build and test
 
+Run from the assigned Vol III worktree, following the build contract in Phase 2B:
+
 ```bash
-pkill -9 -f pdflatex 2>/dev/null; sleep 3
-cd ~/chiral-bar-cobar && make fast
-cd ~/chiral-bar-cobar-vol2 && make
-cd ~/calabi-yau-quantum-groups && pdflatex main.tex 2>/dev/null || true
+set -e
+make fast
 make test
 ```
+
+If the change also requires Vol I or Vol II verification, run `make fast` or
+`make`, respectively, from that volume's separately assigned isolated worktree.
+Report required builds outside the assignment as downstream obligations.
+Retain every build and test failure with its original output and exit status.
 
 ### 5C. Report
 

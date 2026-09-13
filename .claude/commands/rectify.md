@@ -20,8 +20,13 @@ Read CLAUDE.md (Vol III) before beginning. All Vol I/II anti-patterns apply. Vol
 - **AP49**: Vol III uses motivic/categorical conventions. NEVER paste from Vol I/II without conversion.
 
 ### Build
+
+Run from the assigned isolated worktree. Follow `.claude/commands/build.md`
+for target selection, process ownership checks, and graceful termination of a
+build started by this task. Inspect the exit status and build log.
+
 ```bash
-pkill -9 -f pdflatex; sleep 2; cd ~/calabi-yau-quantum-groups && make fast
+make fast
 ```
 
 ### Phases 1-4
