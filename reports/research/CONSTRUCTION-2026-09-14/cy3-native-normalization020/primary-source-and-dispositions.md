@@ -1,0 +1,19 @@
+# Primary source and mathematical dispositions
+
+The coefficient category is rational analytic equivariant constructible complexes. Ordinary atlas pullback has no additional shift. The normalization is Fib(i* → ψ), with differential d(a,b)=(da,u(a)−db). The question is the coordinate coefficient of the existing support/Gysin morphism, not a replacement of that morphism.
+
+Massey, *The Sebastiani–Thom Isomorphism in the Derived Category*, arXiv:math/9908101v1, was checked directly at https://arxiv.org/pdf/math/9908101. Page 1 specifies the relative-cohomology normalization H^i(φQ)=reduced H^(i−1)(F). Page 2 identifies φ with RΓ_{Re f≤0} restricted to the zero fibre and describes rotation monodromy. Lemma 1.2, pages 3–4, uses the inclusion of product supports into the half-plane for the sum. The downloaded PDF and extracted text are retained in inputs/. These statements support the inherited coefficient mechanism. They do not supply the new orientation sign; that calculation is proved internally in the reader.
+
+The source review bound to predecessor freeze 02bd496c44c7cffe61c565ffd96cec06829656bce7bf11f6d5c452c5f8da2a2a identifies a verified normalization discrepancy. The positive twelve-sheet trace cannot use the B-polarized generators without a comparison. Checking only the even cross-pair count for (2,2,1) misses this discrepancy. The earlier records and all 404 frozen predecessor files remain unchanged.
+
+The deciding real maps are B→lower: (u,v)↦(v,conjugate u), upper→lower: (p,t)↦(−conjugate t,conjugate p), and B→upper: (u,v)↦(u,−conjugate v). Their determinants are −1,+1,−1. Rational elimination and Leibniz expansion independently check each displayed matrix. These are two algorithms on the same explicitly derived linear maps, not two independent mathematical derivations. The parent-supplied independent first stage is separate evidence.
+
+The internal proof fixes the relative Thom generator and computes its cone representative (0,−α). It proves multiplicativity using positive product disks and the actual support inclusion. Flag integration cancels the lower A normals through a complex linear isomorphism. Each remaining B,C cross pair contributes −1 in the B convention. The rankwise scalar ε_n=(−1)^(n choose 2) converts the coefficient to +1 in the upper-(B,C) convention.
+
+The selected flag traces are computed three ways: direct flag enumeration with cross-pair signs, the left binary factorization, and the right binary factorization. The equality is −12 for (2,1,1) in B coordinates and +12 after the input/output generator comparison. For (2,2,1), both conventions give +30. The finite program does not establish all-rank associativity.
+
+The native separated rank-two chapter uses (u1,u2)=(b12,c12) in c3_disjoint_hall_sector.tex:134–138 and the attracting-plane Thom normalization at 222–231. This is the upper convention e2. The native consumer explicitly identifies it with the new comparison. The rank-two collision chapter preserves the distinction between its oriented-cover trace and the critical-Hall comparison at c3_collision_geometry.tex:410–418. No additional collision comparison is inferred.
+
+The cyclic B quotient bundle has a global complex orientation. Complement and metric choices are contractible. The scalar ε_n acts on the whole coefficient complex and therefore commutes with conjugation descent, potential monodromy, and pulled-back specialization. For the (2,2,1) companion family, ε_2²ε_1=ε_5=1 on the entire source and target. Thus the actual thirty-sheet and central value thirty calculations use identical trivializations in both conventions.
+
+The constructor performed source, calculation, build, input, and visual checks. Fresh exact-byte acceptance remains the root's responsibility. Scalar f3/f4/f5 targets and images, all-rank coherence, Tate/Hodge enhancements, coproducts, compact-CY comparison, and whole-book mathematical acceptance remain outside this candidate.
