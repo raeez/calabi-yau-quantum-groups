@@ -1,0 +1,2825 @@
+                                                       NOTES ON PERVERSE SHEAVES AND VANISHING CYCLES
+
+
+                                                                                        DAVID B. MASSEY
+
+
+
+
+arXiv:math/9908107v13 [math.AG] 17 Aug 2025
+                                              §0. Introduction to Version 8-25
+
+                                                 These notes are my continuing effort to provide a sort of working mathematician’s guide to
+                                              the derived category and perverse sheaves. They began in 1991 as handwritten notes for David
+                                              Mond and his students, and then I decided to type them for possible inclusion as an appendix
+                                              in a paper or book. Now, however, these notes represent more of a journal of my understanding
+                                              of this machinery; whenever I believe that I have understood a new, significant chunk of the
+                                              subject, I put it here – so that the next time that I want to understand or use that chunk, I
+                                              will only have to look in one place. Moreover, the place that I have to look will be written in
+                                              a manner that I can follow easily (and that I can carry around easily). The version number
+                                              indicates the month and year when I last added to this effort. I should mention that the August
+                                              2025 update contains a major revision of the section on nearby and vanishing cycles.
+                                                 The only results of my own that appear here are the Sebastiani-Thom Isomorphism and the
+                                              fact that Verdier dualizing commutes with the shifted nearby and vanishing cycles up to natural
+                                              isomorphisms. For the most part, I have merely attempted to pull together some results from a
+                                              number of sources. Primary sources are [2],[11], [14], [15], [16], [20], [22], [23], and [27]. There are
+                                              no proofs given in these notes, though many of the results follow easily from earlier statements.
+                                              In addition, there are two more-recent books of Dimca [7] and Schürmann [26] which are very
+                                              nice; the book of Dimca is relatively expository, while the book of Schürmann is highly technical.
+                                                 While the results described here may seem very formal, in fact, the treatment here is fairly
+                                              informal. If one wishes to avoid the formality of the derived category altogether and, yet, still
+                                              understand perverse sheaves, there are the AMS notes of MacPherson [21] which describe inter-
+                                              section homology and perverse sheaves via Eilenberg-Steenrod type axioms, and MacPherson’s
+                                              more-recent treatment of perverse sheaves on regular cell complexes.
+                                                 I have made some attempt to note results that conflict with the statements that appear in
+                                              other places. I note these not to emphasize the mistakes in those papers, but rather to let the
+                                              reader know that I am aware of the discrepancy and believe that the statement that I give is
+                                              the correct one.
+                                                 Of course, this is not to say that there may not be mistakes in these notes – in fact, I find
+                                              typographical mistakes constantly. There may also be mistakes of others that I have copied, or
+                                              mistakes resulting from my own lack of understanding. For all of these mistakes, I apologize.
+
+                                                 There is another issue for which I definitely need to apologize. I initially learned about
+                                              the derived category from Goresky and MacPherson’s “Intersection Homology II”, [11]. The
+                                              convention of j being a closed inclusion, while i is an open inclusion – which is reversed from
+                                              what most people use – is theirs. This is how I am used to thinking and writing, and it is far
+                                                                                                 1
+2                                        DAVID B. MASSEY
+
+
+too late for me to get motivated to change these notes. I apologize for the confusion this may
+cause.
+
+   Many find it hard to believe that all the machinery in these notes is necessary – or even
+very useful – for investigating problems in the topology of singularities. So, in the rest of the
+introduction, I give my own initial motivation for learning this material.
+
+   Suppose that f : (Cn+1 , 0) → (C, 0) is a polynomial with a critical point at the origin. We
+wish to discuss the case where this critical point is non-isolated; so, let Σf denote the critical
+locus of f and let s denote dim0 Σf .
+   The Milnor fibration for f at the origin exists even for non-isolated singularities. The Milnor
+fiber of f at the origin has possibly non-trivial cohomology only in dimensions between n − s
+and n (inclusive).
+   If s ⩾ 1, the origin is not an isolated point in Σf and so, at points p ∈ Σf arbitrarily close
+to 0, we may talk about the Milnor fiber of f at p. Thus, we have a collection of local data at
+each point of Σf , and sheaf theory encodes how all this local data patches together.
+   This is fine. So why does one need a derived category of complexes of sheaves, instead of
+just plain old normal everyday sheaves? The problem is: at each point of Σf , we wish to have
+the information about the cohomology of the Milnor fiber at that point. This means that after
+we look at the stalk at a point p ∈ Σf , we still wish to have cohomology groups in all
+dimensions at our disposal. It does not take long to realize that what you need is a complex of
+sheaves. But, really, one frequently only cares about this complex of sheaves up to cohomology.
+Very loosely speaking, this is what the derived category gives you.
+   In this example, the two complexes of sheaves that one associates with the Milnor fiber
+data correspond to the cohomology and reduced cohomology of the Milnor fiber – they are the
+complexes of sheaves of nearby and vanishing cycles, respectively. The earlier statement that the
+Milnor fiber has possibly non-trivial cohomology only in dimensions between n − s and n follows
+from certain vanishing conditions on these two complexes of sheaves, a vanishing conditions
+which go by the name “perverse”. The general results on perverse sheaves are what give so
+much topological power to the machinery of the derived category.
+
+    Currently, this paper is organized as follows:
+   §1. Constructible Complexes – This section contains general results on bounded, con-
+structible complexes of sheaves and the derived category.
+   §2. Perverse Sheaves – This section contains the definition and basic results on perverse
+sheaves. Here, we also give the axiomatic characterization of the intersection cohomology com-
+plex. Finally in this section, we also give some results on the category of perverse sheaves. This
+categorical information is augmented by that in section 5.
+   §3. Nearby and Vanishing Cycles – In this section, we define and examine the complexes
+of sheaves of nearby and vanishing cycles of an analytic function. These complexes contain
+hypercohomological information on the Milnor fiber of the function under consideration.
+  §4. Some Quick Applications – In this section, we give three easy examples of results on
+Milnor fibers which follow from the machinery described in the previous three sections.
+  §5. Truncation and Perverse Cohomology – This section contains an informal discussion
+on t-structures. This enables us to describe truncation functors and the perverse cohomology
+                      NOTES ON PERVERSE SHEAVES AND VANISHING CYCLES                                3
+
+
+of a complex. It also sheds some light on our earlier discussion of the categorical structure of
+perverse sheaves.
+
+
+§1. Constructible Complexes
+   Much of this section is lifted from Goresky and MacPherson’s “Intersection Homology II”
+[11].
+   In these notes, we are primarily interested in sheaves on complex analytic spaces, and we
+make an effort to state most results in this context. However, as one frequently wishes to do
+such things as intersect with a closed ball, one really needs to consider at least the real semi-
+analytic case (that is, spaces locally defined by finitely many real analytic inequalities). In fact,
+one can treat the subanalytic case. Generally, when we leave the analytic category we shall do
+so without comment, assuming the natural generalizations of any needed results. However, the
+precise statements in the subanalytic case can be found in [10], [11], and [16].
+
+  Let R be a regular Noetherian ring with finite Krull dimension (e.g., Z, Q, or C). A complex
+(A• , d• ) (usually denoted simply by A• if the differentials are clear or arbitrary)
+
+                                 d−1           d0           d1           d2
+                   · · · → A−1 −−−−→ A0 −−−−→ A1 −−−−→ A2 −−−−→ · · ·
+of sheaves of R-modules on a complex analytic space, X, is bounded if Ap = 0 for |p| large.
+  The cohomology sheaves Hp (A• ) arise by taking the (sheaf-theoretic) cohomology of the
+complex. The stalk of Hp (A• ) at a point x is written Hp (A• )x and is isomorphic to what
+one gets by first taking stalks and then taking cohomology, i.e., H p (A• x ). The support of A• ,
+supp A• , is the closure of the set of points where A• has non-zero stalk cohomology, i.e.,
+
+                              supp A• = {x ∈ X | H ∗ (A• )x ̸= 0}.
+
+   The complex A• is constructible with respect to a complex analytic stratification, S = {Sα },
+of X provided that, for all α and i, the cohomology sheaves Hi (A• )|Sα are locally constant and
+have finitely-generated stalks; we write A• ∈ DS (X). If A• ∈ DS (X) and A• is bounded, we
+write A• ∈ DbS (X).
+   If A• ∈ DbS (X) for some stratification (and, hence, for any refinement of S) we say that
+A• is a bounded, constructible complex and write A• ∈ Dbc (X). (Note, however, that Dbc (X)
+actually denotes the derived category and, while the objects of this category are, in fact, the
+bounded, constructible complexes, the morphisms are not merely maps between complexes. We
+shall return to this.)
+   When it is important to indicate the base ring in the notation, we write DS (RX ), DbS (RX ),
+and Dbc (RX ).
+    A single sheaf A on X is considered a complex, A• , on X by letting A0 = A and Ai = 0 for
+i ̸= 0; thus, R•X denotes the constant sheaf on X.
+
+  The shifted complex A• [n] is defined by (A• [n])k = An+k and differential dk[n] = (−1)n dk+n .
+
+   A map of complexes is a graded collection of sheaf maps ϕ• : A• → B• which commute with
+the differentials. The shifted sheaf map ϕ•[n] : A• [n] → B• [n] is defined by ϕk[n] := ϕk+n (note
+the lack of a (−1)n ). A map of complexes is a quasi-isomorphism provided that the induced
+4                                               DAVID B. MASSEY
+
+
+maps
+                                         Hp (ϕ• ) : Hp (A• ) → Hp (B• )
+are isomorphisms for all p. We use the term “quasi-isomorphic” to mean the equivalence relation
+generated by “existence of a quasi-isomorphism”; this is sometimes refered to as “generalized”
+quasi-isomorphic.
+   If ϕ• : A• → I• is a quasi-isomorphism and each Ip is injective, then I• is called an injective
+resolution of A• . Injective resolutions always exist (in our setting), and are unique up to chain
+homotopy. However, it is sometimes important to associate one particular resolution to a com-
+plex, so it is important that there is a canonical injective resolution which can be associated to
+any complex (we shall not describe the canonical resolution here).
+   If A• is a complex on X, then the hypercohomology module, Hp (X; A• ), is defined to be the
+p-th cohomology of the global section functor applied to the canonical injective resolution of A• .
+   Note that if A is a single sheaf on X and we form A• , then Hp (X; A• ) = H p (X; A) =
+ordinary sheaf cohomology. In particular, Hp (X; R•X ) = H p (X; R).
+        Note also that if A• and B• are quasi-isomorphic, then H∗ (X; A• ) ∼
+                                                                           = H∗ (X; B• ).
+  If Y is a subspace of X and A• ∈ Dbc (X), then one usually writes H∗ (Y ; A• ) in place of
+H (Y ; A• |Y ).
+    ∗
+
+
+  The usual Mayer-Vietoris sequence is valid for hypercohomology; that is, if U and V form an
+open cover of X and A• ∈ Dbc (X), then there is an exact sequence
+          · · · → Hi (X; A• ) → Hi (U ; A• ) ⊕ Hi (V ; A• ) → Hi (U ∩ V ; A• ) → Hi+1 (X; A• ) → . . . .
+
+   Of course, hypercohomology is not a homotopy invariant. However, it is true that: if S is
+a real analytic Whitney stratification of X, A• ∈ DbS (X), and r : X → [0, 1) is a proper real
+analytic map such that, for all S ∈ S, r|S has no critical values in (0, 1), then the inclusion
+r−1 (0) ,→ X induces an isomorphism
+                                         Hi (X; A• ) ∼
+                                                     = Hi (r−1 (0); A• ).
+
+   If R is an integral domain, we may talk about the rank of a finitely-generated R-module. In
+this case, if A• ∈ Dbc (X), then the Euler characteristic, χ, of the stalk cohomology is defined as
+the alternating sum of the ranks of the cohomology modules, i.e., χ(A• )x = (−1)i rank Hi (A• )x .
+                                                                              P
+                                                                               •    b
+If the hypercohomology modules are finitely-generated    – for instance, if A ∈ Dc (X) and X is
+compact – then the Euler characteristic χ H∗ (X; A• ) is defined analogously.
+    If Hi (A• ) = 0 for all but, possibly, one value of i - say, i = p, then A• is quasi-isomorphic
+to the complex that has Hp (A• ) in degree p and zero elsewhere. We reserve the term local
+system for a locally constant single sheaf or a complex which is concentrated in degree zero and
+is locally constant. If M is the stalk of a local system L on a path-connected space X, then L
+is determined up to isomorphism by a monodromy representation π1 (X, x) → Aut(M ), where x
+is a fixed point in X.
+        For any A• ∈ Dbc (X), there is an E2 cohomological spectral sequence:
+                                                                   p+q
+                                   E2p,q = H p (X; Hq (A• )) ⇒ H         (X; A• ).
+
+        If Hi (A• ) = 0 for all i < d, then Hi (X; A• ) = 0 for all i < d and Hd (X; A• ) ∼
+                                                                                          = H 0 (X; Hd (A• )).
+                      NOTES ON PERVERSE SHEAVES AND VANISHING CYCLES                                   5
+
+
+   If A• ∈ Dbc (X), x ∈ X, and (X, x) is locally embedded in some Cn , then for all    ϵ > 0n small, the
+                   q    ◦        •       q    •                               ◦
+restriction map  H   (B ϵ (x); A   ) → H   (A   ) x is an isomorphism here, Bϵ  (x) =  z ∈ C |z−x| <
+ϵ . If, in addition, R is a principal ideal domain, the Euler characteristic χ H∗ (Bϵ◦ (x)−x; A• )
+   
+
+is defined and
+                           χ H∗ (Bϵ◦ (x) − x; A• ) = χ H∗ (Sϵ′ (x); A• ) = 0,
+                                                                        
+
+where 0 < ϵ′ < ϵ and Sϵ′ (x) denotes the sphere of radius ϵ′ centered at x.
+   We now wish to say a little about the morphisms in the derived category Dbc (X). The de-
+rived category is obtained by formally inverting the quasi-isomorphisms so that they become
+isomorphisms in Dbc (X). Thus, A• and B• are isomorphic in Dbc (X) provided that there ex-
+ists a complex C• and quasi-isomorphisms A• ← C• → B• ; A• and B• are then said to be
+incarnations of the same isomorphism class in Dbc (X).
+   More generally, a morphism in Dbc (X) from A• to B• is an equivalence class of diagrams
+of maps of complexes A• ← C• → B• where A• ← C• is a quasi-isomorphism. Two such
+diagrams,
+                         f1            g1                           f2       g2
+                 A• ←−−−− C•1 −−−−→ B• ,            A• ←−−−− C•2 −−−−→ B•
+are equivalent provided that there exists a third such diagram
+                                                 f          g
+                                     A• ←−−−− C• −−−−→ B•
+and a diagram
+                                                     C•1
+                                            f1
+                                                 ↙   ↑     ↘ g1
+
+                                                 f          g
+                                     A• ←−−−− C• −−−−→ B•
+
+                                            f2 ↖     ↓     ↗ g2
+                                                     C•2
+which commutes up to (chain) homotopy.
+   Composition of morphisms in Dbc (X) is not difficult to describe. If we have two representatives
+of morphisms, from A• to B• and from B• to D• , respectively,
+                         f1            g1                          f2        g2
+                  A• ←−−−− C•1 −−−−→ B• ,                  B• ←−−−− C•2 −−−−→ D•
+then we consider the pull-back C•1 ×B• C•2 (in the category of chain complexes) and the projections
+π1 and π2 to C•1 and C•2 , respectively. As f2 is a quasi-isomorphism, so is π1 , and the composed
+morphism from A• to D• is represented by
+                                      f1 ◦π1                    g2 ◦π2
+                                A• ←−−−− C•1 ×B• C•2 −−−−→ D• .
+
+    If we restrict ourselves to considering only injective complexes, by associating to any complex
+its canonical injective resolution, then morphisms in the derived category become easy to describe
+– they are chain-homotopy classes of maps between the injective complexes.
+    The moral is: in Dbc (X), we essentially only care about complexes up to quasi-isomorphism.
+Note, however, that the objects of Dbc (X) are not equivalence classes – this is one reason why it
+is important that to each complex we can associate a canonical injective resolution. It allows us
+to talk about certain functors in Dbc (X) being naturally isomorphic. When we write A• ∼    = B• ,
+              b                                   b
+we mean in Dc (X). As we shall discuss later, Dc (X) is an additive category, but is not Abelian.
+6                                        DAVID B. MASSEY
+
+
+Warning: While morphisms of complexes which induce isomorphisms on cohomology sheaves
+become isomorphisms in the derived category, there are morphisms of complexes which induce
+the zero map on cohomology sheaves but are not zero in the derived category. The easiest
+example of such a morphism is given by the following.
+    Let X be a space consisting of two complex lines L1 and L2 which intersect in a single point
+p. For i = 1, 2, let C
+                     e L denote the C-constant sheaf on Li extended by zero to all of X. There is
+                        i
+
+a canonical map, α, from the sheaf CX to the direct sum of sheaves C  eL ⊕ C e L , which on L1 − p
+                                                                          1     2
+is id ⊕0, on L2 − p is 0 ⊕ id, and is the diagonal map on the stalk at p. Consider the complex,
+A• , which has CX in degree 0, CeL ⊕C
+                                   1
+                                       e L in degree 1, zeroes elsewhere, and the coboundary map
+                                          2
+from degree 0 to degree 1 is α. This complex has cohomology only in degree 1. Nonetheless, the
+morphism of complexes from A• to C•X which is the identity in degree 0 and is zero elsewhere
+determines a non-zero morphism in the derived category.
+
+
+   We now wish to describe derived functors; for this, we will need the derived category of an
+arbitrary Abelian category C.
+   Let C be an Abelian category. Then, the derived category of bounded complexes in C is
+the category whose objects consist of bounded differential complexes of objects of C, and where
+the morphisms are obtained exactly as in the case of Dbc (X) – namely, by inverting the quasi-
+isomorphisms as we did above. Naturally, we denote this derived category by Db (C).
+   We need some more general notions before we come back to complexes of sheaves. If C is an
+Abelian category, then we let Kb (C) denote the category whose objects are again bounded differ-
+ential complexes of objects of C, but where the morphisms are chain-homotopy classes of maps of
+differential complexes. A triangle in Kb (C) is a sequence of morphisms A• → B• → C• → A• [1],
+which is usually written in the more“triangular” form
+                                               A• −→ B•
+                                            [1] ↖    ↙
+                                                    •
+                                                  C
+   A triangle in Kb (C) is called distinguished if it is isomorphic in Kb (C) to a diagram of maps
+of complexes
+
+                                                    ϕ
+                                               e • −−
+                                               A     → Be•
+                                            [1] ↖     ↙
+                                                    M•
+where M• is the algebraic mapping cone of ϕ and B  e • → M• → A
+                                                              e • [1] are the canonical maps.
+(Recall that the algebraic mapping cone is defined by
+                        Mk := A
+                              e k+1 ⊕ B
+                                      e k −→ A
+                                             e k+2 ⊕ B
+                                                     e k+1 =: Mk+1
+
+                                       (a, b) 7−→ (−∂a, ϕa + δb)
+where ∂ and δ are the differentials of A e • and Be • respectively.) Note that if ϕ = 0, then we have
+an equality M = A [1] ⊕ B (recall that the shifted complex A• [1] has as its differential the
+               •      •        •
+
+negated, shifted differential of A• ).
+  Now we can define derived functors. Let C denote the Abelian category of sheaves of R-
+modules on an analytic space X, and let C ′ be another Abelian category. Suppose that F is an
+                      NOTES ON PERVERSE SHEAVES AND VANISHING CYCLES                                   7
+
+
+additive, covariant functor from Kb (C) to Kb (C ′ ) such that F ◦[1] = [1]◦F and such that F takes
+distinguished triangles to distinguished triangles (such an F is called a functor of triangulated
+categories). Suppose also that, for all complexes of injective sheaves I• ∈ Kb (C) which are
+quasi-isomorphic to 0, F (I• ) is also quasi-isomorphic to 0.
+   Then, F induces a morphism RF – the right derived functor of F – from Db (X) to Db (C ′ );
+for any A• ∈ Db (X), let A• → I• denote the canonical injective resolution of A• , and define
+RF (A• ) := F (I• ). The action of RF on the morphisms is the obvious associated one.
+   A morphism F : Kb (C) → Kb (C ′ ) as described above is frequently obtained by starting with
+a left-exact functor T : C → C ′ and then extending T in a term-wise fashion to be a functor from
+Kb (C) to Kb (C ′ ). In this case, we naturally write RT for the derived functor.
+   This is the process which is applied to:
+Γ(X; ·) (global sections);
+Γc (X; ·) (global sections with compact support);
+f∗ (direct image);
+f! (direct image with proper supports); and
+f ∗ (pull-back or inverse image),
+where f : X → Y is a continuous map (actually, in these notes, we would need an analytically
+constructible map; e.g., an analytic map).
+   If the functor T is an exact functor from sheaves to sheaves, then RT (A• ) ∼
+                                                                               = T (A• ); in this
+case, we normally suppress the R. Hence, if f : X → Y , A ∈ D (X), and B• ∈ Db (Y ), we
+                                                             •      b
+
+write:
+
+       f ∗ B• ;
+
+       f! A• , if f is the inclusion of a locally closed subset and, hence, f! is extension by zero;
+
+       f∗ A• , if f is the inclusion of a closed subspace.
+
+  Note that hypercohomology is just the cohomology of the derived global section functor, i.e.,
+H∗ (X; ·) = H ∗ ◦RΓ(X; ·). The cohomology of the derived functor of global sections with compact
+support is the compactly supported hypercohomology and is denoted H∗c (X; A• ).
+
+   If f : X → Y is the inclusion of a subset and B• ∈ Db (Y ), then the restriction of B• to X is
+defined to be f ∗ (B• ), and is usually denoted by B• |X .
+
+
+
+   It is important to note that, in general, for an inclusion map f : X → Y , Rf∗ and Rf! need not
+take constructible complexes to constructible complexes. However, in the algebraic setting, the
+derived functors of inclusions of Zariski open or closed subsets do take constructible complexes
+to constructible complexes. In the analytic setting, the derived functors of inclusions of Zariski
+closed subsets take constructible complexes to constructible complexes, but the derived functors
+of inclusions of Zariski open subsets need not take constructible complexes to constructible
+8                                        DAVID B. MASSEY
+
+
+complexes. However, suppose A• ∈ Dbc (X), Z is analytically Zariski closed in X, and we have
+the inclusion i : X − Z → X; then, Ri∗ i∗ A• and Ri! i∗ A• are in Dbc (X).
+
+    If f : X → Y is continuous and A• ∈ Dbc (X), there is a natural map
+                                        Rf! A• → Rf∗ A• .
+
+    For f : X → Y continuous, there are canonical isomorphisms
+               RΓ(X; A• ) ∼
+                          = RΓ(Y ; Rf∗ A• ) and RΓc (X; A• ) ∼
+                                                             = RΓc (Y ; Rf! A• )
+which lead to canonical isomorphisms
+                H∗ (X; A• ) ∼
+                            = H∗ (Y ; Rf∗ A• ) and H∗ (X; A• ) ∼
+                                                        c      = H∗ (Y ; Rf! A• )
+                                                                      c
+            •
+for all A       in Dbc (X).
+
+  If f : X → Y is continuous, A• ∈ Dbc (X), and B• ∈ Dbc (Y ) , there are natural maps induced
+by restriction of sections
+                              B• → Rf∗ f ∗ B• and f ∗ Rf∗ A• → A• .
+If f is the inclusion of a locally closed subset , then f ∗ Rf∗ A• → A• is an isomorphism; more
+precisely, there is a natural isomorphism of functors f ∗ Rf∗ ∼= id.
+
+   If {Sα } is a stratification of X, A• ∈ Db         (X ×Ck ), and π : X ×Ck → X is the projection,
+                                            {Sα ×Ck }
+then restriction of sections induces a quasi-isomorphism π ∗ Rπ∗ A• → A• .
+   It follows easily that if j : X ,→ X × Ck is the zero section, then π ∗ j ∗ A• ∼
+                                                                                  = A• . This says
+exactly what one expects: the complex A• has a product structure in the Ck directions.
+   An important consequence of this is the following: let S = {Sα } be a Whitney stratification
+of X and let A• ∈ DbS (X). Let x ∈ Sα ⊆ X. As Sα is a Whitney stratum, X has a product
+structure along Sα near x. By the above, A• itself also has a product structure along Sα .
+Hence, by taking a normal slice, many problems concerning the complex A• can be reduced to
+considering a zero-dimensional stratum.
+
+  Let A• , B• ∈ Dbc (X). Define A• ⊗ B• to be the single complex which is associated to the
+double complex Ap ⊗ Bq . The left derived functor A• ⊗L ∗ is defined by
+                                      A• ⊗L B• = A• ⊗ J• ,
+where J• is a flat resolution of B• , i.e., the stalks of J• are flat R-modules and there exists a
+quasi-isomorphism J• → B• .
+  For all A• , B• ∈ Dbc (X), there is an isomorphism A• ⊗L B• ∼     = B• ⊗L A• .
+    For any map f : X → Y and any A• , B• ∈ Dbc (Y ),
+                             f ∗ (A• ⊗L B• ) ∼
+                                             = f ∗ A• ⊗L f ∗ B• .
+
+
+   Fix a complex B• on X. There are two covariant functors which we wish to consider: the
+functor Hom• (B• , ∗) from the category of complexes of sheaves on X to complexes of sheaves on
+X and the functor Hom• (B• , ∗) from the category of complexes of sheaves on X to the category
+of complexes of R-modules. These functors are given by
+                                            n
+                                                Y
+                          (Hom• (B• , A• )) =      Hom(Bp , An+p )
+                                                  p∈Z
+                      NOTES ON PERVERSE SHEAVES AND VANISHING CYCLES                            9
+
+
+and                                                         Y
+                                                    n
+                              (Hom• (B• , A• )) =                 Hom(Bp , An+p )
+                                                            p∈Z
+with differential given by
+                                    [∂ n f ]p = ∂ n+p f p + (−1)n+1 f p+1 ∂ p
+(there is an indexing error in [15], 12.4]). The associated derived functors are, respectively,
+RHom• (B• , ∗) and RHom• (B• , ∗).
+   Note that if R•X is the constant sheaf on X, then there is a natural isomorphism of functors
+RHom• (R•X , ∗) ∼= id.
+   For all k,
+              RHom• (B• , A• [k]) = RHom• (B• [−k], A• ) = RHom• (B• , A• ) [k].
+                                                                              
+
+   If P• → B• is a projective resolution of B• , then, in Dbc (X), RHom• (B• , A• ) is isomorphic
+to Hom• (P• , A• ).
+   The functor RHom• (B• , ∗) is naturally isomorphic to the derived global sections functor
+applied to RHom• (B• , ∗), i.e., for any A• ∈ Dbc (X),
+                          RHom• (B• , A• ) ∼
+                                           = RΓ (X; RHom• (B• , A• )) .
+H 0 (RHom• (B• , A• )) is naturally isomorphic as an R-module to the derived category homomor-
+phisms from B• to A• , i.e.,
+                             H 0 (RHom• (B• , A• )) ∼
+                                                    = HomDb (X) (B• , A• ).
+                                                                      c
+
+If B and A have locally constant cohomology sheaves on X then, for all x ∈ X, RHom• (B• , A• )x
+      •     •
+
+is naturally isomorphic to RHom• (B• x , A• x ).
+  For all A• , B• , C• ∈ Dbc (X), there is a natural isomorphism
+                   RHom• (A• ⊗L B• , C• ) ∼
+                                          = RHom• (A• , RHom• (B• , C• )).
+Moreover, if C• has locally constant cohomology sheaves, then there is an isomorphism
+                       RHom• (A• , B• ⊗L C• ) ∼
+                                              = RHom• (A• , B• ) ⊗L C• .
+
+
+  For all j, we define Extj (B• , A• ) := Hj (RHom• (B• , A• )) and define
+                               Extj (B• , A• ) := H j (RHom• (B• , A• )).
+It is immediate that we have isomorphisms of R-modules
+                Extj (B• , A• ) = H 0 (RHom• (B• , A• [j])) ∼
+                                                            = HomDb (X) (B• , A• [j]).
+                                                                                 c
+
+
+
+   If X = point, B• ∈ Dbc (X), and the base ring is a PID, then B• ∼
+                                                                   = k Hk (B• )[−k] in Dbc (X);
+                                                                     L
+if we also have A• ∈ Dbc (X), then
+                          M                        
+       Hi (A• ⊗L B• ) ∼
+                                                             M
+                                Hp (A• ) ⊗ Hq (B• ) ⊕             Tor(Hr (A• ), Hs (B• )) .
+                                                                                         
+                      =
+                             p+q=i                                     r+s=i+1
+                                                        •
+If, in addition, the cohomology modules of A are projective (hence, free), then
+                       HomDb (X) (A• , B• ) ∼
+                                              M
+                                                Hom Hk (A• ), Hk (B• ) .
+                                                                      
+                                            =
+                                c
+                                                        k
+10                                           DAVID B. MASSEY
+
+
+   If we have a map f : X → Y , then the functors f ∗ and Rf∗ are adjoints of each other in
+the derived category of bounded complexes. In fact, for all A• on X and B• on Y , there is a
+canonical isomorphism in Db (Y )
+                        RHom• (B• , Rf∗ A• ) ∼
+                                             = Rf∗ RHom• (f ∗ B• , A• )
+and so
+       HomDb (Y ) (B• , Rf∗ A• ) ∼
+                                 = H 0 (RHom• (B• , Rf∗ A• )) ∼
+                                                              = H0 (Y ; RHom• (B• , Rf∗ A• )) ∼
+                                                                                              =
+          H0 (X; RHom• (f ∗ B• , A• )) ∼
+                                       = H 0 (RHom• (f ∗ B• , A• )) ∼
+                                                                    = HomDb (X) (f ∗ B• , A• ).
+
+
+     We wish now to describe an analogous adjoint for Rf!
+   Let I• be a complex of injective sheaves on Y . Then, f ! (I• ) is defined to be the sheaf associated
+to the presheaf given by
+                                  Γ(U ; f ! I• ) = Hom• (f! K•U , I• ),
+for any open U ⊆ X, where K•U denotes the canonical injective resolution of the constant sheaf
+R•U . For any A• ∈ Db (X), define f ! A• to be f ! I• , where I• is the canonical injective resolution
+of A• .
+   Now that we have this definition, we may state:
+
+(Poincaré-Verdier Duality)    If f : X → Y is continuous, A• ∈ Db (X), and B• ∈ Db (Y ), then
+there is a canonical isomorphism in Db (Y ):
+                         Rf∗ RHom• (A• , f ! B• ) ∼
+                                                  = RHom• (Rf! A• , B• )
+and so
+                            HomDb (X) (A• , f ! B• ) ∼
+                                                     = HomDb (Y ) (Rf! A• , B• ).
+
+     In particular, replacing A• with the constant sheaf R•X , we obtain a natural isomorphism
+                                   Rf∗ f ! B• ∼
+                                              = RHom• (Rf! R•X , B• ).
+     It follows that, if f is the inclusion of a locally closed subset, then
+                                     f ! B• ∼
+                                            = f ∗ RHom• (Rf! R• , B• ).
+                                                                X
+
+
+
+
+     If B• and C• are in Db (Y ) and f : X → Y is continuous, then we have an isomorphism
+                          f ! RHom• (B• , C• ) ∼
+                                               = RHom• (f ∗ B• , f ! C• ).
+
+    Let f : X → point. Then, the dualizing complex, D•X , is f ! applied to the constant sheaf,
+i.e., D•X = f ! R•pt . For any complex A• ∈ Db (X), the Verdier dual (or, simply, the dual) of A•
+is RHom• (A• , D•X ) and is denoted by DX A• (or just DA• ). There is a canonical isomorphism
+between D•X and the dual of the constant sheaf on X, i.e., D•X ∼     = DR•X . The Verdier dual
+yields a contravariant functor from D (X) to itself, and there is a natural morphism from A•
+                                        b
+
+to D(DA• ), i.e., a natural transformation from idDb (X) to DD.
+    Suppose that the base ring R is a field or a Dedekind domain (e.g., a PID). Then:
+    1) A• ∈ Db (X) is constructible if and only DA• is constructible. Thus D yields a contravari-
+ant functor from Dbc (X) to itself.
+                     NOTES ON PERVERSE SHEAVES AND VANISHING CYCLES                             11
+
+
+  2) On Dbc (X), the natural transformation from idDb (X) to DD is a natural isomorphism.
+
+   Let A• ∈ Dbc (X). If the base ring R is a field or a Dedekind domain (e.g., a PID), then DA•
+is well-defined up to quasi-isomorphism by:
+for any open U ⊆ X, there is a natural split exact sequence:
+           0 → Ext(Hq+1
+                    c   (U ; A• ), R) → H−q (U ; DA• ) → Hom(Hqc (U ; A• ), R) → 0.
+
+
+  In particular, if R is a field, then H−q (U ; DA• ) ∼
+                                                      = Hqc (U ; A• ), and so
+                       Hq (DA• )x ∼
+                                  = Hq (Bϵ◦ (x); DA• ) ∼
+                                                       = H−q  ◦       •
+                                                          c (Bϵ (x); A ).
+
+If, in addition, X is compact, H−q (X; DA• ) ∼
+                                             = Hq (X; A• ).
+
+    Dualizing is a local operation, i.e., if i : U ,→ X is the inclusion of an open subset and
+A• ∈ Dbc (X), then i∗ DA• ∼  = Di∗ A• .
+    If L is a local system on a connected real m-manifold, N , then (DL• )[−m] is a local system;
+if, in addition, N is oriented, and L is actually locally free with stalks Ra and monodromy
+representation η : π1 (N, p) → Aut(Ra ), then DL• [−m] is a local system with stalks equal to the
+dual, (Ra )∨ := HomR (Ra , R) ∼  = Ra , of Raand monodromy ∨ η : π1 (N, p) → Aut((Ra )∨ ), where
+∨
+  η(α) is the dual of (η(α)) , i.e., ∨ η(α) (f ) := f ◦ (η(α))−1 = f ◦ (η(α−1 )).
+                             −1
+
+
+
+  If A• ∈ Dbc (X), then D(A• [n]) = (DA• )[−n].
+
+  If π : X × Cn → X is projection, then D(π ∗ A• )[−n] ∼
+                                                       = π ∗ (DA• )[n].
+
+  The dualizing complex, DX , is quasi-isomorphic to the complex of sheaves of singular chains on
+X which is associated to the complex of presheaves, C• , given by Γ(U ; C−p ) := Cp (X, X −U ; R).
+  The cohomology sheaves of D•X are non-zero in negative degrees only, with stalks H−p (D•X )x =
+Hp (X, X − x; R).
+  If X is an oriented, real m-manifold, then D•X [−m] is quasi-isomorphic to R•X , and so DR•X ∼=
+RX [m] and, for all A• ∈ Dbc (X),
+ •
+
+
+                    DA• ∼ = RHom• (A• , R•X [m]) = RHom• (A• , R•X ) [m].
+                                                                        
+
+Note that if X is an even-dimensional, oriented, real m-manifold, with m = 2n, then D(R•X [n]) ∼
+                                                                                               =
+R•X [n], i.e., R•X [n] is self-dual.
+
+  D•V ×W is naturally isomorphic to π1∗ D•V ⊗L π2∗ D•W , where π1 and π2 are the projections onto
+V and W , respectively.
+  Hypercohomology with coefficients in D•X is isomorphic to Borel-Moore homology, with a
+negation in the degree, i.e., H−i (X; D•X ) ∼
+                                            = HBM
+                                               i  (X).
+   If X is a real, smooth, oriented m-manifold and R = R, then D•X [−m] is naturally isomorphic
+to the complex of real differential forms on X.
+ D•X is constructible with respect to any Whitney stratification of X. It follows that if S is a
+Whitney stratification of X, then A• ∈ DbS (X) if and only if DA• ∈ DbS (X).
+12                                           DAVID B. MASSEY
+
+
+     For all A• , B• ∈ Dbc (X), we have isomorphisms
+                    RHom• (A• , B• ) ∼
+                                     = RHom• (DB• , DA• ) ∼
+                                                          = D DB• ⊗L A• .
+                                                                       
+
+
+
+     If f : X → Y is continuous, then we have natural isomorphisms
+                                        = DRf∗ D and f ! ∼
+                                    Rf! ∼                = Df ∗ D.
+
+
+     If Y ⊆ X and f : X − Y ,→ X is the inclusion, we define
+                                    Hk (X, Y ; A• ) := Hk (X; f! f ! A• ).
+
+
+     Suppose that X is compact, U is an open subset of X, and Y := X − U . Then,
+                                       Hkc (U ; A• ) ∼
+                                                     = Hk (X, Y ; A• ).
+
+
+   Let x ∈ X and A• ∈ Dbc (X). Let jx denote the inclusion of {x} into X. Then, for all
+sufficiently small ϵ > 0,
+           H q (jx! A• ) ∼
+                         = Hqc (Bϵ◦ (x); A• ) ∼
+                                              = Hq (Bϵ◦ (x), Bϵ◦ (x) − x; A• ) ∼
+                                                                               = Hq (X, X − x; A• )
+and so, if R is a field,
+                   H−q (DA• )x ∼
+                               = Hq (Bϵ◦ (x), Bϵ◦ (x) − x; A• ) ∼
+                                                                = Hq (X, X − x; A• ).
+
+
+   Suppose that the base ring R is a field, that X is a compact space, and that A• is a self-dual
+complex on X, i.e., there exists an isomorphism α : A• → DA• . Then, for all k, there are
+isomorphisms
+                                        = Hom(Hkc (X; A• ), R) ∼
+                        = H−k (X; DA• ) ∼
+           H−k (X; A• ) ∼                                      = Hom(Hk (X; A• ), R)
+and so, there is an induced bilinear map:
+                                    Hk (X; A• ) × H−k (X; A• ) → R.
+When k = 0, the map above is generally referred to as the intersection pairing or intersection
+form. This agrees with the standard usage of the term for a compact, even-dimensional, oriented,
+real 2n-manifold, where A• = R•X [n], for then H0 (X; A• ) = H0 (X; R•X [n]) ∼
+                                                                             = H n (X; R).
+
+     If f : X → Y and g : Y → Z, then there are natural isomorphisms
+
+                           R(g ◦ f )∗ ∼
+                                      = Rg∗ ◦ Rf∗           R(g ◦ f )! ∼
+                                                                       = Rg! ◦ Rf!
+                                                      and
+                               (g ◦ f )∗ ∼
+                                         = f ∗ ◦ g∗         (g ◦ f )! ∼
+                                                                      = f ! ◦ g! .
+
+
+   Suppose that f : Y ,→ X is inclusion of a subset. Then, if Y is open, there is a natural
+isomorphism f ! ∼
+                = f ∗ . More generally, if A• ∈ Dbc (X) and Y ∩ supp A• is open in supp A• , then
+f A = f A . If Y is closed, then there are natural isomorphisms Rf! ∼
+  ! • ∼ ∗ •
+                                                                        = f! ∼
+                                                                             = f∗ ∼= Rf∗ .
+                      NOTES ON PERVERSE SHEAVES AND VANISHING CYCLES                               13
+
+
+   Excision has the following form: if Y ⊆ U ⊆ X, where U is open in X and Y is closed in X,
+then
+                            Hk (X, X − Y ; A• ) ∼
+                                                = Hk (U, U − Y ; A• ).
+This isomorphism on hypercohomology actually follows from a natural isomorphism of functors.
+Let j denote the inclusion of Y into U , and let i denote the inclusion of U into X. Then, there
+is a natural isomorphism (ij)! (ij)! ∼
+                                     = i∗ j! j ! i∗ .
+
+   Suppose that f : X → Y is continuous. One might hope that, as an analog to the natural map
+Rf! → Rf∗ , there would be a natural map f ∗ → f ! ; however, the situation is more complicated
+than that. If A• and B• are in Dbc (Y ), then there is a natural map
+                             f ! A• ⊗L f ∗ B• → f ! A• ⊗L B• .
+                                                                 
+
+In particular, taking A• to be the constant sheaf R•Y , there is a natural map
+                                       f ! R•Y ⊗L f ∗ → f ! .
+The complex f ! R•Y is referred to as the relative dualizing complex, and is denoted by ωX/Y (when
+the map f is clear).
+   The map f ! R•Y ⊗L f ∗ → f ! is an isomorphism if f is a topological submersion of some
+dimension r (we use r here because it is a real dimension), i.e., if every point in X possesses
+an open neighborhood U such that V := f (U) is open and such that the restriction f : U → V
+is homeomorphic to the projection V × Rr → V. If f : X → Y is a topological submersion
+of dimension r, and X and Y are orientable manifolds, then ωX/Y ∼           = R•X [r] and so, for all
+  •    b
+B ∈ Dc (Y ),
+                                          f ∗ B• [r] ∼
+                                                     = f ! B• .
+
+  If g : Y ,→ X is the inclusion of an orientable submanifold into another orientable manifold,
+and r is the real codimension of Y in X, and F• ∈ Dbc (X) has locally constant cohomology on
+X, then g ! F• has locally constant cohomology on Y and
+                                         g ∗ F• [−r] ∼
+                                                     = g ! F• .
+(There is an error here in [11]; they have the negation of the correct shift.)
+
+
+  If f : X → Y is continuous, A• ∈ Dbc (X), and B• ∈ Dbc (Y ) , then dual to the canonical maps
+                              B• → Rf∗ f ∗ B• and f ∗ Rf∗ A• → A•
+are the canonical maps
+                              Rf! f ! B• → B• and A• → f ! Rf! A• ,
+and, if f is the inclusion of a locally closed subset, A• → f ! Rf! A• is an isomorphism.
+
+
+
+  If
+                                                   fˆ
+                                            Z −−−−→ W
+                                                   
+                                                   π
+                                          π̂ y      y
+                                                   f
+                                           X −−−−→ S
+14                                            DAVID B. MASSEY
+
+
+is a pull-back diagram (fiber square, Cartesian diagram), then for all A• ∈ Dbc (X), Rfˆ! π̂ ∗ A• ∼      =
+π ∗ Rf! A• (there is an error in [11]; they have lower ∗’s, not lower !’s, but see below for when
+these agree) and, dually, Rfˆ∗ π̂ ! A• ∼    = π ! Rf∗ A• . In particular, if f is proper (and, hence, fˆ is
+proper) or π is the inclusion of an open subset (and, hence, so is π̂, up to homeomorphism),
+then Rfˆ∗ π̂ ∗ A• ∼
+                  = π ∗ Rf∗ A• ; this is also true if W = S × Cn and π : W → S is projection (and,
+hence, up to homeomorphism, π̂ is projection from X × Cn to X).
+    Still looking at the pull-back diagram above, we find that the natural map Rf! f ! → id yields
+a natural map Rfˆ! π̂ ∗ f ! ∼
+                            = π ∗ Rf! f ! → π ∗ , which in turn yields natural maps
+                                          π̂ ∗ f ! → fˆ! Rfˆ! π̂ ∗ f ! → fˆ! π ∗ .
+
+   If we have A• ∈ Dbc (X) and B• ∈ Dbc (W ), then we let A• ⊠L S
+                                                                  B• := π̂ ∗ A• ⊗L fˆ∗ B• , assuming
+that the maps π̂ and fˆ are clear. If S is a point, so that Z ∼
+                                                              = X × W , then we omit the S in the
+notation and write simply A• ⊠L B• .
+
+
+
+    There is a Künneth formula, which we now state in its most general form, in terms of maps
+over a base space S. Suppose that we have two maps f1 : X1 → Y1 and f2 : X2 → Y2 over S,
+i.e., there are commutative diagrams
+                             f1                                                    f2
+                     X1 −−−−→ Y1                                              X2 −−−−→ Y2
+                      r1 ↘ ↙ t1                      and                       r2 ↘ ↙ t2
+                          S                                                        S                  .
+Then, there is an induced map f = f1 ×S f2 : X1 ×S X2 → Y1 ×S Y2 . If A• ∈ Dbc (X1 ) and
+B• ∈ Dbc (X2 ), there is the Künneth isomorphism
+                             Rf! (A• ⊠L B• ) ∼
+                                          S
+                                             = Rf1 A• ⊠L Rf2 B• .
+                                                        !         S       !
+
+  Using the above notation, if S is a point and F       •
+                                                            ∈ Dbc (Y1 ) and G• ∈ Dbc (Y2 ), then there is a
+natural isomorphism (the adjoint Künneth isomorphism)
+                              f ! (F• ⊠L G• ) ∼
+                                              = f1 ! F• ⊠L f2 ! G• .
+If we let q1 and q2 denote the projections from Y1 × Y2 onto Y1 and Y2 , respectively, then the
+adjoint Künneth formula can be proved by using the following natural isomorphism twice
+                             DF• ⊠L G• ∼  = RHom• (q ∗ F• , q ! G• ).
+                                                              1       2
+
+
+
+    Let Z be a locally closed subset of an analytic space X. There are two derived functors,
+associated to Z, that we wish to describe: the derived functors of restricting-extending to Z,
+and of taking the sections supported on Z. Let k denote the inclusion of k : Z ,→ X.
+    If A is a (single) sheaf on X, then the restriction-extension of A to Z, (A)Z , is given by
+k! k ∗ (A). Thus, up to isomorphism, (A)Z is characterized by ((A)Z )|Z ∼
+                                                                        = A|Z and ((A)Z )|X−Z =
+0. This functor is exact, and so we also denote the derived functor by ()Z .
+  Now, we want to define the sheaf of sections of A supported by Z, ΓZ (A). If U is an open
+subset of X which contains Z as a closed subset (of U), then we define
+                                         
+                         ΓZ (U; A) := ker Γ(U; A) → Γ(U − Z; A) .
+Up to isomorphism, ΓZ (U; A) is independent of the open set U (this uses that A is a sheaf, not
+just a presheaf). The sheaf ΓZ (A) is defined by: for all open U ⊆ X, Γ(U; ΓZ (A)) := ΓU ∩Z (U; A).
+                      NOTES ON PERVERSE SHEAVES AND VANISHING CYCLES                              15
+
+
+   One easily sees that supp ΓZ (A) ⊆ Z. The functor ΓZ () is left exact; of course, we denote
+the right derived functor by RΓZ (). There is a canonical isomorphism
+                                         k! ∼
+                                            = k ∗ RΓ . Z
+
+If Z is closed, then RΓZ ∼
+                         = k! k ! . If Z is open, then RΓZ ∼
+                                                           = Rk∗ k ∗ .
+
+Avoiding Injective Resolutions:
+
+   To calculate right derived functors from the definition, one must use injective resolutions.
+However, this is inconvenient in many proofs if some functor involved in the proof does not
+take injective complexes to injective complexes. There are (at least) four “devices” which come
+to our aid, and enable one to prove many of the isomorphisms described earlier; these devices
+are fine resolutions, flabby resolutions, c-soft resolutions, and injective subcategories
+with respect to a functor.
+   If T is a left-exact functor on the category of sheaves on X, then the right derived functor
+RT is defined by applying T term-wise to the sheaves in a canonical injective resolution. The
+importance of saying that a certain subcategory of the category of sheaves on X is injective
+with respect to T is that one may take a resolution in which the individual sheaves are in the
+given subcategory, then apply T term-wise, and end up with a complex which is canonically
+isomorphic to that produced by RT .
+  Recall that a single sheaf A on X is:
+• fine, if partitions of unity of A subordinate to any given locally finite open cover of X exist;
+• flabby, if for every open subset U ⊆ X, the restriction homomorphism Γ(X; A) → Γ(U; A) is
+a surjection;
+• c-soft, if for every compact subset K ⊆ X, the restriction homomorphism Γ(X; A) → Γ(K; A)
+is a surjection;
+  Injective sheaves are flabby, and flabby sheaves are c-soft. In addition, fine sheaves are c-soft.
+  The subcategory of c-soft sheaves is injective with respect to the functors Γ(X; ∗), Γc (X; ∗),
+and f! . The subcategory of flabby sheaves is injective with respect to the functor f∗ .
+   If A• is a bounded complex of sheaves, then a bounded c-soft resolution of A• is given by
+A → A• ⊗ S• , where S• is a c-soft, bounded above, resolution of the base ring (which always
+  •
+
+exists in our context).
+
+Triangles:
+
+   Dbc (X) is an additive category, but is not an Abelian category. In place of short exact
+sequences, one has distinguished triangles, just as we did in Kb (C). A triangle of morphisms in
+Dbc (X)
+                                                A• −→ B•
+                                             [1] ↖   ↙
+                                                   C•
+(the [1] indicates a morphism shifted by one, i.e., a morphism C• → A• [1]) is called distinguished
+if it is isomorphic in Dbc (X) to a diagram of sheaf maps
+16                                            DAVID B. MASSEY
+
+                                                          ϕ
+                                                   Ã• −−→ B̃•
+                                                [1] ↖    ↙
+                                                        M•
+where M• is the algebraic mapping cone of ϕ and B• → M• → A• [1] are the canonical maps.
+The “in-line” notation for a triangle is A• → B• → C• → A• [1] or
+                                                              [1]
+                                         A• → B• → C• −−−−→ .
+
+   Any short exact sequence of complexes becomes a distinguished triangle in Dbc (X). Any edge
+of a distinguished triangle determines the triangle up to (non-canonical) isomorphism in Dbc (X);
+more specifically, we can “turn” the distinguished triangle:
+                                     α                β             γ
+                            A• −−−−→ B• −−−−→ C• −−−−→ A• [1]
+is a distinguished triangle if and only if
+                                 β                γ                 −α[1]
+                           B• −−−−→ C• −−−−→ A• [1] −−−−→ B• [1]
+is a distinguished triangle.
+
+   Given two distinguished triangles and maps u and v which make the left-hand square of the
+following diagram commute
+                                   A• → B• → C• → A• [1]
+                                         ↓u     ↓v            ↓ u[1]
+                                         f• → B
+                                         A    f• → C
+                                                   f• → A
+                                                        f• [1],
+
+there exists a (not necessarily unique) w : C• → C
+                                                 f• such that
+
+                                         A• → B• → C• → A• [1]
+                                         ↓u   ↓v   ↓w   ↓ u[1]
+                                Af• → B f• → C
+                                             f• → Af• [1]
+also commutes. We say that the original commutative square embeds in a morphism of distin-
+guished triangles.
+  We will now give the octahedral lemma, which allows one to realize an isomorphism between
+mapping cones of two composed maps.
+  Suppose that we have two distinguished triangles
+                                     f                g             h
+                           A• −−−−→ B• −−−−→ C• −−−−→ A• [1]
+and
+                                     β                γ             δ
+                           B• −−−−→ E• −−−−→ F• −−−−→ B• [1].
+
+Then, there exists a complex M• and two distinguished triangles
+                                 β◦f                 τ              ω
+                           A• −−−−→ E• −−−−→ M• −−−−→ A• [1]
+and
+                                 σ                    ν          g[1]◦δ
+                          C• −−−−→ M• −−−−→ F• −−−−→ C• [1].
+
+
+such that the following diagram commutes
+                     NOTES ON PERVERSE SHEAVES AND VANISHING CYCLES                               17
+
+
+
+                                   f            g                 h
+                            A• −−−−→ B• −−−−→ C• −−−−→ A• [1]
+                         id ↓           β↓             σ↓                 id ↓
+                                  β◦f          τ                   ω
+                           A• −−−−→ E• −−−−→ M• −−−−→ A• [1]
+                          f↓            id ↓           ν↓              f [1] ↓
+                                    β           γ                 δ
+                            B• −−−−→ E• −−−−→ F• −−−−→ B• [1]
+                           g↓            τ↓            id ↓            g[1] ↓
+                                   σ               ν             g[1]◦δ
+                            C• −−−−→ M• −−−−→ F• −−−−→ C• [1].
+
+It is somewhat difficult to draw this in its octahedral form (and worse to type it); moreover, it is
+no easier to read the relations from the octahedron. However, the interested reader can give it
+a try: the octahedron is formed by gluing together two pyramids along their square bases. One
+pyramid has B• at its top vertex, with A• , C• , E• , and F• at the vertices of its base, and has
+the original two distinguished triangles as opposite faces. The other pyramid has M• at its top
+vertex, with A• , C• , E• , and F• at the vertices of its base, and has the other two distinguished
+triangles (whose existence is asserted in the lemma) as opposite faces. The two pyramids are
+joined together by matching the vertices of the two bases, forming an octahedron in which the
+faces are alternately distinguished and commuting.
+
+  A distinguished triangle determines long exact sequences on cohomology and hypercohomol-
+ogy:
+
+                   · · · → Hp (A• ) → Hp (B• ) → Hp (C• ) → Hp+1 (A• ) → · · ·
+             · · · → Hp (X; A• ) → Hp (X; B• ) → Hp (X; C• ) → Hp+1 (X; A• ) → · · · .
+
+   If f : X → Y and F• ∈ Dbc (X), then the functors Rf∗ , Rf! , f ∗ , f ! , and F• ⊗L ∗ all take
+distinguished triangles to distinguished triangles (with all arrows in the same direction and the
+shift in the same place).
+   As for RHom• , if F• ∈ Dbc (X) and A• → B• → C• → A• [1] is a distinguished triangle in
+  b
+Dc (X), then we have distinguished triangles
+
+           RHom• (F• , A• ) −→ RHom• (F• , B• )   RHom• (A• , F• ) ←− RHom• (B• , F• )
+              [1] ↖          ↙                and       [1] ↘        ↗
+                RHom• (F• , C• )                            RHom• (C• , F• ).
+
+   By applying the right-hand triangle above to the special case where F• = D•X , we find that
+the dualizing functor D also takes distinguished triangles to distinguished triangles, but with a
+reversal of arrows, i.e., if we have a distinguished triangle A• → B• → C• → A• [1] in Dbc (X),
+then, by dualizing, we have distinguished triangles
+
+                       DA• ←− DB•                                                 DC• −→ DB•
+                      [1] ↘   ↗                             or                   [1] ↖  ↙
+                             •                                                          •
+                           DC                                                         DA .
+18                                        DAVID B. MASSEY
+
+
+   There are (at least) six distinguished triangles associated to the functors ()Z and RΓZ . Let
+F• be in Dbc (X), U1 and U2 be open subsets of X, Z1 and Z2 be closed subsets of X, Z be locally
+closed in X, and Z ′ be closed in Z. Then, we have the following distinguished triangles:
+
+                                                                                  [1]
+                  RΓU1 ∪U2 (F• ) → RΓU1 (F• ) ⊕ RΓU2 (F• ) → RΓU1 ∩U2 (F• ) −−−−→
+
+
+                                                                                  [1]
+                 RΓZ1 ∩Z2 (F• ) → RΓZ1 (F• ) ⊕ RΓZ2 (F• ) → RΓZ1 ∪Z2 (F• ) −−−−→
+
+
+                                                                            [1]
+                        (F• )U1 ∩U2 → (F• )U1 ⊕ (F• )U2 → (F• )U1 ∪U2 −−−−→
+
+
+                                                                            [1]
+                        (F• )Z1 ∪Z2 → (F• )Z1 ⊕ (F• )Z2 → (F• )Z1 ∩Z2 −−−−→
+
+                                                                      [1]
+                          RΓZ ′ (F• ) → RΓZ (F• ) → RΓZ−Z ′ (F• ) −−−−→
+
+
+                                                                [1]
+                               (F• )Z−Z ′ → (F• )Z → (F• )Z ′ −−−−→ .
+
+
+   If j : Y ,→ X is the inclusion of a closed subspace and i : U ,→ X the inclusion of the
+open complement, then for all A• ∈ Dbc (X), the last two triangles above give us distinguished
+triangles
+               Ri! i! A• −→ A•                                        Rj! j ! A• −→ A•
+               [1] ↖          ↙                     and                 [1] ↖        ↙
+                      Rj∗ j ∗ A•                                               Ri∗ i∗ A• ,
+where the second triangle can be obtained from the first by dualizing. (Note that Ri! = i! ,
+Rj∗ = j∗ = j! = Rj! , and i! = i∗ .) The associated long exact sequences on hypercohomology
+are those for the pairs H∗ (X, Y ; A• ) and H∗ (X, U ; A• ), respectively. It is worth noting that
+the natural map Rj∗ j ∗ [−1]A• → Ri! i! A• induces the zero map on stalk cohomology, but would
+usually not be the zero map in the derived category.
+   From either of these triangles, and the fact that j ∗ i! = 0, one easily obtains a natural isomor-
+phism
+                                         j ! Ri! [1] ∼
+                                                     = j ∗ Ri∗ .
+     Applying j ∗ to the triangle on the right above, we obtain the distinguished triangle
+                                          j ! A• −→ j ∗ A•
+                                         [1] ↖      ↙
+                                            j ∗ Ri∗ i∗ A• ,
+which tells us how j ! A• and j ∗ A• are related.
+
+   As in our earlier discussion of the octahedral lemma, all of the morphisms of the last two para-
+graphs fit into the fundamental octahedron of the pair (X, Y ). The four distinguished triangles
+                         NOTES ON PERVERSE SHEAVES AND VANISHING CYCLES                                           19
+
+
+making up the fundamental octahedron are the top pair
+                                 Ri! i! A• → A• → Rj∗ j ∗ A• → Ri! i! A• [1]
+and
+                                   A• → Ri∗ i∗ A• → Rj! j ! A• [1] → A• [1]
+and the bottom pair
+                                 Ri! i! A• → Ri∗ i∗ A• → M• → Ri! i! A• [1]
+and
+                              Rj∗ j ∗ A• → M• → Rj! j ! A• [1] → Rj∗ j ∗ A• [1],
+where M• ∼
+         = Rj! j ! Ri! i! A• [1] ∼
+                                 = Rj∗ j ∗ Ri∗ i∗ A• .
+
+   Consider again the situation in which we have a pull-back diagram
+
+                                                         fˆ
+                                                   Z −−−−→ W
+                                                          
+                                                          π
+                                                 π̂ y      y
+                                                         f
+                                                  X −−−−→ S,
+
+where we saw that the natural map Rf! f ! → id yields a natural map Rfˆ! π̂ ∗ f ! ∼
+                                                                                  = π ∗ Rf! f ! → π ∗ ,
+which in turn yields natural maps
+                                  π̂ ∗ f ! → fˆ! Rfˆ! π̂ ∗ f ! → fˆ! π ∗ .
+If f is the inclusion of an open or closed subset, and l : S − X → S is the inclusion of the
+complement, then, for all A• ∈ Dbc (S), we have the distinguished triangle
+                                Rf! f ! A• → A• → Rl∗ l∗ A• → Rf! f ! A• [1],
+and so, have the induced triangle
+                  fˆ! π ∗ Rf! f ! A• → fˆ! π ∗ A• → fˆ! π ∗ Rl∗ l∗ A• → fˆ! π ∗ Rf! f ! A• [1],
+which, up to isomorphism, is
+                           π̂ ∗ f ! A• → fˆ! π ∗ A• → fˆ! π ∗ Rl∗ l∗ A• → π̂ ∗ f ! A• [1];
+it follows that, if π ∗ Rl∗ l∗ A• ∼  = π ! Rl∗ l∗ A• , then fˆ! π ∗ Rl∗ l∗ A• = 0, and so π̂ ∗ f ! A• → fˆ! π ∗ A• is
+an isomorphism. This would be the case, for instance, if f and π are inclusions of closed subsets,
+and S = X ∪ W .
+
+
+
+§2. Perverse Sheaves
+
+   Let X be a complex analytic space, and for each x ∈ X, let jx : x ,→ X denote the inclusion.
+   If F• ∈ Dbc (X), then the support of Hi (F• ) is the closure in X of
+                           {x ∈ X| Hi (F• )x ̸= 0} = {x ∈ X| Hi (jx∗ F• ) ̸= 0};
+we denote this by suppi F• .
+  The i-th cosupport of F• is the closure in X of
+                {x ∈ X| Hi (jx! F• ) ̸= 0} = {x ∈ X| Hi (Bϵ◦ (x), Bϵ◦ (x) − x; F• ) ̸= 0};
+we denote this by cosuppi F• .
+20                                           DAVID B. MASSEY
+
+
+     If the base ring, R, is a field, then cosuppi F• = supp-i DF• .
+
+
+Definition: Let X be a complex analytic space (not necessarily pure-dimensional). Then,
+P• ∈ Dbc (X) is perverse provided that for all i:
+(support)          dim(supp-i P• ) ⩽ i;
+(cosupport)         dim(cosuppi P• ) ⩽ i,
+where we set the dimension of the empty set to be −∞.
+  This definition is equivalent to: let S := {Sα } be any stratification of X with respect to which
+P• is constructible, and let sα : Sα ,→ X denote the inclusion. Then,
+(support)          Hk (s∗α P• ) = 0       for k > −dimC Sα ;
+(cosupport)         Hk (s!α P• ) = 0      for k < −dimC Sα .
+     (There is a missing minus sign in [10], 6.A.5.)
+  We will give another equivalent characterization of the support and cosupport conditions,
+                                                           •
+which also uses a stratification S with respect to which P
+                                                         S is constructible.. We define the
+                                                   m
+upper filtration of X by: for all m ≥ 0, let U := Sα ∈S,dim Sα ≥m Sα . We define the
+lower filtration of X by: for all m ≥ 0, let Lm := Sα ∈S,dim Sα ≤m Sα . For all m ≥ 0, let
+                                                      S
+um : U m ,→ X and ℓm : Lm ,→ X denote the inclusions.
+  Then, characterizations of the support and cosupport conditions are:
+(support) for all m ≥ 0, for all k > −m, Hk (u∗m P• ) = 0;
+(cosupport) for all m ≥ 0, for all k < −m, Hk (ℓ!m P• ) = 0.
+
+
+     From the definition, it is clear that being perverse is a local property.
+
+   If the base ring R is, in fact, a field, then the support and cosupport conditions can be written
+in the following form, which is symmetric with respect to dualizing:
+(support)          dim(supp-i P• ) ⩽ i;
+(cosupport)         dim(supp-i DP• ) ⩽ i.
+
+    Suppose that P• is perverse on X, (X, x) is locally embedded in Cn , S is a stratum of a
+Whitney stratification with respect to which P• is constructible, and x ∈ S. Let M be a normal
+slice of X at x; that is, let M be a smooth submanifold of Cn of dimension n − dim S (where
+dim S is the complex dimension) which transversely intersects S at x. Then, for some open
+neighborhood U of x in X, P• |X∩M ∩U [−dim S] is perverse on X ∩ M ∩ U .
+
+   Let P• ∈ Dbc (X) be perverse. One can use the above normal slicing proposition to prove
+that Hi (P• ) = 0 for all i < −dim X. For all x ∈ X, let jx denote the inclusion of {x} into
+X. Then this last statement, together with the support condition, tells us that H k (jx∗ P• ) = 0
+except possibly for −dim X ≤ k ≤ 0. The “dual” statement is also true: H k (jx! P• ) = 0 except
+possibly for 0 ≤ k ≤ dim X.
+                        NOTES ON PERVERSE SHEAVES AND VANISHING CYCLES                             21
+
+
+   There is a global version of the statements in the previous paragraph; this global version
+sometimes goes by the name of Artin Vanishing: Let P• be a perverse sheaf on an affine analytic
+space X. Then, Hk (X; P• ) = 0, except possibly for −dim X ≤ k ≤ 0, and Hkc (X; P• ) = 0,
+except possibly for 0 ≤ k ≤ dim X.
+
+   Suppose P• ∈ Dbc (X n ). Let Σ = supp P• . Then, P• is perverse on X if and only if P• |Σ is
+perverse on Σ. Another way of saying this is: if m : Σ → X is the inclusion of a closed subspace,
+then Q• is perverse on Σ if and only if m∗ Q• ∼   = m! Q• is perverse on X. It follows that if P• is
+perverse, then Hi (P• ) = 0 except possibly for −dim Σ ⩽ i ⩽ 0. Furthermore, again letting jx
+denote the inclusion of {x} into X, H i (jx! P• ) = 0 except possibly for 0 ≤ k ≤ dim Σ.
+
+   If X is (not necessarily purely) n-dimensional, then it is trivial to show that the shifted
+constant sheaf R•X [n] satisfies the support condition. If X is a curve, then the constant sheaf
+R•X [1] is perverse. If X is a surface, then R•X [2] is perverse if and only if, for all p ∈ X, for
+all sufficiently small open balls B (in some Riemannian metric), centered at p, B ∩ X − {p} is
+connected; this would, for instance, be the case if X were a surface which is locally irreducible
+everywhere. If X is a purely n-dimensional local complete intersection, then R•X [n] is perverse.
+
+  A converse to the normal slicing proposition is: if π : X × Cs → X is projection and P• is
+perverse on X, then π ∗ P• [s] is perverse.
+
+
+   The other basic example of a perverse sheaf that we wish to give is that of intersection coho-
+mology with local coefficients (with the perverse indexing, i.e., the only non-zero cohomology is
+in degrees less than or equal to zero). Note that the definition below is shifted by − dimC X from
+the definition in [11], and yields a perverse sheaf which has possibly non-zero stalk cohomology
+only in degrees between − dimC X and −1, inclusive (unless the space has isolated points).
+   Let X be a complex analytic set, let X ◦ be an open dense subset of the smooth part of
+X, and let L• be a perverse sheaf on X ◦ , such that the restriction of L• to each connected
+component C of X ◦ is a local system on C, shifted by dim C (i.e., shifted into degree − dim C).
+Let Y := X − X ◦ and let j : Y ,→ X denote the (closed) inclusion.
+   Then, in Dbc (X), there is an object, IC•X (L• ), called the intersection cohomology with coeffi-
+cients in L which is uniquely determined up to quasi-isomorphism by:
+1)      IC•X (L• )|X ◦ = L• ;
+
+     for all i,
+
+
+        dim supp−i j ∗ [−1]IC•X (L• ) = dim x ∈ Y | H −(i+1) IC•X (L• ) x ̸= 0 ≤ i;
+                                                                         
+2)
+
+        dim cosuppi j ! [1]IC•X (L• ) = dim x ∈ Y | Hi+1 Bϵ◦ (x), Bϵ◦ (x) − x; IC•X (L• ) ̸= 0
+                                                                                       
+3)                                                                                               ≤ i.
+
+   IC•X (L• ) is a perverse sheaf. The uniqueness assertion implies that IC•X (L• ) is the direct sum
+of the extension by zero of the intersection cohomology complex of each irreducible component
+of X using L• restricted to an open dense set of that component. If X is purely n-dimensional,
+and L is a local system (in degree 0) on an open dense set subset of the smooth part of X, then
+one usually writes simply IC•X (L) in place of IC•X (L• [n]). See Section 5 for more on IC•X (L• ).
+22                                         DAVID B. MASSEY
+
+
+The Category of Perverse Sheaves (see, also, section 5)
+
+   The category of perverse sheaves on X, P erv(X), is the full subcategory of Dbc (X) whose
+objects are the perverse sheaves. Given a Whitney stratification, S, of X, it is also useful to
+consider the category P ervS (X) := P erv(X)∩DbS (X) of perverse sheaves which are constructible
+with respect to S.
+   P erv(X) and P ervS (X) are both Abelian categories in which the short exact sequences
+                                      0 → A• → B• → C• → 0
+are precisely the distinguished triangles
+
+                                                 A• −→ B•
+                                              [1] ↖   ↙
+                                                     •
+                                                    C .
+   If we have complexes A• , B• , and C• in Dbc (X) (resp. DbS (X)), a distinguished triangle
+A• → B• → C• → A• [1], and A• and C• are perverse, then B• is also in P erv(X) (resp.
+P ervS (X)).
+
+   Suppose that the base ring, R, is a field. Then, P erv(X) is Noetherian and locally Artinian; in
+particular, locally, each perverse sheaf has a finite composition series in P erv(X) with uniquely
+determined simple subquotients. If the Whitney stratification S has a finite number of strata,
+then P ervS (X) is Artinian and Noetherian; if X is compact, then P erv(X) is also Artinian.
+When P• is a perverse sheaf with a composition series, we let [P• ] denote the formal sum of the
+simple subquotients of the composition series, counted with multiplicities, i.e., we consider P•
+in the Grothendieck group of perverse sheaves. If T is a morphism from a perverse sheaf P• to
+itself, then (locally, at least) [ker T ] = [coker T ]; in particular, supp(ker T ) = supp(coker T ).
+   Continue to assume that the base ring is a field. Then, the simple objects in P erv(X) (resp.
+P ervS (X)) are extensions by zero of intersection cohomology sheaves on irreducible analytic
+subvarieties (resp. connected components of strata) of X with coefficients in irreducible local
+systems. To be precise, let M be a d-dimensional connected analytic submanifold (resp. a
+connected component of a stratum) of X and let LM be an irreducible local system on M ;
+then, the pair (M , LM ) is called an irreducible enriched subvariety of X (where M denotes
+the closure of M ). Let j : M ,→ X denote the inclusion. Then, the simple objects of P erv(X)
+                                                 •
+(resp. P ervS (X)) are those of the form j! ICM     (L•M [d]), where (M , LM ) is an irreducible enriched
+subvariety (again, we are indexing intersection cohomology so that it is non-zero only in non-
+positive dimensions).
+Warning: The stalk cohomology of kernels, cokernels, and images in the perverse category do
+not correspond in any simple way to kernels, cokernels, and images of the stalk cohomology.
+In fact, the easiest example of this phenomenon is essentially our example from the warning in
+Section 1.
+    Recall that we let X be a space consisting of two complex lines L1 and L2 which intersect in
+a single point p. For i = 1, 2, let C
+                                    e L denote the C-constant sheaf on Li extended by zero to all
+                                       i
+of X. Now, this time, we shift to obtain perverse sheaves.
+    There is a canonical map, α, from the perverse sheaf B• := C•X [1] to the perverse sheaf which
+is the direct sum of sheaves C• := C e • [1] ⊕ C
+                                       L1
+                                               e • [1], such that, on L1 − p, α is id ⊕0, on L2 − p is
+                                                 L2
+0 ⊕ id, and is the diagonal map on the stalk at p. In fact, this map α is the canonical map from
+the constant sheaf to the intersection cohomology sheaf (with constant coefficients); see Section
+                      NOTES ON PERVERSE SHEAVES AND VANISHING CYCLES                                  23
+
+
+5. As before (essentially), consider the complex, A• , which has CX in degree −1, CeL ⊕ C
+                                                                                     1
+                                                                                         eL
+                                                                                            2
+in degree 0, zeroes elsewhere, and the coboundary map from degree 0 to degree 1 is α. This
+complex is isomorphic in P erv(X) to the extension by 0 of the constant sheaf on the point p.
+Let γ be the morphism of complexes from A• to B• which is the identity in degree −1 and is
+zero elsewhere. Then,
+                                             γ            α
+                              0 → A• −−−−→ B• −−−−→ C• → 0
+is a short exact sequence in P erv(X).
+   However, the induced maps, γxk and αxk , on the degree k stalk cohomology, at a point x ∈ X,
+are zero maps and injections, respectively.
+
+   In fact, if your goal is to detect a zero-morphism via some maps of R-modules, the situation
+is even worse than the above indicates. Suppose that P• is a perverse sheaf on X and, for each
+p ∈ X, let jp denote the inclusion of p into X. Let T be a morphism of the perverse sheaf P• to
+itself. It is possible for T to induce the zero-map on H ∗ (jp∗ P• ) and on H ∗ (jp! P• ), for all p ∈ X,
+in all degrees, and for T to still not be the zero-morphism in the category of perverse sheaves.
+
+
+Despite the above warning, we do have the following:
+   Suppose that the base ring is a field, and that T is a morphism from a perverse sheaf
+P• to itself. Then, supp(ker T ) = {x ∈ X | ker Tx∗ ̸= 0} and, for all p ∈ supp(ker T ), if s :=
+dimp supp(ker T ), then H −s (ker T )p ∼
+                                       = ker Tp−s and, for generic x ∈ supp(ker T ) near p, ker Txj =
+0 if j ̸= −s.
+   The same statements, with each occurrence of ker replaced by coker, are also true.
+   Note that these kernel and cokernel statements are false for maps between different perverse
+sheaves.
+
+
+   We should remark that it is possible to give a criterion, in terms of maps of R-modules, for
+a morphism of perverse sheaves to be the zero-morphism; we shall do this later, after we have
+the vanishing cycles at our disposal.
+
+   Finally, we wish to state the Decomposition Theorem of Beilinson, Bernstein, Deligne, and
+Gabber. For this statement, we must restrict ourselves to R = Q. We give the statement as it
+appears in [20], except that in [20] intersection cohomology is defined as a shifted perverse sheaf,
+and we must adjust by shifting back. Note that, in [20], the setting is algebraic; the analytic
+version appears in [25].
+   An algebraic map f : X → Y is called projective if it can be factored as an embedding
+X ,→ Y × Pm (for some m) followed by projection Y × Pm → Y .
+
+The Decomposition Theorem [BBD, 6.2.5]: If X is purely d-dimensional and f : X → Y is
+proper, then there exists a unique set of irreducible enriched subvarieties {(M α , Lα )} in Y and
+                                          −2         −1          α       α 2
+Laurent polynomials {ϕα = · · · + ϕα −2 t    + ϕα
+                                                −1 t    + ϕα
+                                                           0 + ϕ1 t + ϕ2 t + . . . } such that there is
+a quasi-isomorphism
+                                                                             α
+                      Rf∗ IC•X (Q•X ◦ [d]) ∼
+                                              M
+                                           =        IC•M (L•α [dα ])[−i] ⊗ Qϕi ,
+                                                         α
+                                                 α,i
+          •
+(here, ICM    (L•α [dα ]) actually equals jα ! IC•M (L•α [dα ]), where jα : M α ,→ Y is the inclusion
+            α                                      α
+and, of course, dα is the dimension of Mα ).
+24                                         DAVID B. MASSEY
+
+
+   Moreover, if f is projective, then the coefficients of ϕα are palindromic around 0 (i.e.,
+ϕ (t−1 ) = ϕα (t)) and the even and odd terms are separately unimodal (i.e., if i ⩽ 0, then
+ α
+         α
+ϕα
+ i−2 ⩽ ϕi ).
+
+     Applying hypercohomology to each side, we obtain:
+                                        M                              α
+                          IH k (X; Q) =     (IH k−i (M α ; L•α [dα ]))ϕi .
+                                             α,i
+
+
+
+   We now wish to describe the category of perverse sheaves on a one-dimensional space; this is
+a particularly nice case of the results obtained in [22]. Unfortunately, we will use the notions of
+vanishing cycles and nearby cycles, which are not covered until the next section. Nonetheless, it
+seems appropriate to place this material here.
+   We actually wish to consider perverse sheaves on the germ of a complex analytic space X
+at a point x. Hence, we assume that X is a one-dimensional complex analytic space with
+irreducible analytic components X1 , . . . , Xd which all contain x, such that Xi is homeomorphic
+to a complex line and Xi − {x} is smooth for all i. We wish to describe the category, C, of
+perverse sheaves on X with complex coefficients which are constructible with respect to the
+stratification {X1 − {x}, . . . , Xd − {x}, {x}}.
+   Since perverse sheaves are topological in nature, we may reduce ourselves to considering
+exactly the case where X consists of d complex lines through the origin in some CN . Let L
+denote a linear form on CN such that X ∩ L−1 (0) = {0}.
+   Suppose now that P• is in C, i.e., P• is perverse on X and constructible with respect to
+the stratification which has {0} as the only zero-dimensional stratum. Then P• |X−{0} consists
+of a collection of local systems, L1 , . . . Ld , in degree −1. These local systems are completely
+determined by monodromy isomorphisms hi : Cri → Cri representing looping once around the
+origin                                                                             0     •      ∼
+L riin Xi . In termsL of nearby cycles, the monodromy automorphism on H (ψL P [−1])0 =
+   iC    is given by i hi .
+   The vanishing cycles ϕL P• [−1] are a perverse sheaf on a point, and so have possibly non-zero
+cohomology only in degree 0; say, H 0 (ϕL P• [−1])0 ∼   = Cλ . We have the canonical map
+
+                               r : H 0 (ψL P• [−1])0 → H 0 (ϕL P• [−1])0
+
+and the variation map
+                              var : H 0 (ϕL P• [−1])0 → H 0 (ψL P• [−1])0 ,
+                   L
+and var ◦r = id − i hi .
+   Thus, an object in C determines a vector space W := H 0 (ϕL P• [−1])0 , a vector space VL
+                                                                                           i := C
+                                                                                                  ri
+
+for each irreducible
+                  L  component X i , an automorphism
+                                                L    h i on V i , and two linear maps  α :    V
+                                                                                             i i →
+W and β : W → i Vi such that β ◦ α = id − i hi . This situation is nicely represented by a
+commutative triangle
+                                                          L
+                                                   id −       hi
+                                       ⊕i Vi −−−−−−i−−→ ⊕i Vi
+                                             α↘   ↗β
+                                              W                    .
+   The category C is equivalent to the category of such triangles, where a morphism of triangles
+is defined in the obvious way: a morphism is determined by linear maps τi : Vi → Vi′ and
+η : W → W ′ such that
+                     NOTES ON PERVERSE SHEAVES AND VANISHING CYCLES                               25
+
+
+                                           α           β
+                                  ⊕i Vi −−−−→ W −−−−→ ⊕i Vi
+                             ⊕i τi ↓         η↓     ⊕i τi ↓
+                                          α′           β′
+                                 ⊕i Vi′ −−−−→ W ′ −−−−→ ⊕i Vi′
+  commutes.
+
+
+
+§3. Nearby and Vanishing Cycles
+  Before we start in on the topics of this section, we need to state clearly a convention which is
+common now, but which we did not use when we began these notes. When dealing with the
+derived category, ALL functors F are to be considered the derived functors, whether
+we write RF or merely F . This notation gets mixed with the old notation throughout the
+remainder of these notes.
+    Historically, there was some confusion surrounding the terminology nearby (or neighboring)
+cycles and vanishing cycles; now, however, the terminology has stabilized. In the past, the term
+“vanishing cycles” was sometimes used to describe what are now called the nearby cycles (this
+is true, for instance, in [1], [2], and [9].)
+    The two different indexing schemes for perverse sheaves also add to this confusion in state-
+ments such as “the nearby cycles of a perverse sheaf are perverse”. Finally, a new piece of
+confusion was added in [16], where the sheaf of vanishing cycles is shifted by one from the usual
+definition (we will not use this new, shifted definition).
+    The point is: one should be very careful when reading works on nearby and vanishing cycles.
+   Now, suppose we have a complex analytic space X, a function f : X → C, and a complex
+of sheaves F• ∈ Dbc (X). What we want from nearby (resp., vanishing) cycles is a complex on
+V (f ) = f −1 (0) which has stalk cohomology at x ∈ V (f ) which gives the hypercohomology of
+the Milnor fiber of f at x (resp., of the pair of a small ball at x modulo the Milnor fiber).
+   Here, when we write the “Milnor fiber”, we mean at least up to homotopy. This can be
+defined as follows for x ∈ V (f ). Assume that X is locally embedded in Cn+1 . Define the Milnor
+fiber, Ff,x , of f at x (at angle θ) to be
+
+                                     θ
+                             Ff,x = Ff,x := Bϵ◦ (x) ∩ X ∩ f −1 (reiθ ),
+
+where 0 < ϵ ≪ 1, Bϵ◦ (x) is an open ball of radius ϵ centered at x, θ is a real number, and r > 0
+is chosen small compared to ϵ; up to homotopy, this is independent of the choices made. In
+addition, up to isomorphism, H∗ (Ff,x ; F• ) and H∗ (Bϵ◦ (x) ∩ X, Ff,x ; F• ) are independent of the
+choices made.
+   The nearby and vanishing cycles are easiest and, perhaps, most intuitively, defined by using
+the Milnor fiber where θ above is chosen to be 0, but – to deal with the Milnor monodromy – we
+must discuss the Milnor fiber for other values of θ. However, first we will discuss the traditional,
+commonly used, definitions.
+
+The traditional definitions
+    The following is the classic definition of Deligne [6] for the nearby cycles and is the one that
+is found most often in the literature.
+    Consider the diagram
+26                                               DAVID B. MASSEY
+
+
+                                                   E             f∗
+                                                           −−−−→ C
+                                                                
+                                                                π
+                                                 π̂ y            y
+                                                                 fˆ
+                                           X − f −1 (0) −−−−→ C∗
+                                                 i↓
+                                   f −1 (0) ,−−→ X
+                                             j
+
+where:
+     j : f −1 (0) ,→ X is inclusion;
+     i : X − f −1 (0) ,→ X is inclusion;
+
+     fˆ = restriction of f ;
+     f∗ = C = {a + θi | a, θ ∈ R} is the universal (cyclic) cover of C∗ via the map π(z) = exp(z),
+     C
+     and
+     E denotes the pull-back.
+
+     The nearby (or neighboring) cycles of F• along f are defined to be
+                                       ψf F• := j ∗ R(i ◦ π̂)∗ (i ◦ π̂)∗ F• .
+Note that this is a complex of sheaves on f −1 (0) and that ψf is a functor which takes distin-
+guished triangles to distinguished triangles.
+   It is not difficult to see that, for x ∈ f −1 (0), the stalk cohomology of ψf F• in degree k is
+isomorphic to the hypercohomology of the Milnor fiber of f at x with coefficients in F• , i.e.,
+                                     H k (ψf F• )x ∼
+                                                   = Hk (Ff,x ; F• ),
+where we use the Milnor fiber at any angle from our discussion above. To see this (using our
+notation from above), one uses that by constructibility,
+                H k (ψf F• )x ∼
+                              = Hk (B ◦ (x) ∩ X ∩ f −1 (D◦ ); R(i ◦ π̂)∗ (i ◦ π̂)∗ F• ),
+                                             ϵ                        δ
+
+where 0 < ϵ ≪ 1, Bϵ◦ (x) is an open ball of radius ϵ centered at x, and D◦δ is an open disk in C,
+centered at the origin, of radius δ > 0 which is small compared to ϵ. (Such a neighborhood of x
+is often referred to as a Milnor tube.) Then,
+   Hk (B ◦ (x) ∩ X ∩ f −1 (D◦ ); (i ◦ π̂)∗ (i ◦ π̂)∗ F• ) ∼
+           ϵ                   δ                          = Hk (Ff,x × (0, δ) × R; r∗ F• ) ∼
+                                                                                           = Hk (Ff,x ; F• ),
+where r is obtained from i ◦ π̂ via the homeomorphism
+                      (i ◦ π̂)−1 B ◦ (x) ∩ X ∩ f −1 (D◦ ) ∼
+                                                         
+                                       ϵ                   = Ff,x × (0, δ) × R.
+                                                             δ
+
+   As ψf F• [k] = ψf F• [k], we may write ψf F• [k] unambiguously. In fact, it is frequently
+                          
+
+useful to consider the functor where one first shifts the complex by k and then takes the nearby
+cycles; thus, we introduce the notation ψf [k] to be the functor such that ψf [k]F• = ψf F• [k]
+(and which has the corresponding action on morphisms).
+   If P• is a perverse sheaf on X, then ψf [−1]P• is perverse on f −1 (0). (Actually, to conclude
+that ψf [−1]P• is perverse, we only need to assume that P• |X−f −1 (0) is perverse.) Because
+ψf [−1] takes perverse sheaves to perverse sheaves, it is useful to include the shift by −1 in many
+                      NOTES ON PERVERSE SHEAVES AND VANISHING CYCLES                                27
+
+
+statements about ψf . Consequently, we also want to shift j ∗ F• by −1 in many statements, and
+so we write j ∗ [−1] for the functor which first shifts by −1 and then pulls-back by j.
+   This definition of the nearby is elegant in that it does not refer to a specific angle in providing
+for a functor which yields the stalk cohomology of the Milnor fiber (at an arbitrary angle).
+
+  As there is a canonical map F• → Rg∗ g ∗ F• for any map g : Z → X, there is a map
+                                        F• → R(i ◦ π̂)∗ (i ◦ π̂)∗ F•
+and, hence, a natural map, comp = compf , called the comparison map (or specialization map):
+                                 comp
+                   j ∗ [−1]F• −−−−→ j ∗ [−1]R(i ◦ π̂)∗ (i ◦ π̂)∗ F• = ψf [−1]F• .
+   There is an automorphism, the monodromy automorphism Tf : ψf [−1]F• → ψf [−1]F• ,
+which comes from the deck transformation obtained in Deligne’s definition of ψf F• (and, hence,
+ψf [−1]F• ) by traveling once around the origin in C. In fact, Tf is a natural isomorphism from
+the functor ψf [−1] to itself; thus, strictly speaking, when we write Tf : ψf [−1]F• → ψf [−1]F• ,
+we should include F• in the notation for Tf – however, we shall normally omit the explicit
+reference to F• if the complex is clear. The comparison map
+                                                        comp
+                                   j ∗ [−1]F• −−−−→ ψf [−1]F•
+is Tf -equivariant, i.e., comp = Tf ◦ comp.
+   Since we have a map comp : j ∗ [−1]F• → ψf [−1]F• , the third vertex of a distinguished triangle
+is defined up to isomorphism in the derived category. We can define the sheaf of shifted vanishing
+cycles, ϕf [−1]F• , of F• along f to be this third vertex, and so, there is a distinguished triangle
+                                                    comp
+                                  j ∗ [−1]F• −−−−→ ψf [−1]F•
+                                         [1]   ↖       ↙ can
+                                               ϕf [−1]F• ,
+which we refer to as the Milnor triangle.
+    The above is the definition of ϕf [−1]F• found in many sources. Unfortunately, this definition
+of ϕf [−1] makes it technically difficult to define the functor ϕf [−1] together with a monodromy
+automorphism, Tef , on ϕf [−1] which is compatible with the monodromy on ψf [−1]; see the
+discussion of Schürmann on pages 25-26 of [26], where he discusses how to fix this issue. When
+                                            can
+this issue is addressed, the map ψf [−1] −−−→ ϕf [−1] in the triangle is a natural map of functors;
+it is called the canonical map, and there exists a natural automorphism of the Milnor triangle
+(functors):
+                                        comp                   can     [1]
+                            j ∗ [−1] −−−−→ ψf [−1] −−−−→ ϕf [−1] −→
+                            id ↓           Tf ↓           Tef ↓
+                                        comp                   can     [1]
+                            j ∗ [−1] −−−−→ ψf [−1] −−−−→ ϕf [−1] −→
+
+   There is another difficulty with the definition of ϕf [−1]F• as the mapping cone of the com-
+parison map; it makes it difficult to define the variation morphism, var, from ϕf [−1] to ψf [−1],
+and to derive the distinguished triangle of functors which we refer to as the variation triangle
+(or dual Milnor triangle):
+                                                    var
+                                  ϕf [−1]F• −−−→ ψf [−1]F•
+                                         [1]   ↖           ↙ pmoc
+                                                    !      •
+                                                   j [1]F ,
+28                                        DAVID B. MASSEY
+
+
+where, for lack of a better morphism name, we have used pmoc (i.e., comp written backwards).
+   On pages 369-370 of [26], Schürmann also defines the variation map, gives the proof that the
+variation triangle above exists, and shows that var ◦ can = id −Tf . Furthermore, there exists a
+natural automorphism of the variation triangle (functors):
+                                        var            pmoc              [1]
+                             ϕf [−1] −−−−→ ψf [−1] −−−−−→ j ! [1] −→
+                            Tef ↓          Tf ↓           id ↓
+                                        var            pmoc              [1]
+                             ϕf [−1] −−−−→ ψf [−1] −−−−−→ j ! [1] −→
+
+The Kashiwara and Schapira approach
+   In Definition 8.6.2, Kashiwara and Schapira (K-S) [16] give an elegant definition of ϕf [−1]
+(but they call it ϕf ) which allows them to easily define the monodromy automorphism and the
+variation map and prove fundamental results, but that definition is a bit hard to understand.
+Still, we suggest the reader make the effort to follow the K-S approach; it is very beautiful.
+(Their derivation uses Poincaré-Verdier duality and so does not work in the more general setting
+of Schürmann; see [26], Remark 5.4.7.) Throughout our discussion of the K-S approach, we will
+replace their ϕf with ϕf [−1] to agree with all other sources. We also want to indicate some
+small issues with their diagram 8.6.5.
+   The idea in the K-S approach is fairly simple; they want the vanishing cycles to be isomor-
+phic to the mapping cone of the comparison map in a canonical, natural way - a way that
+lets them easily define the variation map, demonstrate the compatibility of the monodromy
+automorphisms, and show that
+                         var ◦ can = id −Tf      and   can ◦ var = id −Tef .
+   Kashiwara and Schapira begin with the standard Deligne definition of the nearby cycles (with
+mild changes). They then use Poincaré-Verdier duality to show that the nearby cycles ψf F• are
+isomorphic to the restriction to f −1 (0) of RHom• (f ∗ p! ACf∗ , F• ); see their formula 8.6.2.
+   Then, they define a complex K• with only two non-zero terms precisely so that the restric-
+tion to f −1 (0) of RHom• (f ∗ K• , F• ) yields a complex isomorphic to the mapping cone of the
+comparison map.
+   For the reader attempting to follow the K-S construction/derivation, we want to clarify some
+issues in their diagram 8.6.5. First, we let p̂ denote the covering projection p̂ : C f∗ → C∗ and let
+      ∗
+u : C ,→ C denote the inclusion, so that the K-S map p factors as p = up̂. We let tr         b and w
+denote the natural maps
+                         b : p̂! p̂! AC∗ → AC∗
+                         tr                      and   w : u! u! AC → AC .
+With this notation, we have an isomorphism p! p! AC ∼ = u! p̂! p̂! AC∗ and the trace morphism, tr, of
+K-S is naturally isomorphic to wu! ( b
+                                    tr). Now, in diagram 8.6.5 of [16], there are two mild errors
+in the top row which we can “fix”. The last non-zero entry in the top row should be u! AC∗ and
+the map written as tr in the top row should be u! ( b
+                                                   tr). Finally, the last downward arrow (which
+is unlabeled) should be our map w.
+   Kashiwara and Schapira give a more down-to-Earth characterization of the vanishing cycle
+functor in Exercise VIII.13:
+                              ϕf [−1]F• ∼= RΓRe f ≥0 (F• )
+                                                            
+                                                                      ,
+                                                              f −1 (0)
+
+where we have included a shift to make this characterization agree with all other sources. Note
+that, like our earlier discussion of the Milnor fiber, this characterization uses angles in C∗ in
+the guise of Re f ≥ 0. This exercise is not difficult since it is relatively easy to show that
+                             NOTES ON PERVERSE SHEAVES AND VANISHING CYCLES                                            29
+
+
+ RΓRe f ≥0 (F• )
+                   
+                                  is isomorphic to the mapping cone of the comparison map and so is iso-
+                       f −1 (0)
+morphic to ϕf [−1]F• in the derived category.
+
+The “intuitive” definitions
+   One can define the nearby and vanishing cycles functors in a way that corresponds more
+obviously to how the Milnor fiber is described topologically.
+   Let L := f −1 ([0, ∞)), let ℓ : f −1 (0) ,→ L and m : L ,→ X be the closed inclusions, and let
+n : L − f −1 (0) ,→ L be the open inclusion. Note that j = mℓ.
+   Then we have natural isomorphisms
+                       ψf [−1] ≃ ℓ∗ n∗ n∗ m∗ [−1]        and           ϕf [−1] ≃ ℓ∗ ℓ! ℓ! m∗ ≃ ℓ! m∗ .
+With these definitions, it is easy to see that, for all x ∈ V (f ) and using θ = 0 in the definition
+                     θ
+of the Milnor fiber Ff,x , we have isomorphisms for the stalk cohomologies given by
+
+   H k (ψf [−1]F• )x ∼
+                     = Hk−1 (Ff,x
+                              0
+                                  ; F• )             and           H k (ϕf [−1]F• )x ∼
+                                                                                     = Hk (Bϵ◦ (x) ∩ X, Ff,x
+                                                                                                         0
+                                                                                                             ; F• ).
+
+
+  Beginning with the canonical distinguished triangle
+                                                                            [1]
+                                               → ℓ! ℓ! → id → n∗ n∗ −→,
+we find there is a distinguished triangle
+                                                                                   [1]
+                                        → ℓ∗ ℓ! ℓ! m∗ → ℓ∗ m∗ → ℓ∗ n∗ n∗ m∗ −→ .
+Turning the above triangle, and using our definitions of the nearby and vanishing cycles and
+that j = mℓ, we arrive at the Milnor triangle:
+
+                                                comp           can          [1]
+                                      j ∗ [−1] −−−−→ ψf [−1] −−−−→ ϕf [−1] −→.
+
+   It is an easy exercise to show that ψf F• depends only on F• |X−f −1 (0) (and f ), and so it is
+utterly trivial that the natural maps α : id → i∗ i∗ and β : i! i! → id induce natural isomorphisms
+                           γ:=ψf [−1]α                                                   δ:=ψf [−1]β
+           ψf [−1] −−−−−−−−−→ ψf [−1]i∗ i∗                 and           ψf [−1]i! i! −−−−−−−−−→ ψf [−1].
+                                  ≃                                                          ≃
+
+
+
+   Applying the Milnor triangle to i! i! and noting that j ∗ i! i! = 0, we find that there is a natural
+isomorphism induced by can:
+                                                               τ
+                                              ψf [−1]i! i! −−→ ϕf [−1]i! i! ,
+                                                            ≃
+and so a natural isomorphism ν:
+                                                       ν=τ δ −1
+                                              ψf [−1] −−−−−→ ϕf [−1]i! i! .
+                                                           ≃
+
+  By applying the shifted vanishing cycle functor to the canonical morphism β : i! i! → id, we
+obtain a natural map
+                                                         ρ:=ϕf [−1]β
+                                             ϕf [−1]i! i! −−−−−−−→ ϕf [−1]
+such that can = ρ ◦ ν.
+30                                               DAVID B. MASSEY
+
+Nearby and vanishing cycles at arbitrary angles
+
+   To treat the Milnor monodromy automorphisms on ψf [−1] and ϕf [−1], we must repeat the
+above definitions of ψf [−1] and ϕf [−1] but now at arbitrary angles θ. We also need this discussion
+in order to obtain a natural isomorphism ω, the Wang isomorphism:
+
+                                                           ω
+                                            ϕf [−1]i∗ i∗ −−→ ψf [−1].
+                                                           ≃
+which is crucial in our definition of the variation map.
+
+     We continue to let j denote the inclusion of f −1 (0) into X.
+     Let
+                                     Bθ := f −1 eiθ v ∈ C | Re v ≥ 0 ,
+                                                                   
+
+and let pθ denote the inclusion of Bθ into X. Let
+                              Aθ := f −1 eiθ v ∈ C | Re v > 0 ,
+                                                            
+
+and let qθ denote the inclusion of Aθ into X. Note that Aθ = X − Bθ+π .
+  Let
+                                     Lθ := f −1 eiθ [0, ∞) ,
+                                                          
+
+and let lθ : f −1 (0) ,→ Lθ , mθ : Lθ ,→ X, and nθ : Lθ − f −1 (0) ,→ Lθ denote the inclusions. Note
+that j = mθ lθ .
+   Then, the shifted nearby cycles and vanishing cycles of F• along f at angle θ are defined by
+                            ψfθ [−1]F• := j ∗ qθ ∗ qθ∗ F• [−1] ∼
+                                                               = lθ∗ nθ ∗ n∗θ m∗θ F• [−1]
+and
+           ϕθf [−1]F• := j ∗ pθ+π ! p!θ+π F• ∼    RΓBθ+π (F• ) | −1             = lθ∗ lθ ! lθ! m∗θ F• ∼
+                                                                                ∼                     = lθ! m∗θ F• .
+                                                              
+                                             =
+                                                                      f   (0)
+
+
+respectively.
+   Then, one can define ψf [−1]F• := ψf0 [−1]F• and ϕf [−1]F• := ϕ0f [−1]F• , and consider the
+natural isomorphisms Tfθ : ψf [−1]F• → ψfθ [−1]F• and Tefθ : ϕf [−1]F• → ϕθf [−1]F• which
+correspond to “rotating” Bθ or Lθ an angle of θ counterclockwise around the origin over C.
+Then, Tf := Tf2π and Tef := Tef2π are the usual monodromy actions on the shifted nearby and
+vanishing cycles.
+   In this set-up, the comparison map j ∗ [−1] → ψf [−1] is induced by the map id → q0 ∗ q0 ∗ and/or
+id → n0∗ n0 ∗ , while the canonical map ψf [−1] → ϕf [−1] is induced by q0 ∗ q0∗ [−1] → pπ ! p!π and/or
+n0∗ n∗0 [−1] → l0! l0! .
+
+  Now it is time to produce the variation map. By our construction, one clearly has the
+automorphism of distinguished triangles:
+                                           comp                 can                  [1]
+                                 j ∗ [−1] −−−−→ ψf [−1] −−−−→ ϕf [−1] −→
+                                 id ↓           Tf ↓           Tef ↓
+                                           comp                 can                  [1]
+                                 j ∗ [−1] −−−−→ ψf [−1] −−−−→ ϕf [−1] −→
+
+     Now, considering the commutative diagram between two distinguished triangles
+                         NOTES ON PERVERSE SHEAVES AND VANISHING CYCLES                                         31
+
+
+                                          comp                     can                   [1]
+                           j ∗ [−1]F• −−−−→ ψf [−1]F• −−−−→ ϕf [−1]F• −→
+                             id ↓         id −Tf ↓
+                                                                    id                   [1]
+                                0   −−−−−−→ ψf [−1]F• −−−−→ ψf [−1]F• −→ ,
+
+we see that there exists a map, which we could call the variation, var : ϕf [−1]F• → ψf [−1]F•
+which makes the diagram commute, i.e., such that var ◦ can = id −Tf . However, this has the
+usual problem when completing a commutative diagram between distinguished triangles; it would
+not uniquely define var and would not yield a natural map of functors which is compatible with
+the two monodromies such that var ◦ can = id −Tf and can ◦ var = id −Tef . We know from
+Kashiawara-Schapira and Schürmann that such a natural transformation exists, but we want to
+define it using our “simple” definitions of the nearby and vanishing cycles (at angle 0). And so,
+we must proceed more carefully.
+
+Construction of the Wang isomorphism
+   Our primary tool for defining the variation will be the Wang isomorphism, which we construct
+now using functor-level excision.
+   Recall that Aπ = f −1 v ∈ C | Re v < 0 and that qπ is the (open) inclusion of Aπ into X.
+                                                        
+
+Also recall that Lπ := f −1 ((−∞, 0])) and mπ : Lπ ,→ X is the (closed) inclusion.
+   We introduce the (closed) inclusion ρ : Lπ − f −1 (0) ,→ Aπ , the (open) inclusion σ : Aπ ,→
+X − f −1 (0), and the (open) inclusion τ : Aπ − Lπ ,→ Aπ . Note that σρ is the inclusion of a
+closed set, qπ = iσ, and that Aπ − Lπ has two connected components. The functor-level excision
+that we referred to is the natural isomorphism (σρ)! (σρ)! ∼            = σ∗ ρ! ρ! σ ∗ .
+   It is relatively easy to show that we have natural isomorphisms
+          ϕf [−1]i∗ i∗ ∼
+                       = j ∗ mπ ! mπ ! i∗ i∗ ∼
+                                             = j ∗ i∗ (σρ)! (σρ)! i∗ ∼
+                                                                     = j ∗ i∗ σ∗ ρ! ρ! σ ∗ i∗ ∼
+                                                                                              = j ∗ qπ ρ! ρ! qπ ∗ .
+                                                                                                      ∗
+   Now, the distinguished triangle
+                                                                     [1]
+                                                ρ! ρ! → id → τ∗ τ ∗ −→
+yields a distinguished triangle
+                                                                                               [1]
+                     ϕf [−1]i∗ i∗ ∼
+                                  = j ∗ qπ ∗ ρ! ρ! qπ ∗ → j ∗ qπ ∗ qπ ∗ → j ∗ qπ ∗ τ∗ τ ∗ qπ ∗ −→ .
+Shifting, rotating, and using that j ∗ qπ ∗ qπ ∗ [−1] → j ∗ qπ ∗ τ∗ τ ∗ qπ ∗ [−1] is naturally isomorphic to
+                                                  (id,Tf )
+                                       ψf [−1] −−−−→ ψf [−1] ⊕ ψf [−1],
+
+we arrive at a natural map η : ψf [−1] ⊕ ψf [−1] → ϕf [−1]i∗ i∗ and a distinguished triangle
+                                     (id,Tf )                        η                 [1]
+                                                          → ϕf [−1]i∗ i∗ −→ .
+                          ψf [−1] −−−−→ ψf [−1] ⊕ ψf [−1] −
+
+   Below, we use notation which looks like we are assuming that the complexes of sheaves have
+“elements” on which there is a group structure; we are not assuming this, and the translations
+into the correct statements using the group structure on the morphisms (i.e., using the additive
+structure on the triangulated category) is trivial. We write things in this manner because we
+feel that they are easier to read and understand.
+   With this understanding, we proceed. Since η ◦ (id, Tf ) = 0, we have that
+                               η(x, y) = η(x, y) − η(x, Tf x) = η(0, y − Tf x)
+and so there is a morphism of distinguished triangles
+32                                              DAVID B. MASSEY
+
+
+                              (id,Tf )                        (x,y) 7→ y−Tf x              [1]
+                     ψf [−1] −−−−−→ ψf [−1] ⊕ ψf [−1] −−−−−−−−−−→ ψf [−1] −→
+                   id ↓                  id ↓                 z7→η(0,z) ↓
+                              (id,Tf )                                   η                       [1]
+                     ψf [−1] −−−−−→ ψf [−1] ⊕ ψf [−1] −−−−−−−−−→ ϕf [−1]i∗ i∗ −→ .
+It follows that the natural map γ : ψf [−1] → ϕf [−1]i∗ i∗ given by γ(z) = η(0, z) is an isomor-
+phism.
+   Recall that we use α : id → i∗ i∗ to denote the canonical natural map. We define the Wang
+natural isomorphism ω from ϕf [−1]i∗ i∗ to ψf [−1] to be γ −1 and we define the variation
+natural transformation, var, by
+                                var = ω ◦ ϕf [−1](α) : ϕf [−1] → ψf [−1].
+It follows from the construction that
+                var ◦Tef = Tf ◦ var, id −Tf = var ◦ can, and id −Tef = can ◦ var .
+
+     Recall now our earlier (simple) natural isomorphism:
+                                                     ν
+                                          ψf [−1] −−→ ϕf [−1]i! i! .
+                                                     ≃
+
+     The Milnor triangle follows from applying ϕf [−1] to the canonical distinguished triangle
+                                                                   [1]
+                                            i! i! → id → j∗ j ∗ −→
+to obtain
+                                                                                [1]
+                           ϕf [−1]i! i! → ϕf [−1] → ϕf [−1]j∗ j ∗ −→,
+then turning the triangle and using the isomorphisms ν −1 and ϕf [−1]j∗ j ∗ ∼
+                                                                            = j ∗ to produce
+(again)
+                                         comp               can                      [1]
+                              j ∗ [−1] −−−−→ ψf [−1] −−−−→ ϕf [−1] −→ .
+
+   In an analogous fashion, the variation triangle follows from applying ϕf [−1] to the canonical
+distinguished triangle
+                                                                   [1]
+                                   j! j ! → id → i∗ i∗ −→
+and using the Wang isomorphism to obtain
+                                           var              pmoc               [1]
+                                ϕf [−1] −−−→ ψf [−1] −−−−→ j ! [1] −→ .
+
+     Furthermore, applying ϕf [−1] to the canonical distinguished triangle
+                                                                         [1]
+                                         i! i! → i∗ i∗ → j∗ j ∗ i∗ i∗ −→
+and using the isomorphisms ν −1 and ω, we obtain the Wang triangle
+                                                          id −Tf                 [1]
+                               j ∗ [−1]i∗ i∗ → ψf [−1] −−−−→ ψf [−1] −→ .
+The associated long exact sequences on stalk cohomology are the Wang sequences for the Milnor
+fibrations.
+
+     Using the natural isomorphism j ! i! [1] ∼
+                                              = j ∗ i∗ , we also have the distinguished triangle
+                                           id −Tf                              [1]
+                                 ψf [−1] −−−−→ ψf [−1] → j ! [1]i! i! −→ .
+                      NOTES ON PERVERSE SHEAVES AND VANISHING CYCLES                                    33
+
+
+The associated long exact sequences on costalk cohomology are the Wang sequences for the
+Milnor fibrations with boundary.
+
+   From the constructions, it is clear that taking nearby cycles and vanishing cycles are local
+operations. That is, if l : W ,→ X is the inclusion of an open set, ˆl : W ∩ f −1 (0) ,→ f −1 (0) is
+the corresponding inclusion, and fˆ := f|W , then there are natural isomorphisms
+                              ˆl∗ ψf ∼
+                                     = ψfˆ l∗        and   ˆl∗ ϕf ∼
+                                                                  = ϕfˆ l∗ .
+
+   Let S = {Sα } be a Whitney stratification of X and suppose F• ∈ DbS (X). Given an analytic
+map f : X → C, define a (stratified) critical point of f (with respect to S) to be a point
+x ∈ Sα ⊆ X such that f|Sα has a critical point at x; we denote the set of such critical points by
+ΣS f .
+   For any Whitney stratification, S, with respect to which F• is constructible, the support of
+H (ϕf F• ) is contained in the stratified critical locus of f , ΣS f . In addition, if S is a Whitney
+  ∗
+
+stratification with respect to which F• is constructible and such that f −1 (0) is a union of strata,
+then – by [4] and [24] – it follows that S also satisfies Thom’s af condition; by Thom’s second
+isotopy lemma, this implies that the entire situation locally trivializes over strata, and hence
+both ψf F• and ϕf F• are constructible with respect to {S ∈ S | S ⊆ f −1 (0)}.
+  If P• is a perverse sheaf on X, then ϕf [−1]P• is a perverse sheaf on f −1 (0).
+
+   The reader may wonder how the variation morphism is related to the classical variation
+isomorphism for isolated affine hypersurface singularities (see, for instance [19]). Let mx denote
+the inclusion of x into f −1 (0), and let lx denote the inclusion of x into X, so that lx = j ◦ mx .
+Then, the variation morphism yields a natural map from m!x ϕf [−1]F• to m!x ψf [−1]F• , and so
+gives corresponding maps on cohomology; these maps are, in a sense, the generalization of the
+classical variation maps.
+   In particular, suppose that x is an isolated point in the support of ϕf [−1]F• . Then, there is
+a natural isomorphism
+                                                       ∼
+                                                       =
+                              γx : m∗x ϕf [−1]F• −−−−→ m!x ϕf [−1]F• .
+By composing with
+                              m∗x (can) : m∗x ψf [−1]F• → m∗x ϕf [−1]F•
+and
+                              m!x (var) : m!x ϕf [−1]F• → m!x ψf [−1]F• ,
+we obtain a morphism
+                  vx := m!x (var) ◦ γx ◦ m∗x (can) : m∗x ψf [−1]F• → m!x ψf [−1]F• .
+Using a local embedding into affine space, a closed ball Bϵ (x), centered at x, of radius ϵ, and
+assuming 0 ≪ |ξ| ≪ ϵ ≪< 1, we obtain induced maps on cohomology
+                                      vi
+  Hi−1 (Bϵ (x) ∩ X ∩ f −1 (ξ); F• ) −−−x−→ Hi−1 (Bϵ (x) ∩ X ∩ f −1 (ξ), ∂Bϵ (x) ∩ X ∩ f −1 (ξ); F• ).
+Writing Ff,x for the (compact) Milnor fiber Bϵ (x) ∩ X ∩ f −1 (ξ), this gives us
+                                                vi
+                           Hi−1 (Ff,x ; F• ) −−−x−→ Hi−1 (Ff,x , ∂Ff,x ; F• ).
+   If lx! [1]F• ∼
+                = m!x j ! [1]F• is zero in degree i and degree i − 1, then m!x (var) is an isomorphism
+in degree i. If lx∗ [−1]F• ∼     = m∗x j ∗ [−1]F• is zero in degree i and i + 1, then m∗x (can) is an
+34                                            DAVID B. MASSEY
+
+
+isomorphism in degree i. Thus, when the conditions of the previous two sentences are satisfied,
+vxi is an isomorphism.
+    In the classical case, X is an open subset of Cn+1 , F• is the constant sheaf ZX , and one looks
+vx , where n ≥ 1. In this case, all of the maps composed to yield vx := m!x (var) ◦ γx ◦ m∗x (can)
+  n+1
+
+are isomorphisms in degree n + 1. vxn+1 is the classical variation isomorphism on cohomology.
+
+   One might wonder if there is a distinguished triangle analogous to the Wang triangle, but
+involving the vanishing cycles and id −Tef .
+   To answer this, start with the two distinguished triangles
+                                    var                      pmoc
+                       ϕf [−1]F• −−−−→ ψf [−1]F• −−−−−→ j ! [1]F• −→ ϕf F•
+and
+                                     can                                  comp
+                       ψf [−1]F• −−−−→ ϕf [−1]F• −→ j ∗ F• −−−−→ ψf F• ,
+and apply the octahedral lemma to conclude that there exists a complex wf F• and two distin-
+guished triangles
+                                           id −Tef                               [1]
+                             ϕf [−1]F• −−−−−→ ϕf [−1]F• −→ wf F• −→
+and
+                                          τf :=pmoc ◦ comp                   [1]
+                            j ∗ [−1]F• −−−−−−−−−−−→ j ! [1] → wf F• −→ .
+
+   Thus the application of the octahedral lemma tells us that the mapping cone of id −Tef is
+isomorphic to the mapping cone of τf . Note that, while j ∗ [−1]F• and j ! [1]F• depend only on
+f −1 (0) (and F• ), τf may change if f (or some factor of f ) is raised to a power. We refer to the
+morphism τf from j ∗ [−1]F• to j ! [1]F• as the Wang morphism of f .
+   Also note that the Wang morphism is not (usually) the natural morphism from j ∗ [−1]F• to
+j [1]F• obtained by restricting the composition of natural maps
+ !
+
+
+                         j∗ j ∗ [−1]F• −→ Ri! i! F• −→ Ri∗ i∗ F• −→ j! j ! [1]F• .
+The map above induces the zero map on stalk cohomology at all points in f −1 (0); the Wang
+morphism induces isomorphisms on the stalk cohomology at all points of f −1 (0)−supp ϕf [−1]F• .
+
+   Let P• be a perverse sheaf on a d-dimensional space X. Suppose that f : X → C is such that
+Y := f −1 (0) contains no d-dimensional irreducible component of X. As above, let j : Y ,→ X
+and i : X\Y ,→ X denote the inclusions. Then ϕf [−1]P• and ψf [−1]P• are perverse on a space
+of dimension d − 1. Consequently, for all k ≤ −d, Hk (ϕf [−1]P• ) = 0 and Hk (ψf [−1]P• ) = 0
+and so, by the variation triangle, Hk (j ! [1]P• ) = 0 for all k ≤ −d − 1, i.e., Hk (j ! P• ) = 0 for
+all k ≤ −d. It follows that Hk (X; j! j ! P• ) = 0 for all k ≤ −d. From the distinguished triangle
+relating j! j ! and i∗ i∗ , we find that the natural map
+        H−d (X; P• ) → H−d (X; i∗ i∗ P• ) ∼  = H−d (X\Y ; P• | )∼= H 0 X\Y ; H−d P• |
+                                                                                            
+                                                                    X\Y                X\Y
+
+is an injection.
+   If f is chosen so that H∗ P• |X\Y is locally constant in degree −d and zero in other degrees,
+                                    
+
+then we conclude that H−d (X; P• ) injects into the global sections of H−d P• |X\Y .
+                                                                                  
+
+
+     Suppose we have
+                                                π             f
+                                       X −−−−→ Y −−−−→ C,
+                      NOTES ON PERVERSE SHEAVES AND VANISHING CYCLES                                  35
+
+
+where π is proper and π̂ : π −1 f −1 (0) → f −1 (0) is the restriction of π. Then, for all A• ∈ Dbc (X),
+there are natural isomorphisms
+                Rπ̂∗ (ψf ◦π A• ) ∼
+                                 = ψf (Rπ∗ A• ) and Rπ̂∗ (ϕf ◦π A• ) ∼  = ϕf (Rπ∗ A• ).
+
+   Suppose that Q• is perverse on X − f −1 (0), i : X − f −1 (0) → X is the inclusion, and that
+Ri∗ Q• is constructible (this is automatic in the algebraic setting). Then it is easy to see that
+Ri∗ Q• satisfies the cosupport condition; moreover, by combining the fact that ψf (Ri∗ Q• )[−1] is
+perverse on f −1 (0) with the Wang sequences on stalk cohomology, one can prove that Ri∗ Q• also
+satisfies the support condition - hence, Ri∗ Q• is perverse. In an analogous fashion, one obtains
+that Ri! Q• is perverse (if the base ring is a field, this can be obtained by dualizing) provided
+that Ri! Q• is constructible. Note that if Q• is the restriction to X − f −1 (0) of a constructible
+complex on all of X, then the constructibility of Ri∗ Q• and Ri! Q• are automatic.
+
+    The functors ψf [−1] and D commute, up to natural isomorphism, as do ϕf [−1] and D. That
+is, there are natural isomorphisms α : ψf [−1] ◦ D → D ◦ ψf [−1] and β : ϕf [−1] ◦ D → D ◦ ϕf [−1].
+    Furthermore, via these natural isomorphisms, the natural transformations can and var be-
+tween ψf and ϕf are dual; more precisely, for all A• ∈ Dbc (X), the relationship between
+canDA• : ψf [−1]DA• → ϕf [−1]DA• and varA• : ϕf [−1]A• → ψf [−1]A• is given by
+                                            −1
+                                  canDA• = βA • ◦ D(varA• ) ◦ αA• .
+
+
+
+Characterizing zero morphisms between perverse sheaves
+   Suppose that T : P• → Q• is a morphism of perverse sheaves on X. Then, T is the zero
+morphism if and only if, for all p ∈ X, for all germs of complex analytic f : (X, p) → (C, 0)
+such that dimp supp ϕf [−1]P• ≤ 0 and dimp supp ϕf [−1]Q• ≤ 0, the induced map ϕf [−1]T
+from H 0 (ϕf [−1]P• )p to H 0 (ϕf [−1]Q• )p is zero. One direction is trivial; for lack of a convenient
+reference, we will sketch a proof of the other direction.
+   Consider the short exact sequences in P erv(X):
+                           α                                           β
+      0 → ker T → P• −−−−→ im T → 0             and     0 → im T −−−−→ Q• → coker T → 0,
+where β ◦ α = T . Whitney stratify X by a stratification with respect to which P• , Q• , im T ,
+ker T , and coker T are constructible. Assume that im T ̸= 0, but that, for all germs of complex
+analytic f : (X, p) → (C, 0) such that dimp supp ϕf [−1]P• ≤ 0 and dimp supp ϕf [−1]Q• ≤ 0,
+the induced map ϕf [−1]T from H 0 (ϕf [−1]P• )p to H 0 (ϕf [−1]Q• )p is zero. We wish to derive a
+contradiction.
+   Let S be a top-dimensional stratum contained in supp(im T ), and let p ∈ S. Thus, the stalk
+cohomology of im T at p is a non-zero R-module M in degree − dim S. We will show that, in
+fact, M must be zero.
+   Let f be the germ of a Morse function for the stratification at p; this means that f extends
+to a complex analytic germ f˜ on an ambient affine space such that f˜|S has a Morse singularity,
+and that dp f˜ is not a degenerate covector, i.e., is not a limiting covector from a bigger stra-
+tum. It follows that, at p, the dimensions of the supports of ϕf [−1]P• , ϕf [−1]Q• , ϕf [−1] im T ,
+ϕf [−1] ker T , and ϕf [−1] coker T are all, at most, 0, and H 0 (ϕf [−1] im T )p ∼
+                                                                                  = M.
+   Hence, we have the short exact sequences of R-modules:
+
+                                                          ϕf [−1]α
+         0 → H 0 (ϕf [−1] ker T )p → H 0 (ϕf [−1]P• )p −−−−−→ H 0 (ϕf [−1] im T )p → 0
+and
+                                   ϕf [−1]β
+         0 → H 0 (ϕf [−1] im T )p −−−−−→ H 0 (ϕf [−1]Q• )p → H 0 (ϕf [−1] coker T )p → 0,
+36                                             DAVID B. MASSEY
+
+
+where ϕf [−1]β ◦ ϕf [−1]α = ϕf [−1]T .
+  Thus, the image of ϕf [−1]β ◦ ϕf [−1]α = ϕf [−1]T is isomorphic to H 0 (ϕf [−1] im T )p ∼
+                                                                                          = M.
+But, by assumption, this image is zero, which contradicts that M was non-zero.
+
+The Unipotent and Complementary Nearby and Vanishing Cycles
+   Suppose that our base ring is a field, that P• is a perverse sheaf on X, and that we have an
+analytic function f : X → C. Then, (globally, in the algebraic setting; locally, in the analytic
+setting) there exists n such that, in P erv(f −1 (0)), for all i ≥ n,
+                                           n                     i
+                              ker (id −Tf )    = ker (id −Tf ) ⊆ ψf [−1]P•
+and                                   n              i
+                           ker id −Tef    = ker id −Tef    ⊆ ϕf [−1]P• .
+
+                                     n                 n
+   The perverse sheaves ker (id −Tf ) and ker id −Tef      are maximal perverse subsheaves of
+          •            •
+ψf [−1]P and ϕf [−1]P , respectively, on which Tf and Tf , respectively, act unipotently; they
+                                                         e
+are denoted by ψfu [−1]P• and ϕuf [−1]P• , and are called the unipotent nearby and vanishing
+cycles, respectively.                                                              n
+                                                    n
+   We refer to the images ψf⊥ [−1]P• := im (id −Tf ) and ϕ⊥          •
+                                                              f [−1]P := im id −Tf
+                                                                                  e     as the
+complementary nearby and vanishing cycles, respectively.
+   It is easy to show that the maps can : ψf [−1]P• → ϕf [−1]P• and var : ϕf [−1]P• → ψf [−1]P•
+restrict to isomorphisms
+                         can⊥                                                  var⊥
+           ψf⊥ [−1]P• −−−
+                        ∼
+                         −→ ϕ⊥
+                             f [−1]P
+                                     •
+                                                    and              ϕ⊥      •
+                                                                      f [−1]P −−−
+                                                                                ∼
+                                                                                 −→ ψf⊥ [−1]P•
+                          =                                                     =
+
+and, hence, that id −Tf and id −Tef restrict to isomorphisms on ψf⊥ [−1]P• and ϕ⊥         •
+                                                                                  f [−1]P , re-
+spectively.
+   Furthermore, letting j : f −1 (0) → X denote the inclusion, restriction yields distinguished
+triangles
+                                   compu                  canu
+                    j ∗ [−1]P• −−−−−→ ψfu [−1]P• −−−−→ ϕuf [−1]P• −→ j ∗ P•
+and
+                                    varu                  pmocu
+                     ϕuf [−1]P• −−−−→ ψfu [−1]P• −−−−−→ j ! [1]P• −→ ϕuf P• .
+   There are direct sum splittings ψf [−1]P• ∼
+                                             = ψfu [−1]P• ⊕ ψf⊥ [−1]P• , ϕf [−1]P• ∼
+                                                                                   = ϕuf [−1]P• ⊕
+ϕ⊥      •                                                ⊥
+                                                             and var = varu , var⊥ .
+                                                     u
+                                                                                  
+ f [−1]P and, via these isomorphisms, can = can , can
+   If the base field is algebraically closed, then ψf⊥ [−1]P• and ϕ⊥      •
+                                                                   f [−1]P can be further decom-
+posed as direct sums of generalized eigenspaces of their respective monodromies and, of course,
+these direct sum decompositions are compatible with the monodromy maps.
+
+Gabber’s result
+   Suppose that our base ring is a perfect field (e.g., a field of characteristic 0, a finite field, or an
+algebraically closed field), that P• is a perverse sheaf on X, and that we have an analytic function
+f : X → C. Then, globally, in the algebraic setting, and locally, in the analytic setting, the
+derived category/perverse sheaf version of the Jordan-Chevalley Decomposition tells us that the
+monodromy map Tf can be factored, in a unique way, as Tf = F (id +N ), where F is semisimple,
+N is nilpotent, and F and N commute.
+                         NOTES ON PERVERSE SHEAVES AND VANISHING CYCLES                         37
+
+
+   Given the nilpotent operator N : ψf [−1]P• → ψf [−1]P• , it is an exercise in linear algebra to
+show that there exists a unique (bounded) increasing filtration W • of ψf [−1]P• such that, for
+all i, N (W i ) ⊆ W i−2 , and such that N i induces an isomorphism from the i-th graded object
+Gri ψf [−1]P• to the (−i)-th graded object Gr−i ψf [−1]P• .
+   Now, suppose that we consider the case where P• is replaced by an intersection cohomology
+complex I• , with, possibly, non-constant coefficients. Gabber’s theorem deals with the algebraic
+setting and ℓ-adic perverse sheaves. Locally, for analytic spaces and maps, and using Q for the
+base ring, the result is due to M. Saito:
+
+Theorem: The graded pieces Gri ψf [−1]I• are semisimple in P erv(f −1 (0)), i.e., they are direct
+sums of intersection cohomology complexes.
+
+
+The Sebastiani-Thom Isomorphism
+
+    Let f : X → C and g : Y → C be complex analytic functions. Let π1 and π2 denote the
+projections of X × Y onto X and Y , respectively. Let A• and B• be bounded, constructible
+complexes of sheaves of R-modules on X and Y , respectively. In this situation, A• ⊠L B• :=
+π1∗ A• ⊗L π2∗ B• . Let us adopt the similar notation f ⊞ g := f ◦ π1 + g ◦ π2 .
+
+   Let p1 and p2 denote the projections of V (f ) × V (g) onto V (f ) and V (g), respectively, and
+let k denote the inclusion of V (f ) × V (g) into V (f ⊞ g).
+
+Theorem (Sebastiani-Thom Isomorphism): There is a natural isomorphism
+                k ∗ ϕf ⊞g [−1] A• ⊠L B• ∼= ϕf [−1]A• ⊠L ϕg [−1]B• ,
+                                       
+
+and this isomorphism commutes with the corresponding monodromies.
+   Moreover, if we let p := (x, y) ∈ X × Y be such that f (x) = 0 and g(y) = 0, then, in an open
+neighborhood of p, the complex ϕf ⊞g [−1] A• ⊠L B• has support contained in V (f ) × V (g),
+and, in any open set in which we have this containment, there are natural isomorphisms
+    ϕf ⊞g [−1] A• ⊠L B• ∼   = k! (ϕf [−1]A• ⊠L ϕg [−1]B• ) ∼  = k∗ (ϕf [−1]A• ⊠L ϕg [−1]B• ).
+                          
+
+
+A’Campo’s Theorem: Suppose that the base ring is a field; if mx denotes the maximal ideal
+of X at x and f ∈ m2x , then the Lefschetz number of the map
+                                                       Tf
+                                    H∗ (ψf [−1]A• )x −−−−→ H∗ (ψf [−1]A• )x
+equals 0, i.e.,
+                                                            Tf
+                               i
+                                   Trace{Hi (ψf [−1]A• )x −−−−→ Hi (ψf [−1]A• )x } = 0.
+                  P
+                      i (−1)
+
+
+The Monodromy Theorem: Let A• ∈ Dbc (X) and f : X → C. The monodromy automor-
+phism
+                                                       Tf
+                                          ψf [−1]A• −−−−→ ψf [−1]A•
+
+induces a map on stalk cohomology which is quasi-unipotent, i.e., letting Tf also denote the map
+on stalk cohomology, this means that there exist integers k and j such that (id −Tfk )j = 0. Over
+C, this is equivalent to all of the eigenvalues of Tf being roots of unity.
+38                                       DAVID B. MASSEY
+
+
+   If P• is a perverse sheaf, then we may use the Abelian structure of the category P erv(X) to
+investigate the map
+                                                 Tf
+                                   ψf [−1]P• −−−−→ ψf [−1]P• .
+
+The Monodromy Theorem implies that this morphism can be factored (globally, in the algebraic
+setting; locally, in the analytic setting) into Tf = F · (1 + N ), where F has finite order, N is
+nilpotent, and F and N commute.
+
+§4. Some Quick Applications
+
+
+   The applications of perverse sheaves are widespread and are frequently quite deep - particu-
+larly for those applications which rely on the decomposition theorem. For beautiful discussions
+of these applications, we highly recommend [20] and [21]. We shall not describe any of these
+applications here; rather we shall give some fairly easy results on general Milnor fibers. These
+results are “easy” now that we have all the machinery of the first three sections at our disposal.
+While the applications below could undoubtedly be proved without the general theory of per-
+verse sheaves, with this theory in hand, the results and their proofs can be presented in a unified
+manner and, what is more, the proofs become mere exercises.
+
+
+   Consider the classical case of the Milnor fiber of a non-zero map f : (Cn+1 , 0) → (C, 0). Let
+X = Cn+1 and let s = dim Σf . Then, as X is a manifold, Z•X [n + 1] is a perverse sheaf and so
+ϕf Z•X [n] is perverse on f −1 (0) with support only on Σf . It follows that the stalk cohomology
+of ϕf Z•X [n] is non-zero only for degrees i with −s ⩽ i ⩽ 0; that is, we recover the well-known
+result that the reduced cohomology of the Milnor fiber can be non-zero only in degrees i such
+that n − s ⩽ i ⩽ n.
+   A much more general case is just as easy to derive from the machinery that we have. Suppose
+that X is a purely (n+1)-dimensional local complete intersection with arbitrary singularities. Let
+S be a Whitney stratification of X. Let p ∈ X be such that dimp f −1 (0) = n, and let Ff,p denote
+the Milnor fiber of f at p. Then, as X is a local complete intersection, Z•X [n + 1] is a perverse
+sheaf and so ϕf Z•X [n] is perverse on f −1 (0) with support only on ΣS f . It follows that the stalk
+cohomology of ϕf Z•X [n] is non-zero only for dimensions i with − dimp ΣS f ⩽ i ⩽ 0. Hence, the
+reduced cohomology of Ff,p can be non-zero only in degrees i such that n − dimp ΣS f ⩽ i ⩽ n
+   While this general statement could no doubt be proved by induction on hyperplane sections,
+the above proof via general techniques avoids the re-working of many technical lemmas on
+privileged neighborhoods and generic slices.
+
+    Another application relates to the homotopy-type of the complex link of a space at a point; for
+instance, for an s-dimensional local complete intersection, the complex link has the homotopy-
+type of a bouquet of spheres of real dimension s − 1. In terms of vanishing cycles and perverse
+sheaves, we only obtain this result up to cohomology: let (X, x) be a germ of an analytic
+space embedded in some Cn , and assume s := dim X = dimx X. Suppose that we have a
+perverse sheaf, P• , on X (e.g., the shifted constant sheaf, if X is a local complete intersection).
+Let l be a generic linear form, and consider ϕl−l(x) [−1]P• ; this is a perverse sheaf on an s − 1
+dimensional space and, as l is generic, it is supported at the single point x (because the hyperplane
+slice l = l(x) can be chosen to transversely intersect all the strata of any stratification with
+respect to which P• is constructible - except, possibly, the point-stratum x itself). Hence,
+                     NOTES ON PERVERSE SHEAVES AND VANISHING CYCLES                              39
+
+
+H ∗ (ϕl−l(x) [−1]P• )x is (possibly) non-zero only in degree 0. In the case of the shifted constant
+sheaf Z•X [s] on a local complete intersection, this gives the desired result.
+
+   For our final application, we wish to investigate functions with one-dimensional critical loci;
+we must first set up some notation.
+                                                           n+1
+   Let U be an open neighborhood of the origin in C            and suppose that f : (U, 0) → (C, 0)
+has a one-dimensional critical locus at the origin, i.e., dim0 Σf = 1. The reduced cohomology of
+the Milnor fiber, Ff,0 , of f at the origin is possibly non-zero only in dimensions n − 1 and n. We
+wish to show that the (n − 1)-st cohomology group embeds inside another group which is fairly
+easy to describe; thus, we obtain a bound on the (n − 1)-st Betti number of the Milnor fiber of
+f.
+   For each component ν of Σf , one may consider a generic hyperplane slice, H, at points
+p ∈ ν − 0 close to the origin; then, the restricted function, f|H , will have an isolated critical
+point at p. By shrinking the neighborhood U if necessary, we may assume that the Milnor
+number of this isolated singularity of f|H at p is independent of the point p ∈ ν − 0; denote
+this value by µ◦ ν . As ν − 0 is homotopy-equivalent to a circle, there is a monodromy map from
+the Milnor fiber of f|H at p ∈ ν − 0 to itself, which induces a map on the middle dimensional
+                                 µ◦ ν     µ◦ ν
+cohomology, i.e., a map hν : Z         → Z . We wish to show that H n−1 (Ff,0 ) (with integer
+coefficients) injects into ⊕ν ker(id − hν ).
+   Let j denote the inclusion of the origin into X = V (f ), let i denote the inclusion of X − 0
+into X, and let K• denote ϕf Z•U [n]. As Z•U [n + 1] is perverse, ϕf Z•U [n] is perverse with one-
+dimensional support (as we are assuming a one-dimensional critical locus). Also, we always have
+the distinguished triangle
+
+                                           j! j ! K• −→ K•
+                                            [1] ↖        ↙
+                                                       ∗ •
+                                                  Ri∗ i K
+  We wish to examine the associated stalk cohomology exact sequence at the origin.
+  First, we have that H −1 ((j! j ! K• )0 ) = H −1 (j ! K• ) and so, by the cosupport condition for
+perverse sheaves, H −1 ((j! j ! K• )0 ) = 0.
+   Now, we need to look more closely at the sheaf Ri∗ i∗ K• . i∗ K• is the restriction of K• to
+X − 0; near the origin, this sheaf has cohomology only in degree −1 with support on Σf − 0.
+Moreover, the cohomology sheaf H−1 (i∗ K• ) is locally constant when restricted to Σf − 0. It
+follows that i∗ K• is naturally isomorphic in the derived category to the extension by zero of a
+local system of coefficients in degree −1 on Σ − 0.
+   To be more precise, let p denote the inclusion of the closed subset Σf − 0 into X − 0. Then,
+there exists a locally constant (single) sheaf, L, on Σf − 0 such that when L is considered
+as a complex, L• , we have that p! L• [1] ∼= p∗ L• [1] is naturally isomorphic to i∗ K• . For each
+                                                                                      µ◦ ν
+component ν of Σf , the restriction of L to ν − 0 is a local system with stalks Z          which is
+                                                           ◦
+                                                          µ ν      ◦
+                                                                  µ ν
+completely determined by the monodromy map hν : Z             →Z .
+   Therefore, inside a small open ball B ◦ ,
+                           H 0 ((Ri∗ i∗ L• )0 ) ∼
+                                                = ⊕ν H0 (B ◦ ∩ (ν − 0); L)
+and these global sections are well-known to be given by ker(id − hν ). It follows that
+                              H −1 ((Ri∗ i∗ K• )0 ) ∼
+                                                    = ⊕ν ker(id − hν ).
+40                                            DAVID B. MASSEY
+
+
+   Thus, when we consider the long exact sequence on stalk cohomology associated to our dis-
+tinguished triangle, we find – starting in dimension n − 1 – that it begins
+                                  e n−1 (F ) → ⊕ν ker(id − hν ) → . . . .
+                                0→H       f,0
+
+The desired conclusion follows.
+
+§5. Truncation and Perverse Cohomology
+     This section is taken entirely from [2], [11], and [16].
+   There are (at least) two forms of truncation associated to an object F• ∈ Dbc (X) – one form
+of truncation is related to the ordinary cohomology of the complex, while the other form leads to
+something called the perverse cohomology or perverse projection. These two types of truncation
+bear little resemblance to each other, except in the general framework of a t-structure on Dbc (X).
+                                                                                                      ⩽0
+   Loosely speaking, a t-structure on Dbc (X) consists of two full subcategories, denoted D (X)
+       ⩾0                                                            ⩽0              ⩾0
+and D (X), such that for any F• ∈ Dbc (X), there exist E• ∈ D (X), G• ∈ D (X), and a
+distinguished triangle
+
+                                                    E• −→ F•
+                                                 [1] ↖    ↙                  ;
+                                                      G• [−1]
+moreover, such E• and G• are required to be unique up to isomorphism in Dbc (X).
+   Given a t-structure as above, and using the same notation, we write E• = τ⩽0 F• (the trunca-
+tion of F• below 0) and G• = τ ⩾0 (F• [1]) (the truncation of F• [1] above 0); these are the basic
+truncation functors associated to the t-structure.
+                           ⩽n
+   In addition, we write D (X) for
+                            ⩽0
+                                           n                 ⩽0
+                                                                     o
+                           D (X)[−n] := F• [−n] | F• ∈ D (X) ,
+                                 ⩾n            ⩾0
+and we analogously write D            (X) for D (X)[−n].
+  Also, we define τ⩽n F• by
+                        τ⩽n F• = (τ⩽0 (F• [n])) [−n] = ([−n] ◦ τ⩽0 ◦ [n])F• ,
+and we analogously define τ ⩾n F• as ([−n] ◦ τ ⩾0 ◦ [n])F• .
+     It follows that
+                 τ⩽n (F• [k]) = (τ⩽n+k F• )[k]       and         τ ⩾n (F• [k]) = (τ ⩾n+k F• )[k].
+                           ⩽n                       ⩾n
+     Note that τ⩽n F• ∈ D       (X), τ ⩾n F• ∈ D         (X) and, for all n, we have a distinguished triangle
+
+                                                    τ⩽n F• −→ F•
+                                                     [1] ↖   ↙                   .
+                                                              ⩾n+1       •
+                                                          τ          F
+
+     Writing ≃ to denote natural isomorphisms between functors: for all a and b,
+                                           τ⩽b ◦ τ ⩾a ≃ τ ⩾a ◦ τ⩽b ,
+                                           τ⩽b ◦ τ⩽a ≃ τ⩽a ◦ τ⩽b ,
+                           NOTES ON PERVERSE SHEAVES AND VANISHING CYCLES                           41
+
+
+and
+                                             τ ⩾b ◦ τ ⩾a ≃ τ ⩾a ◦ τ ⩾b .
+     If a ⩾ b, then
+                                                τ⩽b ◦ τ⩽a ≃ τ⩽b ,
+and
+                                                τ ⩾a ◦ τ ⩾b ≃ τ ⩾a .
+     Also, if a > b, then
+                                         τ⩽b ◦ τ ⩾a = τ ⩾a ◦ τ⩽b = 0.
+
+                                                                               ⩽0         ⩾0
+   The heart of the t-structure is defined to be the full subcategory C := D (X) ∩ D (X); this
+is always an Abelian category. We wish to describe the kernels and cokernels in this category.
+   Let E• , F• ∈ C and let f be a morphism from E• to F• . We can form a distinguished triangle
+in Dbc (X)
+                                                              f
+                                           E• −−−−→ F•
+                                        [1] ↖      ↙                       ,
+                                               G•
+where G• need not be in C. Then, up to natural isomorphism,
+                                coker f = τ ⩾0 G• and ker f = τ⩽0 (G• [−1]).
+
+
+   We define cohomology associated to a t-structure as follows. Define t H 0 (F• ) to be τ ⩾0 τ⩽0 F• ;
+this is naturally isomorphic to τ⩽0 τ ⩾0 F• . Now, define t H n (F• ) to be
+                                  H (F• [n]) = τ ⩾n τ⩽n F• [n].
+                                 t 0
+                                                              
+
+Note that this cohomology does not give back modules or even sheaves of modules, but rather
+gives back complexes which are objects in the heart of the t-structure.
+
+     If F• ∈ Dbc (X), then the following are equivalent:
+                  ⩽0               ⩾0
+1)     F• ∈ D (X) (resp. D (X));
+2)     the morphism τ⩽0 F• → F• is an isomorphism (resp. the morphism F• → τ ⩾0 F• is an
+        isomorphism);
+3)     τ ⩾1 F• = 0 (resp. τ⩽−1 F• = 0));
+4)     τ ⩾i F• = 0 for all i ⩾ 1 (resp. τ⩽i F• = 0 for all i ⩽ −1);
+                                              ⩽a
+5) there exists a such that F• ∈ D (X) and t H i (F• ) = 0 for all i ⩾ 1 (resp. there exists a
+such
+                 ⩾a
+     that F• ∈ D (X) and t H i (F• ) = 0 for all i ⩽ −1).
+
+
+     It follows that, if F• ∈ Dbc (X), then the following are equivalent:
+1)     F• ∈ C;
+2)     t
+           H 0 (F• ) is isomorphic to F• ;
+42                                            DAVID B. MASSEY
+
+                                                 ⩾a                ⩽b
+3)     there exist a and b such that F• ∈ D           (X), F• ∈ D (X), and t H n (F• ) = 0
+       for all n ̸= 0.
+
+
+   As the heart is an Abelian category, we may talk about exact sequences in C. Any dis-
+tinguished triangle in Dbc (X) determines a long exact sequence of objects in the heart of the
+t-structure; if
+
+                                                    E• −→ F•
+                                                 [1] ↖   ↙
+                                                        G•
+is a distinguished triangle in Dbc (X), then the associated long exact sequence in C is
+             · · · → t H −1 (G• ) → t H 0 (E• ) → t H 0 (F• ) → t H 0 (G• ) → t H 1 (E• ) → . . . .
+
+
+   We are finished now with our generalities on t-structures and wish to, at last, give our two
+primary examples.
+
+
+The “ordinary” t-structure
+
+     The “ordinary” t-structure on Dbc (X) is given by
+                           ⩽0
+                         D (X) = {F• ∈ Dbc (X) | Hi (F• ) = 0 for all i > 0}
+and
+                           ⩾0
+                        D (X) = {F• ∈ Dbc (X) | Hi (F• ) = 0 for all i < 0}.
+
+   The associated truncation functors are the ordinary ones described in [11]. If F• ∈ Dbc (X),
+then
+
+                                               
+                                                   n
+                                               F
+                                                                if n < p
+                                             n
+                                    (τ⩽p F• ) = ker dp           if n = p
+                                               
+                                                 0               if n > p
+                                               
+
+     and
+                                           
+                                           0
+                                                                   if n < p
+                                   ⩾p • n
+                                       
+                                  τ F     = coker dp−1              if n = p
+                                           
+                                            n
+                                             F                      if n > p.
+
+     These truncated complexes are naturally quasi-isomorphic to the complexes
+
+                                             
+                                                 n
+                                             F
+                                                              if n ⩽ p
+                                         • n
+                                  (τ̃⩽p F ) = Im dp            if n = p + 1
+                                             
+                                               0               if n > p + 1
+                                             
+
+     and
+                        NOTES ON PERVERSE SHEAVES AND VANISHING CYCLES                         43
+
+
+                                          
+                                          0
+                                                      if n < p − 1
+                                  ⩾p • n
+                                      
+                                τ̃ F     = Im dp−1     if n = p − 1
+                                          
+                                           n
+                                            F          if n ⩾ p.
+
+
+  If A• , B• ∈ Dbc (X), then
+1. (τ⩽p A• )x = τ⩽p (A• x );
+                    (
+     k       •          Hk (A• )x   if k ⩽ p
+2. H (τ⩽p A )x =
+                        0           for k > p.
+
+3. If ϕ : A• → B• is a morphism of complexes of sheaves which induces isomorphisms on the
+associated cohomology sheaves
+                           ϕ∗ : Hn (A• ) ∼
+                                         = Hn (B• ) for all n ⩽ p,
+then τ⩽p ϕ : τ⩽p A• → τ⩽p B• is a quasi-isomorphism.
+
+4. If f : X → Y is a continuous map and C• is a complex of sheaves on Y , then
+                                  τ⩽p f ∗ (C• ) ∼
+                                                = f ∗ τ⩽p (C• ).
+
+
+5. If R is a field and A• is a complex of sheaves of R-modules on X with locally constant
+cohomology sheaves, then there are natural quasi-isomorphisms
+         τ ⩾−p RHom• (A• , R•X ) → τ ⩾−p RHom• (τ⩽p A• , R•X ) ← RHom• (τ⩽p A• , R•X ).
+
+   The heart of this t-structure consists of those complexes which have non-zero cohomology
+sheaves only in degree 0; such complexes are quasi-isomorphic to complexes which are non-zero
+only in degree 0.
+   The t-structure cohomology of a complex F• is essentially the sheaf cohomology of F• ;
+ H (F• ) is quasi-isomorphic to a complex which has Hn (F• ) in degree 0 and is zero in all
+t n
+
+other degrees. With this identification, the t-structure long exact sequence associated to a dis-
+tinguished triangle is merely the usual long exact sequence on sheaf cohomology.
+
+   We are now going to give the construction of the intersection cohomology complexes as it is
+presented in [11]. Our indexing will look different from that of [11] for several reasons.
+   First, we are dealing only with complex analytic spaces, X, and we are using only middle
+perversity; this accounts for some of the indexing differences. In addition, in this setting, the
+intersection cohomology complex defined in [11] would have possibly non-zero cohomology only
+in degrees between −2 dimC X and −(dimC X) − 1, inclusive. The definition below is shifted by
+− dimC X from the [11] definition, and yields a perverse sheaf which has possibly non-zero stalk
+cohomology only in degrees between − dimC X and −1, inclusive (assuming the space has no
+isolated points).
+   Let X be a purely n-dimensional complex analytic space with a complex analytic Whitney
+stratification S = {Sα }.
+44                                                       DAVID B. MASSEY
+
+
+  For all k, let X k denote the union of the strata of dimension less than or equal to k. By
+convention, we set X −1 = ∅. Hence, we have a filtration
+                                    ∅ = X −1 ⊆ X 0 ⊆ X 1 ⊆ · · · ⊆ X n−1 ⊆ X n = X.
+For all k, let Uk := X − X n−k , and let ik denote the inclusion Uk ,→ Uk+1 . Let L•U1 be a local
+system on the top-dimensional strata.
+   Then, the intersection cohomology complex on X with coefficients in L•U1 , as described in
+section 2, is given by
+                     IC•X (L•U1 ) := τ⩽−1 Rin∗ . . . τ⩽1−n Ri2∗ τ⩽−n Ri1∗ L•U1 [n] .
+                                                                                  
+
+
+  Up to quasi-isomorphism, this complex is independent of the stratification. Note that the
+cohomology sheaves of IC•X (L•U1 ) are supported only in degrees k for which −n ⩽ k ⩽ −1
+(unless X is 0-dimensional, and then IC•X (L•U1 ) ∼
+                                                  = L•U1 ).
+    Also note that it follows from the construction that there is always a canonical map from the
+shifted constant sheaf R•X [n] to IC•X (R•U1 ) which induces an isomorphism when restricted to U1 .
+    To see this, consider the canonical morphism R•U [n] → Rik∗ i∗k R•U [n] for each k ⩾ 1. As
+                                                        k+1               k+1
+i∗k R•U [n] ∼= R•U [n], we have a canonical map R•U [n] → Rik∗ R•U [n] and, hence, a canonical
+       k+1         k                                 k+1              k
+
+map between the truncations τ⩽k−n−1 R•U [n] → τ⩽k−n−1 Rik∗ R•U [n] . But,
+                                                                            
+                                             k+1                        k
+
+
+                                   τ⩽k−n−1 R•U [n] ∼    = R•Uk+1 [n]
+                                                      
+                                                k+1
+
+
+and so we have a canonical map R•U [n] → τ⩽k−n−1 Rik∗ R•U [n] . By piecing all of these maps
+                                                                     
+                                      k+1                         k
+together, one obtains the desired morphism.
+
+
+The perverse t-structure
+
+     The perverse t-structure (with middle perversity µ) on Dbc (X) is given by
+                              µ    ⩽0
+                                  D (X) = {F• ∈ Dbc (X) | dim supp-j F• ⩽ j for all j}
+and
+                          µ       ⩾0
+                              D (X) = {F• ∈ Dbc (X) | dim cosuppj F• ⩽ j for all j}.
+Note that the heart of this t-structure is precisely P erv(X), the category of perverse sheaves.
+Thus, every distinguished triangle in Dbc (X) determines a long exact sequence in the Abelian
+category P erv(X).
+   We naturally call the t-structure cohomology associated to the perverse t-structure the per-
+verse cohomology or perverse projection and denote it in degree n by µH n (F• ).
+
+  Let d be an integer, and let f : Y → X be a morphism of complex spaces such that, for all
+x ∈ X, dim f −1 (x) ⩽ d. Then,
+                µ    ⩽0                µ   ⩽d
+1) f ∗ sends D (X) to D                         (Y );
+                µ    ⩾0                µ   ⩾−d
+2) f ! sends D (X) to D                          (Y );
+            µ       ⩽0                                                     µ   ⩽d
+3) if F• ∈ D (Y ) and Rf! F• ∈ Dbc (X), then Rf! F• ∈ D                             (X);
+                                 NOTES ON PERVERSE SHEAVES AND VANISHING CYCLES                                  45
+
+           µ       ⩾0                                                           µ       ⩾−d
+4) if F• ∈ D (Y ) and Rf∗ F• ∈ Dbc (X), then Rf∗ F• ∈ D                                       (X).
+Furthermore, if f is a smooth map of constant relative dimension d, then,
+               µ    ⩾0                 µ   ⩾d
+5) f ∗ sends D (X) to D                         (Y );
+               µ    ⩽0                 µ   ⩽−d
+6) f ! sends D (X) to D                          (Y ).
+
+
+  For closed embeddings, we also have the following:
+Let g1 , . . . , ge be complex analytic functions on X.                         Let m denote the inclusion of Y :=
+V (g1 , . . . , ge ) into X. Then,
+               µ    ⩾0                 µ   ⩾−e                              µ       ⩾0                 µ    ⩾0
+i) m∗ sends D (X) to D                           (Y ), i.e., m∗ [−e] sends D (X) to D (Y );
+               µ        ⩽0             µ   ⩽e                           µ   ⩽0                 µ       ⩽0
+ii) m! sends D (X) to D (Y ), i.e., m! [e] sends D (X) to D (Y ).
+
+
+   Consider, in particular, the case in which m is the inclusion of Y = V (f ) into X, where
+V (f ) contains no irreducible component of X, and suppose that the shifted constant sheaf
+P• := RX  •
+            [dim X] is perverse (so X is necessarily pure-dimensional). Then, it is trivial that
+          • ∼ •                 µ ⩽0                                                        µ   ⩾0
+m [−1]P = RY [dim Y ] is in D (Y ). Moreover, i) above implies that m∗ [−1]P• is in D (Y ).
+  ∗
+
+Thus, RY• [dim Y ] is perverse. Hence, by inducting, we recover Lê’s result that the shifted constant
+sheaf on a local complete intersection is perverse.
+
+   Suppose that j : Y ,→ X is inclusion, and A• ∈ Dbc (X). Later, when we discuss the intermedi-
+                                                    µ  ⩽0                                µ  ⩽−2
+ate extension, it will be important that, if A• ∈ D and j ∗ A• = 0, then j ∗µH 0 (A• ) ∈ D      .
+To see this, one uses the perverse truncation triangle to conclude that, since j ∗ A• = 0, we
+have an isomorphism j ∗ τ ≥0 A• ∼
+                                                                  µ  ⩽0
+                                  = (j ∗ τ≤−1 A• )[1]. As A• ∈ D , we have an isomorphism
+τ ≥0 A• ∼
+        = µH 0 (A• ). Hence, j ∗µH 0 (A• ) ∼
+                                                                             µ  ⩽−1
+                                           = j ∗ [1]τ≤−1 A• and, as τ≤−1 A• ∈ D      and by our
+                                                      ⩽0     ⩽0
+                           ∗
+previous property that j for an inclusion takes D to D , it follows that
+                                                                                    µ        ⩽−2
+                                            j ∗µH 0 (A• ) ∼
+                                                          = j ∗ [1]τ≤−1 A• ∈ D                     .
+                             µ    ⩾0                                                µ    ⩾2
+   Dually, if A• ∈ D and j ! A• = 0, then j !µH 0 (A• ) ∈ D .
+   In particular, if j is the inclusion of a closed analytic subset, i : X − Y ,→ X is the inclusion
+of the open complement, and P• is a perverse sheaf on X − Y , then
+                                                        µ   ⩽−2                                        µ    ⩾2
+                                 j ∗µH 0 (i! P• ) ∈ D             and   j !µH 0 (Ri∗ P• ) ∈ D ,
+
+provided that i! P• and Ri∗ P• are constructible (which would be the case, for instance, if P• is
+isomorphic to the restriction of a constructible complex on all of X).
+
+  Let f : Y → X be a morphism of complex spaces such that each point in X has an open neigh-
+borhood U such that f −1 (U) is a Stein space (e.g., an affine map between algebraic varieties).
+Then,
+           µ       ⩽0                                                           µ       ⩽0
+a) if F• ∈ D (Y ) and Rf∗ F• ∈ Dbc (X), then Rf∗ F• ∈ D (X);
+           µ       ⩾0                                                           µ       ⩾0
+b) if F• ∈ D (Y ) and Rf! F• ∈ Dbc (X), then Rf! F• ∈ D (X).
+46                                              DAVID B. MASSEY
+
+
+   If f : X → C is an analytic map, then the functors ψf [−1] and ϕf [−1] are t-exact with
+                                                              µ  ⩽0                 µ  ⩾0
+respect to the perverse t-structures; this means that if E• ∈ D (X) and F• ∈ D (X), then
+                                µ  ⩽0                                                µ ⩾0
+ψf E• [−1] and ϕf E• [−1] are in D (f −1 (0)), and ψf F• [−1] and ϕf F• [−1] are in D (f −1 (0)).
+   In particular, ψf [−1] and ϕf [−1] take perverse sheaves to perverse sheaves and, for any
+F• ∈ Dbc (X),
+            H (ψf F• [−1]) ∼
+          µ n
+                           = ψf µH n (F• )[−1] and µH n (ϕf F• [−1]) ∼
+                                                                     = ϕf µH n (F• )[−1].
+    While there are several proofs in the literature of the fact that ψf [−1] is a perverse functor,
+i.e., takes perverse sheaves to perverse sheaves, it is not so easy to find proofs that ϕf [−1] is a
+perverse functor. Let j denote the inclusion of f −1 (0) into X. Let P• be a perverse sheaf on
+                                    µ  ⩽0                   µ  ⩾0
+X. By 1) and 2) above, j ∗ P• ∈ D (X) and j ! P• ∈ D (X). Knowing that ψf [−1]P• is
+perverse, and applying perverse cohomology to the distinguished triangles
+                                         var
+                          ϕf [−1]P• −−−−→ ψf [−1]P• −→ j ! [1]P• → ϕf P•
+and
+                                                         r
+                          j ∗ [−1]P• → ψf [−1]P• −−−−→ ϕf [−1]P• → j ∗ P• ,
+
+one finds, respectively, that µH i (ϕf [−1]P• ) is zero if i ⩽ −1 and if i ⩾ 1, i.e., ϕf [−1]P• is
+perverse.
+
+
+   If the base ring is a field, then the functor µH 0 also commutes with Verdier dualizing; that is,
+there is a natural isomorphism
+                                          D ◦ µH 0 ∼
+                                                   = µH 0 ◦ D.
+
+   Intersection cohomology has a functorial definition related to µH 0 . Let X be a purely n-
+dimensional complex analytic set, and let L be a local system (in degree 0) on a smooth, open
+dense subset, U, of the smooth part of X. Let i denote the inclusion of U into X. Then, by
+applying the functor    H to the canonical map i! L• [n] → Ri∗ L• [n], one obtains a morphism
+                       µ 0
+
+ω : H i! L [n] → H Ri∗ L• [n] in the category of perverse sheaves on X. The image of ω in
+             •
+    µ 0
+                    µ 0
+
+this Abelian category is naturally isomorphic to the intersection cohomology complex IC•X (L).
+   If X is not pure-dimensional, one can still use essentially the construction above, except that
+L• [n] needs to be replaced by a “shifted piecewise local system”, i.e., one takes the image of
+ω : µH 0 i! P• → µH 0 Ri∗ P• , where P• is a complex on U, whose restriction to each connected
+component C of U is a local system on C, shifted by dim C (i.e., shifted into degree − dim C);
+note that such a shifted piecewise local system P• is a perverse sheaf on U.
+   More generally, suppose that X is a complex analytic space, that Y is a closed complex
+analytic proper subspace of X, and that j : Y → X and i : X − Y → X are the inclusions. Let
+P erv X (X − Y ) denote the full subcategory of P erv(X − Y ) consisting of perverse sheaves which
+are the restrictions of constructible complexes on X (in the algebraic setting, this would be all
+of P erv(X − Y )). For P• in P erv X (X − Y ), i! P• and Ri∗ P• are in Dcb (X), and the functor
+from P erv X (X − Y ) to P erv(X) which takes P• to the image (in P erv(X)) of the canonical
+map µH 0 (i! P• ) → µH 0 (Ri∗ P• ) is denoted by i!∗ , and is called the intermediate extension
+functor.
+   The perverse sheaf i!∗ P• is the unique (up to isomorphism) perverse extension A• of P• from
+X − Y to X satisfying any/all of the three equivalent conditions:
+1) µH 0 (j ∗ A• ) = 0 and µH 0 (j ! A• ) = 0;
+                 µ   ⩽0                         µ   ⩾0
+2) j ∗ [−1]A• ∈ D (Y ) and j ! [1]A• ∈ D (Y );
+                       NOTES ON PERVERSE SHEAVES AND VANISHING CYCLES                                   47
+
+
+3) A• has no non-trivial subobjects or quotient objects in P erv(X) whose support is contained
+in Y .
+Furthermore, if Y = V (g) where g is a complex analytic function on X (which is not identically
+zero), then these are equivalent to:
+4) j ∗ [−1]A• and j ! [1]A• are perverse.
+
+   If X − Y is dense in X, then the intermediate extension takes intersection cohomology, with
+possibly local system coefficients, on X − Y to intersection cohomology on X, with the same
+local system coefficients.
+
+   Suppose now that I• is an intersection cohomology complex on X, with possibly local system
+coefficients, and that f : X → C is such that f does not vanish on any irreducible component of
+supp I• . Let i denote the (open) inclusion of X − f −1 (0) into X, and let j denote the (closed) in-
+clusion of f −1 (0) into X. As Ri∗ i∗ I• is perverse, the canonical map I• →           ∗ •
+                                                                                 Ri∗ iµ I 0 is a !morphism
+                                                               µ −1
+                                                                     j! j [1]I and H j! j [1]I• , re-
+                                                                              •
+                                                                         !
+                                                                                                       
+of perverse sheaves, with kernel      and cokernel given by H
+spectively, and µH i j! j ! [1]I• = 0 for i ̸= −1, 0. As I• has no non-zero perverse subobjects whose
+                                 
+
+support is contained in a nowhere dense subset of supp I• , we conclude that µH −1 j! j ! [1]I• = 0
+                                                                                                       
+
+and, hence, that j! j ! [1]I• is perverse. The dual argument implies that j∗ j ∗ [−1]I• is perverse.
+   Continuing with the assumptions of the previous paragraph, we obtain that the two canonical
+distinguished triangles yield short exact sequences in P erv(X):
+                                            var
+                        0 → ϕf [−1]P• −−−−→ ψf [−1]P• −→ j ! [1]P• −→ 0
+and
+                                                          can
+                        0 → j ∗ [−1]P• → ψf [−1]P• −−−−→ ϕf [−1]P• → 0.
+
+Thus, the image, in P erv(X), of the endomorphism var ◦ can = id −Tf on ψf [−1]P• is isomorphic
+to ϕf [−1]P• .
+
+   Let F• be a bounded complex of sheaves on X which is constructible with respect to a
+connected Whitney stratification {Sα } of X, and let dα := dim Sα . Then, µH 0 (F• ) is also con-
+structible with respect to S, and µH 0 (F• ) | [−dα ] is naturally isomorphic to µH 0 (F• |Nα [−dα ]),
+                                                Nα
+where Nα denotes a normal slice to Sα .
+                                                                    •
+   Let Smax
+           be a maximal stratum contained in the support of F , and let m = dimS       max . Then,
+        •
+ µ 0
+  H (F ) |       is isomorphic (in the derived category) to the complex which has (H−m (F• ))|S
+            Smax                                                                                 max
+in degree −m and zero in all     other degrees.
+   In particular, supp F• = i supp µH i (F• ), and if F• is supported on an isolated point, q, then
+                               S
+H ( H (F• ))q ∼
+  0 µ 0
+                 = H 0 (F• )q . From this, and the fact that perverse cohomology commutes with
+nearby and vanishing cycles shifted by −1, one easily concludes that, at all points x ∈ X,
+                                              X
+                                  χ(F• )x =    (−1)k χ µH k (F• ) x .
+                                                                 
+
+                                                  k
+
+
+Switching Coefficients
+   Suppose that the base ring R is a p.i.d. For each prime ideal p of R, let kp denote the field
+of fractions of R/p, i.e., k0 is the field of fractions of R, and for p ̸= 0, kp = R/p. There
+are the obvious functors δp : Dbc (RX ) → Dbc ((kp )X ), which sends F• to F• ⊗L (kp )•X , and
+ϵp : Dbc ((kp )X ) → Dbc (RX ), which considers kp -vector spaces as R-modules.
+48                                               DAVID B. MASSEY
+
+
+   If A• is a complex of kp -vector spaces, we may consider the perverse cohomology of A• ,
+µ
+ Hkip (A• ), or the perverse cohomology of ϵp (A• ), which we denote by µHRi (A• ). If A• ∈
+Dbc ((kp )X ) and Smax is a maximal stratum contained in the support of A• , then there is a
+canonical isomorphism
+                              ϵp (µHkip (A• ))|Sα ∼= (µHRi (A• ))|Sα ;
+                                                 
+
+in particular, supp µHkip (A• ) = supp µHRi (A• ).
+   If F• ∈ Dbc (RX ), Smax is a maximal stratum contained in the support of F• , and x ∈ Smax ,
+then for some prime ideal p ⊂ R and for some integer i, H i (F• )x ⊗ kp ̸= 0; it follows that Smax
+                                                        •
+is also a maximal stratum in the support of F• ⊗L (kp )X . Thus,
+                                                               •
+                                             [
+                                 supp F• =     supp(F• ⊗L (kp )X )
+                                                       p
+
+and so
+                                                                               •
+                                                [
+                                   supp F• =           supp µHkip (F• ⊗L (kp )X ),
+                                                 i,p
+where the boundedness and constructibility of F• imply that this union is locally finite.
+
+                                                   References
+      [1] N. A’Campo, Le nombre de Lefschetz d’une monodromie, Proc. Kon. Ned. Akad. Wet., Series A, vol. 76
+          1973, pages 113–118
+
+      [2] Beilinson, J. Berstein, and P. Deligne ıFaisceaux Pervers, Astérisque vol. 100, Soc. Math de France, 1983
+
+      [3] A. Borel et al., Intersection Cohomology, Progress in Math. 50, Birkhauser, 1984.
+
+      [4] J. Briançon, P. Maisonobe, and M. Merle, Localisation de systèmes différentiels, stratifications de Whit-
+          ney et condition de Thom, Invent. Math., vol. 117, 1994, 531–550
+
+      [5] J. Brylinski Transformations canoniques, Dualité projective, Théorie de Lefschetz, Transformations de
+          Fourier et sommes trigonométriques, Astérisque. vol. 140, Soc. Math de France, 1986
+
+      [6] P. Deligne, Comparaison avec la théorie transcendante, Séminaire de géométrie algébrique du Bois-Marie,
+          SGA 7 II, Springer Lect. Notes, vol. 340, 1973
+
+      [7] A. Dimca, Sheaves in Topology, Universitext, Springer-Verlag, 2004
+
+      [8] V. Ginsburg, Characteristic Varieties and Vanishing Cycles, Inv. Math., vol. 84, 1986, 327–403
+
+      [9] M. Goresky and R. MacPherson, Morse Theory and Intersection Homology, Analyse et Topologie sur les
+          Espaces Singuliers, Astérisque, vol. 101, Soc. Math. France, 1983, 135–192
+
+     [10] M. Goresky and R. MacPherson, Stratified Morse Theory, Springer-Verlag, Berlin, Ergebnisse der Math.
+          vol. 14, 1988
+
+     [11] M. Goresky and R. MacPherson, Intersection homology II, Inv. Math., vol. 71, 1983, 77-129
+
+     [12] M. Goresky and R. MacPherson, Intersection homology theory, Topology, vol. 19, 1980, 135–162
+
+     [13] P. P. Grivel, Les foncteurs de la categorie des faisceaux associes a une application continue, Intersection
+          Cohomology, Prog. in Math., vol. 50, 1984, 183–207
+
+     [14] R. Hartshorne, Residues and Duality, Springer Lecture Notes, vol. 20, Springer-Verlag, 1966
+
+     [15] B. Iverson Cohomology of Sheaves, Springer-Verlag, 1986
+
+     [16] M. Kashiwara and P. Schapira, Sheaves on Manifolds, Grund. der math. Wiss., vol. 292, Springer -
+          Verlag, 1990
+                      NOTES ON PERVERSE SHEAVES AND VANISHING CYCLES                                             49
+
+
+[17] Lê D. T., Morsification of D-Modules, Bol. Soc. Mat. Mexicana (3) vol. 4, 229–248, 1998
+
+[18] Lê D. T. Sur les cycles évanouissants des espaces analytiques, C.R. Acad. Sci. Paris, Ser. A, vol. 288,
+     283–285, 1979
+
+[19] E. Looijenga, Isolated Singular Points on Complete Intersections, Cambridge. Univ. Press, 1984
+
+[20] R. MacPherson, Global Questions in the Topology of Singular Spaces, Proc. Internat. Congress of Math.,
+     Warsaw, 213–235, 1983
+
+[21] R. MacPherson, Intersection Homology and Perverse Sheaves, unpublished AMS notes, 1–161, 1990
+
+[22] R. MacPherson and K. Vilonen, Elementary construction of perverse sheaves, Invent. Math., vol. 84,
+     403–435, 1986
+
+[23] A. Neeman, Triangulated Categories, Annals of Math. Studies, vol. 148, 2001
+
+[24] A. Parusiński , Limits of Tangent Spaces to fibers and the wf Condition, Duke Math. J., vol. 72, 99–108,
+     1993
+
+[25] M. Saito, Modules de Hodge polarisables, Publ. RIMS, Kyoto Univ., vol. 24, 849–995, 1988
+
+[26] J. Schürmann, Topology of Singular Spaces and Constructible Sheaves, Monografie Matematyczne, vol.
+     63, Birkhauser, 2003
+
+[27] J. L. Verdier, Catégories dérivées, Etat 0, SGA 4 21 , Lecture Notes in Math., vol. 569, 262–311, 1977
+
+David B. Massey, Dept. of Mathematics, Northeastern University, Boston, MA, 02115, USA
+Email address: d.massey@northeastern.edu
+
