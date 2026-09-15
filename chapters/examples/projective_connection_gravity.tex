@@ -1,0 +1,649 @@
+\chapter{Projective connections and three-dimensional geometry}
+\label{ch:projective-gravity}
+
+A second-order equation records how two independent solutions change along a curve.
+Their ratio removes the choice of a common scale and retains a projective coordinate.
+Two such equations, one for each boundary direction, can determine a three-dimensional metric.
+The metric exists where the corresponding three one-forms are independent.
+This independence condition distinguishes a gravitational geometry from a pair of flat matrix connections.
+
+The quadratic central current supplies the coefficient of the differential equation.
+The construction therefore has three substantive steps: evaluate that current, retain its coordinate transformation, and construct a nondegenerate metric.
+The constant-coefficient case will also determine a regular extension through a horizon.
+
+\section{The central character and its differential equation}
+
+Let $z$ be a complex coordinate on a disc punctured at $0$.
+It measures position along the curve on which the fields are evaluated.
+It is independent of the coordinate on the cotangent surface.
+Write $\partial_z$ for differentiation with respect to $z$.
+For a meromorphic function $\chi(z)$ with a pole of finite order, consider
+\[
+ \mathcal U(z)=\frac{\chi(z)^2}{4}-\frac{\partial_z\chi(z)}2,
+ \qquad \mathscr D_z=\partial_z^2-\mathcal U(z).
+\]
+The product of two differential operators means composition, with the right factor acting first.
+The product rule gives
+\begin{equation}\label{eq:pg-miura}
+ \mathscr D_z=
+ \left(\partial_z-\frac{\chi(z)}2\right)
+ \left(\partial_z+\frac{\chi(z)}2\right).
+\end{equation}
+The derivative term is forced by this order.
+
+This coefficient is an evaluation of the critical quadratic current.
+At affine level $-2$, the field $a$ has commuting modes and zero singular product with every field.
+The exact quadratic expression from \eqref{eq:cc-miura} is
+\[
+ S=\tfrac12:a^2:-Ta.
+\]
+Here $T$ differentiates fields in $z$, and the colons denote the regular product.
+Expand $a(z)=\sum_{n\in\mathbb Z}a_nz^{-n-1}$.
+The assignment $a_n\mapsto\chi_n$ is a representation of its commuting mode algebra when
+$\chi(z)=\sum_n\chi_nz^{-n-1}$.
+The finite pole order ensures $\chi_n=0$ for sufficiently large $n$.
+Thus each field acts as a Laurent series bounded below on each vector.
+Tensor this one-dimensional mode representation with the polynomial $\beta\gamma$ representation.
+The critical current formulas still act: all commutators involving the substituted $a_n$ vanish, as required.
+Products and derivatives of central fields act by products and derivatives of $\chi$.
+Consequently
+\[
+ S(z)\longmapsto\tfrac12\chi(z)^2-\partial_z\chi(z)=2\mathcal U(z).
+\]
+This is a character on a module; it preserves the positional dependence of the field.
+
+For $\nu\in\mathbb C$, the mode character $a_0=\nu$, $a_n=0$ for $n\ne0$, gives
+\begin{equation}\label{eq:pg-euler}
+ \chi(z)=\frac\nu z,
+ \qquad \mathcal U_\nu(z)=\frac{\nu(\nu+2)}{4z^2},
+ \qquad \mathscr D_z\psi=0.
+\end{equation}
+The scalar $\nu(\nu+2)$ is the quadratic central character of the differential-operator module already constructed.
+The shift by $2$ comes from differentiating $\nu/z$ in \eqref{eq:pg-miura}.
+Replacing the factors by commuting symbols would instead give $\nu^2$.
+
+Choose a branch of $\log z$ on a simply connected part of the punctured disc.
+Substitution of $\psi=z^\alpha=\exp(\alpha\log z)$ into \eqref{eq:pg-euler} gives
+\[
+ \alpha(\alpha-1)=\frac{\nu(\nu+2)}4.
+\]
+The roots are $(\nu+2)/2$ and $-\nu/2$.
+The Wronskian of functions $\psi_1,\psi_2$ means $\psi_1'\psi_2-\psi_1\psi_2'$.
+When $\nu\ne-1$, the corresponding powers are independent because their Wronskian is a nonzero constant.
+Its derivative is zero for two solutions of this equation.
+At $\nu=-1$, substitution verifies the independent solutions
+\[
+ z^{1/2},\qquad z^{1/2}\log z.
+\]
+Thus an integral difference between distinct exponents produces no logarithm in this Euler equation.
+The logarithm occurs at the repeated exponent.
+
+Analytic continuation once counterclockwise around $0$ is called monodromy.
+For $\nu\ne-1$, its eigenvalues on the displayed powers are
+$e^{\pi i\nu}$ and $e^{-\pi i\nu}$.
+At $\nu=-1$, it acts on the ordered solution row by
+\[
+ (\psi_1,\psi_2)\longmapsto
+ (\psi_1,\psi_2)
+ \begin{pmatrix}-1&-2\pi i\\0&-1\end{pmatrix}.
+\]
+The reflection $\nu\mapsto-\nu-2$ preserves the equation and exchanges the two distinct exponents.
+It retains the differential equation while changing the selected first-order factor.
+The invariant $\nu(\nu+2)=(\nu+1)^2-1$ is unchanged when $\nu+1$ changes sign.
+At the fixed point $\nu=-1$, the coalescence of the exponents requires the logarithmic solution to retain the full monodromy.
+
+\section{Why the coefficient is a projective connection}
+
+The equation $\psi''=\mathcal U\psi$ can be written as a first-order matrix equation
+\[
+ \frac{d}{dz}\begin{pmatrix}\psi'\\\psi\end{pmatrix}
+ =\begin{pmatrix}0&\mathcal U\\1&0\end{pmatrix}
+  \begin{pmatrix}\psi'\\\psi\end{pmatrix}.
+\]
+If $\mathcal U$ is holomorphic on a disc, prescribed initial values determine a unique holomorphic solution.
+Here is a direct existence argument.
+For the matrix coefficient $M(z)$, iterate
+$Y(z)=I+\int_{z_0}^zM(w)Y(w)\,dw$ along a segment in a smaller disc.
+If $\|M\|\le C$ and its radius is $d$, the term with $n$ integrals has norm at most $(Cd)^n/n!$.
+The resulting series and its differentiated series converge uniformly on smaller discs.
+They give $Y'=MY$ and $Y(z_0)=I$.
+Applying the same iterated estimate to a difference proves uniqueness.
+The trace of $M$ is zero, so differentiating the two-column determinant gives $\det Y=1$.
+Continuation through overlapping discs therefore gives a two-dimensional local solution space with preserved Wronskian.
+
+Let $z=f(t)$ be a holomorphic change of coordinate with $f'(t)\ne0$.
+Locally choose a square root of $f'$ and set
+\[
+ \widetilde\psi(t)=(f'(t))^{-1/2}\psi(f(t)).
+\]
+The exponent $-1/2$ is forced by the requirement that the transformed equation have no first derivative.
+Indeed, for a general multiplier $h(t)$, the coefficient of $\psi'(f(t))$ in
+$(h\psi(f))''$ is $2h'f'+hf''$.
+It vanishes exactly when $h$ is a constant multiple of $(f')^{-1/2}$.
+Such transformation laws define a section of the inverse square root of the cotangent line, also called a differential of weight $-1/2$.
+Square roots on several charts require compatible choices of signs.
+The projective equation below does not depend on those signs.
+
+Define the Schwarzian derivative by
+\[
+ \{f,t\}=\frac{f'''}{f'}-\frac32\left(\frac{f''}{f'}\right)^2.
+\]
+Differentiating $h=(f')^{-1/2}$ gives $h''/h=-\{f,t\}/2$.
+Hence
+\begin{equation}\label{eq:pg-projective-law}
+ \widetilde\psi''-\widetilde{\mathcal U}\widetilde\psi
+ =(f')^{3/2}(\psi''-\mathcal U\psi)\circ f,
+ \qquad
+ \widetilde{\mathcal U}=(f')^2\mathcal U\circ f-\tfrac12\{f,t\}.
+\end{equation}
+A projective connection is a collection of local coefficients related by this transformation law.
+The chain rule for third derivatives gives
+\[
+ \{f\circ g,s\}=(g')^2\{f,g(s)\}+\{g,s\}.
+\]
+Thus the law composes on triple overlaps.
+The difference of two projective connections transforms by multiplication by $(f')^2$.
+It is therefore a quadratic differential, meaning a section locally written $q(z)(dz)^2$.
+
+A projective coordinate is a local function with nonzero derivative, considered up to the fractional linear changes $(aF+b)/(cF+d)$ with $ad-bc\ne0$.
+
+\begin{proposition}\label{prop:pg-projective-ratio}
+The ratio of two independent solutions gives local projective coordinates whose Schwarzian is $-2\mathcal U$.
+Every holomorphic projective connection admits a local factorization \eqref{eq:pg-miura}.
+The choice of factorization is the choice of a nonvanishing solution line.
+\end{proposition}
+\begin{proof}
+Let $F=\psi_1/\psi_2$ on a region where $\psi_2\ne0$.
+Writing its nonzero constant Wronskian as $W$ gives
+$F'=W/\psi_2^2$ and $F''/F'=-2\psi_2'/\psi_2$.
+Substitution in the Schwarzian yields $\{F,z\}=-2\psi_2''/\psi_2=-2\mathcal U$.
+A change of solution basis sends $F$ to $(aF+b)/(cF+d)$, with $ad-bc\ne0$.
+Its Schwarzian is unchanged, as direct differentiation of this fraction shows.
+These fractional linear transformations are the changes of projective coordinate.
+
+Choose a solution $\psi_0$ with $\psi_0(z_0)=1$.
+It remains nonzero after shrinking the disc.
+Set $\chi=-2\psi_0'/\psi_0$.
+Then $\chi^2/4-\chi'/2=\psi_0''/\psi_0=\mathcal U$.
+Multiplying $\psi_0$ by a nonzero constant does not change $\chi$.
+Conversely, the first-order equation $(\partial_z+\chi/2)\psi_0=0$
+has precisely one solution line on a simply connected disc.
+This proves the last assertion.
+\end{proof}
+
+The first-order coefficient has the transformation law
+\[
+ \widetilde\chi=f'\chi\circ f+\frac{f''}{f'}.
+\]
+Inserting it into \eqref{eq:pg-miura} gives \eqref{eq:pg-projective-law}, including the Schwarzian term.
+This is the rank-two Miura construction in explicit coordinates.
+The solution columns transform by the explicit matrix
+\[
+ \begin{pmatrix}\widetilde\psi'\\\widetilde\psi\end{pmatrix}
+ =\begin{pmatrix}(f')^{1/2}&-f''/(2(f')^{3/2})\\0&(f')^{-1/2}\end{pmatrix}
+   \begin{pmatrix}\psi'\circ f\\\psi\circ f\end{pmatrix}.
+\]
+Its determinant is one, and its upper triangular form preserves the first coordinate line.
+These matrices glue the local two-dimensional vector spaces and their connection equations into a rank-two bundle with a flat connection.
+A line subbundle chooses a one-dimensional subspace varying holomorphically in each fibre.
+A rank-two oper here is such a determinant-one flat bundle with a line subbundle whose derivative maps isomorphically to the quotient tensored with the cotangent line.
+In the displayed first-order system, take the first coordinate line.
+Its derivative has nonzero second component, so it has this property.
+The half-differential transformations give the same local scalar operator description.
+A selected flat solution line is the additional Miura datum.
+A zero of the selected solution produces a pole in $\chi$.
+A global holomorphic factorization therefore requires a nowhere-zero solution line preserved by monodromy.
+These requirements can obstruct a factorization on a prescribed domain without additional poles.
+
+For \eqref{eq:pg-euler}, the projective coordinates can be chosen as
+\[
+ F(z)=z^{\nu+1}\quad(\nu\ne-1),\qquad F(z)=\log z\quad(\nu=-1).
+\]
+The repeated exponent therefore has nontrivial projective monodromy even though both linear eigenvalues coincide.
+
+\section{Two real flat connections}
+
+A real Lorentzian metric needs both a time direction and a space direction.
+Supply two smooth real functions $p(x^+)$ and $q(x^-)$ on real intervals, and a length $\ell>0$.
+The functions may be restrictions of \eqref{eq:pg-euler} with real $\nu$ on positive intervals.
+They may also be chosen independently.
+Introduce a dimensionless radial coordinate $r$.
+All three coordinates $(r,x^+,x^-)$ vary independently.
+
+Let $\mathfrak{sl}_2(\mathbb R)$ be the traceless real $2\times2$ matrices, with bracket $[X,Y]=XY-YX$.
+Use the basis
+\[
+ L_0=\frac12\begin{pmatrix}1&0\\0&-1\end{pmatrix},\qquad
+ L_1=\begin{pmatrix}0&0\\-1&0\end{pmatrix},\qquad
+ L_{-1}=\begin{pmatrix}0&1\\0&0\end{pmatrix}.
+\]
+Matrix multiplication gives $[L_m,L_n]=(m-n)L_{m+n}$ whenever the displayed indices occur.
+A matrix connection is an operator $d+A$ on column-valued functions, where $A$ is a matrix-valued one-form.
+Its curvature is $F_A=dA+A\wedge A$.
+The exterior product combines matrix multiplication with the alternating product of coordinate differentials.
+Thus $(A\wedge A)_{ij}=[A_i,A_j]$ for two different coordinate indices.
+The connection is flat when $F_A=0$.
+
+Put $b=\exp(rL_0)$ and define
+\begin{align}
+ A^+&=b^{-1}(L_1-pL_{-1})b\,dx^++b^{-1}db,
+       \label{eq:pg-connections}\\
+ A^-&=b(L_{-1}-qL_1)b^{-1}\,dx^-+b\,db^{-1}.\notag
+\end{align}
+The untransformed one-form $(L_1-p(x^+)L_{-1})dx^+$ has zero exterior derivative and zero exterior square.
+The same holds for the minus connection.
+Under $A\mapsto g^{-1}Ag+g^{-1}dg$, direct differentiation gives
+$F_A\mapsto g^{-1}F_Ag$.
+Both connections in \eqref{eq:pg-connections} are therefore flat.
+
+The scalar equations enter through actual horizontal sections.
+The equation $(d+(L_1-pL_{-1})dx^+)v=0$ is solved by
+$v=(\psi',\psi)^t$ exactly when $\psi''=p\psi$.
+For the minus connection, the column $(\psi,-\psi')^t$ is horizontal exactly when $\psi''=q\psi$.
+Multiplication by $b^{-1}$ or $b$ gives the corresponding radial horizontal sections.
+Thus the original projective equations determine the boundary parallel transport of these specified connections.
+
+\section{The metric and its curvature}
+
+The difference of the two connections defines a matrix-valued one-form
+\[
+ e=\frac\ell2(A^+-A^-),\qquad
+ \omega=\frac12(A^++A^-).
+\]
+The form $e$ is a triad when the map $e:T_xM\to\mathfrak{sl}_2(\mathbb R)$ is invertible at every point.
+It identifies a tangent vector with its components in a local Lorentz frame.
+The invariant bilinear form $B(X,Y)=2\operatorname{Tr}(XY)$ has signature $(-,+,+)$.
+For example, the basis
+\[
+ J_0=\tfrac12(L_1+L_{-1}),\qquad
+ J_1=\tfrac12(L_{-1}-L_1),\qquad J_2=L_0
+\]
+has $B(J_a,J_b)=\operatorname{diag}(-1,1,1)_{ab}$.
+Consequently an invertible triad defines a Lorentzian metric
+$g(V,W)=B(e(V),e(W))$.
+
+Write $s=e^r>0$.
+The three columns of $e$ in the ordered basis $(L_0,L_1,L_{-1})$ are
+\[
+ e_r=\ell L_0,\qquad
+ e_+=\frac\ell2(sL_1-ps^{-1}L_{-1}),\qquad
+ e_-=\frac\ell2(qs^{-1}L_1-sL_{-1}).
+\]
+Their determinant and their metric are
+\begin{align}
+ \det(e_r,e_+,e_-)&=-\frac{\ell^3}{4}(s^2-pq\,s^{-2}),
+       \label{eq:pg-triad}\\
+ ds_g^2&=\ell^2\bigl(dr^2+p(dx^+)^2+q(dx^-)^2
+                  +(s^2+pq\,s^{-2})dx^+dx^-\bigr).
+       \label{eq:pg-metric}
+\end{align}
+Here $ds_g^2$ denotes the metric's quadratic form; the mixed coefficient is twice $g_{+-}$.
+Its determinant in these coordinates is
+$-\ell^6(s^2-pq\,s^{-2})^2/4$.
+
+For a connection $\nabla$ on tangent vectors, use the curvature convention
+\[
+ \mathcal R(V,W)Z=\nabla_V\nabla_WZ-\nabla_W\nabla_VZ-\nabla_{[V,W]}Z.
+\]
+Its Ricci tensor is $\operatorname{Ric}(W,Z)=\operatorname{Tr}(V\mapsto\mathcal R(V,W)Z)$.
+Its scalar curvature is the contraction of this tensor with the inverse metric.
+Constant sectional curvature $K$ means
+$\mathcal R(V,W)Z=K(g(W,Z)V-g(V,Z)W)$.
+These definitions apply to Lorentzian metrics as well as positive definite metrics.
+
+\begin{theorem}\label{thm:pg-local-einstein}
+On the open set $s^4\ne pq$, formula \eqref{eq:pg-metric} is a smooth Lorentzian metric of constant sectional curvature $-\ell^{-2}$.
+Its Ricci tensor is $-2\ell^{-2}g$ and its scalar curvature is $-6\ell^{-2}$.
+Every compact pair of boundary intervals admits a nondegenerate collar at sufficiently large $r$.
+\end{theorem}
+\begin{proof}
+Adding and subtracting the flatness equations gives
+\begin{equation}\label{eq:pg-frame-equations}
+ de+\omega\wedge e+e\wedge\omega=0,
+ \qquad F_\omega+\ell^{-2}e\wedge e=0.
+\end{equation}
+The first equation says that the covariant derivative
+\[
+ \nabla_VW=e^{-1}\bigl(V(e(W))+[\omega(V),e(W)]\bigr)
+\]
+has zero torsion: $\nabla_VW-\nabla_WV=[V,W]$.
+The trace identity $B([X,Y],Z)+B(Y,[X,Z])=0$ proves compatibility with $g$.
+This is the Levi--Civita connection.
+For uniqueness, the difference of two metric-compatible connections is skew in its last two lowered indices.
+Zero torsion makes it symmetric in the first two.
+Cycling these symmetries changes its sign without changing the tensor, so the difference vanishes.
+
+The matrix identity
+\[
+ [[X,Y],Z]=B(Y,Z)X-B(X,Z)Y
+\]
+follows by evaluating the three basis matrices and extending trilinearly.
+The second equation in \eqref{eq:pg-frame-equations} therefore gives
+\[
+ \mathcal R(V,W)Z=-\ell^{-2}\bigl(g(W,Z)V-g(V,Z)W\bigr).
+\]
+This is constant curvature $-\ell^{-2}$, with the stated contractions.
+Finally, $pq$ is bounded on compact boundary intervals.
+Choose $r_0$ with $e^{4r_0}$ larger than that bound.
+Equation \eqref{eq:pg-triad} is then nonzero for $r>r_0$.
+\end{proof}
+
+For $p=q=0$, introduce time $t=\ell(x^+-x^-)/2$ and space $\varphi=(x^++x^-)/2$.
+The metric becomes
+\[
+ ds_g^2=\ell^2dr^2+e^{2r}(\ell^2d\varphi^2-dt^2).
+\]
+This fixes the sign of the time direction in \eqref{eq:pg-metric}.
+In particular, its positive $dx^+dx^-$ coefficient is consistent with Lorentzian signature.
+
+\section{The gravitational action and its normalization}
+
+An action determines which variations represent the equations of motion and fixes the coupling of boundary observables.
+Choose an oriented compact region in the nondegenerate collar, and restrict variations to its interior.
+Write $e=\theta^aJ_a$ and choose the orientation for which
+$\mathrm{vol}_e=\theta^0\wedge\theta^1\wedge\theta^2$ is positive.
+Repeated frame indices run from $0$ to $2$.
+The one-forms $\theta^a$ constitute an orthonormal coframe for $g$.
+Let $G>0$ have dimensions of length; in three dimensions it is Newton's constant.
+Set
+\[
+ I_{\mathrm P}[e,\omega]
+ =\frac1{4\pi G}\int\operatorname{Tr}
+       \left(e\wedge F_\omega+\frac1{3\ell^2}e\wedge e\wedge e\right).
+\]
+The subscript denotes the first-order, or Palatini, action in which $e$ and $\omega$ vary independently.
+
+\begin{proposition}\label{prop:pg-action}
+Interior variations of $I_{\mathrm P}$ give exactly \eqref{eq:pg-frame-equations}.
+After eliminating the torsion-free connection, the action is
+\[
+ I_{\mathrm{EH}}[g]=\frac1{16\pi G}\int
+          (\mathrm{Scal}(g)+2\ell^{-2})\,\mathrm{vol}_g.
+\]
+Define $\mathrm{CS}(A)=\operatorname{Tr}(A\wedge dA+\tfrac23A\wedge A\wedge A)$.
+For $k=\ell/(4G)$ and $A^\pm=\omega\pm e/\ell$, the exact identity of actions is
+\begin{equation}\label{eq:pg-action-comparison}
+ \frac{k}{4\pi}\int\bigl(\mathrm{CS}(A^+)-\mathrm{CS}(A^-)\bigr)
+ =I_{\mathrm P}-\frac1{8\pi G}\int_{\partial M}\operatorname{Tr}(\omega\wedge e).
+\end{equation}
+\end{proposition}
+\begin{proof}
+The variation of $F_\omega$ is $D_\omega\delta\omega$.
+The identity
+$d\operatorname{Tr}(e\wedge\delta\omega)
+=\operatorname{Tr}(D_\omega e\wedge\delta\omega-e\wedge D_\omega\delta\omega)$
+integrates the connection variation by parts.
+Cyclicity of the trace makes the cubic variation three times
+$\operatorname{Tr}(\delta e\wedge e\wedge e)$.
+The interior variation is therefore
+\[
+ 4\pi G\,\delta I_{\mathrm P}
+ =\int\operatorname{Tr}\bigl(
+   \delta e\wedge(F_\omega+\ell^{-2}e\wedge e)
+   +D_\omega e\wedge\delta\omega\bigr).
+\]
+The trace pairing is nondegenerate, so the independent variations give both equations.
+
+The chosen matrices satisfy
+$\operatorname{Tr}(J_0[J_1,J_2])=1/2$.
+Antisymmetrizing the three factors gives
+$\operatorname{Tr}(e\wedge e\wedge e)=3\mathrm{vol}_e/2$.
+For the curvature term, write
+$F_\omega=\tfrac12F^a{}_{bc}J_a\theta^b\wedge\theta^c$.
+If $\epsilon^{012}=1$ denotes the alternating symbol, its coefficient is
+\[
+ \operatorname{Tr}(e\wedge F_\omega)
+   =\tfrac14\eta_{ad}F^d{}_{bc}\epsilon^{abc}\,\mathrm{vol}_e,
+ \qquad \eta=\operatorname{diag}(-1,1,1).
+\]
+The curvature acts on the frame by $[F_\omega,J_b]$.
+Contracting its matrix coefficients with $\eta^{ab}$ gives
+$\mathrm{Scal}=\eta_{ad}F^d{}_{bc}\epsilon^{abc}$.
+This last equality can also be checked directly from
+$[J_0,J_1]=J_2$, $[J_1,J_2]=-J_0$, and $[J_2,J_0]=J_1$.
+The two trace identities give $I_{\mathrm{EH}}$.
+
+For any matrix-valued one-form $v$, expand the two cubic expressions and use the graded cyclic trace.
+The result is
+\[
+ \mathrm{CS}(\omega+v)-\mathrm{CS}(\omega-v)
+ =4\operatorname{Tr}(v\wedge F_\omega+\tfrac13v^3)
+     -2d\operatorname{Tr}(\omega\wedge v).
+\]
+For the derivative terms this uses
+$d\operatorname{Tr}(\omega\wedge v)
+=\operatorname{Tr}(d\omega\wedge v-\omega\wedge dv)$.
+Substitute $v=e/\ell$, multiply by $k/(4\pi)$, and use Stokes' formula.
+This proves \eqref{eq:pg-action-comparison} with its stated boundary term.
+\end{proof}
+
+The normalization depends on the trace and orientation just fixed.
+Reversing the orientation changes the sign of every action integral.
+Boundary variations that do not vanish require a boundary action and boundary conditions beyond the interior variational problem above.
+
+\section{Boundary transformations and the Virasoro bracket}
+
+The projective transformation law has an infinitesimal form.
+For $f(x)=x+\varepsilon\epsilon(x)$, where $\varepsilon^2=0$, equation
+\eqref{eq:pg-projective-law} gives
+\begin{equation}\label{eq:pg-variation}
+ \delta_\epsilon p=\epsilon p'+2\epsilon'p-\tfrac12\epsilon'''.
+\end{equation}
+The same formula follows from the boundary connection itself.
+Let $a=(L_1-p(x)L_{-1})dx$ and let $\lambda$ be a traceless matrix function.
+An infinitesimal gauge transformation is $\delta a=d\lambda+[a,\lambda]$.
+To retain the coefficient of $L_1$ and keep the $L_0$ coefficient zero, write
+\[
+ \lambda_\epsilon
+ =\epsilon L_1-\epsilon'L_0+(\tfrac12\epsilon''-p\epsilon)L_{-1}.
+\]
+The $L_1$ and $L_0$ components of $d\lambda+[a,\lambda]$ then vanish.
+Its $L_{-1}$ component is $\epsilon'''/2-\epsilon p'-2\epsilon'p$.
+This proves \eqref{eq:pg-variation} by an actual connection transformation.
+
+The coefficient of its third derivative can be normalized from the action.
+Consider one Chern--Simons sector on a spatial surface $\Sigma$ with an oriented boundary circle of coordinate $x\in\mathbb R/(2\pi\mathbb Z)$.
+The boundary orientation is the one in Stokes' formula.
+The variation identity
+\[
+ \delta\mathrm{CS}(A)=2\operatorname{Tr}(\delta A\wedge F_A)
+                      -d\operatorname{Tr}(A\wedge\delta A)
+\]
+gives the one-form on the space of spatial connections
+$\Theta_\Sigma(\delta A)=-k\int_\Sigma\operatorname{Tr}(A\wedge\delta A)/(4\pi)$.
+Use the convention $\Omega_\Sigma=-d\Theta_\Sigma$ on that space.
+Its alternating pairing is
+\[
+ \Omega_\Sigma(\delta_1A,\delta_2A)
+   =\frac{k}{2\pi}\int_\Sigma\operatorname{Tr}(\delta_1A\wedge\delta_2A).
+\]
+Restrict to flat spatial connections and their tangent variations, so $D_A\delta A=0$.
+Integration by parts gives
+\begin{equation}\label{eq:pg-boundary-hamiltonian}
+ \Omega_\Sigma(D_A\lambda,\delta A)
+ =\frac{k}{2\pi}\oint\operatorname{Tr}(\lambda\,\delta a).
+\end{equation}
+Gauge transformations vanishing on the boundary are null directions of this pairing.
+Taking their quotient is the boundary phase space used here.
+These statements concern any region of flat-connection space on which the indicated boundary variations extend.
+A function $Q$ is a Hamiltonian for a variation $X$ when $\Omega_\Sigma(X,\delta A)=\delta Q$ for every allowed variation $\delta A$.
+This condition determines a generator up to null directions of the pairing.
+
+\begin{proposition}\label{prop:pg-virasoro}
+On the projective boundary form, the Hamiltonian for a fixed smooth periodic function $\epsilon$ is
+\[
+ Q_\epsilon=\frac{k}{2\pi}\oint\epsilon p\,dx.
+\]
+With $\{Q_\epsilon,Q_\zeta\}=\delta_\zeta Q_\epsilon$, its bracket is
+\begin{equation}\label{eq:pg-virasoro-bracket}
+ \{Q_\epsilon,Q_\zeta\}
+ =Q_{\epsilon\zeta'-\zeta\epsilon'}
+   -\frac{k}{4\pi}\oint\epsilon\zeta'''\,dx.
+\end{equation}
+The projective density $\mathcal L=kp$ transforms with central coefficient $c/12$, where
+$c=6k=3\ell/(2G)$.
+\end{proposition}
+\begin{proof}
+Since $\operatorname{Tr}(L_1L_{-1})=-1$ and $\delta a=-\delta p\,L_{-1}dx$,
+the right side of \eqref{eq:pg-boundary-hamiltonian} is
+$k\oint\epsilon\delta p\,dx/(2\pi)$.
+This is $\delta Q_\epsilon$.
+Although $\lambda_\epsilon$ contains $p$, the Hamiltonian parameter $\epsilon$ is held fixed.
+The displayed identity therefore establishes integrability of the charge variation.
+
+Insert \eqref{eq:pg-variation} in $\delta_\zeta Q_\epsilon$ and integrate the $p'$ term by parts around the circle.
+The coefficient of $p$ is $\epsilon\zeta'-\epsilon'\zeta$, giving the first term of \eqref{eq:pg-virasoro-bracket}.
+The remaining term is its displayed third-derivative integral.
+Three integrations by parts make it antisymmetric.
+The cocycle identity follows by inserting
+$[\epsilon,\zeta]=\epsilon\zeta'-\zeta\epsilon'$ and integrating once more; terms with total derivative order four cancel cyclically.
+Equivalently, on the Fourier functions $e^{inx}$ the central term is proportional to
+$n^3\delta_{m+n,0}$, whose cyclic identity reduces to
+$(m-n)(m+n)^3+(n-l)(n+l)^3+(l-m)(l+m)^3=0$ when $m+n+l=0$.
+For smooth periodic functions, repeated integration by parts makes the Fourier coefficients decay faster than every inverse power.
+Their differentiated Fourier series converge uniformly, so the identity extends from trigonometric polynomials to these functions.
+Thus the bracket is the central extension of circle vector fields called the Virasoro bracket.
+Finally, multiplying \eqref{eq:pg-variation} by $k$ gives the coefficient $-k/2=-c/12$.
+\end{proof}
+
+For $Q_n=Q_{e^{inx}}$, the same convention reads
+\[
+ i\{Q_m,Q_n\}=(m-n)Q_{m+n}+\frac{k}{2}m^3\delta_{m+n,0}.
+\]
+The shift $\widehat Q_n=Q_n+(k/4)\delta_{n,0}$ changes the central term to
+$\tfrac{k}{2}(m^3-m)\delta_{m+n,0}$.
+This is a classical Poisson algebra; no quantized representation has been assumed.
+The critical affine level $-2$ and the gravitational coupling $k=\ell/(4G)>0$ enter different constructions.
+The shared projective coefficient alone does not identify them.
+
+\section{Periodic geometry and a regular horizon}
+
+Suppose $p$ and $q$ are smooth $2\pi$-periodic functions.
+With $x^+=\varphi+t/\ell$ and $x^-=\varphi-t/\ell$, the identification
+$\varphi\sim\varphi+2\pi$ preserves \eqref{eq:pg-metric}.
+Periodicity bounds both functions, so one radial lower bound gives a nondegenerate collar for every $t\in\mathbb R$.
+The horizontal equations determine its two holonomies around the circle.
+A holonomy is the linear map obtained by parallel transport around the loop.
+Changing a single-valued frame conjugates that map.
+Radial gauge changes therefore preserve its conjugacy class.
+This gives a global cylindrical collar with specified monodromy, rather than a choice of a complete interior filling.
+
+Constant profiles expose what can happen at the excluded radial determinant.
+Set $p=a^2$ and $q=b^2$, with $a,b>0$.
+Define an areal radius $R$ by the proper circumference $2\pi R$ of a circle at fixed $t,r$:
+\[
+ R^2=\ell^2(s^2+p+q+pq\,s^{-2}).
+\]
+On the exterior $s^4>pq$, differentiation gives $dR/dr=\ell^2(s^2-pq\,s^{-2})/R>0$.
+Introduce
+\[
+ \begin{gathered}
+ R_+=\ell(a+b),\qquad R_-=\ell|a-b|,\\
+ N^2(R)=\frac{(R^2-R_+^2)(R^2-R_-^2)}{\ell^2R^2},\qquad
+ W(R)=\frac{\ell(p-q)}{R^2}.
+ \end{gathered}
+\]
+Substitution in \eqref{eq:pg-metric} gives
+\begin{equation}\label{eq:pg-areal}
+ ds_g^2=-N^2dt^2+\frac{dR^2}{N^2}+R^2(d\varphi+Wdt)^2.
+\end{equation}
+For example, the radial identity is
+$N^2=\ell^2(s^2-pq\,s^{-2})^2/R^2$.
+The coefficient of $dt\,d\varphi$ is $2\ell(p-q)$ in both expressions.
+The remaining coefficients give
+$N^2=R^2/\ell^2-2(p+q)+\ell^2(p-q)^2/R^2$, whose factorization is the one displayed above.
+
+A Killing vector is a vector field $K$ with $\mathcal L_Kg=0$.
+A Killing horizon is a null hypersurface to which a nonzero Killing vector is normal.
+On it, the coefficient in $\nabla_KK=\varkappa K$ is the surface gravity.
+Rescaling $K$ by a constant rescales $\varkappa$ by that constant.
+Fix the normalization $K=\partial_t-W(R_+)\partial_\varphi$ in the exterior.
+
+\begin{proposition}\label{prop:pg-horizon}
+The metric \eqref{eq:pg-areal} extends smoothly and nondegenerately through $R=R_+$.
+That hypersurface is a Killing horizon with circumference $2\pi R_+$ and surface gravity
+\[
+ \varkappa=\frac{R_+^2-R_-^2}{\ell^2R_+}
+          =\frac{4ab}{\ell(a+b)}.
+\]
+\end{proposition}
+\begin{proof}
+On the exterior, choose antiderivatives and define coordinates by
+\[
+ dv=dt+N^{-2}dR,\qquad d\vartheta=d\varphi-WN^{-2}dR.
+\]
+They are locally valid because $N$ and $W$ depend only on $R$.
+The angle $\vartheta$ remains periodic with period $2\pi$.
+Equation \eqref{eq:pg-areal} becomes
+\begin{equation}\label{eq:pg-ingoing}
+ ds_g^2=-N^2dv^2+2\,dv\,dR+R^2(d\vartheta+Wdv)^2.
+\end{equation}
+Its determinant is $-R^2$.
+All coefficients are smooth near the positive number $R_+$, including across its zero of $N^2$.
+Thus \eqref{eq:pg-ingoing} defines the claimed extension.
+Its curvature equation extends by continuity from the exterior.
+
+The chosen vector extends as $K=\partial_v-W(R_+)\partial_\vartheta$.
+It preserves the metric because its coefficients are constant in $v,\vartheta$.
+On $R=R_+$ it is null, and its metric dual is $dR$.
+It is therefore normal to that null hypersurface.
+Thus this hypersurface is a Killing horizon.
+For a Killing vector, differentiating $g(K,K)$ gives
+$\nabla_KK=-\tfrac12\operatorname{grad}(g(K,K))$.
+Here $g(K,K)=-N^2+R^2(W-W(R_+))^2$.
+At the horizon, the squared term and its derivative vanish.
+Since $\operatorname{grad}R=K$ there, the equation is
+$\nabla_KK=\tfrac12(N^2)'(R_+)K$.
+This coefficient is the surface gravity for the chosen normalization of $K$.
+Differentiating the factored $N^2$ gives the displayed value.
+The angular line element at fixed $v,R_+$ is $R_+^2d\vartheta^2$, giving the circumference.
+\end{proof}
+
+The zero of \eqref{eq:pg-triad} in these radial coordinates has therefore admitted a regular metric extension.
+For $a=0$ or $b=0$ with $a+b>0$, the same ingoing formula remains smooth at the coincident roots and has zero surface gravity.
+If $a=b=0$, the candidate horizon has $R=0$, where its determinant also vanishes; the preceding positive-radius extension does not apply.
+
+\section{Gauge transformations and invertible triads}
+
+An invertible triad also controls the relation between infinitesimal gauge transformations and changes of coordinates.
+Let $\epsilon^+,\epsilon^-$ be their two matrix parameters.
+There is a unique vector field $\xi$ such that
+\[
+ e(\xi)=\tfrac\ell2(\epsilon^+-\epsilon^-).
+\]
+Set $\lambda=(\epsilon^++\epsilon^-)/2-\omega(\xi)$.
+Then $\epsilon^\pm=A^\pm(\xi)+\lambda$.
+The formula
+\[
+ \mathcal L_\xi A=\iota_\xi F_A+D_A(\iota_\xi A)
+\]
+follows from the product rule and the definition of the Lie derivative of a one-form.
+For flat $A^\pm$, it gives
+\[
+ \delta e=\mathcal L_\xi e+[e,\lambda],\qquad
+ \delta\omega=\mathcal L_\xi\omega+D_\omega\lambda.
+\]
+The commutator term is a Lorentz rotation and leaves $g$ invariant.
+Hence the metric changes by its Lie derivative along $\xi$.
+This is a local infinitesimal comparison on the invertible-triad region.
+
+The larger space of flat connections also contains $A^+=A^-=0$, where $e=0$.
+More generally, on a contractible neighbourhood each flat connection can be separately trivialized by solving its horizontal equation.
+Their independent gauge transformations can therefore take a nondegenerate pair to a degenerate one.
+The inverse triad used to define $\xi$ ceases to exist at that boundary.
+This supplies an explicit obstruction to identifying the unrestricted gauge quotient with the space of nondegenerate gravitational metrics.
+
+The maps constructed here retain their additional data:
+\[
+ \begin{gathered}
+ \chi\longmapsto \partial_z^2-\mathcal U,\\
+ (p,q,\ell)\longmapsto(A^+,A^-)
+       \xrightarrow{\det e\ne0}(g,\nabla).
+ \end{gathered}
+\]
+The first arrow selects a projective equation from a critical character.
+The second supplies two real boundary profiles and a radial construction.
+The last uses the trace form and an invertible triad.
+For periodic profiles these data give a cylindrical collar; particular constant profiles admit the horizon extension just derived.
+An interior filling, allowed boundary variations, global gauge identifications, and a quantized state space require further mathematical data and constructions.
+They are not determined by a single quadratic central character.
