@@ -1,0 +1,769 @@
+\chapter{Chiral coordinate changes and a compensated quotient}
+\label{chap:cc-chiral-collision}
+
+The change of coordinates on a cotangent bundle transforms both positions and momenta.
+For differential operators on the projective line, it can also contain a scalar period:
+\[
+ x'=x^{-1},\qquad v'=-x^2v+\nu x,\qquad [v,x]=1.
+\]
+Here $x$ acts by multiplication, $v$ acts by differentiation, and $\nu$ is central.
+These formulas describe operators at a single energy.
+We now ask for fields whose lowest-energy operators obey these relations.
+The fields must retain singular products and derivatives with respect to their position.
+That additional requirement changes the coordinate formula.
+
+There is a second way to seek these fields.
+Start with two coordinate--momentum pairs and divide by simultaneous scaling of the coordinates.
+The classical scaling symmetry becomes anomalous for the fields.
+A compensating field removes the anomaly, but it also changes the surviving current algebra.
+We will compute the quotient, including the surviving field and the ghost zero mode.
+
+Both constructions fit a single family.
+Its parameter controls a double pole, whereas $\nu$ controls the lowest-energy action of a field.
+The family will have the same differential-operator quotient for every value of the double-pole parameter.
+It therefore gives an explicit example of information lost by passing from fields to lowest-energy operators.
+
+\section{Fields made from polynomial states}
+
+Work over $B=\mathbb C[\rho]$, where $\rho$ is an indeterminate.
+The letter $z$ denotes the formal position of a field on a complex curve.
+It is independent of the target coordinate introduced below.
+In particular, two target coordinates will not mean two complex dimensions for $z$.
+
+A state space is a $B$-module $V$ with a distinguished element $1$, called the vacuum.
+A field on $V$ is a series
+\[
+ A(z)=\sum_{n\in\mathbb Z}A_{(n)}z^{-n-1}
+\]
+of endomorphisms such that $A_{(n)}u=0$ for each fixed $u$ and all sufficiently large $n$.
+The operators $A_{(n)}$ are its modes.
+All series below are formal.
+No norm convergence or completion of the state space is required.
+
+Take the polynomial state space
+\[
+ V_\rho=B[g_n,b_n,a_n\mid n\geq0].
+\]
+Give $g_n$ weight $n$ and give $b_n,a_n$ weight $n+1$.
+The vacuum is the constant polynomial $1$.
+Define translation by the derivation
+\[
+ T=\sum_{n\geq0}(n+1)
+ \left(g_{n+1}\frac{\partial}{\partial g_n}
+       +b_{n+1}\frac{\partial}{\partial b_n}
+       +a_{n+1}\frac{\partial}{\partial a_n}\right).
+\]
+Every polynomial uses finitely many variables, so this sum defines an operator.
+The three generating fields are
+\begin{align}
+ \gamma(z)&=\sum_{n\geq0}g_nz^n
+             -\sum_{n\geq0}\frac{\partial}{\partial b_n}z^{-n-1},\label{eq:cc-free-fields}\\
+ \beta(z)&=\sum_{n\geq0}b_nz^n
+             +\sum_{n\geq0}\frac{\partial}{\partial g_n}z^{-n-1},\notag\\
+ a(z)&=\sum_{n\geq0}a_nz^n
+             +2\rho\sum_{n\geq0}(n+1)
+                \frac{\partial}{\partial a_n}z^{-n-2}.\notag
+\end{align}
+The corresponding states are $g_0,b_0,a_0$.
+We also denote these states by $\gamma,\beta,a$.
+Translation satisfies $[T,A(z)]=\partial_zA(z)$ for each generating field.
+For example, shifting the creation index gives the nonnegative powers in this identity.
+Commuting $T$ past $\partial/\partial g_n$ gives
+$-n\,\partial/\partial g_{n-1}$ and supplies the negative powers.
+
+Normal ordering moves multiplication operators to the left of differentiation operators.
+For two fields it is written $:A(z)B(z):$.
+For a monomial in generating fields and their derivatives, full normal ordering moves all its differentiation operators to the right simultaneously.
+This convention defines the field of every polynomial state.
+For example, the field of $g_0^2b_0$ is the full normal product $:\gamma^2\beta:$.
+The field of $g_n$ is $T^n\gamma/n!$, and similarly for $b_n,a_n$.
+
+The singular product $A(z)B(w)\sim\sum_{j\geq0}(A_{(j)}B)(w)(z-w)^{-j-1}$ lists its negative powers of $z-w$.
+The symbol $\sim$ discards its regular powers.
+The binary normal product $:AB:$ is the regular coefficient $A_{(-1)}B$.
+Binary normal products of composite fields need not equal their full normal products.
+Nested binary products will always retain their parentheses.
+
+Commuting one differentiation operator past one multiplication operator in
+\eqref{eq:cc-free-fields} gives
+\begin{equation}\label{eq:cc-basic-poles}
+ \beta(z)\gamma(w)\sim\frac1{z-w},\qquad
+ \gamma(z)\beta(w)\sim-\frac1{z-w},\qquad
+ a(z)a(w)\sim\frac{2\rho}{(z-w)^2}.
+\end{equation}
+All other generating singular products vanish.
+For the first formula, the relevant sum is
+$\sum_{n\geq0}w^nz^{-n-1}$, the expansion of $(z-w)^{-1}$ in nonnegative powers of $w/z$.
+Differentiating this series gives the last formula.
+The pair $(\beta,\gamma)$ is the bosonic beta--gamma system.
+The field $a$ generates a Heisenberg algebra with coefficient $2\rho$.
+At $\rho=0$ it instead generates a commutative differential algebra: all its singular products vanish.
+
+\begin{lemma}\label{lem:cc-vertex-construction}
+The state-field map just defined, together with $1$ and $T$, makes $V_\rho$ a vertex algebra.
+The construction also works on $V_\rho[g_0^{-1}]$ and on every specialization $\rho\mapsto r\in\mathbb C$.
+\end{lemma}
+\begin{proof}
+We use the vacuum, translation, and locality definition of a vertex algebra.
+The vacuum field is the identity.
+Each field applied to $1$ has no negative powers and has the prescribed state as constant coefficient.
+The translation identity extends from the generators to their derivatives and full normal products.
+Locality means that some power of $z-w$ kills the difference between the two orders of any two fields.
+
+To prove it, commute the differentiation operators in one full normal product past the multiplication operators in the other.
+Each commutation either leaves the factors unpaired or replaces one pair by a scalar series from \eqref{eq:cc-basic-poles}.
+Repeating gives the sum over all partial pairings of factors from opposite products.
+Different orders of these commutations give the same pairing with the same coefficient.
+Each pairing contributes a product of derivatives of $(z-w)^{-1}$ or $(z-w)^{-2}$.
+There are finitely many pairings for fixed polynomial states.
+The two orders are expansions of the same expression, with the sign in the second formula of \eqref{eq:cc-basic-poles}.
+Multiplication by a sufficiently high power of $z-w$ removes all denominators and makes the expansions equal.
+This proves locality.
+
+For localization, expand the inverse field around its multiplication part:
+\[
+ \gamma(z)^{-1}=\sum_{j\geq0}(-1)^j
+ \left(\sum_{n\geq0}g_nz^n\right)^{-j-1}
+ \left(-\sum_{n\geq0}\frac{\partial}{\partial b_n}z^{-n-1}\right)^j.
+\]
+On a fixed state, only finitely many values of $j$ act nontrivially.
+The first factor has a power-series inverse because $g_0$ is invertible.
+The same prescription defines rational functions of $\gamma$ whose denominators are powers of $\gamma$.
+For two localized states, every contraction still uses a beta or Heisenberg factor.
+Their total number bounds the number of contractions, even when differentiating a Laurent function of $\gamma$.
+The preceding locality argument therefore still applies.
+No step divides by $\rho$.
+
+For later use, the products satisfy the iterate identity
+\begin{align}
+ (A_{(m)}B)_{(n)}={}&\sum_{i\geq0}(-1)^i\binom mi
+ \bigl(A_{(m-i)}B_{(n+i)}
+       -(-1)^m B_{(m+n-i)}A_{(i)}\bigr).
+ \label{eq:cc-iterate}
+\end{align}
+For an arbitrary integer $m$, the binomial coefficient means
+$\binom mi=m(m-1)\cdots(m-i+1)/i!$, with $\binom m0=1$.
+Indeed, multiply the difference of the two field orders by $(z-w)^m$ and take the coefficient defining $A_{(m)}B$.
+Expand $(z-w)^m$ in each order by the binomial formula.
+Taking the remaining $w$ coefficient gives exactly the two sums in \eqref{eq:cc-iterate}.
+On any fixed state the required coefficients are finite.
+Applying this argument to three fields is legitimate because their pairings are scalar.
+Each partial pairing occurs in both iterated expansions with the same coefficient.
+Thus the identity holds for the full state-field map, including localized states.
+\end{proof}
+
+The multiplication and differentiation realization supplies more than a table of poles.
+It specifies every composite state, every regular coefficient, and all iterated products.
+These data will determine whether a coordinate change has an inverse.
+
+\section{A family of coordinate changes}
+
+Set $\kappa=\rho-2$ and define three weight-one fields
+\begin{equation}\label{eq:cc-currents}
+ e=\beta,\qquad h=-2:\gamma\beta:+a,\qquad
+ f=-:\gamma^2\beta:+:a\gamma:+\kappa T\gamma.
+\end{equation}
+The derivative term has the same weight as the other terms in $f$.
+It is forced by the singular products.
+For example, omitting it at $\rho=0$ gives a field $f_0$ with
+\[
+ f_0(z)f_0(w)\sim
+ -\frac{4\gamma(w)^2}{(z-w)^2}
+ -\frac{4\gamma(w)T\gamma(w)}{z-w}.
+\]
+A new momentum must have zero singular product with itself.
+The ordinary cotangent formula therefore cannot serve as the field transformation.
+
+\begin{proposition}\label{prop:cc-current-poles}
+The fields in \eqref{eq:cc-currents} have singular products
+\begin{align*}
+ h(z)e(w)&\sim\frac{2e(w)}{z-w},&
+ h(z)f(w)&\sim-\frac{2f(w)}{z-w},\\
+ e(z)f(w)&\sim\frac{\kappa}{(z-w)^2}+\frac{h(w)}{z-w},&
+ h(z)h(w)&\sim\frac{2\kappa}{(z-w)^2},\\
+ e(z)e(w)&\sim0,& f(z)f(w)&\sim0.
+\end{align*}
+These are the affine $\mathfrak{sl}_2$ current relations at level $\kappa$.
+Here $\mathfrak{sl}_2$ means the three-dimensional Lie algebra with
+$[h,e]=2e$, $[h,f]=-2f$, and $[e,f]=h$.
+The level is the coefficient of the double pole in $e(z)f(w)$.
+\end{proposition}
+\begin{proof}
+Put $r=z-w$.
+In $e(z)f(w)$, contraction with $-\gamma^2\beta$ gives $-2\gamma\beta/r$.
+Contraction with $a\gamma$ gives $a/r$.
+Contraction with $\kappa T\gamma$ gives $\kappa/r^2$.
+This proves the third formula.
+In $h(z)h(w)$, the two beta--gamma contractions give $-4/r^2$.
+The Heisenberg contraction adds $2\rho/r^2$.
+
+The remaining formulas follow from the same pairing rule with at most two contractions.
+The potentially nonzero self-product can be seen explicitly before adding the derivative.
+For $f_0=-\gamma^2\beta+a\gamma$, its double and simple poles are
+\[
+ \frac{2(\rho-2)\gamma^2}{r^2}
+ +\frac{2(\rho-2)\gamma T\gamma}{r}.
+\]
+The sum of the two cross-products with $\kappa T\gamma$ is their negative.
+The derivative has zero self-product.
+Thus $ff$ has no poles.
+For $hf$, the double-pole contributions from the first two summands in $f$ cancel those from its derivative term.
+Its simple pole is
+$2\gamma^2\beta-2a\gamma-2\kappa T\gamma=-2f$.
+Finally, $he$ has its single beta--gamma contraction, and $ee$ has none.
+\end{proof}
+
+On the overlap where $\gamma$ is invertible, put
+\begin{equation}\label{eq:cc-transition}
+ \gamma'=\gamma^{-1},\qquad
+ \beta'=f,\qquad
+ a'=a+2\rho\gamma^{-1}T\gamma.
+\end{equation}
+The logarithmic derivative $\gamma^{-1}T\gamma$ is an element of the localized state algebra.
+No logarithm of $\gamma$ has been adjoined.
+
+\begin{theorem}\label{thm:cc-gluing}
+The formulas \eqref{eq:cc-transition} give an isomorphism of localized vertex algebras.
+Its inverse is the same formula in the primed fields.
+They glue two affine charts to a sheaf $\mathcal V_\rho$ of vertex algebras on $\mathbb P^1$.
+The fields $e,h,f$ extend globally, with transition $(e,h,f)\mapsto(f,-h,e)$.
+\end{theorem}
+\begin{proof}
+The pairing rule gives
+\[
+ \beta'(z)\gamma'(w)\sim r^{-1},\qquad
+ a'(z)a'(w)\sim2\rho r^{-2},\qquad
+ a'(z)\beta'(w)\sim a'(z)\gamma'(w)\sim0.
+\]
+The self-products of $\beta'$ and $\gamma'$ vanish.
+For the mixed Heisenberg--momentum product, write $t=\gamma^{-1}T\gamma$.
+The contraction $a(z)f(w)$ is $2\rho\gamma(w)/r^2$.
+The product $t(z)f(w)$ is $-\gamma(w)/r^2$, with zero simple pole.
+These terms cancel in $a'f$.
+All primed generating products therefore agree with \eqref{eq:cc-basic-poles}.
+The field construction extends the assignment to a homomorphism: substitute the new fields into each full normal product and derivative.
+The pairing and residue identities ensure preservation of every product.
+
+To check its inverse, normal ordering must be retained.
+For any Laurent function $u(\gamma)$ and polynomial or Laurent function $P(\gamma)$, the regular coefficient is
+\begin{equation}\label{eq:cc-regular-correction}
+ :u(\gamma)(P(\gamma)\beta):
+ =uP\beta-u''P\,T\gamma.
+\end{equation}
+Indeed, the only cross-contraction is
+$-u'(\gamma(z))P(\gamma(w))/r$.
+Its first Taylor coefficient is the second term in \eqref{eq:cc-regular-correction}.
+Applying this twice gives
+\begin{align*}
+ :\gamma'\beta':&=-\gamma\beta+a+\rho\gamma^{-1}T\gamma,\\
+ :\gamma'(:\gamma'\beta':):&=
+ -\beta+\gamma^{-1}a+(\rho+2)\gamma^{-2}T\gamma.
+\end{align*}
+Consequently
+\[
+ -:\gamma'(:\gamma'\beta':):+:a'\gamma':
+       +(\rho-2)T\gamma'=\beta.
+\]
+Also $a'+2\rho(\gamma')^{-1}T\gamma'=a$ and $(\gamma')^{-1}=\gamma$.
+Thus the homomorphism is involutive.
+The first regular-product formula gives $h'=-h$.
+The inverse formula gives $f'=e$, while $e'=f$ by definition.
+
+On either affine chart, further principal open subsets are defined by localizing its coordinate algebra.
+The same construction localizes the fields.
+Sections on a union are pairs of sections agreeing under the overlap isomorphism.
+The inverse calculation proves the cocycle condition for this two-chart cover.
+This constructs the asserted sheaf and its global currents.
+\end{proof}
+
+At $\rho=0$, the field $a$ is central and is unchanged between charts.
+At $\rho\ne0$, it has a nonzero double pole and changes by a logarithmic derivative.
+The correction in $\beta'$ and the correction in $a'$ are parts of the same coordinate change.
+
+\section{The quadratic current and the energy operator}
+
+The singular products of $e,h,f$ suggest the quadratic expression
+\[
+ S=\tfrac12:hh:+:ef:+:fe:.
+\]
+Every colon here denotes a binary regular coefficient.
+The expression would lose a derivative term if its factors were multiplied as commuting symbols.
+
+\begin{proposition}\label{prop:cc-sugawara}
+The exact identity and singular self-product are
+\begin{align}
+ S&=2\rho:\beta T\gamma:+\tfrac12:a^2:-Ta,\label{eq:cc-miura}\\
+ S(z)S(w)&\sim
+ \frac{6\rho(\rho-2)}{(z-w)^4}
+ +\frac{4\rho S(w)}{(z-w)^2}
+ +\frac{2\rho TS(w)}{z-w}.\notag
+\end{align}
+At $\rho=0$, $S$ has zero singular product with every local field.
+If $\rho$ is invertible, $L=S/(2\rho)$ is a stress tensor of central charge $3-6/\rho$.
+\end{proposition}
+\begin{proof}
+Full normal products on the right give the three regular coefficients
+\begin{align*}
+ :hh:&=4\gamma^2\beta^2-4a\gamma\beta+a^2
+             +4\beta T\gamma-4\gamma T\beta,\\
+ :ef:&=-\gamma^2\beta^2+a\gamma\beta+(\rho-2)\beta T\gamma,\\
+ :fe:&=-\gamma^2\beta^2+a\gamma\beta+\rho\beta T\gamma
+             +2\gamma T\beta-Ta.
+\end{align*}
+For example, the single contraction in $f(z)e(w)$ has numerator
+$2\gamma(z)\beta(z)-a(z)$.
+Its first Taylor coefficient contributes $2\beta T\gamma+2\gamma T\beta-Ta$.
+This explains the difference between the last two lines.
+Their sum with half the first line proves \eqref{eq:cc-miura}.
+
+Put $U=:\beta T\gamma:$ and $A=\tfrac12:a^2:-Ta$.
+These fields commute with one another.
+Direct contractions give
+\begin{align*}
+ U(z)U(w)&\sim r^{-4}+2U(w)r^{-2}+TU(w)r^{-1},\\
+ A(z)A(w)&\sim(2\rho^2-12\rho)r^{-4}
+                    +4\rho A(w)r^{-2}+2\rho TA(w)r^{-1}.
+\end{align*}
+In the second line the fourth pole from $(-Ta)(z)(-Ta)(w)$ is $-12\rho r^{-4}$.
+This derivative contraction accounts for the shift in the central charge.
+Since $S=2\rho U+A$, the displayed self-product follows.
+
+A stress tensor is a field $L$ whose self-product is
+$c/(2r^4)+2L/r^2+TL/r$ and whose simple-pole action is translation.
+Here the generating products are
+\[
+ L(z)\gamma(w)\sim\frac{T\gamma}{r},\qquad
+ L(z)\beta(w)\sim\frac{\beta}{r^2}+\frac{T\beta}{r},\qquad
+ L(z)a(w)\sim\frac2{r^3}+\frac a{r^2}+\frac{Ta}{r}.
+\]
+The simple-pole action extends to all products as a derivation, so it equals $T$ on every state.
+The double-pole action gives the weights already assigned.
+A field of weight $d$ is primary when its product with $L$ has only the poles
+$dA/r^2+TA/r$.
+The third pole therefore means that $a$ is not primary for this stress tensor.
+At $\rho=0$, formula \eqref{eq:cc-miura} involves only the central field $a$ and its derivatives.
+Division by $\rho$ is then unavailable, but centrality of $S$ remains an exact statement.
+\end{proof}
+
+Thus the critical level $\kappa=-2$ is a singular point of the conformal construction.
+The quadratic expression remains defined there.
+Its role changes from generating the stress tensor to generating central operations.
+
+\section{Lowest-energy operators and the Zhu quotient}
+
+We next recover the differential-operator chart from the full field algebra.
+Keeping the regular product alone would not give an associative multiplication.
+The appropriate operation includes the singular coefficients selected by energy.
+
+For homogeneous states $A,B$, let $d_A$ denote the nonnegative integer weight of $A$.
+Define
+\[
+ A*B=\sum_{j=0}^{d_A}\binom{d_A}{j}A_{(j-1)}B,\qquad
+ A\circ B=\sum_{j=0}^{d_A}\binom{d_A}{j}A_{(j-2)}B.
+\]
+Let $O(V)$ be the linear span of the states $A\circ B$.
+We will prove directly for the present free fields that $*$ induces an associative product on $V/O(V)$.
+This associative algebra is the Zhu quotient.
+The definition uses the weight grading even when $\rho=0$ and the preceding stress tensor is unavailable.
+A module assigns fields to the same states on another vector space, preserving the vacuum field and the product residue identities.
+An energy grading on that space assigns an integer to each homogeneous vector.
+The energy change of a mode is the difference between its output and input energies.
+
+\begin{lemma}\label{lem:cc-zero-mode}
+Let a module have nonnegative integral energies, with $A_{(n)}$ changing energy by $d_A-n-1$.
+On its energy-zero space, put $o(A)=A_{(d_A-1)}$.
+Then $o(A*B)=o(A)o(B)$ and $o(A\circ B)=0$.
+\end{lemma}
+\begin{proof}
+Write $a=d_A$, $b=d_B$.
+For the $j$th summand of $A*B$, apply \eqref{eq:cc-iterate} with
+$m=j-1$, $n=a+b-j-1$.
+The first term contains $B_{(a+b-j-1+i)}$ on the right.
+On energy zero it vanishes unless $j=a$ and $i=0$.
+That remaining term is $o(A)o(B)$.
+In the second term, the index of $B$ is $a+b-2-i$, independent of $j$.
+Also $A_{(i)}$ vanishes on energy zero for $i\geq a$.
+For $0\leq i<a$, its summed coefficient is, up to a common sign,
+\[
+ \sum_{j=0}^a(-1)^j\binom aj\binom{j-1}{i}=0.
+\]
+The equality is the $a$th finite difference of a polynomial of degree $i<a$.
+It follows by applying $(1-u)^a$ to the generating polynomials for finite differences, or by induction on $a$.
+
+For $A\circ B$, use $m=j-2$, $n=a+b-j$.
+Every first term now annihilates energy zero.
+The second terms have the same vanishing finite difference with $\binom{j-2}{i}$.
+This proves both assertions, including $a=0$, when the second sums act by zero without any finite difference.
+\end{proof}
+
+\begin{theorem}\label{thm:cc-zhu}
+On either affine chart,
+\[
+ V_\rho/O(V_\rho)\cong
+ B[\nu]\langle x,v\rangle/(vx-xv-1),
+ \qquad [\gamma]\mapsto x,\quad[\beta]\mapsto v,\quad[a]\mapsto\nu.
+\]
+The localized quotient permits $x^{-1}$.
+These quotients glue under
+\[
+ x'=x^{-1},\qquad v'=-x^2v+\nu x,\qquad \nu'=\nu.
+\]
+In particular, the sheafified Zhu quotient of $\mathcal V_\rho$ is independent of $\rho$.
+\end{theorem}
+\begin{proof}
+Construct a module with energy-zero space $M_0=B[\nu,x]$.
+For the coordinate and momentum zero modes use $x$ and $\partial_x$.
+For the Heisenberg zero mode use multiplication by $\nu$.
+Adjoin freely all creation modes of positive energy.
+The positive modes act as the corresponding differentiations, with commutators prescribed by \eqref{eq:cc-basic-poles}.
+Writing $\mathsf a_m=a_{(m)}$ for the Heisenberg modes, their commutator is
+$[\mathsf a_m,\mathsf a_n]=2\rho m\delta_{m+n,0}$.
+Its zero mode therefore commutes with all modes, as required.
+The same scalar-pairing construction proves the module identities.
+The module is graded in nonnegative energies, with precisely $M_0$ in energy zero.
+
+The preceding lemma defines a linear map $\pi:V\to\operatorname{End}_B(M_0)$ which kills $O(V)$ and preserves $*$.
+For a full normal state $f(\gamma)\beta^p a^q$, its value is
+\begin{equation}\label{eq:cc-top-action}
+ \pi\bigl(f(\gamma)\beta^p a^q\bigr)
+       =f(x)\partial_x^p\nu^q.
+\end{equation}
+Indeed, a normal product puts every positive mode to the right, where it kills $M_0$.
+A surviving negative mode would raise energy.
+Only individual zero modes can therefore contribute to the total zero mode on $M_0$.
+Their order is the displayed multiplication followed by differentiation.
+
+It remains to show that these states span the quotient.
+Filter states by the number of beta and Heisenberg factors, counting their derivatives with the same multiplicity.
+All contractions lower this filtration.
+Consequently the highest-filtration part of $A\circ B$ is
+\[
+ (TA+d_AA)B
+\]
+in the commutative polynomial algebra of jets.
+For $A=T^n\gamma,T^n\beta,T^na$, these relations reduce every higher jet to
+\[
+ T^n\gamma=0\ (n\geq1),\qquad
+ T^n\beta=(-1)^n n!\beta,\qquad
+ T^na=(-1)^n n!a
+\]
+in that highest-filtration quotient.
+These are triangular relations with leading coefficient one.
+Multiplying them by arbitrary jet monomials reduces every state to a combination of the states in \eqref{eq:cc-top-action}, plus lower-filtration terms.
+Repeat at the lower filtration.
+At filtration zero there are no contractions, so the reduction terminates exactly.
+This argument uses only elements $A\circ B$ and their highest parts.
+It does not assume in advance that $O(V)$ is an ideal.
+
+The operators in \eqref{eq:cc-top-action} are linearly independent over $B$.
+For a relation with largest differential order $N$, commute it $N$ times with multiplication by $x$.
+The result is $N!$ times its leading coefficient, which must vanish.
+Descending in $N$ proves all coefficients zero, including their distinct powers of $\nu$.
+Thus $\ker\pi=O(V)$.
+Since $\pi$ preserves $*$, this also proves the ideal property and associativity of the quotient.
+The commutator is $[v,x]=1$ by its action on polynomials.
+
+The same argument works over $B[\nu,x,x^{-1}]$.
+For every homogeneous state, $A\circ1=TA+d_AA$.
+Thus $[T\gamma]=0$ and $[Ta]=-[a]$.
+The filtration argument also gives $[\gamma^{-1}T\gamma]=0$.
+Applying \eqref{eq:cc-top-action} to the full normal terms in \eqref{eq:cc-transition} gives the asserted overlap map.
+Define the differential-operator sheaf by these two Weyl charts and this overlap.
+The local isomorphisms agree on all further localizations, and hence identify the sheafified quotients.
+No assertion about commuting the Zhu functor with global sections has been used.
+\end{proof}
+
+The images of the global currents are
+\[
+ E=v,\qquad H=\nu-2xv,\qquad F=-x^2v+\nu x.
+\]
+Their commutators are $[H,E]=2E$, $[H,F]=-2F$, and $[E,F]=H$.
+The central quadratic expression is
+\[
+ \Omega=H^2+2H+4FE=\nu(\nu+2).
+\]
+For completeness, use $vx=xv+1$ to expand
+$H^2=\nu^2-4\nu xv+4x^2v^2+4xv$ and
+$4FE=-4x^2v^2+4\nu xv$.
+Adding $2H=2\nu-4xv$ gives the displayed scalar.
+
+The full field calculation gives the same answer:
+\[
+ 2[S]=[a^2]-2[Ta]=\nu^2+2\nu.
+\]
+Here $[\beta T\gamma]=0$ by \eqref{eq:cc-top-action} and the preceding jet reduction.
+Moreover, $e*f=:ef:+h$ and $f*e=:fe:-h$.
+Therefore the Zhu image of $2S$ is precisely $H^2+2(EF+FE)=\Omega$.
+This proves compatibility of the quadratic operation with the operator quotient.
+It also exhibits the loss of information: the same scalar $\nu(\nu+2)$ comes from every level $\kappa=\rho-2$.
+
+\section{The scaling anomaly and its compensation}
+
+We now construct a differential which implements the scaling quotient of two coordinate--momentum pairs.
+Take even fields $(g,p)$ and $(y,q)$, with
+\[
+ p(z)g(w)\sim r^{-1},\qquad q(z)y(w)\sim r^{-1}.
+\]
+Their weights are $0,1$ and $0,1$, respectively.
+Their state space and localized state spaces are defined by the same polynomial mode construction as before.
+The infinitesimal scaling current is
+\[
+ J=:gp:+:yq:.
+\]
+Its simple-pole action multiplies $g,y$ by $1$ and $p,q$ by $-1$.
+Double contraction gives $J(z)J(w)\sim-2r^{-2}$.
+
+Introduce odd fields $b,c$ of weights $1,0$ with
+$b(z)c(w)\sim c(z)b(w)\sim r^{-1}$.
+Their state space is an exterior algebra of creation modes.
+Odd differentiation replaces ordinary differentiation in the construction of their fields.
+Interchanging two odd factors introduces a minus sign.
+These auxiliary fields are the antighost and ghost.
+
+For a weight-one odd field $j_Q$, its zero mode is the odd operator
+$\operatorname{Res}_zj_Q(z)$, where the residue selects the coefficient of $z^{-1}$.
+The iterate identity shows that a zero mode is a derivation of every field product.
+The proposed charge $Q_0=\operatorname{Res}:cJ:$ has
+\[
+ Q_0b=J,\qquad Q_0J=-2Tc,\qquad Q_0^2b=-2Tc\ne0.
+\]
+Thus the anomaly prevents this charge from defining a cochain complex.
+The derivative $Tc$ is a nonzero creation state.
+
+Adjoin an independent even field $j$ with $j(z)j(w)\sim2r^{-2}$.
+Denote the resulting state space by $\mathsf C$.
+It is the tensor product of the two polynomial pair spaces, the polynomial Heisenberg space, and the exterior ghost space.
+Set
+\begin{equation}\label{eq:cc-brst-charge}
+ K=J+j,\qquad Q=\operatorname{Res}:cK:.
+\end{equation}
+The field $K$ has zero singular self-product.
+Also $c$ has zero self-product and commutes with $K$.
+It follows that $:cK:$ has zero singular self-product, so $Q^2=0$.
+This is the BRST differential, an odd differential defined by the charge in \eqref{eq:cc-brst-charge}.
+Give $c$ cochain degree $1$, $b$ degree $-1$, and the even fields degree zero.
+The differential raises cochain degree by one and preserves energy.
+Its generating actions are
+\begin{align*}
+ Qg&=:cg:,& Qy&=:cy:,& Qp&=-:cp:,& Qq&=-:cq:,\\
+ Qj&=2Tc,& Qb&=K,& Qc&=0,& QK&=0.
+\end{align*}
+
+\section{The complete local quotient}
+
+Let $\mathsf C_g=\mathsf C[g_0^{-1}]$ be the localization at the coordinate state of $g$.
+Define
+\begin{equation}\label{eq:cc-residual-fields}
+ x=y/g,\qquad v=:gq:,\qquad t=g^{-1}Tg,\qquad A=-j+2t.
+\end{equation}
+The first two fields are the coordinate and momentum of the projective chart.
+The third is a logarithmic derivative in the scaling direction.
+It satisfies $Qt=Tc$, so $A$ is closed.
+The singular products are
+\begin{align}
+ v(z)x(w)&\sim r^{-1},& A(z)A(w)&\sim2r^{-2},\label{eq:cc-residual-poles}\\
+ A(z)x(w)&\sim0,& A(z)v(w)&\sim0.\notag
+\end{align}
+The field $K$ has zero singular product with $x,v,A$, whereas
+$K(z)t(w)\sim r^{-2}$ and $K(z)g(w)\sim g(w)r^{-1}$.
+In particular, the extra field $A$ is not central.
+
+Closed generators give classes in cohomology.
+To prove that they generate all cohomology, we must also remove every state in the complementary directions by an explicit homotopy.
+
+For a field of weight $d$, use physical indices $u_m=u_{(m+d-1)}$.
+Then $u_m$ changes energy by $-m$.
+The modes $K_{-r},t_{-r},A_{-r},v_{-r}$ for $r\geq1$ are creation operators.
+For the weight-zero fields, the creation operators include $x_0,c_0$ and the modes $x_{-r},c_{-r}$ for $r\geq1$.
+
+\begin{theorem}\label{thm:cc-brst-cohomology}
+The cohomology of the localized complex is
+\[
+ H^\bullet(\mathsf C_g,Q)
+ \cong V_{\beta\gamma}(x,v)\otimes\mathcal H_2(A)\otimes\Lambda(c_0).
+\]
+Here $V_{\beta\gamma}(x,v)$ is the polynomial beta--gamma vertex algebra,
+$\mathcal H_2(A)$ is the Heisenberg vertex algebra with double-pole coefficient $2$,
+and $\Lambda(c_0)$ is the exterior algebra on one odd degree-one class.
+Translation acts by zero on $[c_0]$.
+On the relative subcomplex $\ker b_0\cap\ker K_0$, the cohomology is
+$V_{\beta\gamma}(x,v)\otimes\mathcal H_2(A)$.
+\end{theorem}
+\begin{proof}
+First establish an ordered basis of states.
+The variables $g_0^{\pm1}$ and the jets of $t$ replace all positive jets of $g$.
+Indeed, $Tg=tg$, and its successive derivatives express $T^ng$ triangularly in these new variables.
+The leading coefficient in the reverse expression for $T^{n-1}t$ is $g_0^{-1}$.
+Similarly, $y=xg$ replaces every jet of $y$ by the jets of $x$ and $g$.
+
+Filter the original states by the number of factors of $p,q,j,b$, including their derivatives.
+Put the coordinate jets and $c$ in filtration degree zero.
+Every contraction lowers this filtration.
+At its highest part, the change from momenta to $v,A,K$ is
+\[
+ v=gq,\qquad A=-j,\qquad K=gp+yq+j.
+\]
+Its determinant has absolute value $g^2$, which is invertible after localization.
+Differentiating this change gives triangular changes at every jet order, with the same invertible diagonal blocks.
+Thus the associated graded algebra has a polynomial basis in the new variables, with exterior ghost variables.
+
+Fix an order for their creation modes and put $g_0^n$, $n\in\mathbb Z$, last.
+The corresponding ordered states form a basis of the original filtered vector space.
+Spanning follows by replacing the highest-filtration symbol and descending in filtration.
+Independence follows by taking the highest nonzero symbol of a finite relation.
+Each descent is finite because each state has finite filtration degree.
+This establishes a vector-space identification, with residual states on the left, with
+\begin{equation}\label{eq:cc-brst-basis}
+ V_{\beta\gamma}(x,v)\otimes\mathcal H_2(A)
+ \otimes\mathbb C[K_{-r},t_{-r}\mid r\geq1]
+ \otimes\Lambda(b_{-r},c_{-r}\mid r\geq1)
+ \otimes\mathbb C[g_0,g_0^{-1}]\otimes\Lambda(c_0).
+\end{equation}
+It does not assert that all these factors commute as vertex algebras.
+In particular, $K$ acts nontrivially on $g$.
+The stated ordering retains that action.
+
+Since $Q$ is a zero-mode derivation, its action on each ordered state is determined by its commutators with these modes.
+The field equations give
+\[
+ [Q,b_{-r}]_+=K_{-r},\qquad
+ [Q,t_{-r}]=r c_{-r},\qquad Q(g_0^n)=n c_0g_0^n.
+\]
+It kills the residual fields, $K$, and $c$.
+The symbol $[\ ,\ ]_+$ denotes the anticommutator of two odd operators.
+Moving $c_0$ into the fixed order introduces only exterior signs.
+It has zero anticommutator with $b_{-r}$ for $r\geq1$.
+All other replacements keep the fixed creation order.
+Therefore, on the vector space \eqref{eq:cc-brst-basis}, the differential is exactly
+\begin{equation}\label{eq:cc-brst-polynomial-differential}
+ d=\sum_{r\geq1}\left(
+ K_{-r}\frac{\partial}{\partial b_{-r}}
+ +r c_{-r}\frac{\partial}{\partial t_{-r}}\right)
+ +c_0g_0\frac{\partial}{\partial g_0}.
+\end{equation}
+Odd derivatives are left exterior derivatives.
+
+Let $N$ count the total polynomial and exterior degree in the four paired variables for all $r\geq1$.
+Define the odd operator
+\[
+ h=\sum_{r\geq1}\left(
+ b_{-r}\frac{\partial}{\partial K_{-r}}
+ +\frac1r t_{-r}\frac{\partial}{\partial c_{-r}}\right).
+\]
+The product rule gives $dh+hd=N$.
+Terms with different variables anticommute, and the $c_0$ term anticommutes with $h$.
+Thus $h/N$ contracts every positive-$N$ summand.
+Only finitely many summands act on any state.
+
+At $N=0$, the remaining differential on the Laurent monomial $g_0^n$ is multiplication by $n c_0$.
+For $n\ne0$, the homotopy $n^{-1}\partial/\partial c_0$ contracts this two-term complex.
+For $n=0$, the differential vanishes and leaves $1,c_0$.
+This proves the claimed vector-space cohomology and its cochain degrees.
+The closed residual generators and $c_0$ represent every surviving basis vector.
+Their products in cohomology are \eqref{eq:cc-residual-poles}, with $[c_0]$ central and square zero.
+Also $Tc=Qt$, so translation kills $[c_0]$.
+They therefore define a homomorphism from the asserted tensor product into cohomology.
+The vector-space calculation proves that this homomorphism is an isomorphism.
+There is no translation-preserving inclusion of the constant exterior factor into the original complex: $Tc$ vanishes only after passing to cohomology.
+
+Finally, $[Q,b_0]_+=K_0$ and $[Q,K_0]=0$.
+Hence $\ker b_0\cap\ker K_0$ is a subcomplex.
+In \eqref{eq:cc-brst-basis}, $K_0$ acts by $n$ on $g_0^n$, and $b_0$ differentiates with respect to $c_0$.
+The relative subcomplex consequently has $n=0$ and no $c_0$ factor.
+The first contraction still applies and leaves exactly the two residual vertex factors.
+\end{proof}
+
+The surviving odd class records the scaling direction in absolute cohomology.
+It would change if a logarithm of $g_0$ were adjoined, since then $Q\log g_0=c_0$.
+The Laurent state space used here contains no such logarithm.
+The difference between the absolute and relative quotients is therefore a difference of specified complexes.
+
+\section{Descent of the quotient and its stress tensor}
+
+On the second chart, define
+\[
+ x'=g/y,\qquad v'=:yp:,\qquad A'=-j+2y^{-1}Ty.
+\]
+The fields $x',v',A'$ are closed.
+On their common domain, the classes obey
+\begin{equation}\label{eq:cc-gauged-overlap}
+ [x']=[x^{-1}],\qquad
+ [v']=[-:x(:xv:):+:Ax:-Tx],\qquad
+ [A']=[A+2x^{-1}Tx].
+\end{equation}
+These are \eqref{eq:cc-transition} at $\rho=1$.
+Thus the compensated quotient has affine level $\kappa=-1$.
+The critical construction instead has $\rho=0$ and level $-2$.
+
+\begin{proposition}\label{prop:cc-quotient-descent}
+The relative local BRST cohomologies glue to $\mathcal V_1$.
+Their stress tensor has central charge $-3$ and is induced from the compensated theory.
+\end{proposition}
+\begin{proof}
+The regular-product corrections can be checked while keeping the original fields.
+Define a radial momentum
+\[
+ P=p+(y/g)q+\frac{Tg}{2g^2}.
+\]
+Contractions give $P(z)g(w)\sim r^{-1}$, $P(z)P(w)\sim0$, and zero singular products of $P$ with $x,v$.
+The regular coefficient also gives
+\[
+ :gP:-\tfrac12t=J.
+\]
+The half-derivative term is needed for both assertions.
+Substituting $y=xg$ and retaining binary products now yields
+\begin{align*}
+ :yp:-:xK:&=-:x(:xv:):+:Ax:-Tx,\\
+ :gp:-:yq:-K&=-2:xv:+A,\\
+ -j+2y^{-1}Ty&=A+2x^{-1}Tx.
+\end{align*}
+These equalities can also be derived directly from
+\eqref{eq:cc-regular-correction}, applied to $g^{-1}$ and $y/g$.
+Since $:xK:=Q(:xb:)$ and $K=Qb$, they prove \eqref{eq:cc-gauged-overlap} and the corresponding global Cartan field.
+The local cohomology theorem supplies all states, not only the displayed generators.
+Its isomorphisms localize, so the overlap calculation proves the sheaf assertion.
+
+The original matter stress tensor is
+$L_{\mathrm{mat}}=:pTg:+:qTy:$.
+The compensated stress tensor, including ghosts, is
+\[
+ L_{\mathrm{tot}}=L_{\mathrm{mat}}+\tfrac14:j^2:
+                     +\tfrac12Tj-:bTc:.
+\]
+The derivative of $j$ fixes its background charge.
+Two beta--gamma pairs contribute central charge $4$.
+For $j(z)j(w)\sim2r^{-2}$, the field $\tfrac14:j^2:+\tfrac12Tj$ contributes $1-6=-5$.
+The odd pair contributes $-2$.
+These numbers follow from the respective double contractions in the fourth pole, which is half the central charge.
+The total central charge is therefore $-3$.
+
+On the residual fields put
+\[
+ L_{\mathrm{res}}=:vTx:+\tfrac14:A^2:-\tfrac12TA.
+\]
+It is the stress tensor $S/2$ of \eqref{eq:cc-miura} at $\rho=1$.
+It is closed because every residual field is closed.
+The equality of the stress tensors in cohomology has an explicit primitive:
+\begin{equation}\label{eq:cc-stress-primitive}
+ L_{\mathrm{tot}}-L_{\mathrm{res}}=Q(:bt:).
+\end{equation}
+To verify it, the coordinate calculation gives
+\[
+ L_{\mathrm{mat}}=:PTg:+:vTx:-\tfrac12Tt.
+\]
+Use $A=-j+2t$ and $:gP:=J+t/2$ in the difference of the two stress tensors.
+Its even part becomes $:Kt:$.
+Its ghost part is $-:bTc:$.
+The odd derivation rule gives
+$Q(:bt:)=:Kt:-:bTc:$, proving \eqref{eq:cc-stress-primitive}.
+The primitive lies in the relative subcomplex: $b_0$ and $K_0$ both kill it.
+Thus the conformal structure descends to the stated relative quotient.
+The global current expression for $S$ also proves compatibility of this stress tensor between the two charts.
+\end{proof}
+
+There are now two explicit constructions and an exact comparison of what they retain.
+The critical sheaf $\mathcal V_0$ has a central weight-one field and a central quadratic field.
+The compensated quotient $\mathcal V_1$ has a Heisenberg field and a stress tensor of central charge $-3$.
+Their sheafified Zhu quotients have the same Weyl charts, period $\nu$, and quadratic value $\nu(\nu+2)$.
+Thus agreement of the operator quotient does not identify the chiral theories.
+The differing double poles and the surviving Heisenberg field specify the additional data that such an identification would have to preserve.
