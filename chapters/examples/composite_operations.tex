@@ -1,0 +1,458 @@
+\chapter{Composite inputs and finite cubic models}
+\label{chap:composite-operations}
+
+A higher operation on generators can be one Taylor coefficient.
+An operation on their products can multiply several such coefficients.
+This distinction determines how much of a potential is retained by
+its boundary algebra. It also determines when the complete family
+of higher operations is finite.
+
+The ordered diagonal of Chapter~\ref{chap:ordered-taylor} gives a
+concrete setting for this question. Its comparison is defined on
+every exterior monomial, not only on the primitive generators.
+The first composite calculation already differs from the primitive
+formula. A sum over explicit contractions gives every composite
+value. Counting those contractions then bounds the possible arities.
+
+\section{A product of two Taylor coefficients}
+\label{sec:co-composite-example}
+
+Use the ordered right-action diagonal with two variables. Thus
+\(R=k[y_1,y_2]\), \(S=R[r_1,r_2]\), \(x_i=y_i+r_i\), and
+\(k\) is a commutative rational algebra. The formal version completes
+in the displayed variables. The odd endomorphisms \(H_i,\beta_i\)
+and the central coefficients \(c_{ij}\) satisfy
+\[
+ \{H_i,H_j\}=c_{ij},\qquad
+ \{H_i,\beta_j\}=\delta_{ij},\qquad
+ \{\beta_i,\beta_j\}=0.
+\]
+Here \(\{A,B\}=AB+BA\) on odd endomorphisms. The ordered monomials
+\(H_I\beta_J\) form the basis used by the contraction
+\eqref{eq:ot-homotopy}. Its projection \(p\) sets \(r=0\), kills
+each term with a \(\beta\), and sends \(H_I\) to \(\xi_I\).
+Write \(e=\mathsf{s}1\), \(a_i=\mathsf{s}\xi_i\), and
+\(\chi=\mathsf{s}(\xi_1\xi_2)\), where \(\mathsf{s}\) reverses parity.
+The \(a_i\) are even; \(e\) and \(\chi\) are odd.
+
+For the divided difference \(\Delta_j\) in \eqref{eq:ot-homotopy},
+put \(W_{(a,b)}=\partial_1^a\partial_2^bW(y)/(a!b!)\).
+The first formula with two composite inputs is
+\begin{equation}\label{eq:co-first-composite}
+ b_3(\chi,\chi,a_1)=-W_{(3,0)}W_{(0,2)}e.
+\end{equation}
+It holds for every polynomial or formal potential, with its
+retained parameters unchanged.
+
+Here is the calculation. Put \(K=H_1H_2\). The Clifford relations give
+\[
+ K^2=-\tfrac14c_{11}c_{22}+c_{12}K.
+\]
+Since \(K\) is even, the second suspended comparison component is
+\[
+ F_2(\chi,\chi)=\mathsf{s}\left(
+ \tfrac14\sum_j\Delta_j(c_{11}c_{22})\beta_j
+ -\sum_j\Delta_j(c_{12})K\beta_j\right).
+\]
+Every higher component takes values in the left ideal
+\(\mathcal J=\sum_jE\beta_j\). Indeed, the homotopy adds a
+\(\beta\) on the right in the ordered basis.
+Multiplying an element of \(\mathcal J\) on the left keeps it
+in \(\mathcal J\), and \(p\mathcal J=0\).
+Thus only the last-letter split can contribute to \(b_3\).
+Its sign is negative, because the matrix part of \(F_2(\chi,\chi)\)
+is odd. In multiplying by \(H_1\), only
+\(\beta_1H_1=1-H_1\beta_1\) can give a scalar.
+
+For this order, \(c_{12}\) and \(c_{22}\) are independent of \(x_1\).
+Furthermore
+\[
+ (\Delta_1c_{11})|_{r=0}=-2W_{(3,0)},\qquad
+ c_{22}|_{r=0}=-2W_{(0,2)}.
+\]
+These identities follow by differentiating the one-variable divided
+difference defining \(g_1\), and by evaluating \(c_{22}\) on the
+diagonal. Consequently the projected scalar is
+\(-\tfrac14(-2W_{(3,0)})(-2W_{(0,2)})\), proving
+\eqref{eq:co-first-composite}. Two scalar contractions contribute.
+The product of their coefficients is part of the operation.
+
+\section{Multiplication as a finite exterior differential operator}
+\label{sec:co-symbol-product}
+
+To compute arbitrary products, replace the ordered matrix basis by
+exterior symbols. For any number \(d\) of variables put
+\[
+ \mathcal P=S\otimes_k\Lambda(\theta_1,\ldots,\theta_d,
+                                      \epsilon_1,\ldots,\epsilon_d).
+\]
+The symbol \(\theta_I\epsilon_J\) represents \(H_I\beta_J\).
+Exterior multiplication is denoted by \(\mu\). It is initially
+different from multiplication of the represented endomorphisms.
+
+List the symbols as \(q_1,\ldots,q_{2d}\), with the \(\theta\)'s first.
+Their left odd derivatives \(\partial_i\) delete \(q_i\), with the
+sign of its position, and give zero if it is absent. Define the
+central matrix \(\Gamma\) by
+\[
+ \Gamma_{ij}=
+ \begin{cases}
+ c_{ij},&1\le j<i\le d,\\
+ c_{ii}/2,&i=j\le d,\\
+ \delta_{ab},&i=d+a,\ j=b\le d,\\
+ 0,&\text{otherwise}.
+ \end{cases}
+\]
+The entry \(\Gamma_{ij}\) is the scalar contraction when the left
+symbol \(q_i\) crosses the right symbol \(q_j\).
+For example, \(\Gamma_{d+i,i}=1\) records
+\(\beta_iH_i=1-H_i\beta_i\).
+
+Tensor products of odd maps use the Koszul sign:
+\((\partial_i\otimes\partial_j)(f\otimes g)
+ =(-1)^{|f|}\partial_i f\otimes\partial_jg\) for homogeneous \(f\).
+Set
+\begin{equation}\label{eq:co-symbol-star}
+ f\star g=\mu\exp\left(-\sum_{i,j=1}^{2d}
+                   \Gamma_{ij}\partial_i\otimes\partial_j\right)
+                   (f\otimes g).
+\end{equation}
+The exponential is finite: each application deletes one symbol
+from each input. It is therefore defined over every rational
+coefficient algebra, without convergence assumptions.
+
+\begin{proposition}\label{prop:co-symbol-product}
+The symbol map \(\theta_I\epsilon_J\mapsto H_I\beta_J\) is an
+\(S\)-algebra isomorphism from \((\mathcal P,\star)\) to \(E\).
+For homogeneous \(f\), its product has the explicit expansion
+\[
+ f\star g=
+ \sum_{k=0}^{2d}\frac{(-1)^{k(k+1)/2+k|f|}}{k!}
+ \sum_{\substack{i_1,\ldots,i_k\\j_1,\ldots,j_k}}
+ \left(\prod_{a=1}^k\Gamma_{i_aj_a}\right)
+ (\partial_{i_1}\cdots\partial_{i_k}f)
+ (\partial_{j_1}\cdots\partial_{j_k}g),
+\]
+where every index ranges from \(1\) to \(2d\), and the final
+product is exterior multiplication.
+\end{proposition}
+
+\begin{proof}
+The sign in the expansion has three contributions. The minus
+in the exponential contributes \((-1)^k\). Passing right-factor
+derivatives across subsequent left-factor derivatives contributes
+\((-1)^{k(k-1)/2}\). Acting on \(f\otimes g\) contributes
+\((-1)^{k|f|}\). Their product is the stated sign.
+
+For three factors, let \(T_{ab}\) be the exponent's operator
+acting on factors \(a,b\). The operators \(T_{12},T_{13},T_{23}\)
+commute: each has even degree in the anticommuting odd derivatives,
+and no derivative acts on a coefficient \(\Gamma_{ij}\).
+The odd product rule shows that both parenthesizations of three
+products are exterior multiplication after
+\(\exp(T_{12}+T_{13}+T_{23})\). Thus \(\star\) is associative.
+The constant symbol \(1\) is its unit.
+
+On generators, \(q_i\star q_j=q_iq_j+\Gamma_{ij}\).
+These equations give exactly the stated Clifford relations.
+An increasing word in the \(q_i\) acquires no contraction when
+multiplied from left to right. Hence its \(\star\)-product is
+its exterior monomial. The resulting map to \(E\) sends an
+exterior basis to the already established basis \(H_I\beta_J\).
+It is therefore an algebra isomorphism.
+\end{proof}
+
+Antisymmetrized representatives have an equally explicit formula.
+Replace the upper-left block of \(\Gamma\) by \(c_{ij}/2\) for
+all \(i,j\le d\), keeping the other blocks unchanged.
+Then \(\theta_I\) represents the antisymmetrized product \(H_{[I]}\).
+To verify this assertion, antisymmetrize the product of distinct
+\(\theta\)'s in \eqref{eq:co-symbol-star}. Every term containing
+a contraction cancels, since its contracted coefficient is symmetric
+in those two indices. The remaining term is the exterior monomial.
+The same associativity proof applies. For antisymmetrized representatives,
+the sign of \(c_{ij}\) is still fixed by their actual anticommutator,
+and the normal-coordinate contraction retains its chosen order.
+
+\section{A scalar formula on every input}
+\label{sec:co-tree-formula}
+
+In exterior symbols, \(p\) kills every nonempty \(\epsilon\)-monomial
+and evaluates coefficients at \(r=0\). For the increasing-order
+contraction, the homotopy is
+\[
+ h(f\theta_I\epsilon_J)=(-1)^{|I|}
+       \sum_{j<\min J}\Delta_j f\,\theta_I\epsilon_j\epsilon_J,
+ \qquad \min\varnothing=d+1.
+\]
+Thus multiplication, projection, and homotopy are explicit scalar
+operations on polynomials or formal series. No matrix inversion is needed.
+
+A planar binary tree is a rooted tree whose internal vertices each
+have an ordered left and right input. Its leaves are read from left
+to right. Let \(\mathcal T_n\) be the finite set of such trees with
+\(n\) leaves. At a leaf carrying \(\mathsf{s}\xi_I\), place
+\(\mathsf{s}\theta_I\). At each internal vertex use
+\[
+ \mathcal M(\mathsf{s}f,\mathsf{s}g)=(-1)^{|f|}
+                                      \mathsf{s}(f\star g).
+\]
+On every internal edge place \(-\mathsf{s}h\mathsf{s}^{-1}\).
+At the root place \(\mathsf{s}p\mathsf{s}^{-1}\) for an operation,
+or \(-\mathsf{s}h\mathsf{s}^{-1}\) for a comparison component.
+Compose these maps from leaves to root using the Koszul tensor rule.
+Denote the resulting maps by \(B_T\) and \(F_T\), respectively.
+
+\begin{theorem}\label{thm:co-all-inputs}
+For every \(n\ge2\) and every sequence of exterior basis inputs,
+the ordered transferred operations and comparison components are
+\[
+ b_n=\sum_{T\in\mathcal T_n}B_T,\qquad
+ F_n=\sum_{T\in\mathcal T_n}F_T.
+\]
+Together with \eqref{eq:co-symbol-star}, these are finite formulas
+using only derivatives of the potential, divided differences,
+coefficient multiplication, and exterior signs.
+They include unit inputs and arbitrary products of primitive generators.
+They are coefficient-linear and continuous at each fixed arity in
+the formal topology.
+\end{theorem}
+
+\begin{proof}
+A tree has a unique root split into a left subtree with \(j\) leaves
+and a right subtree with \(n-j\) leaves. Expanding the finite tree
+sum by this split gives exactly the recurrence in
+Section~\ref{sec:ot-contraction}. Induction from the one-leaf inclusion
+therefore identifies every term, including its suspension sign.
+This also identifies the unit-containing values with the strict-unit
+identities proved there. The same contraction proof establishes
+\(b^2=0\) and the full comparison equation.
+
+Expanding each vertex by \eqref{eq:co-symbol-star} and each edge
+by the displayed homotopy removes every unspecified operation from
+the formula. There are finitely many trees, exterior symbols, and
+contractions in each arity. Products and evaluations are continuous.
+Each divided difference decreases formal order by at most one,
+so every resulting fixed-arity map is continuous.
+\end{proof}
+
+The left ideal \(\mathcal J\) simplifies the root further.
+Since \(F_m\) takes values in \(\mathsf{s}\mathcal J\) for \(m\ge2\),
+\[
+ b_n=\mathsf{s}p\mathsf{s}^{-1}
+              \mathcal M(F_{n-1}\otimes F_1),\qquad n\ge3.
+\]
+Every other root split has its right factor in \(\mathcal J\)
+and projects to zero. Internal subtrees can still have both
+inputs composite. Their contractions account for products such
+as \eqref{eq:co-first-composite}.
+
+\section{Counting contractions and bounding arity}
+\label{sec:co-degree}
+
+Multiplication has two kinds of nonzero scalar contraction.
+A pair of \(H\)'s contributes \(c_{ij}\), which is linear in
+the potential. A pair \(\beta_i,H_i\) contributes \(1\).
+Every homotopy introduces one \(\beta\) and one divided difference.
+These three facts constrain each coefficient of the full formula.
+
+For inputs \(\xi_{I_1},\ldots,\xi_{I_n}\), put
+\(N=\sum_a|I_a|\). If a polynomial has degree at most \(m\),
+degree means total degree in the variables
+\(x,y\), or equivalently \(r,y\). Numerical coefficients of the
+polynomial have degree zero in this convention.
+
+\begin{theorem}\label{thm:co-degree}
+For \(n\ge2\), the coefficient of \(\mathsf{s}\xi_K\) in
+\(b_n(\mathsf{s}\xi_{I_1},\ldots,\mathsf{s}\xi_{I_n})\)
+is homogeneous of degree
+\[
+ q=\frac{N-n+2-|K|}{2}
+\]
+in the coefficients of the potential. It is zero unless \(q\)
+is a nonnegative integer. If \(\deg W\le m\), with \(m\ge2\),
+its degree in \(y\) is at most
+\[
+ q(m-2)-(n-2).
+\]
+The coefficient of \(\mathsf{s}H_K\beta_J\) in \(F_n\) has
+potential degree
+\[
+ q=\frac{N-n+1+|J|-|K|}{2}
+\]
+and degree in \(r,y\) at most \(q(m-2)-(n-1)\).
+A negative upper bound forces the coefficient to vanish.
+The statements hold over every commutative rational algebra.
+\end{theorem}
+
+\begin{proof}
+Fix a term in the fully expanded tree formula. A term contributing
+to \(b_n\) contains \(n-2\) homotopies. It therefore introduces
+\(n-2\) symbols \(\beta\). Projection removes the term unless
+all these symbols have contracted with \(H\)'s.
+If \(q\) pairs of \(H\)'s also contract, the number of surviving
+\(H\)'s is
+\[
+ |K|=N-(n-2)-2q.
+\]
+Exactly those \(q\) pairs contribute coefficients linear in \(W\).
+Divided differences and evaluation do not change their degree under
+the replacement \(W\mapsto tW\), for an even scalar parameter \(t\).
+Every term contributing to the same output thus has potential degree \(q\).
+
+For \(F_n\), there are \(n-1\) homotopies, and \(|J|\) of
+their introduced symbols survive. Hence
+\[
+ |K|=N-(n-1-|J|)-2q,
+\]
+which gives its asserted potential degree.
+
+When \(\deg W\le m\), every \(c_{ij}\) has total degree at most
+\(m-2\). Multiplication adds degrees. A nonzero divided difference
+decreases total degree by one, and evaluation does not increase it.
+Following each tree from its leaves gives the two degree bounds.
+The proof uses coefficient identities, not division by elements of \(k\).
+It therefore also applies when \(k\) has zero divisors.
+\end{proof}
+
+The same counts apply to antisymmetrized representatives: a contraction
+still removes two \(H\)'s and contributes one coefficient linear in \(W\).
+Reversing the order of the normal homotopy does not change the counts.
+
+\begin{corollary}\label{cor:co-finite-arity}
+Set \(a=m-d(m-2)\). If \(a>0\), then on every input
+\[
+ b_n=0\quad\text{for }n>\frac{2m}{a},\qquad
+ F_n=0\quad\text{for }n>\frac{m+d(m-2)}{a}.
+\]
+For every potential of degree at most three in two variables,
+\(b_n=0\) for \(n\ge7\) and \(F_n=0\) for \(n\ge6\).
+For one variable of degree at most \(m\), the bounds are
+\(b_n=0\) for \(n>m\) and \(F_n=0\) for \(n\ge m\).
+\end{corollary}
+
+\begin{proof}
+For basis inputs, \(N\le dn\) and \(|K|\ge0\).
+The first degree bound can be nonnegative only if
+\[
+ 2(n-2)\le\bigl((d-1)n+2\bigr)(m-2).
+\]
+Rearranging gives \(an\le2m\).
+For the comparison, use also \(|J|\le d\).
+Its degree bound requires
+\[
+ 2(n-1)\le\bigl((d-1)n+d+1\bigr)(m-2),
+\]
+or \(an\le m+d(m-2)\).
+Coefficient-linearity extends the result to all inputs.
+Substituting \((d,m)=(2,3)\) or \(d=1\) gives the final assertions.
+\end{proof}
+
+For a quadratic potential these inequalities recover a strict
+differential Clifford model. When \(a\le0\), the inequalities
+give no uniform bound in arity. They do not assert that infinitely
+many operations are nonzero.
+
+\section{The highest operation for a binary cubic}
+\label{sec:co-binary-cubic}
+
+Take
+\[
+ W(x_1,x_2)=ax_1^3+bx_1^2x_2+cx_1x_2^2+dx_2^3
+               +ex_1^2+fx_1x_2+gx_2^2+\ell x_1+m x_2+v_0,
+\]
+where all coefficients belong to \(k\). Write
+\(r=x_1-y\), \(s=x_2-z\), and put
+\begin{gather*}
+ u=3ay+bz+e,\qquad v=cy+3dz+g,\qquad w=2by+2cz+f,
+ \\
+ P=bd-c^2,\qquad Q=bc-ad.
+\end{gather*}
+The ordered primitives have relations
+\[
+ H_1^2=-ar-bs-u,\qquad H_2^2=-ds-v,\qquad
+ \{H_1,H_2\}=-cs-w.
+\]
+The mixed relations with \(\beta_1,\beta_2\) remain those of
+Section~\ref{sec:co-composite-example}.
+
+\begin{proposition}\label{prop:co-sixth}
+For \(\chi=\mathsf{s}(\xi_1\xi_2)\), the only possible
+nonzero sixth operation on nonunit basis inputs is
+\[
+ b_6(\chi,\chi,\chi,\chi,\chi,\chi)=ac(bd-c^2)e.
+\]
+The highest comparison component is
+\[
+ F_5(\chi,\chi,\chi,\chi,\chi)
+       =-ac(bd-c^2)\mathsf{s}(\beta_1\beta_2).
+\]
+Both arity bounds of Corollary~\ref{cor:co-finite-arity} are sharp.
+\end{proposition}
+
+\begin{proof}
+Let \(K_j=\mathsf{s}^{-1}F_j(\chi,\ldots,\chi)\), so
+\(K_1=H_1H_2\). Since \(\chi\) is odd, the recurrence gives
+\[
+ K_n=-h\sum_{j=1}^{n-1}(-1)^{j+1}K_jK_{n-j}.
+\]
+Applying the displayed relations and the two divided differences yields
+\begin{align*}
+ K_2={}&a(ds+v)\beta_1+(bd s+bv+ud)\beta_2
+                         +cH_1H_2\beta_2,\\
+ K_3={}&P H_1\beta_2+acH_2\beta_1+QH_2\beta_2,\\
+ K_4={}&-aP\beta_1+d(2ac-b^2)\beta_2
+                         +ac^2H_2\beta_1\beta_2,\\
+ K_5={}&-acP\beta_1\beta_2.
+\end{align*}
+The reductions can be checked without expanding the full matrices.
+For \(K_2\), use
+\((H_1H_2)^2=-H_1^2H_2^2+\{H_1,H_2\}H_1H_2\),
+then remove the constant term in \(r\), followed by that in \(s\).
+For \(K_3\), the sum before applying \(-h\) is
+\[
+ (Ps+bv+ud-cw)H_1+(ac r+Qs+cu-av)H_2.
+\]
+Its two divided differences give the displayed value, with the
+minus sign of \(h\) on each odd \(H_i\).
+
+For the next two reductions the sums before the homotopy are
+\(K_1K_3-K_2^2+K_3K_1\) and
+\(K_1K_4-K_2K_3+K_3K_2-K_4K_1\).
+Their nonzero homotopy values are respectively
+\[
+ aP\beta_1-d(2ac-b^2)\beta_2-ac^2H_2\beta_1\beta_2,
+ \qquad acP\beta_1\beta_2.
+\]
+These equalities follow by moving each \(\beta_i\) to the right
+with \(\beta_iH_j=\delta_{ij}-H_j\beta_i\), and using
+\(H_2H_1=-H_1H_2-cs-w\).
+Terms already containing \(\beta_1\) have zero homotopy.
+On terms containing \(\beta_2\), only their \(r\)-difference
+contributes. On terms without a \(\beta\), take the \(r\)-difference
+and then the \(s\)-difference after setting \(r=0\).
+This specifies each scalar reduction and proves the formulas for
+\(K_4,K_5\).
+
+At the root of the sixth operation, only \(K_5K_1\) survives
+projection. The scalar part of
+\(\beta_1\beta_2H_1H_2\) is \(-1\).
+The root suspension sign is positive, giving \(acP e\).
+For any other nonunit sixth input word, \(N\le11\).
+The degree bound in Theorem~\ref{thm:co-degree} requires
+\(N\ge12+|K|\) for a nonzero output. Hence only the six
+composite inputs and scalar output can occur.
+The choice \(W=x_1^3+x_1x_2^2\) gives \(K_5=\beta_1\beta_2\)
+and \(b_6(\chi^6)=-e\), proving sharpness.
+\end{proof}
+
+The coefficient \(ac(bd-c^2)\) belongs to this specified ordered
+contraction. It is not invariant under changes of coordinates.
+For \(W=x_1^3+x_2^3\) it is zero. The invertible substitution
+\(x_1=s+t\), \(x_2=s-t\) gives \(W=2s^3+6st^2\),
+whose coefficient is \(-432\).
+Thus a comparison after a linear change of the field coordinates
+can require higher components on the transferred algebra.
+A displayed sixth multiplication alone cannot decide formality.
+Its transformation law, and any cyclic structure that the comparison
+must preserve, remain part of that question.
