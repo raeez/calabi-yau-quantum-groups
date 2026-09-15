@@ -1,0 +1,597 @@
+\chapter{Taylor coefficients and changes of order}
+\label{chap:ordered-taylor}
+
+A mixed coefficient of a polynomial is one scalar. An operation with
+ordered inputs must distribute that number among several words.
+For the mixed cubic, the ordered contraction placed the coefficient
+of \(x_1x_2^2\) on the word \(212\), while the words \(122\) and
+\(221\) gave zero. The same rule holds for every potential: sort
+the indices, then exchange the first two. The other operations,
+whose inputs include products of primitive generators, retain
+additional information.
+
+The choice of order also enters the diagonal operator itself.
+Exchanging two adjacent variables changes its divided differences.
+A finite conjugation implements that change. Two sequences of
+exchanges can give different conjugations, even when they induce
+the same permutation. Their difference is removed by an explicit
+homotopy of differential-algebra maps. Thus order has both a
+visible effect on formulas and a controlled effect on comparisons.
+
+\section{An ordered contraction in any number of variables}
+\label{sec:ot-contraction}
+
+Let \(k\) be a commutative algebra over \(\mathbb Q\). Fix an
+integer \(d\ge1\), and put
+\[
+ R=k[y_1,\ldots,y_d],\qquad S=R[r_1,\ldots,r_d],
+ \qquad x_i=y_i+r_i.
+\]
+The formal version uses \(R=k[[y_1,\ldots,y_d]]\) and
+\(S=R[[r_1,\ldots,r_d]]\). Take a polynomial \(W\) in the
+polynomial case and a formal power series \(W\) in the formal case.
+No regularity assumption on its gradient is imposed.
+All degrees in this chapter are parities. Derivatives in \(y\)
+keep the coordinates \(x\) fixed.
+
+On the exterior algebra of \(d\) odd vectors let \(\beta_i\)
+denote left exterior multiplication and let \(\alpha_i\) denote
+contraction. Contraction deletes the \(i\)-th vector with the
+sign of its position, and gives zero if it is absent. Hence
+\[
+ \{\alpha_i,\alpha_j\}=\{\beta_i,\beta_j\}=0,\qquad
+ \{\alpha_i,\beta_j\}=\delta_{ij},
+\]
+where \(\{A,B\}=AB+BA\) for odd operators.
+Define
+\[
+ g_i(x,y)=
+ \frac{W(y_1,\ldots,y_{i-1},x_i,\ldots,x_d)
+       -W(y_1,\ldots,y_i,x_{i+1},\ldots,x_d)}
+      {x_i-y_i}.
+\]
+The numerator is divisible by \(x_i-y_i\), with a unique quotient:
+multiplication by the formal or polynomial variable \(r_i\)
+shifts coefficients and is injective even if \(k\) has zero divisors.
+Telescoping gives \(\sum_i r_i g_i=W(x)-W(y)\). Therefore
+\[
+ D=\sum_i(r_i\alpha_i+g_i\beta_i),\qquad
+ D^2=(W(x)-W(y))1.
+\]
+The algebra \(E=\operatorname{End}_S(S\otimes_k\Lambda(k^d))\)
+has differential
+\(\delta A=DA-(-1)^{|A|}AD\). Its square is zero because
+\(D^2\) is scalar.
+
+Put \(H_i=-\partial_{y_i}D\). Differentiating the square of \(D\)
+gives
+\begin{gather}
+ \delta H_i=W_i(y),\qquad \delta\beta_i=r_i,\qquad
+ \{H_i,\beta_j\}=\delta_{ij},\label{eq:ot-primitives}\\
+ \{H_i,H_j\}=c_{ij},\qquad
+ c_{ij}=-W_{ij}(y)-\sum_l r_l\,\partial_{y_i}\partial_{y_j}g_l.
+ \label{eq:ot-clifford}
+\end{gather}
+Here \(W_i=\partial_iW\) and \(W_{ij}=\partial_i\partial_jW\).
+For an increasing subset \(I\) let \(H_I\) be the ordered product
+of its \(H_i\), and define \(\beta_J\) in the same way.
+The monomials \(H_I\beta_J\) form an \(S\)-basis of \(E\).
+Indeed, the ordered products \(\alpha_I\beta_J\) are a basis,
+as follows by tensoring the four matrix units for one exterior
+variable. Replacing \(\alpha_i\) by
+\(H_i=\alpha_i-\sum_j(\partial_{y_i}g_j)\beta_j\)
+changes this basis triangularly, with diagonal entries one.
+
+Let \(C\) be the free \(R\)-module on symbols \(\xi_I\), with
+\(\xi_\varnothing=1\), parity \(|I|\), and differential
+\[
+ d_C\xi_I=\sum_{a=1}^{|I|}(-1)^{a-1}W_{i_a}(y)
+                 \xi_{I\setminus\{i_a\}}.
+\]
+The scalar values in \eqref{eq:ot-primitives} identify the matrix
+complex with this gradient complex tensored with the Koszul
+complex on the normal coordinates \(r_i\).
+Define \(i(\xi_I)=H_I\). Define \(p(fH_I\beta_J)\) to be
+\(f(y,y)\xi_I\) if \(J\) is empty, and zero otherwise.
+Both are chain maps and \(pi=1_C\).
+
+For \(f\in S\), write \(f^{(j)}\) for the result of setting
+\(x_l=y_l\) for all \(l<j\), and put
+\[
+ \Delta_j f=\frac{f^{(j)}-f^{(j)}|_{x_j=y_j}}{r_j}.
+\]
+With \(\min\varnothing=d+1\), set
+\begin{equation}\label{eq:ot-homotopy}
+ h(fH_I\beta_J)=(-1)^{|I|}
+       \sum_{j<\min J}\Delta_j f\,H_I\beta_j\beta_J.
+\end{equation}
+This formula has
+\[
+ \delta h+h\delta=1-ip,\qquad ph=hi=h^2=0.
+\]
+For one normal coordinate the homotopy is
+\(\beta(f(r)-f(0))/r\). Its anticommutator with the differential
+is evaluation error \(f-f(0)\) on functions and is the identity
+on terms containing \(\beta\). For several coordinates let \(P_j\)
+evaluate \(r_j=0\) and kill its exterior generator. The tensor
+homotopy is \(h_1+P_1h_2+\cdots+P_1\cdots P_{d-1}h_d\),
+with the Koszul signs for odd maps. Its anticommutator telescopes
+to \(1-P_1\cdots P_d\), giving \eqref{eq:ot-homotopy}.
+Each squared summand vanishes. Every mixed product contains
+\(h_jP_j=0\) or \(P_jh_j=0\), which proves \(h^2=0\).
+The other side identities follow from evaluation.
+
+Let \(\mathsf s\) denote suspension. Use the tensor signs and
+deconcatenation from Section~\ref{sec:cmc-transfer}, and define
+\[
+ F_1=\mathsf s i\mathsf s^{-1},\qquad b_1=\mathsf s d_C\mathsf s^{-1},
+ \qquad
+ \mathcal R_n=\sum_{j=1}^{n-1}B_2(F_j\otimes F_{n-j}),
+\]
+\[
+ F_n=-\mathsf s h\mathsf s^{-1}\mathcal R_n,\qquad
+ b_n=\mathsf s p\mathsf s^{-1}\mathcal R_n,\qquad
+ B_2(\mathsf s A,\mathsf s B)=(-1)^{|A|}\mathsf s(AB).
+\]
+The contraction identities are precisely those used in the
+proof in Section~\ref{sec:cmc-transfer}. That proof applies
+without a dimension restriction: the relative-coderivation defect
+vanishes by induction on length, and the split injection
+\((\mathsf s i\mathsf s^{-1})^{\otimes n}\) then gives \(b^2=0\).
+It also proves strict unitality and the morphism equation.
+Thus \(b\) is an \(A_\infty\)-structure and \(F:C\to E\)
+is an \(R\)-linear \(A_\infty\)-quasi-isomorphism.
+In the formal case each fixed-arity component is continuous:
+products, evaluation, and divided differences are continuous,
+and only finitely many trees occur in each arity.
+Word length remains a direct sum, with no convergence assertion
+across arities.
+
+\section{The order carrying a Taylor coefficient}
+\label{sec:ot-coefficients}
+
+The triangular dependence of the divided differences controls
+the ordered words. The coefficient \(g_j\) uses only
+\(x_j,\ldots,x_d\) and \(y_1,\ldots,y_j\).
+Consequently
+\(\partial_y^\nu g_j=0\) if \(\nu\) uses an index greater
+than \(j\). Its other derivatives are free of
+\(x_1,\ldots,x_{j-1}\).
+By \eqref{eq:ot-homotopy}, both \(p\) and \(h\) kill
+\[
+ fH_i\beta_j
+ \quad\text{if \(f\) is free of \(x_1,\ldots,x_{j-1}\),}
+\]
+and they kill \(f\beta_j\beta_l\) if \(f\) is free of
+all \(x_a\) with \(a<\min(j,l)\).
+These vanishing statements remove all but one split of a
+primitive word in the transfer recurrence.
+
+For a multi-index \(\nu=(\nu_1,\ldots,\nu_d)\), put
+\[
+ |\nu|=\sum_i\nu_i,\qquad \nu!=\prod_i\nu_i!,\qquad
+ W_\nu(y)=\frac{\partial^\nu W(y)}{\nu!},\qquad
+ D_\nu=\frac{\partial_y^\nu D}{\nu!}.
+\]
+When \(|\nu|\ge2\), the \(\alpha_i\)-part of \(D\) has
+vanished under differentiation, so
+\(D_\nu=\sum_j(\partial_y^\nu g_j/\nu!)\beta_j\).
+
+\begin{lemma}\label{lem:ot-remainder}
+Suppose \(|\nu|\ge2\), \(i\ge\max\operatorname{supp}\nu\),
+and \(\varphi=\partial_y^\nu g_i/\nu!\).
+Then
+\[
+ \varphi(y,y)=W_{\nu+e_i}(y),\qquad
+ h(\varphi\,1)=D_{\nu+e_i},
+\]
+where \(e_i\) is the multi-index with a single \(1\) in position \(i\).
+\end{lemma}
+
+\begin{proof}
+For a series \(G\) in one variable define its Taylor remainder
+\[
+ T_mG(x,y)=\sum_{j\ge m}\frac{G^{(j)}(y)}{j!}(x-y)^{j-m}.
+\]
+Expansion of monomials proves Taylor's formula for polynomials;
+coefficientwise passage proves it for formal series.
+Removing the first term and differentiating at fixed \(x\) give
+\[
+ \frac{T_mG-T_mG|_{x=y}}{x-y}=T_{m+1}G,\qquad
+ \partial_y T_mG=mT_{m+1}G.
+\]
+In the derivative, the coefficient of
+\(G^{(j)}(y)(x-y)^{j-m-1}\) is
+\(1/(j-1)!-(j-m)/j!=m/j!\).
+
+Write \(\nu=\nu'+ae_i\), where \(\nu'\) uses indices below \(i\).
+Set
+\[
+ G(t)=\frac{1}{\nu'!}\partial_{y}^{\nu'}
+             W(y_1,\ldots,y_{i-1},t,x_{i+1},\ldots,x_d).
+\]
+The divided difference defining \(g_i\) is \(T_1\) in the
+pair \((x_i,y_i)\). The preceding derivative identity gives
+\(\varphi=T_{a+1}G\). Evaluation at \(x_i=y_i\), then at
+the other diagonal coordinates, yields \(W_{\nu+e_i}\).
+
+The coefficient of \(\beta_j\) in \(h(\varphi)\) is
+\(\Delta_j\varphi\). It is zero for \(j<i\), as is the
+coefficient of \(\beta_j\) in \(D_{\nu+e_i}\).
+For \(j=i\), the remainder identity gives
+\(\Delta_i\varphi=T_{a+2}G
+ =\partial_y^{\nu+e_i}g_i/(\nu+e_i)!\).
+For \(j>i\), the earlier diagonal substitutions in
+\(\varphi^{(j)}\) give
+\(\partial^{\nu+e_i}W(y_{<j},x_{\ge j})/(\nu+e_i)!\).
+Taking its divided difference in \(x_j\) gives the coefficient
+of \(\beta_j\) in \(D_{\nu+e_i}\), since those derivatives
+act on earlier coordinates and commute with this divided difference.
+\end{proof}
+
+For \(|\nu|=n\ge2\), list its indices in nondecreasing order
+\(m_1,\ldots,m_n\), and define
+\[
+ w(\nu)=(m_2,m_1,m_3,\ldots,m_n).
+\]
+Repeated indices are retained. Write \(a_i=\mathsf s\xi_i\)
+and \(e=\mathsf s1\). The \(a_i\) are even and \(e\) is odd.
+
+\begin{theorem}\label{thm:ot-ordered-taylor}
+The binary multiplication on \(C\) is the associative product
+determined by ordered monomials and the relations
+\[
+ \xi_i\star\xi_j+\xi_j\star\xi_i=-W_{ij}(y).
+\]
+In particular \(\xi_i\star\xi_i=-W_{ii}(y)/2\).
+For every primitive word \((i_1,\ldots,i_n)\) with multiplicities
+\(\nu\),
+\[
+ F_n(a_{i_1},\ldots,a_{i_n})=
+ \begin{cases}
+ -\mathsf sD_\nu,&(i_1,\ldots,i_n)=w(\nu),\\
+ 0,&\text{otherwise}
+ \end{cases}
+ \qquad(n\ge2),
+\]
+and
+\[
+ b_n(a_{i_1},\ldots,a_{i_n})=
+ \begin{cases}
+ W_\nu(y)e,&(i_1,\ldots,i_n)=w(\nu),\\
+ 0,&\text{otherwise}
+ \end{cases}
+ \qquad(n\ge3).
+\]
+The differential \(b_1\) and all operations on composite inputs
+remain those of the full contraction.
+\end{theorem}
+
+\begin{proof}
+Reduce products \(H_IH_J\) using \eqref{eq:ot-clifford}.
+Projection evaluates the central coefficients \(c_{ij}\) at
+\(r=0\), where they are \(-W_{ij}(y)\). Thus the projected
+product is the displayed Clifford product in its ordered basis.
+Its associativity follows by reducing triple products and
+evaluating the resulting polynomial identities.
+The gradient differential is a derivation of this product:
+it preserves every defining relation, since the \(W_i(y)\)
+are central scalars.
+
+On two primitive inputs \(\mathcal R_2(a_i,a_j)=-\mathsf sH_iH_j\).
+For \(i<j\) the product is an ordered representative, killed by \(h\).
+For \(i<j\), reversing the indices introduces \(c_{ij}\), and
+\[
+ h(c_{ij})=-\sum_l\partial_{y_i}\partial_{y_j}g_l\,\beta_l
+          =-D_{e_i+e_j}.
+\]
+To check the first equality, apply \(\Delta_l\) to
+\eqref{eq:ot-clifford}. Earlier terms contain a normal coordinate
+already set to zero; later terms are free of \(x_l\).
+The \(l\)-th term gives its coefficient.
+For equal indices the same calculation includes the factor
+\(1/2\), giving \(-D_{2e_i}\). This proves the formula for \(F_2\).
+
+Suppose the formula for \(F\) holds in smaller arities.
+A split with both blocks of length at least two gives a product
+of \(\beta\)-linear expressions. Their coefficients are free of
+the earlier \(x\)'s, so both \(p\) and \(h\) kill it.
+A split with a singleton on the left gives \(H_jD_\mu\),
+also killed by both maps. The only remaining split isolates
+the last letter \(i\), after a word \(w(\mu)\).
+It contributes \(\mathsf sD_\mu H_i\). If
+\(D_\mu=\sum_j\varphi_j\beta_j\), then
+\[
+ D_\mu H_i=\varphi_i-\sum_j\varphi_jH_i\beta_j.
+\]
+The sum is killed by \(p,h\). If
+\(i<\max\operatorname{supp}\mu\), its scalar term is zero.
+Otherwise Lemma~\ref{lem:ot-remainder} gives the displayed
+values of \(b_n,F_n\).
+Appending a largest index to \(w(\mu)\) gives exactly
+\(w(\mu+e_i)\). This proves the assertion by induction.
+\end{proof}
+
+For \(W=x_1^2x_2\), the coefficient \(W_{(2,1)}=1\)
+therefore occurs in \(b_3(a_1,a_1,a_2)=e\), while the
+other two orderings vanish. For \(W=x_1x_2x_3\), the
+only nonzero primitive ternary value is
+\(b_3(a_2,a_1,a_3)=e\). The rule concerns this contraction.
+The cyclic change of coordinates in the preceding chapter
+changes how coefficients are distributed among words.
+
+If \(\nabla W(0)=0\), coefficientwise specialization at \(y=0\)
+gives a minimal model of \(\operatorname{End}(D(x,0))\).
+This follows by specializing the displayed contraction itself:
+all its identities are \(R\)-linear and survive specialization.
+It does not require preservation of arbitrary quasi-isomorphisms
+by a nonflat quotient.
+
+\begin{corollary}\label{cor:ot-quadratic}
+If \(W\) has degree at most two, every operation \(b_n\)
+with \(n\ge3\) vanishes on all inputs, including composite
+inputs. The inclusion \(i\) is a strict differential-algebra
+quasi-isomorphism from the differential Clifford algebra \(C\)
+to \(E\).
+\end{corollary}
+
+\begin{proof}
+Each \(g_i\) has degree at most one. The coefficients
+\(\partial_{y_i}g_j\) and \(c_{ij}\) are constant, so
+the ordered representatives \(H_I\) are closed under
+multiplication with coefficients in \(R\).
+The homotopy kills every such product. Hence \(F_2=0\),
+and the recurrence gives \(F_n=0\) for all \(n\ge2\) and
+\(b_n=0\) for all \(n\ge3\).
+The contraction proves that \(i\) is a quasi-isomorphism.
+The differential \(d_C\xi_i=W_i(y)\) remains part of the
+model and need not vanish.
+\end{proof}
+
+\section{Exchanging two variables}
+\label{sec:ot-exchange}
+
+The telescoping formula can use any order of the variables.
+Suppose \(i,j\) are adjacent in that order. Hold earlier
+coordinates at \(y\) and later coordinates at \(x\), and denote
+the resulting two-variable series by \(V(s,t)\).
+Its mixed divided difference is
+\[
+ q_{ij}=
+ \frac{V(x_i,x_j)-V(y_i,x_j)-V(x_i,y_j)+V(y_i,y_j)}
+      {r_i r_j}.
+\]
+Each division is coefficientwise and has a polynomial or formal
+quotient. Let \(D\) denote the diagonal with \(i\) before \(j\),
+and let \(D'\) denote the diagonal with \(j\) before \(i\).
+Subtracting their divided differences gives
+\[
+ g'_i-g_i=-r_jq_{ij},\qquad
+ g'_j-g_j=r_iq_{ij}.
+\]
+All other coefficients agree. Put
+\[
+ U=1-q_{ij}\beta_i\beta_j,\qquad U^{-1}=1+q_{ij}\beta_i\beta_j.
+\]
+These are inverse even matrices since \((\beta_i\beta_j)^2=0\).
+The Clifford relations give
+\[
+ [\beta_i\beta_j,D]=r_j\beta_i-r_i\beta_j,\qquad
+ [\beta_i\beta_j,[\beta_i\beta_j,D]]=0.
+\]
+Consequently
+\begin{equation}\label{eq:ot-conjugation}
+ D'=UDU^{-1}.
+\end{equation}
+Conjugation \(A\mapsto UAU^{-1}\) is therefore a unital
+\(S\)-linear isomorphism of differential algebras
+\((E,\delta_D)\to(E,\delta_{D'})\). It preserves parity
+and is continuous in the formal case.
+
+This comparison retains the primitive maps as well.
+For any retained coordinate \(y_l\), let
+\(A_l=(\partial_{y_l}U)U^{-1}\), an even matrix.
+Differentiating \eqref{eq:ot-conjugation} at fixed \(x\) yields
+\[
+ -\partial_{y_l}D'
+   =U(-\partial_{y_l}D)U^{-1}+\delta_{D'}A_l.
+\]
+The primitive changes by a displayed boundary, including its
+coefficient dependence.
+
+There is also an explicit comparison on the relative Hochschild
+cochains
+\[
+ C_R^n(E,E)=\operatorname{Hom}_{R,\mathrm{cont}}
+                     (E^{\widehat\otimes_R n},E).
+\]
+The hat denotes completion in the normal variables of the tensor
+factors; it is omitted in the polynomial case.
+For a cochain \(f\) of arity \(n\), define
+\[
+ f'(A'_1,\ldots,A'_n)
+  =U f(U^{-1}A'_1U,\ldots,U^{-1}A'_nU)U^{-1}.
+\]
+For arity zero the formula is conjugation of the output.
+The differential, cup product, and every brace insertion commute
+with this map: substitute the formula into each operation and
+cancel adjacent \(U^{-1}U\). Since \(U\) is even, this cancellation
+does not change any Koszul sign. The inverse uses \(U^{-1}\).
+The statement holds for relative continuous cochains with the
+coefficient ring and fixed-arity completions used above.
+
+\section{Two exchange paths and their homotopy}
+\label{sec:ot-paths}
+
+Already three variables distinguish equality from compatibility
+up to homotopy. For \(W=x_1x_2x_3\), reverse the order by
+either sequence
+\[
+ 123\longrightarrow213\longrightarrow231\longrightarrow321,
+ \qquad
+ 123\longrightarrow132\longrightarrow312\longrightarrow321.
+\]
+Multiplying the corresponding matrices gives \(U_A=1+B_A\)
+and \(U_B=1+B_B\), where
+\[
+ B_A=-x_3\beta_1\beta_2-y_2\beta_1\beta_3-x_1\beta_2\beta_3,
+ \qquad
+ B_B=-y_3\beta_1\beta_2-x_2\beta_1\beta_3-y_1\beta_2\beta_3.
+\]
+Products of two such exterior quadratic expressions vanish
+in three variables. Thus
+\[
+ B_A-B_B=-r_3\beta_1\beta_2+r_2\beta_1\beta_3-r_1\beta_2\beta_3
+        =-\delta_D(\beta_1\beta_2\beta_3).
+\]
+The two matrices are generally different. Their difference is
+controlled by an exterior cubic expression.
+
+To state the general comparison, a polynomial homotopy between
+differential-algebra maps \(f_0,f_1:A\to B\) means a
+differential-algebra map
+\[
+ f:A\longrightarrow k[\lambda,d\lambda]\otimes_k B
+\]
+whose evaluations at \(\lambda=0,1\), with \(d\lambda=0\),
+are \(f_0,f_1\). Here \(\lambda\) is even, \(d\lambda\) is odd,
+\((d\lambda)^2=0\), and the differential sends \(\lambda\)
+to \(d\lambda\). The tensor product uses the Koszul sign rule.
+In the formal case the normal and retained coefficients are completed,
+while dependence on \(\lambda\) is polynomial.
+
+\begin{theorem}\label{thm:ot-path-homotopy}
+Two finite sequences of adjacent exchanges with the same initial
+and final orders induce polynomially homotopic isomorphisms of
+the diagonal endomorphism algebras.
+The homotopy is \(S\)-linear and continuous in the formal case.
+\end{theorem}
+
+\begin{proof}
+All exterior quadratic expressions commute with each other.
+Write the product of the conjugating matrices along a path as
+\(U=\exp B\), where \(B\) is the sum of their exterior
+quadratic exponents. The exponential is a finite sum:
+an exterior expression of degree greater than \(d\) vanishes.
+Furthermore \([B,[B,D]]=0\), since \([B,D]\) is
+exterior-linear. Thus the final operator is \(D+[B,D]\).
+
+Let the two paths give \(B_0,B_1\) and put \(Z=B_1-B_0\).
+Equality of the final operators gives \(\delta_D Z=[D,Z]=0\).
+On expressions using only the \(\beta_i\), the differential
+is the Koszul differential \(\delta_D\beta_i=r_i\).
+Apply its contraction \eqref{eq:ot-homotopy}, with \(I\)
+empty, and put \(Y=hZ\). Projection kills \(Z\), so
+\[
+ \delta_D Y=Z.
+\]
+The matrix \(Y\) is odd and exterior-cubic.
+It is polynomial in the polynomial case and continuous in
+the normal coordinates in the formal case.
+
+Let \(D'\) be the common final operator, and set
+\[
+ U(\lambda)=\exp(B_0)\exp(\lambda Z),\qquad
+ C_\lambda(A)=U(\lambda)AU(\lambda)^{-1}.
+\]
+Every \(C_\lambda\) is a differential-algebra isomorphism,
+since \(Z\) commutes with \(D\).
+For a homogeneous \(A\) define
+\[
+ K_\lambda(A)=C_\lambda\bigl(YA-(-1)^{|A|}AY\bigr).
+\]
+This map is odd and is a derivation along \(C_\lambda\):
+\[
+ K_\lambda(AB)=K_\lambda(A)C_\lambda(B)
+                 +(-1)^{|A|}C_\lambda(A)K_\lambda(B).
+\]
+The identity \(\delta_DY=Z\), followed by the graded
+commutator rule, gives
+\[
+ \partial_\lambda C_\lambda
+  =C_\lambda[Z,-]
+  =\delta_{D'}K_\lambda+K_\lambda\delta_D.
+\]
+Both identities can also be obtained by expanding the two products;
+the terms containing \(Y\delta_D A\) cancel with opposite signs.
+
+Define \(f(A)=C_\lambda(A)+d\lambda\,K_\lambda(A)\),
+writing \(d\lambda\) on the left. The derivation identity proves
+multiplicativity, because moving \(d\lambda\) past
+\(C_\lambda(A)\) introduces \((-1)^{|A|}\).
+For the differential,
+\[
+ d f(A)=C_\lambda(\delta_D A)
+       +d\lambda\bigl(\partial_\lambda C_\lambda(A)
+                            -\delta_{D'}K_\lambda(A)\bigr)
+       =f(\delta_D A).
+\]
+The map is unital since \(K_\lambda(1)=0\).
+Its endpoint evaluations are the two conjugations.
+All exponentials are finite, and the only divided differences
+occur in \(hZ\), so the asserted coefficient and continuity
+properties follow.
+\end{proof}
+
+In the three-variable example, choose the second path as
+endpoint zero and the first as endpoint one. Then
+\(Z=-\delta_D(\beta_1\beta_2\beta_3)\) and
+\(Y=-\beta_1\beta_2\beta_3\).
+This gives the entire polynomial homotopy by substitution.
+The cubic term is required because the two quadratic exponents
+are not equal.
+
+The same calculation has a formula for every potential.
+Suppose \(i,j,k\) are three consecutive variables, and hold
+the other coordinates at the values prescribed by the initial
+order. For the resulting three-variable series \(V\), define
+the mixed divided difference
+\[
+ q_{ijk}=
+ \frac{\displaystyle
+   \sum_{\epsilon\in\{0,1\}^3}
+    (-1)^{3-\epsilon_1-\epsilon_2-\epsilon_3}
+    V(z_i^{\epsilon_1},z_j^{\epsilon_2},z_k^{\epsilon_3})}
+ {r_i r_j r_k},
+ \qquad z_l^1=x_l,\quad z_l^0=y_l.
+\]
+The numerator is divisible by each normal coordinate.
+
+\begin{corollary}\label{cor:ot-braid}
+For the exchange sequences
+\[
+ ijk\to jik\to jki\to kji,\qquad
+ ijk\to ikj\to kij\to kji,
+\]
+let \(B_A,B_B\) be the quadratic exponents of their
+conjugating matrices. Then
+\[
+ B_A-B_B=-q_{ijk}\,
+             \delta_D(\beta_i\beta_j\beta_k).
+\]
+The polynomial homotopy of Theorem~\ref{thm:ot-path-homotopy}
+can therefore use \(Y=-q_{ijk}\beta_i\beta_j\beta_k\).
+\end{corollary}
+
+\begin{proof}
+The coefficient of \(\beta_i\beta_j\) in the difference
+is \(-q_{ij}(x_k)+q_{ij}(y_k)=-r_kq_{ijk}\).
+The coefficient of \(\beta_i\beta_k\) is
+\(-q_{ik}(y_j)+q_{ik}(x_j)=r_jq_{ijk}\).
+The coefficient of \(\beta_j\beta_k\) is
+\(-q_{jk}(x_i)+q_{jk}(y_i)=-r_iq_{ijk}\).
+These are exactly the coefficients of
+\(-q_{ijk}\delta_D(\beta_i\beta_j\beta_k)\).
+Since \(\delta_D\) is \(S\)-linear, it kills \(q_{ijk}\),
+and the asserted \(Y\) has differential \(B_A-B_B\).
+\end{proof}
+
+Each ordered transferred model maps by its explicit
+\(A_\infty\)-quasi-isomorphism to its diagonal endomorphism
+algebra. The conjugations therefore give actual zigzags between
+the models associated to different orders. The theorem also
+compares the differential-algebra maps obtained from different
+exchange paths. A compatible family of higher homotopies among
+these path homotopies requires further equations. The closed
+formula for arbitrary composite inputs and the transport of a
+specified cyclic cocycle are separate questions.
