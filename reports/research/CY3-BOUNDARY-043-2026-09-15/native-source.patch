@@ -1,0 +1,673 @@
+diff --git a/chapters/examples/matrix_factorizations.tex b/chapters/examples/matrix_factorizations.tex
+index 9dc4eb6..4657175 100644
+--- a/chapters/examples/matrix_factorizations.tex
++++ b/chapters/examples/matrix_factorizations.tex
+@@ -60,17 +60,34 @@ with the natural $\Z/2$-periodic parity and with Hochschild homology in parity $
+ 
+ In particular $\dim_{\C} \HH_{\bullet}(\MF(W)) = \mu(W)$, the Milnor number of the isolated singularity, and the trace is non-degenerate on $\HH_{n-2}$. The Jacobi ring is the closed-string state space of the LG model and the residue is the one-point correlator on the sphere; together these give the algebraic data that the CY-to-chiral correspondence $\{\Phi_d\}$ consumes.
+ 
+-\begin{example}[The quadratic archetype]
++\begin{example}[The quadratic boundary algebra]
+ \label{ex:mf-quadratic}
+-Take $W = x^2$ on $\C$, the one-variable $A_1$ singularity. The indecomposable non-trivial matrix factorization is the ``stabilized residue field'' $k^{\mathrm{stab}}$ given by the $\Z/2$-graded complex
++Take $S=\C[x]$ and the matrix factorization of $W=x^2$ with one
++basis vector in each parity and odd differential
+ \[
+- \C[x] \xrightarrow{\; x \;} \C[x] \xrightarrow{\; x \;} \C[x],
++ D=\begin{pmatrix}0&x\\x&0\end{pmatrix}.
+ \]
+-in which both differentials are multiplication by $x$ and $d^2 = x^2 = W$. A direct computation gives the endomorphism algebra
++The differential graded endomorphism algebra consists of all
++polynomial matrices, with $\delta A=DA-(-1)^{|A|}AD$.
++Its even and odd differentials are
+ \[
+- \End_{\MF(x^2)}(k^{\mathrm{stab}}) \;\cong\; \C[\varepsilon]/(\varepsilon^2 - 1),
++ \delta\begin{pmatrix}p&0\\0&q\end{pmatrix}
++ =\begin{pmatrix}0&x(q-p)\\x(p-q)&0\end{pmatrix},\qquad
++ \delta\begin{pmatrix}0&u\\v&0\end{pmatrix}=x(u+v)\,1.
+ \]
+-a two-dimensional $\Z/2$-graded Clifford algebra on one generator. The Jacobi ring is $\Jac(x^2) = \C[x]/(2x) \cong \C$, so $\HH_\bullet(\MF(x^2)) \cong \C$ is one-dimensional; the two-dimensional endomorphism algebra counts the $\Z/2$-graded indecomposable and its parity shift. The dimension count $2$ is the rank count of the free-fermion representation: a single holomorphic fermion contributes a two-dimensional Clifford sector, and this is the smallest nonzero input to the LG-to-chiral passage at the level of Hochschild invariants. The $n = 1$ case sits outside the CY$_2$ domain of Theorem~CY-A$_2$ (Remark~\ref{rem:mf-dim-caveat}) and is used only as the building block for the stabilized four-variable model in Section~\ref{sec:ade-w-algebras}.
++Even cycles are scalar matrices and even boundaries are multiples
++of $x\,1$. Odd cycles are multiples of
++$\eta=\left(\begin{smallmatrix}0&1\\-1&0\end{smallmatrix}\right)$,
++and odd boundaries are multiples of $x\eta$. Therefore
++\[
++ H^\bullet\operatorname{End}(K(x,x))
++   =\C\,1\oplus\C[\eta],\qquad [\eta]^2=-1.
++\]
++The odd generator $\varepsilon=i[\eta]$ has square $1$.
++This two-dimensional Clifford algebra is the cohomology of the
++endomorphism complex. Its two classes are even and odd operators
++on the specified object. The calculation does not count objects
++or construct a chiral algebra.
+ \end{example}
+ 
+ \begin{proposition}[\texorpdfstring{$\Phi_2(\MF(W))$}{Phi-2(MF(W))} for \texorpdfstring{$n = 4$}{n = 4}]
+@@ -209,10 +226,10 @@ Conjecture~\ref{conj:ade-w-algebra} for $A_1$ selects the Virasoro
+ vertex algebra at $c=2$. The Ising VOA has $c=1/2$ and modular
+ characteristic \(\kappa_{\mathrm{ch}}^{\mathrm{Ising}}=1/4\), while the
+ selected Virasoro algebra has
+-\(\kappa_{\mathrm{ch}}^{\mathrm{Vir},\,c=2}=1\). The two Clifford states
+-of Example~\ref{ex:mf-quadratic} count the $\Z/2$-graded indecomposable
+-and its parity shift in the unstabilised $A_1$ MF category; the central
+-charge is fixed by the Drinfeld--Sokolov formula above.
++\(\kappa_{\mathrm{ch}}^{\mathrm{Vir},\,c=2}=1\).
++The two Clifford classes of Example~\ref{ex:mf-quadratic} are
++endomorphism classes of one boundary object. Their dimensions do
++not determine a Virasoro central charge.
+ 
+ The base case is consistent with Proposition~\ref{prop:mf-phi-input}: the value $\kappa_{\mathrm{ch}}^{\mathrm{LG}}(\Phi_2(\MF(\widetilde{W}_{A_1})))$ equals the Milnor number $\mu = 1$, the modular characteristic of the trivial vacuum chiral algebra is $1$, and the two match. The matching at $A_1$ is the smallest non-empty instance of the conjecture and the only one where both sides can be written down without further hypothesis.
+ 
+diff --git a/chapters/examples/polynomial_boundary_algebras.tex b/chapters/examples/polynomial_boundary_algebras.tex
+new file mode 100644
+index 0000000..40604b8
+--- /dev/null
++++ b/chapters/examples/polynomial_boundary_algebras.tex
+@@ -0,0 +1,573 @@
++\chapter{Polynomial potentials and boundary algebras}
++\label{ch:polynomial-boundary-algebras}
++
++The equation \(D^2=W\,1\), with \(D\) a matrix and \(W\) a polynomial,
++allows an operator whose square is prescribed rather than zero.
++Commuting with \(D\), with the appropriate signs, nevertheless gives
++a differential on matrices. This elementary construction distinguishes
++three questions: which boundary states survive, which polynomial
++relations vanish on every boundary, and which relations vanish in the
++endomorphisms of a diagonal factorization. Even in one variable the
++answers differ.
++
++The value of the potential is part of the question. A critical point
++is a point where all first derivatives vanish. The polynomials
++\(x^2\) and \(x^2+1\) have the same derivative and the same critical
++point. Their boundary algebras behave differently: the first has
++nonzero cohomology, whereas every boundary for the second is
++contractible. The difference of two values,
++\(W(x)-W(y)\), forgets the added constant. A construction made from
++that difference must therefore specify how it recovers the chosen
++value of the potential.
++
++\section{A differential on boundary operators}
++\label{sec:pb-boundary-differential}
++
++Let \(k\) be a field of characteristic zero: every nonzero element has
++a multiplicative inverse, and no positive integer multiple of \(1\)
++is zero. Let \(S=k[x_1,\ldots,x_n]\) be the ring of finite polynomial
++sums in commuting variables. A finite free \(S\)-module is a space of
++vectors with polynomial entries and a fixed finite basis. A parity
++decomposition \(E=E^{\bar0}\oplus E^{\bar1}\) divides its basis into
++even and odd vectors. An even map preserves the two summands; an odd
++map exchanges them. The parity \(|A|\) of a homogeneous map is \(0\)
++or \(1\), with addition modulo two.
++
++Fix \(W\in S\). A matrix factorization of \(W\) is such a module \(E\)
++together with an odd \(S\)-linear map \(D:E\to E\) satisfying
++\(D^2=W\,1_E\), where \(1_E\) is the identity map. For two
++factorizations \((E,D_E)\) and \((F,D_F)\) of the same \(W\), define
++the differential on a homogeneous \(S\)-linear map \(A:E\to F\) by
++\begin{equation}
++ \delta A=D_FA-(-1)^{|A|}AD_E .
++ \label{eq:pb-differential}
++\end{equation}
++Its square is zero, since expansion gives
++\[
++ \delta^2A=D_F^2A-AD_E^2=WA-AW=0.
++\]
++For composable maps \(A:E\to F\) and \(B:F\to G\), direct expansion
++also gives
++\[
++ \delta(BA)=(\delta B)A+(-1)^{|B|}B(\delta A).
++\]
++A map is closed if its differential is zero and exact if it is the
++differential of another map. Closed maps modulo exact maps form the
++cohomology of this two-periodic complex. The displayed product rule
++shows that composition is defined on cohomology.
++
++These objects, map complexes, and compositions define the
++differential graded category \(\operatorname{MF}_{\mathrm{fr}}(S,W)\).
++The subscript specifies finite free modules. Its even closed maps
++modulo even exact maps are the morphisms in its homotopy category.
++All statements below concern this explicitly defined category.
++
++An object is contractible if \(1_E=\delta h\) for an odd endomorphism
++\(h\). Then every closed map out of \(E\) is exact: if \(A:E\to F\)
++has parity \(p\), the product rule gives
++\(\delta((-1)^pAh)=A\). The corresponding assertion for maps into
++\(E\) follows from \(\delta(hA)=A\). Thus a contracting homotopy removes
++the object and all its cohomology classes of morphisms.
++
++\begin{proposition}[The potential and its derivatives]
++\label{prop:pb-potential-primitives}
++For every matrix factorization over \(S\),
++\[
++ \delta(D/2)=W\,1_E,\qquad
++ \delta(\partial_iD)=(\partial_iW)\,1_E
++ \quad(1\leq i\leq n).
++\]
++Here \(\partial_i\) denotes entrywise polynomial differentiation with
++respect to \(x_i\). Consequently, if polynomials \(a,b_1,\ldots,b_n\)
++satisfy \(aW+\sum_i b_i\partial_iW=1\), the odd map
++\[
++ h=aD/2+\sum_i b_i\partial_iD
++\]
++contracts \(E\).
++\end{proposition}
++\begin{proof}
++The map \(D\) is odd, so its differential is \(2D^2\).
++Differentiating \(D^2=W\,1_E\) gives
++\((\partial_iD)D+D(\partial_iD)=(\partial_iW)\,1_E\).
++Scalar polynomials commute with all matrices and have differential
++zero. Taking the indicated linear combination proves the assertion.
++\end{proof}
++
++For \(W=x^2+1\), the identity \(W-(x/2)W'=1\) gives
++\[
++ h=\tfrac12D-\tfrac{x}{2}\partial_xD,\qquad \delta h=1_E.
++\]
++This holds for every finite rank. The Jacobi algebra is the quotient
++\[
++ \operatorname{Jac}(W)=S/(\partial_1W,\ldots,\partial_nW).
++\]
++For \(W=x^2+1\) it is \(k[x]/(2x)=k\).
++It therefore cannot, under these hypotheses,
++be the cohomology of boundary operators for the zero value of \(W\).
++
++The ideal \((W,\partial_1W,\ldots,\partial_nW)\) consists of the
++polynomial combinations used in the proposition. Its vanishing
++requires both \(W=0\) and \(dW=0\). Replacing \(W\) by \(W-c\), for
++\(c\in k\), selects the critical points whose value is \(c\).
++
++\section{The complete rank-one calculation}
++\label{sec:pb-rank-one}
++
++Over \(S=k[x]\), choose nonzero polynomials \(a,b\) with \(ab=W\).
++The rank-one factorization \(K(a,b)\) has one even and one odd basis
++vector and matrix
++\[
++ D=\begin{pmatrix}0&a\\ b&0\end{pmatrix}.
++\]
++Its endomorphisms comprise all two-by-two polynomial matrices.
++The diagonal matrices are even and the off-diagonal matrices are odd.
++Formula \eqref{eq:pb-differential} becomes
++\begin{align}
++ \delta\begin{pmatrix}p&0\\0&q\end{pmatrix}
++  &=\begin{pmatrix}0&a(q-p)\\b(p-q)&0\end{pmatrix},
++  \label{eq:pb-even-differential}\\
++ \delta\begin{pmatrix}0&u\\v&0\end{pmatrix}
++  &=(av+bu)\,1.
++  \label{eq:pb-odd-differential}
++\end{align}
++
++Polynomial division gives, for a nonzero divisor polynomial \(q\),
++\(f=cq+r\) with \(\deg r<\deg q\). Repeated division of \(a,b\)
++terminates because the nonzero remainder degrees decrease. A
++polynomial with leading coefficient one is called monic. The last
++nonzero remainder, rescaled to be monic, is their
++greatest common divisor \(g\). Reversing the divisions expresses
++\(g=\alpha a+\beta b\) for polynomials \(\alpha,\beta\). Thus
++the ideal \((a,b)\) is precisely \((g)\). Put
++\(a_0=a/g\) and \(b_0=b/g\); these are relatively prime.
++
++\begin{theorem}[Endomorphisms of a rank-one factorization]
++\label{thm:pb-rank-one}
++Let \(g\) be as above and let
++\[
++ \eta=\begin{pmatrix}0&a_0\\-b_0&0\end{pmatrix}.
++\]
++The cohomology algebra of \(\operatorname{End}_S(K(a,b))\) is
++\begin{equation}
++ H^{\bar0}=S/(g),\qquad H^{\bar1}=(S/(g))[\eta],
++ \qquad [\eta]^2=-[a_0b_0].
++ \label{eq:pb-rank-one-cohomology}
++\end{equation}
++The scalar class is represented by a multiple of the identity.
++The symbol \([\eta]\) denotes an odd generator commuting with the
++even scalars; graded commutativity is not imposed.
++The factorization is contractible if and only if \(g=1\).
++\end{theorem}
++\begin{proof}
++Since \(a,b\) are nonzero and \(S\) has no zero divisors, the closed
++even matrices in \eqref{eq:pb-even-differential} have \(p=q\).
++Their exact scalar coefficients form \((a,b)=(g)\) by
++\eqref{eq:pb-odd-differential}.
++
++An odd matrix is closed exactly when \(a_0v+b_0u=0\).
++Choose \(\alpha_0,\beta_0\) with
++\(\alpha_0a_0+\beta_0b_0=1\). The equation shows that \(a_0\)
++divides \(b_0u\); the Bezout identity then shows that \(a_0\)
++divides \(u\). Write \(u=a_0h\). Substitution and cancellation of
++\(a_0\) give \(v=-b_0h\). Thus every odd cycle is \(h\eta\).
++The odd boundaries in \eqref{eq:pb-even-differential} are precisely
++the multiples of \(g\eta\). Finally, multiplying the displayed
++matrix \(\eta\) by itself gives \(-a_0b_0\,1\).
++The identity is exact precisely when \(1\in(g)\), which for monic
++\(g\) means \(g=1\).
++\end{proof}
++
++For \(a=b=x\), the result is the two-dimensional algebra
++\[
++ H^\bullet\operatorname{End}(K(x,x))
++   =k\,1\oplus k[\eta],\qquad [\eta]^2=-1.
++\]
++This is the Clifford algebra on one odd generator with the stated
++square. Over \(\mathbb C\), multiplication of the generator by \(i\)
++changes its square to \(1\). The differential graded endomorphism
++algebra itself still contains all polynomial matrices. Its
++two-dimensional cohomology records even and odd endomorphism
++classes of one object; it is not a count of distinct objects.
++
++More generally, let \(W=x^m\) and \(1\leq j\leq m-1\).
++For \(K(x^j,x^{m-j})\), put
++\(e=\min(j,m-j)\). Then
++\[
++ H^\bullet\operatorname{End}(K(x^j,x^{m-j}))
++   =\bigl(k[x]/(x^e)\bigr)\,1
++    \oplus\bigl(k[x]/(x^e)\bigr)[\eta],
++ \qquad [\eta]^2=-[x^{m-2e}].
++\]
++The common power removed from the two differentials determines the
++remaining scalar relations, while the excess power determines the
++odd product.
++
++\section{Reduction of every finite rank}
++\label{sec:pb-every-rank}
++
++The rank-one calculation determines all finite free objects in one
++variable because polynomial division also diagonalizes matrices.
++An invertible polynomial matrix means a matrix whose inverse again
++has polynomial entries. Interchanging two rows, adding a polynomial
++multiple of one row to another, and multiplying a row by a nonzero
++constant are invertible operations; the same holds for columns.
++
++\begin{lemma}[Polynomial diagonal reduction]
++\label{lem:pb-smith}
++If a square matrix \(A\) over \(k[x]\) has nonzero determinant, there
++are invertible polynomial matrices \(U,V\) such that
++\[
++ UAV=\operatorname{diag}(a_1,\ldots,a_r),\qquad
++ a_1\mid a_2\mid\cdots\mid a_r,
++\]
++with each \(a_i\) monic and nonzero.
++\end{lemma}
++\begin{proof}
++Move a nonzero entry into the upper left corner. Divide each entry
++below it by the corner entry, subtract the quotient times the first
++row, and, if the remainder is nonzero, move that remainder into the
++corner. Its degree is smaller. Perform the corresponding column
++operations on the first row. Each nonzero remainder reduces the
++corner degree, so after finitely many such reductions the corner
++divides every entry in its row and column. Clear that row and column.
++
++If the corner fails to divide an entry of the remaining block, add
++the row containing that entry to the first row. The corner is
++unchanged, and polynomial division of the new first-row entry
++produces a nonzero remainder of smaller degree. Repeat the reduction.
++This can occur only finitely often. The resulting corner divides
++every entry of the remaining block. Apply the same argument to that
++block. Its subsequent entries remain multiples of the first corner
++because all row and column operations have polynomial coefficients.
++Induction gives the divisibility chain. Nonzero determinant excludes
++zero diagonal entries. Rescaling rows makes them monic.
++\end{proof}
++
++\begin{theorem}[Finite free factorizations in one variable]
++\label{thm:pb-all-ranks}
++Let \(0\ne W\in k[x]\). Every object of
++\(\operatorname{MF}_{\mathrm{fr}}(k[x],W)\) is isomorphic, before
++taking cohomology, to a finite direct sum of \(K(a,W/a)\), where
++\(a\) is a monic divisor of \(W\).
++\end{theorem}
++\begin{proof}
++Write \(D=\left(\begin{smallmatrix}0&A\\B&0\end{smallmatrix}\right)\).
++The equations \(AB=W\,1\) and \(BA=W\,1\) imply, over the field
++of rational functions \(k(x)\), that \(A,B\) are inverse up to the
++nonzero scalar \(W\). Their source and target have equal dimension,
++and \(A\) has nonzero determinant.
++
++Apply Lemma~\ref{lem:pb-smith}. An even change of basis conjugates
++\(D\) to the matrix with off-diagonal entries
++\(A'=UAV=\operatorname{diag}(a_i)\) and
++\(B'=V^{-1}BU^{-1}\). The equation \(A'B'=W\,1\) forces every
++off-diagonal entry of \(B'\) to be zero, because each \(a_i\)
++is nonzero. Its diagonal entries are \(W/a_i\). These are
++polynomials since \(B'\) is a polynomial matrix. The resulting
++factorization is the stated direct sum.
++\end{proof}
++
++This reduction also gives a finite description of all morphism
++complexes. For divisors \(a,c\) of \(W\), put \(b=W/a\), \(d=W/c\).
++A map from \(K(a,b)\) to \(K(c,d)\) has differential
++\[
++ \delta\begin{pmatrix}p&0\\0&q\end{pmatrix}
++   =\begin{pmatrix}0&cq-pa\\dp-qb&0\end{pmatrix},
++ \qquad
++ \delta\begin{pmatrix}0&u\\v&0\end{pmatrix}
++   =\begin{pmatrix}cv+ub&0\\0&du+va\end{pmatrix}.
++\]
++Composition is ordinary matrix multiplication. There are finitely
++many monic divisors of \(W\). Their blocks, these map complexes, and
++finite direct sums therefore describe the entire category defined
++in Section~\ref{sec:pb-boundary-differential}, without replacing
++its differential by its cohomology.
++
++To compare scalar relations across all objects, define
++\[
++ I_{\mathrm{obj}}(W)
++ =\{s\in k[x]:s\,1_E\text{ is exact for every finite free
++ factorization }E\text{ of }W\}.
++\]
++It is an ideal: sums of primitives and multiplication of a primitive
++by a polynomial give primitives for the corresponding sums and
++multiples.
++
++A nonconstant polynomial is irreducible if it is not a product of
++two nonconstant polynomials. These polynomials determine the common
++scalar ideal one multiplicity at a time.
++
++\begin{theorem}[Scalars vanishing on every object]
++\label{thm:pb-object-ideal}
++Factor \(W=c\prod_{\nu=1}^q p_\nu^{m_\nu}\), where \(c\in k^\times\),
++the \(p_\nu\) are distinct monic irreducible polynomials, and
++\(m_\nu\geq1\). Then
++\begin{equation}
++ I_{\mathrm{obj}}(W)
++   =\left(\prod_{\nu=1}^q
++                 p_\nu^{\lfloor m_\nu/2\rfloor}\right).
++ \label{eq:pb-object-ideal}
++\end{equation}
++For a nonzero constant \(W\), the empty product is \(1\).
++\end{theorem}
++\begin{proof}
++Repeated polynomial division proves existence of factorization into
++irreducibles by induction on degree. Bezout's identity shows that
++an irreducible dividing a product divides one factor; this proves
++uniqueness of the multiplicities used here.
++
++For \(a=\prod_\nu p_\nu^{j_\nu}\), its complementary factor \(W/a\)
++has exponents \(m_\nu-j_\nu\). Theorem~\ref{thm:pb-rank-one} gives
++the scalar ideal
++\((\prod_\nu p_\nu^{\min(j_\nu,m_\nu-j_\nu)})\) on this block.
++A scalar contracts on every direct sum if it contracts on every
++block. Conversely, projecting a contracting homotopy on a direct
++sum to one block gives a contracting homotopy there. Thus
++Theorem~\ref{thm:pb-all-ranks} identifies \(I_{\mathrm{obj}}\) with
++the intersection of these principal ideals over all divisors \(a\).
++
++Membership in that intersection requires the exponent of each
++\(p_\nu\) to be at least
++\[
++ \max_{0\leq j\leq m_\nu}\min(j,m_\nu-j)
++ =\lfloor m_\nu/2\rfloor .
++\]
++Unique factorization gives
++\eqref{eq:pb-object-ideal}.
++\end{proof}
++
++For \(W=x^m\), the common scalar ideal is
++\((x^{\lfloor m/2\rfloor})\). A primitive may depend on the
++object. The definition does not require those choices to commute
++with maps between objects. The next calculation measures scalar
++relations on a different, explicitly specified algebra.
++
++\section{The diagonal factorization}
++\label{sec:pb-diagonal}
++
++Let \(W\in k[x]\) be nonconstant, introduce a second independent
++variable \(y\), and write
++\[
++ T=k[x,y],\qquad r=x-y,\qquad
++ g=\frac{W(x)-W(y)}{x-y}.
++\]
++The quotient is a polynomial: for a monomial,
++\((x^j-y^j)/(x-y)=\sum_{\ell=0}^{j-1}x^{j-1-\ell}y^\ell\).
++The diagonal factorization is the rank-one object over \(T\)
++\[
++ D_\Delta=\begin{pmatrix}0&r\\g&0\end{pmatrix},\qquad
++ D_\Delta^2=(W(x)-W(y))\,1.
++\]
++Its differential graded endomorphism algebra will be denoted
++\(B_W=(\operatorname{End}_T(T^{\bar0}\oplus T^{\bar1}),\delta)\).
++The name refers to the equation \(r=0\), which identifies the two
++coordinates. The definition of \(B_W\) does not identify it with
++the endomorphisms of an identity functor on another category.
++
++\begin{theorem}[The diagonal endomorphism algebra in one variable]
++\label{thm:pb-diagonal}
++Scalar matrices induce an isomorphism of algebras
++\[
++ H^{\bar0}(B_W)=T/(r,g)\cong k[x]/(W'(x)),\qquad
++ H^{\bar1}(B_W)=0 .
++\]
++The kernel of the left scalar map \(k[x]\to H^{\bar0}(B_W)\)
++is \((W')\).
++\end{theorem}
++\begin{proof}
++The even cycles are scalar matrices, and the even boundaries
++have coefficients in \((r,g)\), by
++\eqref{eq:pb-even-differential}--\eqref{eq:pb-odd-differential}.
++Modulo \(r\), the monomial formula for \(g\) gives \(g=W'(x)\).
++Characteristic zero and nonconstancy imply \(W'\ne0\).
++
++An odd cycle with entries \(u,v\) satisfies \(rv+gu=0\).
++Reducing modulo \(r\) gives \(W'(x)u(x,x)=0\) in the integral
++domain \(k[x]\). Hence \(u=rh\) for some \(h\in T\);
++division by the monic polynomial \(x-y\) justifies this last
++assertion. Substitution gives \(v=-gh\). This odd cycle is
++\(\delta\operatorname{diag}(0,h)\), so odd cohomology vanishes.
++The scalar representatives multiply as their coefficients do.
++\end{proof}
++
++For \(W=x^m\), \(m\geq2\), this diagonal has left scalar kernel
++\((x^{m-1})\), while all finite free boundary objects have common
++scalar kernel \((x^{\lfloor m/2\rfloor})\). At \(m=3\), for example,
++\(x\) acts by an exact map on every boundary object but is nonzero
++in \(H^{\bar0}(B_W)=k[x]/(x^2)\). The two computations compare
++specified algebras and ideals. To interpret the diagonal algebra
++as categorical Hochschild cochains one must further construct its
++action as an identity kernel, with the chosen potential value retained.
++
++The derivative homotopy is already explicit. Put
++\[
++ H=\partial_xD_\Delta
++   =\begin{pmatrix}0&1\\\partial_xg&0\end{pmatrix}.
++\]
++Proposition~\ref{prop:pb-potential-primitives}, applied to
++\(W(x)-W(y)\) with \(y\) held fixed, gives
++\[
++ \delta H=W'(x)\,1,\qquad
++ H^2=(\partial_xg)\,1,\qquad
++ (\partial_xg)(x,x)=\tfrac12W''(x).
++\]
++The last identity follows by differentiating the monomial sum for
++\(g\): its coefficients add to \(j(j-1)/2\) for \(W=x^j\).
++Thus the Hessian term arises from multiplying an actual primitive.
++The same primitive is an odd cycle only when \(W'=0\) in the
++chosen scalar ring.
++
++Right differentiation gives a different sign. The odd map
++\(-\partial_yD_\Delta\) has differential \(W'(y)\,1\);
++its square on the diagonal is \(-W''(y)/2\).
++Which scalar action is retained determines this sign.
++
++\section{Separating the critical values}
++\label{sec:pb-critical-values}
++
++Adding a constant to \(W\) leaves \(B_W\) unchanged. Theorem
++\ref{thm:pb-diagonal} therefore detects all critical points of \(W\),
++including those away from its zero fibre. In one variable they can
++be separated inside the Jacobi algebra by explicit polynomial
++idempotents.
++
++Assume for this section that every nonconstant polynomial over \(k\)
++splits into linear factors; such a field is called algebraically
++closed. Assume also that \(\deg W\geq2\). Write
++\[
++ W'(x)=a\prod_{\alpha\in A}(x-\alpha)^{e_\alpha},
++ \qquad a\in k^\times,\quad e_\alpha\geq1,
++\]
++with \(A\) the finite set of distinct critical points.
++The set of critical values is
++\(V=\{W(\alpha):\alpha\in A\}\).
++Put \(J=k[x]/(W')\), and denote the class of a polynomial \(f\)
++by \([f]\).
++
++\begin{lemma}[The potential in the Jacobi algebra]
++\label{lem:pb-critical-projectors}
++There is an algebra isomorphism
++\[
++ J\longrightarrow
++ \prod_{\alpha\in A} k[x]/((x-\alpha)^{e_\alpha})
++\]
++given by reduction of a polynomial in each factor.
++In the factor indexed by \(\alpha\), the class of \(W\) is
++the constant \(W(\alpha)\).
++\end{lemma}
++\begin{proof}
++Powers of two distinct linear polynomials are relatively prime.
++Bezout's identity therefore gives elements congruent to \(1\)
++modulo one such power and to \(0\) modulo all the others.
++Multiplying each desired component by the corresponding element
++proves surjectivity of the reduction map. Its kernel is the
++intersection of the power ideals, which is their product by
++unique factorization. This product generates \((W')\), proving
++the isomorphism.
++
++Expand \(W(\alpha+z)=\sum_j c_jz^j\).
++The multiplicity \(e_\alpha\) of the zero of \(W'\), and
++characteristic zero, imply \(c_1=\cdots=c_{e_\alpha}=0\).
++Thus \(W-W(\alpha)\) is divisible by
++\((x-\alpha)^{e_\alpha+1}\), and has zero class in the indicated
++factor.
++\end{proof}
++
++For \(c\in V\) define
++\[
++ P_c(X)=\prod_{\substack{d\in V\\d\ne c}}\frac{X-d}{c-d},
++ \qquad p_c=P_c(W(x)),\qquad e_c=[p_c]\in J.
++\]
++Every denominator is a nonzero element of \(k\).
++An empty product is \(1\). The lemma gives
++\begin{equation}
++ e_ce_d=\begin{cases}e_c&c=d,\\0&c\ne d,\end{cases}
++ \qquad \sum_{c\in V}e_c=1,\qquad
++ [W]e_c=c\,e_c.
++ \label{eq:pb-critical-projectors}
++\end{equation}
++Indeed, on the factor for \(\alpha\), \(e_c\) has value \(1\)
++if \(W(\alpha)=c\), and \(0\) otherwise. Each factor belongs to
++exactly one critical value.
++
++The zero-value algebra \(J/([W])\) is \(e_0J\) if \(0\in V\),
++and is zero otherwise. On every component with \(c\ne0\),
++multiplication by \([W]\) is multiplication by the invertible
++scalar \(c\); on the zero component it is zero.
++This is an algebraic separation of the critical values.
++
++The projectors also admit explicit homotopies before taking
++cohomology. By \eqref{eq:pb-critical-projectors} the polynomial
++\(p_cp_d-\delta_{cd}p_c\) is divisible by
++\(W'\), where \(\delta_{cd}\) is \(1\) when \(c=d\) and \(0\)
++otherwise. Define its polynomial quotient by
++\[
++ q_{cd}=\frac{p_cp_d-\delta_{cd}p_c}{W'}.
++\]
++Using the matrix \(H\) above gives
++\[
++ \delta(q_{cd}H)=(p_cp_d-\delta_{cd}p_c)\,1.
++\]
++Completeness holds exactly: \(\sum_cP_c(X)-1\) has degree less
++than \(|V|\) and vanishes at all \(|V|\) distinct elements of \(V\),
++so it is zero by repeated polynomial division. Hence
++\(\sum_cp_c=1\) already in \(k[x]\). Orthogonality and idempotence
++hold by the displayed homotopies in \(B_W\).
++
++\begin{example}[Two critical values]
++\label{ex:pb-two-values}
++Take \(W=x^3-3x+2=(x-1)^2(x+2)\).
++Then \(W'=3(x^2-1)\), the critical points are \(1,-1\), and
++their values are \(0,4\). In \(J=k[x]/(x^2-1)\),
++\[
++ [W]=2-2[x],\qquad
++ e_0=1-[W]/4=(1+[x])/2,\qquad
++ e_4=[W]/4=(1-[x])/2.
++\]
++Both are nonzero and their sum is one.
++The zero-value quotient is \(J/([W])=k\), whereas
++the whole diagonal cohomology has dimension two.
++Theorem~\ref{thm:pb-object-ideal} gives
++\(I_{\mathrm{obj}}(W)=(x-1)\). In particular, the critical point
++\(-1\) contributes to the diagonal Jacobi algebra but supplies
++no additional scalar component on the boundary objects for \(W=0\).
++\end{example}
++
++\section{Parity and the remaining comparison}
++\label{sec:pb-parity-comparison}
++
++A parity shift exchanges \(E^{\bar0}\) and \(E^{\bar1}\) and changes
++the sign of \(D\); this operation is denoted \([1]\). Applying it
++twice restores the original parity and the original differential,
++so \([2]\) is the identity in the two-periodic category.
++An integer cohomological grading, by contrast, consists of separate
++spaces in every integer degree and a differential raising degree
++by one. Such a grading contains data absent from a parity
++decomposition. In particular, specifying a parity shift does not
++distinguish an integer \(n\) from \(n-2\).
++
++The boundary calculation and the diagonal calculation can be
++placed in one diagram of scalar maps:
++\[
++\begin{array}{ccc}
++ k[x] &\longrightarrow& H^{\bar0}(B_W)=k[x]/(W')\\
++ \big\downarrow && \big\downarrow\\
++ k[x]/I_{\mathrm{obj}}(W)&& k[x]/(W,W').
++\end{array}
++\]
++The vertical arrows and the top arrow are the displayed quotient
++maps. No bottom arrow is asserted. For \(W=x^3\), such an arrow
++preserving the specified scalar actions would send the zero class
++of \(x\) in \(k[x]/(x)\) to the nonzero class of \(x\) in
++\(k[x]/(x^2)\), which is impossible.
++
++The algebra of one boundary, the relations vanishing on every
++boundary, and the endomorphisms of the diagonal are therefore
++distinct inputs to a comparison. A categorical identification
++requires a diagonal action on the boundary category and a proof
++that this action represents its identity functor. A chiral
++realization additionally requires local operations depending on
++positions, their differential, and the identities governing
++collisions. The finite polynomial matrices specify the boundary
++input and its homotopies; they do not supply those additional
++position-dependent operations.
+diff --git a/platonic/chapters/Volume_IV_Calabi_Yau_Quantum_Groups.tex b/platonic/chapters/Volume_IV_Calabi_Yau_Quantum_Groups.tex
+index 82081d5..a57c2c9 100644
+--- a/platonic/chapters/Volume_IV_Calabi_Yau_Quantum_Groups.tex
++++ b/platonic/chapters/Volume_IV_Calabi_Yau_Quantum_Groups.tex
+@@ -8,6 +8,8 @@ Calabi--Yau categories, geometric BV theories, Hall correspondences, quantum dou
+ \end{summarybox}
+ \part{Categorical and field-theoretic foundations}
+ 
++\input{chapters/examples/polynomial_boundary_algebras}
++
+ \chapter{Calabi--Yau categories}
+ \section{Smoothness, properness, and the Calabi--Yau class}
+ Let $\Ccal$ be a small stable $\kfield$-linear category. Smoothness means that the diagonal bimodule is perfect. Properness means that the morphism complexes are perfect over $\kfield$. A $d$-Calabi--Yau structure is a nondegenerate negative-cyclic class
+diff --git a/standalone/polynomial_boundary_algebras.tex b/standalone/polynomial_boundary_algebras.tex
+new file mode 100644
+index 0000000..71ef14e
+--- /dev/null
++++ b/standalone/polynomial_boundary_algebras.tex
+@@ -0,0 +1,15 @@
++\documentclass[11pt,oneside]{memoir}
++\usepackage{raeez-math-template}
++\title{Polynomial potentials and boundary algebras}
++\author{Raeez Lorgat}
++\date{}
++\hypersetup{pdftitle={Polynomial potentials and boundary algebras},
++pdfauthor={Raeez Lorgat},
++pdfsubject={Matrix factorizations, scalar actions, and critical values}}
++\begin{document}
++\frontmatter
++\maketitle
++\tableofcontents
++\mainmatter
++\input{chapters/examples/polynomial_boundary_algebras}
++\end{document}

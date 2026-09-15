@@ -1,0 +1,707 @@
+\providecommand{\PhiFA}{\Phi^{\mathrm{FA}}}
+\providecommand{\HolFA}{\mathrm{HolFA}}
+\providecommand{\EdHolFA}{E_d\text{-}\HolFA}
+\providecommand{\EnHolFA}{E_n\text{-}\HolFA}
+\providecommand{\SpCh}{\mathrm{Sp}^{\mathrm{ch}}}
+\providecommand{\intSigma}{\textstyle\int_{\Sigma_{d-1}}}
+\providecommand{\hCS}{\mathrm{hCS}}
+
+\chapter{Matrix Factorizations}
+\label{ch:matrix-factorizations}
+
+The third source of CY categories is the Landau--Ginzburg model. A polynomial $W \colon \C^n \to \C$ with isolated critical point produces a $\Z/2$-graded dg-category $\MF(W)$ of matrix factorizations, and Dyckerhoff's theorem (extending Orlov's singularity-category comparison) gives $\MF(W)$ the structure of a smooth proper CY category of dimension $d = n - 2$. The assignment $W \mapsto \MF(W)$ is the algebraic shadow of the B-model on the LG target. In the two-stage factorisation $\Phi_d = \SpCh_{\Sigma_{d-1},C} \circ \PhiFA_d$, the category $\MF(W)$ is the CY$_d$-categorical \emph{input} to the first stage $\PhiFA_d$; its stage-1 output $\PhiFA_d(\MF(W))$ is a $d$-dimensional holomorphic factorisation algebra on the LG target, and the second stage $\SpCh$ specialises this to a chiral algebra on a curve. Three structures emerge: the CY category and its Hochschild invariants; the LG/CY correspondence, reconciling the LG bridge with the derived-category bridge of Chapter~\ref{ch:derived-cy}; and the ADE specialization, where $\Phi_2(\MF(W))$ is expected to recover the principal $\cW$-algebra of the corresponding simply-laced type.
+
+\section{\texorpdfstring{$\MF(W)$}{MF(W)} as a CY category}
+\label{sec:mf-cy-category}
+
+Let $S = \C[x_1, \ldots, x_n]$ and let $W \in S$ be a polynomial with an isolated critical point at the origin. A \emph{matrix factorization} of $W$ is a pair $(E, d)$ where $E = E_0 \oplus E_1$ is a finitely generated free $\Z/2$-graded $S$-module and $d \colon E \to E$ is an odd $S$-linear endomorphism satisfying
+\[
+ d^{2} \;=\; W \cdot \id_E .
+\]
+Morphisms are $S$-linear maps of $\Z/2$-graded modules, composed up to the usual null-homotopies. The homotopy category $\MF(W)$ is a $\Z/2$-periodic triangulated category; its natural dg-enhancement is cyclic and smooth proper, so it admits a CY structure in the sense of Kontsevich--Soibelman. We write $\MF(W)$ for the dg-category throughout.
+
+Eisenbud introduced matrix factorizations in the study of free resolutions over hypersurface rings \cite{Eisenbud1980}. Orlov's theorem \cite{Orlov2004} identifies the homotopy category with the singularity category of the zero locus:
+\[
+ \MF(W) \;\simeq\; D_{\mathrm{sing}}(Z(W)) \;:=\; D^b(\Coh(Z(W)))\big/\Perf(Z(W)).
+\]
+Kapustin and Li \cite{KapustinLi2003} identified $\MF(W)$ with the category of B-type boundary conditions of the LG model with superpotential $W$; their residue formula computes the open-string pairing. Dyckerhoff \cite{Dyckerhoff2011} proved compact generation and computed the Hochschild invariants; Polishchuk and Vaintrob \cite{PolishchukVaintrob2012} constructed the CY structure as a cyclic $\Ainf$-structure and identified the trace with the Kapustin--Li residue.
+
+\begin{theorem}[CY dimension of \texorpdfstring{$\MF(W)$}{MF(W)}; Dyckerhoff, Polishchuk--Vaintrob]
+\label{thm:mf-cy-dimension}
+Let $W \colon \C^n \to \C$ be a polynomial with an isolated critical point at the origin. The dg-category $\MF(W)$ is smooth and proper, and carries a canonical cyclic $\Ainf$-structure realizing it as a CY category of dimension
+\[
+ d \;=\; n - 2.
+\]
+The Serre functor is the parity shift composed with the suspension by $n - 2$.
+\end{theorem}
+
+\begin{remark}[the CY dimension is \texorpdfstring{$n-2$}{n-2}]
+\label{rem:mf-dim-caveat}
+The CY dimension of $\MF(W)$ is $n - 2$. The shift by two arises from the $\Z/2$-grading: the ambient $n$-dimensional affine space is traded for the $(n-1)$-dimensional critical locus, and a further shift comes from the Serre functor of the periodic category. Consequently ADE singularities in $n = 2$ variables give CY$_0$ categories of finite Cohen--Macaulay type, not semisimple categories; one needs $n = 4$ variables to obtain a CY$_2$ category in the domain of $\Phi_2$ of Theorem~CY-A$_2$ (Section~\ref{sec:cy-chiral-functor}).
+\end{remark}
+
+The Hochschild invariants of $\MF(W)$ are explicit. Write $\Jac(W) = S/(\partial_1 W, \ldots, \partial_n W)$ for the Jacobi ring.
+
+\begin{theorem}[Hochschild invariants; Dyckerhoff, Polishchuk--Vaintrob]
+\label{thm:mf-hh}
+For $W$ with isolated critical point at the origin there are canonical isomorphisms
+\[
+ \HH^{\bullet}(\MF(W)) \;\cong\; \Jac(W),
+ \qquad
+ \HH_{\bullet}(\MF(W)) \;\cong\; \Jac(W)\, dx_1 \wedge \cdots \wedge dx_n,
+\]
+with the natural $\Z/2$-periodic parity and with Hochschild homology in parity $n \bmod 2$. The exterior Koszul complex with odd generators $\theta_i$ is the standard model whose differential is contraction with $dW$; its cohomology is the Jacobi ring, not $\Jac(W)\otimes\Lambda^\bullet(\theta_1,\ldots,\theta_n)$. The CY trace $\HH_{n-2}(\MF(W)) \to \C$ is the Grothendieck residue
+\[
+ \mathrm{tr}\bigl(f\, dx_1 \wedge \cdots \wedge dx_n\bigr)
+ \;=\;
+ \Res_{dW = 0}\!\left( \frac{f\, dx_1 \wedge \cdots \wedge dx_n}{\partial_1 W \cdots \partial_n W} \right) .
+\]
+\end{theorem}
+
+In particular $\dim_{\C} \HH_{\bullet}(\MF(W)) = \mu(W)$, the Milnor number of the isolated singularity, and the trace is non-degenerate on $\HH_{n-2}$. The Jacobi ring is the closed-string state space of the LG model and the residue is the one-point correlator on the sphere; together these give the algebraic data that the CY-to-chiral correspondence $\{\Phi_d\}$ consumes.
+
+\begin{example}[The quadratic archetype]
+\label{ex:mf-quadratic}
+Take $W = x^2$ on $\C$, the one-variable $A_1$ singularity. The indecomposable non-trivial matrix factorization is the ``stabilized residue field'' $k^{\mathrm{stab}}$ given by the $\Z/2$-graded complex
+\[
+ \C[x] \xrightarrow{\; x \;} \C[x] \xrightarrow{\; x \;} \C[x],
+\]
+in which both differentials are multiplication by $x$ and $d^2 = x^2 = W$. A direct computation gives the endomorphism algebra
+\[
+ \End_{\MF(x^2)}(k^{\mathrm{stab}}) \;\cong\; \C[\varepsilon]/(\varepsilon^2 - 1),
+\]
+a two-dimensional $\Z/2$-graded Clifford algebra on one generator. The Jacobi ring is $\Jac(x^2) = \C[x]/(2x) \cong \C$, so $\HH_\bullet(\MF(x^2)) \cong \C$ is one-dimensional; the two-dimensional endomorphism algebra counts the $\Z/2$-graded indecomposable and its parity shift. The dimension count $2$ is the rank count of the free-fermion representation: a single holomorphic fermion contributes a two-dimensional Clifford sector, and this is the smallest nonzero input to the LG-to-chiral passage at the level of Hochschild invariants. The $n = 1$ case sits outside the CY$_2$ domain of Theorem~CY-A$_2$ (Remark~\ref{rem:mf-dim-caveat}) and is used only as the building block for the stabilized four-variable model in Section~\ref{sec:ade-w-algebras}.
+\end{example}
+
+\begin{proposition}[\texorpdfstring{$\Phi_2(\MF(W))$}{Phi-2(MF(W))} for \texorpdfstring{$n = 4$}{n = 4}]
+\label{prop:mf-phi-input}
+Let $W \colon \C^4 \to \C$ have an isolated critical point at the origin. By Theorem~\ref{thm:mf-cy-dimension} the category $\MF(W)$ is CY$_2$, hence Theorem~CY-A$_2$ applies and produces a chiral algebra
+\[
+ \Phi_2(\MF(W)) \;\in\; \Etwo\text{-}\mathrm{ChirAlg} .
+\]
+Its Landau--Ginzburg scalar is
+\[
+ \kappa_{\mathrm{ch}}^{\mathrm{LG}}(\Phi_2(\MF(W))) =
+ \chi(\HH_\bullet(\MF(W))) = \mu(W),
+\]
+the Milnor number.
+\end{proposition}
+
+\begin{proof}
+Theorem~CY-A$_2$ (Section~\ref{sec:cy-chiral-functor}) applies to any smooth proper CY$_2$ category. The value $\kappa_{\mathrm{ch}}^{\mathrm{LG}} = \chi(\HH_\bullet)$ is the CY Euler characteristic clause of that theorem in the Landau--Ginzburg normalisation; Theorem~\ref{thm:mf-hh} identifies $\HH_\bullet$ with $\Jac(W)$ placed in a single parity, whose Euler characteristic is the $\C$-dimension of the Jacobi ring, namely $\mu(W)$.
+\end{proof}
+
+Thus the shadow obstruction tower of $\Phi_2(\MF(W))$ is a deformation-theoretic invariant of the singularity.
+
+\section{LG/CY correspondence}
+\label{sec:lg-cy-correspondence}
+
+The LG/CY correspondence gives a second route to the same chiral algebra for hypersurface geometries. Let $W \in \C[x_0, \ldots, x_n]$ be a homogeneous polynomial of degree $n + 1$ cutting out a smooth Calabi--Yau hypersurface $Z(W) \subset \mathbf{P}^n$. The prototypical case is the quintic $W \in \C[x_0, \ldots, x_4]$ of degree $5$, whose vanishing locus is a smooth Calabi--Yau threefold $Q \subset \mathbf{P}^4$.
+
+Orlov's theorem \cite{Orlov2004} supplies the comparison. It states that for the graded (equivariant) matrix factorization category at zero R-charge,
+\[
+ \MF^{\gr}(W)_{0} \;\simeq\; D^b(\Coh(Q)) ,
+\]
+while at the singular locus of $W$ the ungraded category $\MF(W)$ recovers the singularity category of the affine cone. The dimension count matches: $W \colon \C^5 \to \C$ has $n = 5$, so by Theorem~\ref{thm:mf-cy-dimension} the ungraded category $\MF(W)$ is CY$_3$, agreeing with the CY$_3$ dimension of $D^b(\Coh(Q))$. The grading shift interpolates between the two and identifies them as $\C^\times$-equivariant CY categories of dimension $3$.
+
+\begin{proposition}[LG/CY matching of framed inputs]
+\label{prop:lg-cy-matching}
+Let $W$ be a homogeneous polynomial of degree $n + 1$ in $n + 1$ variables with smooth projective zero locus $Q \subset \mathbf{P}^n$. Fix a specialisation datum $(\Sigma_2,C)$ in the framed locus of Theorem~\ref{thm:cy-to-chiral-d3}. The framed $d = 3$ assignment
+$\Phi_3^{(\Sigma_2,C)}=\SpCh_{\Sigma_2,C}\circ\PhiFA_3$ then gives
+\[
+ \Phi_3^{(\Sigma_2,C)}\bigl(\MF^{\gr}(W)_{0}\bigr) \;\simeq\; \Phi_3^{(\Sigma_2,C)}\bigl(D^b(\Coh(Q))\bigr)
+\]
+as framed object-level chiral algebras. In particular,
+\[
+\kappa_{\mathrm{ch}}^{\mathrm{loc}}\bigl(\Phi_3^{(\Sigma_2,C)}(\MF^{\gr}(W)_0)\bigr)
+=
+\kappa_{\mathrm{ch}}^{\mathrm{loc}}\bigl(\Phi_3^{(\Sigma_2,C)}(D^b(\Coh(Q)))\bigr).
+\]
+The statement is confined to the specified framed object-level locus and asserts no unrestricted global $\Phi_3$ functoriality.
+\end{proposition}
+
+\begin{proof}
+Orlov's theorem is an equivalence of CY$_3$ dg-categories. The framed assignment $\Phi_3^{(\Sigma_2,C)}$ is evaluated on the specified specialisation datum in the framed locus and depends only on the CY dg-equivalence class at that object-level scope. The two sides agree as inputs, so their framed images agree. The modular characteristic equality follows from the fixed-object Hodge-supertrace clause (Section~\ref{sec:cy-chiral-functor}), which depends only on $\HH_\bullet$.
+\end{proof}
+
+\begin{remark}[Framed \texorpdfstring{$d = 3$}{d = 3} construction]
+\label{rem:mf-d3-conditional}
+Theorem~CY-A$_3$ (Theorem~\ref{thm:cy-to-chiral-d3}) supplies a framed object-level construction: one specifies $(\Sigma_2,C)$ in the framed locus and evaluates $\SpCh_{\Sigma_2,C}(\PhiFA_3(-))$. Proposition~\ref{prop:lg-cy-matching} is proved on that locus. For the quintic the two inputs are the Landau--Ginzburg source $\MF^{\gr}(W_{\mathrm{quintic}})_0$ and the Calabi--Yau source $D^b(\Coh(Q))$ of Chapter~\ref{ch:derived-cy}.
+\end{remark}
+
+The LG/CY correspondence is the derived-category image of the physics claim that the Landau--Ginzburg theory with superpotential $W$ and the non-linear sigma model on $Q$ are the two phases of a single gauged linear sigma model (Witten \cite{Witten1993}). Proposition~\ref{prop:lg-cy-matching} states the corresponding equality of the framed chiral algebras after descent to the gauged linear sigma model.
+
+\section{ADE singularities and \texorpdfstring{$\cW$}{W}-algebras}
+\label{sec:ade-w-algebras}
+
+The ADE singularities are the simplest isolated hypersurface singularities with finite-dimensional deformation space. In one variable the type $A_{N-1}$ singularity is $W_{A_{N-1}} = x^N$, and the higher-type singularities are
+\[
+ W_{D_N} = x^{N-1} + xy^2, \qquad
+ W_{E_6} = x^3 + y^4, \qquad
+ W_{E_7} = x^3 + xy^3, \qquad
+ W_{E_8} = x^3 + y^5 .
+\]
+Each is a $2$-variable polynomial with a single isolated critical point at the origin. By Theorem~\ref{thm:mf-cy-dimension} the category $\MF(W_{\mathrm{ADE}})$ in $n = 2$ variables is CY of dimension $n - 2 = 0$. It has finite Cohen--Macaulay type, but it is not semisimple; Kn\"orrer periodicity \cite{Knorrer1987,BuchweitzGreuelSchreyer1987} identifies its indecomposable non-free MCM objects with the Dynkin vertices of the corresponding simple hypersurface singularity.
+
+To obtain a CY$_2$ input for Theorem~CY-A$_2$ one stabilizes by adding two quadratic variables:
+\[
+ \widetilde{W}_{\mathrm{ADE}} \;:=\; W_{\mathrm{ADE}}(x, y) + u^2 + v^2 \;\in\; \C[x, y, u, v] .
+\]
+Kn\"orrer periodicity \cite{Knorrer1987} gives an equivalence
+\[
+ \MF(\widetilde{W}_{\mathrm{ADE}}) \;\simeq\; \MF(W_{\mathrm{ADE}}) \otimes \mathrm{Cl}_2 ,
+\]
+where $\mathrm{Cl}_2$ is the $\Z/2$-graded Clifford algebra on two generators; the dimension count in Theorem~\ref{thm:mf-cy-dimension} becomes $n - 2 = 2$, so $\MF(\widetilde{W}_{\mathrm{ADE}})$ is CY$_2$ and $\Phi$ of Theorem~CY-A$_2$ applies.
+
+\begin{conjecture}[ADE Landau--Ginzburg duality and principal \texorpdfstring{$\cW$}{W}-algebras]
+\label{conj:ade-w-algebra}
+\ClaimStatusConjectured
+For each simply-laced Lie algebra $\mathfrak{g}$ of type $X_N \in \{A_N, D_N, E_6, E_7, E_8\}$, the chiral algebra of the stabilized ADE Landau--Ginzburg model is isomorphic to the principal $\cW$-algebra of $\mathfrak{g}$ at a distinguished level $k_{\mathrm{ADE}}$ determined by the Kazhdan--Lusztig boundary of the semiclassical locus:
+\[
+ \Phi\bigl(\MF(\widetilde{W}_{X_N})\bigr) \;\simeq\; \cW_{k_{\mathrm{ADE}}}(\mathfrak{g}_{X_N}) .
+\]
+The Landau--Ginzburg scalar matches on both sides:
+\[
+\kappa_{\mathrm{ch}}^{\mathrm{LG}}\bigl(\Phi_2(\MF(\widetilde{W}_{X_N}))\bigr)=N .
+\]
+On the matrix-factorisation side this is the Milnor number by Proposition~\ref{prop:mf-phi-input}; on the $\cW$-algebra side it selects the Drinfeld--Sokolov level $k_{\mathrm{ADE}}$.
+\end{conjecture}
+
+The physics grounding is the LG dual of Drinfeld--Sokolov reduction. Witten's gauged linear sigma model analysis of ADE singularities \cite{Witten1993}, Cecotti and Vafa's tt$^*$ classification of $N = 2$ LG models \cite{CecottiVafa1993}, and Kapustin and Li's B-model boundary-state computation \cite{KapustinLi2003} together assemble a physical derivation of the correspondence. The mathematical statement in Conjecture~\ref{conj:ade-w-algebra} is that $\Phi_2$ converts this physical duality into an equivalence of chiral algebras.
+
+\begin{remark}[ADE reduction]
+\label{rem:ade-conj-scope}
+The category $\MF(\widetilde{W}_{\mathrm{ADE}})$ lies in the proved \(d=2\) domain of Theorem~CY-A$_2$. The additional assertion is the Drinfeld--Sokolov identification
+\[
+\Phi_2(\MF(\widetilde{W}_{X_N})) \simeq \cW_{k_{\mathrm{ADE}}}(\mathfrak g_{X_N}).
+\]
+The modular characteristic is fixed by the Milnor number. The structural comparison asks for an intrinsic construction of the principal $\cW$-algebra from $\HH_\bullet(\MF(\widetilde{W}_{\mathrm{ADE}}))$.
+\end{remark}
+
+\subsection*{Base case verification: \texorpdfstring{$A_1$}{A-1}}
+
+We verify the base case $A_1$, $W_{A_1} = x^2$, explicitly. Stabilize to four variables,
+\[
+ \widetilde{W}_{A_1} \;=\; x^2 + y^2 + z^2 + w^2 \;\in\; \C[x, y, z, w] ,
+\]
+a non-degenerate quadratic form. The critical locus is the origin and the Milnor number is $\mu(\widetilde{W}_{A_1}) = 1$. The Jacobi ring is $\C[x, y, z, w]/(x, y, z, w) \cong \C$, one-dimensional, so by Theorem~\ref{thm:mf-hh} the Hochschild homology is
+\[
+ \HH_\bullet(\MF(\widetilde{W}_{A_1})) \;\cong\; \C
+\]
+concentrated in a single parity. Writing $x^2 + y^2 + z^2 + w^2 = (x{+}iy)(x{-}iy) + (z{+}iw)(z{-}iw) = u_1 v_1 + u_2 v_2$, iterated Kn\"orrer periodicity with $k = 2$ stabilisation pairs from the empty LG model $\MF(0)$ gives
+\[
+ \MF(\widetilde{W}_{A_1}) \;\simeq\; \MF(0) \otimes_{\Z/2} \mathrm{Cl}_2^{\C, \otimes 2} \;\simeq\; \mathrm{Vect}^{\Z/2},
+\]
+the $\Z/2$-graded category of finite-dimensional vector spaces. The Morita triviality invokes complex Bott $2$-periodicity of $\Z/2$-graded Clifford algebras: $\mathrm{Cl}^{\C}_2 \cong M_{1|1}(\C)$ as a $\Z/2$-graded algebra, so $\mathrm{Cl}^{\C}_{2k}$ is $\Z/2$-graded-Morita trivial for every $k \geq 1$. Theorem~\ref{thm:mf-cy-dimension} places $\MF(\widetilde{W}_{A_1})$ in dimension $2$, matching the CY$_2$ hypothesis of Theorem~CY-A$_2$.
+
+On the $\cW$-algebra side, the principal $\cW$-algebra of $\mathfrak{sl}_2$ is the Virasoro vertex algebra at central charge
+\[
+ c(k)=1-\frac{6(k+1)^2}{k+2}
+\]
+in the chosen Drinfeld--Sokolov normalization. The Virasoro identity
+$\kappa_{\mathrm{ch}}^{\mathrm{Vir}}=c/2$ and the Milnor-number match
+$\kappa_{\mathrm{ch}}^{\mathrm{LG}}=\mu=1$ force $c=2$. The level is therefore one of
+the two solutions of \(6k^2+13k+8=0\), namely
+\[
+ k=\frac{-13\pm i\sqrt{23}}{12}.
+\]
+Conjecture~\ref{conj:ade-w-algebra} for $A_1$ selects the Virasoro
+vertex algebra at $c=2$. The Ising VOA has $c=1/2$ and modular
+characteristic \(\kappa_{\mathrm{ch}}^{\mathrm{Ising}}=1/4\), while the
+selected Virasoro algebra has
+\(\kappa_{\mathrm{ch}}^{\mathrm{Vir},\,c=2}=1\). The two Clifford states
+of Example~\ref{ex:mf-quadratic} count the $\Z/2$-graded indecomposable
+and its parity shift in the unstabilised $A_1$ MF category; the central
+charge is fixed by the Drinfeld--Sokolov formula above.
+
+The base case is consistent with Proposition~\ref{prop:mf-phi-input}: the value $\kappa_{\mathrm{ch}}^{\mathrm{LG}}(\Phi_2(\MF(\widetilde{W}_{A_1})))$ equals the Milnor number $\mu = 1$, the modular characteristic of the trivial vacuum chiral algebra is $1$, and the two match. The matching at $A_1$ is the smallest non-empty instance of the conjecture and the only one where both sides can be written down without further hypothesis.
+
+\begin{remark}[ADE Milnor numbers and \texorpdfstring{$\kappa_{\mathrm{ch}}^{\mathrm{LG}}$}{kappa-ch-LG}]
+\label{rem:mf-ade-milnor-table}
+The Milnor number $\mu(W)$ of each ADE singularity $W$ in two variables equals $N$ for type $X_N$, and by the Thom--Sebastiani formula the stabilization $\widetilde{W} = W + u^2 + v^2$ preserves the Milnor number (since $\mu(u^2) = \mu(v^2) = 1$ and $\mu$ is multiplicative under direct sums of singularities). Proposition~\ref{prop:mf-phi-input} gives
+\[
+ \kappa_{\mathrm{ch}}^{\mathrm{LG}}\bigl(\Phi_2(\MF(\widetilde{W}_{X_N}))\bigr) \;=\; \mu(\widetilde{W}_{X_N}) \;=\; N
+\]
+for every simply-laced type. The explicit Milnor numbers, the Jacobi ring dimensions confirming them, and the Coxeter numbers of the corresponding Lie algebras are:
+\[
+ \renewcommand{\arraystretch}{1.2}
+ \begin{array}{c|c|c|c|c}
+ \text{Type} & W & \mu(W) & \mathfrak{g} & h(\mathfrak{g}) \\
+ \hline
+ A_N & x^{N+1} & N & \mathfrak{sl}_{N+1} & N+1 \\
+ D_N & x^{N-1} + xy^2 & N & \mathfrak{so}_{2N} & 2(N-1) \\
+ E_6 & x^3 + y^4 & 6 & \mathfrak{e}_6 & 12 \\
+ E_7 & x^3 + xy^3 & 7 & \mathfrak{e}_7 & 18 \\
+ E_8 & x^3 + y^5 & 8 & \mathfrak{e}_8 & 30
+ \end{array}
+\]
+The Milnor number also equals the rank of the Milnor lattice $H_{n-1}(F_W; \Z)$ of the generic fibre, which carries the intersection form of the corresponding root lattice. Conjecture~\ref{conj:ade-w-algebra} asserts that this numerical coincidence lifts to a structural identification: the principal $\cW$-algebra of $\mathfrak{g}_{X_N}$ has the same modular characteristic at its distinguished level.
+\end{remark}
+
+\begin{conjecture}[Shadow class of ADE LG models]
+\label{conj:mf-ade-shadow-class}
+\ClaimStatusConjectured
+For each ADE type $X_N$, the shadow obstruction tower of $\Phi_2(\MF(\widetilde{W}_{X_N}))$ terminates, and the shadow class is determined by the Dynkin type:
+\begin{itemize}
+ \item $A_1$: class G (shadow depth $r = 2$, trivial chiral algebra);
+ \item $A_N$ for $N \geq 2$: class M (shadow depth $r = \infty$, the principal $\cW_{N+1}$-algebra has generators at all weights $2, \ldots, N+1$ and a non-terminating tower);
+ \item $D_N$, $E_6$, $E_7$, $E_8$: class M (shadow depth $r = \infty$, the corresponding $\cW$-algebra has higher-spin generators forcing infinite shadow depth).
+\end{itemize}
+The $A_1$ case is verified by the base-case computation above ($\kappa_{\mathrm{ch}}^{\mathrm{LG}} = 1$, trivial Jacobi ring, $\mathrm{Cl}_4$-Morita-trivial category). For $N \geq 2$, the shadow class statement is conditional on Conjecture~\ref{conj:ade-w-algebra}: if the output $\Phi_2(\MF(\widetilde{W}_{X_N}))$ is indeed the principal $\cW$-algebra $\cW(\mathfrak{g}_{X_N})$ of rank $\geq 2$, then the shadow depth classification (depth gap trichotomy: $d_{\mathrm{alg}} \in \{0, 1, 2, \infty\}$) places it in class M, since the principal $\cW$-algebra has non-vanishing higher operations at all degrees.
+\end{conjecture}
+
+\begin{remark}[Milnor lattice and \texorpdfstring{$\kappa_{\mathrm{fiber}}$}{kappa-fib}]
+\label{rem:mf-milnor-lattice}
+The ADE root lattice appears in two distinct roles. As the Milnor lattice of $W$, it controls $\kappa_{\mathrm{ch}}^{\mathrm{LG}}$ through the Jacobi ring dimension $\mu = \mathrm{rank}$. As the lattice of vanishing cycles, it gives $\kappa_{\mathrm{fiber}} = \mu$ by the rank count. In the ADE case these two values coincide, but this is a consequence of the McKay correspondence: the Kleinian surface singularity $\C^2/\Gamma$ (with $\Gamma \subset \mathrm{SU}(2)$ the finite subgroup of type $X_N$) has resolution dual graph equal to the Dynkin diagram, whose vertex count is $\mu = N$. For non-ADE singularities the two values may diverge, and the distinction between $\kappa_{\mathrm{ch}}^{\mathrm{LG}}$ and $\kappa_{\mathrm{fiber}}$ becomes essential.
+\end{remark}
+
+\section{The Fermat quartic K3: chiral algebra at the Gepner point}
+\label{sec:mf-fermat-quartic-k3}
+
+The Fermat quartic
+\[
+ X_{\mathrm{Fermat}} \;=\; \bigl\{\, x_0^4 + x_1^4 + x_2^4 + x_3^4 \;=\; 0 \,\bigr\} \;\subset\; \bP^3
+\]
+is a K3 surface at an enhanced symmetry point in moduli space. Its Picard number $\rho(X_{\mathrm{Fermat}}) = 20$ is maximal for a K3 surface over $\bC$ (such surfaces are called \emph{singular} in the arithmetic sense of Shioda--Inose \cite{ShiodaInose1977}). The transcendental lattice $T(X_{\mathrm{Fermat}})$ has rank~$2$ and intersection form $\langle 4 \rangle \oplus \langle 4 \rangle$ (discriminant~$16$), corresponding to the CM point $\tau = i$ in the upper half-plane. The superpotential $W = x_0^4 + x_1^4 + x_2^4 + x_3^4$ has $n = 4$ variables; by Theorem~\ref{thm:mf-cy-dimension} the category $\MF(W)$ is CY$_2$ (dimension $n - 2 = 2$; Remark~\ref{rem:mf-dim-caveat}), and Theorem~CY-A$_2$ applies unconditionally.
+
+\subsection{The Gepner model \texorpdfstring{$(2)^4$}{(2)-4}}
+\label{subsec:mf-fermat-gepner}
+
+The Gepner model for the Fermat quartic is the tensor product of four copies of the $\cN = 2$ minimal model at level $k = 2$, with a $\bZ/4\bZ$ orbifold projection. Each factor has central charge $c = 3k/(k+2) = 3/2$ and chiral ring $\bC[x]/(x^3)$ of dimension~$3$; the tensor product has total $c = 4 \times 3/2 = 6 = 3d$ for $d = 2$, as required by the CY$_2$ unitarity bound. The $\bZ/4\bZ$ orbifold projects onto integer-charge states, and the resulting SCFT has $\cN = (4,4)$ superconformal symmetry with $\mathrm{SU}(2)_1$ R-symmetry ($k_R = 1$, $c = 6k_R$).
+
+\begin{proposition}[Gepner chiral ring of the Fermat quartic]
+\label{prop:mf-fermat-gepner-ring}
+The $\bZ/4\bZ$-invariant Jacobian ring
+\[
+ \mathrm{Jac}(W)^{\bZ/4\bZ} \;=\; \bigl\{\, x_0^{a_0} x_1^{a_1} x_2^{a_2} x_3^{a_3} \;\big|\; 0 \leq a_i \leq 2,\; a_0 + a_1 + a_2 + a_3 \equiv 0 \pmod{4} \,\bigr\}
+\]
+has dimension~$21$ and degree decomposition
+\[
+ \dim \mathrm{Jac}(W)^{\bZ/4\bZ}_{(p)} \;=\; \begin{cases} 1 & p = 0 \\ 19 & p = 1 \\ 1 & p = 2 \end{cases}
+\]
+where $p = \tfrac{1}{4}\sum a_i$ is the orbifold degree. The degree-$0$ state is the vacuum ($h^{2,0} = 1$), the $19$ states at degree~$1$ are the polynomial deformations ($h^{1,1}_{\mathrm{poly}} = 19$), and the degree-$2$ state corresponds to $h^{0,2} = 1$. The full $h^{1,1}(K3) = 20$ includes one non-polynomial class: the hyperplane class $H \in \mathrm{NS}(X)$ outside the Gepner ring.
+\end{proposition}
+
+\begin{proof}
+The Jacobi ring $\mathrm{Jac}(W) = \bC[x_0, \ldots, x_3]/(4x_i^3)$ has basis the $3^4 = 81$ monomials $\prod x_i^{a_i}$ with $0 \leq a_i \leq 2$. The $\bZ/4\bZ$-invariant monomials are those with $\sum a_i \equiv 0 \pmod{4}$. At degree $p = 0$: only $(0,0,0,0)$, giving $1$~monomial. At degree $p = 1$: the tuples $(a_0, a_1, a_2, a_3)$ with $\sum a_i = 4$ and $0 \leq a_i \leq 2$; by inclusion--exclusion (or direct enumeration) this count is $19$. At degree $p = 2$: only $(2,2,2,2)$, giving $1$~monomial. Total: $1 + 19 + 1 = 21$.
+\end{proof}
+
+\begin{remark}[Enhanced symmetry and the Picard lattice]
+\label{rem:mf-fermat-picard}
+The automorphism group of $X_{\mathrm{Fermat}}$ contains $(\bZ/4\bZ)^3 \rtimes S_4$ as a subgroup of order $4^3 \times 24 = 1536$ (the diagonal $\bZ/4\bZ$ in $(\bZ/4\bZ)^4$ acts trivially on $\bP^3$, and $S_4$ permutes coordinates). These automorphisms act on $D^b(\Coh(X_{\mathrm{Fermat}}))$ as exact autoequivalences, hence descend via $\Phi_2$ to automorphisms of the chiral algebra. The $19$ polynomial deformations at degree~$1$ in Proposition~\ref{prop:mf-fermat-gepner-ring} correspond to the $19$ extra algebraic classes in $\mathrm{NS}(X_{\mathrm{Fermat}})$ beyond the hyperplane class that a generic K3 surface possesses; equivalently, the maximal Picard number $\rho = 20$ (vs the generic $\rho = 1$) accounts for the $19$-dimensional degree-$1$ sector.
+\end{remark}
+
+\subsection{The \texorpdfstring{$\kappa_\bullet$}{kappa-.}-spectrum at the Fermat point}
+\label{subsec:mf-fermat-kappa}
+
+\begin{proposition}[\texorpdfstring{$\kappa_\bullet$}{kappa-.}-spectrum of \texorpdfstring{$X_{\mathrm{Fermat}}$}{X-Fermat}]
+\label{prop:mf-fermat-kappa}
+The $\kappa_\bullet$-spectrum (Section~\ref{sec:cy-chiral-functor}) of the Fermat quartic K3 is:
+\[
+ \renewcommand{\arraystretch}{1.2}
+ \begin{array}{c|c|l|l}
+ \kappa_\bullet & \text{Value} & \text{Source} & \text{Type} \\
+ \hline
+ \kappa_{\mathrm{cat}} & 2 & \text{Holomorphic Euler char.\ } \chi(\cO_{K3}) = 1 - 0 + 1 & \text{manifold} \\
+ \kappa_{\mathrm{fiber}} & 24 & \text{Mukai lattice rank, } = \chi_{\mathrm{top}}(K3) & \text{manifold} \\
+ \kappa_{\mathrm{ch}}^{\mathrm{Hodge}} & 2 & \text{CY-A}_2 \text{ functor } \Phi_2 \text{, } \chi(\cO_{K3}) & \text{algebraization} \\
+ \kappa_{\mathrm{ch}}^{\mathrm{LG}} & 81 & \mu(W) = 3^4 \text{ (unorbifolded } \MF(W)\text{)} & \text{algebraization}
+ \end{array}
+\]
+The manifold invariants $\kappa_{\mathrm{cat}}$ and $\kappa_{\mathrm{fiber}}$ are topological, fixed by the K3 geometry and independent of algebraization. The value $\kappa_{\mathrm{ch}}^{\mathrm{Hodge}} = 2$ depends on the chiral algebra $\Phi_2(D^b(\Coh(K3)))$, but is a derived invariant of the K3 category and independent of the position in moduli space. The value $\kappa_{\mathrm{ch}}^{\mathrm{LG}} = 81$ is the modular characteristic of the \emph{unorbifolded} category $\MF(W)$ via Proposition~\ref{prop:mf-phi-input}. The geometric K3 surface carries the Hodge value $\kappa_{\mathrm{ch}}^{\mathrm{Hodge}} = 2$.
+\end{proposition}
+
+\begin{proof}
+The values $\kappa_{\mathrm{ch}}^{\mathrm{Hodge}} = \kappa_{\mathrm{cat}} = \chi(\cO_{K3}) = 2$ follow from Theorem~CY-A$_2$ and the Hodge data $h^{p,0}(K3) = (1, 0, 1)$. The fibre value $\kappa_{\mathrm{fiber}} = 24$ is the rank of the Mukai lattice $H^*(K3, \bZ)$, equivalently the topological Euler characteristic. The Milnor number value $\kappa_{\mathrm{ch}}^{\mathrm{LG}} = \mu(W) = (4-1)^4 = 81$ is Proposition~\ref{prop:mf-phi-input}. Deformation invariance of $\kappa_{\mathrm{ch}}^{\mathrm{Hodge}}$ follows from the fact that $\chi(\cO_X)$ is a topological invariant of the smooth surface.
+\end{proof}
+
+\subsection{Generic versus Fermat: shadow class variation}
+\label{subsec:mf-fermat-vs-generic}
+
+\begin{remark}[Shadow class variation over K3 moduli]
+\label{rem:mf-fermat-shadow-variation}
+At the generic point of K3 moduli space ($\rho = 1$), the chiral algebra $\Phi_2(D^b(\Coh(K3)))$ is the Mukai Heisenberg $H_{\mathrm{Muk}}$ of rank~$24$: a free-field theory in shadow class~G (depth~$2$). At the Fermat point ($\rho = 20$), the output of $\Phi_2$ is the Gepner model $(2)^4 / \bZ_4$: a rational $\cN = (4,4)$ VOA with finitely many irreducible modules, in shadow class~L (finite depth $> 2$). Both points share $\kappa_{\mathrm{ch}}^{\mathrm{Hodge}} = 2$ (derived invariant), but the shadow class jumps from~G to~L as the Picard lattice grows from rank~$1$ to rank~$20$.
+
+This illustrates two features of the stratification:
+\begin{enumerate}
+ \item \textbf{$\kappa_{\mathrm{ch}}^{\mathrm{Hodge}}$ is coarse}: it is too coarse to distinguish positions in K3 moduli. The shadow class is a finer invariant.
+ \item \textbf{Rationality at enhanced symmetry}: the Gepner model is a rational conformal field theory (RCFT) precisely because the large automorphism group at the Fermat point ($(\bZ/4\bZ)^3 \rtimes S_4$, order $1536$) constrains the chiral algebra to have finitely many modules. Moving to the generic point breaks these symmetries and the VOA becomes irrational.
+\end{enumerate}
+The transition between classes~G and~L over the K3 moduli space is continuous (the CY category deforms smoothly), but the shadow depth jumps discretely: the shadow class is a semicontinuous invariant in the depth-gap trichotomy.
+\end{remark}
+
+\section{Kn\"orrer periodicity in detail}
+\label{sec:knorrer-periodicity}
+
+The Kn\"orrer periodicity theorem is the structural backbone of the LG--CY passage; it allows one to translate freely between LG models in different numbers of variables and provides the mechanism by which ADE singularities in $n = 2$ variables (CY$_0$, finite Cohen--Macaulay type) are stabilised to $n = 4$ variables (CY$_2$, the input regime of Theorem~CY-A$_2$).
+
+\begin{theorem}[Kn\"orrer periodicity]
+\label{thm:knorrer-periodicity}
+Let $W \in \C[x_1, \ldots, x_n]$ have an isolated critical point at the origin. Then there is an equivalence of $\Z/2$-graded dg-categories
+\[
+ \MF(W + uv) \;\simeq\; \MF(W),
+\]
+where $u, v$ are two new variables (Kn\"orrer 1987). Iterating $k$ times yields
+\[
+ \MF\bigl(W + u_1 v_1 + \cdots + u_k v_k\bigr) \;\simeq\; \MF(W),
+\]
+and the isomorphism $u^2 + v^2 = (u + iv)(u - iv) = u'v'$ converts a sum of two squares into a single $uv$-product, so the stabilization $W \mapsto W + u^2 + v^2$ used throughout this chapter realises $k = 1$.
+\end{theorem}
+
+\begin{remark}[CY-dimension consistency]
+\label{rem:knorrer-cy-consistency}
+The CY dimensions on the two sides of Kn\"orrer periodicity match after accounting for the variable count. By Theorem~\ref{thm:mf-cy-dimension}, $\MF(W)$ in $n$ variables is CY of dimension $n - 2$, and $\MF(W + uv)$ in $n + 2$ variables is CY of dimension $(n + 2) - 2 = n$. The Kn\"orrer equivalence $\MF(W + uv) \simeq \MF(W)$ identifies the underlying dg-categories, while the CY structure on $\MF(W + uv)$ corresponds to the CY-$n$ structure obtained from the CY-$(n-2)$ structure on $\MF(W)$ by tensoring with the suspended-by-$2$ identity functor, exactly the operation $[2]$. Iterated stabilization $W \mapsto W + u_1 v_1 + \cdots + u_k v_k$ shifts the CY dimension by $2k$, providing the bridge between the natural ADE realm ($n = 2$, CY$_0$) and the input regime of $\Phi$ ($n = 4$, CY$_2$).
+\end{remark}
+
+\begin{example}[Stabilisation of the empty LG model to \texorpdfstring{$\C^k$}{C-k} Clifford]
+\label{ex:stabilization-empty-lg}
+Take $W = 0 \in \C[\,]$ (no variables). The matrix factorization category $\MF(0) = \mathrm{Vect}^{\Z/2}$ is the $\Z/2$-graded category of finite-dimensional vector spaces, CY of dimension $-2$ in the formal Theorem~\ref{thm:mf-cy-dimension} count (so $\Phi$ is undefined). Stabilising by $k$ copies of $u_i v_i$:
+\[
+ \MF(u_1 v_1 + \cdots + u_k v_k) \;\simeq\; \mathrm{Vect}^{\Z/2}
+\]
+yields the same category at every $k$, but realised as CY of dimension $2k - 2$. Setting $k = 2$: $\MF(u_1 v_1 + u_2 v_2)$ is the CY$_2$ Clifford category whose Hochschild homology is one-dimensional and whose chiral image $\Phi_2(\MF(u_1 v_1 + u_2 v_2))$ is the trivial chiral algebra with $\kappa_{\mathrm{ch}}^{\mathrm{LG}} = 1$. This is the smallest non-trivial input to Theorem~CY-A$_2$ from the LG world: a one-state vacuum module.
+\end{example}
+
+\begin{proposition}[Kn\"orrer compatibility with \texorpdfstring{$\Phi$}{Phi}]
+\label{prop:knorrer-phi-compatibility}
+Let $W \in \C[x_1, \ldots, x_n]$ have an isolated critical point with $n + 2k = 4$ (i.e.\ $n + 2k$ stabilises to four variables). Write $\widetilde{W} = W + \sum_{i=1}^k u_i v_i$. Then $\MF(\widetilde{W})$ is CY$_2$, Theorem~CY-A$_2$ applies, and
+\[
+ \kappa_{\mathrm{ch}}^{\mathrm{LG}}\bigl(\Phi_2(\MF(\widetilde{W}))\bigr) \;=\; \mu(W),
+\]
+the Milnor number of the original (un-stabilised) singularity.
+\end{proposition}
+
+\begin{proof}
+By Theorem~\ref{thm:knorrer-periodicity}, $\MF(\widetilde{W}) \simeq \MF(W)$ as dg-categories, and Theorem~\ref{thm:mf-hh} gives $\HH_\bullet(\MF(W)) \simeq \Jac(W)$ as a $\C$-vector space of dimension $\mu(W)$. Theorem~CY-A$_2$ identifies $\kappa_{\mathrm{ch}}^{\mathrm{LG}}$ with $\chi(\HH_\bullet)$ in the Landau--Ginzburg normalisation, and the latter equals $\mu(W)$ by the Hochschild homology computation (Theorem~\ref{thm:mf-hh}). The Milnor number is invariant under stabilisation by quadratic forms (Thom--Sebastiani), so $\mu(\widetilde{W}) = \mu(W) \cdot \mu(\sum u_i v_i) = \mu(W) \cdot 1 = \mu(W)$, confirming that the Hochschild homology of $\MF(\widetilde{W})$ also has dimension $\mu(W)$.
+\end{proof}
+
+\section{The quintic LG model and the LG/CY chiral matching}
+\label{sec:quintic-lg-detail}
+
+The quintic threefold provides the tightest non-trivial instance of the LG/CY correspondence in the framed $d=3$ setting. The smooth quintic $Q \subset \bP^4$ is the prototypical CY$_3$ with $h^{1,1}(Q) = 1$, $h^{2,1}(Q) = 101$, $\chi(Q) = 2(h^{1,1} - h^{2,1}) = -200$, and $\chi(\cO_Q) = 1 + 0 + 0 - 1 = 0$. The corresponding LG model has superpotential
+\[
+ W_{\mathrm{quintic}} \;=\; x_0^5 + x_1^5 + x_2^5 + x_3^5 + x_4^5 \;\in\; \C[x_0, \ldots, x_4],
+\]
+the Fermat quintic polynomial. The number of variables is $n = 5$, so by Theorem~\ref{thm:mf-cy-dimension} the ungraded category $\MF(W_{\mathrm{quintic}})$ is CY$_3$, matching the CY$_3$ dimension of $D^b(\Coh(Q))$.
+
+\begin{proposition}[Milnor number of the unorbifolded quintic LG model]
+\label{prop:quintic-milnor}
+Fix a framed specialisation datum $(\Sigma_2,C)$ in the locus of Theorem~\ref{thm:cy-to-chiral-d3}. The Milnor number of $W_{\mathrm{quintic}}$ is $\mu(W_{\mathrm{quintic}}) = (5-1)^5 = 1024$. The Jacobi ring
+\[
+ \Jac(W_{\mathrm{quintic}}) \;=\; \C[x_0, \ldots, x_4]\big/(5x_0^4, \ldots, 5x_4^4) \;\cong\; \C[x_0, \ldots, x_4]\big/(x_i^4)
+\]
+has basis the monomials $\prod x_i^{a_i}$ with $0 \leq a_i \leq 3$, giving $4^5 = 1024$. By Theorem~\ref{thm:mf-hh}, $\dim_\C \HH_\bullet(\MF(W_{\mathrm{quintic}})) = 1024$. This is the unorbifolded LG closed-state rank. It is not the modular characteristic of the geometric quintic, and Theorem~\ref{thm:cy-to-chiral-d3} supplies no equality $\kappa_{\mathrm{ch}}^{\mathrm{loc}}=1024$.
+\end{proposition}
+
+\begin{proof}
+The Jacobi ring computation is direct: $\partial_i W_{\mathrm{quintic}} = 5x_i^4$, so $\Jac(W_{\mathrm{quintic}}) = \C[x_0, \ldots, x_4]/(x_0^4, \ldots, x_4^4)$ has basis monomials $\prod x_i^{a_i}$ with $0 \leq a_i \leq 3$, giving $4^5 = 1024$. Theorem~\ref{thm:mf-hh} identifies this vector space with $\HH_\bullet(\MF(W_{\mathrm{quintic}}))$. Passing from this rank to a chiral scalar requires the Gepner orbifold and the framed LG/CY comparison.
+\end{proof}
+
+\begin{remark}[Orbifolding and the geometric K3-like fibre]
+\label{rem:quintic-orbifold-discrepancy}
+The orbifolded LG category $\MF^{\gr}(W_{\mathrm{quintic}})_0$ matches $D^b(\Coh(Q))$ for the smooth quintic $Q$ only through the LG/CY comparison of Proposition~\ref{prop:lg-cy-matching}. On the geometric side the Hodge supertrace is $\kappa_{\mathrm{ch}}^{\mathrm{Hodge}}(Q)=\chi(\cO_Q)=0$ at $d = 3$, while the BCOV scalar is $\kappa_{\mathrm{ch}}^{\mathrm{BCOV}}(Q)=-25/3$ (cf.\ Theorem~\ref{thm:kappa-stratification-by-d}). Neither value is $1024$. The factor $1024 = 4^5$ counts the unorbifolded Jacobi ring before the Gepner projection, before the CY comparison, and before the alternating trace.
+\end{remark}
+
+\begin{example}[The \texorpdfstring{$\bZ/5\bZ$}{Z/5Z} Gepner orbifold and the \texorpdfstring{$A^3$}{A-3} tensor product]
+\label{ex:quintic-gepner-orbifold}
+The Gepner model of the quintic is the tensor product of five copies of the $\cN = 2$ minimal model at level $k = 3$, with central charge $c = 3 \cdot 3/(3 + 2) = 9/5$ each. The total central charge is $5 \cdot 9/5 = 9 = 3d$ for $d = 3$, matching the CY$_3$ unitarity bound. The $\bZ/5\bZ$ orbifold projects onto integer-$U(1)_R$-charge states; the resulting chiral algebra is $\Phi_3(D^b(\Coh(Q)))$ via Proposition~\ref{prop:lg-cy-matching}. The chiral ring of $(A_3)^5/\bZ_5$ in its Gepner presentation has $1 + 101 + 101 + 1 = 204$ generators, matching $h^{3,0} + h^{2,1} + h^{1,2} + h^{0,3} = 1 + 101 + 101 + 1 = 204$: the sum of Hodge numbers along the anti-diagonal $p + q = d = 3$ is the standard Gepner $(c,c)$-ring dimension for a CY$_3$. The discrepancy between $204$ (count after orbifolding) and $0$ (alternating sum) is the cohomological-versus-arithmetic distinction: $\chi(\cO_Q) = 1 - 0 + 0 - 1 = 0$ alternates signs, while the Gepner ring counts dimensions positively.
+\end{example}
+
+\section{The full ADE table and Kn\"orrer-stabilised chiral algebras}
+\label{sec:ade-table-stabilised}
+
+For each ADE type the explicit stabilised LG superpotential, Milnor number, and conjectural principal $\cW$-algebra are determined. The base case $A_1$ was verified in Section~\ref{sec:ade-w-algebras}; the full table is the following.
+
+\begin{remark}[Stabilised ADE LG table]
+\label{rem:stabilised-ade-table}
+For each simply-laced type, the stabilisation $\widetilde{W}_{X_N} = W_{X_N}(x, y) + u^2 + v^2$ produces a CY$_2$ matrix factorisation category. The table records Milnor numbers, Jacobi ring presentations, and principal $\cW$-algebra targets:
+\[
+ \renewcommand{\arraystretch}{1.3}
+ \begin{array}{c|c|c|c|c}
+ \text{Type} & \widetilde{W}_{X_N} & \mu(W) & \dim_\C \Jac(\widetilde{W}_{X_N}) & \kappa_{\mathrm{ch}}^{\mathrm{LG}} \\
+ \hline
+ A_1 & x^2 + u^2 + v^2 & 1 & 1 & 1 \\
+ A_2 & x^3 + u^2 + v^2 & 2 & 2 & 2 \\
+ A_3 & x^4 + u^2 + v^2 & 3 & 3 & 3 \\
+ A_N & x^{N+1} + u^2 + v^2 & N & N & N \\
+ D_4 & x^3 + xy^2 + u^2 + v^2 & 4 & 4 & 4 \\
+ D_N & x^{N-1} + xy^2 + u^2 + v^2 & N & N & N \\
+ E_6 & x^3 + y^4 + u^2 + v^2 & 6 & 6 & 6 \\
+ E_7 & x^3 + xy^3 + u^2 + v^2 & 7 & 7 & 7 \\
+ E_8 & x^3 + y^5 + u^2 + v^2 & 8 & 8 & 8
+ \end{array}
+\]
+The fourth column is the dimension of the stabilised Jacobi ring $\Jac(\widetilde{W}_{X_N}) = \Jac(W_{X_N}) \otimes \Jac(u^2) \otimes \Jac(v^2) = \Jac(W_{X_N})$ (since $\Jac(u^2) = \C$ for the quadratic singularity), confirming Thom--Sebastiani; the fifth column is the Landau--Ginzburg scalar of $\Phi_2(\MF(\widetilde{W}_{X_N}))$ via Proposition~\ref{prop:knorrer-phi-compatibility}.
+\end{remark}
+
+\begin{remark}[Cross-check: \texorpdfstring{$E_8$}{E-8} and the principal \texorpdfstring{$\cW_{\mathrm{E}_8}$}{W-E-8}]
+\label{rem:e8-cross-check}
+For $E_8$, the conjectural chiral algebra is $\Phi_2(\MF(\widetilde{W}_{E_8})) \simeq \cW_{k_{E_8}}(\mathfrak{e}_8)$, the principal $\cW$-algebra of $\mathfrak{e}_8$ at the level distinguished by the Kazhdan--Lusztig boundary. The Milnor number $\mu(W_{E_8}) = 8$ matches the rank of $\mathfrak{e}_8$ (which is $8$). The Coxeter number $h^\vee(\mathfrak{e}_8) = 30$ enters the principal Drinfeld--Sokolov central charge formula
+\[
+ c\bigl(\cW_k(\mathfrak{e}_8)\bigr) \;=\; 8 -
+ 12\,\frac{(k+h^\vee-1)^2}{k+h^\vee}\,(\rho,\rho),
+\]
+where $(\rho,\rho)=h^\vee\dim\mathfrak g/12$ for the normalized Killing form (Frenkel--Kac--Wakimoto). Substituting $\dim \mathfrak{e}_8 = 248$ gives $(\rho,\rho)=30\cdot 248/12=620$, hence
+\[
+ c\bigl(\cW_k(\mathfrak e_8)\bigr)=
+ 8-7440\,\frac{(k+29)^2}{k+30}.
+\]
+The Landau--Ginzburg distinguished level $k_{E_8}$ is expected to give $\kappa_{\mathrm{ch}}^{\mathrm{LG}} = 8$ on the principal $\cW$-algebra side; the Milnor number gives the same value on the Landau--Ginzburg side. The determination of \(k_{E_8}\) is the Kazhdan--Lusztig boundary computation of \S\ref{sec:cy-chiral-functor}.
+\end{remark}
+
+\section{Hochschild residue trace and the chiral OPE}
+\label{sec:hochschild-residue-ope}
+
+The Hochschild residue trace of Theorem~\ref{thm:mf-hh} provides the algebraic data from which the chiral OPE on the LG side is constructed. We make this connection explicit in the dictionary needed for U2 functoriality of $\Phi$.
+
+\begin{proposition}[Residue pairing as \texorpdfstring{$r$}{r}-matrix data]
+\label{prop:residue-rmatrix-data}
+Let $W \in \C[x_1, \ldots, x_n]$ have isolated critical point. The Grothendieck residue
+\[
+ \langle f, g \rangle_W \;:=\; \Res_{dW = 0}\!\left( \frac{f \cdot g \cdot dx_1 \wedge \cdots \wedge dx_n}{\partial_1 W \cdots \partial_n W} \right)
+\]
+on $\Jac(W) \otimes \Jac(W) \to \C$ is a non-degenerate symmetric bilinear pairing (the \emph{residue pairing}). Under Proposition~\ref{prop:mf-phi-input}, this pairing transports to the chiral algebra $\Phi_2(\MF(W))$ as the \emph{leading-pole coefficient} of the OPE between the chiral fields generated by $\Jac(W)$. Concretely, if $f, g \in \Jac(W)$ are mapped to chiral fields $J_f(z), J_g(w)$, then
+\[
+ J_f(z) \cdot J_g(w) \;=\; \frac{\langle f, g \rangle_W}{(z - w)^{2}} \;+\; \cdots,
+\]
+with the dots regular at $z = w$. The residue pairing is the LG-side incarnation of the Heisenberg-type level data.
+\end{proposition}
+
+\begin{proof}
+The Hochschild homology $\HH_\bullet(\MF(W)) \cong \Jac(W)$ (Theorem~\ref{thm:mf-hh}) carries a non-degenerate cyclic pairing of degree $-(n - 2)$ from the CY$_{n-2}$ structure (Theorem~\ref{thm:mf-cy-dimension}); for $n = 4$ this is degree $-2$, matching the Heisenberg leading-pole degree. The pairing is identified with the Grothendieck residue by Polishchuk--Vaintrob's identification of the CY trace with the residue formula. Under Theorem~CY-A$_2$, the cyclic pairing on $\HH_\bullet$ becomes the leading-pole coefficient of the OPE on $\Phi_2(\MF(W))$, since $\Phi$ is a cyclic-$\Ainf$-to-chiral-OPE functor at the level of generating fields.
+\end{proof}
+
+\begin{remark}[Connection to the Kapustin--Li residue]
+\label{rem:kapustin-li-rmatrix}
+Kapustin--Li \cite{KapustinLi2003} computed the open-string disc partition function for the LG B-model with superpotential $W$ and identified it with the Grothendieck residue. This disc partition function is the source of the $r$-matrix data on the LG-side chiral algebra: the open-string two-point function on the disc (a residue pairing) becomes the leading-pole OPE coefficient of the closed-string chiral algebra after applying $\Phi$. This is the LG-side analogue of the Caldararu--Mukai pairing on $D^b(\Coh(X))$ (Proposition~\ref{prop:serre-duality-cy} in Chapter~\ref{ch:derived-cy}); the LG/CY correspondence (Proposition~\ref{prop:lg-cy-matching}) identifies the two pairings via Orlov's equivalence.
+\end{remark}
+
+\section{Mirror symmetry preview: A-side LG models}
+\label{sec:mirror-lg-preview}
+
+The correspondence $\{\Phi_d\}$ accepts both B-side LG models (matrix factorisations of polynomial superpotentials) and A-side LG models (Fukaya--Seidel categories of Lefschetz fibrations). Mirror symmetry exchanges them, and the identification of the resulting chiral algebras is the LG analogue of HMS.
+
+\begin{conjecture}[Mirror symmetry for LG models; LG-HMS]
+\label{conj:lg-hms}
+\ClaimStatusConjectured
+Let $W \colon \C^n \to \C$ be a polynomial with isolated critical point, and let $W^\vee \colon (\C^*)^n \to \C$ be the mirror Hori--Vafa Landau--Ginzburg potential (Hori--Vafa 2000). Then there is an equivalence of CY$_{n-2}$ dg-categories
+\[
+ \MF(W) \;\simeq\; \mathrm{FS}(W^\vee),
+\]
+where $\mathrm{FS}(W^\vee)$ is the Fukaya--Seidel category of $W^\vee$ as a Lefschetz fibration. Applying $\Phi$ to both sides yields equivalent chiral algebras:
+\[
+ \Phi\bigl(\MF(W)\bigr) \;\simeq\; \Phi\bigl(\mathrm{FS}(W^\vee)\bigr).
+\]
+\end{conjecture}
+
+\begin{example}[\texorpdfstring{$A_n$}{A-n} Lefschetz fibration as mirror to ADE]
+\label{ex:an-lefschetz-mirror}
+For the $A_n$ singularity $W = x^{n+1}$, the Hori--Vafa mirror is $W^\vee = x + 1/x^n$ on $\C^*$. The Fukaya--Seidel category $\mathrm{FS}(W^\vee)$ has $n$ Lagrangian thimbles (one for each critical point of $W^\vee$), arranged as the Dynkin diagram of $A_n$. The conjectural equivalence $\MF(x^{n+1}) \simeq \mathrm{FS}(x + 1/x^n)$ is proved at the level of the homotopy categories (Seidel 2008, building on earlier work of Auroux--Katzarkov--Orlov). After Kn\"orrer stabilisation to four variables, applying $\Phi$ to both sides gives the same chiral algebra; Conjecture~\ref{conj:ade-w-algebra} identifies it with the principal $\cW$-algebra $\cW(\mathfrak{sl}_{n+1})$ at the Landau--Ginzburg distinguished level.
+\end{example}
+
+\begin{remark}[Three ADE realisations]
+\label{rem:ade-three-sides}
+For each ADE type, three CY$_2$ categories are conjectured to be equivalent:
+\begin{enumerate}
+ \item The B-side LG matrix factorisation category $\MF(\widetilde{W}_{X_N})$ (this chapter).
+ \item The A-side Fukaya--Seidel category $\mathrm{FS}(\widetilde{W}_{X_N}^\vee)$ (mirror LG; Conjecture~\ref{conj:lg-hms}).
+ \item The geometric Fukaya--Seidel category of the Milnor fibre $F_{W_{X_N}}$ with its symplectic structure.
+\end{enumerate}
+All three should produce the same chiral algebra under $\Phi$, namely the principal $\cW$-algebra $\cW(\mathfrak{g}_{X_N})$ at the LG-distinguished level. Thus B-side LG, A-side LG, and geometric A-side converge to the same chiral algebra. The three columns are checked independently against the modular characteristic table of Remark~\ref{rem:stabilised-ade-table}.
+\end{remark}
+
+\begin{remark}[Functorial interfaces]
+\label{rem:mf-cross-chapter}
+The CY-to-chiral correspondence $\{\Phi_d\}$ of Section~\ref{sec:cy-chiral-functor} accepts $\MF(W)$ as one of its three canonical input classes, alongside $D^b(\Coh(X))$ and $\Fuk(X)$. For four-variable isolated singularities, Proposition~\ref{prop:mf-phi-input} identifies $\kappa_{\mathrm{ch}}^{\mathrm{LG}}(\Phi_2(\MF(W))) = \mu(W)$. The Koszul reflection theorem (Vol~I \cite{VolI}) takes $\Phi_2(\MF(\widetilde{W}_{X_N}))$ as a calibration entry on the principal $\cW$-algebra branch (Conjecture~\ref{conj:ade-w-algebra}); the ADE Milnor numbers populate the corresponding row of the universal Koszul-conductor table. The LG/CY correspondence (Section~\ref{sec:lg-cy-correspondence}) is the U4 degeneration clause of Remark~\ref{rem:phi-functoriality-summary}, realising the gauged-linear-sigma-model phase transition on the chiral side.
+\end{remark}
+
+\smallskip
+\noindent\textit{Into Chapter~\ref{ch:fukaya}.} The B-side LG models of the present chapter meet their A-side mirrors on the Fukaya--Seidel side via the Hori--Vafa correspondence of Conjecture~\ref{conj:lg-hms}: $\MF(W) \simeq \mathrm{FS}(W^\vee)$ as CY$_{n-2}$ dg-categories, with $\Phi$ descending to a common chiral algebra. The Fukaya category of a compact symplectic CY manifold is the third canonical input to $\Phi$ (after $D^b\Coh$ and $\MF$), and the open-string A-model it encodes is the symplectic dual of the B-side residue pairing constructed in Proposition~\ref{prop:residue-rmatrix-data}.
+
+\section{Matrix factorisations at the K3 base}
+\label{sec:mf-k3-base}
+
+\begin{remark}[{Matrix factorizations and CY-\texorpdfstring{$2$}{2} \texorpdfstring{$[2]$}{[2]}-shift at K3}]
+\label{rem:mf-cy2-shift}
+At $D^b\mathrm{Coh}(K3)$ the matrix-factorisation framework respects CY-$2$: the
+Hochschild cohomology $\mathrm{HH}^\bullet(D^b\mathrm{Coh}(K3)) = \bigoplus_{p+q=\bullet} H^p(K3, \Lambda^q T_{K3})$ is HKR bi-graded, and the bar-cobar Koszul shift is $[2]$. Under $\widetilde{M}_{24}$-equivariance the Serre functor picks up a projective Schur cocycle of order $6$ in $H^2(M_{24}, \mathrm{U}(1)) \cong \mathbb{Z}/12$ (Bridgeland--Maciocia $2001$; Gaberdiel--Hohenegger--Volpato $2012$). Mukai doubling gives $K^{\kappa_{\mathrm{ch}}^{\mathrm{Mukai}}}(\mathcal{H}_{\mathrm{Muk}}(K3)) = 2\,c_+(\mathrm{Mukai}(K3)) = 8$.
+\end{remark}
+
+\section{LG-side avatar of the Bridgeland--\texorpdfstring{$R$}{R}-matrix dictionary}
+\label{sec:mf-lg-avatar-bridgeland-rmatrix}
+
+The derived-category Bridgeland dictionary
+(Theorem~\ref{thm:dcy-beilinson-dictionary} of
+Chapter~\ref{ch:derived-cy}) assigns an $R$-matrix to each Bridgeland
+stability condition $\sigma\in\Stab^\dagger(D^b\mathrm{Coh}(K3))/\Gamma$.
+The LG/CY correspondence (Section~\ref{sec:lg-cy-correspondence})
+identifies the B-side LG input $\MF^{\gr}(W_K)_0$ with
+$D^b\mathrm{Coh}(S)$ for a K3 surface $S=Z(W_K)\subset\bP^3$ cut out by a
+quartic $W_K$. The LG-side avatar: the stability-to-$R$-matrix functor
+$\Theta$ transports through the LG/CY passage to a stability condition
+on $\MF^{\gr}(W_K)_0$, and the resulting $R$-matrix is recognisable in
+terms of the Grothendieck residue pairing of
+Proposition~\ref{prop:residue-rmatrix-data}.
+
+\begin{remark}[Beilinson dictionary pulled back to the LG side]
+\label{rem:mf-beilinson-pullback}
+Let $W_K=x_0^4+x_1^4+x_2^4+x_3^4\in\C[x_0,\dots,x_3]$ be the Fermat
+quartic (Section~\ref{sec:mf-fermat-quartic-k3}), cutting out the
+Fermat K3 $X_{\mathrm{Fermat}}\subset\bP^3$. By Orlov 2004
+\emph{Trudy~MIAN}~246 Theorem~3.11 there is an equivalence
+\[
+ \MF^{\gr}(W_K)_0\;\simeq\;D^b\mathrm{Coh}(X_{\mathrm{Fermat}}),
+\]
+sending the LG chiral ring to the B-model chiral ring. Pulling back
+the Beilinson dictionary
+$\Theta\colon\Stab^\dagger(D^b\mathrm{Coh}(X_{\mathrm{Fermat}}))/\Gamma
+\to\{R\text{-matrices for }\mathbf{H}_{\Delta_5}\}$
+along Orlov's equivalence produces an LG-side functor:
+\[
+ \Theta^{\mathrm{LG}}\colon\;
+ \Stab^\dagger(\MF^{\gr}(W_K)_0)/\Gamma^{\mathrm{LG}}
+ \;\longrightarrow\;
+ \bigl\{R\text{-matrices for }\mathbf{H}_{\Delta_5}\bigr\}.
+\]
+Orlov's equivalence is an equivalence of CY$_2$ categories carrying an
+intertwined autoequivalence group
+$\Gamma^{\mathrm{LG}}\simeq\Gamma$; under $\Theta^{\mathrm{LG}}$, the
+Gepner point on the LG side
+(Section~\ref{subsec:mf-fermat-gepner}, the $\bZ/4\bZ$-projection
+locus) maps to the Gepner stability
+$\sigma_{\mathrm{Gep}}\in\Stab^\dagger(D^b\mathrm{Coh}(X_{\mathrm{Fermat}}))$
+of Remark~\ref{rem:cwc-k3-bridgeland-wall}, and
+$\Theta^{\mathrm{LG}}(\sigma_{\mathrm{Gep}})=R^{\mathrm{trig}}_{q=\zeta_8}$
+per Theorem~\ref{thm:cwc-global-dictionary}(ii) of
+Chapter~\ref{ch:coha-wall-crossing-platonic}.
+\end{remark}
+
+\begin{theorem}[Kapustin--Li residue as the \texorpdfstring{$R$}{R}-matrix leading pole]
+\label{thm:mf-kl-leading-pole}
+Let \(W\in \C[x_0,x_1,x_2,x_3]\) be a homogeneous quartic whose projective
+zero locus \(X_W\subset \bP^3\) is a smooth K3 surface. For the graded
+Orlov component \(\MF^{\gr}(W)_0\simeq D^b\Coh(X_W)\), the
+Beilinson-dictionary \(R\)-matrix
+$\Theta^{\mathrm{LG}}(\sigma)$ at a stability condition $\sigma$ in the
+large-volume chamber has leading pole
+\[
+ \Theta^{\mathrm{LG}}(\sigma_{\mathrm{lv}})(u)
+ \;=\;
+ R^{\mathrm{rat}}_{\mathrm{Yang}}(u)
+ \;=\;
+ 1\;+\;\hbar\,\frac{\Omega_{\mathrm{KL}}}{u}
+ \;+\;O(\hbar^2),
+\]
+where
+\[
+\Omega_{\mathrm{KL}}\in
+\HH_\bullet(\MF^{\gr}(W)_0)\otimes
+\HH_\bullet(\MF^{\gr}(W)_0)
+\]
+is the grade-restricted Kapustin--Li residue pairing tensor
+(Proposition~\ref{prop:residue-rmatrix-data}; Kapustin--Li 2003
+\textup{arXiv:hep-th/0305136} Theorem~3.1). Under Orlov's equivalence
+and Shklyarov's compatibility theorem it is identified with the
+Mukai-pairing tensor
+$\Omega_{\mathrm{K3}}\in V_{24}\otimes V_{24}$ under the CY-$2$
+Orlov equivalence.
+The unorbifolded Jacobi ring \(\Jac(W)\), of dimension \(81\) for the
+Fermat quartic, is not the tensor space of this K3 large-volume
+\(R\)-matrix.
+\end{theorem}
+
+\begin{proof}
+By Theorem~\ref{thm:cwc-global-dictionary}(i) of
+Chapter~\ref{ch:coha-wall-crossing-platonic}, at the large-volume cusp
+$\Theta(\sigma_{\mathrm{lv}})=R^{\mathrm{rat}}_{\mathrm{Yang}}
+=1+\hbar\Omega_{\mathrm{K3}}/u$. Proposition~\ref{prop:residue-rmatrix-data}
+identifies the leading pole of the $R$-matrix on the LG side with the
+Grothendieck/Kapustin--Li residue pairing on the graded Orlov component
+\(\HH_\bullet(\MF^{\gr}(W)_0)\). The two identifications agree
+because Orlov's equivalence $\MF^{\gr}(W)_0\simeq D^b\mathrm{Coh}(X_W)$
+intertwines the Kapustin--Li trace on $\HH_\bullet(\MF^{\gr}(W)_0)$ with
+the Caldararu trace on $\HH_\bullet(D^b\mathrm{Coh}(X_W))$
+(Shklyarov 2013 \emph{Compos.\ Math.}~149 Theorem~1.2); the latter is
+the Mukai pairing on $\widetilde{\Lambda}_{K3}$ for $X_W$ a K3 surface
+(Caldararu 2003 \textup{arXiv:math/0308080} Theorem~1.1). Hence
+$\Omega_{\mathrm{KL}}=\Omega_{\mathrm{K3}}$ as tensors in
+$V_{24}\otimes V_{24}$.
+\end{proof}
+
+\begin{remark}[ADE LG-side restriction of the Beilinson dictionary]
+\label{rem:mf-ade-restriction}
+For the stabilised ADE superpotentials $\widetilde{W}_{X_N}$ of
+Section~\ref{sec:ade-w-algebras} with $n=4$ variables, the
+LG dictionary
+$\Theta^{\mathrm{LG}}\colon\Stab^\dagger(\MF(\widetilde{W}_{X_N}))/
+\Gamma^{\mathrm{LG}}_{X_N}\to\{R\text{-matrices}\}$ specialises as
+follows: the Kapustin--Li residue pairing on
+$\HH_\bullet(\MF(\widetilde{W}_{X_N}))\simeq\Jac(\widetilde{W}_{X_N})$
+has rank $\mu(\widetilde{W}_{X_N})=N$ by Theorem~%
+\ref{thm:mf-hh} and Thom--Sebastiani, so the $R$-matrix lives in
+$\mathrm{End}(V_N\otimes V_N)[[\hbar,u^{-1}]]$. The K3 rank-$24$ case
+uses $\mathrm{End}(V_{24}\otimes V_{24})[[\hbar,u^{-1}]]$. The ADE
+$R$-matrix is the Drinfeld--Sokolov or stable-envelope
+$R$-matrix of type \(X_N\). It can be compared with
+\(R_{\mathrm{Sieg,dyn}}\) only after choosing an ADE vanishing-cycle
+lattice inside the K3 Mukai lattice and then taking the corresponding
+boundary degeneration; it is not obtained by deleting rows and columns
+from the Siegel dynamical matrix. At the ADE Gepner-type stability locus
+the expected trigonometric form is
+\[
+R^{\mathrm{trig}}_{U_q(\mathfrak{g}_{X_N}),\;q=\zeta_{2(h^\vee+k)}} .
+\]
+This agrees with the ADE shadow-class statement of
+Conjecture~\ref{conj:mf-ade-shadow-class}:
+$A_1\mapsto R$-matrix of class~G (trivial),
+$A_{N\geq 2}, D_N, E_{6,7,8}\mapsto R$-matrix of class~M (nontrivial
+higher-spin contributions with infinite shadow depth).
+\end{remark}
+
+\begin{remark}[Quintic LG at \texorpdfstring{$d=3$}{d=3} and the conditional dictionary]
+\label{rem:mf-quintic-conditional}
+At $d=3$, for $W_Q=x_0^5+x_1^5+x_2^5+x_3^5+x_4^5$ the Fermat quintic of
+Proposition~\ref{prop:quintic-milnor}, Orlov's equivalence
+$\MF^{\gr}(W_Q)_0\simeq D^b\mathrm{Coh}(Q)$ holds, but Theorem~CY-A$_3$
+(Theorem~\ref{thm:cy-to-chiral-d3}) supplies only the framed assignment
+$\Phi_3^{(\Sigma_2,C)}$ at the specified specialisation datum;
+chain-level non-formal comparison remains conditional. Consequently, the LG-side
+dictionary
+\[
+ \Theta^{\mathrm{LG},d=3}\colon\;
+ \Stab^\dagger(\MF^{\gr}(W_Q)_0)/\Gamma^{\mathrm{LG}}_Q
+ \;\longrightarrow\;
+	 \bigl\{R\text{-matrices for }\Phi_3^{(\Sigma_2,C)}(D^b\mathrm{Coh}(Q))\bigr\}
+\]
+is proved in the $\infty$-categorical lane (the statement lives
+in the derived category $D^{\mathrm{co}}_{\mathrm{ch}}$ of
+factorisation $D$-modules with $R$-matrix structure exhibited by
+the Lurie $\mathrm{HA}.5.5$ adjunction, with validity independent of a
+choice of generating set); chain-level proof (naming
+explicit gauge cochains $F_{\sigma\sigma'}$ as in
+Theorem~\ref{thm:cwc-ks-r-conjugation}, exhibiting the homotopy
+$h$ satisfying $[d, h] = \mathrm{id} - p$ on the explicit
+finite generating set) requires the non-formal CY-A$_3$ extension. The three-way convergence of
+Remark~\ref{rem:ade-three-sides} (B-side LG, A-side LG, geometric A-side)
+is expected to pull the $d=3$ dictionary into the same triangular
+comparison. The unconditional content of the Beilinson dictionary is
+confined here to \(d=2\), namely the K3 and ADE specialisations.
+\end{remark}
+
+\begin{remark}[LG/CY matching at the level of \texorpdfstring{$R$}{R}-matrices]
+\label{rem:mf-lg-cy-rmatrix-matching}
+Proposition~\ref{prop:lg-cy-matching} at $d=2$ (specialised to K3) gives
+$\Phi_2(\MF^{\gr}(W_K)_0)\simeq\Phi_2(D^b\mathrm{Coh}(S))$. The Beilinson dictionary refines
+this to a matching of the $R$-matrices attached to each side: under
+Orlov's equivalence, the dictionary $R$-matrix on the LG side
+$\Theta^{\mathrm{LG}}(\sigma)$ equals the dictionary $R$-matrix on the
+B-side $\Theta(\sigma')$ for $\sigma'$ the Orlov image of $\sigma$.
+This is the U2 functoriality clause of
+Remark~\ref{rem:phi-functoriality-summary} at the level of $R$-matrices:
+$\Phi$ intertwines algebra structures and Bridgeland wall-crossing
+automorphisms at Etingof--Kazhdan level.
+The LG/CY matching at the $R$-matrix level is the strongest available
+form of the LG/CY correspondence: beyond equality of chiral algebras,
+both sides produce the \emph{same} gauge-equivalence class of
+$R$-matrix on each stability chamber.
+\end{remark}

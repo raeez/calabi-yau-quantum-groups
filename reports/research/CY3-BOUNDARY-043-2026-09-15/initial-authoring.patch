@@ -1,0 +1,110 @@
+*** Begin Patch
+*** Add File: /Users/raeez/mathematics/worktrees/frontier-cy3-boundary-043-20260915/reports/research/CY3-BOUNDARY-043-2026-09-15/RESULT.md
++# Polynomial boundary algebras
++
++The candidate supplies a complete elementary one-variable calculation, a bounded
++legacy repair, and an inclusion in the actual native entrypoint. It does not
++establish the whole Calabi–Yau programme or confer independent acceptance.
++
++## Mathematical result
++
++For K(a,b) over k[x], ab=W nonzero and g=gcd(a,b) monic, even and odd
++endomorphism cohomology are each k[x]/(g). The explicit odd generator has
++square -ab/g². Polynomial diagonal reduction, proved by a terminating
++division argument, reduces every finite free factorization to these blocks.
++The displayed map complexes between every pair of blocks and ordinary matrix
++composition give the entire finite free differential graded category.
++
++If W=c product pν^mν, the ideal of scalars null-homotopic on every object is
++(product pν^floor(mν/2)). This is an objectwise ideal, not a derived-centre
++kernel or a coherent choice of scalar homotopies.
++
++The actual diagonal factorization of W(x)-W(y) has even endomorphism
++cohomology k[x]/(W') and zero odd cohomology. Left and right derivative
++homotopies give Hessian terms with opposite signs. For W=x³ the objectwise
++ideal is (x) and the diagonal kernel is (x²), forbidding the indicated
++scalar-preserving quotient comparison.
++
++Over an algebraically closed field, the potential acts by its critical value on
++each primary factor of k[x]/(W'). Lagrange polynomials in W separate the values.
++The polynomial matrix representatives sum to the identity exactly; their
++orthogonality and idempotence hold through the displayed q_cd ∂xD homotopies.
++No higher coherence or categorical splitting is inferred from those equations.
++
++The counterexample W=x²+1 contracts every boundary object by
++h=D/2-x∂xD/2, while its Jacobi algebra is k. This refutes an unconstrained
++Jacobian identification for the zero fibre. It does not refute smoothness or
++properness of the zero category. A periodic grading alone supplies no integer
++Calabi–Yau lift.
++
++## Native and synthesis integration
++
++The new source is chapters/examples/polynomial_boundary_algebras.tex.
++The active native CY3 component includes it before its categorical foundations.
++Its exact bytes also form synthesis043 Chapter 13, following the two diagonal
++chapters, on PDF pages 212–219.
++
++The legacy matrix-factorizations chapter has only its quadratic example and
++one direct downstream misinterpretation repaired. It now distinguishes the
++polynomial dg endomorphism algebra from Clifford cohomology and removes the
++object-count interpretation. All other legacy bytes remain preserved, with
++37 theorem-like environments indexed in legacy-argument-ledger.json.
++The entire 707-line legacy chapter was read, but this is not a certificate
++of its claims. In particular the Phi, integer CY, residue-to-OPE, K3/Gepner,
++Mathieu, mirror, and R-matrix comparisons still require separate work.
++
++The prior Hall026 candidate is preserved at its actual commit, with its
++partial-concentration proof still awaiting acceptance. It was not overwritten
++or reallocated. The full source ownership and read boundaries are in CONTRACT.md.
++
++## Checks and limits
++
++The written argument is the general proof. exact_checks.py passed 2,000 exact
++assertions in the recorded finite/symbolic scopes: direct matrices, Bezout
++homotopies, independent Smith normal forms on polynomially mixed matrices,
++common scalar ideals, diagonal Hessians, and critical-value projectors.
++The computations are diagnostic checks by the same main thread, not fresh
++independent mathematical reviews.
++
++The standalone driver builds in three successful passes. The actual native
++entrypoint builds in four successful TeX passes and a successful BibTeX pass;
++the recorder confirms that it reads the new chapter. Its full PDF has 521
++pages. All eight newly included native pages were visually inspected in
++contact sheets. The native book retains an unrelated overfull line and
++operational prose in older chapters. That whole PDF is a diagnostic artifact
++in these reports and is not delivered as a repaired reader.
++
++Two initial build failures were mechanical and are preserved: the worktree's
++relative template symlink did not resolve, corrected by routing TEXINPUTS to
++the canonical template; BibTeX rejected an absolute output path, corrected by
++running it inside its assigned output directory. No permissions or process
++controls were changed, and the template was not forked.
++
++The combined 852-page synthesis has no overfull lines or unresolved references.
++All eight new pages, the preceding and following pages, and the title were
++visually inspected. The final monic/irreducible/algebraically-closed definition
++clarifications were re-rendered and checked; unchanged pages were raster-compared
++with the inspected version. Full standalone explanations stay in the reader;
++operational records stay here.
++
++All 108 predecessor synthesis source files are retained; only its entrypoint
++gets an additional input line. Every predecessor proof body is therefore
++unchanged. The source archive and exact source manifest are linked from the
++central synthesis record.
++
++## Next mathematical obligations
++
++Construct the diagonal action and establish the appropriate identity-kernel
++comparison at the specified critical value. Determine how its extra operations,
++cyclic structure, and scalar homotopies behave under the comparison. Repair the
++remaining native MF consumers with their actual grading and geometric hypotheses.
++The already constructed all-arity ordered model does not need to be rediscovered;
++its closed formulas, coordinate covariance, and higher centre operations remain.
++
++All 26 previously saved workstreams and additive archive obligations remain.
++No new whole-programme percentage is inferred from these pages or checks.
++The earlier provisional substantive/frontier range 35–50% and exposition range
++25–40% remain uncalibrated historical estimates, not fresh acceptance figures.
++No novelty claim, push, or accepted-release replacement occurred.
+*** End Patch`));
+text(await tools.exec_command({cmd:"python3 - <<'PY'\nfrom pathlib import Path\nimport hashlib,json,re,subprocess\nroot=Path('.').resolve();q=root/'reports/research/CY3-BOUNDARY-043-2026-09-15'\npaths=['chapters/examples/polynomial_boundary_algebras.tex','chapters/examples/matrix_factorizations.tex','platonic/chapters/Volume_IV_Calabi_Yau_Quantum_Groups.tex','standalone/polynomial_boundary_algebras.tex']\nrows=[{'path':p,'sha256':hashlib.sha256((root/p).read_bytes()).hexdigest(),'bytes':(root/p).stat().st_size} for p in paths]\nnew=root/paths[0];s=new.read_text(); labels=re.findall(r'\\\\label\\{([^}]+)\\}',s);refs=re.findall(r'\\\\(?:eqref|ref)\\{([^}]+)\\}',s);assert set(refs)<=set(labels);assert len(labels)==len(set(labels));assert not any(ord(c)<32 and c not in '\\n' for c in s)\nclaims=[]\nfor m in re.finditer(r'\\\\begin\\{(theorem|proposition|lemma)\\}(.*?)\\\\end\\{\\1\\}',s,re.S):\n ids=re.findall(r'\\\\label\\{([^}]+)\\}',m.group(0));claims.append({'label':ids[0] if ids else None,'line':s[:m.start()].count('\\n')+1,'status':'main-thread proof candidate; independent acceptance pending','source_sha256':rows[0]['sha256']})\n(q/'claims.json').write_text(json.dumps(claims,indent=2)+'\\n')\nfreeze={'base_commit':'aaf325a7b7c4d9a8da252ce1a8db5448e5300aa9','worktree':str(root),'owned_manuscript_files':rows,'chapter_labels':len(labels),'chapter_references':len(refs),'source_closure_sha256':hashlib.sha256(''.join(r['path']+'\\0'+r['sha256']+'\\n' for r in rows).encode()).hexdigest(),'status':'unaccepted native candidate; new chapter integrated into working synthesis'}\n(q/'SOURCE-FREEZE.json').write_text(json.dumps(freeze,indent=2)+'\\n');print(freeze['source_closure_sha256'])\n(q/'native-source.patch').write_bytes(subprocess.check_output(['git','diff','--binary','HEAD','--',paths[1],paths[2]]))\n# Recover the exact first authoring patch, including the source before all edits.\np=Path('/Users/raeez/.codex/sessions/2026/09/12/rollout-2026-09-12T23-38-45-01a0967c-5421-7921-89b4-cb0033f8a9da.jsonl')\nwith p.open('rb') as f:\n f.seek(0,2); n=f.tell(); f.seek(max(0,n-5000000));lines=f.read().decode(errors='replace').splitlines()\nfor line in lines:\n try:obj=json.loads(line)\n except:continue\n payload=obj.get('payload',{});t=payload.get('input','') if isinstance(payload,dict) else ''\n if t.startswith('text(await tools.apply_patch(String.raw`*** Begin Patch') and '/CY3-BOUNDARY-043-2026-09-15/CONTRACT.md' in t:\n  patch=t[t.index('*** Begin Patch'):t.rindex('*** End Patch')+len('*** End Patch
