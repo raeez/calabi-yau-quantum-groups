@@ -1,0 +1,448 @@
+\chapter{Ordered operations and a cyclic pairing}
+\label{chap:cyclic-mixed-diagonal}
+
+A bilinear form turns an operation with several inputs into a scalar
+expression by pairing its output with one more input. For such expressions
+to describe an action, moving the last input to the front must give the
+same scalar, with the sign prescribed by the degrees. An ordered
+multiplication need not have this property in its original coordinates.
+Changing the coordinates of the operations, rather than discarding their
+order, can reveal the required pairing.
+
+We shall carry this out for
+\[
+ W(x,u)=x^3+xu^2.
+\]
+The mixed term forces us to retain the product of the two primitive
+generators as an independent input. That input produces operations which
+are absent from the list of derivatives on single generators. The resulting
+four-state algebra has a nonzero operation with six inputs. Its cyclic
+pairing then produces an explicit matrix Hamiltonian.
+
+\section{The diagonal and its four states}
+\label{sec:cmc-diagonal}
+
+Let \(k\) be a field of characteristic zero. Put
+\[
+ R=k[[y,z]],\qquad S=R[[r,s]],\qquad x=y+r,\quad u=z+s.
+\]
+The letters \(x,u,y,z\) are coordinates of the potential. They are not
+spacetime coordinates. All modules have parity grading.
+
+Take the exterior algebra on two odd vectors
+\(\varepsilon_1,\varepsilon_2\). Write \(\beta_i\) for
+left exterior multiplication by its \(i\)-th vector, and \(\alpha_i\)
+for contraction with that vector's dual. On an ordered exterior monomial,
+contraction removes the \(i\)-th vector with sign \((-1)^{j-1}\) when
+it occupies position \(j\), and gives zero when it is absent. Thus
+\[
+ \alpha_i\alpha_j+\alpha_j\alpha_i=0,\qquad
+ \beta_i\beta_j+\beta_j\beta_i=0,\qquad
+ \alpha_i\beta_j+\beta_j\alpha_i=\delta_{ij}.
+\]
+On the free \(S\)-module with basis
+\(1,\varepsilon_1,\varepsilon_2,\varepsilon_1\varepsilon_2\), define the odd operator
+\[
+ D=r\alpha_1+s\alpha_2+
+ (x^2+xy+y^2+u^2)\beta_1+y(u+z)\beta_2.
+\]
+The preceding relations give
+\[
+ D^2=(W(x,u)-W(y,z))1.
+\]
+Consequently \(E=\operatorname{End}_S(S\otimes\Lambda(k^2))\) is a
+differential algebra with
+\(\delta A=DA-(-1)^{|A|}AD\): expanding the square of this
+commutator gives zero because \(D^2\) is scalar.
+
+Differentiate while keeping \(x,u\) fixed, and set
+\[
+ \eta_1=-D_y=\alpha_1-(r+3y)\beta_1-(s+2z)\beta_2,\qquad
+ \eta_2=-D_z=\alpha_2-y\beta_2.
+\]
+Their differential and multiplication are
+\begin{gather}
+ \delta\eta_1=3y^2+z^2,\quad \delta\eta_2=2yz,\quad
+ \delta\beta_1=r,\quad\delta\beta_2=s,\label{eq:cmc-differential}\\
+ \eta_1^2=-r-3y,\quad \eta_2^2=-y,\quad
+ \eta_1\eta_2+\eta_2\eta_1=-s-2z,\quad
+ \eta_i\beta_j+\beta_j\eta_i=\delta_{ij}.
+ \label{eq:cmc-clifford}
+\end{gather}
+Ordered monomials \(\eta_I\beta_J\), with each index used at most
+once in each increasing list, form an \(S\)-basis of \(E\).
+Indeed the corresponding \(\alpha_I\beta_J\) give a basis of the
+sixteen matrix operators: applying them to the four exterior basis
+vectors solves for their coefficients successively. Replacing
+\(\alpha_i\) by \(\eta_i\) is triangular in the number of contraction
+operators, with diagonal coefficients one.
+
+Let \(K\) be the free \(R\)-module on \(1,\xi_1,\xi_2,\xi_{12}\),
+with parities \(0,1,1,0\), and differential
+\[
+ d1=0,\quad d\xi_1=A,\quad d\xi_2=B,\quad
+ d\xi_{12}=A\xi_2-B\xi_1,\qquad
+ A=3y^2+z^2,\quad B=2yz.
+\]
+At this point \(K\) is a complex, not an algebra with a stipulated
+exterior multiplication. Define \(i:K\to E\) by the ordered
+representatives \(1,\eta_1,\eta_2,\eta_1\eta_2\). Define \(p:E\to K\)
+by discarding every monomial containing a \(\beta\), then setting
+\(r=s=0\). Equations~\eqref{eq:cmc-differential} show that these are
+chain maps and \(pi=1\).
+
+The remaining normal coordinates have a contraction. On
+\(r^a s^b y^c z^d\eta_I\beta_J\), choose the first nonzero exponent
+in the ordered list \(a,b\). If neither is nonzero, set \(h=0\).
+If its index is \(j\), also set \(h=0\) when \(J\) contains an
+index at most \(j\). Otherwise divide by the corresponding normal
+coordinate, insert \(\beta_j\) at the beginning of the \(\beta\)-list,
+and multiply by \((-1)^{|I|}\). Extend by \(R\)-linearity and
+coefficientwise to formal series. This gives
+\begin{equation}\label{eq:cmc-contraction}
+ \delta h+h\delta=1-ip,\qquad h^2=hi=ph=0.
+\end{equation}
+For one coordinate the formula is
+\(\beta(f(r)-f(0))/r\), and its anticommutator with the differential
+is \(1-ip\). For two coordinates the homotopy is
+\(h_1+P_1h_2\), where \(P_1\) evaluates the first coordinate and
+kills its exterior generator. Expanding its anticommutator gives
+\((1-P_1)+P_1(1-P_2)=1-P_1P_2\).
+The sign \((-1)^{|I|}\) makes the remaining \(\eta\)-differential
+anticommute with this homotopy. The same formula proves the side
+identities in~\eqref{eq:cmc-contraction}. Division lowers formal
+order by at most one, so all maps are continuous.
+
+\section{Computing the operations on composite inputs}
+\label{sec:cmc-transfer}
+
+Let \(\mathsf{s}\) denote parity-reversing suspension, and write
+\[
+ e=\mathsf{s}1,\quad a=\mathsf{s}\xi_1,\quad b=\mathsf{s}\xi_2,\quad c=\mathsf{s}\xi_{12}.
+\]
+Their parities are respectively \(1,0,0,1\).
+A word means a tensor over \(R\) of these suspended states.
+We take the direct sum over word lengths, completing coefficients
+inside each fixed length; the \(K\)-word modules are already finite
+free over \(R\). For \(E\)-words the coefficient completion includes
+the normal variables in each tensor factor.
+Splitting a word
+at every position defines deconcatenation. An odd operation on
+consecutive letters acts on a whole word with sign
+\((-1)^{\text{parity of the preceding letters}}\).
+These conventions determine the odd coderivation associated to
+any family of operations \(b_n:(\mathsf{s}K)^{\otimes n}\to \mathsf{s}K\).
+
+On \(\mathsf{s}E\) the differential is \(\mathsf{s}\delta\mathsf{s}^{-1}\), and the binary
+operation is
+\[
+ B_2(\mathsf{s}U,\mathsf{s}V)=(-1)^{|U|}\mathsf{s}(UV).
+\]
+The contraction determines maps \(F_n:(\mathsf{s}K)^{\otimes n}\to \mathsf{s}E\)
+of parity zero and operations \(b_n\) of parity one:
+\begin{equation}\label{eq:cmc-recursion}
+ F_1=\mathsf{s}i\mathsf{s}^{-1},\qquad
+ R_n=\sum_{j=1}^{n-1}B_2(F_j\otimes F_{n-j}),\qquad
+ F_n=-\mathsf{s}h\mathsf{s}^{-1}R_n,\quad b_n=\mathsf{s}p\mathsf{s}^{-1}R_n\quad(n\ge2),
+\end{equation}
+with \(b_1=\mathsf{s}d\mathsf{s}^{-1}\).
+
+Here the nonzero differential on \(K\) is retained. To see directly
+why the recurrence gives a morphism, extend \(F\) to words by
+consecutive blocks and extend \(b\) by the insertion signs above.
+Put \(d_E=\mathsf{s}\delta\mathsf{s}^{-1}\), \(I=\mathsf{s}i\mathsf{s}^{-1}\),
+\(P=\mathsf{s}p\mathsf{s}^{-1}\), \(H=\mathsf{s}h\mathsf{s}^{-1}\), and let \(\mathcal B\) be the coderivation
+of the binary product. If \(\pi\) projects to words of length one,
+set \(\mathcal R=\pi\mathcal B F\). Then
+\[
+ \pi F=I\pi-H\mathcal R,\qquad
+ \pi b=b_1\pi+P\mathcal R.
+\]
+Suppose the defect \(\mathcal D=(d_E+\mathcal B)F-Fb\) is zero on shorter
+words. Its coproduct makes it a relative coderivation, so its value
+on the next word has length one. Hence \(\pi\mathcal B\mathcal D=0\).
+Since \(d_E\mathcal B+\mathcal B d_E=\mathcal B^2=0\), this says
+\(d_E\mathcal R+\mathcal Rb=0\) there.
+Substitution of the two displayed recurrences
+and~\eqref{eq:cmc-contraction} now gives
+\(\pi\mathcal D=H(d_E\mathcal R+\mathcal Rb)=0\).
+Induction proves the morphism equation. The highest-length part
+of \(F\) is \(I^{\otimes n}\), which is split injective.
+Applying the target differential twice therefore gives \(b^2=0\).
+The first component is the chain homotopy equivalence \(i\).
+Unit inputs give their binary unit products; in longer words
+the side identities \(HI=PH=H^2=0\) make their contributions zero.
+Thus both the algebra and the comparison are strictly unital.
+
+Write \(\phi_n=\mathsf{s}^{-1}F_n\), so the entries of the following table
+are actual operators in \(E\). These are all its nonzero components
+on nonunit words of length at least two:
+
+\begin{longtable}{c l l}
+\toprule
+Arity & Input word & \(\phi_n\) \\
+\midrule
+\endhead
+2 & \(aa\) & \(-\beta_1\) \\
+2 & \(ac\) & \(\eta_2\beta_1\) \\
+2 & \(ba\) & \(-\beta_2\) \\
+2 & \(bc\) & \(\eta_2\beta_2\) \\
+2 & \(ca\) & \(\eta_2\beta_1-\eta_1\beta_2\) \\
+2 & \(cc\) & \(y\beta_1+\eta_1\eta_2\beta_2\) \\
+3 & \(aca\) & \(\beta_1\beta_2\) \\
+3 & \(acc\) & \(\eta_2\beta_1\beta_2\) \\
+3 & \(bcc\) & \(-\beta_2\) \\
+3 & \(caa\) & \(\beta_1\beta_2\) \\
+3 & \(cac\) & \(\beta_1+\eta_2\beta_1\beta_2\) \\
+3 & \(ccc\) & \(\eta_2\beta_1-\eta_1\beta_2\) \\
+4 & \(accc\) & \(\beta_1\beta_2\) \\
+4 & \(cacc\) & \(\beta_1\beta_2\) \\
+4 & \(ccca\) & \(\beta_1\beta_2\) \\
+4 & \(cccc\) & \(\eta_2\beta_1\beta_2+\beta_1\) \\
+5 & \(ccccc\) & \(\beta_1\beta_2\) \\
+\bottomrule
+\end{longtable}
+
+The table follows from~\eqref{eq:cmc-recursion} using only
+\eqref{eq:cmc-clifford} and the displayed rule for \(h\).
+For example, with \(C=\eta_1\eta_2\),
+\[
+ C^2=-y(r+3y)-(s+2z)C,\qquad
+ \phi_2(c,c)=-h(C^2)=y\beta_1+C\beta_2.
+\]
+Every higher \(\phi_n\) lies in the left ideal
+\(E\beta_1+E\beta_2\), which \(p\) kills.
+Consequently, when projecting the recurrence for an operation,
+only its last split can contribute:
+\begin{equation}\label{eq:cmc-last-split}
+ \mathsf{s}^{-1}b_n(v_1,\ldots,v_n)=
+ (-1)^{1+\sum_{j<n}|v_j|}
+ p\bigl(\phi_{n-1}(v_1,\ldots,v_{n-1})i(\mathsf{s}^{-1}v_n)\bigr).
+\end{equation}
+This makes the passage from the operator table to every ordered
+operation explicit. In particular
+\[
+ b_6(c,c,c,c,c,c)
+ =\mathsf{s}\,p(\beta_1\beta_2\eta_1\eta_2)=-e.
+\]
+Moving the two \(\beta\)'s past the two \(\eta\)'s gives scalar
+term \(-1\); every other term still has a \(\beta\) on the right.
+
+There is a finite bound for these particular inputs. Give \(r,s,y,z\)
+weight one, each \(\eta_i\) weight \(1/2\), and each \(\beta_i\)
+weight \(-1/2\). Multiplication preserves weight and \(h\) lowers
+it by \(3/2\). A comparison tree with \(n\) inputs contains \(n-1\)
+homotopies. Its input basis states have total weight at most \(n\),
+so its output has weight at most \((3-n)/2\). Matrix basis
+monomials have weight at least \(-1\). Thus \(F_n=0\) for \(n\ge6\).
+An operation tree has \(n-2\) homotopies and its projected output
+has nonnegative weight, giving \(b_n=0\) for \(n\ge7\).
+Coefficient-linearity extends these conclusions from basis states
+to every input. The tables and bounds therefore describe the entire
+formal model.
+
+\section{Choosing coordinates compatible with a pairing}
+\label{sec:cmc-cyclic}
+
+For a bilinear form \(\omega\) on \(\mathsf{s}K\), cyclicity means
+\begin{equation}\label{eq:cmc-cyclicity}
+ \omega\bigl(b_n(v_1,\ldots,v_n),v_{n+1}\bigr)
+ =
+ (-1)^{|v_1|\sum_{j=2}^{n+1}|v_j|}
+ \omega\bigl(b_n(v_2,\ldots,v_{n+1}),v_1\bigr).
+\end{equation}
+We seek a nondegenerate even form: it pairs equal parities, and
+the map to the \(R\)-linear dual that it defines is invertible.
+On the critical fibre, the natural candidate has
+\begin{equation}\label{eq:cmc-form}
+ \omega(e,c)=\omega(c,e)=1,\qquad
+ \omega(a,b)=-1,\qquad\omega(b,a)=1,
+\end{equation}
+and all other entries zero. This is graded antisymmetric.
+The ordered transfer is not yet cyclic for it.
+For instance \(b_3(b,a,b)=e\), whereas \(b_3(a,b,c)=0\);
+pairing with \(c\) and \(b\) respectively violates
+\eqref{eq:cmc-cyclicity}.
+
+Define a coalgebra change of coordinates \(G\) by
+\[
+ G_1=1,\qquad G_2(b,c)=-e,\qquad G_2(c,b)=e,
+\]
+with every other higher component zero. Its inverse has first
+component one and second component \(-G_2\).
+Indeed a nested \(G_2\) encounters its preceding unit output and
+vanishes. Let \(b^G=G^{-1}bG\). This preserves the differential,
+the unit, and the full homotopy type.
+
+Over \(R\), the form for this intermediate model is
+\[
+ \omega_R=\omega,\quad\text{except that}\quad
+ \omega_R(c,c)=-2z.
+\]
+The parameter term matters. For example the constant form before
+this correction gives cyclicity defects \(2z,-2z,2z,2z,-2z,-2z\)
+on the words \(ecc,abc,bac,cab,cba,cce\).
+Set
+\[
+ L(c)=c+ze,\qquad L(e)=e,\quad L(a)=a,\quad L(b)=b.
+\]
+Then \(L^*\omega_R=\omega\): its only new diagonal value is
+\(\omega_R(c+ze,c+ze)=-2z+2z=0\).
+The constant-form operations are
+\[
+ \widehat b=L^{-1}b^G L^{\otimes\bullet}.
+\]
+Their complete nonunit table is as follows. In addition,
+\(\widehat b_2(e,v)=v\) and
+\(\widehat b_2(v,e)=(-1)^{|v|+1}v\);
+all other unit-containing operations vanish.
+
+\begin{longtable}{c l l}
+\toprule
+Arity & Input word & \(\widehat b_n\) \\
+\midrule
+\endhead
+1 & \(a\) & \((3 y^{2} + z^{2})e\) \\
+1 & \(b\) & \((2 y z)e\) \\
+1 & \(c\) & \((3 y^{2} + z^{2})b+(- 2 y z)a\) \\
+2 & \(aa\) & \((3 y)e\) \\
+2 & \(ab\) & \(-c+(z)e\) \\
+2 & \(ac\) & \((3 y)b+(- z)a\) \\
+2 & \(ba\) & \(c+(z)e\) \\
+2 & \(bb\) & \((y)e\) \\
+2 & \(bc\) & \((- y)a+(z)b\) \\
+2 & \(ca\) & \((3 y)b+(- z)a\) \\
+2 & \(cb\) & \((- y)a+(z)b\) \\
+2 & \(cc\) & \((3 y^{2} + 3 z^{2})e\) \\
+3 & \(aaa\) & \(e\) \\
+3 & \(aac\) & \(b\) \\
+3 & \(abb\) & \(e\) \\
+3 & \(abc\) & \(a\) \\
+3 & \(aca\) & \(b\) \\
+3 & \(acb\) & \(-a\) \\
+3 & \(acc\) & \((2 y)e\) \\
+3 & \(bab\) & \(-e\) \\
+3 & \(bac\) & \(-a\) \\
+3 & \(bba\) & \(e\) \\
+3 & \(bbc\) & \(b\) \\
+3 & \(bca\) & \(-a\) \\
+3 & \(bcb\) & \(-b\) \\
+3 & \(bcc\) & \((2 z)e\) \\
+3 & \(caa\) & \(b\) \\
+3 & \(cab\) & \(-a\) \\
+3 & \(cac\) & \((2 y)e\) \\
+3 & \(cba\) & \(a\) \\
+3 & \(cbb\) & \(b\) \\
+3 & \(cbc\) & \((2 z)e\) \\
+3 & \(cca\) & \((2 y)e\) \\
+3 & \(ccb\) & \((2 z)e\) \\
+3 & \(ccc\) & \((2 y)b+(- 2 z)a\) \\
+4 & \(aacc\) & \(e\) \\
+4 & \(accc\) & \(b\) \\
+4 & \(bbcc\) & \(e\) \\
+4 & \(bccc\) & \(-a\) \\
+4 & \(caac\) & \(e\) \\
+4 & \(cbbc\) & \(e\) \\
+4 & \(ccaa\) & \(e\) \\
+4 & \(ccbb\) & \(e\) \\
+4 & \(ccca\) & \(b\) \\
+4 & \(cccb\) & \(-a\) \\
+6 & \(cccccc\) & \(-e\) \\
+\bottomrule
+\end{longtable}
+
+\begin{theorem}\label{thm:cmc-cyclic-comparison}
+The table defines a strictly unital cyclic \(A_\infty\)-algebra
+over \(R\), with the nondegenerate form~\eqref{eq:cmc-form}.
+The comparison to the diagonal differential algebra \(E\) has
+components
+\[
+ F^{\mathrm{cyc}}_1=F_1L,\qquad
+ F^{\mathrm{cyc}}_2=F_2+F_1G_2,\qquad
+ F^{\mathrm{cyc}}_n=F_n\quad(n\ge3).
+\]
+It is a strictly unital, continuous \(R\)-linear
+\(A_\infty\)-quasi-isomorphism. The same formulas survive
+specialization of the retained parameters.
+\end{theorem}
+
+\begin{proof}
+For completeness, the conjugation can be computed without
+inverting an infinite series of unknown maps. On a nonunit word
+\(v_1\cdots v_n\), expand \(G\) into consecutive blocks of length
+one or two, using its two specified binary values. If \(U_n\)
+is the length-one component of \(bG\), the equation \(bG=Gb^G\)
+gives, for \(n\ge2\),
+\[
+ b^G_n=U_n
+ -G_2\bigl(b^G_{n-1}(v_1,\ldots,v_{n-1}),v_n\bigr)
+ -(-1)^{|v_1|}
+ G_2\bigl(v_1,b^G_{n-1}(v_2,\ldots,v_n)\bigr).
+\]
+Here \(b^G_1=b_1\). This recursion, \eqref{eq:cmc-last-split},
+and the operator table give exactly the displayed coefficients.
+Applying \(L\) adds unit inputs only; their contributions are
+the stated binary products. The same weights used above apply
+to \(G_2\), which lowers weight by \(3/2\), and to \(L\), which
+preserves weight. Thus no operations beyond the table are omitted.
+
+Cyclicity is a finite coefficient identity on this table. Pair
+each displayed output with the four basis vectors using
+\eqref{eq:cmc-form} and rotate the resulting word.
+The paired coefficients agree with the sign in
+\eqref{eq:cmc-cyclicity}; words outside these rotation orbits
+give zero on both sides. For example \(bab c\) has coefficient
+\(-1\), as does its rotation \(abc b\); the seven-letter word
+\(c^7\) has coefficient \(-1\) and positive rotation sign.
+The unary entries also obey the identity, so the nonzero
+parameter differential is included. The matrix of the form
+has determinant \(-1\).
+
+The map is the composite \(FGL\).
+Every \(G_2\) output is a unit, so a component \(F_j\) with
+\(j\ge2\) kills it. Similarly the additional \(ze\) in \(L(c)\)
+can contribute only to \(F_1\). These facts give the displayed
+three formulas. Its linear component is \(iL\), a chain
+homotopy equivalence. All identities are between finite
+compositions in each arity and are coefficient-linear.
+The explicit contraction remains an identity after
+specialization; no flatness assertion about arbitrary
+quasi-isomorphisms is needed.
+\end{proof}
+
+The corrected top-state representative is
+\(\eta_1\eta_2+z1\). On the diagonal \(r=s=0\),
+\eqref{eq:cmc-clifford} identifies it with
+\((\eta_1\eta_2-\eta_2\eta_1)/2\).
+Thus the constant pairing selects the skew-symmetric top
+representative along the diagonal, while the higher components
+retain the ordered information away from it.
+
+The individual sixth coefficient is not determined by the
+underlying \(A_\infty\)-homotopy type, even among models cyclic
+for the same form. On the critical fibre, introduce a scalar
+\(q\) and replace the binary component of \(G\) by
+\[
+ G_2(b,c)=-e,\quad G_2(c,b)=e,\quad
+ G_2(a,c)=qe,\quad G_2(c,a)=-qe,\quad G_2(c,c)=qb.
+\]
+Every other higher component is zero and \(G_1=1\).
+This remains an invertible coalgebra map by word-length
+triangularity. The recursion in the proof gives cyclic
+operations for the same constant form and
+\[
+ (G^{-1}bG)_6(c,c,c,c,c,c)=(7q^2-1)e.
+\]
+Both statements are polynomial coefficient identities: substitute
+these five binary values in that recursion and pair each resulting
+output as in~\eqref{eq:cmc-cyclicity}. Its weight argument still
+excludes arities greater than six. Over a field containing
+\(\sqrt7\), taking \(q=1/\sqrt7\) kills this coefficient while
+preserving the full \(A_\infty\)-homotopy type. The remaining operations
+change as well; the existence of the original sixth term alone
+cannot prove that it is indispensable in every coordinate system.
+
+The cyclic pairing turns the ordered operations into scalar functions of
+one additional input. Their matrix action will be constructed in
+Chapter~\ref{chap:cmc-matrix-action}, after the bracket and cotangent
+action have been introduced.
