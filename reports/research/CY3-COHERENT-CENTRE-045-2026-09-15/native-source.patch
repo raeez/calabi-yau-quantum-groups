@@ -1,0 +1,497 @@
+diff --git a/chapters/examples/coherent_boundary_centre.tex b/chapters/examples/coherent_boundary_centre.tex
+new file mode 100644
+index 0000000..13f256a
+--- /dev/null
++++ b/chapters/examples/coherent_boundary_centre.tex
+@@ -0,0 +1,466 @@
++\chapter{Central operations and compatible boundary homotopies}
++\label{ch:cc-boundary}
++
++A scalar can act trivially on the cohomology of every boundary
++while remaining nonzero when compatibility with boundary maps
++is retained. The distinction can already be seen in two-by-two
++polynomial matrices.
++
++Let \(k\) be a field of characteristic zero and put \(R=k[x]\).
++For the potential \(W=x^3\), consider the boundary
++\[
++ D=\begin{pmatrix}0&x\\x^2&0\end{pmatrix},\qquad D^2=x^3\,1.
++\]
++Its endomorphisms form the parity-graded algebra \(A\) of
++two-by-two polynomial matrices. Diagonal matrices are even,
++off-diagonal matrices are odd, and
++\(\delta f=Df-(-1)^{|f|}fD\).
++The square of \(\delta\) is zero because \(D^2\) is scalar.
++The odd matrices
++\[
++ H=\begin{pmatrix}0&0\\1&0\end{pmatrix},\qquad
++ e=\begin{pmatrix}0&1\\-x&0\end{pmatrix}
++\]
++satisfy
++\begin{equation}
++ \delta H=x\,1,\qquad \delta e=0,\qquad He+eH=1.
++ \label{eq:cc-cubic-opening}
++\end{equation}
++Thus \(H\) makes multiplication by \(x\) null-homotopic on this
++boundary. Its anticommutator with the closed odd operator \(e\)
++is the identity. The identity is not a boundary in \(A\):
++every entry of \(\delta f\) is divisible by \(x\).
++The homotopy \(H\) therefore has a nonzero obstruction to
++compatibility with \(e\).
++
++Compatibility introduces a new equation for each string of
++boundary maps. Hochschild cochains assemble these equations,
++including their signs, into one differential. The diagonal
++contraction gives explicit solutions for the action of every
++closed diagonal operator.
++
++\section{The coefficient ring in a boundary comparison}
++\label{sec:cc-coefficients}
++
++For \(n\geq1\), let \(R=k[x_1,\ldots,x_n]\), let \(W\in R\),
++and fix \(c\in k\). Let \(\mathcal C\) have as objects finite
++free, based matrix factorizations \(E\) of \(W-c\).
++Its maps \(f:E\to F\) are all homogeneous \(R\)-linear matrices,
++with
++\[
++ \delta f=D_Ff-(-1)^{|f|}fD_E.
++\]
++Composition is matrix multiplication. The product rule for
++\(\delta\) makes \(\mathcal C\) a differential graded category.
++It is both \(R\)-linear and \(k\)-linear. For the cochains below,
++multilinearity in a string of maps means multilinearity over \(k\).
++Their values are still \(R\)-linear boundary maps.
++
++Write \(S=k[x,y]\), where \(x,y\) each denote \(n\) coordinates.
++The diagonal factorization \(\Delta_W\), its action
++\(M_E=\Delta_W\otimes_{k[y]}E(y)\), and the maps
++\(\pi_E,i_E,h_E\) are those of Theorem~\ref{thm:da-unit}.
++In particular,
++\[
++ \delta h_E=1-i_E\pi_E,\qquad
++ \pi_Ei_E=1,\qquad h_E^2=\pi_Eh_E=h_Ei_E=0.
++\]
++Tensoring a boundary map gives
++\[
++ \mathcal T(f)=1_{\Delta_W}\otimes f(y).
++\]
++The tensor sign rule applies to odd \(f\). This construction is
++a \(k\)-linear differential graded functor, with
++\[
++ \pi_F\mathcal T(f)=f(x)\pi_E.
++\]
++As a map between spaces of boundary maps, \(\mathcal T\) is
++generally not \(R\)-linear for the left \(x\)-action. Indeed,
++\[
++ \mathcal T(x_jf)=y_j\mathcal T(f),\qquad
++ x_j\mathcal T(f)-\mathcal T(x_jf)
++       =(x_j-y_j)\mathcal T(f).
++\]
++For \(f=1_E\) and \(E\ne0\), the last polynomial operator is
++nonzero. Evaluation at \(y=x\) removes this difference. A
++cochain construction before evaluation must retain it.
++
++\section{The equations for coherent centrality}
++\label{sec:cc-cochains}
++
++The suspension of a parity-graded space is \(sV\), with
++\(|sv|=|v|+1\). Order a composable string from left to right as
++\[
++ f_j:E_j\longrightarrow E_{j-1}\quad(1\leq j\leq m).
++\]
++Thus its composite is \(f_1\cdots f_m:E_m\to E_0\).
++Let \(\mathcal B\mathcal C\) be the vector space of finite
++linear combinations of suspended composable words
++\(sf_1\otimes\cdots\otimes sf_m\), including an empty word at
++each object. Splitting at every position gives its
++deconcatenation coproduct, with the intervening object retained.
++
++A suspended Hochschild cochain \(U\) of parity \(q\) is a family
++of \(k\)-multilinear maps
++\[
++ U_m:
++ s\mathcal C(E_1,E_0)\otimes_k\cdots\otimes_k
++ s\mathcal C(E_m,E_{m-1})
++ \longrightarrow s\mathcal C(E_m,E_0)
++\]
++of parity \(q\), for all strings and all \(m\geq0\).
++For \(m=0\), this is a choice of an element of
++\(s\mathcal C(E,E)\) at every object \(E\).
++The space of cochains is the product of these spaces over
++arities and object strings.
++
++Extend \(U\) to words by insertion into every consecutive block.
++An insertion after the first \(j\) letters has sign
++\[
++ (-1)^{q\sum_{i=1}^j(|f_i|+1)}.
++\]
++A nullary component is inserted at a gap, including either end,
++using the object at that gap. Denote this extension by
++\(\widehat U\). Each input word permits only finitely many
++insertions, even if \(U\) has infinitely many components.
++The insertion formula satisfies the coderivation rule for
++deconcatenation.
++
++Define the odd coderivation \(b\) by
++\[
++ b_1(sf)=s\,\delta f,\qquad
++ b_2(sf\otimes sg)=(-1)^{|f|}s(fg),\qquad b_0=0,
++\]
++with all higher components zero. Its square vanishes:
++the length-one contribution is \(\delta^2\), the length-two
++contribution is the product rule, and the length-three
++contribution is associativity. Disjoint insertions cancel
++with the opposite order of insertion.
++
++The differential of a cochain is the length-one projection of
++\begin{equation}
++ \widehat{\mathfrak d U}
++      =b\widehat U-(-1)^q\widehat U b .
++ \label{eq:cc-differential}
++\end{equation}
++The commutator of coderivations is again a coderivation, as
++expansion of their coproducts shows. Thus the right side is
++determined by that projection. Expanding its commutator with
++\(b\) gives
++\(\widehat{\mathfrak d^2 U}=b^2\widehat U-\widehat U b^2=0\).
++This defines a cochain complex.
++
++A central operation of parity \(p\), with all its homotopies,
++means a cochain \(U\) of parity \(p+1\) with
++\(\mathfrak dU=0\). Two such operations give the same class
++when their difference is \(\mathfrak dV\).
++With this shift, the parity-\(p\) Hochschild cohomology is
++\(HH_k^{\bar p}(\mathcal C)=H^{\overline{p+1}}(\mathfrak C)\),
++where \(\mathfrak C\) denotes the displayed suspended cochain
++complex.
++
++The nullary equation says that \(U_0\) is closed. If all higher
++components vanish, the unary equation says that the resulting
++boundary endomorphisms graded-commute with every map. A nonzero
++unary component supplies the homotopy for that equation.
++The binary equation then requires compatibility with composition,
++and higher arities impose its successive compatibility equations.
++This definition includes arbitrary, possibly nonclosed maps.
++
++\section{The diagonal cochain on every boundary string}
++\label{sec:cc-comparison}
++
++Put \(B_W=\operatorname{End}_S(\Delta_W)\), with differential
++\(\delta a=D_\Delta a-(-1)^{|a|}aD_\Delta\).
++For each object \(E\), let \(L_E(a)=a\otimes1_E\) on \(M_E\).
++For \(a\) homogeneous of parity \(p\),
++\[
++ L_E(a)\mathcal T(f)=(-1)^{p|f|}
++                  \mathcal T(f)L_F(a)
++ \quad\text{when } f:F\to E.
++\]
++Both sides are maps \(M_F\to M_E\), and the equality is the
++tensor sign rule.
++
++For a composable string as above, define
++\begin{equation}
++ \begin{split}
++ U^a_m(sf_1,\ldots,sf_m)
++  =s\bigl(&\pi_{E_0}L_{E_0}(a)h_{E_0}\mathcal T(f_1)
++       h_{E_1}\mathcal T(f_2)\cdots\\
++       &{}\cdots h_{E_{m-1}}\mathcal T(f_m)i_{E_m}\bigr).
++ \end{split}
++ \label{eq:cc-components}
++\end{equation}
++There are \(m\) homotopies. For \(m=0\), the formula means
++\(U^a_0=s(\pi_EL_E(a)i_E)\).
++All domains in the formula match. Its parity as a suspended
++cochain is \(p+1\).
++
++\begin{theorem}[The coherent diagonal action]
++\label{thm:cc-coherent}
++For every homogeneous \(a\in B_W\),
++\begin{equation}
++ \mathfrak d U^a=U^{\delta a}.
++ \label{eq:cc-chain-map}
++\end{equation}
++Consequently a closed diagonal operator defines a central
++operation on the entire boundary category, with compatible
++homotopies at every arity. A diagonal boundary gives an exact
++Hochschild cochain.
++
++The construction is \(R\)-linear in \(a\) and \(k\)-multilinear
++in the boundary maps. Each positive-arity component vanishes
++if one boundary input is an identity. For a left scalar
++operator \(a=f(x)1\), its only component is
++\(U^a_0(E)=s(f(x)1_E)\).
++\end{theorem}
++\begin{proof}
++Write \(q_j=|f_j|\). First differentiate the unsuspended
++operator in \eqref{eq:cc-components}.
++Differentiating \(L(a)\) gives \(U^{\delta a}_m\).
++Differentiating \(\mathcal T(f_j)\) has sign
++\[
++ (-1)^{p+j+\sum_{i<j}q_i}.
++\]
++In \(-(-1)^{p+1}\widehat U^a b\), insertion of \(b_1\) at
++position \(j\) has sign
++\((-1)^{p+j-1+\sum_{i<j}q_i}\).
++These contributions cancel.
++
++Differentiating the homotopy immediately before \(f_j\)
++has sign
++\[
++ (-1)^{p+j-1+\sum_{i<j}q_i}
++\]
++and replaces that homotopy by \(1-i_{E_{j-1}}\pi_{E_{j-1}}\).
++For \(j\geq2\), the term \(1\) composes the two adjacent
++boundary maps. Its sign is opposite to the insertion of
++\(b_2\) in \(-(-1)^{p+1}\widehat U^a b\).
++For \(j=1\), move \(L(a)\) past \(\mathcal T(f_1)\) and use
++naturality of \(\pi\). The resulting left endpoint term has
++coefficient \((-1)^{p+pq_1}\).
++Insertion of \(U^a_{m-1}\) after \(sf_1\), followed by \(b_2\),
++has the opposite coefficient
++\((-1)^{(p+1)(q_1+1)+q_1}=(-1)^{pq_1+p+1}\).
++
++In a term containing \(-i\pi\), the factor
++\(\pi\mathcal T(f_j)h=f_j\pi h\) is zero unless \(j=m\).
++For \(j=m\), the surviving right endpoint has coefficient
++\[
++ -(-1)^{p+m-1+\sum_{i<m}q_i}.
++\]
++The composition
++\(b_2(U^a_{m-1}(sf_1,\ldots,sf_{m-1}),sf_m)\)
++has the opposite coefficient. This cancels the remaining term.
++The same calculation includes \(m=1\), where both endpoint
++terms occur at the only homotopy.
++For \(m=0\), \(\delta\pi=\delta i=0\) gives
++\(\delta(\pi L(a)i)=\pi L(\delta a)i\).
++Every component of \eqref{eq:cc-chain-map} is therefore proved.
++
++An identity at the last position gives \(hi=0\).
++An identity at an earlier position gives \(h^2=0\).
++For a scalar \(a=f(x)1\), each positive-arity formula starts
++with \(f(x)\pi h=0\). Its nullary value is \(s(f(x)\pi i)\).
++Every map outside the boundary inputs is \(R\)-linear, proving
++linearity in the left scalar coefficients of \(a\).
++\end{proof}
++
++The first compatibility equation recovers the homotopy of
++Section~\ref{sec:da-detection}. For closed \(a,f\), the unary
++equation is
++\[
++ \delta\bigl(\pi L(a)h\mathcal T(f)i\bigr)
++   =(-1)^{p+1}\bigl(F_1(a)f-(-1)^{p|f|}fF_1(a)\bigr).
++\]
++The higher components of \eqref{eq:cc-components} give its
++compatibility with arbitrary longer strings.
++
++\begin{example}[A nonzero binary homotopy]
++\label{ex:cc-binary}
++Take the two-variable boundary \(K(y,y^2+v^2)\) for
++\(W(x,u)=x^3+xu^2\), with the exterior order
++\(1,\theta_1,\theta_2,\theta_2\theta_1\) from
++Section~\ref{sec:da-mixed}. Let \(a\) be the even diagonal
++endomorphism sending \(\theta_2\theta_1\) to \(1\) and every
++other basis vector to zero. Then
++\[
++ U^a_2(s(u1_E),s(x1_E))=s1_E .
++\]
++This can be derived before any matrix multiplication.
++Write the contraction as \(h=h_2+i_2h_1\pi_2\), where the
++second coordinate is eliminated first.
++The first exterior block of \(i=i_2i_1\) is \(i_1\), independent
++of \(v\). Thus
++\[
++ h\,\mathcal T(x1_E)i=-i_2(\theta_1\,1_E).
++\]
++Its first block is \(-\theta_1\,1_E\). Multiplication by
++\(\mathcal T(u1_E)=v1\), followed by \(h_2\), gives
++\(\theta_2\theta_1\,1_E\), since
++\(({-v}-({-u}))/(u-v)=1\).
++The other term \(i_2h_1\pi_2\) vanishes: its input to \(h_1\)
++lies entirely in the \(\theta_1\)-summand.
++Applying \(a\) and then \(\pi\) gives the asserted identity.
++The operator \(a\) need not be closed. Its differential remains
++in \eqref{eq:cc-chain-map}, so this computation concerns the
++full cochain map, not only its values on cohomology.
++\end{example}
++
++\section{A scalar class recovered by compatibility}
++\label{sec:cc-cubic}
++
++Return to \(W=x^3\) and the boundary \(D\) in
++\eqref{eq:cc-cubic-opening}. For \(f\in k[x]\), let
++\(\rho(f)\) be the cochain whose nullary value at each boundary
++is \(s(f1)\), with all positive-arity components zero.
++Scalar multiplication is closed and commutes with every
++boundary map, so \(\mathfrak d\rho(f)=0\).
++
++\begin{theorem}[The cubic scalar classes]
++\label{thm:cc-cubic}
++For the category of all finite free matrix factorizations of
++\(x^3\), the scalar map
++\[
++ k[x]\longrightarrow HH_k^{\bar0}(\mathcal C),
++       \qquad f\longmapsto[\rho(f)]
++\]
++has kernel \((x^2)\). Thus its scalar classes retain both
++\([1]\) and \([x]\).
++The class \([x]\) acts by zero on the cohomology of every
++individual boundary endomorphism algebra.
++\end{theorem}
++\begin{proof}
++On the diagonal let
++\[
++ a=\frac13\begin{pmatrix}0&1\\2x+y&0\end{pmatrix}.
++\]
++Writing \(r=x-y\) and \(g=x^2+xy+y^2\), its differential is
++\[
++ \delta a=\frac13\bigl(g+r(2x+y)\bigr)1=x^2\,1.
++\]
++Theorem~\ref{thm:cc-coherent} gives
++\(\mathfrak dU^a=\rho(x^2)\).
++Multiplication of cochain outputs by any scalar polynomial
++commutes with \(\mathfrak d\). Every multiple of \(x^2\)
++is therefore exact.
++
++To prove the reverse inclusion, reduce a polynomial modulo
++\(x^2\), writing its remainder as \(\alpha+\beta x\).
++Suppose \(\rho(\alpha+\beta x)=\mathfrak dV\), where \(V\)
++has suspended parity zero. Restrict all components to the
++single boundary \(D\). Put \(V_0=sh\), so \(h\) is odd.
++The nullary equation gives
++\(\delta h=(\alpha+\beta x)1\).
++Write
++\[
++ h=\begin{pmatrix}0&b\\d&0\end{pmatrix}.
++\]
++Its differential is \(x(d+xb)1\). Evaluation at \(x=0\)
++forces \(\alpha=0\), and cancellation of \(x\) gives
++\(d+xb=\beta\).
++
++Evaluate the unary equation on the closed odd matrix
++\(e\) from \eqref{eq:cc-cubic-opening}.
++Write \(V_1(se)=sv\). Formula~\eqref{eq:cc-differential}
++gives
++\[
++ \delta v=he+eh=(d-xb)1=(\beta-2xb)1.
++\]
++Every entry of \(\delta v\) is divisible by \(x\).
++Evaluation at \(x=0\) now forces \(\beta=0\).
++This argument permits all higher components of \(V\):
++none enters its nullary or unary equations.
++It therefore excludes an arbitrary Hochschild primitive.
++
++Finally, Theorem~\ref{thm:pb-object-ideal} gives
++\(I_{\mathrm{obj}}(x^3)=(x)\).
++Equivalently, the polynomial block decomposition consists of
++contractible blocks and blocks \(K(x,x^2)\), \(K(x^2,x)\).
++On either noncontractible block, multiplication by \(x\) is
++the differential of an odd matrix. The homotopies combine
++over direct sums, proving the last assertion.
++\end{proof}
++
++The exactness of \(x^2\) also has a formula entirely on the
++boundary category. For a boundary matrix \(D_E(x)\), let
++\(D'_E\) denote entrywise differentiation in \(x\).
++The cochain \(U^a\) used in the proof has components
++\begin{equation}
++ U^a_0(E)=\tfrac13sD'_E,\qquad
++ U^a_1(sf)=-\tfrac13s f',\qquad U^a_m=0\quad(m\geq2).
++ \label{eq:cc-derivative-primitive}
++\end{equation}
++To obtain the first formula, the top-right entry of \(a\)
++selects the divided-difference matrix in \(i_E\), whose
++diagonal value is \(D'_E\).
++For the second, \(h\mathcal T(f)i\) has exterior component
++\((f(y)-f(x))/(x-y)\). Its diagonal value is \(-f'(x)\).
++For two or more inputs, \(h\mathcal T(f)h=0\) in one
++coordinate, because \(h\) takes values in the exterior summand
++and vanishes on that summand.
++
++Differentiating \(D_E^2=x^3\,1\) gives
++\(\delta(D'_E/3)=x^2\,1\).
++For any homogeneous boundary map \(f:E\to F\),
++\[
++ (\delta f)'=\delta(f')+D'_Ff-(-1)^{|f|}fD'_E.
++\]
++This is the unary equation for
++\eqref{eq:cc-derivative-primitive}. The binary equation is
++\((fg)'=f'g+fg'\), and every higher equation is zero.
++Thus the displayed primitive can be checked without the
++diagonal module.
++
++Its derivative component is \(k\)-linear but not \(R\)-linear:
++\((xf)'=f+xf'\). This is a mathematical reason to specify the
++base of the Hochschild cochains. The equations just proved
++concern \(HH_k\), rather than cochains required to be
++multilinear over \(R\).
++
++\section{Gradient relations and formal continuity}
++\label{sec:cc-gradient}
++
++For any polynomial potential in \(n\) coordinates, entrywise
++differentiation of \(D_\Delta^2=(W(x)-W(y))1\) gives
++\[
++ \delta(\partial_{x_j}D_\Delta)=(\partial_{x_j}W)1.
++\]
++Theorem~\ref{thm:cc-coherent} therefore supplies an explicit
++Hochschild primitive for every gradient scalar.
++The scalar map factors through
++\[
++ R/(\partial_{x_1}W,\ldots,\partial_{x_n}W)
++       \longrightarrow HH_k^{\bar0}(\mathcal C).
++\]
++This construction uses neither an isolated critical point nor
++an assumption about the dimension of the displayed quotient.
++The cubic theorem establishes injectivity for its scalar
++classes by a separate argument. A general isomorphism requires
++additional control of all Hochschild cochains.
++
++For formal series, use the complete boundary modules and
++total-degree filtrations of Section~\ref{sec:da-formal}.
++Restrict the cochain space to components continuous jointly
++in each fixed finite string of inputs.
++If \(a\) has coefficient order at least \(N_a\), and the
++entries of \(f_j\) have orders at least \(N_j\), then
++\eqref{eq:cc-components} has output order at least
++\[
++ \max(0,N_a+N_1+\cdots+N_m-m).
++\]
++Multiplications add orders, the \(m\) homotopies each lower
++order by at most one, and inclusions and projections preserve
++order. This estimate proves joint continuity.
++The differential of a cochain uses only finitely many
++components at each arity, so it preserves this space.
++All identities extend coefficient by coefficient.
++No sum of operations over infinitely many arities is needed.
++
++The diagonal now acts by coherent central operations on the
++boundary category. Identifying this cochain map with an
++equivalence of centres further requires control of its kernel
++and cokernel on all classes. Compatibility with products of
++bulk operators, cyclic pairings, and position-dependent chiral
++operations requires the corresponding comparison maps.
+diff --git a/chapters/examples/diagonal_boundary_action.tex b/chapters/examples/diagonal_boundary_action.tex
+index 30b1f8f..a60c69a 100644
+--- a/chapters/examples/diagonal_boundary_action.tex
++++ b/chapters/examples/diagonal_boundary_action.tex
+@@ -361,7 +361,7 @@ Thus separate one-coordinate inclusions, with their mixed
+ coefficient discarded, do not give a chain map.
+ 
+ \section{Transporting every ordered operator product}
+-\label{sec:da-operators}
++\label{sec:da-boundary-operators}
+ 
+ The contraction gives more than an equivalence of boundary objects.
+ Let \(B_W=\operatorname{End}_S(\Delta_W)\), with differential
+diff --git a/platonic/chapters/Volume_IV_Calabi_Yau_Quantum_Groups.tex b/platonic/chapters/Volume_IV_Calabi_Yau_Quantum_Groups.tex
+index ebbf406..2184a5e 100644
+--- a/platonic/chapters/Volume_IV_Calabi_Yau_Quantum_Groups.tex
++++ b/platonic/chapters/Volume_IV_Calabi_Yau_Quantum_Groups.tex
+@@ -10,6 +10,7 @@ Calabi--Yau categories, geometric BV theories, Hall correspondences, quantum dou
+ 
+ \input{chapters/examples/polynomial_boundary_algebras}
+ \input{chapters/examples/diagonal_boundary_action}
++\input{chapters/examples/coherent_boundary_centre}
+ 
+ \chapter{Calabi--Yau categories}
+ \section{Smoothness, properness, and the Calabi--Yau class}
