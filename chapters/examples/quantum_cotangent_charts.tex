@@ -1,0 +1,699 @@
+\chapter{Quantized cotangent charts and their central quotient}
+\label{chap:qc-quantum-collision}
+
+A constraint on coordinates can be imposed before or after passing to local charts.
+For differential operators, the two procedures must retain the order of multiplication.
+That order produces a scalar correction which is absent from the equation of the classical constraint.
+The simplest projective example makes all three features visible: the constraint, the coordinate changes, and the correction.
+
+Let $k$ be a field of characteristic zero.
+Describe the projective line $\mathbb P^1$ by two affine charts, with polynomial coordinate algebras $k[x]$ and $k[x']$.
+Their intersection has Laurent coordinate algebra $k[x,x^{-1}]$, and $x'=x^{-1}$.
+Its $k$-valued points are nonzero pairs $(a_1,a_2)$ modulo simultaneous nonzero scaling.
+The chart coordinates are $x=a_2/a_1$ and $x'=a_1/a_2$, respectively.
+A cotangent vector in the first chart is written $v\,dx$.
+The equality $v\,dx=v'\,dx'$ gives
+\[
+ x'=x^{-1},\qquad v'=-x^2v.
+\]
+Thus the cotangent bundle is obtained by gluing two polynomial planes along these formulas.
+The zero cotangent vectors form a projective line inside this surface.
+
+There is also a description by a constraint.
+Take a column $a=(a_1,a_2)$ and a row $p=(p_1,p_2)$, and put $\mu=p_1a_1+p_2a_2$.
+Impose $a\ne0$ and $\mu=0$, then identify $(a,p)$ with $(c a,c^{-1}p)$.
+For the line $L=ka$, the rule $\bar u\mapsto p(u)a$ defines a map $k^2/L\to L$.
+It is well-defined because $p(a)=0$, and scaling does not change it.
+Such maps are precisely the cotangent vectors: the tangent space is $\operatorname{Hom}(L,k^2/L)$, and composition followed by trace pairs the two spaces.
+Choosing $a$ reconstructs $p$ from the map, uniquely up to the displayed scaling.
+This proves the cotangent description.
+On $a_1\ne0$ its coordinates are $x=a_2/a_1$ and $v=a_1p_2$.
+Indeed, the one-form $p_1\,da_1+p_2\,da_2$ restricts at $\mu=0$ to $v\,dx$.
+
+Quantization replaces commuting momenta and coordinates by prescribed commutators.
+The constraint becomes an operator, and its chosen value enters the coordinate transition.
+
+\section{The moment operator and an ordered basis}
+
+Let $R=k[\hbar,\nu]$.
+Both parameters are central and algebraically independent.
+The algebra $\mathsf W$ is generated over $R$ by $a_1,a_2,p_1,p_2$, with
+\[
+ [p_i,a_j]=\hbar\delta_{ij},\qquad [a_i,a_j]=[p_i,p_j]=0,
+ \qquad [u,v]=uv-vu.
+\]
+All elements are finite linear combinations of words.
+Every tensor product and polynomial algebra in this chapter is algebraic.
+No inverse of $\hbar$ or completion in $\hbar$ is taken.
+
+\begin{lemma}\label{lem:qc-weyl-basis}
+The monomials $a_1^{i_1}a_2^{i_2}p_1^{j_1}p_2^{j_2}$ form an $R$-basis of $\mathsf W$.
+\end{lemma}
+\begin{proof}
+Moving each $p_i$ to the right uses the defining relation and produces shorter correction terms.
+Ordering first by length and then by the number of reversed pairs proves that this procedure terminates.
+Thus the displayed monomials span.
+For independence, act on $R[a_1,a_2,t_1,t_2]$ by multiplication with $a_i$ and by
+\[
+ p_i=\hbar\frac{\partial}{\partial a_i}+t_i.
+\]
+These operators satisfy every relation.
+Applying a normally ordered linear combination to $1$ replaces each $p_i$ by $t_i$.
+Independence of polynomial monomials proves independence of the proposed basis.
+This argument remains valid at $\hbar=0$.
+\end{proof}
+
+Give $a_i$ weight $1$ and $p_i$ weight $-1$.
+The relations preserve weight, so $\mathsf W$ is a direct sum of its weight spaces.
+Its weight-zero subalgebra is denoted $\mathsf W^0$.
+Retaining weight zero is the algebraic scaling-invariant operation: scaling by $c$ multiplies a word of weight $m$ by $c^m$.
+For maps preserving weight, kernels and images decompose by weight.
+Consequently retaining weight zero preserves exact sequences.
+
+Define the moment operator
+\[
+ M=a_1p_1+a_2p_2.
+\]
+The commutator product identity gives $[M,a_i]=\hbar a_i$ and $[M,p_i]=-\hbar p_i$.
+Hence $[M,w]=m\hbar w$ for a word of weight $m$.
+In particular, $M$ is central in $\mathsf W^0$.
+The reduced algebra at period $\nu$ is
+\begin{equation}\label{eq:qc-reduction}
+ \mathsf A_{\hbar,\nu}=\mathsf W^0/(M-\hbar\nu).
+\end{equation}
+The quotient is two-sided because its defining element is central.
+It is also the weight-zero part of the quotient by the left ideal $\mathsf W(M-\hbar\nu)$.
+Indeed, the weight-zero part of that ideal is $\mathsf W^0(M-\hbar\nu)$.
+
+The parameter $\nu$ specifies the value of a quantum moment operator.
+It is independent of any extra normal coordinate introduced to express a potential.
+
+\section{The relative bar retains the moment relation}
+
+The quotient in \eqref{eq:qc-reduction} forgets how the relation is imposed.
+A two-term complex retains that information and admits a direct comparison with an ordered bar.
+The comparison works for any central element, before its injectivity is considered.
+
+Let $A$ be a unital associative algebra over a commutative ring $B$, and let $w$ be central in $A$.
+Let $B[t]$ act on $A$ by $t\mapsto w$, and on $B$ by $t\mapsto0$.
+Put $I=tB[t]$.
+The normalized two-sided bar has degree $-n$ term
+\[
+ \mathcal B^{-n}=A\otimes_B I^{\otimes_B n},\qquad n\ge0.
+\]
+Write $a[m_1|\cdots|m_n]$ for the element with letters $t^{m_i}$, where every $m_i\ge1$.
+The empty word is an element of $A$.
+Define a differential of degree $1$ by
+\begin{align*}
+ d\bigl(a[m_1|\cdots|m_n]\bigr)
+ &=aw^{m_1}[m_2|\cdots|m_n]\\
+ &\quad+\sum_{i=1}^{n-1}(-1)^i
+ a[m_1|\cdots|m_i+m_{i+1}|\cdots|m_n].
+\end{align*}
+There is no final term because every letter has augmentation zero.
+Each pair of successive multiplications occurs twice in $d^2$, with opposite signs.
+The initial pair cancels because $w^{m_1}w^{m_2}=w^{m_1+m_2}$.
+Thus $d^2=0$.
+
+A shuffle interleaves two words while retaining the order inside each word.
+Give each letter odd degree and attach the sign of the interleaving permutation.
+The product on $\mathcal B$ multiplies the two coefficients in their given order and sums these signed shuffles.
+The empty word with coefficient $1$ is its unit.
+An interleaving of three ordered lists is independent of the order in which two lists are first interleaved.
+This proves associativity with the same signs.
+For the differential, faces joining letters from different lists cancel in pairs.
+Faces within one list give the corresponding factor differential.
+The initial face obeys the same rule because each $w^m$ is central in $A$.
+The product therefore satisfies the graded Leibniz identity.
+
+Let
+\[
+ C=A\otimes_B\Lambda(\epsilon),\qquad |\epsilon|=-1,
+ \qquad d\epsilon=w.
+\]
+Here $\epsilon$ commutes with $A$ and satisfies $\epsilon^2=0$.
+The differential respects this relation since $w\epsilon-\epsilon w=0$.
+
+\begin{proposition}\label{prop:qc-bar-contraction}
+There are unital differential-algebra maps
+\[
+ i:C\longrightarrow\mathcal B,\qquad
+ \pi:\mathcal B\longrightarrow C,
+\]
+given by $i(a)=a$, $i(a\epsilon)=a[1]$, and
+\[
+ \pi(a)=a,\qquad
+ \pi(a[m])=aw^{m-1}\epsilon,\qquad
+ \pi(a[m_1|\cdots|m_n])=0\quad(n\ge2).
+\]
+They satisfy $\pi i=1$ and $dh+hd=1-i\pi$, where $h$ has degree $-1$ and
+\[
+ h\bigl(a[m_1|\cdots|m_n]\bigr)=
+ \begin{cases}
+ (-1)^n a[m_1|\cdots|m_{n-1}|m_n-1|1],&m_n\ge2,\\
+ 0,&m_n=1,
+ \end{cases}
+ \qquad h(a)=0.
+\]
+No regularity assumption on $w$ is needed.
+\end{proposition}
+\begin{proof}
+The square of $[1]$ is $[1|1]-[1|1]=0$.
+It commutes with every degree-zero coefficient, so $i$ preserves products and the differential.
+The formula for $\pi$ commutes with the differential on one-letter words.
+On a two-letter boundary the two possible images are
+$aw^{m_1+m_2-1}\epsilon$ and its negative.
+All longer boundaries map to zero.
+Products of two positive-length words have length at least two, while the product of their images contains $\epsilon^2$ or is zero.
+Multiplication with a degree-zero coefficient is preserved by centrality of $w$.
+Thus $\pi$ is also a differential-algebra map.
+
+For one letter with $m\ge2$,
+\[
+ dh(a[m])=a[m]-aw^{m-1}[1].
+\]
+For $m=1$, both sides of $dh+hd=1-i\pi$ vanish.
+For a word of length at least two with last exponent at least two, every face before the last pair cancels between $dh$ and $hd$.
+The face merging the final two letters of $h$ returns the original word with sign $(-1)^n(-1)^n=1$.
+The remaining face cancels the term obtained by first merging the last pair of the original word.
+If the last exponent is one, $h$ vanishes on the original word.
+In $hd$ only that last merged face survives, and its two signs again multiply to $1$.
+This proves the homotopy identity in every length.
+The other assertions follow directly from the formulas.
+\end{proof}
+
+Taking $B=R$, $A=\mathsf W^0$, and $w=M-\hbar\nu$ gives the relative moment bar.
+It computes the derived tensor product over $R[z]$, where $z$ acts as $M$ on $\mathsf W^0$ and as $\hbar\nu$ on $R$.
+Here the derived tensor product means tensoring with a free resolution before taking cohomology.
+The two-term resolution of $R[z]/(z-\hbar\nu)$ is free and exact because multiplication by this monic polynomial is injective.
+It gives exactly $C$ after tensoring with $\mathsf W^0$.
+
+If $A=k[u]/(u^2)$ and $w=u$, the element $u\epsilon$ is a nonzero cycle in degree $-1$ of $C$.
+There is no term of degree $-2$, so this cycle cannot be a boundary.
+Proposition~\ref{prop:qc-bar-contraction} retains this class in the relative bar.
+Replacing either complex by the ordinary quotient $A/(u)$ would lose it.
+
+For these coefficients, $w$ is a non-zero-divisor.
+Filter $\mathsf W$ by total word length.
+Its associated graded is the polynomial ring over the domain $R$, by Lemma~\ref{lem:qc-weyl-basis}.
+Leading terms of nonzero products cannot vanish, so $\mathsf W$ and its subalgebra $\mathsf W^0$ are domains.
+The ordered basis also shows $M-\hbar\nu\ne0$.
+Thus $C$ has cohomology only in degree zero, equal to \eqref{eq:qc-reduction}.
+
+Changing the invariant operation changes this conclusion.
+For the one-dimensional Lie algebra generating scaling, the cochain complex on a weight-$m$ space has two terms and differential multiplication by $m$.
+Its second term has an odd degree-one generator $c$.
+For $m\ne0$, division by $m$ contracts the complex.
+At weight zero its differential vanishes and both terms remain.
+Applied after the moment quotient, it leaves
+$\mathsf A_{\hbar,\nu}\otimes\Lambda(c)$ in cohomology.
+This additional class explains the difference between Lie-algebra cochains and retaining algebraic scaling invariants.
+
+\section{Operator charts and their overlap}
+
+On $a_1\ne0$, write
+\[
+ z=a_1,\qquad x=a_2/a_1,\qquad v=a_1p_2.
+\]
+The localized Weyl algebra consists of ordered differential expressions with coefficients in $R[a_1,a_1^{-1},a_2]$.
+Differentiation of these Laurent coefficients extends its product.
+Its presentation in the new coordinates has
+\[
+ [v,x]=\hbar,\qquad [M,z]=\hbar z,
+\]
+and all other commutators between $x,v,z,M$ vanish.
+The inverse assignments are
+\[
+ a_1=z,\quad a_2=zx,\quad
+ p_2=z^{-1}v,\quad p_1=z^{-1}(M-xv).
+\]
+They satisfy the original relations.
+For example, both products $p_1p_2$ and $p_2p_1$ become
+$z^{-2}(M-\hbar-xv)v$.
+The remaining commutators follow from the two displayed relations.
+These inverse assignments prove the presentations agree.
+Only $z$ has nonzero weight.
+An ordered basis in powers of $z,x,v,M$ therefore identifies the weight-zero algebra with the Weyl chart in $x,v$ and the central polynomial variable $M$.
+
+On $a_2\ne0$ use $x'=a_1/a_2$ and $v'=a_2p_1$.
+Before the moment relation, the transition is
+\[
+ x'=x^{-1},\qquad v'=xM-x^2v.
+\]
+After the relation it becomes
+\begin{equation}\label{eq:qc-operator-transition}
+ x'=x^{-1},\qquad v'=-x^2v+\hbar\nu x.
+\end{equation}
+For a Laurent polynomial $f$, the product rule is
+$vf=fv+\hbar f'$.
+It follows for positive powers by induction, for $x^{-1}$ by differentiating the inverse relation, and then for every Laurent polynomial by linearity.
+It gives $[v',x']=\hbar$ and the inverse formula
+$v=-x'^2v'+\hbar\nu x'$.
+Thus \eqref{eq:qc-operator-transition} is an algebra isomorphism on the overlap.
+
+Denote the resulting sheaf of algebras on $\mathbb P^1$ by $\mathcal D_{\hbar,\nu}$.
+A sheaf here assigns compatible local expressions to open sets, with unique gluing whenever the expressions agree on intersections.
+The two chart presentations and their restrictions specify these assignments.
+At $\hbar=0$, the generators commute and the transition is the cotangent transition.
+At $\hbar=1$, the local generator $v$ acts as $\partial_x$.
+For an integer period $\nu=n$, apply $a_2\partial_{a_1}$ to a homogeneous expression $a_1^n f(x)$.
+The result is $a_1^n(-x^2 f'(x)+nx f(x))$.
+This proves the transition for differential operators acting on the line bundle whose local frames satisfy $a_2^n=x^n a_1^n$.
+That bundle is denoted $\mathcal O(n)$.
+For arbitrary $\nu$, the same algebraic transition defines twisted differential operators without requiring such a line bundle.
+
+\section{Three global operators}
+
+Set
+\begin{equation}\label{eq:qc-three-operators}
+ E=v,\qquad F=-x^2v+\hbar\nu x,\qquad H=\hbar\nu-2xv.
+\end{equation}
+On the second chart these become, respectively,
+$-x'^2v'+\hbar\nu x'$, $v'$, and $2x'v'-\hbar\nu$.
+They therefore extend to global sections.
+The product rule gives
+\[
+ [H,E]=2\hbar E,\qquad [H,F]=-2\hbar F,
+ \qquad [E,F]=\hbar H.
+\]
+Let $U_\hbar$ be the associative algebra over $R$ generated by $E,F,H$ with these relations.
+Thus the three global sections define an algebra map from $U_\hbar$.
+
+\begin{lemma}\label{lem:qc-enveloping-basis}
+The words $F^iH^jE^\ell$ form an $R$-basis of $U_\hbar$.
+The element
+\[
+ \Omega=H^2+2\hbar H+4FE
+\]
+is central.
+\end{lemma}
+\begin{proof}
+Use the rules $EH=HE-2\hbar E$, $HF=FH-2\hbar F$, and $EF=FE+\hbar H$.
+Word length and then the number of inversions decrease under each reduction.
+Disjoint reductions commute.
+The only overlapping pair of reductions is the word $EHF$.
+Both orders reduce it to
+\[
+ FHE-4\hbar FE+\hbar H^2-2\hbar^2H.
+\]
+Induction on the reduction order therefore makes every normal form unique.
+The normal-form map kills the defining relations and their multiples, so the normal words are independent in the quotient.
+
+The commutator with $H$ vanishes because $[H,FE]=0$.
+For $E$, the commutator of $\Omega$ is
+\[
+ 2\hbar(HE+EH)+4\hbar^2E-4\hbar HE=0.
+\]
+For $F$, it is
+$-2\hbar(HF+FH)-4\hbar^2F+4\hbar FH=0$.
+These equations use exactly the defining relations.
+\end{proof}
+
+Inside $\mathsf W^0$, put $X_{ij}=a_ip_j$.
+Then $E=X_{12}$, $F=X_{21}$, and $H=X_{11}-X_{22}$.
+The two diagonal elements commute and
+$FE=X_{11}X_{22}+\hbar X_{22}$.
+Consequently
+\begin{equation}\label{eq:qc-casimir}
+ \Omega=(X_{11}+X_{22})^2+2\hbar(X_{11}+X_{22})
+ =M(M+2\hbar).
+\end{equation}
+Imposing the moment relation gives $\Omega=\hbar^2\nu(\nu+2)$.
+The term $2\hbar^2\nu$ comes from multiplying a momentum past a coordinate.
+
+\section{The global algebra from its symbols}
+
+An increasing filtration $F_nA$ is a sequence of submodules with
+$F_nA\,F_mA\subset F_{n+m}A$ and $\bigcup_nF_nA=A$.
+Its associated graded algebra is $\bigoplus_nF_nA/F_{n-1}A$.
+The class of an element of highest order $n$ in this quotient is its leading symbol.
+Give momenta differential order one and coordinates order zero.
+All parameters in $R$ have order zero.
+
+\begin{lemma}\label{lem:qc-invariant-symbols}
+The associated graded algebra of $\mathsf W^0$ is
+\[
+ R[q_{11},q_{12},q_{21},q_{22}]/(q_{11}q_{22}-q_{12}q_{21}),
+ \qquad q_{ij}=a_i p_j.
+\]
+The four operators $X_{ij}$ generate $\mathsf W^0$.
+\end{lemma}
+\begin{proof}
+The ordered basis identifies the symbols with commuting monomials having equal total coordinate and momentum degrees.
+Pair each coordinate factor with a momentum factor to express such a monomial in the $q_{ij}$.
+The determinant relation holds for their images.
+Replace every occurrence of $q_{11}q_{22}$ by $q_{12}q_{21}$.
+The resulting monomials have exponents $(a,b,c,d)$ with $\min(a,d)=0$.
+Their images have exponents $(a+b,c+d,a+c,b+d)$ in $(a_1,a_2,p_1,p_2)$.
+Two exponent quadruples with the same image differ by $(t,-t,-t,t)$.
+The condition $\min(a,d)=0$ determines $t$ uniquely.
+Thus the reduced monomials have distinct images, proving the asserted presentation.
+
+The same pairing of factors in the noncommutative algebra gives a product of the $X_{ij}$ with the required leading monomial.
+Its other terms have smaller differential order.
+Subtract them and use induction on order.
+Every element has finite order, so this proves generation.
+\end{proof}
+
+The leading symbol of $M-\hbar\nu$ is $q_{11}+q_{22}$.
+The symbol ring in Lemma~\ref{lem:qc-invariant-symbols} is a subring of a polynomial domain, so this nonzero symbol is a non-zero-divisor.
+For a central element with regular leading symbol, the associated graded of its quotient is the quotient by that symbol.
+Indeed, its ideal consists of its multiples, and the order of each nonzero multiple is the sum of the two orders.
+Hence the leading symbols of the ideal are exactly the multiples of its leading symbol.
+It follows that
+\[
+ \operatorname{gr}\mathsf A_{\hbar,\nu}
+ =R[e,f,\eta]/(\eta^2+4ef),
+ \qquad e=q_{12},\quad f=q_{21},\quad \eta=q_{11}-q_{22}.
+\]
+Here division by two expresses the diagonal symbols in terms of their trace and difference.
+
+The same argument applies to
+\[
+ Q=U_\hbar/(\Omega-\hbar^2\nu(\nu+2)).
+\]
+Its leading relation is $\eta^2+4ef$, which is monic in $\eta$ and therefore a non-zero-divisor.
+Thus $\operatorname{gr}Q$ is the same quadratic ring.
+The map $Q\to\mathsf A_{\hbar,\nu}$ is surjective because the $X_{ij}$ generate and their trace has been fixed.
+Its map on symbols is the identity.
+An element of its kernel would have a nonzero leading symbol in that kernel, which is impossible.
+Therefore $Q\cong\mathsf A_{\hbar,\nu}$.
+
+To compare with all global operators, the remaining question is whether an arbitrary compatible pair of chart expressions is generated by $E,F,H$.
+This requires an overlap calculation.
+
+\begin{lemma}\label{lem:qc-laurent-splitting}
+Let $\mathcal D_{\le n}$ denote operators of order at most $n$ in $\mathcal D_{\hbar,\nu}$.
+Every order-at-most-$n$ expression on the overlap is a difference of expressions from the two charts.
+The leading symbols of global operators of order $n$ are exactly
+\[
+ \sum_{j=0}^{2n}c_j x^j v^n,\qquad c_j\in R.
+\]
+Every such symbol lifts to a global operator.
+\end{lemma}
+\begin{proof}
+On symbols, the transition is $(v')^n=(-1)^n x^{2n}v^n$.
+For the overlap difference map, the leading coefficient therefore has the form
+\[
+ a(x)-(-1)^n x^{2n}b(x^{-1}),\qquad
+ a\in R[x],\quad b\in R[x'].
+\]
+The first summand contains all powers of exponent at least zero.
+The second contains all powers of exponent at most $2n$.
+Since $n\ge0$, together they contain every Laurent monomial.
+Given an overlap operator, split its leading coefficient in this way.
+Subtract the corresponding chart expressions and repeat at lower order.
+This finite induction proves the first assertion.
+
+For a compatible leading symbol, $a(x)=(-1)^n x^{2n}b(x^{-1})$.
+Both sides are regular on their charts precisely when $a$ has degree at most $2n$.
+Choose chart operators with these leading coefficients.
+Their discrepancy has order at most $n-1$.
+The first assertion at that order expresses the discrepancy as a chart difference.
+Subtract these lower-order corrections to obtain a global lift.
+For $n=0$, no correction is needed.
+\end{proof}
+
+The kernel and cokernel of the overlap difference form the degree-zero and degree-one cohomology of the two-chart complex.
+The lemma computes this complex directly: its degree-one cohomology vanishes at every finite order.
+The leading global symbols form the ring
+\[
+ \bigoplus_{n\ge0}\operatorname{span}_R\{x^jv^n:0\le j\le2n\}.
+\]
+It is generated by $v,-x^2v,-2xv$, the symbols of $E,F,H$.
+Its only relation is $\eta^2+4ef=0$.
+For an explicit verification, the monomials $f^i\eta^j e^k$ with $j=0$ or $1$ map to nonzero scalar multiples of
+$x^{2i+j}v^{i+j+k}$.
+At a fixed total degree $n$, these give once each the exponents $0,1,\ldots,2n$.
+They are therefore a basis, and no further relation can hold.
+
+\begin{theorem}\label{thm:qc-global-algebra}
+The displayed maps give isomorphisms of filtered $R$-algebras
+\[
+ \mathsf A_{\hbar,\nu}
+ \cong U_\hbar/(\Omega-\hbar^2\nu(\nu+2))
+ \cong\Gamma(\mathbb P^1,\mathcal D_{\hbar,\nu}).
+\]
+Each algebra has $R$-basis
+\[
+ \{F^iH^jE^\ell:i,\ell\ge0,\ j\in\{0,1\}\}.
+\]
+Its order-at-most-$n$ part is free of rank $(n+1)^2$.
+The presentations and comparison with global sections commute with every homomorphism from $R$ to a commutative $k$-algebra.
+\end{theorem}
+\begin{proof}
+The first isomorphism has been proved above.
+The map from its central quotient to global sections is an isomorphism on leading symbols by Lemma~\ref{lem:qc-laurent-splitting}.
+Subtracting a lift of the leading symbol proves surjectivity by decreasing order.
+The same leading-symbol argument proves injectivity.
+
+The specified monomials lift the basis of each graded piece.
+They span by decreasing order and are independent by taking the largest order in any finite relation.
+There are $2m+1$ basis elements of exact order $m$.
+Summing for $0\le m\le n$ gives $(n+1)^2$.
+
+All reductions have coefficients in $R$, with no division by either parameter.
+The basis remains a basis after any coefficient homomorphism.
+The weight-zero ordered basis commutes with coefficient change, and the quotient presentation commutes with tensor product.
+The Laurent splitting in Lemma~\ref{lem:qc-laurent-splitting} also uses no such division and works over the new coefficient ring, including rings with zero divisors.
+Its symbol basis and the same decreasing-order arguments prove the global comparison after coefficient change.
+\end{proof}
+
+The freeness proves flatness: tensoring a free module preserves exact sequences.
+The moment sequence $0\to\mathsf W^0\xrightarrow{M-\hbar\nu}\mathsf W^0\to\mathsf A_{\hbar,\nu}\to0$ splits as a sequence of $R$-modules.
+Choose a preimage of each basis element of its free quotient to obtain a splitting.
+It therefore remains exact after every coefficient change, including a nonflat one.
+The moment Koszul complex continues to resolve the ordinary quotient on those fibres.
+At $\hbar=0$ the algebra becomes $k[\nu,e,f,\eta]/(\eta^2+4ef)$.
+The surface defined by this equation is a quadratic cone, independent of $\nu$.
+The stable cotangent surface retains additional geometry.
+Its zero section is an entire projective line, whereas all three global fibre-linear functions vanish there.
+Thus passing to the global algebra contracts this zero section to the vertex of the cone.
+
+\section{Normal elimination as a multiplicative global comparison}
+
+To the Weyl algebra in $x,v$, adjoin central polynomial variables $\mu,\lambda$ and use
+\[
+ x'=x^{-1},\qquad v'=x\mu-x^2v.
+\]
+The variables $\mu,\lambda$ agree on the two charts.
+Put $s=\mu-\hbar\nu$.
+The expression $\lambda s$ is a central potential.
+On a free right module with one even and one odd basis vector, define
+\[
+ D=\begin{pmatrix}0&s\\\lambda&0\end{pmatrix},\qquad
+ L=\begin{pmatrix}0&0\\1&0\end{pmatrix}.
+\]
+The identity $D^2=\lambda s I$ makes this a matrix factorization of that potential.
+Its endomorphisms form a parity differential algebra $\mathcal E$, with
+$\delta T=DT-(-1)^{|T|}TD$.
+Here parity is degree modulo two, and even and odd matrices are diagonal and off-diagonal, respectively.
+Centrality of $D^2$ gives $\delta^2=0$.
+
+Let $\widetilde{\mathcal D}$ be the unreduced chart sheaf with variable $\mu$ and without $\lambda$.
+Set
+\[
+ \mathcal K=\widetilde{\mathcal D}\otimes\Lambda(\epsilon),
+ \qquad d\epsilon=s.
+\]
+For this comparison, reduce the cohomological grading of the two-term complex to parity.
+The extra generator $\epsilon$ is fixed on overlaps.
+
+\begin{proposition}\label{prop:qc-normal-sheaf}
+There is a strict diagram of unital parity differential-algebra sheaves
+\[
+ \mathcal D_{\hbar,\nu}\ \xleftarrow{\ p\ }\
+ \mathcal K\ \xrightarrow{\ i\ }\ \mathcal E.
+\]
+Both arrows are quasi-isomorphisms on each chart and its overlap.
+The first sets $s=\epsilon=0$.
+The second sends coefficients to scalar matrices and $\epsilon$ to $L$.
+\end{proposition}
+\begin{proof}
+For an arbitrary unital coefficient algebra $A$, central polynomial variables $s,\lambda$ act injectively on $A[s,\lambda]$.
+Direct multiplication gives
+\[
+ \delta\operatorname{diag}(a,b)=
+ \begin{pmatrix}0&s(b-a)\\\lambda(a-b)&0\end{pmatrix},
+ \qquad
+ \delta\begin{pmatrix}0&c\\d&0\end{pmatrix}=(sd+\lambda c)I.
+\]
+An even cycle is scalar, and its boundaries are precisely scalar matrices with coefficients in $(s,\lambda)$.
+For an odd cycle, reduce $sd+\lambda c=0$ modulo $s$.
+Injectivity of multiplication by $\lambda$ implies $c=sr$.
+Injectivity of multiplication by $s$ then gives $d=-\lambda r$.
+This matrix is the boundary of $\operatorname{diag}(0,r)$.
+The endomorphism cohomology is therefore $A$ in even parity and zero in odd parity.
+The two-term complex $A[s]\otimes\Lambda(\epsilon)$ has the same cohomology.
+
+The identities $L^2=0$ and $\delta L=sI$ prove that $i$ preserves multiplication and differentials.
+Scalar matrices commute with $L$, although their coefficients need not commute with each other.
+Both arrows induce the identity on the computed even cohomology.
+Their formulas commute strictly with the unreduced coordinate transition, which fixes $s,\lambda,L$.
+This proves the sheaf assertion and every local quasi-isomorphism.
+\end{proof}
+
+Local inverse inclusions have an explicit multiplicative homotopy.
+Let $t$ have degree zero and let $dt$ have degree one, with $(dt)^2=0$.
+Write differential forms to the left of matrix coefficients.
+The total differential satisfies
+$d(\alpha T)=d\alpha\,T+(-1)^{|\alpha|}\alpha\delta T$.
+On the overlap, send
+\[
+ x'\longmapsto x^{-1}I,\qquad
+ v'\longmapsto(-x^2v+\hbar\nu x+t xs)I+dt\,xL.
+\]
+The differential of $t xsI$ is $dt\,xsI$, and the differential of $dt\,xL$ is its negative.
+The extra terms commute with $x^{-1}$, so the required commutator is still $\hbar I$.
+Thus these formulas define an algebra map on every word.
+At $t=0$ and $t=1$ they give the two local lifts of the transition.
+
+To retain multiplication on global complexes, an overlap must be represented with its homotopy as well as its endpoints.
+For a diagram of parity differential algebras $A_0\to A_{01}\leftarrow A_1$, define
+\[
+ \mathcal P(A)=
+ \{(a_0,a_1,\gamma):
+ \gamma\in\Omega^\bullet(k[t])\otimes A_{01},\
+ \gamma(0)=a_0|_{01},\ \gamma(1)=a_1|_{01}\}.
+\]
+Here $\Omega^\bullet(k[t])=k[t]\oplus dt\,k[t]$ with differential $d t=dt$.
+Endpoint evaluation sets $dt=0$.
+The product is componentwise, with the tensor sign rule on forms.
+The total differential preserves the endpoint equations.
+This defines an actual unital differential algebra.
+
+\begin{lemma}\label{lem:qc-global-paths}
+A strict map between two such diagrams that is a quasi-isomorphism at all three entries induces a quasi-isomorphism of their algebras $\mathcal P$.
+For the chart diagram of $\mathcal D_{\hbar,\nu}$, the map from global sections to $\mathcal P(\mathcal D_{\hbar,\nu})$ by constant paths is a quasi-isomorphism.
+\end{lemma}
+\begin{proof}
+Projection from $\mathcal P(A)$ to $A_0\oplus A_1$ is surjective on graded spaces.
+A lift uses the path $(1-t)a_0|_{01}+t a_1|_{01}$.
+Its kernel consists of forms whose degree-zero part vanishes at both endpoints.
+Integration of the $dt$ coefficient identifies this kernel up to homotopy with $A_{01}$ shifted by one odd degree.
+The inverse sends $a$ to $dt\,a$.
+The homotopy on a $dt$ coefficient $b(t)$ is
+\[
+ \int_0^t b(u)\,du-t\int_0^1 b(u)\,du.
+\]
+It vanishes at both endpoints.
+Differentiation shows $dh+hd$ is the identity minus the inclusion followed by integration.
+All integrals are polynomial antiderivatives over the characteristic-zero field.
+
+The resulting short exact sequence of complexes has kernel equivalent to the shifted overlap complex and quotient $A_0\oplus A_1$.
+For a short exact sequence $0\to K\to P\to Q\to0$, lift a cycle $q$ of $Q$ to an element $p$ of $P$.
+Its differential belongs to $K$ and is a cycle there.
+Changing either representative or lift changes that cycle by a boundary.
+This defines a connecting map $\partial:H^j(Q)\to H^{j+1}(K)$.
+Its kernel consists precisely of classes admitting cycle lifts.
+A cycle of $K$ becomes a boundary in $P$ precisely when its class belongs to the image of $\partial$.
+These observations prove the exact cohomology sequence directly.
+
+Suppose a map between two short exact sequences induces isomorphisms on the kernel and quotient cohomology.
+Given a middle class in the target, lift its quotient class through the quotient isomorphism.
+Its connecting class vanishes by the kernel isomorphism, so it lifts to a middle class in the source.
+The difference from the desired target class comes from kernel cohomology and can be lifted there.
+This proves surjectivity on middle cohomology.
+For injectivity, a source class mapping to zero first has zero quotient class.
+Write it as the image of a kernel class.
+The target kernel class lies in the image of the connecting map.
+Lift that quotient class, subtract its connecting image, and use injectivity on kernel cohomology.
+The original middle class is therefore zero.
+Apply this argument to the path-algebra short exact sequences to obtain the first assertion.
+
+For the operator sheaf, each chart differential is zero.
+Integration therefore identifies the odd cohomology of $\mathcal P$ with the cokernel of the overlap difference.
+Its even cohomology is the kernel of that difference, which is the algebra of global sections.
+Lemma~\ref{lem:qc-laurent-splitting} makes the cokernel zero.
+Constant paths give the asserted quasi-isomorphism.
+\end{proof}
+
+The affine moment complex also maps to the glued normal complex.
+Write $C_M=\mathsf W^0\otimes\Lambda(\epsilon)$ with $d\epsilon=M-\hbar\nu$, and reduce its grading to parity.
+Localization on the first chart sends
+\[
+ X_{12}\mapsto v,\quad X_{21}\mapsto x\mu-x^2v,
+ \quad X_{11}\mapsto\mu-xv,\quad X_{22}\mapsto xv.
+\]
+These are the actual localization maps constructed above, with $M$ renamed $\mu$.
+They agree on the overlap, and sending $\epsilon$ to the global generator of $\mathcal K$ preserves the differential.
+Thus they give $C_M\to\mathcal P(\mathcal K)$ by constant paths.
+
+\begin{theorem}\label{thm:qc-global-normal}
+Write $Q=\Gamma(\mathbb P^1,\mathcal D_{\hbar,\nu})$, identified with the central quotient in Theorem~\ref{thm:qc-global-algebra}.
+The following diagram consists of unital parity differential-algebra maps, and its square commutes:
+\[
+ \begin{tikzcd}[column sep=large,row sep=large]
+ C_M\arrow[r]\arrow[d]&\mathcal P(\mathcal K)\arrow[d]\arrow[r]&\mathcal P(\mathcal E)\\
+ Q\arrow[r]&\mathcal P(\mathcal D_{\hbar,\nu})&
+ \end{tikzcd}
+\]
+Every arrow is a quasi-isomorphism.
+Proposition~\ref{prop:qc-bar-contraction} also identifies $C_M$ with the relative moment bar through explicit multiplicative quasi-isomorphisms.
+\end{theorem}
+\begin{proof}
+Apply Lemma~\ref{lem:qc-global-paths} to both strict arrows in Proposition~\ref{prop:qc-normal-sheaf}.
+The constant-path arrow is covered by the second assertion of the lemma.
+The augmentation $C_M\to Q$ is a quasi-isomorphism by the injectivity of the moment relation and Theorem~\ref{thm:qc-global-algebra}.
+The two routes around the square send $\epsilon$ to zero and each $X_{ij}$ to its reduced local operator.
+They are algebra maps, and these elements generate $C_M$, so the square commutes on every element.
+On cohomology, the top arrow followed by the middle vertical arrow is an isomorphism.
+The middle vertical arrow is itself an isomorphism on cohomology, hence so is the top arrow.
+All maps preserve multiplication by their displayed construction.
+\end{proof}
+
+This construction retains the normal potential and its overlap data while recovering the quantum operator algebra.
+Its normal odd generator has square zero.
+An odd primitive with nonzero square would require a different comparison, as its product cannot be discarded by these maps.
+
+\section{Period reflection and finite-dimensional states}
+
+The assignments $a_i\mapsto p_i$ and $p_i\mapsto-a_i$ define an automorphism of the Weyl algebra.
+They preserve the commutators and send $M$ to $-M-2\hbar$.
+Thus they give the period reflection
+\[
+ \mathsf A_{\hbar,\nu}\cong\mathsf A_{\hbar,-\nu-2},
+ \qquad E\mapsto-F,\quad F\mapsto-E,\quad H\mapsto-H.
+\]
+The meaning of the right side is the same presentation after the displayed substitution for the parameter.
+The scalar $\nu(\nu+2)$ is unchanged.
+
+There is a separate reflection for the sheaf.
+An opposite algebra has the same elements but reverses every product.
+On each chart, the assignments $x\mapsto x$, $v\mapsto-v$ define an anti-homomorphism, meaning a map that reverses multiplication.
+Applied to the right side of \eqref{eq:qc-operator-transition}, it gives
+\[
+ vx^2+\hbar\nu x=x^2v+\hbar(\nu+2)x.
+\]
+This is the negative of the transition at period $-\nu-2$.
+The local anti-homomorphisms consequently glue and prove
+\[
+ \mathcal D_{\hbar,\nu}^{\mathrm{op}}\cong\mathcal D_{\hbar,-\nu-2}.
+\]
+The shift also appears in differentials: $dx'=-x^{-2}dx$, so the cotangent line is $\mathcal O(-2)$.
+
+Set $\hbar=1$ and let $\nu=n$ be a nonnegative integer.
+Global sections of $\mathcal O(n)$ are the polynomials $k[x]_{\le n}$.
+Indeed, a polynomial in the first frame becomes $x'^{\,n}f(x'^{-1})$ in the second, which is regular exactly when $\deg f\le n$.
+On the basis $1,x,\ldots,x^n$, the three operators are
+\[
+ E x^j=jx^{j-1},\qquad
+ Hx^j=(n-2j)x^j,\qquad
+ Fx^j=(n-j)x^{j+1}.
+\]
+The last coefficient vanishes at $j=n$.
+Thus the subspace is preserved by the actual differential operators, and their relations hold without a projection onto that subspace.
+Their central scalar is $n(n+2)$.
+
+For $n=1$, this scalar is $3$.
+On two copies of this two-dimensional space, let a generator act by its sum on the two factors.
+The alternating vector $1\otimes x-x\otimes1$ is annihilated by $E,F,H$, so its total Casimir is zero.
+The symmetric subspace is generated from $1\otimes1$ by $F$.
+This highest vector is killed by $E$ and has $H$-eigenvalue $2$, so its Casimir is $2^2+2\cdot2=8$.
+Centrality gives the same value throughout that subspace.
+Hence the sum action does not preserve the fixed relation $\Omega=3$ on tensor products.
+Tensor operations must retain the larger algebra before fixing this central value.
+
+The operator comparison has recovered products, local transitions, a normal differential, and global states with the same shifted central scalar.
+A chiral extension must additionally retain the singular products of fields and their derivatives.
+The coordinate transition \eqref{eq:qc-operator-transition} determines its required zero-mode image, but does not determine those additional operations.
