@@ -1,0 +1,512 @@
+\chapter{Products of coherent boundary operations}
+\label{ch:mc-products}
+
+Two central operations can be composed. Their product must retain
+the homotopies attached to boundary maps, as well as their values
+on individual boundaries. Splitting a string of boundary maps
+between the two operations gives the required multiplication.
+The diagonal contraction extends to this multiplication and
+therefore compares every product of bulk operators.
+
+The higher terms can be nonzero at arbitrarily large arity.
+In one coordinate they are repeated divided differences.
+Their diagonal values are derivatives, and their generating
+series give coordinate translation. Thus the homotopies that
+compare products retain dependence on the polynomial coordinate.
+
+\section{Multiplying cochains by splitting a string}
+\label{sec:mc-convolution}
+
+Let \(n\geq1\), let \(k\) be a field of characteristic zero,
+let \(R=k[x_1,\ldots,x_n]\),
+and fix \(W\in R\) and \(c\in k\). Let \(\mathcal C\) be the
+category of finite free based matrix factorizations of \(W-c\)
+from Section~\ref{sec:cc-coefficients}.
+Write \(N(E)=E(x)\) for the original boundary and
+\(M(E)=\Delta_W\otimes_{k[y]}E(y)\) for the diagonal action.
+Both are \(k\)-linear differential graded functors into
+factorizations over \(R\). The modules \(M(E)\) may have
+infinite rank. Their polynomial vectors are finite sums.
+
+For \(X,Y\in\{N,M\}\), let \(C(X,Y)\) consist of families \(u\)
+whose component on a composable string is a \(k\)-multilinear map
+\[
+ u_m:(s\mathcal C(E_1,E_0))\otimes_k\cdots\otimes_k
+          (s\mathcal C(E_m,E_{m-1}))
+       \longrightarrow\operatorname{Hom}_R(X(E_m),Y(E_0)).
+\]
+The suspension has parity \(|sf|=|f|+1\).
+If \(u\) has parity \(p\), its value on the word
+\(w=sf_1\otimes\cdots\otimes sf_m\) has parity \(p+|w|\),
+where \(|w|=\sum_j(|f_j|+1)\).
+The case \(m=0\) gives a map \(X(E)\to Y(E)\) at each object.
+Families are a product over all arities and object strings.
+
+For \(X,Y,Z\in\{N,M\}\), \(u\in C(Y,Z)\), and
+\(v\in C(X,Y)\), define their
+convolution product by
+\begin{equation}
+ (u\star v)_m(w)
+ =\sum_{j=0}^m
+ (-1)^{|v|\sum_{i=1}^j(|f_i|+1)}
+ u_j(sf_1,\ldots,sf_j)\,
+ v_{m-j}(sf_{j+1},\ldots,sf_m).
+ \label{eq:mc-cup}
+\end{equation}
+The intermediate object is \(E_j\). Thus every composition
+in the sum has source \(X(E_m)\) and target \(Z(E_0)\).
+The sign moves the map \(v\) past the first \(j\) suspended
+inputs. For a word of length zero, this is ordinary composition.
+For one input, it is
+\[
+ (u\star v)_1(sf)
+    =u_0v_1(sf)+(-1)^{|v|(|f|+1)}u_1(sf)v_0.
+\]
+This formula already shows why the product of the nullary
+values does not determine the full product.
+
+Convolution is associative. For three composable cochains
+\(u,v,z\), both parenthesizations sum over the same three
+consecutive blocks. If the first two blocks have parities
+\(a,b\), the sign in either order is
+\[
+ (-1)^{|v|a+|z|(a+b)}
+\]
+This proves associativity term by term. The identity has the
+identity map in arity zero and zero in every positive arity.
+
+Retain the word coderivation \(b\) of
+Section~\ref{sec:cc-cochains}:
+\[
+ b_1(sf)=s\,\delta f,\qquad
+ b_2(sf,sg)=(-1)^{|f|}s(fg),\qquad b^2=0.
+\]
+For \(u\in C(X,Y)\) of parity \(p\), put
+\[
+ (d_0u)(w)=\delta(u(w))+(-1)^p u(bw).
+\]
+The first term is the map differential
+\[
+ \delta(u(w))
+    =D_{Y(E_0)}u(w)-(-1)^{p+|w|}u(w)D_{X(E_m)}.
+\]
+Its square is zero because both factorizations have curvature
+\(W(x)-c\). The input term uses the differential \(-b\) on
+words. Consequently \(d_0^2=0\): the two mixed terms cancel,
+and the remaining terms are \(\delta^2u-u b^2\).
+The coderivation rule for \(b\) and the product rule for map
+differentials give
+\[
+ d_0(u\star v)=d_0u\star v+(-1)^{|u|}u\star d_0v.
+\]
+Each term differentiates one of the two blocks in
+\eqref{eq:mc-cup}, with the displayed tensor sign.
+
+\section{The differential of a coherent transformation}
+\label{sec:mc-differential}
+
+For a functor \(X\in\{N,M\}\), define an odd cochain
+\(\tau_X\in C(X,X)\) by
+\[
+ (\tau_X)_1(sf)=X(f),\qquad(\tau_X)_m=0\quad(m\ne1).
+\]
+The functor respects differentials and composition.
+The arity-one component of \(d_0\tau_X\) is zero.
+In arity two,
+\[
+ (d_0\tau_X)_2(sf,sg)
+   =-(-1)^{|f|}X(fg)
+   =(\tau_X\star\tau_X)_2(sf,sg).
+\]
+All other arities vanish. Thus
+\begin{equation}
+ d_0\tau_X=\tau_X\star\tau_X.
+ \label{eq:mc-twisting}
+\end{equation}
+Define the differential on \(C(X,Y)\) by
+\begin{equation}
+ du=d_0u-\tau_Y\star u+(-1)^{|u|}u\star\tau_X.
+ \label{eq:mc-total}
+\end{equation}
+Expansion gives
+\[
+ d^2u=-(d_0\tau_Y-\tau_Y^2)\star u
+                   +u\star(d_0\tau_X-\tau_X^2)=0,
+\]
+where \(\tau_X^2=\tau_X\star\tau_X\).
+The same expansion gives the product rule for \(d\).
+The spaces \(C(X,Y)\), with this differential and convolution,
+therefore form a differential graded category.
+
+The endomorphism algebra
+\[
+ \mathcal Z=C(N,N)
+\]
+is the Hochschild cup algebra used here. Its elements have
+unsuspended outputs. If \(U_m=s\,u_m\), the cochain \(U\) has
+parity \(|u|+1\), and
+\[
+ \mathfrak dU=s\,du
+\]
+for the differential of Section~\ref{sec:cc-cochains}.
+Indeed, the input terms in both formulas are
+\((-1)^{|u|}u b\). The two convolution terms in
+\eqref{eq:mc-total} are exactly the two outer compositions in
+the coderivation commutator. This identifies the cochain
+complexes and fixes the multiplication on coherent operations.
+
+\section{Lifting the diagonal contraction}
+\label{sec:mc-lift}
+
+The maps \(\pi_E,i_E,h_E\) of Theorem~\ref{thm:da-unit}
+define cochains \(\pi,i,h\) supported in arity zero.
+Their sources and targets are
+\[
+ \pi\in C(M,N),\qquad i\in C(N,M),\qquad h\in C(M,M).
+\]
+Their parities are \(0,0,1\), respectively. For \(d_0\) they
+satisfy
+\[
+ d_0\pi=d_0i=0,\quad d_0h=1-i\pi,\quad
+ \pi i=1,\quad \pi h=hi=h^2=0.
+\]
+Products of these nullary cochains are ordinary compositions.
+Naturality of evaluation is the further identity
+\[
+ \pi\star\tau_M=\tau_N\star\pi.
+\]
+The inclusion \(i\) is generally not closed for the full
+differential \(d\). Its failure is the difference between
+\(M(f)i\) and \(iN(f)\). Inserting \(h\) successively corrects
+that difference.
+
+Filter cochains by their least possible arity. The cochain
+\(h\star\tau_M\) has arity one, so
+\begin{equation}
+ K=\sum_{j\geq0}(h\star\tau_M)^{\star j},\qquad
+ \mathcal I=K\star i,\qquad \mathcal H=K\star h
+ \label{eq:mc-lifted-maps}
+\end{equation}
+are well-defined: only finitely many terms contribute at each
+arity. The maps \(\mathcal I,\mathcal H\) have the same sources,
+targets and parities as \(i,h\).
+No sum of vectors of infinite polynomial degree is taken.
+
+\begin{theorem}[The contraction among coherent transformations]
+\label{thm:mc-contraction}
+For the full differential \eqref{eq:mc-total},
+\[
+ d\pi=d\mathcal I=0,\qquad
+ d\mathcal H=1-\mathcal I\star\pi,\qquad
+ \pi\star\mathcal I=1,
+\]
+and
+\[
+ \pi\star\mathcal H=0,\qquad
+ \mathcal H\star\mathcal I=0,\qquad
+ \mathcal H\star\mathcal H=0.
+\]
+\end{theorem}
+\begin{proof}
+Suppress the convolution symbol, and write \(t=\tau_M\),
+\(s_0=\tau_N\). The arity filtration gives
+\(K=(1-ht)^{-1}\). Since \(\pi h=h^2=0\),
+\[
+ \pi K=\pi,\qquad hK=h,\qquad K=1+\mathcal Ht.
+\]
+Differentiate \(K(1-ht)=1\). The parity of \(K\) is zero, so
+\[
+ d_0K=K\,d_0(ht)\,K.
+\]
+Using \eqref{eq:mc-twisting} and \(\pi t=s_0\pi\),
+\[
+ d_0(ht)=(1-i\pi)t-ht^2
+          =(1-ht)t-i s_0\pi.
+\]
+It follows that
+\[
+ d_0K=tK-\mathcal I s_0\pi,\qquad
+ d_0\mathcal I=t\mathcal I-\mathcal I s_0,
+\]
+and
+\[
+ d_0\mathcal H
+   =t\mathcal H+K-\mathcal I\pi
+   =t\mathcal H+\mathcal Ht+1-\mathcal I\pi.
+\]
+The identities \(\pi i=1\) and \(\pi h=0\) were used in these
+two multiplications. Formula~\eqref{eq:mc-total} now gives
+\(d\mathcal I=0\) and \(d\mathcal H=1-\mathcal I\pi\).
+It gives \(d\pi=0\) from naturality.
+Finally,
+\[
+ \begin{gathered}
+ \pi\mathcal I=\pi Ki=\pi i=1,\qquad
+ \pi\mathcal H=\pi Kh=0,\\
+ \mathcal H\mathcal I=KhKi=Khi=0,\qquad
+ \mathcal H^2=KhKh=Kh^2=0.
+ \end{gathered}
+\]
+Every calculation is valid at each fixed arity, where its sums
+are finite.
+\end{proof}
+
+These cochains have explicit components. For a string
+\(f_j:E_j\to E_{j-1}\), write
+\(\sigma=\sum_j(|f_j|+1)\). Then
+\[
+ \mathcal I_m(sf_1,\ldots,sf_m)
+   =h_{E_0}M(f_1)h_{E_1}\cdots
+                h_{E_{m-1}}M(f_m)i_{E_m}.
+\]
+The homotopy component is
+\[
+ \mathcal H_m(sf_1,\ldots,sf_m)
+   =(-1)^\sigma h_{E_0}M(f_1)h_{E_1}\cdots
+                h_{E_{m-1}}M(f_m)h_{E_m}.
+\]
+The sign in \(\mathcal H_m\) moves its final odd \(h\) past the
+suspended input word. In arity zero these formulas give \(i,h\).
+
+\section{The multiplicative comparison at every arity}
+\label{sec:mc-all-arities}
+
+Let \(B_W=\operatorname{End}_{k[x,y]}(\Delta_W)\), with its
+map differential. For \(a\in B_W\), the operator
+\(L(a)=a\otimes1_E\), at each boundary \(E\), is a nullary
+cochain in \(C(M,M)\). It satisfies
+\[
+ L(ab)=L(a)\star L(b),\qquad dL(a)=L(\delta a),\qquad L(1)=1.
+\]
+For the differential equation, the only positive-arity term is
+\(-\tau_M\star L(a)+(-1)^{|a|}L(a)\star\tau_M\).
+It vanishes by the tensor sign rule
+\(L(a)M(f)=(-1)^{|a||f|}M(f)L(a)\).
+Thus \(L\) is a strict differential graded algebra action.
+
+Define maps \(\Psi_r:(sB_W)^{\otimes_R r}\to s\mathcal Z\),
+for \(r\geq1\), by
+\begin{equation}
+ \Psi_r(sa_1,\ldots,sa_r)
+   =s\bigl(\pi\star L(a_1)\star\mathcal H\star L(a_2)
+           \star\cdots\star\mathcal H\star L(a_r)
+           \star\mathcal I\bigr).
+ \label{eq:mc-comparison}
+\end{equation}
+There are \(r-1\) factors \(\mathcal H\). The unsuspended
+cochain has parity \(\sum_j|a_j|+r-1\), so \(\Psi_r\) has
+parity zero on suspended inputs.
+
+\begin{theorem}[Products of diagonal operators]
+\label{thm:mc-products}
+The maps \eqref{eq:mc-comparison} form a strictly unital
+\(R\)-linear \(A_\infty\)-morphism from \(B_W\) to the
+Hochschild cup algebra \((\mathcal Z,d,\star)\).
+Its first component is the coherent cochain constructed in
+Theorem~\ref{thm:cc-coherent}.
+At each bulk arity \(r\) and boundary arity \(m\), the formula
+is a finite sum of polynomial operators with their specified
+homotopies.
+Every positive boundary-arity component vanishes on an
+identity boundary input.
+\end{theorem}
+\begin{proof}
+For a differential graded algebra \(A\), use the suspended
+word differential
+\[
+ b_{A,1}(sa)=s\,d_Aa,\qquad
+ b_{A,2}(sa,sb)=(-1)^{|a|}s(ab).
+\]
+The components \(\Psi_r\) extend to a coalgebra map by
+partitioning each bulk word into consecutive nonempty blocks,
+as in Section~\ref{sec:da-boundary-operators}.
+
+Differentiate the unsuspended expression in
+\eqref{eq:mc-comparison}. Differentiating \(L(a_j)\) has sign
+\[
+ (-1)^{\sum_{i<j}|a_i|+j-1}.
+\]
+These are the terms obtained by applying \(b_{B_W,1}\) to
+the input word. Differentiating the homotopy after \(a_j\)
+has sign
+\[
+ (-1)^{\sum_{i\leq j}|a_i|+j-1}
+\]
+and replaces \(\mathcal H\) by \(1-\mathcal I\star\pi\).
+The term \(1\) merges the adjacent bulk operators.
+The term \(-\mathcal I\star\pi\) splits the output into the
+convolution product of the two corresponding shorter components.
+The displayed sign is the source multiplication sign and
+the negative of the target multiplication sign, respectively.
+The closedness of \(\pi,\mathcal I\) gives no other terms.
+This proves the length-one component of
+\[
+ b_{\mathcal Z}\Psi=\Psi b_{B_W}.
+\]
+The difference is a coderivation relative to \(\Psi\).
+If it vanishes on shorter words, its value on the next word
+has zero reduced coproduct and therefore has length one.
+The component just proved is zero. Induction proves the full
+coalgebra equation.
+
+For an initial bulk unit in a longer word, the formula
+contains \(\pi\mathcal H=0\). A final unit gives
+\(\mathcal H\mathcal I=0\), and an interior unit gives
+\(\mathcal H^2=0\). For \(r=1\), the unit gives
+\(\pi\mathcal I=1\).
+The maps are \(R\)-linear in the left bulk coefficients
+because every contraction map is \(R\)-linear.
+
+For \(r=1\), inserting the components of \(\mathcal I\)
+gives exactly \eqref{eq:cc-components}.
+For fixed boundary arity \(m\), convolution distributes the
+boundary word among \(r-1\) factors \(\mathcal H\) and the
+last factor \(\mathcal I\). Only finitely many consecutive
+block decompositions occur. Each summand has \(m+r-1\)
+ordinary homotopies \(h_E\), proving the finite-arity assertion.
+An identity boundary input lies in a component of
+\(\mathcal H\) or \(\mathcal I\). In \(\mathcal H\), it gives
+two adjacent \(h\)'s. In \(\mathcal I\), it gives either
+two adjacent \(h\)'s or a final \(hi\). These products vanish,
+so each convolution summand vanishes on that input.
+\end{proof}
+
+For each boundary \(E\), evaluation at arity zero defines
+\[
+ \operatorname{ev}_E:\mathcal Z\longrightarrow
+           \operatorname{End}_R(E(x)),\qquad
+ \operatorname{ev}_E(u)=u_0(E).
+\]
+This is a differential graded algebra map: arity-zero
+convolution is ordinary composition, and its differential
+is the map differential. On the suspended components,
+\[
+ s\operatorname{ev}_Es^{-1}\Psi_r(sa_1,\ldots,sa_r)
+   =s\bigl(\pi_E L_E(a_1)h_E\cdots
+                     h_E L_E(a_r)i_E\bigr).
+\]
+Thus evaluating the coherent comparison recovers exactly the
+boundary operator comparison of Theorem~\ref{thm:da-all-arity}.
+The two maps in
+\[
+ B_W\xrightarrow{\ \Psi\ }\mathcal Z
+       \xrightarrow{\ \operatorname{ev}_E\ }
+                    \operatorname{End}_R(E(x))
+\]
+have different levels: the first is an \(A_\infty\)-morphism
+and the second is a strict differential graded algebra map.
+The cubic class of Theorem~\ref{thm:cc-cubic} is nonzero
+before evaluation and zero on every resulting object
+cohomology. Its compatibility data cannot be recovered
+from those object cohomologies alone.
+
+\section{Divided differences and coordinate translation}
+\label{sec:mc-translation}
+
+In one coordinate the homotopy has the form
+\[
+ h(v+\theta w)=\theta\,\frac{v(x,y)-v(x,x)}{x-y}.
+\]
+It vanishes on the exterior summand, and every \(M(f)\)
+preserves that summand. Thus \(hM(f)h=0\).
+Consequently \(\mathcal H\) has only its nullary component,
+and \(\mathcal I\) has only nullary and unary components.
+Every \(\Psi_r\) therefore has boundary arity at most one.
+
+Let \(\iota\) be the odd diagonal operator sending
+\(\theta\) to \(1\) and \(1\) to zero.
+For a polynomial matrix \(F(x,y)\), put
+\[
+ T(F)=\frac{F(x,y)-F(x,x)}{x-y}.
+\]
+Write \(f^{(r)}\) for the \(r\)-th entrywise derivative.
+For \(F=f(y)\), expansion of a monomial
+\(y^d=(x+(y-x))^d\) gives
+\[
+ \left.T^r(f(y))\right|_{y=x}
+       =\frac{(-1)^r}{r!}f^{(r)}(x).
+\]
+Indeed, each application removes the constant term in \(y-x\)
+and divides the remainder by \(-(y-x)\). After \(r\)
+applications, evaluation extracts the coefficient of
+\((y-x)^r\), with sign \((-1)^r\). Linearity proves the
+formula for every polynomial matrix.
+
+Write \(\psi_r=s^{-1}\Psi_r(s\iota,\ldots,s\iota)\).
+For every boundary \(E\) and boundary map \(f\),
+\begin{equation}
+ (\psi_r)_0(E)=\frac{(-1)^{r-1}}{r!}D_E^{(r)}(x),\qquad
+ (\psi_r)_1(sf)=\frac{(-1)^r}{r!}f^{(r)}(x),\qquad
+ (\psi_r)_m=0\quad(m\geq2).
+ \label{eq:mc-derivatives}
+\end{equation}
+To prove the first formula, the rightmost \(\iota\) selects
+the divided-difference matrix
+\(A=(D_E(x)-D_E(y))/(x-y)=-T(D_E(y))\) in \(i_E\).
+Each remaining pair \(h,\iota\) applies \(T\) again.
+For the second formula, \(\mathcal I_1(sf)=hM(f)i\) starts
+with \(T(f(y))\), and the \(r\) copies of \(\iota\) give
+\(r\) applications of \(T\). The vanishing in higher
+boundary arity follows from \(hM(f)h=0\).
+
+For the cubic boundary
+\[
+ D_E(x)=\begin{pmatrix}0&x\\x^2&0\end{pmatrix},
+\]
+the binary bulk component has
+\[
+ (\psi_2)_0(E)=-\begin{pmatrix}0&0\\1&0\end{pmatrix},
+ \qquad
+ (\psi_2)_1(s(x^2\,1_E))=1_E.
+\]
+More generally,
+\((\psi_r)_1(s(x^r1_E))=(-1)^r1_E\), so the mixed
+components are nonzero for every bulk arity \(r\).
+The operator \(\iota\) is not closed:
+\(\delta\iota=(W(x)-W(y))/(x-y)\).
+Its differential remains in the identities of
+Theorem~\ref{thm:mc-products}.
+
+Introduce a formal parameter \(z\). The componentwise
+generating series of \eqref{eq:mc-derivatives} are
+\[
+ \sum_{r\geq1}z^r(\psi_r)_0(E)=D_E(x)-D_E(x-z),\qquad
+ \sum_{r\geq1}z^r(\psi_r)_1(sf)=f(x-z)-f(x).
+\]
+For polynomial inputs these sums are finite. For formal
+inputs they are identities of formal series in \(x,z\),
+proved by the same binomial expansion. These formulas
+identify the translation carried by the higher components.
+They assert no numerical convergence at a prescribed
+nonzero value of \(z\).
+The translation acts on the coordinate of the potential.
+Relating it to a worldsheet operation requires a geometric
+comparison with its own coordinate data.
+
+\section{Formal coefficients and the remaining comparisons}
+\label{sec:mc-formal}
+
+For formal power series, use the complete modules and
+total-degree filtrations of Section~\ref{sec:da-formal}.
+If the bulk operators have coefficient orders at least
+\(A_1,\ldots,A_r\), and the boundary maps have orders at least
+\(F_1,\ldots,F_m\), the mixed component has order at least
+\[
+ \max\left(0,\sum_{j=1}^r A_j+\sum_{i=1}^m F_i-(m+r-1)\right).
+\]
+There are \(m+r-1\) homotopies in each summand, each lowering
+order by at most one. Multiplication adds the input orders,
+while \(i,\pi\) preserve them. Each fixed pair of arities
+therefore gives a jointly continuous map.
+The geometric series in \eqref{eq:mc-lifted-maps} uses
+completion in boundary arity. Its terms at a fixed arity
+are finite compositions on the coefficient modules.
+
+The map from diagonal operators to coherent central
+operations now preserves their associative products through
+all higher components. A general equivalence still requires
+its full kernel and cokernel to be determined with the
+appropriate critical-value support. Compatibility with
+Hochschild brace operations, cyclic pairings and chiral
+operations imposes additional equations beyond this
+associative comparison.
