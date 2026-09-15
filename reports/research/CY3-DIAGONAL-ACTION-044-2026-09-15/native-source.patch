@@ -1,0 +1,705 @@
+diff --git a/chapters/examples/diagonal_boundary_action.tex b/chapters/examples/diagonal_boundary_action.tex
+new file mode 100644
+index 0000000..30b1f8f
+--- /dev/null
++++ b/chapters/examples/diagonal_boundary_action.tex
+@@ -0,0 +1,665 @@
++\chapter{The action of the diagonal on boundary operators}
++\label{ch:da-action}
++
++A diagonal factorization contains two copies of the coordinates.
++To act on a boundary, its second copy is identified with the
++boundary coordinates. The two potential terms then cancel.
++This produces a new factorization, but cancellation of the potential
++does not yet identify its states with the original boundary.
++That identification requires maps in both directions and a homotopy
++between their composite and the identity.
++
++Polynomial division supplies all three maps. Their failure to
++preserve operator products strictly is itself controlled by the
++same homotopy. The resulting comparison retains every ordered
++product through explicit higher components.
++
++\section{Eliminating one coordinate}
++\label{sec:da-one-variable}
++
++Let \(k\) be a field of characteristic zero, let \(W\in k[z]\), and
++fix a scalar \(c\in k\). Let \(V\) be a finite-dimensional
++\(k\)-vector space with a basis divided into even and odd vectors.
++Put \(E(z)=k[z]\otimes_kV\), and let \(D(z)\) be an odd polynomial
++matrix on this basis satisfying
++\[
++ D(z)^2=(W(z)-c)\,1_E.
++\]
++Thus \(E(z)\) is a finite free matrix factorization, with map
++differential as in Section~\ref{sec:pb-boundary-differential}.
++Introduce independent variables \(x,y\) and put
++\[
++ R=k[x],\quad S=k[x,y],\quad r=x-y,\quad
++ g=\frac{W(x)-W(y)}{r},\quad D_x=D(x),\quad D_y=D(y).
++\]
++All quotients by \(r\) below are polynomial divided differences.
++Their numerators vanish when \(y=x\); division by the monic
++polynomial \(x-y\) therefore has zero remainder.
++
++The diagonal factorization has an even basis vector \(1\), an odd
++basis vector \(\theta\), and differential sending \(1\) to
++\(g\theta\) and \(\theta\) to \(r\).
++Its tensor product with \(E(y)\) is
++\[
++ M=S\otimes_k(V\oplus\theta V).
++\]
++On a homogeneous tensor the differential is
++\(d_\Delta\otimes1+(-1)^{\text{parity in }\Delta}\otimes D_y\).
++Writing a vector as \(v+\theta w\), this differential is
++\begin{equation}
++ Q(v+\theta w)
++   =D_yv+rw+\theta(gv-D_yw).
++ \label{eq:da-Q}
++\end{equation}
++The signs cancel the cross terms, giving
++\[
++ Q^2=(W(x)-W(y)+W(y)-c)\,1_M=(W(x)-c)\,1_M.
++\]
++When regarded only as an \(R\)-module, \(M\) is free on the
++vectors \(y^j e\) and \(y^j\theta e\), for basis vectors \(e\)
++and integers \(j\geq0\). Its rank over \(R\) is infinite when
++\(E\ne0\).
++Every polynomial vector is nevertheless a finite sum of these
++vectors. This is the module obtained by forgetting the second
++coordinate in the tensor product.
++
++The intended finite replacement is \(N=E(x)\), with differential
++\(D_x\). For a polynomial vector \(v(x,y)\), write
++\[
++ v_0=v(x,x),\qquad
++ T(v)=\frac{v-v_0}{r},\qquad
++ A=\frac{D_x-D_y}{r}.
++\]
++Define even maps
++\(\pi:M\to N\), \(i:N\to M\), and an odd map \(h:M\to M\) by
++\begin{equation}
++ \pi(v+\theta w)=v_0,\qquad
++ i(e)=e+\theta Ae,\qquad
++ h(v+\theta w)=\theta T(v).
++ \label{eq:da-contraction-maps}
++\end{equation}
++All are \(R\)-linear. They are not required to be \(S\)-linear:
++the variable \(y\) has been eliminated in \(N\).
++
++\begin{theorem}[The one-coordinate contraction]
++\label{thm:da-one-contraction}
++The maps in \eqref{eq:da-contraction-maps} satisfy
++\begin{gather}
++ \pi Q=D_x\pi,\qquad Qi=iD_x,\qquad \pi i=1_N,
++ \label{eq:da-chain-maps}\\
++ Qh+hQ=1_M-i\pi,\qquad
++ h^2=0,\qquad \pi h=0,\qquad hi=0.
++ \label{eq:da-homotopy}
++\end{gather}
++Hence \(\pi\) identifies the action of the diagonal with the
++original boundary in the homotopy category.
++No assumption on the critical points of \(W\) is needed.
++\end{theorem}
++\begin{proof}
++The first component of \(Q(v+\theta w)\), evaluated at \(y=x\),
++is \(D_xv_0\), which proves the equation for \(\pi\).
++The equation for \(i\) reduces to two polynomial identities:
++\[
++ D_y+rA=D_x,\qquad D_yA+AD_x=g\,1_E.
++\]
++The first is the definition of \(A\). For the second,
++\[
++ D_yA+AD_x
++ =\frac{D_yD_x-D_y^2+D_x^2-D_yD_x}{r}
++ =\frac{W(x)-W(y)}r\,1_E .
++\]
++No commutation of \(D_x\) and \(D_y\) was used.
++
++For the homotopy identity, \(Qh\) has components
++\((v-v_0,-D_yT(v))\), while \(hQ\) has components
++\((0,T(D_yv)+w)\).
++The divided-difference identity
++\[
++ T(D_yv)=D_yT(v)-Av_0
++\]
++follows by writing \(v=v_0+rT(v)\) and using \(D_y-D_x=-rA\).
++Adding the two components gives
++\((v-v_0,w-Av_0)=(1_M-i\pi)(v+\theta w)\).
++Finally, \(h\) kills the entire \(\theta E\) summand and vanishes
++on vectors whose first component depends only on \(x\).
++These observations prove the three side conditions, and
++\(\pi i=1_N\) follows directly.
++\end{proof}
++
++The maps compare factorizations with the same scalar square.
++They do not regard \(D_x\) or \(Q\) as square-zero differentials.
++For a homogeneous map \(B\) between such factorizations, the
++differential is the signed commutator
++\(\partial B=d_{\mathrm{target}}B-(-1)^{|B|}Bd_{\mathrm{source}}\).
++It squares to zero because the two scalar squares agree.
++Thus \eqref{eq:da-homotopy} is an ordinary homotopy equation in
++their map complex.
++
++\section{Naturality and several coordinates}
++\label{sec:da-several}
++
++For a homogeneous polynomial map \(f:E\to F\) of parity \(p\),
++tensoring with the diagonal gives the map
++\[
++ \mathcal T(f)(v+\theta w)
++   =f(y)v+(-1)^p\theta f(y)w.
++\]
++The tensor signs show, by expansion of
++\eqref{eq:da-Q}, that
++\(\partial\mathcal T(f)=\mathcal T(\partial f)\).
++They also give
++\(\mathcal T(f_2f_1)=\mathcal T(f_2)\mathcal T(f_1)\).
++The operation \(\mathcal T\) is therefore a differential graded
++functor into factorizations on the polynomial pushforward modules.
++Evaluation is strictly natural:
++\begin{equation}
++ \pi_F\mathcal T(f)=f(x)\pi_E
++ \label{eq:da-natural}
++\end{equation}
++for every homogeneous map, whether closed or not.
++For closed even maps it follows that the isomorphisms represented
++by \(\pi_E\) are natural in the homotopy category.
++The explicit inclusions \(i_E\) need not be strictly natural.
++
++Let now \(n\geq1\), \(x=(x_1,\ldots,x_n)\), and
++\(y=(y_1,\ldots,y_n)\).
++Put \(R=k[x]\), \(S=k[x,y]\), and suppose
++\(D(y)^2=(W(y)-c)\,1_E\).
++For \(1\leq j\leq n\), set
++\[
++ r_j=x_j-y_j,\qquad
++ g_j=
++ \frac{
++ W(x_1,\ldots,x_j,y_{j+1},\ldots,y_n)
++ -W(x_1,\ldots,x_{j-1},y_j,\ldots,y_n)}
++ {r_j}.
++\]
++The sum \(\sum_jr_jg_j=W(x)-W(y)\) telescopes.
++
++The exterior module on \(\theta_1,\ldots,\theta_n\) has basis
++the ordered products of distinct symbols, with
++\(\theta_i^2=0\) and \(\theta_i\theta_j=-\theta_j\theta_i\).
++Each \(\theta_i\) has odd parity. Let \(\epsilon_i\) denote left
++multiplication by \(\theta_i\), and let \(\iota_i\) delete a
++factor \(\theta_i\) with sign \((-1)^{j-1}\) when it occupies
++position \(j\) in a product. It is zero on a product not containing
++\(\theta_i\). These definitions imply
++\[
++ \iota_i\epsilon_j+\epsilon_j\iota_i=\delta_{ij},\qquad
++ \epsilon_i\epsilon_j+\epsilon_j\epsilon_i=0,\qquad
++ \iota_i\iota_j+\iota_j\iota_i=0.
++\]
++Here \(\delta_{ij}\) is \(1\) for \(i=j\) and \(0\) otherwise.
++Consequently
++\[
++ D_\Delta=\sum_{j=1}^n(r_j\iota_j+g_j\epsilon_j),
++ \qquad D_\Delta^2=(W(x)-W(y))\,1.
++\]
++On \(M=\Delta_W\otimes_{k[y]}E(y)\), put
++\[
++ Q(\omega\otimes e)
++   =D_\Delta\omega\otimes e+(-1)^{|\omega|}\omega\otimes D(y)e.
++\]
++This has square \(W(x)-c\).
++The module has finite rank over \(S\); for \(E\ne0\) its rank
++over \(R\) is infinite.
++
++\begin{theorem}[The polynomial diagonal action]
++\label{thm:da-unit}
++Evaluation at \(y=x\), followed by projection to exterior degree
++zero, defines a natural even map
++\[
++ \pi_E:(M,Q)\longrightarrow(E(x),D(x)).
++\]
++It admits an \(R\)-linear even inverse up to homotopy \(i_E\)
++and an odd homotopy \(h_E\) satisfying
++\eqref{eq:da-chain-maps}--\eqref{eq:da-homotopy}.
++They are finite compositions of polynomial divided differences.
++This holds for every polynomial \(W\), every \(c\), and every
++finite free matrix factorization of \(W-c\).
++\end{theorem}
++\begin{proof}
++Eliminate the variables in the order \(y_n,y_{n-1},\ldots,y_1\).
++After eliminating \(y_{i+1},\ldots,y_n\), let \(C_i\) be the
++module on the remaining exterior symbols
++\(\theta_1,\ldots,\theta_i\), with those eliminated variables
++replaced by \(x_{i+1},\ldots,x_n\) in its differential.
++Thus \(C_n=M\) and \(C_0=E(x)\).
++
++Put \(\theta_i\) first in the exterior order to write
++\(C_i=\Lambda(\theta_i)\otimes V_i\).
++The tensor signs supply the corresponding reordering isomorphism.
++The differential \(d_i\) on \(V_i\), which contains the earlier
++exterior symbols and the boundary, has square
++\[
++ d_i(y_i)^2=
++ \bigl(W(x_1,\ldots,x_{i-1},y_i,x_{i+1},\ldots,x_n)-c\bigr)\,1.
++\]
++This follows by telescoping the first \(i-1\) terms of the
++potential difference. The remaining factor on \(\theta_i\)
++has entries \(r_i\) and the divided difference of this displayed
++potential in \(x_i,y_i\).
++
++Apply Theorem~\ref{thm:da-one-contraction}, treating all other
++coordinates as coefficients. It gives maps
++\[
++ \pi_i:C_i\to C_{i-1},\qquad
++ i_i:C_{i-1}\to C_i,\qquad h_i:C_i\to C_i
++\]
++with its identities. Explicitly, its matrix \(A\) is
++\((d_i(x_i)-d_i(y_i))/r_i\); its divided-difference map
++evaluates only \(y_i=x_i\). Therefore
++\[
++ \pi=\pi_1\cdots\pi_n,\qquad i=i_n\cdots i_1,
++\]
++and
++\begin{equation}
++ h=h_n+i_nh_{n-1}\pi_n
++       +i_ni_{n-1}h_{n-2}\pi_{n-1}\pi_n+\cdots
++       +i_n\cdots i_2h_1\pi_2\cdots\pi_n .
++ \label{eq:da-composite-h}
++\end{equation}
++
++For two consecutive contractions the formula is
++\(h=h_2+i_2h_1\pi_2\). Its commutator with the differential is
++\[
++ (1-i_2\pi_2)+i_2(1-i_1\pi_1)\pi_2
++   =1-i_2i_1\pi_1\pi_2.
++\]
++The chain-map equations give this equality without extra terms.
++The conditions \(h_2i_2=0\), \(\pi_2h_2=0\), and
++\(h_1^2=h_2^2=0\) imply \(h^2=0\); they also give
++\(\pi h=hi=0\). Induction proves every claimed identity for
++\eqref{eq:da-composite-h}.
++
++The composite \(\pi\) is exactly evaluation and projection to
++exterior degree zero. For a map \(f\) the tensor formula is
++\(\mathcal T(f)(\omega\otimes e)=(-1)^{|f||\omega|}
++\omega\otimes f(y)e\).
++Projection leaves only \(|\omega|=0\), so
++\eqref{eq:da-natural} holds in every number of variables.
++\end{proof}
++
++With no coordinate variables, the diagonal is the one-dimensional
++even module with zero differential, and the same identities hold
++with \(M=N\), \(i=\pi=1\), and \(h=0\).
++For the zero boundary, all modules and maps are zero and the
++identities still hold.
++
++Every coefficient formula in this proof uses addition,
++multiplication, and division by a monic coordinate difference.
++It therefore holds over any commutative coefficient ring with
++identity. Applying a homomorphism of coefficient rings to the
++formulas preserves all the displayed identities. Flatness is
++unnecessary for this particular change of coefficients: the
++homotopies themselves are changed along with the objects.
++
++\section{A mixed two-variable boundary}
++\label{sec:da-mixed}
++
++Take \(W(x,u)=x^3+xu^2\), \(c=0\), and the rank-one boundary
++\[
++ D_E(y,v)=
++ \begin{pmatrix}0&y\\y^2+v^2&0\end{pmatrix}.
++\]
++Here \(r_1=x-y\), \(r_2=u-v\), and
++\[
++ g_1=x^2+xy+y^2+v^2,\qquad g_2=x(u+v).
++\]
++Order the exterior basis as \(1,\theta_1,\theta_2,\theta_2\theta_1\).
++With each entry a two-by-two block, the full differential is
++\[
++ Q=
++ \begin{pmatrix}
++ D_E&r_1\,1&r_2\,1&0\\
++ g_1\,1&-D_E&0&r_2\,1\\
++ g_2\,1&0&-D_E&-r_1\,1\\
++ 0&g_2\,1&-g_1\,1&D_E
++ \end{pmatrix}.
++\]
++Its square is \((x^3+xu^2)\,1\).
++
++Let
++\[
++ A_1=\begin{pmatrix}0&1\\x+y&0\end{pmatrix},\qquad
++ N=\begin{pmatrix}0&0\\u+v&0\end{pmatrix},\qquad
++ P_0=\begin{pmatrix}1&0\\0&0\end{pmatrix}.
++\]
++The inclusion in Theorem~\ref{thm:da-unit} is
++\begin{equation}
++ i(e)=e+\theta_1A_1e+\theta_2Ne
++                +\theta_2\theta_1(u+v)P_0e .
++ \label{eq:da-mixed-inclusion}
++\end{equation}
++To derive the last term, first eliminate \(v\).
++The matrix whose divided difference is needed is
++\[
++ d_2(v)=
++ \begin{pmatrix}D_E(y,v)&r_1\,1\\g_1\,1&-D_E(y,v)\end{pmatrix}.
++\]
++Its divided difference is
++\[
++ \frac{d_2(u)-d_2(v)}{u-v}
++   =\begin{pmatrix}N&0\\(u+v)\,1&-N\end{pmatrix}.
++\]
++The next inclusion, after eliminating \(y\), has components
++\((e,A_1e)\). Multiplying by the displayed matrix gives
++\((Ne,((u+v)\,1-NA_1)e)\), and
++\((u+v)\,1-NA_1=(u+v)P_0\). This proves
++\eqref{eq:da-mixed-inclusion} from the contraction formulas.
++
++The mixed term is necessary. If it is omitted, write the resulting
++map as \(i_{\mathrm{omit}}\). The coefficient of \(\theta_1\) in
++\[
++ Qi_{\mathrm{omit}}-i_{\mathrm{omit}}D_E(x,u)
++\]
++is \(-(u^2-v^2)P_0\), a nonzero polynomial matrix.
++Indeed, the omitted column has only its
++\(\theta_2\theta_1\) component, and the \(r_2\)-entry of \(Q\)
++sends it to \(r_2(u+v)\theta_1P_0\).
++Thus separate one-coordinate inclusions, with their mixed
++coefficient discarded, do not give a chain map.
++
++\section{Transporting every ordered operator product}
++\label{sec:da-operators}
++
++The contraction gives more than an equivalence of boundary objects.
++Let \(B_W=\operatorname{End}_S(\Delta_W)\), with differential
++\(\delta a=D_\Delta a-(-1)^{|a|}aD_\Delta\).
++A homogeneous \(a\in B_W\) acts on \(M\) as
++the operator \(L(a)=a\otimes1_E\).
++The tensor signs imply
++\[
++ L(ab)=L(a)L(b),\qquad
++ \partial L(a)=L(\delta a).
++\]
++The operator \(L(a)\) is \(R\)-linear; it acts on the infinite
++polynomial pushforward module. The finite boundary algebra is
++\(A_E=\operatorname{End}_R(E(x))\), with its signed commutator
++differential. Projection and inclusion give a linear comparison
++\[
++ F_1(a)=\pi L(a)i.
++\]
++It commutes with differentials, but it need not preserve products
++strictly. The difference is
++\[
++ F_1(ab)-F_1(a)F_1(b)
++   =\pi L(a)(1-i\pi)L(b)i.
++\]
++Equation \eqref{eq:da-homotopy} expresses the middle factor by
++the homotopy \(h\). Repeated products require repeated insertions
++of this same \(h\).
++
++To state every sign, the suspension \(sV\) of a parity-graded
++module \(V\) has symbols \(sv\) of parity \(|v|+1\).
++The tensor sign rule is
++\((f\otimes g)(v\otimes w)=(-1)^{|g||v|}f(v)\otimes g(w)\).
++For a differential graded algebra \(A\), form the direct sum
++\[
++ T^c(sA)=\bigoplus_{n\geq1}(sA)^{\otimes_R n}.
++\]
++The coproduct splits a word at every interior position. A
++coderivation is a linear map whose coproduct is its action in
++the first tensor factor plus its signed action in the second.
++There is a unique coderivation \(b_A\) with components
++\[
++ b_{A,1}(sa)=s\,\delta a,\qquad
++ b_{A,2}(sa\otimes sb)=(-1)^{|a|}s(ab),
++\]
++and no components of higher arity. On a word, these formulas
++replace one letter by its differential or two adjacent letters
++by their product, with the tensor sign rule.
++The equations \(\delta^2=0\), the product rule for \(\delta\),
++and associativity give \(b_A^2=0\): respectively they cancel
++the one-letter, two-letter, and three-letter contributions;
++operations on disjoint positions cancel with their opposite
++insertion order.
++
++An \(A_\infty\)-morphism here means a coalgebra map
++\(\Phi:T^c(sA)\to T^c(sB)\) commuting with these coderivations.
++Its components \(\Phi_n:(sA)^{\otimes n}\to sB\) determine
++it by summing over all partitions of a word into consecutive,
++nonempty blocks. A strictly unital such morphism sends \(s1\)
++to \(s1\) in arity one and vanishes in higher arities whenever
++an input is \(s1\).
++
++\begin{theorem}[The boundary action at every arity]
++\label{thm:da-all-arity}
++For homogeneous diagonal operators \(a_1,\ldots,a_n\), define
++\begin{equation}
++ \Phi_n(sa_1\otimes\cdots\otimes sa_n)
++   =s\bigl(\pi L(a_1)hL(a_2)h\cdots hL(a_n)i\bigr).
++ \label{eq:da-operator-components}
++\end{equation}
++There are \(n-1\) copies of \(h\), and none when \(n=1\).
++These formulas define a strictly unital \(R\)-linear
++\(A_\infty\)-morphism from \(B_W\) to \(A_E\).
++Its linear component sends the left scalar operator \(f(x)1\)
++to \(f(x)1_E\).
++\end{theorem}
++\begin{proof}
++Each component has parity zero on suspended words: the
++unsuspended operator on the right has parity
++\(\sum_j|a_j|+n-1\).
++All compositions are defined on polynomial vectors, and each
++word has only finitely many consecutive-block partitions.
++Thus the components define a coalgebra map on the displayed
++direct sum.
++
++Expand the differential of
++\(\pi L(a_1)h\cdots hL(a_n)i\) using the product rule.
++Differentiating \(L(a_j)\) produces the sign
++\[
++ (-1)^{|a_1|+\cdots+|a_{j-1}|+j-1}.
++\]
++This is exactly the tensor sign for inserting \(b_{B_W,1}\)
++in position \(j\) of the suspended input word.
++
++Differentiating the copy of \(h\) between \(a_j,a_{j+1}\)
++produces the sign
++\[
++ (-1)^{|a_1|+\cdots+|a_j|+j-1}
++\]
++and replaces that \(h\) by \(1-i\pi\).
++The term \(1\) merges \(L(a_j)L(a_{j+1})\); its sign is the
++sign for inserting \(b_{B_W,2}\) at those positions.
++The term \(-i\pi\) separates the word into two factors on the
++finite boundary. The first unsuspended factor has parity
++\(|a_1|+\cdots+|a_j|+j-1\), so its sign is the negative of
++the target component \(b_{A_E,2}(\Phi_j\otimes\Phi_{n-j})\).
++Moving these terms to the other side gives exactly the
++projection of \(b_{A_E}\Phi=\Phi b_{B_W}\) to words of length one.
++To obtain the full identity, let
++\(K=b_{A_E}\Phi-\Phi b_{B_W}\).
++The coderivation rule gives
++\(\Delta K=(K\otimes\Phi+\Phi\otimes K)\Delta\).
++If \(K\) vanishes on shorter input words, its value on the next
++word has zero coproduct. In a tensor coalgebra such an element
++has length one: for each length at least two, the part of the
++coproduct splitting off its first letter is injective.
++The length-one projection already vanishes, so induction gives
++\(K=0\) on every word.
++
++For the unit, \(\Phi_1(s1)=s(\pi i)=s1_E\).
++An initial unit in a longer word gives \(\pi h=0\);
++a final unit gives \(hi=0\); an interior unit gives \(h^2=0\).
++Finally, a left scalar commutes with every \(R\)-linear map
++used in the contraction, which proves the scalar assertion.
++\end{proof}
++
++For \(W=z^3\) and \(E=K(z,z^2)\),
++Theorems~\ref{thm:pb-rank-one} and~\ref{thm:pb-diagonal} give
++\[
++ H^{\bar0}(B_W)=k[x]/(x^2),\quad H^{\bar1}(B_W)=0,
++ \qquad
++ H^{\bar0}(A_E)=k,\quad H^{\bar1}(A_E)=k.
++\]
++A quasi-isomorphism would induce isomorphisms on cohomology in
++each parity. These groups show that \(\Phi\) is not a
++quasi-isomorphism for this boundary.
++
++\begin{example}[A product that requires higher components]
++\label{ex:da-product}
++For \(W=z^3\), take
++\[
++ D(z)=\begin{pmatrix}0&z\\z^2&0\end{pmatrix},\qquad
++ A=\begin{pmatrix}0&1\\x+y&0\end{pmatrix}.
++\]
++On the diagonal factorization let
++\[
++ \iota=\begin{pmatrix}0&1\\0&0\end{pmatrix},\qquad
++ \epsilon=\begin{pmatrix}0&0\\1&0\end{pmatrix}.
++\]
++Both are odd, and \(\iota\epsilon\) projects to its even summand.
++Directly from \(\pi\), \(i\), and \(h\),
++\[
++ F_1(\iota)=\begin{pmatrix}0&1\\2x&0\end{pmatrix},
++ \qquad F_1(\epsilon)=0,\qquad
++ F_1(\iota\epsilon)=1_E.
++\]
++Thus \(F_1\) is not multiplicative.
++The differentials are \(\delta\iota=g1\) and
++\(\delta\epsilon=r1\).
++The higher component
++\[
++ \Phi_2(s\iota\otimes s(r1))=s1_E
++\]
++is nonzero: multiplication by \(r\), followed by the divided
++difference in \(h\), leaves the constant vector in the
++\(\theta\)-summand, and \(\iota\) sends it to the first summand.
++In contrast \(\Phi_2(s\iota\otimes s\epsilon)=0\).
++The arity-two equation on \((s\iota,s\epsilon)\) reads
++\(0=-s1_E+s1_E\): the source product and the source differential
++cancel. Dropping the nonclosed operators from the comparison
++would lose this identity.
++\end{example}
++
++\section{What the boundary action detects}
++\label{sec:da-detection}
++
++In one variable, assume \(W\) is nonconstant and fix \(c\in k\).
++Write \(P=W-c\), so \(P'=W'\ne0\).
++For each monic divisor \(a\) of \(P\), put
++\(g_a=\gcd(a,P/a)\), normalized to be monic.
++Theorems~\ref{thm:pb-rank-one} and~\ref{thm:pb-diagonal}
++identify the scalar cohomology map induced by
++Theorem~\ref{thm:da-all-arity} with
++\[
++ k[x]/(W')\longrightarrow k[x]/(g_a),\qquad [f]\longmapsto[f].
++\]
++It is well-defined because
++\(W'=a'(P/a)+a(P/a)'\) is divisible by \(g_a\).
++
++\begin{proposition}[Joint scalar detection on a fibre]
++\label{prop:da-joint-kernel}
++The kernel of the map to all rank-one boundaries,
++\[
++ k[x]/(W')\longrightarrow
++       \prod_{\substack{a\mid P\\a\text{ monic}}} k[x]/(g_a),
++\]
++is \(I_{\mathrm{obj}}(P)/(W')\).
++These boundaries detect the scalar action on every finite free
++factorization of \(P\).
++\end{proposition}
++\begin{proof}
++The kernel consists exactly of polynomial classes whose
++representatives belong to every \((g_a)\).
++Their intersection is \(I_{\mathrm{obj}}(P)\) by
++Theorem~\ref{thm:pb-object-ideal}.
++The polynomial \(W'\) belongs to every \((g_a)\), as just
++computed. The quotient therefore has the asserted meaning.
++Every finite free factorization is a direct sum of the indicated
++blocks by Theorem~\ref{thm:pb-all-ranks}.
++\end{proof}
++
++For \(W=x^3\) and \(c=0\), the kernel is
++\((x)/(x^2)\), although evaluation gives an identity action on
++every boundary. For \(W=x^2+1\) and \(c=0\), every boundary is
++contractible and the entire diagonal class \(1\) has zero image.
++For the same \(W\) at \(c=1\), the factorization \(K(x,x)\)
++has nonzero scalar cohomology. The diagonal kernel is unchanged
++by the choice of \(c\); its boundary input specifies which
++fibre is being represented.
++
++There is also a direct homotopy expressing centrality on closed
++boundary maps. Let \(a\in B_W\) be closed of parity \(p\) and
++let \(f\in A_E\) be closed. Put
++\[
++ \chi(a,f)=(-1)^{p+1}\pi L(a)h\,\mathcal T(f)i .
++\]
++The operator \(\mathcal T(f)=1\otimes f(y)\), with the tensor
++sign rule, graded-commutes with \(L(a)\). Naturality of \(\pi\)
++gives
++\[
++ F_1(a)f-(-1)^{p|f|}fF_1(a)
++   =\pi L(a)(if-\mathcal T(f)i).
++\]
++Since \(\pi\mathcal T(f)i=f\), the last parenthesis is
++\(-(1-i\pi)\mathcal T(f)i\). Differentiating \(\chi(a,f)\)
++and using closedness gives
++\[
++ \partial\chi(a,f)
++      =F_1(a)f-(-1)^{p|f|}fF_1(a).
++\]
++Thus centrality holds by an explicit homotopy.
++Compatibility among these homotopies for arbitrary strings of
++boundary maps is additional structure in a categorical centre;
++the identity action alone does not prove a fully faithful
++comparison of centres.
++
++\section{Formal series and finite replacement}
++\label{sec:da-formal}
++
++The same construction applies to formal power series.
++Replace \(R,S\) by \(k[[x]]\) and \(k[[x,y]]\), respectively,
++and assume the entries of \(D(y)\) and \(W(y)\) are formal
++series. The topology is specified by total degree: the
++neighbourhoods of zero consist of series all of whose monomials
++have total degree at least \(N\), for \(N=0,1,\ldots\).
++The boundary module \(E(x)\) has the corresponding \(x\)-adic
++topology.
++
++Substitution \(y_i=x_i\) preserves total degree.
++For a monomial, subtraction of its diagonal value followed by
++division by \(x_i-y_i\) lowers degree by one; the polynomial
++divided-difference formula proves this directly.
++In each fixed total degree, a formal series has only finitely
++many monomials. The same formula therefore defines a continuous
++map on formal series, lowering the filtration by at most one.
++Every matrix \(A_i\) in the inclusions has formal-series entries
++of nonnegative degree, so each inclusion preserves the
++filtration.
++
++It follows that \(\pi\) and \(i\) preserve the filtration, and
++each summand of \eqref{eq:da-composite-h} lowers it by at most
++one. All identities hold coefficient by coefficient. Here the
++pushforward is a complete \(R\)-module with its specified
++total-degree topology, rather than the algebraic direct sum
++used for polynomials. The homotopy equivalence provides the
++finite complete \(R\)-module \(E(x)\) as its replacement.
++
++At arity \(n\), if the entries of \(a_j\) have order at least
++\(N_j\geq0\), the output of
++\eqref{eq:da-operator-components} has order at least
++\[
++ \max(0,N_1+\cdots+N_n-(n-1)).
++\]
++Each multiplication raises order by \(N_j\), each copy of \(h\)
++lowers it by at most one, and \(i,\pi\) preserve it.
++This proves continuity jointly in the inputs at each fixed arity.
++No infinite sum over arities is taken in
++\(T^c(sB_W)\). The statement therefore gives continuous
++components at every arity, without asserting convergence of
++an infinite interaction series.
++Changing the coefficient ring in these formal formulas is a
++coefficientwise construction; no interchange of an ordinary
++tensor product with an infinite product is required.
++
++The algebraic identity action has now been constructed, including
++its operator homotopies. A categorical centre comparison must
++further identify the relevant coherent natural transformations
++and prove the comparison faithful in the chosen category.
++A cyclic pairing requires its trace and compatibility equations.
++Position-dependent chiral operations require their own local
++construction. These conditions specify the additional structures
++to be transported beyond the boundary action.
+diff --git a/platonic/chapters/Volume_IV_Calabi_Yau_Quantum_Groups.tex b/platonic/chapters/Volume_IV_Calabi_Yau_Quantum_Groups.tex
+index a57c2c9..ebbf406 100644
+--- a/platonic/chapters/Volume_IV_Calabi_Yau_Quantum_Groups.tex
++++ b/platonic/chapters/Volume_IV_Calabi_Yau_Quantum_Groups.tex
+@@ -9,6 +9,7 @@ Calabi--Yau categories, geometric BV theories, Hall correspondences, quantum dou
+ \part{Categorical and field-theoretic foundations}
+ 
+ \input{chapters/examples/polynomial_boundary_algebras}
++\input{chapters/examples/diagonal_boundary_action}
+ 
+ \chapter{Calabi--Yau categories}
+ \section{Smoothness, properness, and the Calabi--Yau class}
+diff --git a/standalone/diagonal_boundary_action.tex b/standalone/diagonal_boundary_action.tex
+new file mode 100644
+index 0000000..5c2cee7
+--- /dev/null
++++ b/standalone/diagonal_boundary_action.tex
+@@ -0,0 +1,16 @@
++\documentclass[11pt,oneside]{memoir}
++\usepackage{raeez-math-template}
++\title{Polynomial boundary algebras and the diagonal action}
++\author{Raeez Lorgat}
++\date{}
++\hypersetup{pdftitle={Polynomial boundary algebras and the diagonal action},
++pdfauthor={Raeez Lorgat},
++pdfsubject={Matrix factorizations, diagonal actions, and higher operator maps}}
++\begin{document}
++\frontmatter
++\maketitle
++\tableofcontents
++\mainmatter
++\input{chapters/examples/polynomial_boundary_algebras}
++\input{chapters/examples/diagonal_boundary_action}
++\end{document}
