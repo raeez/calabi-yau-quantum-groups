@@ -1,0 +1,606 @@
+\chapter{A collision surface and its quantum intertwiner}
+\label{chap:gi-collision-intertwiner}
+
+Two points can approach one another while retaining a direction of approach.
+That direction forms a projective line.
+The same projective line appears when two coordinates and their conjugate momenta are reduced by a scalar constraint.
+We will identify the surfaces, compute the classes of their distinguished curves, and obtain an operator which exchanges two quantum representations.
+
+The operator will mix two states:
+\[
+ \frac1{u-\hbar}
+ \begin{pmatrix}u&-\hbar\\-\hbar&u\end{pmatrix}.
+\]
+Here $u$ is the difference of two spectral parameters and $\hbar$ is a deformation parameter.
+We will derive both parameters from specified actions and fix their signs.
+The off-diagonal entries will come from a curve class, not from a dimension count.
+
+There are three questions to separate.
+First, which geometric classes define this matrix?
+Second, which algebra acts on the quantum states, and which tensor product does it prescribe?
+Third, what remains when the matrix ceases to be invertible?
+The last question will distinguish a symmetric quotient from an antisymmetric residue.
+
+\section{The surface that retains a collision direction}
+
+Let $\mathbb P^1$ have affine coordinates $x,x'$ with $x'=x^{-1}$ on the overlap.
+Its cotangent bundle $X=T^*\mathbb P^1$ has coordinates $(x,v)$ and $(x',v')$ satisfying
+\begin{equation}\label{eq:gi-cotangent}
+ x'=x^{-1},\qquad v'=-x^2v.
+\end{equation}
+Indeed, equality of the covectors $v\,dx=v'\,dx'$ gives this formula.
+It preserves $dx\wedge dv$.
+The zero section $Z$ consists of the zero covectors.
+Write $F_0,F_\infty$ for the cotangent fibres above $0,\infty$.
+
+The same surface describes centered subschemes of length two in the affine plane.
+A length-two subscheme is specified by an ideal $I\subset\mathbb C[X_1,X_2]$ whose quotient has dimension two.
+For families over a commutative $\mathbb C$-algebra $R$, require this quotient to be locally free of rank two over $R$.
+Multiplication by $X_1,X_2$ gives two commuting endomorphisms of that rank-two module.
+Their half-traces $c_1,c_2$ are its center coordinates.
+Subtract them and denote the resulting trace-zero coordinate classes by $\xi_1,\xi_2$.
+
+\begin{proposition}\label{prop:gi-hilbert-chart}
+The space of length-two subschemes of $\mathbb A^2$ is
+$\mathbb A^2_{c_1,c_2}\times T^*\mathbb P^1$.
+The zero section in its second factor parametrizes the nonreduced centered subschemes.
+On the locus of two distinct points, the sum of their symplectic forms extends as
+\[
+ 2\,dc_1\wedge dc_2+dx\wedge dv.
+\]
+\end{proposition}
+\begin{proof}
+The trace map splits the quotient module as $R1\oplus L$, where $L$ is locally free of rank one.
+The factor $2$ is invertible in $R$.
+At every residue field, the trace-zero classes $\xi_1,\xi_2$ generate $L$.
+Otherwise both coordinates would be scalar and the quotient algebra would have dimension one.
+Thus the open sets where $(1,\xi_1)$ or $(1,\xi_2)$ is a basis cover every family.
+This also holds over nonreduced bases: a map onto a finite module is surjective near a point whenever it is surjective over its residue field.
+To see this last statement, write the map in local generators and use an invertible minor.
+
+On the first chart, $\xi_2=a\xi_1$.
+The trace-zero multiplication matrix of $\xi_1$ satisfies $\xi_1^2=b1$ by its degree-two characteristic equation.
+Consequently the ideal is
+\[
+ (\xi_2-a\xi_1,\ \xi_1^2-b).
+\]
+Conversely, this quotient is free on $(1,\xi_1)$, and both coordinate multiplications have trace zero.
+The second chart has ideal $(\xi_1-c\xi_2,\xi_2^2-d)$.
+On the intersection, $c=a^{-1}$ and $d=a^2b$.
+Set $x=a$, $v=-b$, $x'=c$, and $v'=d$.
+These are exactly \eqref{eq:gi-cotangent}.
+The formulas classify families and their changes of basis, so they identify the parameter spaces as varieties, not only their points.
+Restoring $c_1,c_2$ gives the product asserted in the proposition.
+
+The centered algebra is nonreduced precisely when $b=0$, or $d=0$ on the other chart.
+That is the zero section.
+For two distinct centered points, write them as $(r,ar)$ and $(-r,-ar)$, so $b=r^2$.
+Their symplectic form is
+\[
+ 2\,dr\wedge d(ar)=db\wedge da=da\wedge d(-b)=dx\wedge dv.
+\]
+The center contributes $2\,dc_1\wedge dc_2$.
+The displayed form is regular and nondegenerate on both charts, including $b=0$.
+Thus it supplies the required extension.
+\end{proof}
+
+The normal line bundle of $Z$ consists of tangent directions in the surface modulo directions tangent to $Z$.
+Here it is the cotangent line bundle of $\mathbb P^1$.
+The degree of a line bundle counts zeros minus poles of a nonzero meromorphic section, with multiplicities.
+The self-intersection of a compact curve in a surface is the degree of its normal line bundle.
+A constant normal section on the first chart has coefficient $-x^2=-(x')^{-2}$ on the second chart.
+It therefore has one pole of order two and no zeros.
+The normal degree, and hence the self-intersection of $Z$, is $-2$.
+We will recover this number from the same equivariant classes that determine the exchange operator.
+
+\section{Equivariant classes from two charts}
+
+Let $T=(\mathbb C^\times)^2$ act on the first chart by
+\[
+ (s,t)\cdot(x,v)=(s x,s^{-1}t^{-1}v).
+\]
+Write $u$ for the character of $s$ and $\eta$ for the character of $t$.
+The symplectic form has character $-\eta$.
+The tangent characters at the two fixed points are
+\begin{equation}\label{eq:gi-weights}
+ (u,-u-\eta)\quad\hbox{at }0,
+ \qquad (-u,u-\eta)\quad\hbox{at }\infty.
+\end{equation}
+A character such as $u-\eta$ means the one-dimensional representation on which $(s,t)$ acts by $st^{-1}$.
+No action on a compact surface containing this local chart is assumed.
+
+We use equivariant cohomology with complex coefficients.
+Here is an explicit model and the calculation needed below.
+Replace each $\mathbb C^\times$ by its circle subgroup and use the free circle action on $S^\infty$.
+For a $T$-space $Y$, its Borel space is
+\[
+ Y_T=(S^\infty\times S^\infty\times Y)/(S^1\times S^1).
+\]
+By definition, $H_T^*(Y)$ is the ordinary singular cohomology of this space.
+Singular cochains assign complex values to continuous simplices, with differential dual to the alternating sum of faces.
+Their cup product evaluates one cochain on the front face and the other on the back face of a simplex.
+
+For a point, the Borel space is $\mathbb P^\infty\times\mathbb P^\infty$.
+The space $\mathbb P^N$ has one cell in each even dimension $0,2,\ldots,2N$.
+The cellular differentials are zero because there are no odd cells.
+The degree-two hyperplane class has its $j$th power evaluating to $1$ on $\mathbb P^j$.
+Indeed, $j$ transverse complex hyperplanes meet in one point with positive complex orientation.
+These classes give the whole cohomology in the indicated degrees.
+Taking $N$ larger than a fixed degree and using the product cells gives
+\[
+ H_T^*(\mathrm{pt})=S:=\mathbb C[u,\eta],\qquad |u|=|\eta|=2.
+\]
+The class of a character $s^at^b$ is $au+b\eta$.
+This follows from tensoring the corresponding line bundles: their transition winding numbers add.
+
+\begin{lemma}\label{lem:gi-equivariant-ring}
+Restriction to the fixed points identifies
+\[
+ H_T^*(X)=\{(f_0,f_\infty)\in S^2:
+                      f_0-f_\infty\in uS\}.
+\]
+All odd cohomology vanishes.
+As an $S$-module, this ring has basis $1=(1,1)$ and $F_0=(u,0)$.
+\end{lemma}
+\begin{proof}
+Multiplying cotangent fibres by a real number between zero and one is a $T$-equivariant deformation to the zero section.
+It remains to calculate $H_T^*(\mathbb P^1)$.
+The two affine coordinate charts contract equivariantly to their fixed points.
+Their intersection is $\mathbb C^\times$, where the first torus factor acts freely and transitively.
+Its Borel space is therefore homotopy equivalent to the classifying space of the second factor.
+Its cohomology is $\mathbb C[\eta]=S/(u)$, and both restriction maps are the quotient by $u$.
+
+The cohomology sequence for this open cover gives
+\[
+ 0\longrightarrow H_T^{2d}(\mathbb P^1)
+ \longrightarrow S^{2d}\oplus S^{2d}
+ \xrightarrow{(f,g)\mapsto f-g} (S/(u))^{2d}
+ \longrightarrow H_T^{2d+1}(\mathbb P^1)\longrightarrow0.
+\]
+One can obtain this sequence directly from singular cochains subordinate to the two open sets.
+Repeated barycentric subdivision makes each simplex subordinate.
+The prism between a simplex and its subdivision gives a chain homotopy to the identity.
+Thus subordinate chains calculate the same cohomology, and their short exact cover sequence gives the displayed sequence.
+The middle map is surjective in every degree.
+Its kernel is the asserted congruence condition, and its cokernel is zero.
+Restriction preserves cup products, so this is also the ring description.
+
+Every such pair has the unique expression
+\[
+ (f_0,f_\infty)=f_\infty(1,1)
+          +\frac{f_0-f_\infty}{u}(u,0).
+\]
+The quotient in this expression is a polynomial by the congruence condition.
+This proves the basis statement without inverting $u$.
+\end{proof}
+
+A closed smooth complex curve in $X$ has a degree-two class, defined by the Thom class of its normal line.
+The Thom class integrates to $1$ on a normal complex disk relative to its boundary.
+Restricting it to the curve gives the first Chern class of the normal line.
+At a fixed point, that restriction is the normal character.
+At a fixed point outside the curve, it is zero.
+Thus \eqref{eq:gi-weights} gives
+\begin{equation}\label{eq:gi-curves}
+ [Z]=(-u-\eta,u-\eta),\qquad
+ [F_0]=(u,0),\qquad [F_\infty]=(0,-u).
+\end{equation}
+The first formula uses the cotangent normal direction.
+The other two use the tangent direction of the base.
+All three pairs satisfy the congruence in Lemma~\ref{lem:gi-equivariant-ring}.
+
+Integration over the compact zero section sends $1$ to zero for degree reasons and the class of its point $0$ to $1$.
+The basis formula therefore gives
+\[
+ \int_{\mathbb P^1}(f_0,f_\infty)=\frac{f_0-f_\infty}{u}.
+\]
+Applied to the normal class of $Z$, this yields $-2$.
+Equivalently, cancellation of the normal Euler factors gives
+\begin{equation}\label{eq:gi-contact}
+ \frac{(-u-\eta)^2}{u(-u-\eta)}
+ +\frac{(u-\eta)^2}{(-u)(u-\eta)}=-2.
+\end{equation}
+The equality is first written where the denominators are invertible.
+Its value is the integral class $-2$, independent of those inversions.
+
+For the original plane coordinates of the length-two description, let their torus characters be $\alpha,\beta$.
+The chart coordinates have characters
+\[
+ u=\beta-\alpha,\qquad \eta=-(\alpha+\beta).
+\]
+Indeed, $a=\xi_2/\xi_1$ has character $\beta-\alpha$, and $v=-\xi_1^2$ has character $2\alpha=-u-\eta$.
+This identifies the equivariant collision calculation with the cotangent calculation, including the sign of its symplectic character.
+
+\section{Stable classes and their normalization}
+
+Let $A\subset T$ be the first torus factor.
+For its positive direction, consider the limit $s\to0$.
+A point is attracted to a fixed point if this limit exists and equals that fixed point.
+At $0$, the attracting set is the zero section minus $\infty$.
+At $\infty$, it is the entire fibre $F_\infty$.
+Allowing successive limits gives the full attracting union $Z\cup F_\infty$ for $0$, and $F_\infty$ for $\infty$.
+For the opposite direction, interchange $0$ and $\infty$.
+
+A polarization fixes a sign for the product of one character from each opposite pair of $A$-characters.
+We choose the cotangent direction.
+Its values at the fixed points are $-u$ at $0$ and $u$ at $\infty$.
+For either direction, the diagonal normalization is the Euler class of the repelling line, with sign chosen to agree with this polarization after setting $\eta=0$.
+
+In this surface, a stable class for a fixed point means a degree-two equivariant class satisfying three conditions.
+It is supported on that point's full attracting union.
+Its diagonal restriction has the stated Euler normalization.
+Its restriction at a strictly lower fixed point has degree less than one in $u$, with $\eta$ held fixed.
+Support means that the class restricts to zero on the complement of the indicated union.
+
+\begin{proposition}\label{prop:gi-stable-classes}
+The two directions give the uniquely determined classes
+\begin{align*}
+ \operatorname{Stab}_+(0)&=[Z]+[F_\infty],&
+ \operatorname{Stab}_+(\infty)&=-[F_\infty],\\
+ \operatorname{Stab}_-(0)&=-[F_0],&
+ \operatorname{Stab}_-(\infty)&=[Z]+[F_0].
+\end{align*}
+\end{proposition}
+\begin{proof}
+Each displayed sum has the required support because its summands are classes of curves in that union.
+Their restriction matrices, with columns indexed by $0,\infty$, are
+\begin{equation}\label{eq:gi-stable-matrices}
+ S_+=\begin{pmatrix}-u-\eta&0\\-\eta&u\end{pmatrix},\qquad
+ S_-=\begin{pmatrix}-u&-\eta\\0&u-\eta\end{pmatrix}.
+\end{equation}
+For the positive direction, the repelling line at $0$ has character $-u-\eta$.
+At $\infty$ it has character $-u$, whose sign must be reversed to match the cotangent polarization $u$.
+These give the two diagonal entries of $S_+$.
+For the negative direction, the same rule gives $-u$ and $u-\eta$.
+The only nonzero restriction below a diagonal is $-\eta$, of degree zero in $u$.
+This proves existence with the stated normalization.
+
+For uniqueness, a class supported on a single fibre has zero restriction at the other fixed point.
+The diagonal condition then determines it by the injective restriction map of Lemma~\ref{lem:gi-equivariant-ring}.
+For the other class, its lower restriction has degree zero in $u$.
+The congruence with the prescribed diagonal restriction determines it uniquely: it must be $-\eta$.
+Again the restriction map is injective.
+\end{proof}
+
+The stable maps send the two standard generators of $S^2$ to these two classes.
+They are maps of $S$-modules, not multiplicative maps for the ordinary cup product.
+In the integral basis $(1,[F_0])$ of $H_T^*(X)$, their matrices are
+\[
+ A_+=\begin{pmatrix}-\eta&u\\-1&-1\end{pmatrix},\qquad
+ A_-=\begin{pmatrix}0&u-\eta\\-1&-1\end{pmatrix}.
+\]
+Their determinants are $u+\eta$ and $u-\eta$.
+After inverting $u-\eta$, the change from the positive to the negative stable coordinates is
+\begin{equation}\label{eq:gi-geometric-r}
+ R_{\mathrm{geom}}(u)=A_-^{-1}A_+
+       =\frac1{u-\eta}\begin{pmatrix}u&-\eta\\-\eta&u\end{pmatrix}.
+\end{equation}
+Thus the formula needs no inverse of $u$.
+The fixed-point matrices give the same expression after their apparent extra denominator cancels.
+In particular, when $u=0$ and $\eta\ne0$, both stable maps remain invertible in the integral cohomology basis, although fixed-point restriction after specialization no longer separates that basis.
+
+Changing the polarization multiplies each stable column by its chosen sign.
+Using the same change in both directions conjugates $R_{\mathrm{geom}}$ by that diagonal sign matrix.
+No slope or K\"ahler parameter occurs in these ordinary equivariant cohomology conditions.
+
+\section{The normal critical pair}
+
+The collision surface also arises from a potential with two normal variables.
+To retain that comparison, consider coordinates $(x,v,\mu)$ with overlap
+\[
+ x'=x^{-1},\qquad v'=-x^2v+x\mu,\qquad \mu'=\mu.
+\]
+Adjoin a global coordinate $\lambda$ and set $W=\lambda\mu$.
+The differential of $\mu$ is nonzero on every chart.
+Hence the critical equations are $\lambda=\mu=0$, with critical locus $X$.
+Let $\mu$ have character $-\eta$ and $\lambda$ character $\eta$.
+Then $W$ is invariant under the torus.
+
+We use normal vanishing cohomology to compare cohomological curve operators.
+At a point of $X$, take a small normal bidisc $|\mu|,|\lambda|<\delta$.
+For $0<|\epsilon|<\delta^2$, its nearby level $W=\epsilon$ is
+\[
+ \frac{|\epsilon|}{\delta}<|\mu|<\delta,\qquad
+ \lambda=\epsilon/\mu.
+\]
+This is an annulus.
+Its reduced cohomology is one-dimensional in degree one and zero in all other degrees.
+For the degree-one assertion, contract the annulus radially to a circle and use one zero-cell and one one-cell, with zero boundary.
+Choose the class
+\[
+ \delta_W=\left[\frac1{2\pi i}\frac{d\mu}{\mu}\right],
+\]
+which integrates to $1$ around the positively oriented circle.
+
+Normalize the vanishing-cohomology complex by shifting this degree-one class to degree zero.
+In the convention where the unshifted vanishing-cycle complex has the reduced nearby cohomology as its stalk cohomology, this is the shift $[1]$.
+Only ordinary complex cohomology is considered here.
+No comparison of Hodge weights is asserted.
+
+\begin{proposition}\label{prop:gi-critical-comparison}
+The normalized normal vanishing-cohomology complex is the constant rank-one system on $X$, with generator $\delta_W$.
+The map $\delta_W\mapsto1$ identifies its equivariant cohomology with $H_T^*(X)$.
+With this normalization at both fixed points, it intertwines the four stable curve classes and their change-of-basis operator.
+\end{proposition}
+\begin{proof}
+Each coordinate chart is a product of the tangent coordinates with the normal pair $(\mu,\lambda)$.
+The annulus calculation gives a rank-one local system in normalized degree zero.
+On overlaps, $\mu$ and $\lambda$ are unchanged.
+Therefore $d\mu/\mu$ represents the same oriented normal class in both charts.
+The term $x\mu$ in the tangent transition does not alter it.
+More explicitly, replacing this term by $t x\mu$, $0\leq t\leq1$, is an invertible change on the overlap preserving $W$ and fixing $X$.
+It connects the transition to the product transition without changing the normal circle.
+The local systems consequently glue to the stated constant system.
+
+Multiplication of $\mu$ by a nonzero complex scalar preserves its oriented circle class.
+Thus the torus acts trivially on this normal cohomology local system.
+The same trivialization applies at the two fixed points.
+There is no other stalk cohomology.
+A complex with cohomology only in degree zero is identified with that cohomology by the two truncation maps: retain the kernel in degree zero, then quotient by its incoming boundaries.
+These maps are equivariant, and give the required quasi-isomorphism of the normalized complex with the constant system.
+Cochains on the Borel space with values in this constant local system are ordinary cochains multiplied by $\delta_W$.
+This gives the asserted equivariant comparison.
+The form $d\mu/\mu$ specifies the ordinary stalk generator.
+It is not being used as an equivariantly closed differential form on the whole nearby fibre.
+
+For each curve $C=Z,F_0,F_\infty$, take its Thom class with coefficient $\delta_W$ in that system.
+Its support and Euler restrictions are those of $[C]$, multiplied by $\delta_W$.
+The four sums in Proposition~\ref{prop:gi-stable-classes} therefore satisfy the same support, normalization, and degree conditions with these coefficients.
+Uniqueness follows by the same restriction calculation.
+Applying $\delta_W\mapsto1$ gives the four ordinary stable classes, and hence also intertwines their coordinate change.
+\end{proof}
+
+This is a comparison of specified cohomology groups and curve operators.
+The full derived critical locus also retains tangent directions in nonzero cochain degrees.
+The normal calculation does not replace its algebra of functions or its category of matrix factorizations by ordinary cohomology.
+The orientation would also change if the two normal coordinates were exchanged: on $\lambda\mu=\epsilon$, $d\lambda/\lambda=-d\mu/\mu$.
+
+\section{The algebra acting on the quantum states}
+
+Let $V$ be the two-dimensional space of polynomials of degree at most one in a variable $q$.
+Its basis is $(1,q)$.
+The variable $q$ is a state coordinate and is distinct from the equivariant character $u$.
+Define
+\[
+ E=\partial_q,\qquad F=q-q^2\partial_q,\qquad H=1-2q\partial_q.
+\]
+These operators preserve $V$.
+They satisfy $[H,E]=2E$, $[H,F]=-2F$, and $[E,F]=H$.
+Their quadratic scalar is $H^2+2H+4FE=3$.
+This is the period-one differential-operator module on the projective line: a polynomial of degree at most one is precisely a section of $\mathcal O(1)$ in the affine coordinate.
+On the other chart it is represented by $q' f(1/q')$, which is polynomial exactly under this degree bound.
+
+Write $E_{ij}$, $1\leq i,j\leq2$, for the matrix units in this basis.
+Thus $E_{12}=E$, $E_{21}=F$, $E_{11}=(1+H)/2$, and $E_{22}=(1-H)/2$.
+They satisfy
+\[
+ [E_{ij},E_{kl}]=\delta_{jk}E_{il}-\delta_{il}E_{kj}.
+\]
+The Kronecker symbol $\delta_{ij}$ is $1$ if $i=j$ and $0$ otherwise.
+
+To define a tensor product of evaluation representations, we need an algebra with a coproduct.
+Work over $\mathbb C[\hbar]$ and introduce formal series
+\[
+ T_{ij}(w)=\delta_{ij}+\sum_{n\geq1}t_{ij}^{(n)}w^{-n}.
+\]
+The variable $w$ is an auxiliary spectral variable.
+Define the RTT Yangian $\mathsf Y_\hbar$ to be the associative algebra generated by the coefficients, with relations
+\begin{equation}\label{eq:gi-rtt-components}
+ (w-s)[T_{ij}(w),T_{kl}(s)]
+ =\hbar\bigl(T_{kj}(w)T_{il}(s)-T_{kj}(s)T_{il}(w)\bigr).
+\end{equation}
+The equality means equality of every Laurent coefficient, so it is a collection of algebraic relations.
+All tensor products of coefficient algebras below are algebraic.
+The formal series organize their coefficients and require no analytic convergence.
+
+\begin{lemma}\label{lem:gi-evaluation-coproduct}
+For a central parameter $z$, the rule
+\[
+ T_{ij}(w)\longmapsto\delta_{ij}+\frac{\hbar E_{ij}}{w-z}
+\]
+defines a representation on $V$, with $(w-z)^{-1}=\sum_{n\geq0}z^nw^{-n-1}$.
+The coproduct is
+\[
+ \Delta T_{ij}(w)=\sum_a T_{ia}(w)\otimes T_{aj}(w).
+\]
+It is an algebra homomorphism and is coassociative.
+\end{lemma}
+\begin{proof}
+In the evaluation formula, the left side of \eqref{eq:gi-rtt-components} is
+\[
+ \frac{\hbar^2(w-s)}{(w-z)(s-z)}
+       (\delta_{jk}E_{il}-\delta_{il}E_{kj}).
+\]
+On the right, the terms quadratic in the matrix units cancel.
+The linear terms give the same expression by subtracting $(w-z)^{-1}$ and $(s-z)^{-1}$.
+This proves the representation on every coefficient.
+
+For the coproduct, let $P$ exchange the two factors of an auxiliary copy of $\mathbb C^2\otimes\mathbb C^2$.
+Write $T_1,T_2$ for $T$ acting on its first or second auxiliary factor.
+Multiplying their matrix entries shows that \eqref{eq:gi-rtt-components} is equivalent to
+\[
+ \bigl(1-\hbar P/(w-s)\bigr)T_1(w)T_2(s)
+ =T_2(s)T_1(w)\bigl(1-\hbar P/(w-s)\bigr).
+\]
+Here the denominators may be cleared before taking coefficients.
+For two commuting coefficient algebras, substitute $T(w)=T^{[1]}(w)T^{[2]}(w)$.
+Move $T^{[2]}_1$ past $T^{[1]}_2$, apply the displayed relation in the first coefficient algebra, then in the second.
+Move $T^{[1]}_1$ past $T^{[2]}_2$ at the end.
+The result is the same relation for the matrix product.
+Its entries are exactly the proposed coproduct.
+Associativity of three matrix factors proves coassociativity.
+The counit sends $T(w)$ to the identity matrix.
+The formal inverse $T(w)^{-1}$ supplies the antipode, with its coefficients determined recursively by the equation $T(w)T(w)^{-1}=1$.
+Inverting the displayed matrix relation verifies the antipode relation in the opposite algebra.
+The two matrix inverse identities give the two counit identities.
+\end{proof}
+
+Denote this evaluation module by $V(z)$.
+The coproduct prescribes the action on $V(z_1)\otimes V(z_2)$.
+It retains more information than the diagonal action of the three operators $E,F,H$.
+The terms quadratic in matrix units will determine the exchange operator.
+
+\section{The normalized intertwiner}
+
+On $V\otimes V$, let $P(a\otimes b)=b\otimes a$.
+For matrix units write $E_{ij}^{(1)}=E_{ij}\otimes1$ and $E_{ij}^{(2)}=1\otimes E_{ij}$.
+Multiplying the two evaluation matrices and clearing their denominators gives
+\begin{align}
+ D_{ij}(w)={}&\delta_{ij}(w-z_1)(w-z_2)
+ +\hbar\bigl((w-z_2)E_{ij}^{(1)}+(w-z_1)E_{ij}^{(2)}\bigr)
+ +\hbar^2 C_{ij},\label{eq:gi-coproduct-numerator}\\
+ C_{ij}={}&\sum_a E_{ia}\otimes E_{aj}=E_{ij}^{(1)}P.\notag
+\end{align}
+The opposite coproduct has $C_{ij}^{\mathrm{op}}=E_{ij}^{(2)}P$ instead.
+The identity for $C_{ij}$ follows by applying both sides to each basis vector.
+
+\begin{theorem}\label{thm:gi-intertwiner}
+Set $u=z_2-z_1$.
+The operator
+\begin{equation}\label{eq:gi-quantum-r}
+ R(u)=\frac{uI-\hbar P}{u-\hbar}
+\end{equation}
+intertwines the coproduct and opposite coproduct representations.
+Over $\mathbb C(\hbar,z_1,z_2)$, it is the unique such intertwiner acting as the identity on $1\otimes1$.
+\end{theorem}
+\begin{proof}
+The coefficient of $w$ in \eqref{eq:gi-coproduct-numerator} implies that an intertwiner commutes with every $E_{ij}^{(1)}+E_{ij}^{(2)}$.
+Over the stated field, $\hbar$ is invertible.
+The diagonal representation splits as the symmetric space of dimension three and the alternating line.
+This can be checked directly: repeated application of $F^{(1)}+F^{(2)}$ to $1\otimes1$ gives the three symmetric basis vectors.
+The vector $1\otimes q-q\otimes1$ spans a trivial alternating representation.
+The diagonal quadratic operator has values $8$ and $0$ on these spaces.
+An intertwiner must therefore preserve them.
+Commutation with the raising and lowering operators makes it scalar on the symmetric space, and it is scalar on the alternating line.
+Hence it has the form $aI+bP$.
+
+For $I+cP$, the difference from the required intertwining identity is
+\[
+ (I+cP)D_{ij}-D_{ij}^{\mathrm{op}}(I+cP)
+ =\bigl(\hbar^2-\hbar c(z_1-z_2)\bigr)
+                     (E_{ij}^{(1)}-E_{ij}^{(2)})P.
+\]
+To derive it, use $PE_{ij}^{(1)}=E_{ij}^{(2)}P$ and $P^2=I$ in each term of \eqref{eq:gi-coproduct-numerator}.
+The quadratic terms proportional to $c$ cancel.
+Thus $c=\hbar/(z_1-z_2)=-\hbar/u$.
+Dividing by the symmetric eigenvalue $1-\hbar/u$ gives \eqref{eq:gi-quantum-r}.
+Equivalently, solving for $a,b$ with $a+b=1$ gives $a=u/(u-\hbar)$ and $b=-\hbar/(u-\hbar)$.
+This proves uniqueness over the stated field and the identity itself after clearing denominators.
+Consequently the formula specializes wherever $u-\hbar$ is invertible.
+At $\hbar=0$, the evaluation matrices become identities, so generic uniqueness is not a claim about that degenerate representation.
+\end{proof}
+
+To compare with geometry, include the three varieties $T^*\operatorname{Gr}(k,2)$ for $k=0,1,2$.
+Here $\operatorname{Gr}(k,2)$ is the space of $k$-dimensional subspaces of $\mathbb C^2$.
+For $k=0,2$ it is a point, and for $k=1$ it is $\mathbb P^1$.
+Its fixed coordinate subspaces are indexed by subsets of $\{1,2\}$ of size $k$.
+Identify a tensor basis vector with that subset by recording the positions occupied by $q$ rather than $1$.
+Thus $q\otimes1$ corresponds to the line spanned by the first framing vector, and $1\otimes q$ to the second.
+
+The stable maps on the two point components are identities.
+On the middle component, Proposition~\ref{prop:gi-stable-classes} gives \eqref{eq:gi-geometric-r} in exactly this label order.
+Apply the coefficient map
+\[
+ \mathbb C[u,\eta]\longrightarrow\mathbb C[\hbar,z_1,z_2],
+ \qquad u\longmapsto z_2-z_1,\qquad\eta\longmapsto\hbar.
+\]
+Then the direct sum of the geometric operators is \eqref{eq:gi-quantum-r} on all four tensor states.
+The normal vanishing-cohomology comparison of Proposition~\ref{prop:gi-critical-comparison} preserves the same operator with the specified normal orientation.
+This gives the geometric and quantum comparison on actual representations, with explicit source, target, basis, and coefficient map.
+
+The fixed-period differential-operator quotient itself does not carry the inherited enveloping coproduct.
+Its single-site quadratic value is $3$, whereas the diagonal tensor action has values $8$ and $0$.
+The tensor representations above use the full RTT algebra.
+They do not impose the single-site quadratic equation on the total tensor action.
+
+\section{Three factors and the singular parameters}
+
+The comparison must be consistent when three factors are reordered.
+This requires a polynomial identity that can be proved without a dimension restriction.
+Let $u=z_2-z_1$ and $\upsilon=z_3-z_2$ be the two adjacent spectral differences.
+For any vector space, let $A=P_{12}$, $B=P_{23}$, and $C=P_{13}$ on its third tensor power.
+Their permutation relations are
+$A^2=B^2=1$ and $ABA=BAB=C$.
+
+\begin{proposition}\label{prop:gi-yang-baxter}
+Where the scalar denominators are invertible,
+\[
+ R_{12}(u)R_{13}(u+\upsilon)R_{23}(\upsilon)
+ =R_{23}(\upsilon)R_{13}(u+\upsilon)R_{12}(u),\qquad
+ R(u)R(-u)=I.
+\]
+These identities hold on every third tensor power, not only on the two-dimensional evaluation module.
+\end{proposition}
+\begin{proof}
+Clear the common denominator $(u-\hbar)(u+\upsilon-\hbar)(\upsilon-\hbar)$.
+The first identity becomes equality of
+\[
+ (uI-\hbar A)((u+\upsilon)I-\hbar C)(\upsilon I-\hbar B)
+\]
+with its reverse order.
+The constant and linear coefficients in $\hbar$ agree term by term.
+The quadratic coefficient on the first side is
+$uCB+(u+\upsilon)AB+\upsilon AC$.
+Since $CB=AC=BA$, it is $(u+\upsilon)(AB+BA)$.
+On the other side, $CA=BC=AB$ gives the same result.
+The cubic terms agree because $ACB=BCA=C$.
+This proves the polynomial identity in the permutation algebra, hence on every tensor space.
+For the second identity, $P^2=I$ gives numerator $u^2-\hbar^2$ and the same scalar denominator after cancelling signs.
+\end{proof}
+
+For an ordered list of evaluation parameters, the operator $PR(z_{i+1}-z_i)$ maps the corresponding tensor representation to the representation with those parameters exchanged.
+The permutation changes the opposite coproduct back into the coproduct in the exchanged order.
+Operators acting on disjoint pairs commute.
+The preceding identities give the two braid relations and the inverse relation, with parameters exchanged at each step.
+Any two adjacent-transposition expressions for the same permutation differ by these relations: move the last label to its prescribed position and induct on the remaining labels.
+Thus the resulting representation map is independent of the expression wherever all required pairwise factors $z_i-z_j\pm\hbar$ are invertible.
+This proves the algebraic coherence of the tensor comparison.
+A geometric factorization statement for larger Grassmannians requires its own fixed-locus and stable-class construction.
+
+The spectral singularities have a direct representation meaning.
+Let
+\[
+ \Pi_+=\tfrac12(I+P),\qquad \Pi_-=\tfrac12(I-P)
+\]
+be the symmetric and alternating projectors.
+Then
+\begin{equation}\label{eq:gi-channels}
+ R(u)=\Pi_++\frac{u+\hbar}{u-\hbar}\Pi_-.
+\end{equation}
+For $\hbar\ne0$, its value at $u=-\hbar$ is $\Pi_+$, while its residue at $u=\hbar$ is $2\hbar\Pi_-$.
+The latter means the value of $(u-\hbar)R(u)$ at that point.
+Both follow directly from \eqref{eq:gi-channels}.
+The polynomial intertwining identity shows that the corresponding image and kernel are invariant under the appropriate source or target representation.
+These are actual quotient and subrepresentation operations at the singular parameters.
+
+At $u=0$, $\hbar\ne0$, the operator equals $P$.
+At $\hbar=0$, $u\ne0$, it equals $I$.
+There is no common value at $(u,\hbar)=(0,0)$ independent of the approach: along $u=c\hbar$, the alternating eigenvalue is $(c+1)/(c-1)$.
+Thus a simultaneous zero-parameter limit requires additional data.
+
+Give $(1,q)$ its standard Hermitian inner product.
+Then $P$ and both projectors are self-adjoint.
+For real $\hbar$ and purely imaginary $u$, with $u-\hbar\ne0$, the alternating eigenvalue in \eqref{eq:gi-channels} has absolute value one.
+Hence $R(u)$ is unitary in that regime.
+For general real $u,\hbar$ it need not be unitary, even though the rational inverse identity still holds.
+The symmetric and alternating channels thus give a precise two-state quantum interpretation without identifying the formal spectral variable with a spacetime coordinate.
+
+\section{Surface geometry and threefold geometry}
+
+The cotangent surface used above is a holomorphic symplectic variety.
+A smooth complex threefold cannot itself carry a nondegenerate holomorphic alternating two-form.
+At any point such a form would be an invertible $3\times3$ skew matrix $M$.
+But $\det M=\det(-M^{\mathsf T})=-\det M$, so $\det M=0$ over $\mathbb C$.
+In particular, the threefold $\operatorname{Tot}(\mathcal O(-1)\oplus\mathcal O(-1)\to\mathbb P^1)$ is not this cotangent surface.
+Using a surface chart in a threefold problem requires the chart and its normal comparison to be specified.
+The potential $W=\lambda\mu$ provides such a normal comparison at the stated cohomological level.
+
+The same distinction applies to changes of coefficients or constructions.
+Our stable classes are ordinary equivariant cohomology classes, determined by a chamber and polarization.
+They produce an ordinary rational Yang--Baxter operator.
+A parameter-dependent change of basis is not, by itself, a dynamical Yang--Baxter equation.
+Such an equation includes specified shifts of an additional parameter during composition.
+No such shifts occur in the identities proved here.
+
+The concrete comparison has retained the collision direction, its exceptional curve, the normal vanishing class, and the full tensor intertwiner.
+Its nonzero mixing coefficient and its two singular channels come from these specified structures.
+Extending it to larger geometric or categorical objects requires maps preserving those structures, rather than an equality of their dimensions or scalar invariants.

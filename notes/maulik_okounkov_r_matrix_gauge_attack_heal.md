@@ -1,91 +1,113 @@
-# Maulik-Okounkov stable envelopes and R-matrices under flop: iso vs gauge-equivalence
+# Cohomological stable envelopes and the actual rational comparison
 
-**Question.** In the birational-invariance attack (`birational_invariance_cy3_phi_attack_heal.md`), the R-matrix statement reads "Maulik-Okounkov-gauge conjugate, not equal." Is the MO-stable-envelope-to-R-matrix correspondence an *isomorphism* (so that pre-flop and post-flop R-matrices are strictly equal up to a fixed Weyl conjugation) or a *gauge equivalence* with a nontrivial dynamical cocycle? What is the explicit gauge for the conifold?
+This note concerns ordinary equivariant cohomology of the cotangent surface
+T*P1. It corrects the earlier use of a slope-dependent dynamical construction
+and a smooth threefold as inputs to that cohomological theory.
+The original note is preserved exactly in
+`reports/research/CY3-YANGIAN-054-2026-09-15/native-note.original.md`, SHA-256
+`e82a15943401c9af4cfc5f494f0aba70f984d9a73b21c3f49d96e86aec8d0cef`.
+The paragraph dispositions below record the semantic replacement.
 
-The three-step protocol below answers: the MO construction produces a *dynamical* R-matrix in the sense of Etingof-Frenkel-Kirillov, the flop-induced relation is a genuine 1-cocycle on the chamber lattice, and on the conifold the cocycle is nontrivial but reduces to a fixed Weyl reflection on the Cartan part of the chamber data.
+## The construction and its parameters
 
----
+For a torus acting on T*P1, let u be the tangent character at0 and let -h be
+its symplectic character. The tangent characters are (u,-u-h) at0 and
+(-u,u-h) at infinity. The fibre polarization is (-u,u).
 
-## (a) What the MO stable-envelope-to-R-matrix correspondence gets RIGHT
+The zero section and fibre classes restrict as
 
-1. **Rigidity of the correspondence.** Maulik-Okounkov (arXiv:1211.1287, §4.2, §9.2) prove: on a Nakajima quiver variety $\mathcal{N}_v$ with torus $T = A \times \mathbb{C}^\times_\hbar$ (framing torus $A$, Planck $\mathbb{C}^\times_\hbar$ scaling the symplectic form by $\hbar$), for each chamber $C \subset \mathfrak{a}_{\mathbb{R}}$ there is a **unique** stable envelope
-   $\operatorname{Stab}_C : H^*_T(\mathcal{N}_v^A) \to H^*_T(\mathcal{N}_v)$
-   characterised by three axioms (support, normalisation at diagonal, degree bound in the slope). Uniqueness is the Okounkov-Smirnov theorem.
+    Z=(-u-h,u-h), F0=(u,0), F∞=(0,-u).
 
-2. **R-matrix via opposite chambers.** For two chambers $C_a, C_b$ separated by walls,
-   $R_{ab}(u) := \operatorname{Stab}_{C_a}^{-1} \circ \operatorname{Stab}_{C_b} \in \operatorname{End}\bigl(H^*_T(\mathcal{N}_v^A)\bigr) \otimes \mathbb{Q}(u)$.
-   For opposite chambers $C_b = -C_a$, this is the GEOMETRIC R-matrix. It satisfies YBE, the unitarity $R_{ab}(u) R_{ba}(-u) = 1$, and the crossing relation.
+The positive stable classes are Z+F∞ and -F∞. The negative stable classes
+are -F0 and Z+F0. Their supports, diagonal Euler classes and degree bounds
+characterize them uniquely. These are classes of actual curves.
+In the integral cohomology basis (1,F0), their matrices are
 
-3. **Algebraic identification with Yangian R-matrix.** On the eval-module core of $Y_\hbar(\mathfrak{g}_Q)$ (Nakajima 2001; MO §11-13), the geometric $R_{ab}(u)$ coincides with Drinfeld's algebraic Yangian R-matrix $R_{V,W}(u)$ on fundamental representations. This identification IS an isomorphism — it is the content of MO Theorem 11.2.
+    A+=[[-h,u],[-1,-1]], A-=[[0,u-h],[-1,-1]].
 
-4. **Chamber structure is a principal homogeneous space under the framing Weyl group.** Chambers in $\mathfrak{a}_{\mathbb{R}}$ are in bijection with elements of $W_A \subset W(\mathfrak{g}_Q)$ (the framing-lattice Weyl subgroup). The map $C \mapsto \operatorname{Stab}_C$ is $W_A$-equivariant.
+Consequently A-^{-1}A+ is
 
-Conclusion for (a): **on a FIXED quiver variety, the correspondence "stable envelope $\Leftrightarrow$ algebraic R-matrix" IS a bona-fide isomorphism** (not merely gauge equivalence). Different chambers give different presentations of the SAME algebraic R-matrix, related by fixed $W_A$ conjugation on the domain.
+    R(u)=1/(u-h) [[u,-h],[-h,u]].
 
-## (b) What the equivalence gets WRONG — five conflations to block
+Adding the gauge-dimension0 and2 point components gives
+R(u)=(uI-hP)/(u-h) on C² tensor C². It is the normalized intertwiner of the
+specified two evaluation modules. The complete construction and proof are in
+`chapters/examples/collision_surface_intertwiner.tex`.
 
-The "isomorphism" of (a)(3) holds on a fixed quiver variety $\mathcal{N}_v$ with a fixed framing. Under flop, the quiver variety itself changes, and five precise failures appear:
+There is no slope or Kähler parameter in this cohomological construction.
+The source theorem uses a chamber and polarization. Changing polarization
+changes R by conjugation with a diagonal sign matrix. A construction in
+K-theory or elliptic cohomology has different inputs and must be formulated
+and checked in that category before importing any additional parameter.
 
-1. **Dynamical = parameter-dependent gauge.** The MO stable envelope depends on a SLOPE parameter $s \in (\mathfrak{a}_{\mathbb{Q}})^*$ in addition to the chamber. Smirnov (arXiv:1612.01048, arXiv 2020 on capped descendent rationality) and Okounkov-Smirnov show that under slope shift $s \mapsto s + \lambda$ the stable envelopes satisfy
-   $\operatorname{Stab}^{s+\lambda}_C = \operatorname{Stab}^s_C \circ B_\lambda(s)$
-   where $B_\lambda(s)$ is the **monodromy/dynamical twist** — a cocycle on the slope lattice valued in the diagonal Cartan subalgebra. This is precisely the dynamical R-matrix structure of Etingof-Frenkel-Kirillov 1998 (Lectures, ch. 5): the MO R-matrix is dynamical, not ordinary.
+The primary source is Maulik–Okounkov, arXiv1211.1287v3, Theorem3.3.4,
+Example4.1.2 and equation4.1. Its section4.1.3 states the polarization sign
+conjugation. The stated rational operator is already present there.
+Molev, arXivmath/0211288v1, Proposition2.2, Proposition2.3 and Theorem2.8
+supply the comparison conventions for evaluation and coproduct.
+No novelty is claimed for those constructions.
 
-2. **Flop changes the quiver, not just the chamber.** For the conifold, flop is NOT a chamber change on a fixed variety. It is a change of framing dimensions (Klebanov-Witten: $(a_1, a_2) : 1 \to 2$ swap with $(b_1, b_2) : 2 \to 1$). The two Nakajima varieties $\mathcal{N}^{\mathrm{KW}}$ and $\mathcal{N}^{\mathrm{KW},\mathrm{op}}$ are **diffeomorphic** (Atiyah flop) but carry distinct $T$-equivariant structures.
+## Why the threefold example does not apply
 
-3. **Stable envelope is chamber-AND-polarisation dependent.** In addition to chamber and slope, the stable envelope requires a POLARISATION — a choice of half of the tangent weights at each fixed point (MO §3.2). The flop acts on polarisation: a polarisation for $X$ pushes forward under the flop correspondence $\mathcal{Z} = X \times_{X_0} X^+$ to a DIFFERENT polarisation on $X^+$. Under this transport, stable envelopes transform by a **polarisation twist** $\Phi_{P_1 \to P_2}$ (MO Proposition 3.6.1).
+A nondegenerate alternating form exists only in even dimension over C.
+For a3x3 skew matrix M, det(M)=det(-M^T)=-det(M), hence det(M)=0.
+The smooth threefold Tot(O(-1) plus O(-1) over P1) therefore is not a
+holomorphic symplectic Nakajima variety. Its being Calabi–Yau does not repair
+this obstruction. The cotangent surface Tot(O(-2) over P1) is a different
+variety of complex dimension two.
 
-4. **Dynamical parameter ≠ spectral parameter (AP-CY31 analogue).** The dynamical parameter of MO is the Kähler class $\kappa \in H^2(X, \mathbb{C})$ (more precisely, $\kappa = c_1(\mathcal{L})$ for a line-bundle framing). The flop ACTS on the Kähler class: $\kappa \mapsto -\kappa$ on the exceptional class $[\mathbb{P}^1]$. So the MO R-matrix is a function $R(u; \kappa)$ of TWO parameters, and flop-induced relation reads
-   $R^{X^+}(u; \kappa^+) = (\text{polarisation twist}) \cdot R^X(u; \kappa(\kappa^+)) \cdot (\text{polarisation twist})^{-1}$
-   where $\kappa \mapsto \kappa^+$ is NOT the identity on $\mathfrak{a}^*$ — it is the reflection through the flop wall. This is a non-trivial dynamical 1-cocycle.
+A surface arising from a specified critical or deformation chart can still
+be used. The new chapter constructs the normal potential W=lambda*mu and
+its oriented, normalized vanishing-cohomology comparison. That does not
+identify an entire threefold category with the surface or provide stable
+functors for every matrix-factorization category.
 
-5. **Weyl conjugation is only the REDUCTION of the cocycle to the Cartan part.** The full gauge cocycle $g_{\alpha\beta}(u; \kappa)$ has an *$A$-torus Cartan reduction* equal to a fixed Weyl reflection $s_{[\mathbb{P}^1]} \in W_A$. The *full* cocycle has further structure on the unipotent part (root-vector components) that is parameter-dependent. "Gauge" in the birational-invariance note (cy_to_chiral.tex:2680) denotes the full cocycle, not just its Cartan reduction.
+## The previously displayed gauge does not show a dynamical effect
 
-## (c) Correct relationship (explicit conifold)
+Let J=E12-E21 and G=I+(J tensor J)/h, as in the earlier note.
+Since P(J tensor J)=(J tensor J)P, G commutes with R(u).
+Where G is invertible, G R(u) G^{-1}=R(u) exactly.
+Also (J tensor J)^2=I and
 
-**Setup.** Take $X = \operatorname{Tot}(\mathcal{O}(-1)\oplus\mathcal{O}(-1) \to \mathbb{P}^1)$. The Nakajima realisation uses the Klebanov-Witten quiver $K_2$ with vertex dimensions $(1,1)$ and framing $(f_1, f_2) = (1, 0)$ (chamber I) or $(0, 1)$ (chamber II, post-flop). The symmetry torus is $T = A \times \mathbb{C}^\times_\hbar$ with $A = \mathbb{C}^\times$ scaling the $\mathbb{P}^1$ coordinate (so the $A$-weights of the four KW arrows are $+1, +1, -1, -1$ with sum $0$ = CY condition).
+    det(G)=(h²-1)²/h⁴.
 
-**Chambers.** The $A$-chamber structure has ONE wall at $a = 0$; two chambers $C_\pm = \{a \gtrless 0\}$.
+Thus G is singular at h=1 and h=-1 and is undefined at h=0.
+Its displayed formula has no u or Kähler parameter. It cannot establish the
+claimed nontrivial parameter-dependent conjugation. These are exact matrix
+statements, not a verdict on every possible geometric change of basis.
 
-**Pre-flop R-matrix.** On the fundamental representation $V = \mathbb{C}^2$ of $Y_\hbar(\widehat{\mathfrak{sl}}_2)$ (the KW Yangian at rank 2), MO §13 gives
-$R^X_{C_+, C_-}(u) = \frac{u}{u + \hbar}\, \mathrm{id} + \frac{\hbar}{u + \hbar}\, P = R_{\mathrm{Yang}}(u)$
-the rational Yang R-matrix. This is an ordinary (non-dynamical) R-matrix — the conifold Kähler class happens to be a single parameter, and the rank-1 framing collapses the dynamical parameter dependence.
+## Disposition of the earlier paragraphs
 
-**Post-flop R-matrix.** On $X^+$, the Nakajima data $(K_2^{\mathrm{op}}, (0,1))$ gives a Yangian isomorphic to $Y_\hbar(\widehat{\mathfrak{sl}}_2)$ via the Dynkin involution $\omega$ (swap of nodes $1 \leftrightarrow 2$). The MO stable envelope transforms as
-$\operatorname{Stab}^{X^+}_{C} = \omega_* \circ \operatorname{Stab}^X_{\omega \cdot C} \circ P_\omega^{-1}$
-where $P_\omega$ is the POLARISATION TWIST corresponding to the flop correspondence (swap of attracting/repelling normal bundles on the exceptional curve). Computing directly: $P_\omega = \hbar^{-1}(\hbar + (e_{12} - e_{21})\otimes(e_{12}-e_{21}))$ acts on $V \otimes V$.
+- (a)(1): retain uniqueness of the cohomological stable map, with the actual
+  support, Euler and degree hypotheses. Remove the added slope input and
+  replace the incorrect uniqueness locator by Theorem3.3.4.
+- (a)(2): retain the definition Stab(C')^{-1}Stab(C) after the necessary
+  inversions. Crossing relations require their own definitions and proof.
+- (a)(3): the two-dimensional operator equality is now proved with its
+  evaluation modules and coefficient map. An unspecified universal
+  isomorphism is not implied. Section11.2 is not the claimed theorem11.2.
+- (a)(4): a chamber/Weyl-group identification requires the actual torus and
+  hyperplane arrangement. No general identification is adopted here.
+- (b)(1) and (b)(4): the added slope/Kähler dependence is not part of this
+  ordinary cohomological definition. A different cohomology theory must
+  retain its own hypotheses and parameter shifts.
+- (b)(2) and the conifold setup: the purported smooth threefold Nakajima
+  realization fails the even-dimensional symplectic requirement. A change
+  of stability is not established by merely changing framing labels.
+- (b)(3): retain the polarization choice. On the present cohomological
+  fixed-point space its change is the specified diagonal sign conjugation.
+  A cross-variety polarization transport needs an actual correspondence.
+- (b)(5) and the explicit gauge: the claimed unipotent dynamical effect is
+  not established by the displayed G. Its commutation and determinant
+  have been computed above.
+- The five-part flop statement and final braided-category conclusion:
+  the stated threefold example cannot meet the symplectic hypotheses.
+  No coherent categorical functors or natural equivalences are supplied
+  by this matrix calculation. Their construction remains a separate
+  obligation, and a parameter-dependent matrix is not a substitute.
 
-**Explicit gauge.** The flop gauge cocycle is
-$g_{X \to X^+}(u; \kappa) = (\omega \otimes \omega) \cdot P_\omega(u; \kappa)$
-with
-$R^{X^+}(u; \kappa^+) = g \cdot R^X(u; \kappa) \cdot g^{-1}, \qquad \kappa^+ = s_{[\mathbb{P}^1]}(\kappa).$
-The Cartan reduction of $g$ is $\omega \otimes \omega$ — a **FIXED** Weyl-conjugation (the Dynkin involution on $\widehat{\mathfrak{sl}}_2$). The unipotent part $P_\omega(u; \kappa)$ is $u$-dependent and $\kappa$-dependent, i.e. a genuine dynamical cocycle.
-
-**Verdict for the conifold.** The pre-flop and post-flop R-matrices are:
-- **Weyl-conjugate at the Cartan level** — reduction modulo unipotent gauge is a fixed $W$-action.
-- **Gauge-equivalent at the full level** — with a nontrivial unipotent, dynamical (= spectral + Kähler-parameter dependent) 1-cocycle.
-- **Isomorphic as ABSTRACT R-matrices on the Yangian** — both equal $R_{\mathrm{Yang}}(u)$ after suitable basis change.
-
-The abstract-R-matrix isomorphism is an artefact of the conifold's rank-1 simplicity (only one $A$-weight direction, no dynamical freedom). For HIGHER-RANK toric CY$_3$ (e.g. local $\mathbb{P}^2$, local $\mathbb{F}_n$, orbifolds $[\mathbb{C}^3/\mathbb{Z}_n]$), the dynamical parameters are $\dim \mathfrak{a} \geq 2$-dimensional and the gauge cocycle becomes GENUINELY parameter-dependent — no Weyl reduction suffices.
-
-## Correct statement
-
-> **MO R-matrix under flop (healed).** For a flop $X \dashrightarrow X^+$ between toric Calabi-Yau threefolds realised as Nakajima varieties:
-> (i) The MO stable envelopes $\operatorname{Stab}^X_C, \operatorname{Stab}^{X^+}_{C'}$ are related by a POLARISATION TWIST + CHAMBER RELABELLING that generates a dynamical 1-cocycle $g_{X \to X^+}(u; \kappa)$ on the product of the spectral line and the Kähler cone.
-> (ii) The corresponding Yangian R-matrices satisfy $R^{X^+}(u; \kappa^+) = g \cdot R^X(u; \kappa) \cdot g^{-1}$ where $\kappa^+ = s_{[C_{\mathrm{flop}}]}(\kappa)$ is the reflection through the flop wall.
-> (iii) The Cartan-level reduction of $g$ is a fixed element of the framing Weyl group $W_A$ (Dynkin involution for the conifold, general $W_A$ for higher flops).
-> (iv) The unipotent part of $g$ is a GENUINE dynamical cocycle; it is nontrivial whenever $\dim H^2(X, \mathbb{R}) \geq 2$ (i.e. beyond the conifold).
-> (v) On evaluation modules of the Yangian, the abstract algebraic R-matrices $R^X, R^{X^+}$ are ISOMORPHIC as solutions of YBE (both are Drinfeld's rational R-matrix); the geometric stable-envelope presentations differ by the dynamical twist.
-
-## Verdict for the birational-invariance note
-
-The claim in `birational_invariance_cy3_phi_attack_heal.md` (line 33, point (b)(4)) that "$R$-matrices are gauge-equivalent, not equal" **is correct** in the strict sense required by MO theory. The gauge is:
-- **Weyl-Cartan** for the conifold (a fixed involution from Bondal-Orlov / Dynkin), hence ABSTRACTLY an isomorphism.
-- **Dynamical** in the full MO sense for higher Picard-rank toric CY$_3$, hence a proper gauge-equivalence with a nontrivial 1-cocycle on the slope/Kähler lattice.
-
-On the **E$_2$ braided-monoidal level** (Drinfeld center $Z(\operatorname{Rep}^{E_1}(\Phi(X)))$), both cases deliver an EQUIVALENCE of braided categories: dynamical twists are "inner" in the braided sense (they integrate to natural isomorphisms of the braiding). The programme's claim that $\Phi(X) \simeq \Phi(X^+)$ in $E_1$-$\mathrm{ChirAlg}_\infty$ with gauge-equivalent R-matrices on Drinfeld centers survives the MO refinement.
-
-**Net effect.** The birational-invariance statement is tightened: "MO-gauge conjugate" means a *dynamical* 1-cocycle whose Cartan reduction is a fixed Weyl reflection. Not every gauge equivalence is inner in the required sense; the MO cocycle IS (closed 1-form on slope lattice, integrating to braided-natural transformation), which is why $E_2$ braided monoidal equivalence survives.
-
-## Answer to the brief
-
-The MO stable-envelope-to-R-matrix correspondence is an ISOMORPHISM on a fixed Nakajima variety (via MO Thm 11.2: geometric = algebraic Yangian R-matrix). Under FLOP, a nontrivial dynamical gauge cocycle appears: its Cartan reduction is a fixed Weyl/Dynkin involution (so ABSTRACTLY an isomorphism of R-matrices), but the full cocycle is parameter-dependent (unipotent, dynamical in EFK sense). For the conifold specifically, the gauge reduces to the $\omega \otimes \omega$ Dynkin involution plus a polarisation twist $P_\omega(u; \kappa)$ — hence gauge-equivalent with NONTRIVIAL dynamical cocycle, abstract-isomorphic on the Yangian. The "gauge-equivalent" phrasing in `birational_invariance_cy3_phi_attack_heal.md` is correct and, with this refinement, strongest-form.
+The constructive replacement preserves a geometric R-matrix, its actual
+quantum intertwining relation, its normal critical comparison and its
+resonant subquotients. It does not turn unsupported threefold or categorical
+claims into accepted consequences. Fresh mathematical review of the new
+candidate remains open.
