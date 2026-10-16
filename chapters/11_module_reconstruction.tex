@@ -1,0 +1,2378 @@
+\chapter{Reconstruction from modules and fusion}
+\label{cyrec:chapter}
+
+\section{Recovering the charge of a Heisenberg module}
+
+A tensor product of representations can determine a Hopf algebra
+even when the underlying fields have no coproduct at a fixed level.
+The Heisenberg algebra gives an explicit example. Its oscillator
+representation is fixed, while the charge varies. Removing the
+oscillators recovers the charge space, and tensoring the charge spaces
+defines fusion at the original level. The finite-dimensional charge
+spaces also retain the logarithmic exchange of the fields.
+
+Work over $\mathbb C$ and fix a nonzero current level
+$\kappa_{\mathrm H}$. The modes satisfy
+\begin{equation}\label{cyrec:eq:heisenberg}
+ [J_m,J_n]=m\kappa_{\mathrm H}\delta_{m+n,0},
+ \qquad m,n\in\mathbb Z.
+\end{equation}
+Let $\mathscr F_{\kappa_{\mathrm H}}$ consist of modules with
+locally nilpotent positive modes. Require also $J_nv=0$ for
+all sufficiently large $n$, depending on $v$.
+No semisimplicity or local finiteness is imposed on $J_0$.
+Morphisms commute with every mode.
+
+Put $A=\mathbb C[q]$ and
+$P=\mathbb C[x_1,x_2,\ldots]$, with finite polynomial states.
+For an $A$-module $M$, write $Q_M$ for the action of $q$ and set
+\begin{equation}\label{cyrec:eq:fock}
+ F(M)=P\otimes M,
+ \qquad J_{-n}=x_n,
+ \qquad J_n=n\kappa_{\mathrm H}\partial_{x_n}\quad(n>0),
+ \qquad J_0=Q_M.
+\end{equation}
+Conversely, the highest space of a module $V$ is
+\[
+ \Omega_+(V)=\bigcap_{n>0}\ker J_n,
+\]
+with charge $J_0$. The word highest refers only to the positive
+oscillator modes. The charge can have arbitrary Jordan blocks.
+
+\begin{theorem}\label{cyrec:thm:oscillators}
+The functors $F$ and $\Omega_+$ are inverse exact equivalences
+between $A\text{-}\mathrm{Mod}$ and
+$\mathscr F_{\kappa_{\mathrm H}}$. The equivalence preserves all
+fields obtained from polynomial Heisenberg states by derivatives and
+normal products.
+\end{theorem}
+
+\begin{proof}
+On $V$, write $X_n=J_{-n}$ and
+$D_n=J_n/(n\kappa_{\mathrm H})$, so
+$[D_n,X_m]=\delta_{nm}$. Define the projection
+\begin{equation}\label{cyrec:eq:projector}
+ E_n=\sum_{r\geq0}\frac{(-1)^r}{r!}X_n^rD_n^r,
+ \qquad E=\prod_{n>0}E_n.
+\end{equation}
+Each sum is finite on a vector. Only finitely many factors of the
+product act nontrivially, because different oscillator pairs commute
+and the large positive modes annihilate that vector.
+The Weyl relation gives $D_nE_n=0$, $E_nX_n=0$, and
+$E_n|_{\ker D_n}=1$. Thus $E$ projects onto $\Omega_+(V)$.
+
+For a finitely supported multi-index $\alpha$, put
+$X^\alpha=\prod_nX_n^{\alpha_n}$,
+$D^\alpha=\prod_nD_n^{\alpha_n}$ and
+$\alpha!=\prod_n\alpha_n!$. The inverse to multiplication is
+\begin{equation}\label{cyrec:eq:taylor}
+ V\longrightarrow P\otimes\Omega_+(V),
+ \qquad
+ v\longmapsto\sum_\alpha\frac{x^\alpha}{\alpha!}\otimes ED^\alpha v.
+\end{equation}
+Commuting locally nilpotent derivatives make this sum finite.
+The one-variable identity
+\[
+ \sum_{r\geq0}X^rE_nD_n^r/r!=1
+\]
+proves that one composite is the identity. For $w\in\Omega_+(V)$, the equality
+$ED^\alpha X^\beta w=\delta_{\alpha\beta}\alpha!w$ proves the other.
+These maps commute with $J_0$ as well as the oscillators.
+
+The equivalence is additive, hence exact between the two abelian
+categories. A mode-intertwining map intertwines derivatives and
+normal products of the current. Such products define every
+polynomial Heisenberg field, proving the last assertion.
+\end{proof}
+
+\subsection{The action monad and its tensor product}
+
+Forget the zero mode for a moment. The same proof identifies the
+oscillator category $\mathcal E_{\kappa_{\mathrm H}}$ with
+$\mathrm{Vect}$. Its tensor is the balanced tensor over $P$:
+\[
+ (P\otimes M)\otimes_P(P\otimes N)=P\otimes(M\otimes N).
+\]
+Positive modes act by the sum of the two derivatives, which descends
+to the balanced tensor, and negative modes multiply the common
+polynomial factor. The unit is $P$. This construction uses a single
+oscillator system at level $\kappa_{\mathrm H}$.
+
+Adjoining an unconstrained zero mode is free. The left adjoint to
+forgetting that mode sends $P\otimes M$ to
+$P\otimes A\otimes M$. It defines the monad
+\[
+ \mathbb T(P\otimes M)=P\otimes A\otimes M,
+\]
+whose multiplication and unit come from multiplication and unit in
+$A$. A module over this monad is exactly an action of $q$ on $M$.
+The primitive Hopf structure
+\begin{equation}\label{cyrec:eq:primitive-charge}
+ \Delta q=q\otimes1+1\otimes q,
+ \qquad\epsilon(q)=0,
+ \qquad S(q)=-q
+\end{equation}
+makes $\mathbb T$ a comonoidal monad.
+
+For a comonoidal monad, the left and right fusion maps combine its
+comonoidal map with multiplication on the appropriate factor of
+$\mathbb T^2$. It is called a \emph{Hopf monad} when both fusion
+maps are invertible.
+Here the two copies of $A$ can be written as $\mathbb C[u,v]$.
+The fusion maps and their inverses are
+\begin{equation}\label{cyrec:eq:monad-fusion}
+\begin{array}{c|c|c}
+ &\text{fusion map on }f(u,v)&\text{inverse on }f(u,v)\\ \hline
+ \text{left}&f(u+v,v)&f(u-v,v)\\
+ \text{right}&f(u+v,u)&f(v,u-v).
+\end{array}
+\end{equation}
+Both assertions follow by substitution, over the polynomial ring
+itself.
+
+\begin{proposition}\label{cyrec:prop:monad}
+The monad $\mathbb T$ is a Hopf monad. Its category of modules
+has tensor and unit
+\begin{equation}\label{cyrec:eq:charge-tensor}
+ F(M)\star F(N)=F(M\otimes N),
+ \qquad Q_{M\otimes N}=Q_M\otimes1+1\otimes Q_N,
+ \qquad\mathbf1_\star=F(\mathbb C_0).
+\end{equation}
+When $M$ is finite-dimensional, the dual object is $F(M^*)$,
+with charge $-Q_M^{\mathsf t}$.
+\end{proposition}
+
+\begin{proof}
+Equation~\eqref{cyrec:eq:monad-fusion} verifies the two Hopf
+conditions. The tensor of monad modules is induced by
+\eqref{cyrec:eq:primitive-charge}, giving the displayed charge sum.
+Evaluation and coevaluation for $M$ are charge-intertwining precisely
+with the indicated dual action. Their usual triangular identities
+remain identities after adjoining the common oscillator factor.
+\end{proof}
+
+The finite-charge category, where $\dim M<\infty$, is closed under
+this tensor and these duals. The free-action monad does not preserve
+it. In fact the forgetful functor from finite-dimensional
+$A$-modules to finite-dimensional vector spaces has no left adjoint.
+If its value $L$ on $\mathbb C$ existed, adjunction would give
+$\operatorname{Hom}_A(L,\mathbb C_\lambda)=\mathbb C$ for every
+$\lambda\in\mathbb C$. A finite-dimensional $L$ has finite charge
+spectrum, so this Hom space vanishes for all other $\lambda$.
+Finite-charge reconstruction therefore requires a different
+algebraic construction.
+
+\section{Matrix coefficients and the finite dual}
+
+An action algebra describes operators on representations. Matrix
+coefficients describe the representations as comodules. Their
+universal quotient imposes every morphism in the category, so it
+retains information that a chosen exchange matrix alone may omit.
+
+Let $k$ be a field and $\mathcal C$ an essentially small
+$k$-linear abelian category. Let
+$\omega:\mathcal C\to\mathrm{Vect}_{\mathrm{fd}}(k)$ be faithful
+and exact. Choose a small skeleton. Its matrix-coefficient space is
+the quotient
+\begin{equation}\label{cyrec:eq:coend}
+ H_\omega=
+ \left(\bigoplus_{X\in\mathcal C}\omega(X)^*\otimes\omega(X)\right)
+ \big/\bigl\langle
+ [\lambda\omega(f)\otimes v]_X-
+ [\lambda\otimes\omega(f)v]_Y
+ \bigr\rangle,
+\end{equation}
+where $f:X\to Y$, $v\in\omega(X)$ and
+$\lambda\in\omega(Y)^*$. This is the coend
+$\int^X\omega(X)^*\otimes\omega(X)$ in vector spaces.
+Its elements are finite sums of matrix coefficients.
+
+\begin{proposition}\label{cyrec:prop:coefficients}
+For a basis $(e_i)$ of $\omega(X)$ and its dual $(e^i)$, the
+formulas
+\begin{align}
+ \Delta[\lambda\otimes v]_X
+ &=\sum_i[\lambda\otimes e_i]_X
+                \otimes[e^i\otimes v]_X,\label{cyrec:eq:coend-delta}\\
+ \epsilon[\lambda\otimes v]_X&=\lambda(v),
+ \qquad
+ \delta_X(v)=\sum_i e_i\otimes[e^i\otimes v]_X
+ \label{cyrec:eq:coaction}
+\end{align}
+define a coalgebra and natural right coactions on $\omega(X)$.
+\end{proposition}
+
+\begin{proof}
+The tensor $\sum_i e_i\otimes e^i$ is the identity endomorphism,
+so the formulas are basis-independent. Inserting it twice gives
+the same triple coefficient for either iterated coproduct.
+Evaluation proves the counit and coaction identities.
+For $f:X\to Y$, the relation in \eqref{cyrec:eq:coend} is exactly
+the assertion that $\omega(f)$ intertwines the coactions. Inserting
+the identity before or after $\omega(f)$ shows that the same
+relation is preserved by $\Delta$ and $\epsilon$.
+\end{proof}
+
+\begin{theorem}[Reconstruction from an exact fiber functor]
+\label{cyrec:thm:tannaka}
+The canonical functor
+\[
+ \mathcal C\longrightarrow\operatorname{Comod}_{\mathrm{fd}}(H_\omega)
+\]
+is an equivalence. If $\mathcal C$ is rigid monoidal and $\omega$
+is strong monoidal, $H_\omega$ is a Hopf algebra and the equivalence
+is monoidal. If $\mathcal C$ is braided, its braiding determines a
+coquasitriangular form on $H_\omega$ and the equivalence is braided.
+\end{theorem}
+
+\begin{proof}
+The coalgebra reconstruction theorem for an exact faithful functor
+to finite-dimensional vector spaces gives the first equivalence
+\cite[Theorem~1.10.1]{EGNOTensorCategories}. Its universal coalgebra
+is the matrix-coefficient quotient \eqref{cyrec:eq:coend}.
+The hypotheses imply finite-dimensional Hom spaces and finite
+length. Faithfulness embeds each Hom space into a finite matrix
+space. Exactness sends every strict subobject chain to a strict
+chain of subspaces. No separate comonadic hypothesis is
+needed.
+
+Write $J_{X,Y}:\omega(X)\otimes\omega(Y)\to\omega(X\otimes Y)$
+for the tensor constraint. Multiplication is
+\begin{equation}\label{cyrec:eq:coend-product}
+ [\lambda\otimes v]_X[\mu\otimes w]_Y
+ =[(\lambda\otimes\mu)J_{X,Y}^{-1}
+                         \otimes J_{X,Y}(v\otimes w)]_{X\otimes Y}.
+\end{equation}
+Naturality of $J$ makes it well defined. The associativity and unit
+constraints make it an associative unital product, and
+\eqref{cyrec:eq:coend-delta} makes it a coalgebra map.
+Dual evaluation and coevaluation give the antipode identities.
+This is the rigid reconstruction of
+\cite[Theorem~5.4.1]{EGNOTensorCategories}.
+
+For a braiding $c_{X,Y}$, the form is specified by
+\begin{equation}\label{cyrec:eq:coend-form}
+ \rho([\lambda\otimes v]_X,[\mu\otimes w]_Y)
+ = (\mu\otimes\lambda)J_{Y,X}^{-1}
+                  \omega(c_{X,Y})J_{X,Y}(v\otimes w).
+\end{equation}
+Naturality descends it through the coefficient relations.
+The two hexagons give its two multiplicativity identities, and
+invertibility of $c$ gives its convolution inverse. On right
+comodules it recovers
+$v\otimes w\mapsto\sum w_{(0)}\otimes v_{(0)}
+\rho(v_{(1)},w_{(1)})$, hence the original braiding.
+\end{proof}
+
+\subsection{The completion of natural endomorphisms}
+
+The vector-space dual of a coend is an end. Accordingly,
+\[
+ H_\omega^*=\operatorname{End}(\omega)
+\]
+as algebras, with natural endomorphisms multiplied by composition.
+For infinitely many matrix coefficients, this dual generally needs
+a completed tensor product to carry its coproduct.
+
+\begin{example}\label{cyrec:ex:torus}
+Let $\mathcal C=\operatorname{Rep}_{\mathrm{alg}}(\mathbb G_m)$
+and let $\omega$ forget the action. Every representation is a finite
+sum of integral weight spaces. Naturality forces an endomorphism
+of $\omega$ to be scalar on each weight, with independently chosen
+scalars. Thus
+\[
+ \operatorname{End}(\omega)=\prod_{n\in\mathbb Z}k,
+ \qquad (\Delta f)(m,n)=f(m+n).
+\]
+
+For $f=\delta_0$, restriction of this matrix to
+$-N\leq m,n\leq N$ has rank $2N+1$.
+An element of the ordinary tensor product of two function spaces
+is a finite sum $\sum_{i=1}^r a_i(m)b_i(n)$, whose every finite
+submatrix has rank at most $r$. Therefore $\Delta\delta_0$ is not
+in that ordinary tensor product.
+
+The product topology instead gives the continuous coproduct into
+$k^{\mathbb Z\times\mathbb Z}$, with
+$\epsilon(f)=f(0)$ and $S(f)(n)=f(-n)$.
+The ordinary coefficient Hopf algebra is
+\[
+ H_\omega=k[t,t^{-1}],\qquad
+ \Delta t=t\otimes t,\quad\epsilon(t)=1,\quad S(t)=t^{-1}.
+\]
+Its finite-dimensional comodules recover the original category.
+\end{example}
+
+Likewise, an exchange equation constrains a presentation without
+necessarily presenting the coend. For the one-dimensional object
+$X=k$ in $\mathrm{Vect}_{\mathrm{fd}}$, its self-exchange equation
+alone imposes no relation on its single matrix coefficient $t$.
+Adjoining a dual makes $t$ invertible and gives $k[t,t^{-1}]$.
+The actual morphism $k=\mathbf1\to X$ imposes $t=1$ in
+\eqref{cyrec:eq:coend}, and the full coend is $k$.
+An RTT presentation therefore also needs the relations expressing
+the morphisms and tensor constraints of the specified category.
+
+\subsection{Finite charge and distributions}
+
+Return to $A=\mathbb C[q]$. Its finite dual $A^\circ$ consists
+of linear functionals annihilating an ideal of finite codimension.
+Every such ideal is generated by a nonzero polynomial. Factoring
+that polynomial and using the Chinese remainder theorem gives
+\begin{equation}\label{cyrec:eq:finite-dual}
+ A^\circ=\bigoplus_{\lambda\in\mathbb C}
+               \bigoplus_{n\geq0}\mathbb C d_{\lambda,n},
+ \qquad d_{\lambda,n}(p)=\frac{p^{(n)}(\lambda)}{n!}.
+\end{equation}
+Each element has finite support in both indices.
+
+\begin{proposition}\label{cyrec:prop:finite-dual}
+The finite dual is an ordinary Hopf algebra with
+\begin{align}
+ \Delta d_{\lambda,n}
+  &=\sum_{i+j=n}d_{\lambda,i}\otimes d_{\lambda,j},
+ &\epsilon(d_{\lambda,n})&=\delta_{n0},\label{cyrec:eq:distribution-delta}\\
+ d_{\lambda,m}d_{\mu,n}
+  &=\binom{m+n}{m}d_{\lambda+\mu,m+n},
+ &S(d_{\lambda,n})&=(-1)^n d_{-\lambda,n}.
+ \label{cyrec:eq:distribution-product}
+\end{align}
+Its unit is $d_{0,0}$. Its finite-dimensional comodules are the
+finite-dimensional $A$-modules, and all its comodules are the
+locally finite $A$-modules.
+\end{proposition}
+
+\begin{proof}
+The Leibniz rule gives the coproduct. Differentiating
+$p(u+v)$ at $(\lambda,\mu)$ gives the binomial product, and
+substitution $q\mapsto-q$ gives the antipode.
+These are the duals of the multiplication, coproduct and antipode
+of $A$, and their values remain in the displayed direct sums.
+
+On a generalized eigenspace $M_\lambda$, write
+$Q_M=\lambda+N_\lambda$, with $N_\lambda$ nilpotent. The coaction
+is
+\begin{equation}\label{cyrec:eq:jordan-coaction}
+ v\longmapsto\sum_{n\geq0}N_\lambda^n v\otimes d_{\lambda,n}.
+\end{equation}
+It is finite on $v$ and recovers the action by evaluation against
+$p(q)$. Conversely, a coalgebra coaction places each vector in a
+finite-dimensional subcomodule, and evaluation gives a locally
+finite $A$-action. These two constructions are inverse and preserve
+the primitive charge tensor.
+\end{proof}
+
+The same Hopf algebra is the coend for the forgetful functor on
+finite-dimensional $A$-modules. Indeed their matrix coefficients
+are exactly the functionals in \eqref{cyrec:eq:finite-dual}.
+Forgetting an $A^\circ$-coaction has cofree right adjoint
+$V\mapsto V\otimes A^\circ$. This is distinct from the free
+left adjoint $V\mapsto A\otimes V$ on arbitrary $A$-modules.
+
+\section{Logarithmic exchange and changes of presentation}
+
+The primitive charge tensor has more than one possible braiding
+on finite-dimensional modules. The endpoint operation determines
+the relevant one. Give $x_n$ oscillator weight $n$ and take the
+product completion in output oscillator weight. Inputs remain
+polynomial. In the endpoint constructions, $M,N,L$ are
+finite-dimensional charge modules. Write
+\[
+ J(z)=\sum_{m\in\mathbb Z}J_mz^{-m-1}=J^-(z)+J^+(z),
+\]
+where $J^-$ uses $m<0$ and $J^+$ uses $m\geq0$.
+
+For a ground vector $v\in M$, define
+\begin{equation}\label{cyrec:eq:endpoint}
+ K_{M,N}(z)(v\otimes f(x)w)
+ =\exp\left(\frac{Q_M}{\kappa_{\mathrm H}}
+                       \sum_{r>0}\frac{x_rz^r}{r}\right)
+       f(x_r-Q_Mz^{-r})(v\otimes w).
+\end{equation}
+In every output weight the exponential has finitely many terms.
+Extend to the first input by
+\begin{equation}\label{cyrec:eq:descendants}
+ K(J_{-n}a,z)=
+ \frac{\partial_z^{n-1}J^-(z)}{(n-1)!}K(a,z)
+ +K(a,z)\frac{\partial_z^{n-1}J^+(z)}{(n-1)!}.
+\end{equation}
+The currents act on the output and on the second input,
+respectively. Positive-mode sums are finite on an input, and
+negative-mode sums are finite at each output weight.
+
+\begin{proposition}\label{cyrec:prop:endpoint}
+The operation $K$ satisfies the Ward identities
+\begin{equation}\label{cyrec:eq:ward}
+ J_mK(a,z)-K(a,z)J_m
+ =\sum_{j\geq0}\binom mj z^{m-j}K(J_ja,z).
+\end{equation}
+Every holomorphic operation with these identities and
+\eqref{cyrec:eq:descendants}, valued in the weight completion of
+$F(L)$, is uniquely $F(\theta(z))K_{M,N}$.
+Here $\theta(z):M\otimes N\to L$ is a holomorphic charge-intertwining
+map on the chosen open subset of $\mathbb C^*$.
+\end{proposition}
+
+\begin{proof}
+Commuting a positive mode through the exponential differentiates it
+and gives $z^mQ_M$. Commuting a negative mode through the shift
+gives $z^mQ_M$ as well. The zero-mode equation is charge additivity.
+These are \eqref{cyrec:eq:ward} for a highest first input.
+Normal ordering gives the descendant equation and extends the Ward
+identity by induction on its oscillator degree.
+
+Conversely, remove the exponential and shift from a highest-input
+operation. The remaining map commutes with every oscillator
+multiplication and derivative, so it is the extension of its ground
+map. The zero-mode identity makes that map charge-intertwining.
+The descendant equation then determines all remaining values.
+\end{proof}
+
+The translation on $F(M)$ is
+\begin{equation}\label{cyrec:eq:translation}
+ T_M=\sum_{n>0}n x_{n+1}\partial_{x_n}
+                       +\frac{x_1Q_M}{\kappa_{\mathrm H}}.
+\end{equation}
+It satisfies $[T_M,J_m]=-mJ_{m-1}$, including $m=1$, where the
+last term supplies $-Q_M$. Put
+$t_{M,N}=Q_M\otimes Q_N/\kappa_{\mathrm H}$.
+Direct differentiation of \eqref{cyrec:eq:endpoint} gives
+\begin{equation}\label{cyrec:eq:translation-defect}
+ T_{M\otimes N}K-KT_N-\partial_zK=z^{-1}t_{M,N}K.
+\end{equation}
+The oscillator terms cancel consecutively, leaving
+$Q_MQ_N/(\kappa_{\mathrm H}z)$.
+
+Thus the connection on representing states and the connection on
+operations have opposite signs:
+\begin{equation}\label{cyrec:eq:connections}
+ \nabla^{\mathrm{state}}=d+t_{M,N}\,d\log z,
+ \qquad
+ \nabla^{\mathrm{op}}\theta=d\theta-\theta t_{M,N}\,d\log z.
+\end{equation}
+Their horizontal factors are $z^{-t_{M,N}}$ and $z^{t_{M,N}}$.
+For finite charge spaces these are ordinary matrix exponentials
+after a branch of $\log z$ is chosen.
+Denote the normalized horizontal endpoint operation by
+$\mathcal E_{M,N}=F(z^{t_{M,N}})K_{M,N}$.
+
+\begin{proposition}\label{cyrec:prop:exchange}
+The normalized horizontal endpoint operations have braiding
+\begin{equation}\label{cyrec:eq:braiding}
+ c^+_{M,N}=\tau\exp\left(\frac{\pi i}{\kappa_{\mathrm H}}
+                                      Q_M\otimes Q_N\right),
+\end{equation}
+where the half-turn of the separation is counterclockwise and
+$\tau$ exchanges the two charge factors. Their associator is the
+usual identification of the threefold charge tensor.
+\end{proposition}
+
+\begin{proof}
+For three charges put $t_{ij}=Q_iQ_j/\kappa_{\mathrm H}$.
+For inputs $u_i\in F(M_i)$, the ordered and nested operations are
+\begin{align*}
+ \Phi_{23}&=\mathcal E_{M_1,M_2\otimes M_3}(u_1,z_1)
+                          \mathcal E_{M_2,M_3}(u_2,z_2)u_3,\\
+ \Phi_{12}&=\mathcal E_{M_1\otimes M_2,M_3}
+             (\mathcal E_{M_1,M_2}(u_1,z_1-z_2)u_2,z_2)u_3.
+\end{align*}
+They are expanded in $|z_1|>|z_2|>0$ and
+$|z_2|>|z_1-z_2|>0$, respectively.
+
+All pair residues commute. Reordering the creation and
+annihilation factors in the ordered channel gives
+\[
+ z_1^{t_{12}+t_{13}}(1-z_2/z_1)^{t_{12}}z_2^{t_{23}}.
+\]
+The nested channel gives
+\[
+ (1+(z_1-z_2)/z_2)^{t_{13}}
+      z_2^{t_{13}+t_{23}}(z_1-z_2)^{t_{12}}.
+\]
+
+With consistent logarithms these are both
+$z_1^{t_{13}}z_2^{t_{23}}(z_1-z_2)^{t_{12}}$.
+Their series converge on $|z_1|>|z_2|>|z_1-z_2|>0$.
+The Ward and descendant recursions reduce every further coefficient
+to this ground expression, by finite operations in each output weight.
+Their rational coefficients have poles only at the three collisions. Hence the equality extends to every polynomial input.
+
+The exchanged channel replaces $z_1-z_2$ by $z_2-z_1$.
+A counterclockwise half-turn contributes $\exp(\pi i t_{12})$.
+Charge additivity and the commuting residues prove both hexagons
+for \eqref{cyrec:eq:braiding}. The zero charge proves its two unit
+identities. This compares the separated and nested operations on
+their logarithmic domains.
+\end{proof}
+
+Under Proposition~\ref{cyrec:prop:finite-dual}, this braiding is
+represented by the scalar-valued form
+\begin{equation}\label{cyrec:eq:distribution-form}
+ \rho^+(d_{\lambda,m},d_{\mu,n})
+ =\frac{1}{m!n!}\partial_\lambda^m\partial_\mu^n
+                  \exp(\pi i\lambda\mu/\kappa_{\mathrm H}).
+\end{equation}
+Taylor expansion on each pair of generalized eigenspaces gives
+\eqref{cyrec:eq:braiding}. The two exponential addition identities
+give the coquasitriangular identities, and changing the sign of the
+exponent gives the convolution inverse. The scalar exponential
+therefore presents the full finite-charge category, including
+nonsemisimple charges.
+
+\begin{proposition}\label{cyrec:prop:ambient-braiding}
+On all $\mathbb C[q]$-modules with the primitive charge tensor, the
+only natural braiding satisfying the unit identities is the flip.
+\end{proposition}
+
+\begin{proof}
+Remove the flip from a proposed braiding. On the pair of free
+modules $(A,A)$ its value on $1\otimes1$ is a polynomial
+$r(u,v)$. Naturality with respect to the module maps
+$A\to M$, $1\mapsto m$, shows that the transformation on every
+pair is the action of this polynomial. The inverse transformation
+likewise comes from a polynomial, so $r$ is a unit in
+$\mathbb C[u,v]$. It is constant. The unit identities set that
+constant equal to one.
+\end{proof}
+
+\subsection{The full turn and a nonsplit extension}
+
+A monoidal change of presentation with tensorator $J_{M,N}$
+changes the braiding and its full turn by
+\begin{equation}\label{cyrec:eq:conjugacy}
+ c'_{M,N}=J_{N,M}^{-1}c_{M,N}J_{M,N},
+ \qquad
+ D'_{M,N}=J_{M,N}^{-1}D_{M,N}J_{M,N},
+\end{equation}
+where
+\[
+ D_{M,N}=c^+_{N,M}c^+_{M,N}
+        =\exp(2\pi iQ_M\otimes Q_N/\kappa_{\mathrm H}).
+\]
+Consequently a nonidentity full turn cannot become the identity
+through an equivalence preserving this exchange.
+
+For a scalar example take $\kappa_{\mathrm H}=1$ and charges
+$\lambda=\mu=1/\sqrt2$. Then $D=-1$.
+
+There is also an example with only zero eigenvalues. On
+$M=\mathbb C e_0\oplus\mathbb C e_1$, let
+$Ne_1=e_0$ and $Ne_0=0$. The charge module with $Q_M=N$ is the
+nonsplit self-extension
+\[
+ 0\longrightarrow\mathbb C_0\longrightarrow M
+                     \longrightarrow\mathbb C_0\longrightarrow0.
+\]
+It cannot split because a charge-zero complement would lie in
+$\ker N=\mathbb C e_0$.
+
+On its tensor square,
+\begin{equation}\label{cyrec:eq:nilpotent-turn}
+ D_{M,M}=1+\frac{2\pi i}{\kappa_{\mathrm H}}N\otimes N\ne1,
+ \qquad
+ z^{N\otimes N/\kappa_{\mathrm H}}
+ =1+\frac{\log z}{\kappa_{\mathrm H}}N\otimes N.
+\end{equation}
+The nonzero rank-one operator $N\otimes N$ detects both the
+logarithm and its monodromy. Replacing a charge by its eigenvalues
+would lose this extension and its exchange.
+
+\begin{proposition}\label{cyrec:prop:symmetric-sectors}
+Let $\mathcal D$ be a full replete subcategory of finite-dimensional
+charge modules, containing the unit and closed under finite sums,
+subquotients, tensor products and duals. The braiding \eqref{cyrec:eq:braiding} is symmetric on $\mathcal D$
+exactly under the following conditions. Every charge is semisimple,
+and the simple charges form an additive subgroup $\Gamma\subset\mathbb C$
+satisfying
+\begin{equation}\label{cyrec:eq:integral-charges}
+ \lambda\mu/\kappa_{\mathrm H}\in\mathbb Z
+                \qquad(\lambda,\mu\in\Gamma).
+\end{equation}
+Every nonzero such subgroup is $\Gamma=\gamma\mathbb Z$, with
+$\gamma^2/\kappa_{\mathrm H}\in\mathbb Z\setminus\{0\}$.
+\end{proposition}
+
+\begin{proof}
+Suppose a charge has a nontrivial Jordan block at $\lambda$.
+A two-dimensional subquotient has charge $\lambda+N$, with
+$N^2=0$ and $N\ne0$. If $\lambda\ne0$, its full turn with the
+simple subquotient $\mathbb C_\lambda$ contains the nonzero
+nilpotent term $2\pi i\lambda N/\kappa_{\mathrm H}$ after its
+scalar factor. It cannot be the identity. If $\lambda=0$,
+\eqref{cyrec:eq:nilpotent-turn} gives the contradiction.
+Thus all charges are semisimple.
+
+Closure under tensor and dual makes the simple charges an additive
+subgroup. On two simples, symmetry is exactly
+\eqref{cyrec:eq:integral-charges}. Conversely, that condition makes
+the full turn the identity on every sum of these simples.
+
+Choose $\lambda_0\ne0$ in $\Gamma$. The injective map
+$\lambda\mapsto\lambda\lambda_0/\kappa_{\mathrm H}$ embeds
+$\Gamma$ as a subgroup of $\mathbb Z$. Its image is $d\mathbb Z$
+for some positive integer $d$, so $\Gamma=\gamma\mathbb Z$.
+Applying \eqref{cyrec:eq:integral-charges} to $\gamma$ proves the
+last assertion.
+\end{proof}
+
+These semisimple subcategories need not be closed under extensions
+in the ambient charge category. The preceding neutral extension
+already prevents that closure. For $\Gamma=\gamma\mathbb Z$,
+the coefficient Hopf algebra is $\mathbb C[t,t^{-1}]$ and its
+form is $\rho(t^m,t^n)=(-1)^{Nmn}$, where
+$N=\gamma^2/\kappa_{\mathrm H}$. This describes a symmetric
+charge subcategory. It does not identify an arbitrary category of
+fields with a spectral presentation.
+
+\section{The affine resolution of a dg line algebra}
+
+The charge equivalence separates a fixed oscillator representation
+from its multiplicity space. For a nonabelian current algebra the
+corresponding construction uses a resolution, and its endomorphisms
+form a dg algebra. The opposite algebra and the shifted affine level
+are both forced by the action on that resolution.
+
+Use the polynomial dg algebra $\mathcal Y_k$ of
+Definition~\ref{cylev:def:line-algebra}, for a finite-dimensional
+complex Lie algebra $\mathfrak g$ with invariant symmetric form
+$\kappa$. The scalar $k$ is its level parameter. Put
+\[
+ h_{\mathfrak g}(x,y)=\tfrac12\operatorname{tr}
+                  (\operatorname{ad}x\,\operatorname{ad}y),
+ \qquad \ell=-k\kappa-h_{\mathfrak g}.
+\]
+
+Let $A_\ell$ be the affine enveloping algebra with central element
+acting as one, so that
+\begin{equation}\label{cyrec:eq:affine}
+ [xt^r,yt^s]=[x,y]t^{r+s}
+                      +r\delta_{r+s,0}\ell(x,y)1.
+\end{equation}
+Write $\mathfrak n=t\mathfrak g[t]$ and
+$\mathfrak l=\mathfrak g[t^{-1}]$. The induced module
+\[
+ \mathbb W_\ell=A_\ell\otimes_{U(\mathfrak n)}\mathbb C
+\]
+has underlying vector space $U(\mathfrak l)$ by PBW. Its cyclic
+vector is killed by $\mathfrak n$, while its horizontal zero modes
+act freely.
+
+\subsection{A resolution with a right action}
+
+The induced Chevalley resolution has
+\begin{equation}\label{cyrec:eq:affine-resolution}
+ \mathcal P^{-p}=A_\ell\otimes\Lambda^p\mathfrak n,
+ \qquad p\geq0,
+\end{equation}
+with augmentation $\pi:\mathcal P\to\mathbb W_\ell$ and
+differential
+\begin{align}
+ d_{\mathcal P}(u\otimes y_1\wedge\cdots\wedge y_p)
+ ={}&\sum_i(-1)^{i-1}uy_i\otimes
+              y_1\wedge\cdots\widehat y_i\cdots\wedge y_p
+ \nonumber\\
+ &+\sum_{i<j}(-1)^{i+j}u\otimes[y_i,y_j]\wedge
+              y_1\wedge\cdots\widehat y_i\cdots\widehat y_j
+                       \cdots\wedge y_p.
+ \label{cyrec:eq:chevalley-differential}
+\end{align}
+The surviving exterior factors retain their order. PBW makes
+$A_\ell$ free as a right $U(\mathfrak n)$-module, so inducing the
+free Chevalley resolution proves that $\pi$ is a quasi-isomorphism.
+Every chain is an algebraic finite sum.
+
+Give $xt^r$ energy $-r$, including when it is an exterior generator.
+The differential preserves energy, and $\mathbb W_\ell$ has
+nonnegative energy. Define
+\begin{equation}\label{cyrec:eq:endomorphisms}
+ \mathcal E=\bigoplus_{w\in\mathbb Z}
+      \operatorname{End}_{A_\ell}^{\bullet,w}(\mathcal P),
+ \qquad
+ d_{\mathcal E}(F)=d_{\mathcal P}F-(-1)^{|F|}Fd_{\mathcal P}.
+\end{equation}
+Here $w$ is the internal energy shift. Each Hom complex uses the
+usual product totalization over the cohomological terms of
+$\mathcal P$, while the outer sum allows only finitely many energy
+shifts. The graded opposite product is
+$F\cdot_{\mathrm{op}}G=(-1)^{|F||G|}GF$.
+
+For $x\in\mathfrak l$, let $R_x$ multiply the affine factor on
+the right, and let $a_x$ be the exterior derivation induced by
+$y\mapsto\operatorname{pr}_{\mathfrak n}[x,y]$.
+Projection is along $\mathfrak l$ and the central direction.
+For the basis $(t_a)$ of $\mathfrak g$, let $\iota_{a,s}$
+contract with the functional dual to $t_at^s$, for $s\geq1$.
+Set
+\begin{equation}\label{cyrec:eq:affine-lifts}
+ \beta_{a,n}=R_{t_at^{-n}}-a_{t_at^{-n}},
+ \qquad\gamma_{a,m}=\iota_{a,m+1},
+ \qquad n,m\geq0.
+\end{equation}
+Their cohomological degrees are zero and one, and their energies
+are $n$ and $m+1$.
+
+\begin{lemma}\label{cyrec:lem:affine-lifts}
+With ordinary operator composition, the lifts satisfy
+\begin{align}
+ [\beta_{a,n},\beta_{b,m}]&=-f_{ab}^{\ c}\beta_{c,n+m},
+ & [\beta_{a,n},\gamma_{b,m}]&=f_{ac}^{\ b}\gamma_{c,n+m},
+ \label{cyrec:eq:lift-brackets}\\
+ [d_{\mathcal P},\gamma_{a,n}]
+ &=\tfrac12f_{bc}^{\ a}\sum_{m+p=n-1}\gamma_{b,m}\gamma_{c,p},
+ \label{cyrec:eq:lift-ghost}\\
+ [d_{\mathcal P},\beta_{a,n}]
+ &=-n\ell_{ab}\gamma_{b,n-1}
+       +f_{ab}^{\ c}\sum_{m+p=n-1}\beta_{c,p}\gamma_{b,m}.
+ \label{cyrec:eq:lift-even}
+\end{align}
+The contractions anticommute, and negative indices are absent.
+\end{lemma}
+
+\begin{proof}
+Right multiplications obey $[R_x,R_y]=-R_{[x,y]}$.
+The projected exterior action is a Lie action and commutes with
+right multiplication. These facts give the first bracket.
+The identity $[a_x,\iota_\lambda]=-\iota_{\lambda\circ a_x}$
+gives the second.
+
+Writing $\varepsilon_y$ for exterior multiplication, the two
+pieces of the differential are
+\[
+ d_1=\sum_iR_{y_i}\iota_i,
+ \qquad
+ d_2=\tfrac12\sum_{i,j}\varepsilon_{[y_i,y_j]}\iota_i\iota_j.
+\]
+Only contractions from the input exterior monomial contribute.
+The anticommutator with $\gamma$ comes from $d_2$ and gives
+\eqref{cyrec:eq:lift-ghost}. In $[d_1,\beta_{a,n}]$ the
+positive-mode terms cancel the projected exterior action.
+The remaining current and central terms, for $1\leq s\leq n$,
+are $f_{ab}^{\ c}t_ct^{s-n}-n\delta_{s,n}\ell_{ab}$.
+
+Jacobi, projected to $\mathfrak n$, gives
+\[
+ [d_2,\beta_x]=
+       -\sum_i a_{\operatorname{pr}_{\mathfrak l}[x,y_i]}\iota_i.
+\]
+It supplies the exterior correction to those remaining currents.
+Putting $s=m+1$ proves \eqref{cyrec:eq:lift-even}.
+\end{proof}
+
+\begin{theorem}\label{cyrec:thm:affine-endomorphisms}
+The map
+\begin{equation}\label{cyrec:eq:rho}
+ \rho:\mathcal Y_k\longrightarrow\mathcal E^{\mathrm{op}},
+ \qquad B^a_n\longmapsto\beta_{a,n},
+ \qquad c_{a,n}\longmapsto\gamma_{a,n}
+\end{equation}
+is a unital energy-preserving quasi-isomorphism of dg algebras.
+In particular,
+\[
+ \mathcal Y_k\simeq
+ R\operatorname{Hom}^{\mathrm{wt}}_{A_\ell}
+       (\mathbb W_\ell,\mathbb W_\ell)^{\mathrm{op}},
+ \qquad\ell=-k\kappa-h_{\mathfrak g},
+\]
+where the superscript denotes the direct sum of homogeneous energy
+shifts. No nondegeneracy of $\kappa$ is required.
+\end{theorem}
+
+\begin{proof}
+The graded opposite changes the two brackets of
+\eqref{cyrec:eq:lift-brackets} into the line relations and leaves
+the product of two odd contractions unchanged.
+For the even differential, invariance gives
+$-\tfrac12f_{ab}^{\ c}f_{cd}^{\ b}=(h_{\mathfrak g})_{ad}$.
+There are $n$ pairs with $m+p=n-1$, so symmetric reordering gives
+\[
+ [d_{\mathcal P},\beta_{a,n}]
+ =-n(\ell+h_{\mathfrak g})_{ab}\gamma_{b,n-1}
+   +\tfrac12 f_{ab}^{\ c}\sum_{m+p=n-1}
+       (\beta_{c,p}\gamma_{b,m}+\gamma_{b,m}\beta_{c,p}).
+\]
+Since $-(\ell+h_{\mathfrak g})=k\kappa$, this is the image of
+the line differential. Thus $\rho$ is a dg algebra map.
+
+Compose $\rho$ with augmentation of its output:
+\begin{equation}\label{cyrec:eq:cochain-evaluation}
+ \mathcal Y_k\longrightarrow\mathcal E^{\mathrm{op}}
+ \xrightarrow{\pi\circ-}
+ \bigoplus_w\operatorname{Hom}^{\bullet,w}_{A_\ell}
+                         (\mathcal P,\mathbb W_\ell).
+\end{equation}
+The last target is used only as a complex.
+Order the basis $(y_i)$ of $\mathfrak n$ and write its dual
+ghosts $c_i$. On the ordered wedge
+$y_{i_1}\wedge\cdots\wedge y_{i_p}$, the ghost-left PBW
+monomial $c_{i_1}\cdots c_{i_p}u$, with
+$u\in U(\mathfrak l)$, evaluates to
+$(-1)^{p(p-1)/2}u|0\rangle$ and vanishes on other basis wedges
+of length $p$.
+The reversed composition applies the contractions first, after
+which all exterior corrections vanish.
+
+Fixing the energy shift $w$ makes this a basis of the entire
+Hom complex. A wedge whose positive mode indices sum to $s$ has
+energy $-s$, and its output must have energy $w-s\geq0$.
+There are only finitely many such wedges. Their outputs remain
+algebraic elements of $U(\mathfrak l)$, including its possibly
+infinite-dimensional energy-zero part.
+Hence the composite in \eqref{cyrec:eq:cochain-evaluation} is
+an isomorphism of complexes.
+
+The bounded-above graded-free resolution $\mathcal P$ is
+$K$-projective in internally graded modules. Applying each
+homogeneous Hom complex to $\pi$ makes the second arrow a
+quasi-isomorphism. Direct sums over shifts preserve it, so $\rho$
+is a quasi-isomorphism as well.
+\end{proof}
+
+For $\mathfrak{sl}_2$, with $\kappa(E,F)=1$ and
+$\kappa(H,H)=2$, one has $h_{\mathfrak g}=2\kappa$ and
+affine level $-k-2$. On the single exterior generator $Et$,
+$[d_{\mathcal P},\beta_{F,1}]$ gives $-H+k+2$.
+Using affine level $-k$ would instead lose the constant two and
+fail to intertwine the unchanged line differential.
+
+The quasi-isomorphism also has a useful limit on adjoining a formal
+differential generator. Let
+\[
+ \mathcal Y_k^q=\mathcal Y_k\langle q\rangle/
+     (q^2,\ qa-(-1)^{|a|}aq-Qa),
+ \qquad |q|=1,
+\]
+with differential $[q,-]$ and energy zero for $q$.
+The map extends by $q\mapsto-d_{\mathcal P}$.
+However, if $N$ multiplies $\mathcal P^i$ by $i$, then
+$d_{\mathcal E}N=-d_{\mathcal P}$. The charge image is exact,
+whereas the energy-zero summand $U(\mathfrak g)q$ has zero
+differential and nonzero class $[q]$ in the source.
+The extended map is therefore not a quasi-isomorphism.
+
+\subsection{The derived functor and the spectral comparison}
+
+The opposite algebra in \eqref{cyrec:eq:rho} defines the right
+action
+\[
+ p\cdot a=(-1)^{|p||a|}\rho(a)p
+\]
+on the left affine module $\mathcal P$. It gives a derived functor
+\begin{equation}\label{cyrec:eq:derived-functor}
+ \Phi_k(M)=\mathcal P\otimes^{\mathbb L}_{\mathcal Y_k}M
+       \quad\text{in }D(A_\ell\text{-}\mathrm{Mod}).
+\end{equation}
+It sends the regular line module to $\mathbb W_\ell$.
+Suppose the internally graded complex underlying $M$ has energy
+bounded below. Every cohomology module of $\Phi_k(M)$ retains
+that lower bound and is smooth for the affine action.
+
+To prove the energy assertion, use the bar resolution over
+$\mathbb C$. The line algebra has nonnegative energy, so each
+free coefficient complex retains the lower bound of $M$.
+After tensoring with $\mathcal P$, its free associated piece
+can be replaced by $\mathbb W_\ell$, also of nonnegative
+energy. Cones and the homotopy colimit of the finite bar stages
+preserve vanishing below the bound. A sufficiently positive mode
+sends any fixed-energy cohomology class below that bound, proving
+smoothness.
+
+When $\mathfrak g$ is abelian and $k\kappa$ is nondegenerate,
+the positive-energy pairs in $\mathcal Y_k$ contract, so
+$U(\mathfrak g)\hookrightarrow\mathcal Y_k$ is a quasi-isomorphism.
+The zero-mode exterior correction vanishes and $\pi$ respects
+the right $U(\mathfrak g)$-action. Consequently
+\[
+ \Phi_k(M)\simeq\mathbb W_{-k\kappa}
+                         \otimes_{U(\mathfrak g)}M|_{U(\mathfrak g)}.
+\]
+PBW makes the right module free, so this ordinary tensor computes
+the derived tensor. In rank one it is the Fock induction already
+constructed above.
+
+For the spectral comparison take $k\ne0$ and put
+$K_z=\mathbb C((z^{-1}))$. The notation $V((z^{-1}))$ means
+Laurent series bounded above in powers of $z$, with algebraic
+coefficients in $V$. It is generally larger than $V\otimes K_z$.
+
+Define the affine mode map
+\begin{equation}\label{cyrec:eq:affine-coproduct}
+ \delta_z(xt^m)=
+ \sum_{j\geq0}\binom{-m}{j}z^{-m-j}xt^{-j}\otimes1
+                       +1\otimes xt^m.
+\end{equation}
+Its target is $(U(\mathfrak l)\otimes A_\ell)((z^{-1}))$.
+The first component expands $x(z+t^{-1})^{-m}$.
+It has no affine cocycle, because the residue of $f\,dg$
+vanishes for series in $t^{-1}$ with nonnegative powers of
+$t^{-1}$. The second component retains the central term.
+Thus \eqref{cyrec:eq:affine-coproduct} extends to an algebra map.
+
+On algebraic mode inputs it satisfies
+\begin{equation}\label{cyrec:eq:affine-coassociativity}
+ (\delta_w\otimes1)\delta_z
+       =(1\otimes\delta_z)\delta_{z+w},
+ \qquad (\epsilon\otimes1)\delta_z=1.
+\end{equation}
+Both iterates send $xt^m$ to the sum of
+$x(z+w+t^{-1})^{-m}$, $x(z+t^{-1})^{-m}$ and $xt^m$ in
+the three respective factors. The counit here is the augmentation
+of $U(\mathfrak l)$ in the first factor.
+
+Use the line coproduct $\Delta_z$ and degree-one twist $r(z)$
+of \eqref{cylev:eq:line-spectral}. On
+$(\mathcal P\otimes\mathcal P)((z^{-1}))$ put
+\begin{equation}\label{cyrec:eq:resolution-twist}
+ D(v)=(d_{\mathcal P}\otimes1+1\otimes d_{\mathcal P})v
+                              -(-1)^{|v|}v\cdot r(z).
+\end{equation}
+The right tensor action is
+$(p_1\otimes p_2)(a_1\otimes a_2)
+=(-1)^{|p_2||a_1|}p_1a_1\otimes p_2a_2$.
+The Maurer--Cartan identity for $r$ gives $D^2=0$.
+
+\begin{theorem}\label{cyrec:thm:resolution-coproduct}
+The map
+\begin{equation}\label{cyrec:eq:resolution-coproduct}
+ \Delta_{\mathcal P}(u\otimes\omega)
+       =\delta_z(u)\bigl(1\otimes(1\otimes\omega)\bigr)
+\end{equation}
+is a chain map from $\mathcal P$ to the twisted complex
+\eqref{cyrec:eq:resolution-twist}. It intertwines the left
+affine action along $\delta_z$ and the right line action along
+$\Delta_z$. It is counital on the first factor and coassociative
+on the common coefficient domain of the iterated spectral maps.
+\end{theorem}
+
+\begin{proof}
+All exterior factors are placed in the second resolution.
+The discrepancy between its differential and the image of
+\eqref{cyrec:eq:chevalley-differential} consists of the first
+components of $\delta_z(y_i)$, one for each exterior contraction.
+The terms $B\otimes c$ in $r$ give precisely these components
+with the sign in \eqref{cyrec:eq:resolution-twist}. The terms
+$c\otimes B$ contract the first vacuum and vanish. This proves
+$D\Delta_{\mathcal P}=\Delta_{\mathcal P}d_{\mathcal P}$.
+
+For a right ghost the first translated contraction likewise
+annihilates the first vacuum, leaving the contraction of $\omega$
+in the second factor. For a right even mode, the two translated
+right multiplications are the two components of
+$\delta_z(t_at^{-n})$, and its exterior correction remains in
+the second factor. These identities prove right linearity on
+generators, hence on the entire polynomial line algebra.
+Left linearity is built into the definition.
+
+Both triple maps put the exterior factors in the last copy.
+Equation~\eqref{cyrec:eq:affine-coassociativity} identifies their
+affine factors, and Theorem~\ref{cylev:thm:line-spectral}
+identifies their differential twists.
+For shifted kernels this equality is read first on
+$0<|w|<|z|<|z+w|$ with the stated small auxiliary jet variables,
+then on their rationally continued mode coefficients.
+It asserts no extension of translation to arbitrary iterated
+Laurent completions. The first-factor augmentation proves the
+counit identity.
+\end{proof}
+
+For left dg line modules $M,N$, let $M\otimes_zN$ be
+$(M\otimes N)((z^{-1}))$ with differential $d+\rho_{M,N}(r)$
+and line action through $\Delta_z$. Let
+$X_1\circledast_zX_2=(X_1\otimes X_2)((z^{-1}))$ with affine
+action through $\delta_z$. These specify two different
+completed tensor constructions.
+
+\begin{corollary}\label{cyrec:cor:tensorator}
+There is a natural chain map
+\begin{equation}\label{cyrec:eq:tensorator}
+ \theta_{M,N}:\mathcal P\otimes_{\mathcal Y_k}(M\otimes_zN)
+ \longrightarrow
+ (\mathcal P\otimes_{\mathcal Y_k}M)
+          \circledast_z(\mathcal P\otimes_{\mathcal Y_k}N),
+ \qquad p\otimes v\longmapsto\Delta_{\mathcal P}(p)\otimes v.
+\end{equation}
+It is affine-linear and inherits the counit and coassociativity
+identities on the coefficient domains of
+Theorem~\ref{cyrec:thm:resolution-coproduct}.
+Suppose $M,N$ are homotopically flat over $\mathcal Y_k$, and
+$M\otimes_zN$ is homotopically flat over $\mathcal Y_k\otimes K_z$.
+Then the map computes the comparison of derived images, with
+algebraic scalar extension to $K_z$ on the source.
+\end{corollary}
+
+\begin{proof}
+Right linearity of $\Delta_{\mathcal P}$ makes the map balanced.
+The right and left twists cancel under this balancing, leaving
+the ordinary tensor differential on the target. Multiplication
+of Laurent coefficients is defined because each series has an
+upper bound, so each output coefficient is a finite sum.
+The remaining identities follow from the preceding theorem.
+Under the flatness assumptions, the indicated tensors compute
+derived tensors. Laurent completion of complexes of vector spaces
+is exact, being a filtered union of products, and therefore
+preserves the target quasi-isomorphisms.
+\end{proof}
+
+This target carries an affine action, but its Laurent completion
+need not be smooth as an algebraic affine module. Nor does the
+construction identify $\circledast_z$ with a separately defined
+affine fusion product. Those are additional questions about the
+category and the comparison map.
+
+\subsection{Translation and its homotopy}
+
+The coordinate change $t^{-1}\mapsto t^{-1}+z$ is generated by
+$L_1=-t^2\partial_t$. Its action on the resolution is
+\[
+ T_{\mathcal P}=\operatorname{ad}L_1\otimes1+1\otimes L_1.
+\]
+It commutes with $d_{\mathcal P}$ because $L_1$ preserves the
+bracket and its central cocycle. It is a derivation along the
+affine action and the line translation, and
+\begin{equation}\label{cyrec:eq:resolution-horizontal}
+ \partial_z\Delta_{\mathcal P}
+                     =(T_{\mathcal P}\otimes1)\Delta_{\mathcal P}.
+\end{equation}
+Thus $\partial_z-T_{\mathcal P}\otimes1$ commutes with $D$.
+
+Assume now that $\kappa$ is nondegenerate. An infinite
+Sugawara sum requires a completion. Put
+$\mathfrak n_N=t^N\mathfrak g[t]$ and let $F_N\mathcal P$
+be spanned by chains whose affine factor lies in
+$A_\ell\mathfrak n_N$ or whose exterior factor contains
+$\mathfrak n_N$. Define
+\[
+ \widehat{\mathcal P}=\varprojlim_N\mathcal P/F_N\mathcal P
+\]
+degreewise.
+
+PBW identifies each quotient with
+$U(\mathfrak l)$ tensored with the Chevalley resolution for
+$\mathfrak n/\mathfrak n_N$. Its cohomology is
+$\mathbb W_\ell$ in degree zero, and the transition maps induce
+the identity there. The chain towers are surjective, so the
+inverse-limit exact sequence proves
+$\mathcal P\simeq\widehat{\mathcal P}$.
+
+Right multiplication by $xt^{-m}$ and its exterior correction
+send $F_N$ into $F_{N-m}$ for $N>m$. Fixed contractions are
+continuous as well. The bimodule action therefore extends.
+On this completion define
+\begin{align}
+ L_1^{\mathrm{Sug}}
+ &=-\frac1k\sum_{m\geq0}\kappa^{ab}
+                          t_at^{-m}t_bt^{m+1},
+ \label{cyrec:eq:sugawara}\\
+ L_{\mathcal P}
+ &=\frac1k\sum_{m\geq0}\kappa^{ab}
+    \left(R_{t_bt^{-m}}-\tfrac12a_{t_bt^{-m}}\right)
+                          \varepsilon_{t_at^{m+1}}.
+ \label{cyrec:eq:translation-homotopy}
+\end{align}
+The first acts by left multiplication and the second has
+cohomological degree $-1$. Their inverse level form is
+$(\ell+h_{\mathfrak g})^{-1}=-k^{-1}\kappa^{-1}$.
+
+\begin{proposition}\label{cyrec:prop:translation-homotopy}
+The sums converge continuously on $\widehat{\mathcal P}$ and
+satisfy
+\begin{align}
+ [L_{\mathcal P},\beta_{a,n}]&=0,
+ & [L_{\mathcal P},\gamma_{a,n}]_+
+      &=k^{-1}\kappa^{ab}\beta_{b,n},
+ \label{cyrec:eq:homotopy-actions}\\
+ d_{\mathcal P}L_{\mathcal P}+L_{\mathcal P}d_{\mathcal P}
+      &=T_{\mathcal P}-L_1^{\mathrm{Sug}}.
+ \label{cyrec:eq:homotopy-identity}
+\end{align}
+\end{proposition}
+
+\begin{proof}
+The term of index $m$ in $L_{\mathcal P}$ lies in $F_{m+1}$.
+The only exterior correction that could remove its new high
+factor is proportional to $\kappa^{ab}[t_b,t_a]t=0$.
+Modulo $F_d$ only $m<d$ remains, and those finitely many
+operators send $F_{2d}$ into $F_d$. This proves continuity.
+The same estimate after commuting a high positive mode past a
+fixed algebraic input proves convergence of
+$L_1^{\mathrm{Sug}}$.
+
+Invariance of $\kappa^{-1}$ cancels the commutator with each
+$\beta$. For a contraction, use
+$[\varepsilon_y,\iota_\lambda]_+=\lambda(y)$ and
+$[a_x,\iota_\lambda]=-\iota_{\lambda\circ a_x}$.
+Contracting the new exterior factor gives
+$k^{-1}\kappa^{ab}(R_{t_bt^{-n}}-\tfrac12a_{t_bt^{-n}})$.
+The remaining contraction through the exterior correction gives
+the other $-\tfrac12k^{-1}\kappa^{ab}a_{t_bt^{-n}}$.
+This proves \eqref{cyrec:eq:homotopy-actions}.
+
+Let $Z$ be the left side of \eqref{cyrec:eq:homotopy-identity}
+minus its right side. The derivation identities make $Z$
+left affine-linear and right line-linear, and it commutes with
+the differential. On the cyclic generator,
+$d_{\mathcal P}L_{\mathcal P}(1)=-L_1^{\mathrm{Sug}}1$,
+so $Z(1)=0$. Induction on exterior degree, commuting $Z$ with
+every contraction, shows that $Z(1\otimes\omega)$ is killed by
+all contractions. A positive-exterior-degree element with that
+property is zero, also in the indicated completion. Thus $Z=0$.
+\end{proof}
+
+Let $L$ be the degree $-1$ line derivation with
+$L(B_n^a)=0$ and $L(c_{a,n})=k^{-1}\kappa^{ab}B_n^b$.
+Then $[Q,L]=T$, and $X(z)=(L\otimes1)r(z)$ is the
+degree-zero connection kernel of
+Proposition~\ref{cylev:prop:line-kernel}.
+On the twisted resolution tensor, set
+\[
+ \mathfrak D=\partial_z-T_{\mathcal P}\otimes1
+                         +[D,L_{\mathcal P}\otimes1].
+\]
+Equations~\eqref{cyrec:eq:homotopy-actions} and
+\eqref{cyrec:eq:homotopy-identity} give
+\begin{equation}\label{cyrec:eq:connection-balance}
+ \mathfrak D=\partial_z-L_1^{\mathrm{Sug}}\otimes1-R_{X(z)}.
+\end{equation}
+When balanced with the left-module connection
+$\nabla=\partial_z+\rho_{M,N}(X)$, the last terms cancel.
+The induced tensor connection is
+$\partial_z-L_1^{\mathrm{Sug}}\otimes1$.
+
+Let $p$ be a cycle of $\mathcal P$ and $\sigma$ a cycle of
+$M\otimes_zN$. Suppose $\nabla\sigma$ is a boundary.
+Then the derivative of $\widehat\theta(p\otimes\sigma)$ under
+this affine connection is a boundary. Indeed it is
+\[
+ [D,L_{\mathcal P}\otimes1](\Delta_{\mathcal P}p)\otimes\sigma
+                     +\Delta_{\mathcal P}p\otimes\nabla\sigma.
+\]
+The first term is the boundary of the homotopy applied to
+$\Delta_{\mathcal P}p$, and the second is a boundary by assumption.
+
+Here $\widehat\theta$ is obtained by including the two target
+resolutions in $\widehat{\mathcal P}$.
+Tensor products with $M,N$ remain algebraic and Laurent completion
+is performed last. With homotopically flat modules the inclusion
+of resolutions preserves the derived images.
+
+This supplies the comparison and the translation homotopy required
+at the start of Problem~\ref{cylev:prob:line-field}.
+Restricted transposition can then give current Ward identities
+on specified energy-graded models. The full intertwining Jacobi
+identity and invertibility for an independently defined affine
+fusion remain additional requirements.
+
+\section{Two line bundles on the conifold}
+
+An endomorphism algebra reconstructs a derived category when its
+object detects every complex. The exceptional locus makes that
+condition visible. On the small resolution of the conifold,
+the structure sheaf misses a nonzero sheaf on the exceptional
+curve. One more line bundle detects it and completes the
+generating object. This is the basic conifold example of
+Van den Bergh's reconstruction \cite[Introduction]{VdBFlops}.
+
+Set
+\begin{equation}\label{cyrec:eq:conifold}
+ C=\mathbb C[X,Y,U,V]/(XY-UV),\qquad I=(X,U)\subset C.
+\end{equation}
+The gradient of the equation vanishes only at the origin.
+The ring is a domain: substituting $U=qX$, $Y=qV$ embeds it in
+$\mathbb C[q,X,V]$. To check injectivity, reduce monomials by
+$XY=UV$ until $X$ and $Y$ do not occur together.
+The image of $X^bY^dU^eV^f$, with $bd=0$, has exponents
+$(d+e,b+e,d+f)$ in $(q,X,V)$, which determine the original
+exponents.
+
+The ideal $I$ has rank one and is locally free away from the
+origin. At the origin its fiber $I/\mathfrak m I$ has independent
+classes $X,U$, so it is not locally free there. Record their ratio
+by the incidence variety
+\begin{equation}\label{cyrec:eq:incidence}
+ \mathcal Y=\{(X,Y,U,V,[s:t]):Xt=Us,\ Vt=Ys\}
+                \subset\operatorname{Spec}C\times\mathbb P^1.
+\end{equation}
+Let $\rho$ forget $[s:t]$ and $\pi$ retain it.
+The two charts have coordinates $(q,X,V)$ and $(q',U,Y)$,
+with transitions
+\begin{equation}\label{cyrec:eq:conifold-charts}
+ q'=q^{-1},\qquad U=qX,\qquad Y=qV.
+\end{equation}
+Thus $\mathcal Y$ is the total space of
+$\mathcal O_{\mathbb P^1}(-1)^{\oplus2}$ and is smooth.
+
+Away from the origin, a nonzero row of
+$\left(\begin{smallmatrix}X&U\\V&Y\end{smallmatrix}\right)$
+determines $[s:t]$. Over the origin the fiber is $\mathbb P^1$.
+The projection is projective, and the exceptional locus has
+codimension two, so this is a small resolution.
+The Jacobian of \eqref{cyrec:eq:conifold-charts} has determinant
+$-1$. Consequently $dq\wedge dX\wedge dV$ and
+$-dq'\wedge dU\wedge dY$ define a nowhere-zero global
+three-form.
+
+The image of $\rho^*I$ in $\mathcal O_{\mathcal Y}$ is a line
+bundle $\mathcal L$. Its frames are the nonzero divisors $X$
+and $U$ on the two charts, with transition $\ell_1=q\ell_0$.
+Hence
+\[
+ \mathcal L=\pi^*\mathcal O_{\mathbb P^1}(1),
+ \qquad\mathcal T=\mathcal O_{\mathcal Y}\oplus\mathcal L.
+\]
+The vanishing of a frame as a function on the exceptional curve
+does not make its principal ideal a nonfree module.
+
+\subsection{The full composition algebra}
+
+A monomial $q^aX^bV^c$ extends across the second chart exactly
+when $0\leq a\leq b+c$. These global functions generate $C$.
+For sections of $\mathcal L$ the upper bound becomes $b+c+1$,
+and multiplication by its frame $X$ identifies the sections
+with $I$. For $\mathcal L^{-1}$ it becomes $b+c-1$, and division
+by $X$ identifies the sections with $C+(V/X)C$.
+
+Every map $I\to C$ is multiplication by a fraction after passing
+to the fraction field. If $rX,rU\in C$, write $a=rX$.
+Modulo $X$, the relation $aU=0$ lies in
+$\mathbb C[Y,U,V]/(UV)$, where the annihilator of $U$ is $(V)$.
+It follows that $r=b+(V/X)c$.
+Both summands really map $I$ to $C$, so
+\[
+ I^\vee=\operatorname{Hom}_C(I,C)=C+(V/X)C.
+\]
+
+If the fraction also preserves $I$, then $Vc\in I$.
+The quotient $C/I=\mathbb C[Y,V]$ has no $V$-torsion, so
+$c=Xd+Ue$ and $r=b+Vd+Ye\in C$.
+Therefore $\operatorname{End}_C(I)=C$ and
+\begin{equation}\label{cyrec:eq:conifold-end}
+ A_{\mathrm{con}}=\operatorname{End}_{\mathcal Y}(\mathcal T)
+     =\begin{pmatrix}C&I^\vee\\ I&C\end{pmatrix}
+     =\operatorname{End}_C(C\oplus I).
+\end{equation}
+The multiplication is matrix composition with the indicated
+fractional entries, each of which is an actual module map.
+
+For example, put
+\begin{equation}\label{cyrec:eq:conifold-matrices}
+ Z=\begin{pmatrix}0&1\\X&0\end{pmatrix},\qquad
+ P_0=\begin{pmatrix}0&V/X\\U&0\end{pmatrix},\qquad
+ G=\begin{pmatrix}1&0\\0&-1\end{pmatrix}.
+\end{equation}
+Then
+\[
+ Z^2=X1,\quad P_0^2=Y1,\quad
+ ZP_0=\operatorname{diag}(U,V),\quad
+ P_0Z=\operatorname{diag}(V,U),\quad
+ [P_0,Z]=(V-U)G.
+\]
+These maps remain regular on $\mathcal Y$, including its
+exceptional curve. A central element of $A_{\mathrm{con}}$
+commutes with the two projections, hence is diagonal. Commuting
+with $I\to C$ makes its diagonal entries equal.
+Thus $Z(A_{\mathrm{con}})=C$.
+
+The same algebra has a potential presentation. Let $a,c:1\to0$
+and $b,d:0\to1$ be four arrows, with paths composed from right
+to left, and put $\Phi=abcd-adcb$.
+The Jacobi algebra is the path algebra modulo the four cyclic
+derivatives of this potential.
+
+\begin{proposition}\label{cyrec:prop:conifold-jacobi}
+The Jacobi algebra of $(Q,\Phi)$ is $A_{\mathrm{con}}$.
+The arrows are the four off-diagonal parts of $Z,P_0$ in
+\eqref{cyrec:eq:conifold-matrices}, and its central element
+\begin{equation}\label{cyrec:eq:conifold-parameter}
+ (cb-ad)+(bc-da)
+\end{equation}
+maps to $\lambda=V-U$.
+\end{proposition}
+
+\begin{proof}
+Consider
+\[
+ \mathcal B=\mathbb C[\lambda]\langle z,p,g\rangle/
+       (g^2-1,\ gz+zg,\ gp+pg,\ pz-zp-\lambda g),
+\]
+with central $\lambda$. Its ordered basis is
+$z^ip^jg^\epsilon$, $i,j\geq0$, $\epsilon\in\{0,1\}$.
+The mixed ambiguity $gpz$ reduces in both ways to
+$zpg+\lambda$, and the ambiguities with $g^2$ agree as well.
+With $e_0=(1+g)/2$, $e_1=(1-g)/2$, the arrows are
+$e_0ze_1,e_1ze_0,e_0pe_1,e_1pe_0$.
+
+The cyclic derivatives are
+$bcd-dcb$, $cda-adc$, $dab-bad$ and $abc-cba$.
+They make \eqref{cyrec:eq:conifold-parameter} central.
+The maps $z\mapsto a+b$, $p\mapsto c+d$ and
+$g\mapsto e_0-e_1$ then give inverse maps between the
+Jacobi algebra and $\mathcal B$.
+
+The matrices define a surjection $\mathcal B\to A_{\mathrm{con}}$:
+their arrows generate $I,I^\vee$ and the central diagonal ring.
+In $\mathcal B$, the elements
+\[
+ X=z^2,\quad Y=p^2,\quad W=zp+\lambda g/2,
+ \quad U=W-\lambda/2,\quad V=W+\lambda/2
+\]
+are central and obey $XY=UV$.
+
+Filter $\mathcal B$ by the number of $z,p$ factors. Then
+$\operatorname{gr}\mathcal B=\mathbb C[\lambda,z,p]\rtimes\mu_2$.
+Its central subring
+\[
+ \mathbb C[\lambda,X,Y,W]/(XY-W^2)
+\]
+embeds, so its nonzero elements act injectively. The filtered algebra is therefore
+torsion-free over $C$.
+Over $\operatorname{Frac}(C)$, the elements $1,z,g,zg$ are
+a basis with independent matrix images. The kernel of the
+surjection is consequently both torsion and torsion-free, hence zero.
+\end{proof}
+
+\subsection{Generation and the inverse functor}
+
+A compact object is one whose maps commute with arbitrary direct
+sums. A generator detects zero objects by its derived Hom complex.
+A compact generating bundle is \emph{tilting} when its positive
+self-extensions vanish. These are properties of the entire derived
+category, including objects supported on the exceptional curve.
+
+\begin{theorem}\label{cyrec:thm:conifold-morita}
+The bundle $\mathcal T$ is a compact tilting generator of
+$D_{\mathrm{qc}}(\mathcal Y)$. The functors
+\begin{equation}\label{cyrec:eq:conifold-morita}
+ F\longmapsto R\operatorname{Hom}_{\mathcal Y}(\mathcal T,F),
+ \qquad
+ N\longmapsto N\otimes^{\mathbb L}_{A_{\mathrm{con}}}\mathcal T
+\end{equation}
+are inverse $C$-linear equivalences with
+$D(\mathrm{Mod}\text{-}A_{\mathrm{con}})$.
+They restrict to the categories of perfect objects.
+\end{theorem}
+
+\begin{proof}
+The diagonal equation on $\mathbb P^1\times\mathbb P^1$ gives
+the resolution
+\[
+ 0\to\mathcal O(-1)\boxtimes\mathcal O(-1)
+   \to\mathcal O\boxtimes\mathcal O\to\mathcal O_\Delta\to0.
+\]
+For any complex $F$ on $\mathbb P^1$, its integral transform
+gives the triangle
+\[
+ \mathcal O(-1)\otimes R\Gamma(F(-1))
+       \longrightarrow\mathcal O\otimes R\Gamma(F)
+       \longrightarrow F.
+\]
+Hence $\mathcal O\oplus\mathcal O(1)$ generates.
+The affine map $\pi$ has exact pushforward on quasi-coherent
+sheaves. It is called \emph{conservative} because it detects zero objects.
+Adjunction then proves generation by
+$\mathcal T$ on $\mathcal Y$.
+
+Moreover,
+$\pi_*\mathcal O_{\mathcal Y}=
+\bigoplus_{n\geq0}\mathcal O(n)^{\oplus(n+1)}$.
+The self-extension groups reduce to
+$H^i(\mathbb P^1,\mathcal O(n+j))$ for
+$n\geq0$ and $j=-1,0,1$.
+In the two-chart calculation,
+\[
+ H^1(\mathbb P^1,\mathcal O(d))
+ =\mathbb C[q,q^{-1}]/
+           (\mathbb C[q]+q^d\mathbb C[q^{-1}]),
+\]
+which vanishes for $d\geq-1$.
+Higher cohomology vanishes because the affine cover has two terms.
+The same cover and finite local freeness make derived Hom from
+$\mathcal T$ commute with direct sums. This proves tilting and
+compactness, also for unbounded complexes.
+
+The right algebra action on a map $f:\mathcal T\to F$ is
+$f\cdot a=f\circ a$, fixing the variance of
+\eqref{cyrec:eq:conifold-morita}. Resolve a right module by
+successively adjoining free generators. The tensor--Hom adjunction
+unit is an equivalence on the free module $A_{\mathrm{con}}$,
+by the self-extension calculation. Both functors preserve cones,
+direct sums and the homotopy colimits of these free stages, so
+the unit is an equivalence on every module.
+The image of the counit under derived Hom is then an equivalence.
+Its cone vanishes by generation, proving the other inverse identity.
+
+Perfect complexes are the compact objects on this quasi-compact
+separated scheme \cite[Tag~09M1]{StacksCompactPerfect}, and
+perfect modules are the compact objects on the algebra side
+\cite[Corollary~3.7]{KellerDGCategories}. Thus the equivalence
+restricts to perfect objects. Every construction retains the
+central $C$-action. The argument is the compact-generator form
+of derived Morita reconstruction
+\cite[Theorem~3.8]{KellerDGCategories}.
+\end{proof}
+
+For the exceptional inclusion $i:\mathbb P^1\hookrightarrow\mathcal Y$,
+the nonzero sheaf $F=i_*\mathcal O(-1)$ has
+\begin{equation}\label{cyrec:eq:exceptional-detector}
+ R\operatorname{Hom}(\mathcal O,F)=0,
+ \qquad
+ H^1R\operatorname{Hom}(\mathcal L,F)
+                 =H^1(\mathbb P^1,\mathcal O(-2))=\mathbb C.
+\end{equation}
+The latter class is represented by $q^{-1}$ in the Laurent
+quotient. Thus the second summand is essential to the equivalence.
+The ordinary center $C$ alone does not record this generating
+test.
+
+\begin{corollary}\label{cyrec:cor:conifold-fibres}
+For every $c\in\mathbb C$, the restriction $\mathcal T_c$ to
+$\mathcal Y_c=\{V-U=c\}$ is a compact tilting generator, with
+endomorphism algebra $A_{\mathrm{con}}/(\lambda-c)A_{\mathrm{con}}$.
+The equivalence \eqref{cyrec:eq:conifold-morita} holds on each
+fiber with this quotient algebra.
+\end{corollary}
+
+\begin{proof}
+Multiplication by $\lambda-c$ is injective on
+$\mathcal E nd(\mathcal T)$, since it is a coordinate on each
+affine chart. Its restriction sequence and the preceding
+cohomology vanishing compute the stated endomorphism algebra
+and zero positive self-extensions. Closed pushforward from the
+fiber is conservative, and its adjunction with $\mathcal T$
+proves generation. The same affine cover proves compactness.
+The tensor--Hom proof therefore applies on every fiber.
+\end{proof}
+
+The fiber charts have transition
+$q'=q^{-1}$, $Y=q^2X+cq$. They are smooth for every $c$.
+At $c=0$ the fiber is $T^*\mathbb P^1$.
+For $c\ne0$, it is the smooth affine surface
+$XY=U(U+c)$, which avoids the conifold origin.
+This parameter describes surfaces inside the fixed threefold
+$XY=UV$. It is distinct from a smoothing parameter in an
+equation $XY-UV=c$.
+
+\section{Intrinsic Hall fibers and ordinary cooperation}
+
+The derived equivalence of the conifold retains modules and their
+extensions. A cooperation on the Hall coefficients asks for more:
+it must preserve the extension product in a specified tensor
+category. Specializing a coefficient map to polynomials can obscure
+that question. Its kernel can grow even when the coefficient module
+is free over the parameter ring. The conifold gives an obstruction
+supported on precisely these surviving classes.
+
+Let the torus $(\mathbb C^*)^2$ act on the four arrows
+$(a,b,c,d)$ with weights $(\alpha,\beta,-\alpha,-\beta)$.
+Put
+\[
+ R=\mathbb C[\alpha,\beta],\qquad
+ P=\alpha^2,\quad Q=\beta^2,\quad\delta=P-Q,
+\]
+with $|\alpha|=|\beta|=2$. These equivariant parameters are
+independent of the central function $\lambda=V-U$ above.
+
+For charge $\mathbf d=(n,m)$ use the representation stack
+$\mathfrak M_{n,m}$ of the four-arrow quiver, the function
+$f_{n,m}=\operatorname{Tr}\Phi$, and the critical complex
+\begin{equation}\label{cyrec:eq:critical-carrier}
+ H_{n,m}=R\Gamma_T\bigl(\mathfrak M_{n,m},
+                  \phi^p_{f_{n,m}}\mathbb C[4nm-n^2-m^2]\bigr).
+\end{equation}
+Here $\phi^p_f=\phi_f[-1]$, so $\phi^p_0\mathbb C=\mathbb C$.
+Use the critical-chart orientation with ordered arrow and vertex
+determinants, and twist the product of charges $(n,m),(r,s)$
+by $(-1)^{mr}$. All sums in charge and degree are direct sums.
+
+The critical transformations on invariant flags give an augmented
+unital associative algebra on these complexes. Their hypotheses
+hold because all representations are allowed, the potential is
+homogeneous with every critical value zero, and the Euler form
+\[
+ \chi((n,m),(r,s))=nr+ms-2ns-2mr
+\]
+is symmetric. The product therefore has degree zero
+\cite[\S3.2]{DavisonCriticalCoHA}.
+Chains of flag refinements give its coherent higher
+identifications.
+
+Choose a charge-graded K-flat dg algebra $B$
+representing it, with $B_{0,0}=R$.
+Such a model can be obtained by bar and cobar from a strictly
+unital semifree higher-algebra representative. Reduced word length
+in charge $(n,m)$ is at most $n+m$, so this requires no charge
+completion and assumes no formality.
+
+\subsection{Integral coefficient modules}
+
+Deleting the arrow $d$ writes the potential as
+$\operatorname{Tr}(d(abc-cba))$. Dimensional reduction identifies
+the critical coefficients with shifted equivariant Borel--Moore
+homology of
+\[
+ Z_{n,m}=\{abc-cba=0\}
+\]
+in the three-arrow representation space. The shift is
+$2nm+\chi((n,m),(n,m))$
+\cite[Theorem~A.1 and Corollary~A.9]{DavisonCriticalCoHA}.
+
+Closed pushforward gives a coefficient map
+\begin{equation}\label{cyrec:eq:hall-coefficient}
+ \theta_{n,m}:H^*(B_{n,m})\longrightarrow
+ R[x_1,\ldots,x_n,y_1,\ldots,y_m]^{\mathfrak S_n\times\mathfrak S_m}
+                   [-\chi((n,m),(n,m))].
+\end{equation}
+The roots and torus parameters have raw weight one and
+cohomological degree two. An output root polynomial of raw
+weight $w$ has Hall degree $2w+\chi((n,m),(n,m))$.
+Position coordinates will be introduced separately.
+
+In charges $(1,0)$, $(0,1)$ and $(1,1)$ the maps identify
+\begin{equation}\label{cyrec:eq:small-coefficients}
+ H^*(B_{1,0})=R[x][-1],\quad
+ H^*(B_{0,1})=R[y][-1],\quad
+ H^*(B_{1,1})=R[x,u][2],\qquad u=y-x.
+\end{equation}
+In the mixed charge all matrices are scalar and the potential
+vanishes. If $a_r=x^r$ and $b_s=y^s$ are the simple-charge
+states, the two flags give
+\begin{equation}\label{cyrec:eq:mixed-hall-product}
+ a_rb_s=x^ry^s(u^2-Q),\qquad
+ b_sa_r=-x^ry^s(u^2-P).
+\end{equation}
+The first flag sets $b=d=0$ and the second sets $a=c=0$.
+Their normal Euler classes are the two quadratics, with the
+second sign supplied by the chosen twist.
+Thus their products span the proper ideal
+$(u^2-P,\delta)$, while the full mixed coefficient contains
+the degree $-2$ class $1_{(1,1)}$.
+
+For charge $(2,1)$ put
+\[
+ L=x_1+x_2-2y,\qquad H=(x_1-y)(x_2-y)+P.
+\]
+For $(1,2)$ use
+$L'=y_1+y_2-2x$, $H'=(y_1-x)(y_2-x)+P$.
+Then the coefficient maps are injective with images
+\begin{equation}\label{cyrec:eq:next-ideals}
+ I_{21}=(L,H,\delta)R[y,L,H],\qquad
+ I_{12}=(L',H',\delta)R[x,L',H'],
+\end{equation}
+both with Hall shift $[3]$.
+In charge $(2,1)$ the arrows $a,c$ are columns, and the cut equation is
+\[
+ \det[a\ c]\,(b_2,-b_1)^{\mathsf t}=0.
+\]
+Its complement has $[a\ c]$ invertible and $b\ne0$.
+
+Gauge the two columns to a basis. The remaining punctured vector
+$(ba,bc)$ has weights $\beta+\alpha,\beta-\alpha$ and Euler
+class $-\delta$. Its equivariant cohomology is $R[y]/(\delta)$
+and is even. Restriction from the ambient ring is surjective,
+setting $L=H=0$. The closed--open Borel--Moore sequence is
+therefore injective on the closed locus, with kernel ideal
+$I_{21}$. The row version of the same argument proves the
+formula for $I_{12}$.
+
+The next output charge requires one more coefficient. Put
+\begin{equation}\label{cyrec:eq:two-two-coordinates}
+\begin{gathered}
+ \tau=y_1+y_2,\qquad \xi=x_1+x_2-y_1-y_2,\\
+ A_0=(x_1-x_2)^2,\quad C_0=(y_1-y_2)^2,\quad\zeta=A_0-C_0,\\
+ h=\frac{\xi^2-A_0-C_0}{2}+P+Q,\qquad g=\delta\xi,\\
+ k_0=\frac{\zeta^2-\xi^4+(12P-4Q)\xi^2-16PQ}{16}.
+\end{gathered}
+\end{equation}
+The invariant coefficient ring is
+$\mathscr B=R[\tau,\xi,h,\zeta]$.
+
+\begin{lemma}\label{cyrec:lem:two-two-ideal}
+The map $\theta_{2,2}$ is injective with image
+$I_{22}=(h,k_0,g)\subset\mathscr B$ and Hall shift $[8]$.
+The sequence $h,k_0,g$ is regular.
+\end{lemma}
+
+\begin{proof}
+For $2\times2$ matrices, expansion in the entries of $d$ gives
+\[
+ \operatorname{Tr}(abcd-adcb)
+ =\det[\operatorname{vec}(a),\operatorname{vec}(c),
+               \operatorname{vec}(\operatorname{adj}b),
+               \operatorname{vec}(\operatorname{adj}d)].
+\]
+The cut locus is the rank-at-most-two locus of the first three
+columns, a generic $4\times3$ matrix. Its complement is the
+bundle of injections from a rank-three bundle $U_3$ into a
+rank-four bundle $E_4$. Here the roots of $E_4$ are $x_i-y_j$,
+and those of $U_3$ are $-\alpha,\alpha,\xi-\beta$.
+Division of their Chern polynomials gives
+\begin{align*}
+ c_2(E_4-U_3)&=h,\\
+ c_3(E_4-U_3)&=\beta h+g,\\
+ c_4(E_4-U_3)&=k_0+\tfrac14\xi^2h
+                   +(P-\beta\xi+Q)h-(\xi-\beta)g.
+\end{align*}
+
+The universal injection bundle has reductive stabilizer
+$GL_3\times GL_1$. Its characteristic-class restriction sends
+$E_4$ to $U_3\oplus L$ and has kernel generated by
+$c_2,c_3,c_4$ of the difference bundle.
+Pulling back its polynomial cochain model gives the Koszul
+complex on these three classes. The classifying bases are simply
+connected, so this computes the equivariant cohomology degreewise.
+
+In the present ring, $h$ is a coordinate and $16k_0$ is monic
+in $\zeta$ of degree two. Modulo these two elements the ring is
+free on $1,\zeta$ over $R[\tau,\xi]$. Multiplication by
+$g=\delta\xi$ is injective on that free module, proving
+regularity. Hence the complement has even cohomology
+$\mathscr B/I_{22}$, and restriction is surjective.
+The closed--open sequence makes the coefficient map injective
+with image $I_{22}$. Equation~\eqref{cyrec:eq:hall-coefficient}
+gives the shift.
+\end{proof}
+
+The critical flag product is integral and intertwines these
+coefficient maps with ambient flag induction. This follows from
+the general-cut comparison, which retains the full off-diagonal
+derivative $abc-cba$ in its Cartesian flag square
+\cite[Appendix~A, Theorem~A.2]{YangZhaoGeneralCut}.
+In the ambient composite, the Euler class of the diagonal
+inclusion cancels its inverse in the refined pullback formula.
+The remaining Euler classes are exactly the four forbidden arrow
+blocks. Proper parabolic induction contributes the same-color
+Grassmannian denominators.
+
+Explicitly, for a splitting $(n,m)+(r,s)$, let $L_0,L_1$ be
+subsets of the output roots of sizes $n,m$, and let $M_0,M_1$
+be their complements. The first factor is the subobject.
+The product of coefficient polynomials is
+\begin{equation}\label{cyrec:eq:flag-formula}
+ (-1)^{mr}\sum_{L_0,L_1}
+ \frac{f(L_0,L_1)g(M_0,M_1)
+  \displaystyle\prod_{u\in L_0,v\in M_1}((v-u)^2-Q)
+  \displaystyle\prod_{u\in L_1,v\in M_0}((v-u)^2-P)}
+ {\displaystyle\prod_{u\in L_0,v\in M_0}(v-u)
+  \displaystyle\prod_{u\in L_1,v\in M_1}(v-u)}.
+\end{equation}
+
+Each term is one fixed flag, so there is no factorial.
+Proper induction makes the sum polynomial. Equality with the
+critical product follows first after localization, then integrally
+because the ambient polynomial ring embeds in that localization.
+In each injective output charge above, this determines the actual
+critical class, including products of full coefficients outside
+the simple-current subalgebra.
+
+\subsection{Classes that survive specialization}
+
+Let $S=R/(\delta)$ and take the intrinsic derived coefficient
+fiber $B_S=B\otimes_R^{\mathbb L}S$. The base ring has the
+resolution
+\[
+ K_\delta=R\otimes\Lambda(\epsilon),\qquad
+ |\epsilon|=3,\quad d\epsilon=\delta.
+\]
+Its odd generator has internal degree four and resolution degree
+$-1$. The K-flat model $B\otimes_RS$ represents the same fiber
+as an $S$-algebra. This is coefficient base change. Identifying it
+with critical cohomology for a changed geometric equivariance
+would require a separate theorem.
+
+The ideals in \eqref{cyrec:eq:next-ideals} are free over $R$,
+as the decompositions
+\begin{equation}\label{cyrec:eq:free-mixed}
+ I_{21}=(L,H)R[y,L,H]\oplus\delta R[y],\qquad
+ I_{12}=(L',H')R[x,L',H']\oplus\delta R[x]
+\end{equation}
+show. Denote the unique classes with coefficient $\delta$ by
+$\Gamma_D,\Gamma_E$. Both have Hall degree one.
+Their images $D,E$ in $H^*(B_S)$ are nonzero, although polynomial
+evaluation kills them. Projection to the constant term of their
+second summands gives $S$-linear coefficient detectors
+$D\mapsto1$, $E\mapsto1$.
+
+Likewise monic division first by $h$ and then by $16k_0$ gives
+the free $R$-module decomposition
+\begin{equation}\label{cyrec:eq:free-two-two}
+ I_{22}=h\mathscr B\oplus k_0R[\tau,\xi,\zeta]
+                  \oplus\delta\xi R[\tau,\xi]\{1,\zeta\}.
+\end{equation}
+Let $\Gamma_g$ be the unique Hall class with coefficient
+$g=\delta\xi$. Its Hall degree is $-2$, and its intrinsic
+image $G$ also survives. These free decompositions imply that
+the relevant derived tensors over $S$ are the ordinary tensors
+of specialized cohomology modules.
+Indeed graded-free cohomology admits a choice of lifted basis
+cycles giving a quasi-isomorphism from its zero-differential
+complex. Base change preserves that comparison.
+
+In the simple and first mixed charges define marked states
+\[
+ a=1_{(1,0)},\quad b=1_{(0,1)},\quad
+ q=1_{(1,1)},\quad q_x=x_{(1,1)},\quad
+ r_0=u_{(1,1)},\quad r_1=(xu)_{(1,1)}.
+\]
+Their degrees are $1,1,-2,0,0,2$, respectively.
+The subscript specifies the charge. In particular $q$ is not
+the Hall unit, which belongs to charge zero.
+
+\begin{proposition}\label{cyrec:prop:intrinsic-relations}
+The actual critical Hall classes over $R$ satisfy
+\begin{equation}\label{cyrec:eq:intrinsic-relations}
+ [a,r_0]=-\Gamma_D,\quad [b,r_0]=\Gamma_E,\quad
+ [q,q_x]=-2\Gamma_g,\quad
+ [r_0,r_1]+\Gamma_Ea+2P\Gamma_g=0.
+\end{equation}
+They retain these identities under intrinsic base change to
+$S$ and to the homogeneous origin $\alpha=\beta=0$.
+\end{proposition}
+
+\begin{proof}
+All displayed commutators have an even input.
+The two flags in charge $(2,1)$ give
+\[
+ \theta_{2,1}([a,f])
+       =\delta\frac{f(x_2,y)-f(x_1,y)}{x_2-x_1}.
+\]
+For $f=y-x$ this is $-\delta$. The reflected divided difference
+is $+1$, giving $+\delta$ in charge $(1,2)$.
+
+For two mixed inputs denote the output roots by $X,U;Y,V$,
+and put
+\[
+ A_1=Y-X,\quad B_1=V-U,\quad C_1=V-X,\quad D_1=Y-U,
+ \qquad\xi=X+U-Y-V.
+\]
+Pairing complementary flags uses
+\[
+ (D_1^2-Q)(C_1^2-P)-(C_1^2-Q)(D_1^2-P)
+                  =\delta(C_1^2-D_1^2).
+\]
+The two pairs in the commutator $[q,q_x]$ then give
+$-2\delta\xi$, proving the third relation by injectivity.
+
+For $[r_0,r_1]$ the remaining coefficient is
+\[
+ \frac{\delta}{V-Y}
+       \bigl(A_1B_1(C_1^2-D_1^2)+C_1D_1(B_1^2-A_1^2)\bigr)
+       =-\delta\xi K,
+\]
+where $K=X^2+U^2-(X+U)(Y+V)+2YV$.
+The two flags for $\Gamma_Ea$ instead give
+$\delta(F(U)-F(X))/(U-X)=\delta\xi(K-2P)$, where
+$F(t)=((t-Y)^2-P)((t-V)^2-P)$.
+Adding $2P\delta\xi$ gives zero.
+Injectivity before specialization proves the relation on Hall
+classes. The free models above then transport it to the intrinsic
+fibers, including the classes whose polynomial images vanish.
+\end{proof}
+
+\begin{theorem}\label{cyrec:thm:hall-obstruction}
+There is no degree-zero, charge-preserving unital map
+\[
+ B_S\longrightarrow B_S\otimes_S^{\mathbb L}B_S
+\]
+preserving binary multiplication in $D(S)$, with the ordinary
+Koszul interchange and charge-zero projection as a two-sided
+counit. The same conclusion holds at the intrinsic homogeneous
+origin. Coassociativity is not needed for this obstruction.
+\end{theorem}
+
+\begin{proof}
+Write $\overline\Delta(v)=\Delta(v)-v\otimes1-1\otimes v$.
+The counits fix the charge-zero summands. The simple charges
+have no proper positive splits, so $a,b$ are primitive.
+The only proper splits of charge $(1,1)$ have minimum degree
+two, whereas $q,q_x,r_0$ have degrees $-2,0,0$.
+They too are primitive.
+
+In the ordinary graded tensor product,
+a supercommutator of primitives is primitive.
+The first three relations in \eqref{cyrec:eq:intrinsic-relations}
+therefore force $D,E,G$ to be primitive.
+
+The full possible correction to the degree-two state $r_1$ is
+\[
+ \overline\Delta(r_1)=\lambda a\otimes b+\mu b\otimes a,
+ \qquad\lambda,\mu\in\mathbb C.
+\]
+Since $r_0$ is even and $a,E$ are odd, the last relation then
+has reduced coproduct
+\begin{equation}\label{cyrec:eq:four-defects}
+ \lambda D\otimes b+\mu b\otimes D
+                -(\lambda+1)a\otimes E+(1-\mu)E\otimes a.
+\end{equation}
+
+The four summands have different charge splits. Their coefficient
+detectors take value one, by \eqref{cyrec:eq:free-mixed} and
+the constant simple-charge coefficients. The first forces
+$\lambda=0$, while the third forces $\lambda=-1$.
+The same free decompositions and detectors survive at the origin.
+The contradiction occurs in cohomology of the actual derived
+tensor components, so no choice of chain homotopy removes it.
+\end{proof}
+
+The four equations can be expressed by the two-term complex
+\begin{equation}\label{cyrec:eq:relative-obstruction}
+ S^2\xrightarrow{\Psi}S^4,
+ \qquad
+ \Psi=\begin{pmatrix}1&0\\0&1\\-1&0\\0&-1\end{pmatrix},
+ \qquad\omega=(0,0,1,-1)^{\mathsf t}.
+\end{equation}
+The map $J(v_1,v_2,v_3,v_4)=(v_1+v_3,v_2+v_4)$ has
+kernel $\operatorname{im}\Psi$ and a section
+$(v,w)\mapsto(0,0,v,w)$. Hence the obstruction class maps to
+$J\omega=(1,-1)$ in its cokernel $S^2$.
+Even allowing arbitrary $S$-valued corrections cannot kill it.
+This is a quotient of the necessary multiplication equations,
+without an identification with the full bialgebra deformation
+complex.
+
+Deleting the two terms containing $D$ would give the apparent
+solution $(\lambda,\mu)=(-1,1)$. Its residual on the intrinsic
+fiber is $-D\otimes b+b\otimes D\ne0$.
+Thus passing to the specialized polynomial image changes the
+coefficient object on which the obstruction is tested.
+
+\subsection{The regular collision tensor}
+
+The coefficient tensor in the theorem is forced by a specific
+regular collision construction. Let the position curve be
+$X=\mathbb A^1$ with coordinate $z$, independent of all Chern
+roots.
+
+For a partition $\pi$ of $[N]$, a run is a maximal
+consecutive interval with the same block label, and $\ell(\pi)$
+is the number of runs. In particular $13|2$ has three runs.
+Let $i_\pi$ repeat block coordinates and $j_\pi$ include their
+pairwise-distinct locus. With trivial coefficient connection put
+\[
+ M_\pi(B)=i_{\pi,*}j_{\pi,*}j_\pi^!
+            (\omega_{X^{|\pi|}}\otimes B^{\otimes_R\ell(\pi)}).
+\]
+The canonical module here is unshifted.
+
+A merger multiplies exactly the adjacent runs that acquire the
+same label. It leaves all three factors on $13|2$ and multiplies
+them in order on the subsequent total collision.
+Order blocks by their largest elements and use the full normal
+transfer $v^{-r-1}dv\leftrightarrow\delta_v\partial_v^r/r!$.
+The run complex is
+\begin{equation}\label{cyrec:eq:run-complex}
+ C_0=R,\qquad C_N=\bigoplus_{\pi\vdash[N]}M_\pi(B)[|\pi|],
+ \qquad
+ d|_\pi=(-1)^{|\pi|}d_B+\sum_{i<j}(-1)^{i-1}r_{ij}.
+\end{equation}
+Here $d_B$ means the tensor differential on all run factors.
+The principal-part map $r_{ij}$ includes both the normal transfer
+and the ordered multiplication of the newly adjacent factors.
+
+For disjoint mergers the state maps agree and the signs cancel.
+For three overlapping blocks the state map is the same ordered
+product on each route. The scalar identity is $L-R+N=0$ for
+the three full principal-part transfers. In coordinates
+$s=z_1-z_3$, $t=z_2-z_3$, its change of normal coordinates is
+\[
+ (s-t)^{-a}t^{-b}\longmapsto
+     \sum_{j=0}^{b-1}\binom{a+j-1}{j}s^{-a-j}t^{-b+j}.
+\]
+Partial fractions at $s=0$ and $s=t$ prove the identity, and
+right differential linearity retains all normal derivatives.
+Thus \eqref{cyrec:eq:run-complex} has square-zero differential.
+
+On a cut open, every block crossing that cut restricts to zero.
+The remaining partitions split uniquely, and their runs concatenate.
+This gives a strong cut coalgebra. Extraordinary pullback along a
+monotone surjection retains exactly the partitions pulled back
+from its target and deletes repeated adjacent run labels.
+These identifications compose and preserve the residues.
+
+The cut bar--cobar equivalence of Theorem~\ref{cycuts:thm:duality}
+then gives its cut cobar $A_\Phi$.
+The gap contraction retains exactly partitions crossing every
+cut, with coefficient $M_\pi(B)[|\pi|-1]$.
+The finite perturbation
+$\sum_{a=0}^{N-1}(-\partial_{\mathrm{col}}h_0)^a$,
+where $h_0$ contracts the first admissible gap, supplies the
+comparison and its higher operations.
+
+The scalar unit of $B$ supplies the local vacuum. Its $N$th coefficient is
+\[
+ \boldsymbol\omega_{X^N}\otimes R,
+ \qquad \boldsymbol\omega_Y=\omega_Y[\dim_{\mathbb C}Y].
+\]
+It is distinct from the empty cut unit, which has only arity zero.
+Under coefficient base change, the finite partition sums, residue
+maps and gap contractions commute with derived scalar extension.
+Thus the same construction represents $B_S$.
+
+The decisive tensor calculation is already binary. On a normal
+complex disk $D$, let $j:D^*\hookrightarrow D$ and
+$i:\{0\}\hookrightarrow D$. For a map of coefficient complexes
+$\mu:V\to W$, define the regular attachment
+\begin{equation}\label{cyrec:eq:regular-attachment}
+ G(\mu)=\operatorname{Fib}\left(
+ Rj_*\boldsymbol\omega_{D^*}\otimes V
+      \xrightarrow{\operatorname{Res}\otimes\mu}i_*W[1]\right).
+\end{equation}
+Its open coefficient is $V$ and its costalk is $W$.
+After removing the common tangent density, the binary run
+coefficient is $G(\mu_B:B\otimes_R^{\mathbb L}B\to B)$.
+
+\begin{lemma}\label{cyrec:lem:attachment-tensor}
+For perfect coefficient arrows, and for their Ind-extension with
+K-flat coefficients,
+\[
+ G(\mu)\otimes^!G(\nu)\simeq G(\mu\otimes^{\mathbb L}\nu).
+\]
+A map of attachments inducing open and closed maps $a,b$ obeys
+$b\mu=\nu a$ in the derived category.
+\end{lemma}
+
+\begin{proof}
+For perfect coefficients, Verdier duality identifies $G(\mu)$
+with the dual of a constructible diagram. Its closed stalk is
+$W^\vee$, its punctured stalk is $V^\vee$, its monodromy is the
+identity and its generization is $\mu^\vee$. Ordinary tensor tensors its stalks
+and generization, and duality gives the exceptional tensor formula.
+Every coefficient arrow is a filtered homotopy colimit of perfect
+arrows. The fixed two-stratum kernels, their localization triangles
+and derived tensors commute with these colimits, so the formula
+extends without dualizing nondualizable coefficients.
+Naturality of the localization boundary then gives $b\mu=\nu a$
+on its normal-circle residue component.
+\end{proof}
+
+Transport the exceptional tensor through cut bar and cobar:
+\[
+ A\diamond A'=\Omega_{\mathrm{cut}}
+       (B_{\mathrm{cut}}A\otimes^!B_{\mathrm{cut}}A').
+\]
+Suppose a unital cooperation $A_\Phi\to A_\Phi\diamond A_\Phi$
+preserves cuts, collisions and the local vacuum, with a two-sided
+counit to the transported vacuum unit. Its unary coefficient is
+a map $\Delta_B:B\to B\otimes_R^{\mathbb L}B$.
+The cut comparison forces its open binary map to be two copies
+of $\Delta_B$, with the middle factors interchanged. Its closed
+map is $\Delta_B$ by the common-root comparison.
+
+Lemma~\ref{cyrec:lem:attachment-tensor} therefore forces
+\[
+ \Delta_B\mu_B=(\mu_B\otimes\mu_B)
+            (1\otimes\tau\otimes1)(\Delta_B\otimes\Delta_B)
+\]
+with the ordinary Koszul swap $\tau$. The geometric counit
+induces the charge-zero projection.
+Theorem~\ref{cyrec:thm:hall-obstruction} excludes this cooperation
+on the intrinsic fiber $S$ and at the homogeneous origin.
+
+Over $R$ itself there is an earlier obstruction. The mixed
+products \eqref{cyrec:eq:mixed-hall-product} satisfy
+\[
+ \{a_{r+2},b_s\}-2\{a_{r+1},b_{s+1}\}
+       +\{a_r,b_{s+2}\}-P a_rb_s-Q b_sa_r=0.
+\]
+Both simple charges are odd and primitive in any such cooperation.
+Projection of the proposed coproduct onto charge split
+$(1,0)|(0,1)$ gives $-\delta a_r\otimes b_s\ne0$.
+This class remains nonzero after inverting $\delta$.
+Its vanishing on $S$ is the reason the surviving intrinsic
+classes were necessary for the stronger fiber calculation.
+
+A tensor with meromorphic interchange or different collision
+attachment changes these hypotheses. The rational Hall tensor
+of the preceding chapter is an example of a construction with a
+specified changed interchange. Comparing it with the global
+critical coefficients requires a map retaining the intrinsic
+classes, the vacuum, the counit and the triple-collision identities.
+
+\section{Derived interfaces at a node}
+
+There is an associative tensor available without a coproduct on
+the coefficient algebra: composition of bimodules by derived
+tensor over that algebra. At a singular point its higher Tor
+classes are essential. The node gives both an explicit composition
+and a test of how much of the center one branch can detect.
+
+Let $k$ have characteristic zero and put
+\[
+ A=k[u,m]/(um),\qquad P=A/(m),\qquad Q=A/(u),
+ \qquad A^e=A\otimes_kA^{\mathrm{op}}.
+\]
+Regard the two branch modules as diagonal $A$-bimodules.
+In $D(A^e)$, interface composition is
+$M\otimes_A^{\mathbb L}N$, with unit $A$.
+The two-sided bar complex gives its associator: both
+parenthesizations realize the same multibar complex, and its
+successive face maps give the coherence identities.
+All tensors here are algebraic.
+
+\subsection{The derived intersection retains infinitely many classes}
+
+A semifree resolution of $P$ as an $A$-algebra is
+\begin{equation}\label{cyrec:eq:node-resolution}
+ R_P=A[e,t],\qquad |e|=-1,\quad |t|=-2,
+ \qquad de=m,\quad dt=ue.
+\end{equation}
+The odd variable is exterior. Use divided powers
+$t^{[j]}=t^j/j!$ for its even variable.
+The underlying free complex has one cell in each nonpositive
+degree and differential alternately $m,u,m,u,\ldots$.
+Since $\operatorname{ann}(m)=uA$ and
+$\operatorname{ann}(u)=mA$, it is exact away from degree zero,
+where its cohomology is $P$.
+The analogous resolution of $Q$ interchanges $u$ and $m$.
+
+\begin{proposition}\label{cyrec:prop:node-composition}
+There are quasi-isomorphisms of derived $A$-bimodules
+\begin{align}
+ P\otimes_A^{\mathbb L}Q&\simeq k[t],
+               &|t|&=-2,\label{cyrec:eq:node-binary}\\
+ P\otimes_A^{\mathbb L}Q\otimes_A^{\mathbb L}P
+      &\simeq k[t_1,t_2]\otimes\Lambda(\epsilon),
+               &|\epsilon|&=-1.
+ \label{cyrec:eq:node-triple}
+\end{align}
+The targets have zero differential, and both $A$-actions factor
+through $A/(u,m)=k$.
+\end{proposition}
+
+\begin{proof}
+Tensor $R_P$ with $Q$. This gives $k[m,e,t]$ with $de=m$,
+$dt=0$. Projection killing $m,e$ is a bimodule map to $k[t]$.
+The regular Koszul pair contracts by
+$H(m^j)=em^{j-1}$ for $j>0$, with $H$ zero on the constant
+and odd terms. The homotopy is $k$-linear, which suffices to
+prove that the bimodule projection is a quasi-isomorphism.
+
+For the triple tensor, resolve both outer copies of $P$.
+The common complex is
+\[
+ k[m,e_1,e_2,t_1,t_2],\qquad
+ de_1=de_2=m,\quad dt_1=dt_2=0.
+\]
+Put $\epsilon=e_2-e_1$ and contract $(m,e_1)$.
+The remaining variables give \eqref{cyrec:eq:node-triple}.
+Flatness of the outer resolutions makes this one complex compute
+both parenthesizations.
+\end{proof}
+
+The ordinary intersection $P\otimes_AQ=k$ discards all positive
+powers of $t$. Replacing the first derived intersection by that
+point changes its next composition to
+$k\otimes_A^{\mathbb L}P\simeq k[t]\otimes\Lambda(e)$.
+Its degree $-2$ has dimension one, whereas that degree in
+\eqref{cyrec:eq:node-triple} has dimension two.
+The distinction is present before any completion.
+
+The bounded coherent category therefore does not contain the
+composite, even though it contains both branches.
+Nor is $\operatorname{Perf}(A^e)$ closed under this composition:
+\[
+ A^e\otimes_A A^e\simeq A\otimes_kA\otimes_kA
+\]
+is an infinite-rank free module over the two outer factors $A^e$.
+Its degree-zero cohomology is not finitely generated over the
+Noetherian ring $A^e$, so it cannot be perfect.
+
+There is a different closed class. Bimodules perfect as left
+$A$-modules and as right $A$-modules are closed under relative
+derived tensor and contain the unit. For left perfection, express
+the second factor by finite cones and retracts of left free
+modules. Tensoring turns these into finite cones and retracts of
+the first factor. The right-module argument is the reverse.
+
+The branch modules do not belong to this class, as their periodic
+self-extensions below show. Their composition is instead defined
+in the full $D(A^e)$.
+
+\subsection{Cross-branch extensions and their composition}
+
+Let $P_\bullet,Q_\bullet$ be the alternating free resolutions
+just constructed. Applying Hom to them gives
+\begin{equation}\label{cyrec:eq:branch-ext}
+\begin{aligned}
+ \operatorname{Ext}^0_A(P,P)&=P,&
+ \operatorname{Ext}^{2j}_A(P,P)&=k\quad(j\geq1),&
+ \operatorname{Ext}^{2j+1}_A(P,P)&=0,\\
+ \operatorname{Ext}^{2j+1}_A(P,Q)&=k\quad(j\geq0),&
+ \operatorname{Ext}^{2j}_A(P,Q)&=0\quad(j\geq0).
+\end{aligned}
+\end{equation}
+For the first row the cochain differentials alternate between
+zero and multiplication by $u$ on $k[u]$.
+For the second they alternate between multiplication by $m$
+and zero on $k[m]$. The formulas with the branches exchanged
+follow by symmetry.
+
+The degree-one cross classes have nonzero Yoneda composite.
+Define $F:P_\bullet\to Q_\bullet$ by sending the cell in
+degree $-n$, for $n\geq1$, to $(-1)^{n-1}$ times the cell
+in degree $-n+1$, and killing degree zero.
+Define $G:Q_\bullet\to P_\bullet$ by the same coefficients.
+Adjacent coefficients cancel, so $dF+Fd=dG+Gd=0$.
+Their composites equal minus the two-step shift, which represents
+the nonzero class in $P/uP=\operatorname{Ext}^2_A(P,P)$.
+
+The periodic matrices make the sign visible:
+\begin{equation}\label{cyrec:eq:node-matrix-factorizations}
+ d_P=\begin{pmatrix}0&m\\u&0\end{pmatrix},\qquad
+ d_Q=\begin{pmatrix}0&u\\m&0\end{pmatrix},\qquad
+ F=\begin{pmatrix}0&1\\-1&0\end{pmatrix}.
+\end{equation}
+The two differentials square to $um$, while
+$d_QF+Fd_P=0$ and $F^2=-1$.
+Thus these are matrix factorizations of the nodal equation,
+with the same nonzero cross-branch composition after
+periodization.
+
+\subsection{The Hochschild class detected by one branch}
+
+The ordinary center of the commutative node is $A$.
+Its derived center also sees the singular point through a
+periodic degree-two class. To calculate it, use left and right
+coordinates on $A^e$ and the diagonal Tate resolution
+\begin{equation}\label{cyrec:eq:node-diagonal}
+ \mathcal T_A=A^e\otimes\Lambda(e_u,e_m)\otimes\Gamma(h),
+ \quad |e_u|=|e_m|=-1,\quad |h|=-2,
+\end{equation}
+with
+\[
+ de_u=u_L-u_R,\qquad de_m=m_L-m_R,\qquad
+ dh=m_Le_u+u_Re_m.
+\]
+The last differential squares to $u_Lm_L-u_Rm_R=0$.
+The even variable has divided powers and
+$dh^{[r]}=(dh)h^{[r-1]}$.
+
+To verify exactness, put $a=u_L-u_R$, $b=m_L-m_R$,
+$x=u_R$, $y=m_R$.
+Then $A^e=A[a,b]/(ay+bx+ab)$.
+The defining polynomial is a nonzero divisor, with leading
+monomial $ab$ and coefficient one. The Koszul complex on $a,b$
+therefore has, after this quotient, homology $A$ in degrees
+zero and $-1$. The latter generator is $m_Le_u+u_Re_m$.
+
+Filtering \eqref{cyrec:eq:node-diagonal} by divided-power degree
+pairs each positive divided power with this generator and
+contracts them. The filtration is finite in each chain degree,
+so the augmentation to $A$ is a free diagonal resolution.
+
+Applying $\operatorname{Hom}_{A^e}(-,A)$ gives the additive
+cochain model
+\begin{equation}\label{cyrec:eq:node-hochschild-complex}
+ A[\tau]\otimes\Lambda(\xi_u,\xi_m),
+ \qquad |\tau|=2,\quad |\xi_u|=|\xi_m|=1,
+ \qquad d\xi_u=m\tau,\quad d\xi_m=u\tau.
+\end{equation}
+The exterior notation specifies the basis and differential.
+Products will be obtained from maps of the resolution, without
+identifying this exterior product with a strict Hochschild cup
+product.
+
+\begin{proposition}\label{cyrec:prop:node-hochschild}
+With $E_u=u\xi_u$ and $E_m=m\xi_m$, one has
+\begin{align*}
+ \operatorname{HH}^0(A)&=A,\\
+ \operatorname{HH}^1(A)&=u k[u]\xi_u\oplus m k[m]\xi_m,\\
+ \operatorname{HH}^{2r}(A)&=k\tau^r\quad(r\geq1),\\
+ \operatorname{HH}^{2r+1}(A)&=kE_u\tau^r=kE_m\tau^r
+                                      \quad(r\geq1).
+\end{align*}
+Multiplication by $\tau$ is periodic in degrees at least two.
+The Gerstenhaber brackets are
+\begin{equation}\label{cyrec:eq:euler-periodic}
+ [E_u,\tau]=[E_m,\tau]=-\tau.
+\end{equation}
+The products $E_u\tau=E_m\tau$ are nonzero, while all products
+of two degree-one classes vanish.
+\end{proposition}
+
+\begin{proof}
+A degree-one cycle has coefficients $A_1,A_2$ with
+$mA_1+uA_2=0$. Since $(u)\cap(m)=0$, they lie in $(u)$
+and $(m)$, respectively. In positive even degree the scalar
+$\tau$ coefficient is reduced modulo $(u,m)$, and no nonzero
+coefficient of $\xi_u\xi_m$ is annihilated by both $u$ and $m$.
+In odd degrees at least three, the boundary
+$(m\xi_m-u\xi_u)\tau$ identifies the Euler terms and kills
+their higher polynomial multiples. This computes the groups.
+
+The chain map lowering the divided power of $h$ by one and
+killing $h^{[0]}$ represents $\tau$.
+It commutes with the divided-power differential, including its
+first step. Precomposition with it gives cup multiplication by
+$\tau$, proving periodicity and the asserted nonzero products.
+
+Scale $u,m$ independently by a two-dimensional torus.
+The resolution generator $h$ has weight $(1,1)$, so $\tau$
+has weight $(-1,-1)$. Bracket with an Euler derivation is this
+weight action, proving \eqref{cyrec:eq:euler-periodic}.
+Degree-one classes have weights $(r,0)$ or $(0,s)$ with
+$r,s\geq0$, whereas degree two has only weight $(-1,-1)$.
+Weight preservation forces all degree-one pair products to vanish.
+\end{proof}
+
+A Hochschild class acts on a module by tensoring the corresponding
+diagonal endomorphism with that module. For the branch $P$, this
+is the characteristic map
+\[
+ \chi_P:\operatorname{HH}^*(A)\longrightarrow
+                                      \operatorname{Ext}_A^*(P,P).
+\]
+Let $\beta$ denote the positive two-step shift of $P_\bullet$.
+Then
+\begin{equation}\label{cyrec:eq:characteristic-values}
+ \chi_P(\tau)=\beta\ne0,\qquad\chi_P(E_u)=0.
+\end{equation}
+
+Indeed, after tensoring the diagonal resolution on the right with
+$P$, put $h'=h+e_ue_m$. The differential becomes $dh'=u_Le_m$.
+The regular pair $(u_L-u_R,e_u)$ contracts, leaving exactly
+$A[e_m,h']$ with $de_m=m_L$, $dh'=u_Le_m$.
+Lowering the divided power of $h$ becomes lowering that of $h'$,
+which is the branch periodic shift. The degree-one image vanishes
+by \eqref{cyrec:eq:branch-ext}.
+
+Consequently no $E_2$-algebra map to an $E_2$ refinement of
+$R\operatorname{Hom}_A(P,P)$ can induce this characteristic
+action. Such a map would preserve the Gerstenhaber bracket and
+give
+\[
+ -\beta=\chi_P([E_u,\tau])
+                  =[\chi_P(E_u),\chi_P(\tau)]=[0,\beta]=0.
+\]
+The ordinary derived characteristic action remains defined.
+This obstruction concerns its specified values and that proposed
+higher structure on its target.
+
+\section{Adding constrained systems}
+
+Relative interface composition uses one fixed algebra $A$.
+Adding the coordinates of two independent constrained systems
+asks instead for a coproduct compatible with their equations.
+For the node this produces a cross term that is not a boundary
+in the ordinary tensor of the two systems.
+
+Consider the commutative dg algebra
+\begin{equation}\label{cyrec:eq:constrained-node}
+ K=k[u,m]\otimes\Lambda(\eta,\chi),\qquad
+ |\eta|=|\chi|=-1,\quad d\eta=um,\quad d\chi=0.
+\end{equation}
+Its cohomology is $A\otimes\Lambda(\chi)$.
+The proposed sums $u\mapsto u_1+u_2$ and
+$m\mapsto m_1+m_2$ send the relation to
+\[
+ b_{12}=u_1m_2+u_2m_1
+          \quad\bmod (u_1m_1,u_2m_2).
+\]
+This is nonzero, as setting $m_1=u_2=0$ shows.
+Thus no dg algebra map $K\to K\otimes K$ can induce those
+coordinate sums. Higher components of an $A_\infty$ map cannot
+change the induced cohomology algebra relation either.
+
+\subsection{A common refinement and a noninvertible comparison}
+
+Adjoin an odd generator $\theta_{12}$ with
+$d\theta_{12}=b_{12}$. The coupled algebra $T_2$ then receives
+the map
+\[
+ u\mapsto u_1+u_2,\quad m\mapsto m_1+m_2,\quad
+ \eta\mapsto\eta_1+\eta_2+\theta_{12},\quad
+ \chi\mapsto\chi_1+\chi_2.
+\]
+The added generator makes it a chain map.
+It does not yet make successive binary constructions equivalent.
+
+For three leaves put $b_{ij}=u_im_j+u_jm_i$.
+The left parenthesization has additional generators with
+differentials $b_{12}$ and $b_{13}+b_{23}$.
+The right parenthesization uses $b_{23}$ and $b_{12}+b_{13}$.
+Their degree-zero cohomology algebras are the quotients of the
+fixed six-coordinate polynomial ring by
+\begin{equation}\label{cyrec:eq:node-support-ideals}
+\begin{aligned}
+ I_L&=(u_im_i\ (1\leq i\leq3),\ b_{12},\ b_{13}+b_{23}),\\
+ I_R&=(u_im_i\ (1\leq i\leq3),\ b_{23},\ b_{12}+b_{13}).
+\end{aligned}
+\end{equation}
+
+At $u=(1,-1,0)$ and $m=(0,0,1)$, every generator of $I_L$
+vanishes but $b_{23}=-1$. Thus the ideals differ.
+An equivalence over the fixed leaf-coordinate ring would have to
+identify their kernels in degree-zero cohomology, which is impossible.
+
+There is nevertheless a coherent common refinement. For $r$
+leaves let
+\[
+ T_r=k[u_i,m_i]\otimes
+       \Lambda(\eta_i,\chi_i,\theta_{ij}:i<j),
+ \quad d\eta_i=u_im_i,\quad d\chi_i=0,\quad d\theta_{ij}=b_{ij}.
+\]
+For a partition into ordered blocks, the refinement map sends
+\begin{equation}\label{cyrec:eq:node-refinements}
+\begin{aligned}
+ u_B&\mapsto\sum_{i\in B}u_i,&
+ m_B&\mapsto\sum_{i\in B}m_i,\\
+ \eta_B&\mapsto\sum_{i\in B}\eta_i+
+                      \sum_{i<j\in B}\theta_{ij},&
+ \chi_B&\mapsto\sum_{i\in B}\chi_i,\\
+ \theta_{B,C}&\mapsto\sum_{i\in B,j\in C}\theta_{\{i,j\}}.
+\end{aligned}
+\end{equation}
+
+Expansion proves compatibility with differentials. Every pair
+occurs exactly once under successive refinement, so these maps
+compose strictly. Both binary parenthesizations map to $T_3$.
+Their maps to that common target are not thereby invertible
+associators.
+
+\subsection{Retaining the equation value gives a Hopf algebra}
+
+Instead of imposing $um=0$, keep its value as a coordinate:
+\[
+ \widetilde K=k[u,m,c]\otimes\Lambda(\eta,\chi),
+ \qquad d\eta=um-c,\quad d\chi=0.
+\]
+The coordinate $w=c-um$ makes the differential linear,
+$d\eta=-w$.
+Declare $u,m,w,\eta,\chi$ primitive in the free
+graded-commutative algebra on these generators.
+
+\begin{proposition}\label{cyrec:prop:equation-hopf}
+This makes $\widetilde K$ a dg Hopf algebra, with
+\begin{equation}\label{cyrec:eq:equation-coproduct}
+ \Delta c=c\otimes1+1\otimes c+u\otimes m+m\otimes u,
+ \qquad S(c)=-c+2um.
+\end{equation}
+Its counit kills every displayed generator. The quotient $c=0$
+is not a Hopf quotient, and
+$H^*(\widetilde K)=k[u,m]\otimes\Lambda(\chi)$.
+\end{proposition}
+
+\begin{proof}
+In the variables $u,m,w,\eta,\chi$, the algebra is the free
+graded-commutative Hopf algebra on a complex of primitives.
+The linear differential commutes with all its Hopf maps.
+Substitution $c=w+um$ gives both formulas in
+\eqref{cyrec:eq:equation-coproduct}.
+Modulo $c$ in both factors, the cross term remains nonzero,
+so $(c)$ is not a coideal. Contracting the pair $(w,\eta)$
+computes the cohomology.
+\end{proof}
+
+The enlargement provides a coherent tensor by retaining the
+equation value, but changes the cohomology of the constrained
+system. Relative interface composition, the common-refinement
+maps, and this enlarged Hopf tensor therefore solve distinct
+problems.
+
+\begin{problem}\label{cyrec:prob:constrained-fusion}
+Construct a category of constrained nodal field theories with a
+specified tensor product, local vacuum and collision operations.
+Determine whether it receives the associative interface
+composition over $A$, or the all-pair refinement maps
+\eqref{cyrec:eq:node-refinements}, through functors preserving
+their derived coefficients. If an enlargement by equation values
+is used, construct the comparison with the original constrained
+cohomology and identify which operations it preserves.
+\end{problem}

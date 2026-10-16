@@ -1,0 +1,1935 @@
+\chapter{Indices, denominators and elliptic coefficient lines}
+\label{cyidx:chapter}
+
+Taking an Euler characteristic turns a complex of geometric
+coefficients into a number. For Hilbert schemes of a K3 surface
+these numbers assemble into the reciprocal of an Igusa product,
+after a boundary factor is removed. An Enriques surface gives
+the corresponding half-index. The root algebra supplies another
+source of the same product, with a Lie bracket and a Chevalley
+differential. Comparing the two constructions requires the
+coefficient complexes and their operations.
+
+The boundary factor is already significant at length zero.
+The elliptic coefficient line is significant at a collision:
+its section can have a double zero, and the resulting quotient
+retains a normal nilpotent. For three interacting colours,
+the simultaneous incidence has a nonzero higher multiplication.
+We will compute this complex, its deformation over the spectral
+elliptic curve, and the cover on which its coefficient line
+has a square root. These constructions retain data that their
+Euler characteristics forget.
+
+\section{The elliptic index and its coefficient complexes}
+\label{cyidx:sec:index}
+
+Let \(Y\) be a smooth projective complex variety of dimension \(d\).
+For a vector bundle \(V\), write
+\[
+ \Lambda_zV=\sum_{j\geq0}z^j\Lambda^jV,\qquad
+ \operatorname{Sym}_zV=\sum_{j\geq0}z^j\operatorname{Sym}^jV.
+\]
+The elliptic class is the formal virtual bundle
+\begin{equation}\label{cyidx:eq:elliptic-class}
+\begin{split}
+ \mathcal E_{q,y}(Y)=y^{-d/2}\bigotimes_{r\geq1}
+ \bigl(&\Lambda_{-yq^{r-1}}T_Y^*
+       \otimes\Lambda_{-y^{-1}q^r}T_Y\\
+       &\otimes\operatorname{Sym}_{q^r}T_Y^*
+       \otimes\operatorname{Sym}_{q^r}T_Y\bigr)
+ \in K^0(Y)[y^{\pm1/2}][[q]].
+\end{split}
+\end{equation}
+At a fixed power of \(q\), only finitely many positive-energy
+factors contribute. The remaining exterior factor has finite
+rank, so the Laurent support in \(y\) is finite as well.
+Define
+\[
+ \operatorname{Ell}(Y;q,y)=
+ \chi(Y,\mathcal E_{q,y}(Y)),\qquad
+ \chi(Y,V)=\sum_j(-1)^j\dim H^j(Y,V),
+\]
+coefficient by coefficient.
+
+There is a complex before this Euler characteristic. Give each
+exterior power in \eqref{cyidx:eq:elliptic-class} its exterior
+degree modulo two, keep the symmetric powers even, and retain
+the displayed \(q,y\) weights. This defines a formal superbundle
+\(\mathscr E_{q,y}(Y)\) whose super-\(K\)-class is
+\(\mathcal E_{q,y}(Y)\). Its coefficient \(\mathscr E_{m,\ell}(Y)\)
+is a finite sum of bundles with specified internal parity.
+The complex
+\begin{equation}\label{cyidx:eq:coefficients}
+ \mathscr V_{m,\ell}(Y)=
+ R\Gamma(Y,\mathscr E_{m,\ell}(Y))
+\end{equation}
+is perfect over \(\mathbb C\). Its Euler superdimension uses
+\((-1)^{j+\epsilon}\), where \(j\) is cohomological degree and
+\(\epsilon\) is internal parity.
+
+Fix a K3 surface \(S\) and an Enriques surface \(T\).
+Write \(\widetilde T\to T\) for the canonical étale double
+cover. The K3 elliptic genus is
+\begin{equation}\label{cyidx:eq:seed}
+ \operatorname{Ell}(S;q,y)=2\phi_{0,1}(q,y),\qquad
+ \phi_{0,1}(\tau,z)=
+ 4\sum_{a=2}^4\frac{\vartheta_a(\tau,z)^2}
+                         {\vartheta_a(\tau,0)^2},
+\end{equation}
+with \(q=e^{2\pi i\tau}\), \(y=e^{2\pi iz}\).
+The theta normalization is that of \cite{EZ}.
+Write
+\[
+ \phi_{0,1}(q,y)=\sum_{m\geq0,\ell\in\mathbb Z}
+                      f(4m-\ell^2)q^my^\ell.
+\]
+The elliptic transformation law identifies the coefficients
+at \((m,\ell)\) and \((m+a\ell+a^2,\ell+2a)\).
+Reducing \(\ell\) to zero or one proves that \(f(D)=0\)
+for \(D<-1\). The constant row is
+\[
+ [q^0]\phi_{0,1}=y^{-1}+10+y.
+\]
+Indeed the K3 Hodge numbers give
+\(y^{-1}(\chi(\mathcal O_S)-y\chi(\Omega_S^1)
++y^2\chi(\Omega_S^2))=2y^{-1}+20+2y\).
+In particular \(f(-1)=1\), \(f(0)=10\), whereas
+\(\phi_{0,1}(\tau,0)=12\).
+
+\begin{proposition}\label{cyidx:prop:half-index}
+The Enriques elliptic genus is \(\phi_{0,1}\).
+At \(y=1\), the elliptic genus of any smooth projective
+\(Y\) is its topological Euler characteristic, independent
+of \(q\).
+\end{proposition}
+\begin{proof}
+The tangent bundle pulls back along an étale map. The
+Hirzebruch--Riemann--Roch characteristic class defining
+the elliptic genus therefore pulls back, and its integral
+over the double cover is twice its integral over \(T\).
+Apply \eqref{cyidx:eq:seed} to \(\widetilde T\).
+
+At \(y=1\), use
+\(\Lambda_{-z}V\,\operatorname{Sym}_zV=1\).
+All positive-\(q\) factors cancel, leaving
+\(\Lambda_{-1}T_Y^*\). Its holomorphic Euler characteristic
+is \(\sum_{p,j}(-1)^{p+j}h^{p,j}(Y)=e(Y)\).
+\end{proof}
+
+\subsection{Length and the boundary factor}
+
+For a surface \(Y\), let \(Y^{[N]}\) be its Hilbert scheme
+of length-\(N\) subschemes, and put
+\[
+ F_Y(p,q,y)=\sum_{N\geq0}p^N
+                  \operatorname{Ell}(Y^{[N]};q,y).
+\]
+Thus \(p\) records length, \(q\) elliptic energy, and
+\(y\) the Laurent weight. Each coefficient has the
+complex \eqref{cyidx:eq:coefficients} on \(Y^{[N]}\);
+the empty Hilbert scheme contributes \(1\).
+
+For triples \((a,b,\ell)\), the notation \((a,b,\ell)>0\)
+means \(a,b\geq0\), \(a+b>0\), or \(a=b=0\), \(\ell<0\).
+Choose square roots of the formal monomials and define
+\begin{equation}\label{cyidx:eq:D5}
+ D_5=(pqy)^{1/2}
+       \prod_{(a,b,\ell)>0}
+          (1-p^aq^by^\ell)^{f(4ab-\ell^2)},\qquad
+ \Xi=D_5^2.
+\end{equation}
+The length-zero factor, including its Weyl monomial, is
+\begin{equation}\label{cyidx:eq:boundary}
+\begin{split}
+ b(q,y)&=q^{1/2}(y^{1/2}-y^{-1/2})
+       \prod_{r\geq1}(1-q^r)^{10}
+                         (1-yq^r)(1-y^{-1}q^r),\\
+ \mathcal B(q,y)&=b(q,y)^2\\
+ &=q(y+y^{-1}-2)\prod_{r\geq1}
+        (1-q^r)^{20}(1-yq^r)^2(1-y^{-1}q^r)^2.
+\end{split}
+\end{equation}
+Here the symbol \(b(q,y)\) is a function; the integer \(b\)
+in a root triple is its energy coordinate.
+
+\begin{theorem}\label{cyidx:thm:Hilbert-product}
+In \(\mathbb Z[y,y^{-1}][[p,q]]\),
+\begin{align}
+ F_T&=\prod_{a>0,b\geq0,\ell\in\mathbb Z}
+       (1-p^aq^by^\ell)^{-f(4ab-\ell^2)}
+       =\frac{p^{1/2}b(q,y)}{D_5},\label{cyidx:eq:Enriques}\\
+ F_S&=\prod_{a>0,b\geq0,\ell\in\mathbb Z}
+       (1-p^aq^by^\ell)^{-2f(4ab-\ell^2)}
+       =\frac{p\mathcal B(q,y)}{\Xi}=F_T^2.
+       \label{cyidx:eq:K3}
+\end{align}
+The quotients are expanded after canceling their
+length-zero factors.
+\end{theorem}
+\begin{proof}
+The smooth-surface Hilbert-scheme formula of
+Borisov--Libgober identifies the elliptic genus of the
+Hilbert--Chow resolution with the symmetric-product
+orbifold genus \cite{rewriteBL2005}*{Corollary~6.7}.
+It applies to both surfaces; triviality of the canonical
+bundle is not a hypothesis of that formula. Their seed
+coefficients are \(f\) and \(2f\), respectively.
+At fixed \(p^Nq^M\), only \(a\leq N\), \(b\leq M\)
+contribute, and \(4ab-\ell^2\geq-1\) bounds \(\ell\).
+This proves the formal finiteness of the products.
+Extracting the factors with \(a=0\) from
+\eqref{cyidx:eq:D5} gives \eqref{cyidx:eq:boundary}.
+Squaring doubles the positive-length exponents.
+\end{proof}
+
+The first coefficients make the normalization visible:
+\begin{align}
+ F_T(p,q,1)&=1+12p+90p^2+520p^3+O(p^4),\label{cyidx:eq:Euler-T}\\
+ F_S(p,q,1)&=1+24p+324p^2+3200p^3+O(p^4).
+ \label{cyidx:eq:Euler-S}
+\end{align}
+They are the products
+\(\prod_{a\geq1}(1-p^a)^{-12}\) and
+\(\prod_{a\geq1}(1-p^a)^{-24}\).
+For a more refined coefficient, put \(A(y)=y+10+y^{-1}\).
+The length-one modes contribute
+\(\tfrac12(A(y)^2+A(y^2))\) at length two, and the
+length-two modes contribute \(A(y)\). Hence
+\begin{align}
+ [p^2q^0]F_T&=y^2+11y+66+11y^{-1}+y^{-2},\label{cyidx:eq:two-T}\\
+ [p^2q^0]F_S&=3y^2+42y+234+42y^{-1}+3y^{-2}.
+ \label{cyidx:eq:two-S}
+\end{align}
+Both \(\mathcal B\) and \(\Xi\) vanish at \(y=1\).
+Their canceled quotient has the regular specialization
+\eqref{cyidx:eq:Euler-S}; their separate reciprocals do not.
+
+The complexes \(\mathscr V_{m,\ell}(T^{[N]})\) provide
+geometric coefficients for \(F_T\). Formula
+\eqref{cyidx:eq:K3} compares their Euler supercharacters.
+It supplies neither a tensor-square equivalence with
+the K3 complexes nor extension pull--push maps on them.
+A perfect complex can have zero Euler characteristic
+and nonzero cohomology, so taking the index cannot
+recover such maps.
+
+\section{The positive-length root ideal}
+\label{cyidx:sec:root-ideal}
+
+Use the lattice \(L=\mathbb Z^3\) with coordinates
+\((a,b,\ell)\) and pairing
+\[
+ ((a,b,\ell),(a',b',\ell'))=
+ 2\ell\ell'-4(ab'+ba').
+\]
+Its real simple roots and Weyl vector are
+\begin{equation}\label{cyidx:eq:real-roots}
+ \delta_1=(0,1,1),\quad
+ \delta_2=(1,0,1),\quad
+ \delta_3=(0,0,-1),\qquad
+ \rho=(1/2,1/2,1/2).
+\end{equation}
+Their Gram matrix is \(2\) on the diagonal and \(-2\)
+off the diagonal, and \((\rho,\delta_i)=-1\).
+Fix
+\[
+ e^{-\delta_1}=qy,\qquad e^{-\delta_2}=py,\qquad
+ e^{-\delta_3}=y^{-1},\qquad e^{-\rho}=(pqy)^{1/2}.
+\]
+These are root-torus coordinates; the analytic doubling
+in the Gritsenko--Nikulin convention will be specified below.
+
+Let \(\mathfrak n_+\) be the positive part of the
+Gritsenko--Nikulin Lie superalgebra, with the full labelled
+imaginary simple-root spaces and parities of its presentation
+\cite{GN97}*{Sections~3 and~6}.
+The real generators are even. The presentation supplies
+both parity spaces and the bracket. The denominator theorem
+gives their difference:
+\[
+ \operatorname{sdim}(\mathfrak n_+)_{a,b,\ell}
+       =f(4ab-\ell^2).
+\]
+Here \(\operatorname{sdim}V=\dim V_{\bar0}-\dim V_{\bar1}\).
+Actual root spaces are finite-dimensional in each parity.
+
+Length \(a\) defines
+\[
+ \mathfrak u=\bigoplus_{a>0,b,\ell}(\mathfrak n_+)_{a,b,\ell},
+ \qquad
+ \mathfrak n_0=\bigoplus_{b,\ell}(\mathfrak n_+)_{0,b,\ell}.
+\]
+For Chevalley chains, internal parity and chain degree
+are separate. Write
+\[
+ \chi_s C_*(\mathfrak u)
+       =\sum_{j\geq0}(-1)^j\operatorname{sch}C_j(\mathfrak u).
+\]
+All characters are formed degree by degree in the positive
+root cone.
+
+\begin{proposition}\label{cyidx:prop:PBW}
+There is a semidirect decomposition
+\(\mathfrak n_+=\mathfrak u\rtimes\mathfrak n_0\), and
+\begin{equation}\label{cyidx:eq:PBW}
+ \operatorname{sch}U(\mathfrak u)=F_T,\qquad
+ \chi_s C_*(\mathfrak u)=F_T^{-1},\qquad
+ D_5=p^{1/2}b(q,y)\,\chi_s C_*(\mathfrak u).
+\end{equation}
+\end{proposition}
+\begin{proof}
+The bracket adds the nonnegative length. Its positive
+part is therefore an ideal, and its zero part a subalgebra.
+Their vector-space sum is direct.
+
+In super PBW, an even root vector of monomial weight \(x\)
+contributes \((1-x)^{-1}\), and an odd root vector contributes
+\(1-x\). In Chevalley chains the contributions are inverse.
+For an odd vector, symmetric powers have equal internal
+and chain parities, whose signs cancel; for an even vector,
+the chain sign gives its exterior factor \(1-x\).
+The root supermultiplicities and
+\eqref{cyidx:eq:Enriques} prove the first two identities.
+Extracting the length-zero part gives the third.
+\end{proof}
+
+The full enveloping character is \((pqy)^{1/2}/D_5\);
+the character of \(U(\mathfrak n_0)\) is
+\((qy)^{1/2}/b(q,y)\). Their quotient is \(F_T\).
+The ideal still carries the adjoint action of
+\(\mathfrak n_0\). Removing a scalar factor from a character
+does not discard that action from the algebra.
+
+\subsection{Completion by the total height of a monomial}
+
+Every root charge has the expression
+\begin{equation}\label{cyidx:eq:height}
+ (a,b,\ell)=b\delta_1+a\delta_2+(a+b-\ell)\delta_3,
+ \qquad h(a,b,\ell)=2(a+b)-\ell.
+\end{equation}
+On the positive cone this is a positive integral height.
+For an active product factor with \(a+b>0\), the support
+bound implies \(\ell\leq a+b\), hence \(h\geq a+b\).
+Indeed \(\ell\geq a+b+1\) would give
+\(\ell^2-4ab\geq(a-b)^2+2(a+b)+1>1\).
+The only active factor with \(a=b=0\) has \(\ell=-1\).
+Bounded height therefore contains finitely many root degrees.
+
+For a height-graded vector space \(V=\bigoplus_{r\geq0}V_r\),
+set
+\[
+ \widehat V=\prod_{r\geq0}V_r,\qquad
+ \widehat V\,\widehat\otimes\,\widehat W
+ =\prod_{r\geq0}\bigoplus_{i+j=r}V_i\otimes W_j.
+\]
+The neighborhoods of zero are the products over \(r\geq H\).
+The height of a monomial in \(U(\mathfrak n_+)\) is the
+sum of the heights of all its generators, including repetitions.
+The reduced bar and Chevalley complexes inherit this grading.
+
+\begin{theorem}\label{cyidx:thm:completed-bar}
+Antisymmetrization gives a quasi-isomorphism
+\begin{equation}\label{cyidx:eq:completed-bar}
+ \prod_{r\geq0}C_*(\mathfrak n_+)_r
+ \longrightarrow
+ \prod_{r\geq0}B_*(U(\mathfrak n_+))_r.
+\end{equation}
+At each total height, the terms are finite-dimensional and
+only finitely many chain degrees occur.
+\end{theorem}
+\begin{proof}
+A monomial of height \(r\) contains at most \(r\)
+positive-height generators. Only finitely many root spaces
+can occur, and each is finite-dimensional in both parities.
+This proves both finiteness assertions, including the bar
+length bound.
+
+Use the bar differential whose first multiplication term
+is positive and the Chevalley differential sending
+\(x\wedge y\) to \([x,y]\). Antisymmetrization sums the
+bar words with the permutation sign and the Koszul sign
+of the internal parities. Adjacent multiplication terms
+cancel in pairs except for the brackets, so it is a chain
+map. Its PBW associated graded is the Koszul comparison
+for a free supercommutative algebra: exterior chains for
+even generators, symmetric chains for odd generators.
+The filtration is finite at each total height.
+Thus the comparison is a quasi-isomorphism there.
+Products of complexes of complex vector spaces are exact,
+so the product of these comparisons is again a
+quasi-isomorphism.
+\end{proof}
+
+Truncating the Lie algebra alone gives a different topology.
+For \(\mathfrak a=\mathbb Cx\), with \(x\) even and \(h(x)=1\),
+\begin{equation}\label{cyidx:eq:completion-test}
+ \varprojlim_H U\!\left(\mathfrak a/
+                       \bigoplus_{r>H}\mathfrak a_r\right)
+       =\mathbb C[x],\qquad
+ \widehat{U(\mathfrak a)}=\mathbb C[[x]].
+\end{equation}
+The Lie quotient is constant for \(H\geq1\).
+Total-height completion also permits infinite powers
+of this one fixed generator.
+
+For the level-zero current envelope, the same distinction
+applies to products of negative modes. Total root height
+defines a pro-vertex algebra by its quotients; at a fixed
+height its states remain algebraic in the mode variables.
+The coefficient of a fixed height and conformal energy
+is finite-dimensional. Uniform locality for arbitrary
+infinite sums is a further requirement if one seeks a
+vertex algebra on the completed vector space.
+The ordinary comparison \eqref{cyidx:eq:completed-bar}
+does not construct that locality or the supported maps
+on collision configurations.
+
+\section{The automorphic section and its roots}
+\label{cyidx:sec:automorphic-line}
+
+Let
+\[
+ \mathfrak H_2=
+ \left\{Z=\begin{pmatrix}\tau&z\\z&\sigma\end{pmatrix}
+                  :\operatorname{Im}Z>0\right\}.
+\]
+Use \(q=e^{2\pi i\tau}\), \(y=e^{2\pi iz}\),
+\(p=e^{2\pi i\sigma}\). For even characteristics
+\(a,b\in\{0,1\}^2\), meaning \(a^{\mathsf T}b\) is even,
+fix the Gritsenko--Nikulin phase convention
+\begin{equation}\label{cyidx:eq:theta-phase}
+ \vartheta^{\mathrm{GN}}_{a,b}(Z)=
+ \sum_{m\in\mathbb Z^2}
+  \exp\!\left(\pi i\left[
+    (m+a/2)^{\mathsf T}Z(m+a/2)+b^{\mathsf T}m\right]\right).
+\end{equation}
+There are ten such characteristics.
+This formula fixes the phases as well as the characteristics.
+
+\begin{theorem}\label{cyidx:thm:automorphic}
+The product \(D_5\) of \eqref{cyidx:eq:D5} converges
+on a cusp chamber and extends to a holomorphic
+Siegel modular form of weight \(5\), with a character
+\(\nu_5\) of order two. In the convention
+\eqref{cyidx:eq:theta-phase},
+\begin{equation}\label{cyidx:eq:normalization}
+ \Delta_5=\prod_{a^{\mathsf T}b\equiv0\ (2)}
+                \vartheta^{\mathrm{GN}}_{a,b}=64D_5,
+ \qquad \Xi=D_5^2=2^{-12}\Delta_5^2.
+\end{equation}
+The divisor of \(D_5\) in \(\mathfrak H_2\) is the
+\(\operatorname{Sp}_4(\mathbb Z)\)-orbit of \(z=0\),
+with multiplicity one.
+\end{theorem}
+\begin{proof}
+The product, weight, character and divisor are the
+Borcherds--Gritsenko--Nikulin theorem
+\cite{GN97}*{Proposition~3.1 and Theorem~4.1}.
+The weight is \(f(0)/2=5\); the negative-discriminant
+coefficient \(f(-1)=1\) supplies the diagonal divisor.
+
+The phase convention is \cite{GN97}*{equation~(1.2)}.
+The four characteristics with \(a=0\) have leading
+coefficient \(1\). The two with \(a=(1,0)\) contribute
+\(2q^{1/8}\) each, and those with \(a=(0,1)\)
+contribute \(2p^{1/8}\) each.
+For \(a=(1,1)\), their lowest \(q,p\) terms are
+\[
+ 2q^{1/8}p^{1/8}(y^{1/4}+y^{-1/4}),\qquad
+ 2q^{1/8}p^{1/8}(y^{1/4}-y^{-1/4}).
+\]
+Their product gives the leading Laurent factor
+\(64q^{1/2}p^{1/2}(y^{1/2}-y^{-1/2})\).
+This is \(64\) times the corresponding factor of
+\eqref{cyidx:eq:D5}, fixing the scalar.
+Squaring removes the quadratic character.
+\end{proof}
+
+The formal root variables in \eqref{cyidx:eq:real-roots}
+give \(D_5\) directly. In the Lorentzian analytic
+coordinates of the same Gritsenko--Nikulin construction,
+the root denominator is \(D_5(2Z)\).
+The map \(Z\mapsto Z/2\) relates these coordinate
+conventions. It does not alter the root multiplicities.
+
+The first Fourier--Jacobi coefficient is \(b(q,y)\).
+For the odd theta function normalized by
+\[
+ \vartheta(\tau,z)=q^{1/8}(y^{1/2}-y^{-1/2})
+    \prod_{r\geq1}(1-q^r)(1-yq^r)(1-y^{-1}q^r),
+\]
+it is \(b=\eta(\tau)^9\vartheta(\tau,z)\).
+Its weight is \(5\) and its index is \(1/2\).
+The weight-zero, index-one form \(\phi_{0,1}\)
+is the multiplicative input; this first coefficient
+is the additive-lift input. Their roles and weights differ.
+
+\subsection{A line, a section and a trace}
+
+On the moduli stack
+\(\mathcal A_2=[\mathfrak H_2/\operatorname{Sp}_4(\mathbb Z)]\),
+let \(\lambda\) be the determinant of the Hodge bundle,
+with the convention that weight-\(k\) forms are sections
+of \(\lambda^k\). The character \(\nu_5\) also denotes
+its flat line. Thus
+\begin{equation}\label{cyidx:eq:automorphic-line}
+ D_5\in H^0(\mathcal A_2,\lambda^5\otimes\nu_5),
+ \qquad
+ \Xi\in H^0(\mathcal A_2,\lambda^{10}).
+\end{equation}
+The square relation identifies
+\((\lambda^5\otimes\nu_5)^{\otimes2}\) with
+\(\lambda^{10}\). The full line retains its Hodge
+factor; its character alone is only the flat factor.
+
+Roots of functions and roots of lines have different
+descent data. If a nowhere-zero function \(f\) has local
+\(n\)-th roots \(s_i\), their ratios \(s_i/s_j\)
+form a \(\mu_n\)-valued one-cocycle. It defines the
+torsor of roots in \(H^1(-,\mu_n)\).
+For a line with transition functions \(g_{ij}\),
+choose local \(n\)-th roots \(h_{ij}\).
+The products \(h_{ij}h_{jk}h_{ki}\) form a
+\(\mu_n\)-valued two-cocycle, the Kummer obstruction
+in \(H^2(-,\mu_n)\) to an \(n\)-th root line.
+The local functions \(s_i\) are generally
+\(\mathbb G_m\)-valued, so they do not by themselves
+trivialize the first cocycle in the sheaf \(\mu_n\).
+
+Near a smooth point of the diagonal divisor, choose
+a transverse coordinate \(u\) and trivialize the line.
+Then \(D_5=u\,v(u)\), with \(v(0)\ne0\), and
+\(\Xi=u^2v(u)^2\). A branch of \(\Xi^{1/n}\)
+on the punctured disc has monodromy \(e^{4\pi i/n}\),
+of order \(n/\gcd(n,2)\). In particular an eighth
+root of \(\Xi\) has local order four, while an
+eighth root of \(D_5\) has local order eight.
+These local branching orders do not specify an
+orientation line on compact sheaf moduli.
+
+\begin{proposition}\label{cyidx:prop:trace}
+Let \(V\) be a bounded finite-dimensional complex and
+\(s:V\to V\) a chain involution. Its supertrace is an
+integer. A homotopy equivalence intertwining two such
+endomorphisms up to chain homotopy preserves their
+supertraces. An arbitrary intertwining map need not do so.
+\end{proposition}
+\begin{proof}
+The supertrace is the alternating trace on cohomology.
+The eigenvalues of an involution in characteristic zero
+are \(1\) and \(-1\), proving integrality.
+A homotopy equivalence induces an isomorphism on cohomology,
+and the intertwining homotopy makes the induced
+endomorphisms conjugate. Their traces agree.
+The inclusion \(\mathbb C\hookrightarrow\mathbb C^2\)
+intertwines the identity endomorphisms, whose traces
+are \(1\) and \(2\).
+\end{proof}
+
+Consequently a half-integral automorphic weight cannot
+be the ordinary supertrace of an involution on a perfect
+complex over \(\mathbb C\). An infinite graded trace,
+a regularization or another coefficient-valued trace
+requires its own definition. A duality from one object
+to a different object also requires an identification
+before it becomes an endomorphism to which a trace applies.
+
+\section{Products at higher level}
+\label{cyidx:sec:families}
+
+At full level the weight is half the constant coefficient
+of one Jacobi form. At a congruence level every cusp can
+contribute. This distinction explains the weights of the
+forms with a simple diagonal divisor.
+
+For positive integers \(t,N\), set
+\[
+ \Gamma_t(N)=\operatorname{Sp}_4(\mathbb Q)\cap
+ \begin{pmatrix}
+ \mathbb Z&t\mathbb Z&\mathbb Z&\mathbb Z\\
+ \mathbb Z&\mathbb Z&\mathbb Z&t^{-1}\mathbb Z\\
+ N\mathbb Z&Nt\mathbb Z&\mathbb Z&\mathbb Z\\
+ Nt\mathbb Z&Nt\mathbb Z&t\mathbb Z&\mathbb Z
+ \end{pmatrix}.
+\]
+Its extension \(\Gamma_t(N)^+\) adjoins the involution
+\((\tau,z,\sigma)\mapsto(t\sigma,z,\tau/t)\).
+For \(t=1\), the first group is the Siegel congruence
+subgroup with lower-left block divisible by \(N\).
+
+Let \(\phi\) be a nearly holomorphic Jacobi form of
+weight zero and index \(t\) on \(\Gamma_0(N)\).
+Choose a representative \(f/e\) of each cusp, with
+\(e\mid N\) and \((f,e)=1\), and a matrix taking
+\(\infty\) to that cusp. Write its transformed expansion as
+\[
+ \phi_{f/e}(\tau,z)=\sum_{n,\ell}c_{f/e}(n,\ell)q^ny^\ell,
+ \qquad h_e=\frac{N}{\gcd(e^2,N)},\qquad N_e=\frac Ne.
+\]
+The exponents \(n\) belong to \(h_e^{-1}\mathbb Z\).
+Nearly holomorphic means that each such expansion has
+only finitely many negative powers of \(q\).
+
+\begin{theorem}[Cl\'ery--Gritsenko]\label{cyidx:thm:cusps}
+Suppose the principal coefficients satisfy
+\((h_e/N_e)c_{f/e}(n,\ell)\in\mathbb Z\) whenever
+\(4tn-\ell^2\leq0\), at every cusp.
+Then
+\begin{equation}\label{cyidx:eq:cusp-product}
+ q^Ay^Bp^C
+ \prod_{f/e}\prod_{(n,m,\ell)>0}
+ \left(1-(q^ny^\ell p^{tm})^{N_e}\right)^{
+              (h_e/N_e)c_{f/e}(nm,\ell)}
+\end{equation}
+is a meromorphic modular form for \(\Gamma_t(N)^+\),
+with a character or multiplier and weight
+\begin{equation}\label{cyidx:eq:cusp-weight}
+ k=\frac12\sum_{f/e}\frac{h_e}{N_e}c_{f/e}(0,0).
+\end{equation}
+Here \(n,m,\ell\in\mathbb Z\), positivity means
+\(m>0\), or \(m=0,n>0\),
+or \(m=n=0,\ell<0\), and
+\[
+ A=\frac1{24}\sum_{f/e,\ell}h_ec_{f/e}(0,\ell),\quad
+ B=\frac12\sum_{f/e,\ell>0}h_e\ell c_{f/e}(0,\ell),\quad
+ C=\frac14\sum_{f/e,\ell}h_e\ell^2c_{f/e}(0,\ell).
+\]
+The product initially converges in a Weyl chamber.
+Its zeros and poles lie on the rational quadratic
+divisors prescribed by the negative-discriminant data.
+Nonnegative such data give a holomorphic form.
+\end{theorem}
+
+This is \cite{GC}*{Theorem~3.1}; the cusp widths in the
+integrality hypothesis are part of the statement.
+At level two the seed
+\(4\vartheta_2(\tau,z)^2/\vartheta_2(\tau,0)^2\)
+has constant Laurent row \(y^{-1}+2+y\) at infinity
+and constant row \(4\) at zero. The two ratios
+\(h_e/N_e\) equal one, so its weight is
+\((2+4)/2=3\). The constant term at infinity alone
+would give a different weight.
+
+A form with a simple diagonal divisor vanishes precisely
+on the translates of \(z=0\), with multiplicity one.
+The classification in \cite{GC}*{Theorem~1.4} gives,
+up to nonzero scalar, the following eight possibilities.
+The final column records the order of the character or
+multiplier on \(\Gamma_t(N)\).
+\begin{center}
+\begin{tabular}{c c c c c}
+\(t\)&\(N\)&form&weight&order\\ \hline
+1&1&\(\Delta_5\)&5&2\\
+2&1&\(\Delta_2\)&2&4\\
+3&1&\(\Delta_1\)&1&6\\
+4&1&\(\Delta_{1/2}\)&\(1/2\)&8\\
+1&2&\(\nabla_3\)&3&2\\
+1&3&\(\nabla_2\)&2&2\\
+1&4&\(\nabla_{3/2}\)&\(3/2\)&4\\
+2&2&\(Q_1\)&1&4
+\end{tabular}
+\end{center}
+The proof first bounds the possibilities by an index
+calculation, then constructs these forms by additive and
+multiplicative lifts. Its remaining numerical candidate
+\((t,N,k)=(2,4,1/2)\) is excluded by its first
+Fourier--Jacobi coefficient. Thus a numerical weight
+condition alone does not produce an additional form.
+
+\subsection{Divisor-indexed inputs and geometric quotients}
+
+The Mathieu construction has a different input. For an
+element \(g\) of \(M_{24}\), let \(\phi_g\) denote its
+twisted elliptic genus, of weight zero and index one.
+Write the cycle shape of its permutation on twenty-four
+points as \(\prod_{r\geq1}r^{b_r}\), so
+\(\sum r b_r=24\). Its level \(N_g\) is the congruence
+level of the twisted genus; it need not equal the order
+of the permutation. The associated product \(\Phi_g\)
+uses the whole family
+\[
+             (\phi_{g^d})_{d\mid N_g}.
+\]
+The divisor-indexed Jacobi-to-Weil correspondence and
+Borcherds lift give \cite{WangWilliamsMathieu}*{Theorem~1.3}
+\begin{equation}\label{cyidx:eq:Mathieu-weight}
+ \operatorname{wt}(\Phi_g)=\frac12\sum_r b_r-2,
+ \qquad L_g=U(N_g)\oplus U\oplus A_1.
+\end{equation}
+Here \(U\) is the hyperbolic plane, \(U(N_g)\) has
+its pairing multiplied by \(N_g\), and \(A_1\)
+has a generator of square two. The orthogonal domain
+of this lattice of signature \((3,2)\) is the genus-two
+Siegel domain. The products are single-valued
+meromorphic forms there.
+
+For example, the cycle shapes
+\(1^{24},1^82^8,1^63^6,1^42^24^4,1^22^23^26^2\)
+give the classes \(1A,2A,3A,4B,6A\) and weights
+\(10,6,4,3,2\), respectively. In the full classification
+the holomorphic cases are exactly
+\(1A,2A,2B,3A,4B\). A meromorphic square root exists
+exactly for
+\[
+ 1A,2A,2B,3A,3B,4A,4B,4C,5A,6A,6B,10A,11A.
+\]
+The additive lift from the first Fourier--Jacobi coefficient
+equals \(\Phi_g\) for
+\[
+                1A,2A,2B,3A,4A,4B,5A,6A,7AB,8A.
+\]
+For \(3B\) and \(4C\), an additional weight-zero
+Borcherds factor occurs \cite{WangWilliamsMathieu}*{Theorem~1.4}.
+These assertions concern the stated automorphic forms.
+They do not identify every twisted genus with a geometric
+automorphism of a chosen K3 surface.
+
+There is a geometric quotient construction when a K3
+surface \(S\) carries a symplectic automorphism \(g\)
+of order \(N\). Choose an elliptic curve \(E\) and a
+point \(a\in E\) of exact order \(N\). Then
+\begin{equation}\label{cyidx:eq:CHL}
+       X=(S\times E)/\langle(g,t_a)\rangle
+\end{equation}
+is smooth: every nonidentity power translates \(E\)
+by a nonzero point and has no fixed point. The product
+volume form descends, so \(K_X\cong\mathcal O_X\).
+The elliptic one-form also descends, giving
+\(h^{1,0}(X)=1\). In particular the construction uses
+a torsion translation, whose order is unrestricted by
+the possible orders of linear automorphisms of \(E\).
+Symplectic K3 automorphisms of order five supply valid
+examples. These quotients and their reduced curve-counting
+conjectures are studied in \cite{BryanOberdieckCHL}.
+The general primitive counting formula there is a
+conjecture; proved base cases retain that narrower scope.
+
+For the untwisted product \(S\times E\), the primitive
+Igusa formula is a theorem. To specify its invariants,
+take a primitive class \(\beta_h\) on \(S\) with
+\(\beta_h^2=2h-2\), choose \(\beta_h^\vee\) pairing
+to one with it, and let \(\mathrm{pt}\in H^2(E)\).
+Let \(N_{g,h,d}\) be the reduced, disconnected
+Gromov--Witten invariant in class \((\beta_h,d)\),
+with no contracted connected components and with the
+one-point insertion
+\(\pi_S^*\beta_h^\vee\cup\pi_E^*\mathrm{pt}\).
+In the monic normalization \(\Xi\) of
+\eqref{cyidx:eq:D5}, Oberdieck--Pixton prove
+\begin{equation}\label{cyidx:eq:OP}
+ \sum_{g,h,d\geq0}N_{g,h,d}
+       u^{2g-2}q^{h-1}p^{d-1}
+       =-\frac1{\Xi(p,q,e^{iu})}.
+\end{equation}
+The right side is expanded as a Laurent series at
+\(u=0\) \cite{OP}*{Theorem~1 and Section~4}.
+Their proof shows that Jacobi-form constraints and two
+holomorphic-anomaly relations determine the series from
+its coefficient \(N_{0,0,0}=1\). The stable-pair
+variable is \(-e^{iu}\); this sign matters when comparing
+the two counting conventions. Equation~\eqref{cyidx:eq:OP}
+is a reduced numerical identity. A Hall product on the
+coefficient complexes still requires its correspondences
+and compatibility with the reduction.
+
+\section{A second root system: the fake monster}
+\label{cyidx:sec:fake}
+
+The fake-monster denominator illustrates the information
+carried by a root cone and its imaginary simple roots.
+Let \(\Lambda\) be the positive-definite Leech lattice and
+write
+\[
+ II_{25,1}=\Lambda\oplus U,\qquad
+ r=(\lambda,m,n),\qquad r^2=\lambda^2-2mn,
+ \qquad \rho=(0,0,1).
+\]
+Its positive roots consist of the vectors of square at most
+two with \((r,\rho)<0\), together with \(n\rho\), \(n>0\).
+Define \(p_{24}(j)\) and \(\tau(j)\) by
+\[
+ \eta(\tau)^{-24}=q^{-1}\sum_{j\geq0}p_{24}(j)q^j,
+ \qquad \eta(\tau)^{24}=\sum_{j\geq1}\tau(j)q^j.
+\]
+Set \(p_{24}(j)=0\) for \(j<0\).
+
+The physical-state construction from the lattice vertex
+algebra, followed by the quotient by the radical of its
+invariant form, gives a generalized Kac--Moody algebra.
+For every nonzero root \(r\), its multiplicity is
+\(p_{24}(1-r^2/2)\). The real simple roots have
+\(r^2=2\), \((r,\rho)=-1\), and each \(n\rho\)
+is an imaginary simple root with multiplicity twenty-four
+\cite{BorcherdsFake1990}*{Theorems~1 and~3}.
+In the completed positive cone its denominator is
+\begin{equation}\label{cyidx:eq:fake-denominator}
+ \mathbf e^\rho\prod_{r>0}
+       (1-\mathbf e^r)^{p_{24}(1-r^2/2)}
+  =\sum_{w\in W}\det(w)\sum_{n>0}\tau(n)\mathbf e^{w(n\rho)}.
+\end{equation}
+The group \(W\) is generated by the real-root reflections.
+The imaginary simple roots are mutually orthogonal; their
+correction term is the eta product on the right. Thus its
+coefficients are those of \(\eta^{24}\), while root
+multiplicities come from \(\eta^{-24}\).
+
+The oscillator character also differs from the Leech
+lattice-vertex character:
+\[
+ \eta^{-24}=q^{-1}+24+324q+3200q^2+\cdots,
+ \qquad
+ \frac{\Theta_\Lambda}{\eta^{24}}
+       =j-720=q^{-1}+24+196884q+\cdots.
+\]
+Here \(\Theta_\Lambda=1+196560q^2+\cdots\).
+The coefficient \(196884=196560+324\) displays the
+lattice contribution explicitly. Neither character by
+itself specifies the Lie bracket used in
+\eqref{cyidx:eq:fake-denominator}.
+
+A comparison with the weight-twelve orthogonal Borcherds
+form \(\Phi_{12}\) must also preserve automorphic lines.
+An ordinary restriction retains weight twelve, so a
+nonzero identity with \(D_5^k\) in the same Hodge-line
+convention would require \(12=5k\). There is no integral
+\(k\) satisfying this. A quasi-pullback is different:
+one first divides by the linear equations of the root
+divisors containing the subdomain. If there are \(M\)
+such factors, and the resulting restriction is defined
+and nonzero, its weight is \(12+M\). Its divisor,
+character and normalization must then be computed.
+The weight obstruction to a raw restriction does not
+decide this latter construction.
+
+\section{A convergent determinant model}
+\label{cyidx:sec:Fredholm}
+
+The denominator admits an operator realization after a
+summability estimate. This construction also makes the
+limits of a scalar product identity precise.
+For every active positive root \(\alpha=(a,b,\ell)\),
+put \(c_\alpha=f(4ab-\ell^2)\). Define a minimal
+super vector space \(V_\alpha\) of dimension
+\((c_\alpha,0)\) if \(c_\alpha\geq0\), and
+\((0,-c_\alpha)\) otherwise. This realizes the
+supermultiplicity with total dimension \(|c_\alpha|\).
+It need not be the actual root space of
+\(\mathfrak n_+\), which may have both parities.
+
+\begin{lemma}\label{cyidx:lem:growth}
+For \(n\geq1\), every coefficient of \(q^ny^\ell\)
+in \(\phi_{0,1}\) has absolute value at most
+\(12\exp(4\pi\sqrt{2n/3})\). Consequently
+\begin{equation}\label{cyidx:eq:growth}
+ |c_\alpha|\leq12e^{\kappa h(\alpha)},
+ \qquad \kappa=2\pi\sqrt{2/3}.
+\end{equation}
+\end{lemma}
+\begin{proof}
+Put \(r=|q|^{1/2}\). Apply the Jacobi triple products
+to the three theta ratios in \eqref{cyidx:eq:seed}.
+The sum of absolute Laurent coefficients of their
+expansions is bounded, at \(0<r<1\), by
+\[
+ 12\prod_{j\geq1}\frac{(1+r^j)^4}{(1-r^j)^4}
+       \leq12\prod_{j\geq1}(1-r^j)^{-8}.
+\]
+For \(\vartheta_2\) the factors use the even integers
+\(j\) and its initial Laurent polynomial has absolute
+coefficient sum one; the other two ratios use the odd
+integers. Enlarging each to all \(j\) gives the bound.
+For \(r=e^{-t}\),
+\[
+ \log\prod_{j\geq1}(1-e^{-tj})^{-8}
+ =8\sum_{k\geq1}\frac1{k(e^{tk}-1)}
+ \leq\frac{4\pi^2}{3t}.
+\]
+Cauchy's coefficient bound at \(q^n=r^{2n}\)
+therefore gives \(12\exp(2nt+4\pi^2/(3t))\).
+Minimize at \(t=\pi\sqrt{2/(3n)}\).
+For \(n=ab\), the inequality \(2\sqrt{ab}\leq h(\alpha)\)
+proves \eqref{cyidx:eq:growth}. The constant row and
+the root \((0,0,-1)\) satisfy it directly.
+\end{proof}
+
+Give each \(V_\alpha\) an orthonormal homogeneous basis
+and form the Hilbert direct sum \(\mathcal H\).
+Let \(T_Z\) act on its \(\alpha\)-summand by
+\(x_\alpha=p^aq^by^\ell\). For a real \(c>\kappa\)
+consider the open chamber in which
+\( |x_\alpha|<e^{-c h(\alpha)}\) for every positive root.
+It is enough to impose these strict inequalities on the
+three real simple roots: every positive charge is their
+nonnegative integral combination. It is nonempty: take
+\(p=q=e^{-4\pi t}\), \(y=e^{2\pi t}\) with
+\(2\pi t>c\). The corresponding imaginary Siegel
+matrix is \(t\left(\begin{smallmatrix}2&-1\\-1&2\end{smallmatrix}\right)>0\).
+
+\begin{proposition}\label{cyidx:prop:Fredholm}
+On this chamber \(T_Z\) is trace class, locally uniformly
+in \(Z\), and
+\begin{equation}\label{cyidx:eq:Fredholm}
+ \det\nolimits_s(1-T_Z)
+ =\frac{\det(1-T_Z|_{\mathcal H_{\bar0}})}
+        {\det(1-T_Z|_{\mathcal H_{\bar1}})}
+ =\prod_{\alpha>0}(1-x_\alpha)^{c_\alpha}
+ =(pqy)^{-1/2}D_5.
+\end{equation}
+\end{proposition}
+\begin{proof}
+At fixed height \(h\), there are at most \((h+1)^2\)
+root triples: choose \(a,b\leq h\), after which
+\(\ell=2(a+b)-h\) is fixed. Thus
+\[
+ \|T_Z\|_1
+ =\sum_\alpha |c_\alpha|\,|x_\alpha|
+ \leq12\sum_{h\geq1}(h+1)^2e^{-(c-\kappa)h}<\infty.
+\]
+On compact subsets the exponent has a positive uniform
+margin. The trace-class determinant is therefore
+holomorphic and equals the absolutely convergent product
+of eigenvalue factors. All these factors are nonzero
+in the chamber. Taking their even-to-odd ratio proves
+\eqref{cyidx:eq:Fredholm}.
+\end{proof}
+
+There is a relative Pfaffian version. In each parity,
+set \(D=1-T_Z\) and use the skew operator on
+\(\mathcal H\oplus\mathcal H^*\)
+\[
+ A_Z=\begin{pmatrix}0&D\\-D^{\mathsf T}&0\end{pmatrix}.
+\]
+Choose the relative orientation for which the Pfaffian
+ratio to \(A_0\), where \(D=1\), is \(\det D\).
+The finite-dimensional identity follows by pairing each
+basis vector with its dual; the common sign cancels in
+the ratio. Trace-norm convergence of finite-rank
+truncations gives the displayed determinant in the limit.
+Taking the ratio between the two parity sectors recovers
+\eqref{cyidx:eq:Fredholm}.
+
+This is a bounded identity-plus-trace-class family.
+Its skew doubling is not a first-order differential
+operator on a manifold. To realize \(D_5\) by such
+an operator requires a geometric family, its symbol,
+boundary conditions, determinant line and normalization.
+Similarly, the modular continuation of the scalar in
+\eqref{cyidx:eq:Fredholm} does not supply intertwiners
+between the Hilbert spaces in different cusp charts.
+Using the actual root superspaces would require a bound
+on their total dimensions, in addition to the bound
+on their superdimensions proved above.
+
+\section{Elliptic coefficient lines on collision flags}
+\label{cyidx:sec:Thom}
+
+We now retain the sheaf from which an elliptic coefficient
+map starts. Let \(E\) be a smooth complex elliptic curve,
+\(\Theta=\mathcal O_E(0)\), and let \(\vartheta\) be its
+divisor section. This \(E\) parametrizes spectral variables.
+It is separate from the elliptic factor of a threefold and
+from a curve on which fields are inserted.
+On \(E^2\), put \(u=z_2-z_1\) and
+\(\Delta=\{z_1=z_2\}\).
+For two distinct colours joined by two arrows, the elliptic
+arrow factor at zero equivariant translations is
+\(\vartheta(u)^2\). In the convention that a factor is a
+section of the dual kernel line, it gives
+\begin{equation}\label{cyidx:eq:pair}
+ \mathcal L=u^*\Theta^{-2}=\mathcal O(-2\Delta)
+       \xrightarrow{\ \vartheta(u)^2\ }\mathcal O_{E^2}.
+\end{equation}
+There is no same-colour factor for this dimension vector.
+These are the arrow lines in the elliptic shuffle
+construction of \cite{YangZhaoElliptic}*{Section~2.1}.
+
+\begin{proposition}\label{cyidx:prop:normal-jet}
+The line \(\mathcal L\) is nontrivial. The coefficient
+map has image \(\mathcal O(-2\Delta)\) and cokernel
+\(\mathcal O_{2\Delta}\). The exact sequence
+\begin{equation}\label{cyidx:eq:normal-extension}
+ 0\longrightarrow\mathcal O_\Delta(-\Delta)
+ \longrightarrow\mathcal O_{2\Delta}
+ \longrightarrow\mathcal O_\Delta\longrightarrow0
+\end{equation}
+does not split as a module over the ambient local ring.
+\end{proposition}
+\begin{proof}
+Restrict \(\mathcal L\) to \(\{z_1\}\times E\):
+its degree is \(-2\). A formal logarithm at the origin
+gives a normal parameter, again denoted \(u\), in which
+\(\vartheta(u)=u v(u)\) with \(v\) a unit. Change
+the source frame by this unit. The map becomes
+\(u^2:\mathbb C[[u]]\to\mathbb C[[u]]\).
+Its quotient is \(\mathbb C[[u]]/(u^2)\), and the
+submodule \((u)/(u^2)\) gives the first term of
+\eqref{cyidx:eq:normal-extension}. A module splitting
+would lift \(1\) to an element with nonzero constant
+coefficient killed by \(u\), which is impossible.
+\end{proof}
+
+The doubled zero remains even when one untwists the
+tensor product by changing its coefficient objects.
+To see this at every arity, fix a finite simple graph
+\(G\) on a set of labels. An edge records an interacting
+pair of multiplicity two. For disjoint sets \(A,B\), let
+\[
+ D_{A,B}=\sum_{\substack{i\in A,j\in B\\\{i,j\}\in E(G)}}
+                  \Delta_{ij},\qquad
+ \mathcal L_{A,B}=\mathcal O(-2D_{A,B}),
+ \qquad
+ \mathcal B_A=\mathcal O\left(-2\sum_{
+       \substack{i<j,\ i,j\in A\\\{i,j\}\in E(G)}}\Delta_{ij}\right).
+\]
+All lines are pulled back to the common product of copies
+of \(E\). Each has its indicated divisor inclusion.
+
+\begin{proposition}\label{cyidx:prop:flags}
+There are canonical, section-preserving isomorphisms
+\begin{align}
+ \mathcal L_{A,B}\otimes\mathcal L_{A\cup B,C}
+ &\cong\mathcal L_{B,C}\otimes\mathcal L_{A,B\cup C},
+       \label{cyidx:eq:line-associator}\\
+ \mathcal L_{A,B}
+ &\cong\mathcal B_{A\cup B}\otimes
+             \mathcal B_A^{-1}\otimes\mathcal B_B^{-1}.
+       \label{cyidx:eq:line-coboundary}
+\end{align}
+They satisfy every finite regrouping identity.
+The functors \(F\mapsto F\otimes\mathcal B_A^{-1}\)
+untwist the labelled tensor product
+\((F\boxtimes G)\otimes\mathcal L_{A,B}\).
+Replacing every divisor coefficient \(-2\) by \(-1\)
+gives compatible square roots of these line identities.
+\end{proposition}
+\begin{proof}
+In \eqref{cyidx:eq:line-associator}, each side contains
+exactly once every edge between the three blocks.
+Every longer parenthesization counts an edge at the
+unique step joining the blocks containing its endpoints.
+It therefore gives the same divisor and the same section.
+Separating internal edges from cross-edges gives
+\eqref{cyidx:eq:line-coboundary}. Tensoring with
+\(\mathcal B_{A\cup B}^{-1}\) cancels its first factor
+and proves the untwisting assertion. The empty set
+has \(\mathcal B_\varnothing=\mathcal O\), so units
+are preserved. All the divisor equalities remain true
+after halving their coefficients.
+\end{proof}
+
+For two labels the transformed coefficient map is
+\(\mathcal O\to\mathcal O(2\Delta)\), with the same
+doubled zero. Equivalently, multiplication between the
+image lines is an isomorphism
+\[
+ \mathcal B_A\otimes\mathcal B_B\otimes\mathcal L_{A,B}
+       \xrightarrow{\sim}\mathcal B_{A\cup B};
+\]
+the cokernel occurs in the final inclusion
+\(\mathcal B_{A\cup B}\hookrightarrow\mathcal O\).
+These are labelled coefficient lines. Shuffle
+symmetrization, same-colour factors and critical
+coefficient maps require the corresponding extra data.
+
+\subsection{Three different derived constructions}
+
+For a commutative ring \(R\) and elements \(f_1,\ldots,f_r\),
+write
+\[
+ K_R(f_1,\ldots,f_r)=
+ (R\otimes\Lambda(\epsilon_1,\ldots,\epsilon_r),d),
+ \qquad |\epsilon_i|=-1,\qquad d\epsilon_i=f_i.
+\]
+The differential has degree one and is a graded derivation.
+For \(R=\mathbb C[[u]]\), the algebra \(K_R(u^2)\)
+has cohomology \(R/(u^2)\) in degree zero. By contrast,
+subtracting the two odd generators in \(K_R(u,u)\)
+and resolving the remaining regular equation gives
+\[
+ K_R(u,u)\simeq\mathbb C\otimes\Lambda(\epsilon),
+                  \qquad d\epsilon=0.
+\]
+The first construction has a normal nilpotent; the second
+has an excess class in degree minus one.
+
+For a triangle, use formal differences
+\(x=z_2-z_1\), \(y=z_3-z_2\). The cone of the total
+coefficient product is
+\[
+ K_{\mathbb C[[x,y]]}\bigl(x^2y^2(x+y)^2\bigr).
+\]
+It has only degree-zero cohomology, supported on three
+doubled lines. The simultaneous derived intersection
+of the three pair cokernels is instead
+\begin{equation}\label{cyidx:eq:triangle-central}
+ K_{\mathbb C[[x,y]]}(x^2,y^2,(x+y)^2).
+\end{equation}
+It is supported at the origin and has negative cohomology.
+It is an incidence object built from the pair maps;
+it is not an associativity defect of their tensor product.
+Even the ordinary product cone has a filtration, rather
+than a tensor-product identity: for nonzero \(f,g\)
+in a domain,
+\[
+ 0\longrightarrow R/(f)\xrightarrow{\ g\ }R/(fg)
+   \longrightarrow R/(g)\longrightarrow0.
+\]
+The global version retains the source line twists.
+
+\subsection{A compact coefficient algebra and its trace}
+
+Suppose \(G\) is connected, with \(n\geq1\) vertices
+and \(m\) edges. Its spectral translation quotient is
+\(B_n=E^n/E_{\mathrm{diag}}\cong E^{n-1}\).
+For an edge \(e\), let \(D_e\subset B_n\) be its equality
+divisor, let \(L_e=\mathcal O(2D_e)\), and let \(s_e\)
+be its divisor section. Define
+\begin{equation}\label{cyidx:eq:global-graph}
+ \mathscr K_G=\bigotimes_{e\in E(G)}
+       [L_e^{-1}\xrightarrow{s_e}\mathcal O_{B_n}],
+ \qquad C_G=R\Gamma(B_n,\mathscr K_G).
+\end{equation}
+The left terms have degree \(-1\). Thus \(\mathscr K_G\)
+is a perfect commutative differential graded sheaf.
+Its cohomology is supported at the origin: away from
+the simultaneous zero locus, an invertible section
+contracts its Koszul factor, and connectedness makes
+that locus the diagonal. The cohomology sheaves have
+finite length and no higher cohomology. Completion at
+the origin therefore computes \(C_G\), including its
+multiplication.
+
+Adding a constraint gives the exact triangle
+\begin{equation}\label{cyidx:eq:edge-triangle}
+ \mathscr K_G\otimes L_e^{-1}\xrightarrow{s_e}\mathscr K_G
+ \longrightarrow\mathscr K_{G+e}
+ \longrightarrow\mathscr K_G\otimes L_e^{-1}[1].
+\end{equation}
+Locally write an element as \(a+\epsilon_e b\), placing
+the new generator first. The last map takes it to \(b\).
+The identity \(d(\epsilon_e b)=s_e b-\epsilon_e db\)
+gives its shift sign. Inclusion of the even summand is
+a map of differential graded algebras. Permuting edge
+factors gives the exterior signs and all subset-cube
+coherences, including disconnected intermediate graphs.
+
+Choose an oriented spanning tree \(T\). Its
+\(k=n-1\) edge differences \(u_1,\ldots,u_k\)
+are formal coordinates, and a chord \(c\) has difference
+\(\ell_c=\sum_a\sigma_{ca}u_a\), with
+\(\sigma_{ca}\in\{-1,0,1\}\). Put \(\beta=m-n+1\).
+
+\begin{theorem}\label{cyidx:thm:finite-graph}
+After choosing a formal logarithm and theta frames,
+\(C_G\) has the finite model
+\begin{equation}\label{cyidx:eq:finite-graph}
+ \frac{\mathbb C[u_1,\ldots,u_k]}{(u_1^2,\ldots,u_k^2)}
+ \otimes\Lambda(\epsilon_c:c\notin T),\qquad
+ d\epsilon_c=2\sum_{a<b}\sigma_{ca}\sigma_{cb}u_au_b.
+\end{equation}
+Its total dimension is \(2^m\), and its degrees lie in
+\([-\beta,0]\). Different trees give quasi-isomorphic
+algebras through the full edge Koszul complex.
+\end{theorem}
+\begin{proof}
+The local theta units can be removed by changing the
+odd generators. The tree equations form the regular
+sequence \(u_1^2,\ldots,u_k^2\). Its Koszul algebra
+maps multiplicatively to its quotient. Tensoring with
+the free chord factors preserves the quasi-isomorphism.
+In the quotient, \(\ell_c^2\) is the differential
+in \eqref{cyidx:eq:finite-graph}. Squarefree tree
+monomials and exterior chord monomials give
+\(2^k2^\beta=2^m\) basis elements. Each tree reduction
+starts from the same completed full complex, proving
+the comparison without requiring a strict identification
+of the finite presentations.
+\end{proof}
+
+Fix orders of both sets of generators. The functional
+\begin{equation}\label{cyidx:eq:graph-trace}
+ \tau(a)=[u_1\cdots u_k\epsilon_1\cdots\epsilon_\beta]a
+\end{equation}
+gives a perfect pairing \(C_G\otimes C_G\to\mathbb C[\beta]\)
+by multiplication. Indeed each basis monomial pairs
+with its complementary monomial, with the exterior
+permutation sign. The differential lowers exterior
+length, so \(\tau(da)=0\). Applying this to \(d(ab)\)
+proves the cochain-pairing identity. Hence
+\[
+ \dim H^{-j}(C_G)=\dim H^{-(\beta-j)}(C_G).
+\]
+We use \(C[r]^i=C^{i+r}\). A graph symmetry can act
+on this normalized trace by a character, which must be
+retained before passing to invariant coefficients.
+For one vertex the algebra is \(\mathbb C\). The empty
+configuration instead has translation quotient \(BE\);
+it lies outside this nonempty spectral family.
+
+\section{Displacing the elliptic coefficient}
+\label{cyidx:sec:shift}
+
+The doubled factor splits when an equivariant displacement
+is retained. Give the two arrows the weight pairs
+\((2,0)\) and \((0,2)\). Their compatibility condition
+is \(2t_1=2t_2\) in the elliptic group law. On the
+formal chart at the origin it forces \(t_1=t_2=t\).
+We keep this specialization and put \(h=2t\).
+The forward coefficient and its line are
+\begin{equation}\label{cyidx:eq:shifted-pair}
+ s_h(u)=\vartheta(u)\vartheta(u+h),\qquad
+ \mathcal S=u^*\Theta\otimes(u+h)^*\Theta,
+ \qquad\mathcal S^{-1}\xrightarrow{s_h}\mathcal O
+\end{equation}
+on \(E_u\times E_h\). These are the compatible weights
+of \cite{YangZhaoElliptic}*{Assumption~2.1 and Remark~2.2}.
+They do not produce two independent formal parameters.
+
+The reverse ordering has factor
+\(\vartheta(u)\vartheta(u-h)\) in an odd-theta frame.
+Write \(D_a=\{u=a\}\). Its image and the forward image
+are respectively
+\(\mathcal I_-=\mathcal O(-D_0-D_h)\) and
+\(\mathcal I_+=\mathcal O(-D_0-D_{-h})\).
+
+\begin{proposition}\label{cyidx:prop:ordered-image}
+On a fixed parameter fibre their sum is
+\[
+ \mathcal J_h=\mathcal I_++\mathcal I_-=
+ \begin{cases}
+ \mathcal O(-D_0),&2h\ne0,\\
+ \mathcal O(-D_0-D_h),&2h=0,\ h\ne0,\\
+ \mathcal O(-2D_0),&h=0.
+ \end{cases}
+\]
+In the completed local ring at \((u,h)=(0,0)\), the
+relative image ideal is
+\begin{equation}\label{cyidx:eq:image-ideal}
+ J=(u(u+h),u(u-h))=(u^2,uh).
+\end{equation}
+The quotient has a nonzero class \([u]\) killed by \(h\).
+Formation of the image does not commute with base change
+to \(h=0\).
+\end{proposition}
+\begin{proof}
+The sum of divisor ideals on a smooth curve takes the
+minimum of their vanishing orders. Comparing the two
+divisors gives the three cases. Formal logarithms and
+theta frames give the two generators in
+\eqref{cyidx:eq:image-ideal}; their sum and difference
+give \(u^2,uh\), since two is invertible.
+The element \(u\) is absent from \(J\), but \(hu\)
+belongs to it. Moreover \(hu\ne0\) in \(J/hJ\):
+an equality \(hu=hj\), \(j\in J\), would imply
+\(u=j\). Its image in the specialized ambient ring
+is zero. Thus \(J/hJ\to\mathbb C[[u]]\) is not
+injective, whereas the image of the specialized maps
+is the ideal \((u^2)\).
+\end{proof}
+
+When \(2h\ne0\), the quotient \(\mathcal J_h/\mathcal I_+\)
+is supported at \(-h\), and the reverse quotient at
+\(h\). When \(2h=0\), the two image divisors agree.
+These statements identify divisor lines and their
+inclusions. A full operation also retains its scalar
+normalization and equivariant structure.
+
+\subsection{The triangle over the formal parameter disc}
+
+Take three ordered colours with arrows from lower to
+higher colour. After removing common translation,
+use \(x=z_2-z_1\), \(y=z_3-z_2\). Over
+\(R=\mathbb C[[h]]\), the three formal equations are
+\begin{equation}\label{cyidx:eq:shifted-equations}
+ x(x+h),\qquad y(y+h),\qquad(x+y)(x+y+h).
+\end{equation}
+Their simultaneous incidence is the Koszul algebra.
+
+\begin{theorem}\label{cyidx:thm:triangle}
+It is multiplicatively quasi-isomorphic to
+\begin{equation}\label{cyidx:eq:triangle}
+ B_h=R[x,y]/(x^2+hx,y^2+hy),\qquad
+ A_h=B_h\otimes\Lambda(\eta),\quad |\eta|=-1,
+ \quad d\eta=xy.
+\end{equation}
+Both terms are free of rank four over \(R\).
+Its cohomology is free, with bases
+\begin{align}
+ H^0&=R\{1,x,y\},\qquad x^2=-hx,\quad y^2=-hy,\quad xy=0,
+                   \label{cyidx:eq:H0}\\
+ H^{-1}&=R\{k_1,k_2,k_3\},\qquad
+ k_1=[(x+h)\eta],\quad k_2=[(y+h)\eta],\quad
+ k_3=[(xy-h^2)\eta].\label{cyidx:eq:Hminus}
+\end{align}
+The action on negative classes is
+\begin{equation}\label{cyidx:eq:triangle-action}
+\begin{array}{c|ccc}
+ &k_1&k_2&k_3\\\hline
+ x&0&k_3+hk_1&-hk_3-h^2k_1\\
+ y&k_3+hk_2&0&-hk_3-h^2k_2.
+\end{array}
+\end{equation}
+Products of two negative classes vanish.
+\end{theorem}
+\begin{proof}
+The first two equations are monic in separate variables
+and form a regular sequence. Their Koszul resolution
+maps to \(B_h\). In that quotient the third equation
+is \(2xy\); divide its odd generator by two. This
+gives \eqref{cyidx:eq:triangle} and the multiplicative
+quasi-isomorphism. Completion gives the same finite
+\(R\)-algebra.
+
+In the basis \(1,x,y,xy\), multiplication by \(xy\)
+has only its \(xy\)-row nonzero, equal to
+\((1,-h,-h,h^2)\). The cokernel is free on
+\(1,x,y\). Its kernel has basis
+\(x+h,y+h,xy-h^2\): these elements are killed by
+\(xy\), and subtracting their multiples leaves a
+scalar killed by the unit entry of the displayed row.
+This proves the cohomology assertions. Multiplication
+of the representatives proves
+\eqref{cyidx:eq:triangle-action}; \(\eta^2=0\)
+proves the last assertion.
+\end{proof}
+
+The contraction onto cohomology is useful for retaining
+the higher operations. Let \(i:H\to A_h\) use the
+representatives above. Let \(p:A_h\to H\) fix
+\(1,x,y\), kill \(xy,\eta\), and send
+\(x\eta,y\eta,xy\eta\) to \(k_1,k_2,k_3\).
+Define a degree-minus-one map by
+\begin{equation}\label{cyidx:eq:contraction}
+ \mathsf H(xy)=\eta,\qquad
+ \mathsf H=0\text{ on the other basis elements}.
+\end{equation}
+Then \(pi=1\), \(d\mathsf H+\mathsf Hd=1-ip\),
+and \(\mathsf H^2=\mathsf Hi=p\mathsf H=0\).
+For example, \(\mathsf Hd(x\eta)=-h\eta
+=x\eta-i(k_1)\), so the parameter term is required.
+
+The functional \(\tau:A_h\to R[1]\) extracting
+the coefficient of \(xy\eta\) gives a perfect cyclic
+cochain pairing by multiplication. Indeed its matrix
+between the two copies of \(B_h\) is
+\begin{equation}\label{cyidx:eq:trace-matrix}
+ \begin{pmatrix}
+ 0&0&0&1\\0&0&1&-h\\0&1&0&-h\\1&-h&-h&h^2
+ \end{pmatrix},\qquad \det=1.
+\end{equation}
+The trace kills boundaries, and the derivation rule
+gives the cochain identity. Graded commutativity gives
+cyclicity. On the displayed cohomology bases the matrix is
+\begin{equation}\label{cyidx:eq:H-trace}
+ \begin{pmatrix}0&0&1\\0&1&-h\\1&0&-h\end{pmatrix},
+                    \qquad\det=-1.
+\end{equation}
+Thus the induced pairing is perfect over the parameter
+ring, including its central fibre.
+
+\subsection{A ternary class killed by the displacement}
+
+Put \(V=Rx\oplus Ry\subset H^0\), and define
+\(q:V\otimes V\to R\) by
+\(q(x,y)=q(y,x)=1\), \(q(x,x)=q(y,y)=0\).
+Let \(\psi(x)=k_1\), \(\psi(y)=k_2\).
+We specify the signs of the transferred operations.
+Augment both \(A_h\) and \(H\) by sending every
+displayed nonunit basis element to zero, and write
+\(\overline A\) for the augmentation ideal. On
+\(T^c(s\overline A)\), use \(|sa|=|a|-1\) and
+\[
+ b_1(sa)=-s(da),\qquad
+ b_2(sa,sb)=(-1)^{|a|}s(ab),\qquad
+ b_3(sa,sb,sc)=(-1)^{2|a|+|b|}s\,m_3(a,b,c).
+\]
+Each component extends as a degree-one coderivation,
+with the Koszul sign from its preceding suspended inputs.
+
+\begin{theorem}\label{cyidx:thm:ternary}
+The cohomology algebra extends to a strictly unital
+minimal \(A_\infty\) algebra by
+\begin{equation}\label{cyidx:eq:m3}
+ m_3(a,b,c)=q(b,c)\psi(a)-q(a,b)\psi(c)
+                       \quad(a,b,c\in V).
+\end{equation}
+It is zero on every other basis pattern, and
+\(m_n=0\) for \(n\geq4\).
+A strictly unital quasi-isomorphism to \(A_h\) has
+suspended components
+\begin{equation}\label{cyidx:eq:Ainfty-map}
+ I_1(sa)=s\,i(a),\qquad
+ I_2(sa,sb)=s\mathsf H(i(a)i(b)),\qquad I_{n\geq3}=0.
+\end{equation}
+\end{theorem}
+\begin{proof}
+The binary transfer is \(p(i(a)i(b))\). The arity-two
+comparison equation is exactly
+\(d\mathsf H(i(a)i(b))=i(a)i(b)-i\,m_2(a,b)\).
+For three degree-zero inputs, the two binary trees give
+\[
+ p\bigl(i(a)\mathsf H(i(b)i(c))
+              -\mathsf H(i(a)i(b))i(c)\bigr).
+\]
+The map \(\mathsf H\) extracts the \(xy\) coefficient,
+and \(p(x\eta)=k_1\), \(p(y\eta)=k_2\); this is
+\eqref{cyidx:eq:m3}. A negative input makes both
+terms zero, and unit inputs vanish by the contraction
+identities.
+
+In a larger transfer tree, two internal homotopies
+either lie on one branch or on different branches.
+On one branch the second homotopy encounters \(\eta\)
+and vanishes. On different branches the two outputs
+multiply to zero by \(\eta^2=0\). Thus all operations
+of arity at least four vanish. The final homotopy in
+the comparison map also kills an expression containing
+\(\eta\), so \(I_{n\geq3}=0\).
+
+In arity three the bar comparison is the displayed
+two-tree identity and \(d\mathsf H+\mathsf Hd=1-ip\).
+In higher arity its terms contain either two \(I_2\)
+outputs or a homotopy on a negative input, and vanish.
+Hence the induced coalgebra map satisfies \(b_A I=I b_H\).
+Its highest tensor-length component on length \(n\)
+is \(i^{\otimes n}\), which is injective. It follows
+from \(b_A^2=0\) that \(b_H^2=0\). Finally \(I_1\)
+induces the identity on cohomology, proving the
+quasi-isomorphism and all arity identities.
+\end{proof}
+
+Nonzero formulas can become boundaries after a change
+of minimal coordinates. Here the invariant is more
+precise. In the normalized Hochschild complex of
+\((H,m_2)\), an arity-two cochain of internal degree
+\(-1\) is supported on \(V\otimes V\), with values
+in \(H^{-1}\). Define
+\begin{equation}\label{cyidx:eq:G2}
+ G_2(x,x)=0,\quad G_2(x,y)=G_2(y,x)=k_1,
+                 \quad G_2(y,y)=k_2.
+\end{equation}
+On degree-zero inputs its coboundary is
+\[
+ (\delta G_2)(a,b,c)=aG_2(b,c)-G_2(ab,c)
+                       +G_2(a,bc)-G_2(a,b)c.
+\]
+
+\begin{proposition}\label{cyidx:prop:ternary-torsion}
+The arity-three, internal-degree-minus-one Hochschild
+class of \(m_3\) is nonzero and has annihilator exactly
+\((h)\). A primitive for its multiple is
+\begin{equation}\label{cyidx:eq:hm3}
+                      \delta G_2=h\,m_3.
+\end{equation}
+\end{proposition}
+\begin{proof}
+The arity-four identity makes \(m_3\) a Hochschild
+cocycle. Order the triples as
+\[
+                 xxx,\ xxy,\ xyx,\ xyy,\ yxx,\ yxy,\ yyx,\ yyy.
+\]
+Substitution of \eqref{cyidx:eq:triangle-action} gives
+\[
+ \delta G_2=h(0,k_1,0,-k_2,-k_1,0,k_2,0)=h\,m_3.
+\]
+Every other normalized pattern vanishes by degree.
+Modulo \(h\), the coboundary of any normalized
+two-cochain \(G\) at \((x,y,y)\) belongs to
+\(\mathbb C k_3\): the products \(xy,y^2\) vanish,
+and both \(xH^{-1}\) and \(H^{-1}y\) lie in that
+line. But \(m_3(x,y,y)=-k_2\). Hence the class is
+nonzero after reduction and therefore over \(R\).
+Every scalar outside \((h)\) is a unit; together
+with \eqref{cyidx:eq:hm3}, this proves the exact
+annihilator.
+\end{proof}
+
+At \(h=0\), the same calculation gives the triple
+Massey set
+\begin{equation}\label{cyidx:eq:Massey}
+            \langle[x],[y],[y]\rangle=-k_2+\mathbb C k_3.
+\end{equation}
+The representative uses \(xy=d\eta\), \(y^2=0\),
+and its indeterminacy is \(xH^{-1}+H^{-1}y\).
+It excludes zero, so the central algebra is nonformal.
+The cohomology modules themselves are free and commute
+with base change. The torsion in
+Proposition~\ref{cyidx:prop:ternary-torsion} belongs
+to the Hochschild class of multiplication.
+
+\subsection{The punctured family and a quadratic comparison}
+
+Over \(K=\mathbb C((h))\), the tree algebra splits into
+the four points \(x,y\in\{0,-h\}\). The idempotents are
+\begin{equation}\label{cyidx:eq:idempotents}
+ \begin{aligned}
+ e_{00}&=(x+h)(y+h)/h^2,& e_{10}&=-x(y+h)/h^2,\\
+ e_{01}&=-(x+h)y/h^2,& e_{11}&=xy/h^2.
+ \end{aligned}
+\end{equation}
+They are orthogonal and sum to one. On the first three
+factors \(xy=0\); on the last \(xy=h^2\).
+Projection therefore gives a multiplicative
+quasi-isomorphism
+\begin{equation}\label{cyidx:eq:generic-triangle}
+ A_h\otimes_R K\longrightarrow
+       \prod_{(i,j)\ne(1,1)}K\otimes\Lambda(\eta_{ij}),
+                    \qquad d=0.
+\end{equation}
+Multiplication by \(h^{-2}e_{11}\eta\) contracts its
+kernel, since its differential is \(e_{11}\).
+The poles of the idempotents prevent this decomposition
+from extending across the origin.
+
+An Euler connection is explicit on the punctured model:
+\begin{equation}\label{cyidx:eq:Euler-connection}
+ \nabla_{\partial_h}=\partial_h+
+        h^{-1}(x\partial_x+y\partial_y+2\eta\partial_\eta).
+\end{equation}
+It sends \(x^2+hx\) to \(2h^{-1}(x^2+hx)\), and
+similarly for \(y\), so it descends to the quotient.
+It commutes with \(d\eta=xy\). The elements
+\(x/h,y/h,\eta/h^2\) are horizontal. The residue
+weights on \(1,x,y,k_1,k_2,k_3\) are
+\(0,1,1,3,3,4\), and analytic continuation around
+the puncture has trivial monodromy. This specifies
+an algebraic connection; a comparison with geometric
+Gauss--Manin transport is an additional construction.
+
+Independent quadratic parameters give a different
+deformation. Recentering by \(X=x+h/2\), \(Y=y+h/2\)
+gives
+\[
+ x^2+hx=X^2-h^2/4,\qquad y^2+hy=Y^2-h^2/4,
+ \qquad xy=XY-\frac h2(X+Y)+\frac{h^2}{4}.
+\]
+The linear term in the last expression cannot be dropped.
+In fact the obstruction is independent of this choice
+of coordinates.
+
+\begin{proposition}\label{cyidx:prop:quadratic-family}
+No homomorphism \(\mathbb C[a,b,c]\to R\) makes the
+derived pullback of
+\[
+ \frac{\mathbb C[a,b,c][X,Y]}{(X^2-a,Y^2-b)}
+           \otimes\Lambda(\zeta),\qquad |\zeta|=-1,
+           \qquad d\zeta=XY-c,
+\]
+quasi-isomorphic to \(A_h\) as a differential graded
+\(R\)-algebra.
+\end{proposition}
+\begin{proof}
+The displayed family is termwise free over the parameter
+ring, so ordinary tensor product computes its derived
+pullback. Over \(K\), multiplication by \(XY-c\) has
+matrix
+\begin{equation}\label{cyidx:eq:quadratic-matrix}
+ F=\begin{pmatrix}
+ -c&0&0&ab\\0&-c&b&0\\0&a&-c&0\\1&0&0&-c
+ \end{pmatrix}
+\end{equation}
+in the basis \(1,X,Y,XY\). To have three-dimensional
+kernel and cokernel it must have rank one. Its
+two-by-two minors include \(a,b,c\), up to signs,
+so all three must vanish in \(K\), hence in \(R\).
+The pullback would be the constant central algebra.
+Its Massey set \(-k_2+Kk_3\) still excludes zero.
+But \eqref{cyidx:eq:generic-triangle} makes the generic
+fibre of \(A_h\) formal. This contradiction proves
+the assertion for every base map.
+\end{proof}
+
+\section{The whole spectral parameter curve}
+\label{cyidx:sec:global-shift}
+
+The formal family comes from a global perfect complex.
+On \(E_x\times E_y\times E_h\), set
+\(u_1=x,u_2=y,u_3=x+y\),
+\(\mathcal S_i=u_i^*\Theta\otimes(u_i+h)^*\Theta\),
+and \(s_i=\vartheta(u_i)\vartheta(u_i+h)\).
+For the projection \(\pi\) to \(E_h\), define
+\begin{equation}\label{cyidx:eq:global-shift}
+ \mathscr K=\bigotimes_{i=1}^3
+      [\mathcal S_i^{-1}\xrightarrow{s_i}\mathcal O],
+                      \qquad \mathscr C=R\pi_*\mathscr K.
+\end{equation}
+Write \(E[n]=\ker([n]:E\to E)\).
+
+\begin{theorem}\label{cyidx:thm:global-fibres}
+The complex \(\mathscr C\) has two locally free terms
+of rank four on \(E_h\), in degrees \(-1,0\).
+Its derived fibres have dimensions
+\[
+\begin{array}{c|cc}
+ h&\dim H^0&\dim H^{-1}\\\hline
+ 0&3&3\\
+ h\ne0,\ 2h\ne0&3&3\\
+ h\ne0,\ 2h=0&4&4.
+\end{array}
+\]
+Near a nonzero two-torsion point, three summands have
+zero differential. The fourth is
+\([\mathcal O\xrightarrow{v}\mathcal O]\), where
+\(v\) is a local parameter times a unit. It contributes
+a skyscraper to \(H^0(\mathscr C)\); the additional
+negative class of its derived fibre is a
+\(\operatorname{Tor}_1\) class.
+\end{theorem}
+\begin{proof}
+The first two sections cut out
+\[
+ Z=\{x=0\text{ or }-h\}\times_{E_h}
+                 \{y=0\text{ or }-h\},
+\]
+with their Cartier multiplicities. Each factor is
+finite flat of degree two: it is the sum of two
+sections, with a monic quadratic equation near their
+meeting point and no vertical component. Their
+product is finite flat of degree four, and the first
+two equations form a regular sequence. The complex
+therefore reduces to the finite pushforward of
+\([\mathcal S_3^{-1}|_Z\xrightarrow{s_3}\mathcal O_Z]\).
+An invertible sheaf on this finite flat scheme has
+locally free pushforward of rank four. The resulting
+two-term complex computes every derived fibre.
+
+For \(h\ne0\), the four points of \(Z_h\) are
+distinct. The third section vanishes at
+\((0,0),(0,-h),(-h,0)\). At \((-h,-h)\) its value
+is, in the relevant line,
+\[
+                    \vartheta(-2h)\vartheta(-h).
+\]
+This is nonzero unless \(2h=0\). At a nonzero
+two-torsion point the second factor is nonzero, and
+the first has a simple zero because multiplication
+by two is étale. Local frames give the
+stated fourth complex. Its kernel over the base is
+zero and its cokernel is \(\mathcal O/(v)\).
+Derived specialization supplies the additional
+degree-minus-one class. At \(h=0\), formal logarithms
+reduce to \eqref{cyidx:eq:triangle}, whose cohomology
+has ranks three and three.
+\end{proof}
+
+Every nonzero fibre is formal: each surviving reduced
+tree point carries one exterior generator with zero
+differential, and a nonsurviving point is contractible.
+At the three nonzero points of \(E[2]\), four exterior
+factors survive. This is a local description and does
+not choose global frames for the persistent summands.
+On the original parameter cover \(h=2t\), the extra
+fibres occur at the twelve points
+\(E[4]\setminus E[2]\); the nonformal doubled fibre
+occurs at the four points of \(E[2]\).
+
+\subsection{Square roots on the halving cover}
+
+Rigidify the symmetric line \(\Theta\) at zero.
+The coefficient line
+\(\mathcal S=u^*\Theta\otimes(u+h)^*\Theta\)
+has degree two on each \(u\)-fibre, and hence four
+degree-one square roots on that fibre. These roots
+do not vary continuously over the original base.
+
+\begin{theorem}\label{cyidx:thm:halving-cover}
+There is no line \(\mathcal R\) on \(E_u\times E_h\)
+with \(\mathcal R^2\cong\mathcal S\), nor a continuous
+relative choice of degree-one root, even after a base
+line is tensored with \(\mathcal S\).
+On the cover \(h=2t\), the cube theorem gives
+\begin{equation}\label{cyidx:eq:parallelogram}
+ u^*\Theta\otimes(u+2t)^*\Theta
+       \cong(u+t)^*\Theta^2\otimes t^*\Theta^2.
+\end{equation}
+Thus
+\begin{equation}\label{cyidx:eq:root-line}
+                  \mathcal R_t=(u+t)^*\Theta\otimes t^*\Theta
+\end{equation}
+is a root line. A nonzero deck shift \(t\mapsto t+\xi\),
+\(\xi\in E[2]\), changes its restriction to a \(u\)-fibre
+by the corresponding nontrivial two-torsion line.
+For \(2t\ne0\), the section
+\(\vartheta(u)\vartheta(u+2t)\) is not the square
+of a regular section of \(\mathcal R_t\).
+\end{theorem}
+\begin{proof}
+Restrict \(\mathcal S\) to \(\{u_0\}\times E_h\).
+Its degree is one, whereas the square of a line has
+even degree. This rules out an absolute root.
+Under \(\operatorname{Pic}^1(E)\cong E\), a root
+on a fixed fibre is a point \(m\) with \(2m=-h\).
+A continuous choice would induce
+\(2m_*=-\mathrm{id}\) on \(\pi_1(E)=\mathbb Z^2\),
+which is impossible. Tensoring by a base line does
+not change these relative Picard classes.
+
+For a symmetric rigidified line the cube theorem
+implies
+\[
+ (f+g)^*\Theta\otimes(f-g)^*\Theta
+       \cong(f^*\Theta)^2\otimes(g^*\Theta)^2.
+\]
+The rigidification removes the constant fibre factor;
+see \cite{StacksCube}. Apply this identity to
+\(f=u+t\), \(g=t\), proving
+\eqref{cyidx:eq:parallelogram} and its specified root.
+The ratio after a deck shift restricts to a translate
+of \(T_\xi^*\Theta\otimes\Theta^{-1}\). The
+degree-one polarization identifies \(E\) with
+\(\operatorname{Pic}^0(E)\), so this is nontrivial
+of order two for \(\xi\ne0\).
+Finally the two zeros \(0,-2t\) of the section are
+distinct and simple. A square of a regular section
+has even vanishing order at every point.
+\end{proof}
+
+Equation~\eqref{cyidx:eq:parallelogram} is an identity
+of lines. It is not the scalar identity
+\(\vartheta(u)\vartheta(u+2t)
+  =(\vartheta(u+t)\vartheta(t))^2\), whose right
+side vanishes identically at \(t=0\).
+For an ordered flag, tensor the root
+\eqref{cyidx:eq:root-line} over its interacting
+cross-pairs, using the fixed square isomorphism for
+each labelled pair. Every parenthesization uses each
+pair once. Associativity of tensor products therefore
+gives all flag coherences, and squaring gives the
+coefficient-line identifications. Negative kernel
+lines use the inverse roots. Same-colour and dynamical
+factors require their own line constructions.
+
+\section{Shifted graph coefficients and integral torsion}
+\label{cyidx:sec:shifted-graphs}
+
+Let \(G\) be connected on ordered vertices
+\(0,\ldots,n-1\), and orient every edge from lower
+to higher vertex. Set \(z_0=0\) and assign the edge
+\(ij\) the equation
+\((z_j-z_i)(z_j-z_i+h)\).
+Choose an oriented spanning tree, with coordinates
+\(u_1,\ldots,u_k\), \(k=n-1\), and retain the
+signed chord paths \(\ell_c=\sum_a\sigma_{ca}u_a\).
+Let \(\beta=|E(G)|-n+1\).
+
+\begin{theorem}\label{cyidx:thm:shifted-graphs}
+The full edge Koszul algebra is multiplicatively
+quasi-isomorphic to
+\begin{equation}\label{cyidx:eq:shifted-graph-model}
+ C_{G,h}=\frac{R[u_1,\ldots,u_k]}
+                     {(u_a(u_a+h):1\leq a\leq k)}
+                 \otimes\Lambda(\epsilon_c:c\notin T),
+\end{equation}
+where \(|\epsilon_c|=-1\) and
+\begin{equation}\label{cyidx:eq:shifted-chord}
+ d\epsilon_c=2\sum_{a<b}\sigma_{ca}\sigma_{cb}u_au_b
+                  +h\sum_a(\sigma_{ca}-\sigma_{ca}^2)u_a.
+\end{equation}
+Its degree \(-j\) term is free of rank
+\(2^k\binom\beta j\), and its total rank is
+\(2^{|E(G)|}\). Define
+\[
+ \mathcal A_G=\{s\in\{0,1\}^k:
+                \textstyle\sum_a\sigma_{ca}s_a\in\{0,1\}
+                        \text{ for every chord }c\}.
+\]
+After inverting \(h\), projection gives a
+multiplicative quasi-isomorphism
+\begin{equation}\label{cyidx:eq:graph-generic}
+ C_{G,h}\otimes_R K\longrightarrow
+      \prod_{s\in\mathcal A_G}
+             \Lambda_K(\epsilon_1,\ldots,\epsilon_\beta),
+                         \qquad d=0.
+\end{equation}
+\end{theorem}
+\begin{proof}
+Tree differences are integral unimodular coordinates
+on the translation quotient. Their monic quadratics
+form a regular sequence; quotienting by them gives
+the multiplicative reduction as in
+Theorem~\ref{cyidx:thm:finite-graph}. Expanding
+\(\ell_c^2+h\ell_c\) and using \(u_a^2=-hu_a\)
+gives \eqref{cyidx:eq:shifted-chord}. In particular
+a negatively traversed edge contributes \(-2hu_a\).
+Squarefree tree monomials and exterior subsets give
+the ranks.
+
+Over \(K\), the tree algebra splits into points
+\(u_a=-hs_a\). On the \(s\)-factor a chord
+differential becomes \(h^2L_c(s)(L_c(s)-1)\),
+where \(L_c(s)=\sum_a\sigma_{ca}s_a\).
+If one is nonzero, it is invertible and multiplication
+by its reciprocal times \(\epsilon_c\) contracts
+that factor. On every remaining factor all
+differentials are zero, proving the projection formula.
+\end{proof}
+
+The central and generic dimensions do not determine
+the order of integral torsion. For the following
+graphs it can be computed from their finite matrices.
+Write \(ij\) for the edge \(\{i,j\}\); dimensions
+are listed in degrees \(0,-1,\ldots\).
+
+\begin{proposition}\label{cyidx:prop:graph-torsion}
+The shifted graph algebras have the following cohomology.
+\begin{center}
+\begin{tabular}{c c c c}
+\(G\)&central dimensions&generic dimensions&\(R\)-torsion\\\hline
+\(K_3\)&\((3,3)\)&\((3,3)\)&0\\
+\(01,12,23,03\)&\((6,6)\)&\((4,4)\)&\((R/(h))^2\) in \(H^0\)\\
+\(K_4\setminus\{01\}\)&\((5,10,5)\)&\((5,10,5)\)&0\\
+\(K_4\)&\((4,14,14,4)\)&\((4,12,12,4)\)&\((R/(h))^2\) in \(H^{-1}\)
+\end{tabular}
+\end{center}
+For the third graph one may give the vertices colours
+\((1,1,2,3)\) and include only intercolour factors.
+The last graph has four distinct colours.
+\end{proposition}
+\begin{proof}
+Use the ordered trees and chord paths
+\[
+\begin{array}{c|c|c}
+G&T&(\sigma_c)_c\\\hline
+K_3&(01,12)&(1,1)\\
+01,12,23,03&(01,03,23)&(-1,1,-1)\\
+K_4\setminus\{01\}&(02,12,13)&(1,-1,1),\ (0,-1,1)\\
+K_4&(01,12,23)&(1,1,0),\ (1,1,1),\ (0,1,1).
+\end{array}
+\]
+There are respectively \(3,4,5,4\) admissible bit
+assignments. Theorem~\ref{cyidx:thm:shifted-graphs}
+gives the generic dimensions.
+
+For the integral calculation, order squarefree
+monomials by bit mask, with \(u_1\) the least
+significant bit, and exterior subsets lexicographically.
+Multiplication by a tree coordinate has the matrix
+\(\left(\begin{smallmatrix}0&0\\1&-h\end{smallmatrix}\right)\)
+on that coordinate and the identity on the others.
+Equation~\eqref{cyidx:eq:shifted-chord} then specifies
+every matrix. Removing the \(r\)-th exterior factor
+has sign \((-1)^{r-1}\).
+
+Cancel a nonzero constant entry \(w=D_{rc}\) by
+replacing the remaining entries with
+\(D_{ij}-D_{ic}w^{-1}D_{rj}\). Apply the inverse
+basis changes to adjacent differentials. Their
+components in the cancelled summand vanish because
+\(d^2=0\), so this splits off
+\([R\xrightarrow{1}R]\). Reading from lowest
+cochain degree upwards and then by rows, the first
+available constant entries give respectively
+\(1,2,6,14\) cancellations. For the first and third
+graphs the remaining differential is zero, with
+ranks \((3,3)\) and \((5,10,5)\).
+
+For the four-cycle the remaining map is \(6\times6\).
+After factoring out \(h\), its nonzero rows are
+\[
+ \begin{pmatrix}
+ -2h&2h^2&4h&-4h^2&2h^2&-2h^3\\
+ -2&2h&-2&2h&2h&-2h^2\\
+ -2&2h&4&-4h&2h&-2h^2
+ \end{pmatrix}.
+\]
+The first row is \(h\) times the third; the last
+two have a constant invertible minor in columns
+one and three. Every other column is in their
+\(R\)-span. The two nonzero Smith factors of the
+original residual map are therefore \(h,h\).
+
+For \(K_4\), the remaining ranks are
+\((4,14,14,4)\). Only the map from degree \(-2\)
+to degree \(-1\) is nonzero. Dividing it by \(h\)
+and removing zero rows and columns gives
+\[
+ \begin{pmatrix}
+ -2&2h&2&0&-2h&-2h&0\\
+ 2&-2h&0&-2&2h&0&2h\\
+ 0&0&-2&2&0&2h&-2h
+ \end{pmatrix}.
+\]
+The rows sum to zero. The first two have an invertible
+constant minor in columns one and three, and all
+remaining columns are in their span. Its nonzero
+Smith factors are again \(h,h\). Thus the two
+torsion summands now lie in degree \(-1\).
+Every residual differential vanishes modulo \(h\),
+which gives the central dimensions and excludes
+higher torsion orders.
+\end{proof}
+
+The repeated-colour example concerns only its indicated
+intercolour factors; a Hall coefficient must also
+include the same-colour contribution. The number of
+admissible bit assignments is a count of branches
+of this spectral incidence algebra. Identifying it
+with a compact BPS multiplicity or an Igusa coefficient
+requires a map from the corresponding compact theory.
+
+\section{The compact comparison and the weight-five line}
+\label{cyidx:sec:comparison}
+
+The constructions in this chapter retain several
+different kinds of coefficients. The Hilbert-scheme
+elliptic complexes yield \(F_T\) and \(F_S\) after
+taking Euler supercharacters. The root Lie algebra
+has a bracket, and its Chevalley differential gives
+the inverse enveloping character. The spectral
+incidence algebra has its cyclic trace, normal jets
+and the relative ternary class \([m_3]\). The
+automorphic form is a section of
+\(\lambda^5\otimes\nu_5\).
+
+For a K3 surface \(S\) and an elliptic curve
+\(E_{\mathrm{geom}}\), a reduced oriented critical
+Hall theory on \(S\times E_{\mathrm{geom}}\) must
+be defined on its compact moduli, with extension
+correspondences and their common translation torsors.
+The empty sector lies over \(BE_{\mathrm{geom}}\).
+Its translation reduction differs from the quotient
+of spectral coordinates used in
+\eqref{cyidx:eq:global-graph}. The dual-number-valued
+reduced integration of \cite{OberdieckShen} and the
+local trace \eqref{cyidx:eq:trace-matrix} have distinct
+domains and coefficient rings.
+
+\begin{problem}\label{cyidx:prob:compact}
+Construct a comparison from independently defined
+reduced oriented compact critical coefficients to
+a collision recipient carrying
+\eqref{cyidx:eq:global-shift} over the whole spectral
+parameter curve. Determine whether a multiplicative
+comparison identifies the two ordered coefficient
+lines, their exceptional fibres, and the halving
+cover with its \(E[2]\)-action on root choices.
+A proposed equivalence of coefficient algebras must
+identify the minimal-model class \([m_3]\) and its
+integral relation \(\delta G_2=h\,m_3\).
+\end{problem}
+
+Replacing \(G_2\) by \(G_2/h\) changes the coefficient
+ring and cannot give a regular comparison over the
+whole disc. A representation on a state complex has
+another target: its equations hold in the endomorphism
+algebra of that state and need not preserve the
+auxiliary incidence multiplication.
+
+\begin{problem}\label{cyidx:prob:weight-five}
+Construct a geometric family over genus-two moduli
+whose determinant or Pfaffian line is
+\(\lambda^5\otimes\nu_5\), and identify its section
+with the normalized \(D_5\). Relate its degeneration
+and sewing maps to the compact critical coefficients
+and their elliptic collision lines.
+\end{problem}
+
+The line \eqref{cyidx:eq:root-line} on a fixed spectral
+elliptic curve supplies a square root with explicit
+deck action. It does not by itself give a family over
+genus-two moduli. The determinant model
+\eqref{cyidx:eq:Fredholm} supplies a convergent scalar
+in a cusp chamber. A solution of the last problem
+must additionally construct the geometric family,
+its transition maps and the operation-preserving
+comparisons.

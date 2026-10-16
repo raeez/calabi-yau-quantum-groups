@@ -1,0 +1,2667 @@
+\chapter{Quantization and supported transfer}
+\label{cyquant:chapter}
+
+A classical contraction identifies a field complex with a smaller complex.
+Quantization asks for more: the interaction, the measure, and the collision
+operations must descend with their identities.  Three explicit constructions
+will distinguish these requirements.  On $K3\times E$, harmonic forms give a
+strict model of the classical holomorphic Chern--Simons Lie algebra, while
+its full residual action retains two cubic terms.  In a nodal field algebra,
+the BRST differential retains both the coordinate relation and its momentum
+fields.  In a rational current algebra, a completed product and its curved
+differential can be constructed through specified powers of the deformation
+parameter.  Each construction has its own carrier and its own comparison
+problem.
+
+The final example concerns support.  Dividing by a normal coordinate on
+principal parts has a right inverse with a nonzero contact term.  That term
+survives in cohomology and prevents a particular division homotopy from
+becoming module-linear.  Its explicit representative makes it possible to
+state the remaining relative comparison equation, including the normal
+derivatives and the vacuum.
+
+\section{The full harmonic Chern--Simons model}
+\label{cyquant:sec:residual}
+
+Let $X=S\times E$, where $S$ is a compact K3 surface and $E$ is an
+elliptic curve.  Fix a product Ricci-flat K\"ahler metric, a nowhere vanishing
+holomorphic three-form $\Omega$, and a finite-dimensional complex Lie
+algebra $\mathfrak g$ with a nondegenerate invariant symmetric form
+$\kappa$.  We work about the trivial gauge background.  The differential
+graded Lie algebra and its cyclic pairing are
+\begin{equation}\label{cyquant:eq:hcs}
+ L=\mathfrak g\otimes\Omega^{0,\bullet}(X),\qquad
+ d=\bar\partial,\qquad
+ \pi(x\alpha,y\beta)=\int_X\Omega\wedge\alpha\wedge\beta\,
+                         \kappa(x,y).
+\end{equation}
+The pairing has degree $-3$.  The shifted space of BV fields is $L[1]$;
+in particular it includes all four Dolbeault degrees.  Its odd symplectic
+pairing is
+\[
+ \sigma(sx,sy)=(-1)^{|x|}\pi(x,y),\qquad |s|=-1.
+\]
+The restriction to Dolbeault degree one is the classical physical field
+space.  The full BV extension also contains ghosts and antifields
+\cite[\S1.5]{cyquant:CostelloLi}.
+
+Choose parallel harmonic representatives $\epsilon$ and $u$ of the
+elliptic $(0,1)$-class and the K3 $(0,2)$-class.  Normalize them so that
+$\int_X\Omega\wedge\epsilon u=1$.  Their algebra is
+\begin{equation}\label{cyquant:eq:harmonic-algebra}
+ H=\mathbb C[u]/(u^2)\otimes\Lambda(\epsilon),
+ \qquad |u|=2,\quad |\epsilon|=1.
+\end{equation}
+Write $\tau(\epsilon u)=1$, with $\tau$ zero in the other degrees.
+
+\begin{proposition}\label{cyquant:prop:strict-harmonic}
+The inclusion $\mathfrak g\otimes H\longrightarrow L$ is a cyclic
+dg Lie quasi-isomorphism.  Homotopy transfer along the product Hodge
+contraction has no operations of arity at least three on
+$\mathfrak g\otimes H$.  Its binary bracket is
+\[
+ [x\otimes v,y\otimes w]=[x,y]\otimes vw.
+\]
+\end{proposition}
+
+\begin{proof}
+The Hodge dimensions of $S$ and $E$, together with K\"unneth, give the
+four classes $1,\epsilon,u,\epsilon u$.  Their chosen representatives are
+parallel and closed under multiplication, so their inclusion is a
+multiplicative quasi-isomorphism.  The trace normalization identifies its
+pairing with $\kappa\otimes\tau$.
+
+The Hodge homotopy kills harmonic forms.  Every rooted binary tree with
+at least three leaves has an internal edge immediately above a vertex
+whose two inputs are harmonic.  Their bracket is harmonic, and the
+homotopy on that edge kills it.  Thus every higher transferred tree is
+zero.  The binary tree has no such internal edge and gives the displayed
+bracket.
+\end{proof}
+
+The strictness of this Lie model does not remove its cubic Hamiltonian.
+Write the universal unshifted field, with its coordinate coefficients on
+the right, as
+\[
+ \omega=1c+\epsilon a+ub+\epsilon u d.
+\]
+The coordinate degrees are $|c|=1$, $|a|=0$, $|b|=-1$, and $|d|=-2$.
+Consequently $c,b$ are odd and $a,d$ are even.  The residual action is the
+degree-zero function
+\begin{equation}\label{cyquant:eq:residual-action}
+ S_H=\frac16\tau\kappa(\omega,[\omega,\omega])
+     =\frac12\kappa(d,[c,c])-\kappa(c,[a,b]).
+\end{equation}
+To compute it, a nonzero trace must have form degree three.  The possible
+patterns are $(0,0,3)$, $(0,1,2)$, and $(1,1,1)$.  The last vanishes
+because $\epsilon^2=0$.  Moving the right-hand coordinate coefficients
+past the forms in the first two patterns gives exactly the two signs in
+\eqref{cyquant:eq:residual-action}.
+
+For example, take $\mathfrak g=\mathfrak{sl}_2$ with
+$e=E_{12}$, $f=E_{21}$, $h=\operatorname{diag}(1,-1)$ and
+$\kappa(x,y)=\operatorname{tr}(xy)$.  Since
+$[e,f]=h$, $\kappa(h,h)=2$, and $\kappa(e,f)=1$, the coefficients of
+$c_h a_e b_f$ and $c_e c_f d_h$ in $S_H$ are respectively $-2$ and $2$.
+The action vanishes on the restriction $c=0$, but it is nonzero on the
+full residual field space.
+
+\begin{proposition}\label{cyquant:prop:finite-qme}
+Use left graded derivatives and the constant-density BV Laplacian
+\[
+ \Delta=\sum_{i,j}\kappa^{ij}
+ \left(\frac{\partial}{\partial c_i}\frac{\partial}{\partial d_j}
+       +\frac{\partial}{\partial a_i}\frac{\partial}{\partial b_j}\right).
+\]
+For the bracket $\{-,-\}$ generated by $\Delta$, one has
+$\{S_H,S_H\}=0$ and $\Delta S_H=0$.  The Hamiltonian differential is
+\begin{equation}\label{cyquant:eq:residual-Q}
+ Qc=\tfrac12[c,c],\qquad Qa=[c,a],\qquad Qb=[c,b],\qquad
+ Qd=[c,d]-[a,b].
+\end{equation}
+Thus $S_H$ solves the finite algebraic quantum master equation.
+\end{proposition}
+
+\begin{proof}
+Expand $d_{\mathrm{tot}}\omega=\frac12[\omega,\omega]$, where
+$d_{\mathrm{tot}}=1_H\otimes Q$ uses the tensor sign.
+Its four coefficients give
+\eqref{cyquant:eq:residual-Q}.  Invariance of $\kappa$ identifies this
+differential with the Hamiltonian derivation of $S_H$.  The graded Jacobi
+identity gives $Q^2=0$ and the classical master equation.  A metric Lie
+algebra in characteristic zero is unimodular: each adjoint endomorphism
+is skew with respect to its nondegenerate symmetric form, hence has trace
+zero.  The contractions in $\Delta S_H$ are precisely these adjoint
+traces, so they vanish.
+\end{proof}
+
+This finite cyclic construction is the algebraic residual mechanism of
+\cite[\S3.1]{cyquant:CattaneoMnev}.  Its differential on $H$ is zero,
+so the quadratic kinetic term restricts to zero.  The nondegenerate odd
+symplectic form supplies the BV bracket, not a nondegenerate quadratic
+action.  An effective quantum action for the analytic theory further
+requires a regulated integration over nonzero modes, its local
+counterterms, and a choice of residual BV integration.  Neither the
+finite master equation nor $\chi(S\times E)=0$ computes those data.
+
+\section{A product propagator with one time variable}
+\label{cyquant:sec:propagator}
+
+Let $A$ and $B$ be closed Hermitian manifolds.  On their Dolbeault
+complexes write $d_A=\bar\partial_A$, $q_A=d_A^*$,
+$\Delta_A=d_Aq_A+q_Ad_A$, and $\Gamma_A=(-1)^{\deg}$, and use analogous
+notation for $B$.  All adjoints refer to the specified metrics.  On the
+product complex,
+\begin{equation}\label{cyquant:eq:product-operators}
+ \begin{aligned}
+ d&=d_A\otimes1+\Gamma_A\otimes d_B,\\
+ q&=q_A\otimes1+\Gamma_A\otimes q_B,\\
+ \Delta&=\Delta_A\otimes1+1\otimes\Delta_B.
+ \end{aligned}
+\end{equation}
+The last identity follows because $\Gamma_A$ anticommutes with both odd
+operators.  If $K_A(t)=e^{-t\Delta_A}$, then
+$K(t)=K_A(t)\otimes K_B(t)$.
+
+\begin{proposition}\label{cyquant:prop:product-propagator}
+For $0<\varepsilon<L$, the product Hodge propagator is
+\begin{equation}\label{cyquant:eq:propagator}
+ P_{[\varepsilon,L]}=
+ \int_{\varepsilon}^{L}
+ \bigl(q_AK_A(t)\otimes K_B(t)
+       +\Gamma_AK_A(t)\otimes q_BK_B(t)\bigr)\,dt.
+\end{equation}
+It satisfies
+\[
+ dP_{[\varepsilon,L]}+P_{[\varepsilon,L]}d=K(\varepsilon)-K(L).
+\]
+Let $H_A,H_B$ be the orthogonal harmonic projections, put
+$H=H_A\otimes H_B$, and let $G$ be the inverse of $\Delta$ on $H^\perp$,
+extended by zero on $H$.  Then $P=qG$ satisfies $dP+Pd=1-H$.
+If $\lambda_1>0$ is the first positive eigenvalue of $\Delta$, then
+\begin{equation}\label{cyquant:eq:propagator-bound}
+ \|P-P_{[\varepsilon,L]}\|_{L^2\to L^2}
+ \leq \sqrt{\varepsilon}+
+             \frac{e^{-L\lambda_1}}{\sqrt{\lambda_1}}.
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+The integrand is $qK(t)$.  Since $dq+qd=\Delta$, its anticommutator
+with $d$ is $-\partial_tK(t)$, proving the finite-cutoff identity.
+On a positive $\lambda$-eigenspace, $\|q\|\leq\sqrt\lambda$.
+The omitted short-time integral is bounded there by
+$(1-e^{-\varepsilon\lambda})/\sqrt\lambda\leq\sqrt\varepsilon$,
+using $1-e^{-x}\leq\min(x,1)$.  The long-time tail is bounded by
+$e^{-L\lambda}/\sqrt\lambda$.  Taking the supremum proves
+\eqref{cyquant:eq:propagator-bound}.  On $H$, $qH=0$, so there is no
+term growing linearly with $L$.  The spectral theorem gives the limit
+$qG$, and elliptic regularity gives its action on smooth forms.
+\end{proof}
+
+There is only one time integral in \eqref{cyquant:eq:propagator}.
+On a joint eigenspace with eigenvalues $\lambda,\mu>0$, its Green
+denominator is $\lambda+\mu$.  Multiplying two separate Green operators
+would instead give $\lambda\mu$.  The mixed harmonic sectors also
+remain:
+\[
+ P|_{\operatorname{im}H_A\otimes\ker H_B}=\Gamma_AH_A\otimes P_B,
+ \qquad P|_{\ker H_A\otimes\operatorname{im}H_B}=P_A\otimes H_B.
+\]
+The sector harmonic in both factors contributes zero.  If $h_A$ is an even
+harmonic vector and $d_Bc=bd$ with $b\ne0$, then
+$P(h_A\otimes d)=b^{-1}h_A\otimes c$.
+The sequential contraction
+$P_A\otimes1+\Gamma_AH_A\otimes P_B$ is another valid contraction;
+it is a different choice from the product-metric Hodge contraction.
+
+On $E=\mathbb C/(\mathbb Z+\tau\mathbb Z)$, write
+$z=u+\tau v$, $\tau=a+ib$, $b>0$, and give the metric
+$g=(V/b)|dz|^2$ area $V$.  In the convention
+$\Delta_{\bar\partial}=\Delta_{\mathrm{real}}/2$, the characters and
+eigenvalues are
+\[
+ e_{mn}(u,v)=e^{2\pi i(mu+nv)},\qquad
+ \lambda_{mn}=\frac{2\pi^2|m\tau-n|^2}{Vb}.
+\]
+The scalar heat kernel is therefore
+\begin{equation}\label{cyquant:eq:elliptic-heat}
+ K_E(t;z,z')=\frac1V\sum_{m,n\in\mathbb Z}
+       e^{-t\lambda_{mn}}e_{mn}(z)\overline{e_{mn}(z')}.
+\end{equation}
+Every summand is periodic in both variables.  Parallel orthonormal form
+frames give the degree-one formula.  These conventions agree with the
+Dolbeault Hodge identities in \cite[Ch.~VI, \S5]{cyquant:Demailly}.
+
+For fixed positive cutoffs the propagator kernel is smooth even on the
+diagonal.  Its limiting singularity has a different order from the scalar
+Green kernel.  In real dimension six the positive flat Laplacian has
+\[
+ G(r)=\frac1{4\pi^3r^4},\qquad G'(r)=-\frac1{\pi^3r^5}.
+\]
+The first-order adjoint thus produces leading coefficients of order
+$r^{-5}$ in fixed orthonormal frames.  Directly,
+\[
+ \int_0^\infty r t^{-4}e^{-r^2/(4t)}\,dt=\frac{128}{r^5},
+ \qquad
+ \int_\varepsilon^L r t^{-4}e^{-r^2/(4t)}\,dt
+ \leq\frac r3(\varepsilon^{-3}-L^{-3}).
+\]
+The first expression is locally integrable in six dimensions; the second
+has no short-distance pole.  These linear identities underlie the
+heat-kernel construction of \cite[\S\S7.2.3--7.2.5]{CG2}.  An interacting
+master equation requires the corresponding local functional calculation.
+
+\section{Cyclic transfer and a nonformal minimal algebra}
+\label{cyquant:sec:cyclic}
+
+Let $(A,d,m_2)$ be a dg algebra with a cyclic pairing, and let
+$(H,0)\mathrel{\substack{\xrightarrow{\ i\ }\\[-.7ex]
+                         \xleftarrow[\ p\ ]{}}}(A,d)$
+be a contraction with a homotopy $h$ of degree $-1$:
+\[
+ pi=1,\qquad dh+hd=1-ip,\qquad h^2=hi=ph=0.
+\]
+A cyclic transfer also requires $p,i,h$ to be compatible with the
+pairing in the shifted sign convention.  The transferred operations are
+the signed planar-tree compositions of $i,m_2,h,p$: leaves carry $i$,
+vertices $m_2$, internal edges $h$, and the root $p$.  This gives
+$|m_n|=2-n$.  It preserves cyclicity when the contraction is cyclic
+\cite{cycmp:HTT}.  A linear contraction without these pairing conditions
+does not by itself supply cyclic transfer.
+
+We use the following unsuspended convention throughout this section:
+\begin{equation}\label{cyquant:eq:stasheff-sign}
+ \sum_{r+s+t=n}
+ (-1)^{r+st+(2-s)(|x_1|+\cdots+|x_r|)}
+ m_{r+1+t}(x_1,\ldots,x_r,m_s(x_{r+1},\ldots,x_{r+s}),
+                         x_{r+s+1},\ldots,x_n)=0.
+\end{equation}
+For a degree-$-3$ pairing, cyclicity means
+\begin{equation}\label{cyquant:eq:cyclic-sign}
+ \begin{aligned}
+ \langle m_n(x_1,\ldots,x_n),x_{n+1}\rangle
+  ={}&(-1)^{n+|x_1|(|x_2|+\cdots+|x_{n+1}|)}\\
+ &\hspace{-3em}\cdot
+ \langle m_n(x_2,\ldots,x_{n+1}),x_1\rangle.
+ \end{aligned}
+\end{equation}
+Both sides place the operation in the first pairing slot.  The shift,
+the argument order, and the sign must be transported together when using
+another convention \cite[\S2]{cyquant:Cho}.
+
+\begin{proposition}\label{cyquant:prop:quartic-model}
+Over a characteristic-zero field, let $A_\lambda$ have basis $1,a,b,v$
+in degrees $0,1,2,3$.  Give it a strict unit $1$, the nonzero products
+\[
+ m_2(a,b)=m_2(b,a)=v,\qquad m_3(a,a,a)=\lambda b,
+\]
+and no other products on nonunit inputs.  Give it the pairing
+\[
+ \langle1,v\rangle=\langle v,1\rangle
+ =\langle a,b\rangle=\langle b,a\rangle=1,
+\]
+zero on the other basis pairs.  This is a minimal cyclic
+$A_\infty$-algebra of dimension three.  If $\lambda\ne0$, it is
+nonformal and has both a nonzero ternary product and a nonzero binary
+product on its augmentation ideal.
+\end{proposition}
+
+\begin{proof}
+The binary product is associative: three elements in the augmentation
+ideal always multiply to zero, and the remaining cases use the unit.
+The pairing is the Frobenius pairing $\tau(xy)$ with $\tau(v)=1$.
+It is nondegenerate, graded symmetric, and of degree $-3$.
+The only nonzero ternary cyclic tensor is the value on four copies of
+$a$.  Its rotation sign in \eqref{cyquant:eq:cyclic-sign} is
+$(-1)^{3+3}=1$.
+
+At arity four the only nonunit input that contributes is $(a,a,a,a)$.
+Equation \eqref{cyquant:eq:stasheff-sign} becomes
+\[
+ -m_2(m_3(a,a,a),a)+m_2(a,m_3(a,a,a))
+       =-\lambda v+\lambda v=0.
+\]
+The inner binary terms vanish because $a^2=0$.  With one unit the
+nonzero terms cancel in pairs; with more units there is no contribution.
+At arity five every composite of two ternary products vanishes, because
+the inner output is $b$.  No higher arity can occur in a composite of
+the available operations.  This proves all the identities.
+
+If $f_2$ has degree $-1$, then $f_2(a,a)$ is a scalar multiple of $a$.
+Every term of its Hochschild coboundary on $(a,a,a)$ is consequently
+zero: the inner or outer binary product contains $a^2$.  Thus the value
+$m_3(a,a,a)=\lambda b$ cannot be removed by a quadratic change of
+coordinates.  An invertible graded linear change only rescales the
+one-dimensional $a$ and $b$ spaces.  This proves nonformality.
+\end{proof}
+
+For the degree-one element $x=ta$, the cyclic potential is
+\[
+ \Phi(x)=\sum_{n\geq2}\frac1{n+1}
+              \langle m_n(x,\ldots,x),x\rangle
+         =\frac\lambda4t^4.
+\]
+The quartic term records the ternary operation.  It does not force the
+binary product to vanish: cyclicity with the unit gives
+$\langle m_2(a,b),1\rangle=\langle a,b\rangle=1$.
+This finite example makes no assertion of homological smoothness or of
+a geometric realization by a compact Calabi--Yau category.  Those are
+additional properties of a specified model.
+
+\subsection{Compact conifold objects and their ternary product}
+
+The conifold gives a geometric example in which the cubic relations
+determine a nonzero ternary Ext product.  Put
+\[
+ C=\mathbb C[X,Y,U,V]/(XY-UV),\qquad I=(X,U),\qquad
+ A=\operatorname{End}_C(C\oplus I).
+\]
+Use arrows $a,c:1\to0$ and $b,d:0\to1$, with composition written
+right to left, and the potential $\Phi=abcd-adcb$.  The arrow matrices
+on $C\oplus I$ are
+\[
+ a=\begin{pmatrix}0&1\\0&0\end{pmatrix},\quad
+ b=\begin{pmatrix}0&0\\X&0\end{pmatrix},\quad
+ c=\begin{pmatrix}0&V/X\\0&0\end{pmatrix},\quad
+ d=\begin{pmatrix}0&0\\U&0\end{pmatrix}.
+\]
+Here $V/X$ is a regular homomorphism $I\to C$, since it sends
+$X$ to $V$ and $U$ to $Y$.  These matrices identify $A$ with the
+Jacobi algebra of $\Phi$.  One way to verify the presentation is to
+write $z=a+b$, $p=c+d$, $g=e_0-e_1$, with $e_i$ the vertex
+idempotents, and
+$\lambda=(cb-ad)+(bc-da)$.  The cyclic derivatives say that
+$\lambda$ is central and give
+\[
+ g^2=1,\quad gz=-zg,\quad gp=-pg,\quad pz-zp=\lambda g.
+\]
+The normal monomials $z^ip^jg^\varepsilon$ form a
+$\mathbb C[\lambda]$-basis: the only mixed ambiguity $gpz$ has the
+same reduction $zpg+\lambda$ in both orders.  The central elements
+$X=z^2$, $Y=p^2$, $W=zp+\lambda g/2$,
+$U=W-\lambda/2$, $V=W+\lambda/2$ satisfy $XY=UV$.
+The matrix map is surjective and becomes an isomorphism over
+$\operatorname{Frac}(C)$ on the basis $1,z,g,zg$.
+Filter the source by the number of $z,p$ factors, giving $\lambda$
+weight zero.  Its associated graded is
+$\mathbb C[\lambda,z,p]\rtimes\mu_2$; the central graded ring
+$\mathbb C[\lambda,X,Y,W]/(XY-W^2)$ embeds by $X=z^2$, $Y=p^2$,
+$W=zp$ and acts without torsion.  The filtered source is therefore
+torsion-free over $C$, so the kernel is zero.
+
+Let $S_i$ be the right vertex simples and $P_i=e_iA$.  Give the arrows
+weight one; in $P_i(-w)$ the free generator has internal weight $w$.
+The compact projective resolutions are
+\begin{equation}\label{cyquant:eq:conifold-resolutions}
+ \begin{aligned}
+ 0\to P_0(-4)&\xrightarrow{\binom bd}P_1(-3)^2
+ \xrightarrow{\left(\begin{smallmatrix}-dc&bc\\da&-ba\end{smallmatrix}\right)}
+ P_1(-1)^2\xrightarrow{(a\ c)}P_0\to S_0\to0,\\
+ 0\to P_1(-4)&\xrightarrow{\binom ac}P_0(-3)^2
+ \xrightarrow{\left(\begin{smallmatrix}cd&-ad\\-cb&ab\end{smallmatrix}\right)}
+ P_0(-1)^2\xrightarrow{(b\ d)}P_1\to S_1\to0.
+ \end{aligned}
+\end{equation}
+The composites vanish by the four cyclic derivatives.  For exactness,
+the first middle matrix in the fractional-ideal model is
+$\left(\begin{smallmatrix}-Y&V\\U&-X\end{smallmatrix}\right)$.
+Its kernel is $(Xh,Uh)$, with $h$ in $C$ or $I^\vee$ according to
+the relevant component.  At the next place the required colon identities
+are
+\[
+ \{n\in C:Vn\in XC\}=I,\qquad
+ \{n\in I:Vn\in XI\}=I^2.
+\]
+The first follows by reducing modulo $X$, where
+$C/(X)=\mathbb C[Y,U,V]/(UV)$.  For the second, write
+$n=X\alpha+U\beta$ and reduce the condition
+$V\alpha+Y\beta\in I$ modulo $I$.  In $\mathbb C[Y,V]$ it gives
+$\bar\alpha=Yh$, $\bar\beta=-Vh$, whence $n\in I^2$ by $XY=UV$.
+These identities prove exactness of the first resolution; exchange the
+vertices for the second.  All entries have positive weight, so the
+resolutions are minimal.  They give self-Ext dimensions $(1,0,0,1)$
+and off-diagonal dimensions $(0,2,2,0)$.
+
+\begin{proposition}\label{cyquant:prop:conifold-ternary}
+A minimal model of
+$\operatorname{RHom}_A(S_0\oplus S_1,S_0\oplus S_1)$ has only
+$m_2,m_3$ as nonunit operations.  Its ternary product is nonzero and
+cannot be removed by a change of minimal model.
+\end{proposition}
+
+\begin{proof}
+Adjoin opposite arrows $\alpha^*$ of degree $-1$ and loops $\tau_i$
+of degree $-2$ to the path algebra, with
+\[
+ d\alpha^*=\partial_\alpha\Phi,\qquad
+ d\tau_i=e_i\sum_\alpha[\alpha,\alpha^*]e_i.
+\]
+The cyclic derivative identity proves $d^2=0$.  The generating weights
+are $1,3,4$.  The one-sided twisted complexes of the dual generating
+coalgebra are precisely \eqref{cyquant:eq:conifold-resolutions}.
+The universal twisted complex over its cobar resolves the vertex ring;
+the positive internal weights make the bar contraction and its
+perturbation finite at each weight.  Tensoring it with $A$ gives the
+exact complexes above.  If the cone of the cobar map to $A$ had
+cohomology, its least internal weight would survive tensoring with the
+vertex ring, a contradiction.  Thus the cobar map is a quasi-isomorphism.
+
+The Ext weights are $0,1,3,4$ in cohomological degrees $0,1,2,3$.
+Preservation of weight and the rule $|m_n|=2-n$ permit only the
+binary products on degree pairs $(1,2),(2,1)$ and the ternary product
+on $(1,1,1)$.  In suspended dual coordinates the relation
+$d(d^*)=abc-cba$ gives
+\[
+ b_3(sa^\vee,sb^\vee,sc^\vee)=s(d^*)^\vee,
+ \qquad
+ b_3(sc^\vee,sb^\vee,sa^\vee)=-s(d^*)^\vee.
+\]
+One can see the first value directly on the resolutions.  Choose closed
+degree-one lifts $A_1,B_1,C_1$ of the three arrow classes, with components
+from homological degree $n$ to $n-1$ as follows:
+\[
+ \begin{array}{c|ccc}
+ &n=1&n=2&n=3\\\hline
+ A_1&(1,0)&\left(\begin{smallmatrix}0&-c\\c&0\end{smallmatrix}\right)&(1,0)^t\\
+ B_1&(1,0)&\left(\begin{smallmatrix}0&d\\-d&0\end{smallmatrix}\right)&(1,0)^t\\
+ C_1&(0,1)&\left(\begin{smallmatrix}0&a\\-a&0\end{smallmatrix}\right)&(0,1)^t
+ \end{array}
+\]
+Take homotopies whose only nonzero components are
+$H_{AB,2}=\left(\begin{smallmatrix}0&0\\0&1\end{smallmatrix}\right)$
+and $H_{BC,2}=\left(\begin{smallmatrix}0&1\\0&0\end{smallmatrix}\right)$.
+For $\delta f=d_{\mathrm{target}}f-(-1)^{|f|}fd_{\mathrm{source}}$,
+matrix multiplication gives $\delta H_{AB}=A_1B_1$ and
+$\delta H_{BC}=B_1C_1$.  The closed representative
+$A_1H_{BC}+H_{AB}C_1$ projects to the row $(0,1)$ in degree two.
+All products of two degree-one Ext classes vanish by weight, so the
+triple Massey value has zero indeterminacy.  It cannot be erased.
+\end{proof}
+
+Under the conifold tilting equivalence these objects are
+$\mathcal O_E$ and $\mathcal O_E(-1)[1]$, where $E$ is the exceptional curve.
+Their degree-three Serre pairing pairs arrows with relations and units
+with top classes.  Its compact support is essential: it supplies no
+finite trace on all of $A$.  The ternary calculation retains that
+pairing and the quartic potential without identifying them with a
+quantized field action.
+
+\section{Deforming a specified action}
+\label{cyquant:sec:formal-actions}
+
+The equations for a formal action deformation belong to a convolution
+complex over a characteristic-zero field $k$.  Fix an augmented dg
+algebra $A$, a complex $V$, and a unital
+dg action $\rho:A\to E=\operatorname{End}(V)$.  Put
+$\bar A=\ker(A\to k)$ and give $s\bar A$ the shift $|sa|=|a|-1$.
+On the reduced tensor coalgebra
+$B(A)=\bigoplus_{r\geq1}(s\bar A)^{\otimes r}$, use the bar components
+\[
+ b_1(sa)=-s(da),\qquad b_2(sa\otimes sb)=(-1)^{|a|}s(ab).
+\]
+Its coproduct is deconcatenation.  The completed convolution algebra is
+\[
+ \mathcal L=\prod_{r\geq1}
+       \operatorname{Hom}((s\bar A)^{\otimes r},E).
+\]
+For homogeneous $f$, its differential is
+$d_{\mathcal L}f=d_Ef-(-1)^{|f|}fb$; its product is composition in $E$
+after the coproduct, with the tensor Koszul sign.  The commutator makes
+$\mathcal L$ a dg Lie algebra.
+
+The degree-one map $\tau(sa)=\rho(a)$, zero on longer tensors, satisfies
+$d_{\mathcal L}\tau+\tau\star\tau=0$.  At tensor length two the two
+terms are $(-1)^{|a|}\rho(ab)$ and
+$(-1)^{|a|-1}\rho(a)\rho(b)$, so multiplicativity gives their
+cancellation.  Set
+\[
+ D=d_{\mathcal L}+[\tau,-].
+\]
+A deformation of this action, allowing higher action components, is a
+degree-one series $a(t)=\sum_{n\geq1}t^na_n\in t\mathcal L[[t]]$
+satisfying
+\begin{equation}\label{cyquant:eq:action-mc}
+ Da(t)+\tfrac12[a(t),a(t)]=0.
+\end{equation}
+The $t$-adic completion makes every coefficient a finite sum; each
+$a_n$ can itself have arbitrary tensor arity.
+
+\begin{proposition}\label{cyquant:prop:action-obstructions}
+Suppose \eqref{cyquant:eq:action-mc} holds through order $n-1$.  Put
+\[
+ R_n=-\frac12\sum_{i=1}^{n-1}[a_i,a_{n-i}].
+\]
+Then $DR_n=0$.  An extension to order $n$ exists exactly when
+$[R_n]=0$ in $H^2(\mathcal L,D)$.  Its choices form an affine space
+over $Z^1(\mathcal L,D)$, and modulo order-$n$ gauge transformations
+they form an affine space over $H^1(\mathcal L,D)$.
+\end{proposition}
+
+\begin{proof}
+The coefficient of $t^n$ in the curvature of $\tau+a(t)$ is
+$Da_n-R_n$.  The Bianchi identity says that its twisted differential is
+zero.  Since the lower curvature coefficients vanish, the coefficient
+of $t^n$ in that identity is $DR_n=0$.  Solving $Da_n=R_n$ gives the
+obstruction statement.  Differences of solutions are closed degree-one
+elements.  A gauge parameter $t^n\xi$, $|\xi|=0$, changes $a_n$ by
+$D\xi$ without changing the lower coefficients, proving the last claim.
+\end{proof}
+
+Suppose the twisted complex has a contraction onto its cohomology,
+$Dh+hD=1-ip$, with $|h|=-1$.  If $pR_n=0$, the choice $a_n=hR_n$
+solves the order-$n$ equation.  Through order six this gives
+\begin{equation}\label{cyquant:eq:six-orders}
+ \begin{aligned}
+ a_2&=-\tfrac12h[a_1,a_1],\\
+ a_3&=-h[a_1,a_2],\\
+ a_4&=-h\bigl([a_1,a_3]+\tfrac12[a_2,a_2]\bigr),\\
+ a_5&=-h\bigl([a_1,a_4]+[a_2,a_3]\bigr),\\
+ a_6&=-h\bigl([a_1,a_5]+[a_2,a_4]+\tfrac12[a_3,a_3]\bigr).
+ \end{aligned}
+\end{equation}
+Every line assumes the preceding obstruction projections vanish.  The
+factor $1/2$ on the diagonal terms comes from the symmetry of the bracket
+on degree-one elements; off-diagonal terms occur twice.
+
+If $a_1=u\beta$ and the contraction is linear over $k[u]$, this recursion
+gives $a_n\in u^n\mathcal L$.  The first terms are
+\[
+ a_2=-\tfrac{u^2}{2}h[\beta,\beta],\qquad
+ a_3=\tfrac{u^3}{2}h[\beta,h[\beta,\beta]].
+\]
+The divisibility is a consequence of the recursion.  It does not specify
+the tensor arity of $a_n$, and it need not be the exact order of
+vanishing if a coefficient is zero.
+
+Two degree-zero algebras separate extension from obstruction.  For
+$A=k[x]$ acting on $k$ by augmentation, the strict deformed action
+$x\mapsto tu$ gives
+\[
+ a_n(sx^r)=\begin{cases}u^n&r=n,\\0&r\ne n,\end{cases}
+\]
+with no higher tensor-length component.  All orders exist because the
+polynomial algebra has no relation to violate.  For
+$A=k[\epsilon]/(\epsilon^2)$, the same first-order value
+$a_1(s\epsilon)=u$ has a nonzero order-two obstruction: the required
+strict relation would give $t^2u^2=0$.  In the convolution complex the
+relevant differential is zero and the residual value on
+$s\epsilon\otimes s\epsilon$ is nonzero.  No higher action component
+with values in $\operatorname{End}(k)$ can remove it.  Thus an
+integer sequence attached to another generating problem cannot count
+the extensions without an actual identification of complexes.
+
+\section{Compact supports and holomorphic moments}
+\label{cyquant:sec:moments}
+
+The support condition changes the coefficient space already in the
+linear Dolbeault problem.  On $\mathbb C^3$, write
+$z_j=x_j+iy_j$, $dV=\prod_j(dx_j\wedge dy_j)$, and
+$\Omega=dz_1\wedge dz_2\wedge dz_3$.  Then
+\[
+ \Omega\wedge d\bar z_1\wedge d\bar z_2\wedge d\bar z_3=-8i\,dV.
+\]
+Choose a smooth radial bump $\rho(|z|^2)$ supported inside the unit disk
+with $\int_{\mathbb C}\rho\,dA=1$.  For a multi-index
+$\beta\in\mathbb N^3$, define compactly supported forms
+\begin{equation}\label{cyquant:eq:moment-forms}
+ \alpha_0=\frac1{-8i}\prod_j\rho(|z_j|^2)\,
+               d\bar z_1\wedge d\bar z_2\wedge d\bar z_3,
+ \qquad
+ \alpha_\beta=\frac{(-1)^{|\beta|}}{\beta!}
+                         \partial_z^\beta\alpha_0.
+\end{equation}
+They are $\bar\partial$-closed because they have top antiholomorphic
+degree.
+
+\begin{proposition}\label{cyquant:prop:moments}
+For every entire holomorphic function $f$,
+\[
+ \int_{\mathbb C^3}f\Omega\wedge\alpha_\beta
+       =\frac{\partial_z^\beta f(0)}{\beta!}.
+\]
+The classes $[\alpha_\beta]$ are linearly independent in
+$H_c^{0,3}(\mathbb C^3)$.  For every $N$, the moment map to the dual of
+polynomials of total degree at most $N$ is split surjective and has rank
+$\binom{N+3}{3}$.
+\end{proposition}
+
+\begin{proof}
+Angular averaging in each coordinate gives the formula for $\beta=0$.
+Repeated integration by parts gives the general formula; compact support
+kills every boundary term.  If $\alpha=\bar\partial\eta$ with $\eta$
+compactly supported, Stokes gives $\int f\Omega\wedge\alpha=0$.
+Pairing a finite relation among the $[\alpha_\beta]$ with $z^\gamma$
+therefore extracts its $\gamma$-coefficient.  The same monomial pairing
+gives the asserted finite-dimensional splitting.
+\end{proof}
+
+There is a useful one-dimensional quotient, but the cohomology itself
+is infinite-dimensional.  To identify that quotient, put
+$F(t)=-\int_t^1\rho(s)\,ds$, extended by zero for $t\geq1$.
+The function $F(|z|^2)$ is smooth and compactly supported, and
+$\partial_{\bar z}F(|z|^2)=z\rho(|z|^2)$.  Replacing the $j$th bump
+factor in $\alpha_0$ by $F$, omitting $d\bar z_j$, and using the sign
+$(-1)^{j-1}$ gives a compactly supported primitive of $z_j\alpha_0$.
+Differentiation and the Leibniz rule consequently give
+\begin{equation}\label{cyquant:eq:moment-weyl}
+ \begin{aligned}
+ z_j[\alpha_\beta]&=
+ \begin{cases}[\alpha_{\beta-e_j}]&\beta_j>0,\\0&\beta_j=0,\end{cases}\\
+ \partial_{z_j}[\alpha_\beta]&=-(\beta_j+1)[\alpha_{\beta+e_j}].
+ \end{aligned}
+\end{equation}
+These operators satisfy $[\partial_{z_j},z_k]=\delta_{jk}$.
+The span of the moment classes is the polynomial delta module for the
+Weyl algebra.  Its cyclic generator $[\alpha_0]$ is killed by every $z_j$.
+Its quotient by $\sum_j\partial_{z_j}$ of that span is the single line
+generated by $[\alpha_0]$.  This quotient retains only the zeroth moment;
+it is a different coefficient object from $H_c^{0,3}(\mathbb C^3)$.
+The compact-support moment mechanism is also visible in the Cauchy
+formula of \cite[Ch.~I, \S3]{cyquant:Demailly}.
+
+Gauge coefficients can introduce further dimensions.  If
+$\mathfrak g=\bigoplus_{i=1}^r\mathfrak g_i$ is complex semisimple with
+simple summands, every invariant symmetric form has zero cross terms:
+for $x=[a,b]\in\mathfrak g_i$ and $y\in\mathfrak g_j$, $i\ne j$,
+invariance gives $B(x,y)=B(a,[b,y])=0$.  Each simple summand contributes
+one line of forms.  A finite-dimensional local deformation claim must
+therefore specify both its gauge restriction and its support or
+translation quotient, together with the map from the field-theoretic
+deformation complex.
+
+\section{A nodal BRST field algebra}
+\label{cyquant:sec:nodal}
+
+Let $u,m$ be target coordinates on $\mathbb A^2$, and let $z$ denote
+the independent field-insertion coordinate.  Start with even fields
+$u,m,\beta_u,\beta_m$ and odd fields $\eta,\chi,b_\eta,b_\chi$.
+Their elementary singular products are
+\begin{equation}\label{cyquant:eq:nodal-oscillators}
+ \beta_u(z)u(w)\sim\frac1{z-w},\quad
+ \beta_m(z)m(w)\sim\frac1{z-w},\quad
+ b_\eta(z)\eta(w)\sim\frac1{z-w},\quad
+ b_\chi(z)\chi(w)\sim\frac1{z-w}.
+\end{equation}
+Reversing an even pair changes the sign; reversing an odd pair keeps
+it.  All other elementary products are regular.
+
+The coordinates have conformal weight zero, their momenta weight one.
+The cochain degrees of $\eta,\chi$ are $-1$, those of
+$b_\eta,b_\chi$ are $1$, and all even fields have degree zero.
+For each coordinate and its momentum use oscillator expansions
+$x(z)=\sum_nx[n]z^{-n}$ and
+$\beta_x(z)=\sum_n\beta_x[n]z^{-n-1}$.
+The vacuum representation has zero-mode space
+$\mathbb C[u,m]\otimes\Lambda(\eta,\chi)$; coordinate zero modes
+multiply and momentum zero modes differentiate.  Positive modes kill
+this space.  Negative modes freely generate polynomial or exterior
+factors according to parity.  Normal ordering and Wick contraction
+define the vertex superalgebra $V$, including every translated state
+\cite[\S\S2.1, 3.2]{cyquant:MalikovSchechtman}.
+
+\begin{proposition}\label{cyquant:prop:nodal-differential}
+The charge field and its residue are
+\[
+ q(z)={:}u(z)m(z)b_\eta(z){:},\qquad
+ Q=\operatorname{Res}_{z=0}q(z).
+\]
+The operator $Q$ is a square-zero, weight-preserving vertex derivation of degree one.
+It kills the vacuum, commutes with translation, and acts by
+\[
+ Q\eta=um,\qquad Q\beta_u=-{:}mb_\eta{:},\qquad
+ Q\beta_m=-{:}ub_\eta{:},
+\]
+with zero value on $u,m,\chi,b_\eta,b_\chi$.
+Its weight-zero cohomology is
+$\mathbb C[u,m]/(um)\otimes\Lambda(\chi)$, and its vacuum is nonzero
+in the full cohomology.
+\end{proposition}
+
+\begin{proof}
+A zero mode is a derivation of every vertex product, kills the vacuum,
+and commutes with translation.  The charge has no self-contractions,
+so its self-OPE is regular and $2Q^2=[Q,Q]=0$.  Its weight is one,
+making its residue weight zero.  Wick contraction gives the displayed
+values, with both minus signs coming from the reversed even pairs.
+In weight zero the complex is
+$(\mathbb C[u,m]\otimes\Lambda(\eta,\chi),um\partial_\eta)$.
+Multiplication by $um$ is injective in the polynomial ring, so its
+cohomology is the stated quotient and the unit survives.  Weight
+preservation prevents a higher-weight primitive from killing it.
+\end{proof}
+
+Every translated relation is retained:
+\[
+ Q(T^n\eta)=\sum_{a=0}^n\binom na{:}(T^au)(T^{n-a}m){:}.
+\]
+The momentum zero mode $\beta_{u,(0)}$ is not closed.  The construction
+therefore makes normal differentiation part of a dg operator action;
+it does not turn it into a closed normal connection on the unchanged
+nodal quotient.
+
+Define closed currents
+\[
+ J_u={:}u\beta_u{:}+{:}\eta b_\eta{:},\qquad
+ J_m={:}m\beta_m{:}+{:}\eta b_\eta{:},\qquad
+ J_\chi={:}\chi b_\chi{:}.
+\]
+Their pairing matrix, in this order, is
+\begin{equation}\label{cyquant:eq:nodal-current-pairing}
+ J_i(z)J_j(w)\sim\frac{B_{ij}}{(z-w)^2},\qquad
+ B=\begin{pmatrix}0&1&0\\1&0&0\\0&0&1\end{pmatrix}.
+\end{equation}
+Indeed the two terms of $QJ_u$, and of $QJ_m$, cancel.  A bosonic
+number current has double contraction $-(z-w)^{-2}$ and an odd number
+current has $+(z-w)^{-2}$; the single contractions cancel.  The two
+mixed currents share only the odd pair.  This proves the formula.
+It embeds the rank-three Heisenberg vacuum algebra in $H(V,Q)$:
+the nondegenerate pairing lets positive modes differentiate a highest
+negative-mode monomial to a nonzero scalar, so the Heisenberg vacuum
+module is simple.  Its map to cohomology preserves the nonzero vacuum
+and is therefore injective.
+
+\subsection{A rational dressing with a finite pole bound}
+
+Work over $R_N=\mathbb C[a,b,\varepsilon]/(\varepsilon^N)$ and expand
+first in $\varepsilon$.  Set
+\[
+ K(s)=\frac{s(s+\varepsilon(a+b))}
+              {(s+\varepsilon a)(s+\varepsilon b)},\qquad
+ r(s)=K(s)/K(-s).
+\]
+Write $J_u(z)=\sum_nJ_{u,n}z^{-n-1}$.
+For $g(z)\in1+\varepsilon R_N[z^{-1}]$, define
+\begin{equation}\label{cyquant:eq:dressing}
+ A_g(z)=\sum_{n\geq0}\frac{(-1)^n}{n!}
+        \partial_z^n\log g(z)\,J_{u,n},\qquad U_g(z)=e^{A_g(z)}.
+\end{equation}
+The logarithm and exponential terminate in $\varepsilon$.  On a state
+of weight $L$, the current modes with $n>L$ vanish, and the other
+nonnegative modes do not increase weight.  Thus the formula defines an
+operator on every state.
+
+The modes $J_{u,n}$ commute with one another and with $Q$.  Their action
+$[J_{u,n},Y(u,w)]=w^nY(u,w)$ gives
+\[
+ U_g(z)Y(u,w)U_g(z)^{-1}=g(z-w)Y(u,w),\qquad |z|>|w|.
+\]
+The coefficient relation $a_n'=-(n+1)a_{n+1}$ in
+\eqref{cyquant:eq:dressing}, together with
+$[T,J_{u,n}]=-nJ_{u,n-1}$, gives $[T,U_g]=\partial_zU_g$.
+Every $U_g$ fixes the vacuum.  Consequently
+$C(z)=Y(u,z)U_K(z)$ and $H(p)=U_r(p)$ obey
+\begin{equation}\label{cyquant:eq:nodal-exchange}
+ \begin{aligned}
+ C(z)C(w)&=r(z-w)C(w)C(z),\\
+ H(p)C(z)H(p)^{-1}&=r(p-z)C(z),\\
+ [Q,C(z)]&=[Q,H(p)]=0,\qquad C(z)\mathbf1=e^{zT}u.
+ \end{aligned}
+\end{equation}
+The equalities compare rational continuations and their specified
+Laurent expansions.  For any finite number of insertions,
+\[
+ C(z_1)\cdots C(z_r)=
+ \prod_{i<j}K(z_i-z_j)\,
+ Y(u,z_1)\cdots Y(u,z_r)\prod_iU_K(z_i).
+\]
+At order $\varepsilon^j$ the pair-kernel product has total diagonal
+pole order at most $j$; derivatives of total order $M$ add at most
+$M$.  A fixed oscillator state contributes its own finite pole bound.
+These bounds give compatible operators for all $N$.
+
+For example, modulo $\varepsilon^4$,
+\[
+ K(s)=1-\frac{ab\varepsilon^2}{s^2}
+       +\frac{ab(a+b)\varepsilon^3}{s^3},\qquad
+ r(s)=1+\frac{2ab(a+b)\varepsilon^3}{s^3}.
+\]
+This constructs the displayed operator family.  A new state-field map
+on every state with these assigned operators has not been defined by
+the dressing alone.  Its comparison with an oriented Hall operation
+requires the corresponding morphism of coefficients and residues.
+
+\subsection{Induction from differential modules}
+
+Put $A_0=\mathbb C[u,m]$ and let $\mathcal D_{A_0}$ be its polynomial
+differential-operator algebra.  The super differential-operator algebra
+of $P=A_0\otimes\Lambda(\eta,\chi)$ has differential
+$[um\partial_\eta,-]$.  In particular,
+\[
+ [um\partial_\eta,\partial_u]=-m\partial_\eta,
+ \qquad [um\partial_\eta,\partial_m]=-u\partial_\eta.
+\]
+For a complex $(M,d_M)$ of left $\mathcal D_{A_0}$-modules, set
+\[
+ L(M)=M\otimes\Lambda(\eta,\chi),\qquad
+ D_M=d_M+um\partial_\eta
+\]
+with the graded tensor sign.  Its square is zero because $d_M$ is
+$\mathcal D_{A_0}$-linear.
+Let $\widehat{\mathfrak o}$ be the oscillator Lie superalgebra of
+\eqref{cyquant:eq:nodal-oscillators}, with central element acting by
+one.  Give $L(M)$ its indicated zero-mode action and let strictly
+positive modes act by zero.  Oscillator induction gives
+\begin{equation}\label{cyquant:eq:nodal-induction}
+ \mathbb M(M)=U(\widehat{\mathfrak o}_{<0})\otimes L(M),
+ \qquad d_{\mathbb M}=d_M+q_{(0)}.
+\end{equation}
+PBW supplies polynomial factors for even negative modes and exterior
+factors for odd ones.  Normal-ordered state fields act with finitely
+many terms on each vector.  On the top space, $q_{(0)}$ is
+$um\partial_\eta$; on the full induced module its square vanishes by
+the same regular self-OPE.  Thus \eqref{cyquant:eq:nodal-induction}
+defines a dg $V$-module.
+
+A $\mathcal D_{A_0}$-linear chain map extends by the identity on all
+oscillator factors.  It commutes with every state-field mode, with the
+dressings, and with principal-part residues and their finite normal
+derivatives.  Induction preserves short exact sequences of underlying
+complexes because these factors are free vector spaces.  Positive
+oscillator modes act locally nilpotently by differentiating finite
+monomials.  A spectator connection commuting with the ambient action
+and $d_M$ and annihilating $um$ extends through the same formulas.
+
+\subsection{The constant critical coefficient}
+
+For $f=um$, let
+\[
+ N=A_0[f^{-1}]/A_0,\quad N_u=A_0[u^{-1}]/A_0,\quad
+ N_m=A_0[m^{-1}]/A_0.
+\]
+Their quotient sequence
+\[
+ 0\longrightarrow N_u\oplus N_m\longrightarrow N
+              \longrightarrow\delta_0\longrightarrow0
+\]
+has $\delta_0$ spanned by $u^{-r}m^{-s}$, $r,s\geq1$.
+It is nonsplit even as an $A_0$-module sequence.  Indeed,
+$\ker(u:N\to N)$ is spanned by $u^{-1}m^b$, $b\geq0$, while
+$\ker(m:N\to N)$ is spanned by $u^am^{-1}$, $a\geq0$.
+Their intersection is zero; the nonzero class $u^{-1}m^{-1}$ in
+$\delta_0$ is killed by both.  Induction carries the sequence and
+its actual maps to an exact sequence of dg field modules.  This
+exactness makes no assertion that every derived extension remains
+nonsplit.
+
+The constant critical coefficient is the holonomic dual
+$P_Z=\mathbb D_{\mathcal D}N$.  With the normalization
+$\operatorname{DR}(\mathcal O_{\mathbb A^2})=\mathbb C_{\mathbb A^2}[2]$,
+regular-holonomic duality gives
+$\operatorname{DR}(P_Z)=i_{Z,*}\mathbb C_Z[1]$ for $Z=\{um=0\}$.
+There is an explicit presentation:
+\begin{equation}\label{cyquant:eq:critical-module}
+ P_Z=\ker\left(
+ J=\mathcal D_{A_0}/(\mathcal D_{A_0}u\partial_u+
+                    \mathcal D_{A_0}m\partial_m)
+       \xrightarrow{\ g\mapsto1\ }A_0\right).
+\end{equation}
+Here $g$ is the class of one in $J$.
+To see the presentation, $A_0[f^{-1}]$ is cyclic on $1/(um)$ with commuting
+relations $u\partial_u+1$ and $m\partial_m+1$.  Their principal
+symbols form a regular sequence.  Formal transposition in its Koszul
+resolution sends them to $-u\partial_u$ and $-m\partial_m$.
+Dualizing the localization sequence proves
+\eqref{cyquant:eq:critical-module}.
+
+A basis of its kernel is
+\[
+ A_{r,b}=\partial_u^rm^bg\ (r\geq1,b\geq0),\quad
+ B_{a,s}=u^a\partial_m^sg\ (a\geq0,s\geq1),\quad
+ C_{r,s}=\partial_u^r\partial_m^sg\ (r,s\geq1).
+\]
+The polynomial--polynomial sector maps isomorphically to $A_0$;
+these other three sectors give the kernel.  The equality
+$\partial_mA_{r,0}=C_{r,1}$ retains the attachment of a branch to
+the crossing.
+Commuting the coordinates through the derivatives gives
+\begin{equation}\label{cyquant:eq:critical-kernel}
+ \begin{aligned}
+ fA_{r,b}&=-(r-1)A_{r-1,b+1},\\
+ fB_{a,s}&=-(s-1)B_{a+1,s-1},\\
+ fC_{r,s}&=(r-1)(s-1)C_{r-1,s-1},
+ \end{aligned}
+\end{equation}
+with zero whenever a coefficient vanishes.
+The cokernel has basis $A_{r,0},B_{0,s}$, and the kernel has basis
+$A_{1,b},B_{a,1},C_{1,s},C_{r,1}$, counting $C_{1,1}$ once.
+Every nonzero image in each sector is a distinct basis vector, which
+proves these assertions.  Hence
+\[
+ H(L(P_Z))=
+  \bigl(\operatorname{coker}f\oplus\eta\operatorname{ker}f\bigr)
+       \otimes\Lambda(\chi).
+\]
+The first two summands have degrees zero and $-1$.  On its degree-zero
+top cohomology, $(J_{u,0},J_{m,0})$ has weights $(-r,0)$ on $A_{r,0}$
+and $(0,-s)$ on $B_{0,s}$.  This is a concrete coefficient module,
+distinct from the vacuum representation.
+
+For comparison, $f:N\to N$ is surjective with kernel
+$A_0/(f)$, via $a\mapsto[a/f]$.  Thus
+$H^{-1}(L(N))=A_0/(f)$, $H^{-2}(L(N))=\chi A_0/(f)$, and
+$H^0(L(N))=0$.  The field-module construction preserves the actual
+dg differential-operator action, including its nonclosed normal
+momenta, rather than identifying these two cohomologies.
+
+Finally a moving spectator coefficient can be added with generator
+$\delta_\lambda$ satisfying
+\[
+ (w-\lambda)\delta_\lambda=0,\qquad
+ (\partial_w+\partial_\lambda)\delta_\lambda=0.
+\]
+The two operators commute.  Tensoring it with the nodal coefficient
+retains this common connection under induction, since $um$ is
+independent of $w,\lambda$.  If
+$\lambda=(a_{\mathrm{fr}}+\varepsilon y)/\beta$ with $\beta$ invertible,
+the common derivative is $\partial_w+\beta\partial_{a_{\mathrm{fr}}}$.
+Its identification with a framed Hall direct image still requires the
+oriented correspondence map.
+
+\section{The interacting curved dual of the Miura algebra}
+\label{cyquant:sec:wfour}
+
+The next example has noncentral ghost brackets.  Work over
+$k=\mathbb C(\alpha)$ on $X=\mathbb A^1_k$, with translation $T=\partial_z$.
+Let four even Heisenberg fields satisfy
+\[
+ \sum_{i=1}^4a_i=0,\qquad
+ a_i(z)a_j(w)\sim\frac{\delta_{ij}-1/4}{(z-w)^2}.
+\]
+Define $U_s$ by the right-nested, normally ordered Miura operator
+\begin{equation}\label{cyquant:eq:miura}
+ {:}(\alpha T+a_1)(\alpha T+a_2)(\alpha T+a_3)(\alpha T+a_4){:}
+   =\sum_{s=0}^4U_s(\alpha T)^{4-s},
+ \qquad U_0=\mathbf1,\quad U_1=0,
+\end{equation}
+moving every $T$ to the right.  Let $V$ be the generated vertex
+subalgebra.  Its stress field is $L=-U_2$ and its central charge is
+$c=3-60\alpha^2$.  Relative to the negative Heisenberg contraction in
+\cite{cyquant:Zhu}, the convention change is
+$a_i^Z=ia_i$, $\alpha_Z=i\alpha$, $U_s^Z=i^sU_s$.
+
+All coefficients can be computed with one Wick rule:
+\begin{equation}\label{cyquant:eq:miura-wick}
+ (T^ra_i)(z)(T^sa_j)(w)\sim
+  (\delta_{ij}-1/4)(-1)^r(r+s+1)!(z-w)^{-r-s-2}.
+\end{equation}
+Sum over partial cross-matchings and Taylor-expand each uncontracted
+left factor.  This includes regular terms that become poles after
+multiplication by a coefficient.  For instance, if
+$\operatorname{PP}Y(U_4,u)U_4=\sum_{p=1}^8A_pu^{-p}$, then
+\[
+ A_8=\frac{c(5-180\alpha^2+2016\alpha^4)}{32}\mathbf1,
+ \qquad A_6=-\frac54(1-12\alpha^2)^2U_2.
+\]
+The coefficient $A_2$ contains $\frac34(U_3)_{(-1)}U_3$.
+It cannot be discarded: the $a_1^4a_2^2$ coefficient detects it.
+The odd coefficients are fixed by self-skewsymmetry; for example,
+$A_5=\frac12TA_6$ and
+$A_3=\frac12TA_4-\frac1{24}T^3A_6$.
+
+\subsection{The complete finite relation datum}
+
+Put $I_4=\{0,2,3,4\}$ and let $N^\circ$ have even frame $e_i$,
+with $e_i\mapsto U_i$.  The index $0$ is a formal scalar generator.
+The right $\mathcal D$ generators are $N^\circ\otimes\omega$.
+Their shifted dual is
+\[
+ \check N^\circ=s^{-1}(N^\circ)^\vee\otimes\omega^{-1},
+ \qquad
+ \langle-,-\rangle:(N^\circ\boxtimes N^\circ)
+       \otimes(\check N^\circ\boxtimes\check N^\circ)
+       \longrightarrow s^{-2}\omega^{-1}_{X^2}.
+\]
+Here $s^{-1}$ raises degree by one.  Write its odd frame as
+$\Gamma_0=S$, $\Gamma_s=\gamma_s$ for $s=2,3,4$;
+all four generators have cochain degree one and weight $1-s$.
+In the affine coordinate their density types are
+$s^{-1}\omega^{s-1}$, including $s^{-1}\omega^{-1}$ at $s=0$.
+
+The following finite matrix specifies both relation lattices.
+For $u=z_1-z_2$, define
+\begin{equation}\label{cyquant:eq:wfour-dual-frame}
+ t_{ij}=\Gamma_i\boxtimes\Gamma_j+
+       \sum_{k,l}E_{ij}^{kl}u^{-(k+l-i-j)}
+                            \Gamma_k\boxtimes\Gamma_l,
+ \qquad t=D(\Gamma\boxtimes\Gamma).
+\end{equation}
+The independent nonzero coefficients are in
+Table~\ref{cyquant:tab:wfour}.  Set all others to zero and use
+$E_{ji}^{lk}=(-1)^{k+l-i-j}E_{ij}^{kl}$ for reversed rows.
+Let $M=D^{-\mathrm t}$ and $r=M(e\boxtimes e)$.
+The $\mathcal O_{X^2}$-span $P^\circ$ of the rows $r$ is the primal
+quadratic--linear--scalar relation lattice; the span of $t$ is its
+annihilator for the displayed density-valued pairing.
+
+\begingroup\small\renewcommand{\arraystretch}{1.13}
+\begin{longtable}{@{}cccl@{}}
+\caption{The annihilator matrix; $m=k+l-i-j$.}
+\label{cyquant:tab:wfour}\\
+\toprule $ij$&$kl$&$m$&$E_{ij}^{kl}$\\\midrule\endfirsthead
+\toprule $ij$&$kl$&$m$&$E_{ij}^{kl}$\\\midrule\endhead
+\bottomrule\endfoot
+$00$&$22$&$4$&$\frac32-30\alpha^2$\\
+$00$&$23$&$5$&$-6\alpha(20\alpha^2-1)$\\
+$00$&$24$&$6$&$-9\alpha^2(20\alpha^2-1)$\\
+$00$&$32$&$5$&$6\alpha(20\alpha^2-1)$\\
+$00$&$33$&$6$&$(36\alpha^2-1)(20\alpha^2-1)$\\
+$00$&$34$&$7$&$3\alpha(20\alpha^2-1)(24\alpha^2-1)$\\
+$00$&$42$&$6$&$-9\alpha^2(20\alpha^2-1)$\\
+$00$&$43$&$7$&$-3\alpha(20\alpha^2-1)(24\alpha^2-1)$\\
+$00$&$44$&$8$&$(3-60\alpha^2)(2016\alpha^4-180\alpha^2+5)/32$\\
+$02$&$22$&$2$&$-1$\\
+$02$&$23$&$3$&$-4\alpha$\\
+$02$&$24$&$4$&$(1-36\alpha^2)/4$\\
+$02$&$33$&$4$&$12\alpha^2-1$\\
+$02$&$34$&$5$&$4\alpha(12\alpha^2-1)$\\
+$02$&$43$&$5$&$-\alpha(12\alpha^2-1)$\\
+$02$&$44$&$6$&$-5(12\alpha^2-1)^2/8$\\
+$03$&$23$&$2$&$-2$\\
+$03$&$24$&$3$&$-3\alpha$\\
+$03$&$32$&$2$&$-1$\\
+$03$&$33$&$3$&$2\alpha$\\
+$03$&$34$&$4$&$12\alpha^2-1$\\
+$03$&$43$&$4$&$-1/2$\\
+$03$&$44$&$5$&$-3\alpha(6\alpha^2-1)$\\
+$04$&$24$&$2$&$-3$\\
+$04$&$33$&$2$&$-2$\\
+$04$&$34$&$3$&$6\alpha$\\
+$04$&$42$&$2$&$-1$\\
+$04$&$43$&$3$&$2\alpha$\\
+$04$&$44$&$4$&$(3-6\alpha)(2\alpha+1)/2$\\
+$22$&$33$&$2$&$1$\\
+$22$&$34$&$3$&$\alpha$\\
+$22$&$43$&$3$&$-\alpha$\\
+$22$&$44$&$4$&$5/8-9\alpha^2/2$\\
+$23$&$34$&$2$&$1/2$\\
+$23$&$44$&$3$&$-3\alpha/2$\\
+$24$&$44$&$2$&$-1$\\
+$33$&$44$&$2$&$3/4$\\
+\end{longtable}
+\endgroup
+
+\begin{proposition}\label{cyquant:prop:wfour-primal}
+The lattice $P^\circ$ is free of rank sixteen, agrees with the full
+generator tensor space away from the diagonal, and satisfies the unit
+intersection condition.  Its unital vertex quotient is $V$.  The rows
+of \eqref{cyquant:eq:wfour-dual-frame} are exactly its annihilator,
+and the nine nonunit rows give the annihilator of its projected
+quadratic lattice.
+\end{proposition}
+
+\begin{proof}
+Order pairs by $i+j$.  The matrix $D$ is unipotent triangular; each
+correction raises the pair sum by at least two.  Its inverse transpose
+has the opposite triangularity.  With unit rows first it has block form
+\[
+ M=\begin{pmatrix}1&0\\ L_0&A_0\end{pmatrix},\qquad
+ D=\begin{pmatrix}1&-L_0^{\mathrm t}A_0^{-\mathrm t}\\0&A_0^{-\mathrm t}\end{pmatrix}.
+\]
+Both diagonal blocks are unipotent.  A linear combination of primal
+rows whose nonunit projection vanishes therefore has zero coefficients
+on all nine nonunit rows.  Its seven remaining coefficients are regular.
+This is the unit intersection condition.
+
+Put $F_{ij}(u)=Y(U_i,u)U_j$.  Applying the Wick rule
+\eqref{cyquant:eq:miura-wick} gives $\operatorname{PP}(MF)=0$.
+This is an exact finite polynomial calculation: each contraction lowers
+the Heisenberg degree, and only the Taylor terms that can reach a
+negative power of $u$ are needed.  In particular the scalar coefficient
+of $r_{44}$ includes the poles of lower full products; it is not the
+isolated coefficient $A_8$ of the self-OPE.
+
+Give $U_s$ filtration $s$ and $T$ filtration zero.  Every relation
+expresses a singular product in smaller filtration, so ordered normal
+monomials in the jets $T^rU_s$ span the quotient.  In the Heisenberg
+realization the leading symbols are the jets of the elementary
+symmetric polynomials $e_2,e_3,e_4$ on $\sum a_i=0$.  Their Jacobian
+is nonzero at distinct roots.  At every finite jet order its prolongation
+is block triangular with these same invertible diagonal blocks.
+The jets are algebraically independent, so the spanning monomials
+remain independent in $V$.  This proves the presentation.
+
+Finally $MD^{\mathrm t}=1$.  Pairing regularly against every primal
+row is equivalent to having regular coordinates in the dual row
+frame.  This proves equality with the annihilator, including its
+density factor.  The block formula proves the projected assertion.
+\end{proof}
+
+\subsection{A finite recursion and the full PBW algebra}
+
+For every $n\geq0$, impose
+\begin{equation}\label{cyquant:eq:wfour-mode-rule}
+ (\Gamma_i)_{(n)}\Gamma_j
+   =-\sum_{kl}E_{ij}^{kl}(\Gamma_k)_{(n-m)}\Gamma_l,
+       \qquad m=k+l-i-j.
+\end{equation}
+For $r\geq0$ use
+$(\Gamma_k)_{(-r-1)}\Gamma_l=(T^r\Gamma_k)_{(-1)}\Gamma_l/r!$;
+for remaining nonnegative indices apply the rule again.  The positive
+filtration
+\[
+ \delta(S)=9,\quad\delta(\gamma_2)=5,\quad
+ \delta(\gamma_3)=3,\quad\delta(\gamma_4)=1,\quad\delta(T)=0
+\]
+drops by $2m\geq4$ at each correction.  Thus the recursion terminates.
+
+\begin{proposition}\label{cyquant:prop:wfour-pbw}
+The rule \eqref{cyquant:eq:wfour-mode-rule} defines a vertex
+superalgebra $B^\circ$ with the ordered odd-jet PBW basis.  The
+subalgebra $B$ generated by $\gamma_2,\gamma_3,\gamma_4$ embeds in it.
+Every nonnegative product $S_{(n)}B$ and $S_{(n)}S$ lies in $B$.
+\end{proposition}
+
+\begin{proof}
+We specify the finite generator verification and its extension to all
+states.  Reduce words by the supercommutator and iterate formulas
+\begin{align}
+ [x_{(m)},y_{(n)}\}&=
+       \sum_{r\geq0}\binom mr(x_{(r)}y)_{(m+n-r)},
+       \label{cyquant:eq:wfour-comm}\\
+ (x_{(-p)}v)_{(n)}b&=
+ \sum_{r\geq0}\binom{p+r-1}{r}
+ \left(x_{(-p-r)}v_{(n+r)}b
+       -(-1)^{p+|v|}v_{(n-p-r)}x_{(r)}b\right),
+       \label{cyquant:eq:wfour-iterate}
+\end{align}
+where $x$ is odd and $p\geq1$.  Exchange wrong-ordered creation
+pairs with the odd sign and their commutator; replace an equal pair
+by half its commutator.  Each correction has lower filtration.
+For a differentiated generator,
+\[
+ (\Gamma_{i,(-p)}\mathbf1)_{(n)}
+    =(-1)^{p-1}\binom n{p-1}(\Gamma_i)_{(n-p+1)}.
+\]
+Binomial coefficients with negative upper entry have their polynomial
+meaning.  Translation replaces a creation index $p$ by $p+1$ and
+multiplies by $p$.
+
+A degree-$d$ normal word has weight at least the sum of the $d$
+smallest entries in $\{1-i+r:i\in I_4,r\geq0\}$.
+For degrees two and three these bounds are $-5$ and $-7$.
+Thus the generator skew identities have only
+$0\leq n\leq6-i-j$ to consider, and generator Jacobi only
+$m,n\geq0$, $m+n\leq8-i-j-k$.  Substitution of
+Table~\ref{cyquant:tab:wfour} into
+\[
+ \begin{aligned}
+ K_{ij,n}&=(\Gamma_i)_{(n)}\Gamma_j-
+  \sum_{r\geq0}\frac{(-1)^{n+r}}{r!}T^r(\Gamma_j)_{(n+r)}\Gamma_i,\\
+ J_{ijk;mn}&=(\Gamma_i)_{(m)}((\Gamma_j)_{(n)}\Gamma_k)
+ +(\Gamma_j)_{(n)}((\Gamma_i)_{(m)}\Gamma_k)\\
+ &\qquad-\sum_{r=0}^{m}\binom mr
+       ((\Gamma_i)_{(r)}\Gamma_j)_{(m+n-r)}\Gamma_k
+ \end{aligned}
+\]
+reduces each coefficient to zero over $\mathbb Q[\alpha]$ by
+\eqref{cyquant:eq:wfour-comm}--\eqref{cyquant:eq:wfour-iterate}.
+There are respectively $41$ and $438$ identities.  The weight bounds
+exclude every other generator case; reductions use only the relation
+module in lower filtration, so confluence has not been assumed.
+
+Choose tensor-algebra lifts of the resulting brackets and replace
+$P_{ij}(\lambda)$ by
+$\frac12(P_{ij}(\lambda)+P_{ji}(-\lambda-T))$.
+The difference is already a lower-filtration relation.  Induction on
+the positive filtration preserves both the relation module and the
+Jacobi congruences.  These exactly skew lifts meet the nonlinear PBW
+hypotheses of \cite[Theorem~3.9]{cyquant:DeSoleKac}.  That theorem
+gives the vertex algebra and its ordered odd-jet basis.  All corrections
+in the table use indices $2,3,4$, so the three-generator algebra closes,
+its PBW words remain independent, and all asserted scalar-dual products
+lie in it.  The commutator and iterate formulas extend this preservation
+to every state.
+\end{proof}
+
+The algebra $B$ is noncommutative.  If $\chi=\gamma_4$, the recursion
+gives
+\[
+ (\gamma_2)_{(0)}\chi=-\chi_{(-1)}\chi_{(-2)}\mathbf1,
+ \qquad
+ (\gamma_3)_{(0)}\gamma_3=\tfrac34\chi_{(-1)}\chi_{(-2)}\mathbf1.
+\]
+The common ordered word is nonzero by PBW.
+
+\subsection{Curvature and the exact coupling}
+
+Set
+\[
+ d=S_{(0)}|_B,\qquad w=\tfrac12S_{(0)}S,
+ \qquad q=\sum_{s=2}^4U_s\otimes\gamma_s.
+\]
+The zero-mode commutator gives $d^2=w_{(0)}$ on every state.  Put
+$A_S=S_{(0)}S$.  Jacobi gives $2S_{(0)}A_S=(A_S)_{(0)}S$;
+super-skewsymmetry then gives the explicit Bianchi primitive
+\begin{equation}\label{cyquant:eq:wfour-bianchi}
+ dw=Tv,\qquad
+ v=\frac16\sum_{j=1}^{8}\frac{(-1)^{j+1}}{j!}
+              T^{j-1}(S_{(j)}A_S).
+\end{equation}
+The upper limit follows from the degree-three minimum weight $-7$.
+The action of the curvature is nonzero.  For example,
+\begin{equation}\label{cyquant:eq:wfour-curvature}
+ \begin{aligned}
+ w_{(0)}\chi={}&\frac c2\gamma_{2,(-4)}\chi_{(-1)}\chi_{(-2)}\mathbf1
+ -2c\alpha\gamma_{3,(-5)}\chi_{(-1)}\chi_{(-2)}\mathbf1\\
+ &+3c\alpha^2\chi_{(-1)}\chi_{(-2)}\chi_{(-6)}\mathbf1.
+ \end{aligned}
+\end{equation}
+The three PBW words are distinct and $c\ne0$ in $k$.
+
+\begin{theorem}\label{cyquant:thm:wfour-coupling}
+With $e=S+q$, one has $e_{(n)}e=0$ for every $n\geq0$.
+Consequently $Q=d+q_{(0)}$ is a square-zero differential on $V\otimes B$.
+For any unital vertex superalgebra $C$ concentrated in cohomological
+degree zero, homomorphisms $V\to C$ are naturally equivalent to tuples
+of even states $(x_2,x_3,x_4)$ such that
+\[
+ (S+\textstyle\sum_sx_s\otimes\gamma_s)_{(n)}
+ (S+\textstyle\sum_sx_s\otimes\gamma_s)=0\quad(n\geq0).
+\]
+The assertion concerns this generator-linear form of coupling.
+\end{theorem}
+
+\begin{proof}
+Let $F_{ij}=Y(U_i,u)U_j$ and $G_{ij}=Y(\Gamma_i,u)\Gamma_j$.
+The primal generators are even, so the tensor OPE has no extra cross
+sign.  The dual-frame identity gives
+\[
+ Y(e,u)e=F^{\mathrm t}G=(MF)^{\mathrm t}(M^{-\mathrm t}G).
+\]
+Both factors on the right are regular by their defining lattices.
+This proves the full chiral identity.  Its zero mode gives
+$2e_{(0)}^2=(e_{(0)}e)_{(0)}=0$, and its restriction to
+$V\otimes B$ is $Q$.
+
+For the converse, put $x_0=\mathbf1$,
+$R=M(Y(x_i,u)x_j)_{ij}$, and $H=M^{-\mathrm t}G$.
+The seven unit components of $R$ are regular and
+$R_{ji}(u)=e^{uT_C}R_{ij}(-u)$.
+The leading dual-filtration symbol of $H_{ij}$ is
+$(e^{uT}\xi_i)\xi_j$ for independent odd differential generators
+$\xi_i$.
+
+We use their jet independence.  If
+$\operatorname{PP}\sum R_{ij}(u)(e^{uT}\xi_i)\xi_j=0$, the coefficient
+of $(T\xi_i)\xi_j$ shows that every $R_{ij}$ has at most a simple
+pole.  For $i<j$ the coefficient of $\xi_i\xi_j$ and the transported
+skew identity give twice its residue; for $i=j$ the same skew identity
+makes its residue equal its negative.  All residues vanish in
+characteristic zero.  This reasoning also applies to a fixed collection
+of unordered pairs.
+
+Apply it to the highest filtration of the coupling equation.  First
+$R_{22}$ is regular.  Its entire contribution may then be removed
+from principal parts because $H_{22}$ is regular.  Repeat at pair sums
+$5,6,7,8$.  Distinct unordered ghost pairs are independent, so all nine
+nonunit components become regular.  The tuple therefore satisfies the
+complete primal relation lattice and extends uniquely to $V\to C$.
+A homomorphism conversely transports the coupling identity.  No
+conformal grading on $C$ is required: its trial coupling must satisfy
+all nonnegative modes, with locality giving a finite principal part
+for each tuple.
+\end{proof}
+
+This argument does not identify the dual lattice with the entire kernel
+of its chiral operation.  In fact $u^{-1}\chi\boxtimes\chi$ is in
+that kernel, since $\chi_{(n)}\chi=0$ for $n\geq0$ and
+$\chi_{(-1)}\chi=0$.  Its coefficient in the $44$ relation row is
+$u^{-1}$, so it is outside the lattice.  The recognition theorem uses
+independent odd jets, which retain more information than this kernel
+comparison.
+
+\subsection{Primary coordinates and a translation homotopy}
+
+Set $\Delta_4=22+5c=37-300\alpha^2$ and
+\[
+ d_0=\frac{480\alpha^4-124\alpha^2+3}{8(300\alpha^2-37)},\qquad
+ e_0=-\frac{108\alpha^2-5}{4(300\alpha^2-37)}.
+\]
+The triangular primary generators are
+\[
+ W=U_3-\alpha TU_2,\qquad
+ H=U_4-\tfrac\alpha2TU_3+d_0T^2U_2+e_0{:}U_2U_2{:}.
+\]
+The Wick rule gives $L_{(0)}W=TW$, $L_{(1)}W=3W$, and
+$L_{(n)}W=0$ for $n\geq2$, with the analogous identities of
+weight four for $H$.  The linear system
+for the three corrections to $U_4$ has a minor
+$-24(300\alpha^2-37)$, proving uniqueness of this ansatz.  The change
+is invertible over $\mathbb C[\alpha,\Delta_4^{-1}]$; the Miura
+lattices themselves had coefficients in $\mathbb Q[\alpha]$.
+The inverse gives the exact coupling
+\begin{equation}\label{cyquant:eq:primary-coupling}
+ \begin{aligned}
+ q={}&-L\gamma_2+W\gamma_3-\alpha(TL)\gamma_3
+       +H\gamma_4+\tfrac\alpha2(TW)\gamma_4\\
+ &+(d_0-\tfrac{\alpha^2}{2})(T^2L)\gamma_4
+          -e_0{:}LL{:}\gamma_4.
+ \end{aligned}
+\end{equation}
+Products between primal and ghost factors denote tensor products.
+Integrating derivatives by parts changes this state by an explicit
+total derivative.  Such a change preserves its zero mode but need
+not preserve its full chiral coupling.  The nonlinear term in
+\eqref{cyquant:eq:primary-coupling} is also part of the comparison.
+
+There is nevertheless an exact homotopy for translation.  Define a
+degree-$-1$ derivation on $B$ by
+\[
+ h\gamma_2=-\mathbf1,\qquad h\gamma_3=h\gamma_4=0.
+\]
+It exists because $\gamma_2\mapsto\gamma_2-\varepsilon\mathbf1$,
+with $|\varepsilon|=1$, $\varepsilon^2=0$ and $T\varepsilon=0$, preserves
+every generator singular product: their right sides involve only jets
+of $\gamma_3,\gamma_4$.  Taking the coefficient of that constant in
+the resulting automorphism gives $h$.  It commutes with $T$ and has
+$h^2=0$.
+In $d\gamma_i$ the only term with undifferentiated $\gamma_2$ is
+$-\gamma_{2,(-1)}T\gamma_i$.  The recursion therefore gives
+$[d,h]\gamma_i=T\gamma_i$ and hence $[d,h]=T_B$ on every state.
+Extend $h$ by zero on $V$.  The exact coupling gives $hq=-U_2=L$,
+so
+\begin{equation}\label{cyquant:eq:cartan}
+ [Q,h]=T_V+T_B.
+\end{equation}
+For $Q$-cocycles $x,y$ and $n\ne-1$, sesquilinearity gives
+\[
+ x_{(n)}y
+ =Q\left(-\frac1{n+1}(hx)_{(n+1)}y\right).
+\]
+Thus cohomology has only its $(-1)$-product, which is unital,
+graded-commutative, and associative by the vertex identities.
+This proves an algebraic translation homotopy.  A realization by a
+theory on $\mathbb R\times X$ must additionally compare the full
+coupling and the operations on collision strata.  A cooperation on
+the curved field dual and its comparison with the completed ordered
+bar dual likewise require maps preserving all those operations, the
+nonempty vacuum, and the bar unit.
+
+\section{Completed rational ghost modes}
+\label{cyquant:sec:ghost-modes}
+
+Return to rational exchange and put
+$R_N=\mathbb C[\hbar]/(\hbar^N)$.  Let
+$\mathfrak g=\mathfrak{gl}_2$, with
+\[
+ B(x,y)=\operatorname{tr}(xy)-\tfrac12\operatorname{tr}(x)
+                                      \operatorname{tr}(y),
+ \qquad P=\sum_{i,j}E_{ij}\otimes E_{ji}.
+\]
+The identity matrix is retained; it is central and lies in the radical
+of $B$.  Fix a basis $E_a$ and write $[E_a,E_b]=f_{ab}^cE_c$,
+summing repeated colour indices.  The notation $\sum_Px\otimes y$
+means contraction with the trace tensor $P$.
+
+Let $A$ be the exterior algebra on $c_n^a$, $n\in\mathbb Z$, with
+cochain degree one and weight $-n-1$.  Give $\hbar$ degree zero and
+weight $-1$.  For every integer $L$ let $I_L$ be the exterior ideal
+generated by modes $n\geq L$, and set
+\[
+ G=\varprojlim_{L\to\infty}A/I_L,\qquad
+ \widehat I_L=\ker(G\to A/I_L).
+\]
+Each quotient is an ordinary polynomial exterior algebra.  Thus only
+finitely many monomials of a completed element survive any fixed upper
+mode bound.  This topology is different from a completion by the total
+number of generators.
+
+The continuous even loop derivations and translation are
+\[
+ L_{x,j}c_n^a=-f_{xb}^a c_{n+j}^b,
+ \qquad [L_{x,i},L_{y,j}]=L_{[x,y],i+j},
+ \qquad \partial c_n^a=-nc_{n-1}^a.
+\]
+Define the first-order product on $G\otimes R_2$ by
+\begin{equation}\label{cyquant:eq:ghost-product}
+ f*g=fg+\hbar\mu_1(f,g),\qquad
+ \mu_1(f,g)=-\frac12\sum_{r\geq0}\sum_P
+            (L_{x,-r-1}f)(L_{y,r}g).
+\end{equation}
+
+\begin{proposition}\label{cyquant:prop:ghost-completion}
+This is a continuous associative unital product, free over $R_2$.
+Every $\widehat I_L\otimes R_2$ is a closed left ideal.  The smooth
+left modules
+$F_L=(G\otimes R_2)/(\widehat I_L\otimes R_2)$ are jointly faithful;
+their weight pieces are finite-dimensional and their weights are bounded
+below.
+\end{proposition}
+
+\begin{proof}
+Modulo $\widehat I_L$, the right input is a finite exterior polynomial.
+For sufficiently large $r$, $L_{y,r}$ kills it in that quotient.
+After this finite range is fixed, an enlarged bound on the left input
+suffices.  This proves convergence and continuity.  The nonnegative
+right shifts preserve $\widehat I_L$, proving the left ideal assertion.
+For even derivations $U,V$, the map $(f,g)\mapsto(Uf)(Vg)$ is a
+Hochschild two-cocycle by the two Leibniz rules.  Thus $\mu_1$ is a
+cocycle and the product is associative modulo $\hbar^2$.  Derivations
+kill $1$, which remains its unit; the underlying module is unchanged.
+
+Write $\rho_L$ for the left action and $1_L$ for the quotient of $1$.
+Then
+$\rho_L(f)1_L=f\bmod\widehat I_L$.  The intersection of these
+kernels is zero.  For any fixed polynomial vector only finitely many
+right shifts occur, so sufficiently large left generator modes kill
+it as well.  There are finitely many nonpositive-weight generators in
+each quotient and four generators in each sufficiently large positive
+weight.  Exterior monomials give the claimed weight bounds.
+\end{proof}
+
+These quotients are modules, not quotient algebras for $*$.  For example,
+in the basis $H=E_{11}-E_{22}$, $E=E_{12}$, $F=E_{21}$, $I=E_{11}+E_{22}$,
+\[
+ c_1^E*c_{-1}^H
+ =-\hbar(c_{-1}^Hc_0^E+c_0^Hc_{-1}^E)
+                 \pmod{\widehat I_1},
+\]
+although $c_1^E\in I_1$.  This one-sided feature is essential when
+taking transposes.
+
+\subsection{Fields and the first curved identities}
+
+Separate jet states from modes.  Let
+$B_0=\Lambda(\xi_j^a:j\geq0)$ with
+$T\xi_j^a=(j+1)\xi_{j+1}^a$ and $c^a=\xi_0^a$.
+Each $\xi_j^a$ has cochain degree one and weight $j$.
+Its classical fields are $Y_0(b,z)c=(e^{zT}b)c$.
+The coadjoint operators
+$\ell_{x,m}\xi_j^a=-f_{xb}^a\xi_{j-m}^b$, with negative jets zero,
+extend by the Leibniz rule.  Set
+\begin{equation}\label{cyquant:eq:ghost-exchange}
+ s_B(z)=\sum_{m,r\geq0}(-1)^m\binom{m+r}{m}z^{-m-r-1}
+                     \sum_P\ell_{x,m}\otimes\ell_{y,r}.
+\end{equation}
+This sum is finite on each state tensor.  The state fields and exchange
+to first order are
+\[
+ Y_B=Y_0(1-\tfrac\hbar2s_B),\qquad S_B=1+\hbar s_B.
+\]
+They define a quantum vertex superalgebra with the unchanged vacuum
+and translation.  Indeed translation of the kernel
+$P/(z+t_1-t_2)$ gives $[T\otimes1,s_B]=-\partial_zs_B$,
+and its Leibniz rule on a product gives the two hexagon identities.
+Both iterated fields have the same correction
+\[
+ 1-\tfrac\hbar2
+       \bigl(s_{12}(z_1-z_2)+s_{13}(z_1)+s_{23}(z_2)\bigr),
+\]
+so classical associativity gives weak associativity.  Reversing the
+first two inputs changes the sign of $s_{12}$ and gives the specified
+exchange.
+
+For a state $b$, substitute the full mode series
+$c^a(z)=\sum_nc_n^az^{-n-1}$ and $T=\partial_z$ in its classical
+exterior expression, obtaining coefficients $b_{b,n}\in G$.
+At a fixed coefficient, the sum of indices is fixed; an upper bound
+on all indices bounds them below as well.  Hence the sum converges in
+$G$.  Its field on $F_L$ is
+\[
+ Y_L(b,z)=\sum_n\rho_L(b_{b,n})z^{-n-1}.
+\]
+The covariance identity
+\[
+ L_{x,j}b_b(z)=\sum_{m\geq0}\binom jm z^{j-m}b_{\ell_{x,m}b}(z)
+\]
+follows first on jets, then on products.  At $j=-r-1$ it turns
+\eqref{cyquant:eq:ghost-product} into precisely the half-twisted field
+formula, proving the module identities for every state.  The exchange
+is nonidentity: $(S_B-1)(c^E\otimes c^E)=2\hbar z^{-1}c^E\otimes c^E$.
+
+Fix a level $K\in\mathbb C$.  On the classical exterior algebra define
+odd derivations
+\begin{equation}\label{cyquant:eq:ghost-D}
+ \begin{aligned}
+ D_0c_n^c&=-\tfrac12f_{ab}^c\sum_{p+q=n-1}c_p^ac_q^b,\\
+ D_1&=-\tfrac K2\sum_{r\geq0,b}(r+1)
+       \bigl(c_{-r-2}^bL_{E_b,r}+c_r^bL_{E_b,-r-2}\bigr),
+ \end{aligned}
+\end{equation}
+and, writing $B_{ab}=B(E_a,E_b)$, curvature coefficients
+\begin{equation}\label{cyquant:eq:ghost-chi}
+ \chi_0=-K\sum_{r\geq0,a,b}B_{ab}(r+1)c_{-r-2}^ac_r^b,
+ \qquad
+ \chi_1=K^2\sum_{r\geq0,a,b}B_{ab}\binom{r+2}{2}c_{-r-3}^bc_r^a.
+\end{equation}
+For a fixed output bound $L$, the first two maps need only input
+bounds $2L$ and $2L+1$ respectively.  The curvature sums converge
+because their right factors have index $r$.  Thus all formulas define
+continuous maps in the chosen completion.
+
+\begin{theorem}\label{cyquant:thm:ghost-curved-first}
+The operator $D=D_0+\hbar D_1$ is an odd derivation of $*$ and, with
+$\chi=\chi_0+\hbar\chi_1$, satisfies
+\[
+ D^2=[\chi,-]_*,\qquad D\chi=0.
+\]
+For $K\ne0$, one has $D^2\ne0$.
+\end{theorem}
+
+\begin{proof}
+Pair $c_n^a$ with $E_at^{-n-1}$.  Then $D_0$ is the loop
+Chevalley--Eilenberg differential, so $D_0^2=0$ and
+$[D_0,L_{x,j}]=0$.  It differentiates each term of $*$;
+$\hbar D_1$ is a classical derivation at its order.
+For the contraction $\iota_{x,j}c_n^a=x^a\delta_{n,-j-1}$,
+Cartan's identity gives $[D_0,\iota_{x,j}]=L_{x,j}$.
+The cochain $\chi_0$ evaluates to
+$-KjB(x,y)\delta_{j+\ell,0}$ on $(xt^j,yt^\ell)$.
+Invariance of $B$ makes it a cocycle.  Thus, with
+$x_n^\flat=B(x,E_a)c_n^a$,
+\[
+ D_0\chi_0=0,\qquad
+ \iota_{x,j}\chi_0=-Kj x_{j-1}^\flat,
+ \qquad L_{x,j}\chi_0=-KjD_0x_{j-1}^\flat.
+\]
+Substitution in the antisymmetrization of $\mu_1(\chi_0,-)$ gives
+$[D_0,D_1]$.  The contraction of $B$ with $P$ is the traceless
+projection; the missing scalar acts by the zero adjoint operator, so
+no trace current is removed.  This proves the curvature commutator.
+Reindexing the same formula gives $D_1\chi_0=-D_0\chi_1$, proving
+the Bianchi identity.  All rearrangements are finite after an output
+cutoff.  For nonvanishing, the coefficient of
+$c_{-6}^Ec_1^Hc_1^F$ in $D^2c_{-1}^H$ is $-\hbar K$.
+\end{proof}
+
+The classical zero mode of $w_K=\frac K2B_{ab}c^aTc^b$ is $\chi_0$.
+The additional term $\chi_1$ is a convergent mode operator.  For
+$K\ne0$ it is not the zero mode of a finite quadratic local state:
+on the fixed mode-sum line its antisymmetrized coefficient is
+proportional to
+$(q+1)(q+2)\operatorname{sgn}(q+\frac32)/2$, whereas a finite
+quadratic differential polynomial has a polynomial coefficient in
+$q$.  The two half-lines cannot be values of that same polynomial.
+The common completion permits the operator without turning it into
+such a local state.
+
+\subsection{The affine central term from an auxiliary generator}
+
+Adjoin an odd generator $\tau$ of weight zero with
+\[
+ [\tau,g]_{\mathrm s}=D_0g,\qquad \tau^2=\chi_0.
+\]
+Its normal form is $G\oplus G\tau$: the overlapping reductions agree
+by $D_0^2=0$, $D_0\chi_0=0$, and classical centrality of $\chi_0$.
+Extend the loop derivations by
+\[
+ \widetilde L_{x,j}\tau=\alpha_{x,j}:=-Kj x_{j-1}^\flat.
+\]
+The identities above preserve both relations, and invariance gives
+$L_{x,i}\alpha_{y,j}-L_{y,j}\alpha_{x,i}=\alpha_{[x,y],i+j}$.
+Thus these are actual loop derivations.  Twisting their product by
+the same formula as \eqref{cyquant:eq:ghost-product} gives
+\[
+ \tau\star c+c\star\tau=(D_0+\hbar D_1)c,
+ \qquad \tau\star\tau=\chi_0+\hbar\chi_1.
+\]
+The auxiliary generator records the curved data; it is not an extra
+polarized ghost state.
+
+Let $z$ now denote the central homogenizing generator dual to $\tau$
+in this quadratic presentation, rather than an insertion coordinate.
+Its dual relations are
+\[
+ [J_x(m),J_y(n)]
+  =zJ_{[x,y]}(m+n)+KmB(x,y)\delta_{m+n,0}z^2,
+ \qquad [z,J_x(m)]=0.
+\]
+The negative transpose of $\widetilde L$ is
+\[
+ \delta_{x,j}J_y(n)
+   =J_{[x,y]}(j+n)+KjB(x,y)\delta_{j+n,0}z,
+ \qquad \delta_{x,j}z=0.
+\]
+The central summand is the pairing with $\widetilde L_{x,j}\tau$.
+After $z=1$, this is the affine inner derivation $[J_x(j),-]$.
+For $j\geq0$ it descends to the vacuum module and gives
+\begin{equation}\label{cyquant:eq:affine-vacuum}
+ \delta_{x,1}(J_y(-1)\mathbf1)=KB(x,y)\mathbf1.
+\end{equation}
+Omitting the auxiliary image would lose this vacuum component.  The
+finite quadratic transpose consequently retains the level and scalar
+affine relation before taking the vacuum quotient.
+
+\section{The second-order product and its exact range}
+\label{cyquant:sec:second-order}
+
+The second coefficient of the product must correct associativity and
+remain compatible with translation.  Write
+\[
+ \mathcal K=\sum_{r\geq0}\sum_P L_{x,-r-1}\otimes L_{y,r},
+ \qquad \kappa_2=\tfrac18\mu_0\mathcal K^2,
+\]
+where $\mu_0$ is the classical exterior product.
+The defect left after $\kappa_2$ is a triderivation.  On generators
+it is
+\[
+ -\frac18\sum_{\substack{i+j+k=-2\\i<0,\ k\geq0}}
+       \theta^{xyz}(L_{x,i}u)(L_{y,j}v)(L_{z,k}w),
+ \qquad \theta=[P_{12},P_{23}].
+\]
+An explicit correction will cancel it by its three-mode shifts.
+
+For $\xi\in\mathfrak g^*$ write $\xi_n=\xi(E_a)c_n^a$.
+Let $\pi$ be the projection onto the annihilator of $I$, and let
+$\Omega_{ab}$ be the trace Casimir acting coadjointly in factors
+$a,b$.  Equivalently $\pi=\frac14\sum_Pxy$ in the coadjoint
+representation.  Put
+$\Sigma_{ab}=\pi_a\pi_b+\Omega_{ab}/2$ and
+$\{A,B\}=AB+BA$.  Define six colour operators
+\begin{equation}\label{cyquant:eq:three-mode-colours}
+ \begin{aligned}
+ X_{12}&=\tfrac16\Sigma_{23}\Omega_{12},&
+ X_{13}&=\tfrac16\Sigma_{23}\Omega_{13},\\
+ X_1&=\tfrac16\pi_1\Omega_{23}
+       +\tfrac1{24}\bigl(\{\Omega_{12}+\Omega_{13},\Omega_{23}\}
+                         -\{\Omega_{12},\Omega_{13}\}\bigr),\\
+ Y_1&=\tfrac16\Sigma_{12}\Omega_{23},&
+ Y_2&=\tfrac16\Sigma_{12}\Omega_{13},\\
+ Y_{12}&=\tfrac16\pi_3\Omega_{12}
+       +\tfrac1{24}\bigl(\{\Omega_{13}+\Omega_{23},\Omega_{12}\}
+                         -\{\Omega_{13},\Omega_{23}\}\bigr).
+ \end{aligned}
+\end{equation}
+For shifts $e_1+e_2+e_3=-2$, let $J(e)=\{i:e_i<0\}$.
+It is a nonempty proper subset of $\{1,2,3\}$.
+Set $X(e)=X_{J(e)}$ when $1\in J(e)$ and zero otherwise;
+set $Y(e)=Y_{J(e)}$ when $3\notin J(e)$ and zero otherwise.
+For a kernel $Z$, define
+\[
+ \Psi_Z((\xi_1)_{n_1},(\xi_2)_{n_2},(\xi_3)_{n_3})
+   =\sum_{e_1+e_2+e_3=-2}
+           \bigl(Z(e)(\xi_1\otimes\xi_2\otimes\xi_3)\bigr)_{n+e},
+\]
+where $(\eta_1\otimes\eta_2\otimes\eta_3)_q
+=(\eta_1)_{q_1}(\eta_2)_{q_2}(\eta_3)_{q_3}$.
+Only finitely many terms survive each upper bound.
+
+Define $\beta(u;v\wedge w)=\Psi_X(u,v,w)$ and
+$\beta(u\wedge v;w)=\Psi_Y(u,v,w)$.  To extend it to ordered
+exterior monomials, choose each subset of one or two factors once.
+For factorizations $f=\varepsilon uf'$, $g=\varepsilon'vwg'$ add
+$\varepsilon\varepsilon'\beta(u;v\wedge w)f'g'$.
+For $f=\varepsilon uvf'$, $g=\varepsilon'wg'$ add
+$\varepsilon\varepsilon'(-1)^{|f'|}\beta(u\wedge v;w)f'g'$.
+Here $\varepsilon,\varepsilon'$ are the signs of moving the selected
+factors to the front.  The colour symmetries make each selected pair
+alternating, so this defines an exterior operation.
+
+For an equivariant colour operator $A=\sum_iX^i\otimes Y^i$, let
+$X^i_j\xi_n=(X^i\xi)_{n+j}$ be its extension as an even derivation,
+and put
+\[
+ \pi_A(f,g)=\sum_{r\geq0,i}(r+1)
+                 (X^i_{-r-2}f)(Y^i_rg).
+\]
+On generators this is the expansion of $A/(z-w)^2$.
+If $\tau_{12}$ denotes exchange of the two colour factors, set
+\begin{equation}\label{cyquant:eq:level-colour}
+ A_*=\tfrac12(1-\tau_{12})(\pi\otimes\pi)-\tfrac14\Omega,
+ \qquad A_2=\tfrac12(1+\tau_{12})(\pi\otimes\pi),
+ \qquad A_K=A_*+(K+2)A_2.
+\end{equation}
+The subscript on $A_2$ here names this colour operator, not a precision
+quotient.  Define
+\begin{equation}\label{cyquant:eq:second-product}
+ f*_Kg=fg+\hbar\mu_1(f,g)+\hbar^2\mu_2^{(K)}(f,g),
+ \qquad \mu_2^{(K)}=\kappa_2+\beta+\pi_{A_K}.
+\end{equation}
+
+\begin{theorem}\label{cyquant:thm:second-product}
+Over $R_3$, the product \eqref{cyquant:eq:second-product} is
+continuous, associative, and unital.  Translation $\partial$ and the
+constant coadjoint operators are derivations.  Each
+$\widehat I_L\otimes R_3$ is a closed left ideal, and its smooth
+quotient modules are jointly faithful.  The polarized quotient
+$B_3=(G\otimes R_3)/(\widehat I_0\otimes R_3)$ has a quantum vertex
+superalgebra structure with vacuum $1_0$, translation $\partial$,
+and exchange $\exp(\hbar s_B)$.  On every quotient $F_L$, each
+composite state acts by its classical exterior coefficients through
+the product $*_K$.
+\end{theorem}
+
+\begin{proof}
+In the colour representation,
+\[
+ [\Omega_{12},\Omega_{23}]
+ =[\Omega_{23},\Omega_{13}]=[\Omega_{13},\Omega_{12}].
+\]
+The operator $\Sigma_{ab}$ has image symmetric in factors $a,b$:
+on their antisymmetric traceless summand the Casimir is $-2$, so
+$\pi_a\pi_b+\Omega_{ab}/2$ vanishes.  A shift kernel constant on
+one half-plane, with image symmetric in the two remaining factors,
+acts by zero after exterior multiplication.  Indeed the finite set
+of surviving mode pairs is stable under exchange and its terms cancel
+in pairs, including zero at a fixed pair.
+
+The colour identities give
+\[
+ X_1-Y_1+\tfrac18\theta
+ =X_{12}-Y_{12}+\tfrac18\theta
+ =X_{13}-Y_2=\tfrac1{12}(\Omega_{23}-\Omega_{12})\Omega_{13}.
+\]
+On the six sign regions these turn the remaining associator into two
+of the vanishing half-plane kernels just described.  The extension
+rule for $\beta$ makes its Hochschild coboundary a triderivation:
+terms selecting factors from only two inputs cancel in pairs, leaving
+one selected factor from each input.  The generator computation
+therefore proves associativity on all monomials.  The additional
+$\pi_{A_K}$ is a biderivation and hence a Hochschild cocycle.
+
+The same half-plane cancellation proves
+$\beta(G,\widehat I_L)\subset\widehat I_L$.
+For a right-input polynomial with least mode $p_0<L$, the bound
+$M=3L-2p_0+2$ gives
+$\beta(\widehat I_M,g)\subset\widehat I_L$.
+For the one-plus-two part this follows from the sum of its three
+output modes; for the two-plus-one part the possible low output lies
+in a symmetric half-plane and cancels.  The other product terms
+satisfy the same bound because their right shifts are nonnegative.
+These estimates prove continuity, the left ideals, smoothness, and
+the extension of associativity to the completion.  Evaluation at $1_L$
+again separates coefficients.
+
+For translation, a kernel depending only on $J(e)$ has defect
+$\sum_i(e_i'+1)Z(e'+\delta_i)$ on $\sum e_i'=-3$.
+All terms with nonzero coefficient use the same sign region, and
+their coefficients sum to zero.  This proves translation for $\beta$.
+For the double-pole kernel the boundary term is
+$(a-1)(a-2)[a=2]A_K=0$.  Thus $\pi_{A_K}$ also commutes with
+translation.  Equivariance is built into the colour operators.
+
+Finally $\tau_{12}A_K\tau_{12}=A_K$.  The two expansions of its
+double pole therefore agree after clearing the diagonal, giving the
+generator exchange.  Reconstruction from the creating generating
+fields gives the state algebra.  For a fixed module vector with least
+mode $p_0$, use the same bound $M=3L-2p_0+2$ before taking an
+iterate.  A word of $r$ fields with total derivative order $d$ has
+no power below $-rM-d$, so one power of the associativity denominator
+suffices independently of output weight.  Taylor expansion identifies
+the iterate with the field of the composite state.  This proves the
+all-state module assertion and extends exchange from generators to
+all states.
+\end{proof}
+
+\subsection{The derivation and curvature at precision three}
+
+Let $\delta:\mathfrak g^*\to\mathfrak g^*\otimes\mathfrak g^*$ be
+$\delta c^c=-\frac12f_{ab}^cc^a\otimes c^b$.
+Put
+\[
+ \Delta_K=[D_0,\mu_2^{(K)}]+[D_1,\mu_1].
+\]
+These brackets denote the failure to be a derivation, with the odd
+Leibniz sign.  Write $\delta(z-w)=\sum_{n\in\mathbb Z}z^{-n-1}w^n$
+for the formal delta function, and let a superscript $+$ mean the sum
+of a bilinear expression and its input reversal on odd generators.
+The diagonal symmetrization vanishes:
+\begin{equation}\label{cyquant:eq:diagonal-cancellation}
+ \Delta_K^+
+  =-(1+K/2)\delta(z-w)S_1+\tfrac{K+2}{2}\delta(z-w)S_1=0,
+\end{equation}
+where
+$S_1(\xi,\eta)=(\partial_1(\pi\xi\otimes\delta\eta+
+\pi\eta\otimes\delta\xi))(w,w,w)$.
+The first term comes from the internal collisions in $\beta$ and
+the level term $D_1$; the second is $[D_0,\pi_{(K+2)A_2}]^+$.
+The identity follows by replacing the difference of the two
+double-pole expansions by $\partial_w\delta(z-w)$ and taking the
+first diagonal Taylor coefficient.
+
+Order generators by mode and then colour.  There is a unique
+continuous odd map vanishing on generators that corrects this defect:
+\begin{equation}\label{cyquant:eq:Dtwo}
+ D_2(u_1\cdots u_k)=
+ -\sum_{i=1}^{k-1}(-1)^{i-1}u_1\cdots u_{i-1}
+                          \Delta_K(u_i,u_{i+1}\cdots u_k).
+\end{equation}
+To verify well-definedness, exchange two neighbouring odd generators.
+The odd Hochschild cocycle identity for $\Delta_K$ reduces the
+difference to their symmetrization, which is zero by
+\eqref{cyquant:eq:diagonal-cancellation}.  The same argument handles
+a repeated generator.  The first term of the recursion then proves
+the derivation identity on a generator and a monomial, and the
+cocycle identity extends it to every pair.  The upper mode estimates
+extend it continuously.  The difference of two such maps would be a
+continuous classical derivation zero on all generators, proving
+uniqueness.
+
+Define the classical derivation $E_2$ and the next curvature by
+\begin{equation}\label{cyquant:eq:second-curvature}
+ \begin{aligned}
+ E_2\xi_n&=-\frac{3K+2}{2}
+       \sum_{p+q=n-3}(p+1)(p+2)(\delta\xi)_{p,q},\\
+ \chi_2&=\frac{K(K^2+9K+6)}2
+       \sum_{r\geq0,a,b}\binom{r+3}{3}B_{ab}c_{-r-4}^ac_r^b,\\
+ D&=D_0+\hbar D_1+\hbar^2(D_2+E_2),\qquad
+ \chi=\chi_0+\hbar\chi_1+\hbar^2\chi_2.
+ \end{aligned}
+\end{equation}
+The map $D$ is a derivation of $*_K$.  The curved identities will
+follow from a current pairing in every weight, rather than from a
+finite weight window.
+
+Let $V=V^{KB}(\mathfrak{gl}_2)$, with currents $J_x$ satisfying
+$Y(J_x,z)J_y\sim KB(x,y)z^{-2}\mathbf1+z^{-1}J_{[x,y]}$.
+For trace-dual bases $e_a,e^a$ of $\mathfrak{sl}_2$, put
+\[
+ \begin{aligned}
+ s_A(z)&=\sum_{m,n\geq0}(-1)^m\binom{m+n}{m}z^{-m-n-1}
+                          \sum_a e_a(m)\otimes e^a(n),\\
+ M_b^p&=\sum_{a,n\geq0}e_a(-n-1)[e^a,e_b](n+p),\\
+ a_0(z)&=\sum_{p,q\geq0}(-1)^p\binom{p+q}{p}z^{-p-q-1}
+                          \sum_bM_b^p\otimes e^b(q),\qquad
+ \check a_0(z)=\tau_{12}a_0(-z)\tau_{12}.
+ \end{aligned}
+\]
+Each sum is finite on a fixed pair of states.  The polar fields at
+this precision are
+\begin{equation}\label{cyquant:eq:polar-current}
+ Y^P=Y\left(1+\tfrac\hbar2s_A+
+       \hbar^2\bigl(s_A^2/8+(a_0+\check a_0)/24\bigr)\right),
+ \qquad S_A=\exp(-\hbar s_A).
+\end{equation}
+The diagonal completion $a_0$ compensates the second-order
+associator of the half twist.  The loop commutator, its primitive
+coproduct, and the rational Casimir identity give the corresponding
+associativity and exchange identities coefficientwise.  The scalar
+current is an unchanged commutative differential-polynomial factor:
+all its nonnegative modes vanish on $V$.
+
+Define equivariant weight-three states for $x\in\mathfrak{sl}_2$ by
+\[
+ \Psi_1(x)=\sum_a[e_a,x](-2)e^a,
+ \qquad
+ \Psi_2(x)=\sum_a\operatorname{sym}(e_a(-1)e^a(-1)x),
+\]
+where $\operatorname{sym}$ averages the six orders.  Set
+\begin{equation}\label{cyquant:eq:current-change}
+ \theta_K(x)=-\frac{3K^2+33K+22}{72}T^2x
+                  +\frac38\Psi_1(x)-\frac16\Psi_2(x),
+ \quad \theta_K(I)=0,
+ \quad \widehat J_x=J_x+\hbar^2\theta_K(x).
+\end{equation}
+This is an invertible change on the same polar state space.
+
+\begin{theorem}\label{cyquant:thm:all-mode-mc}
+For every level $K$, smooth polar current module $M$, and polarized
+ghost module $F_L$ with $L\geq0$, put
+\[
+ Q_{M,L}=\sum_{a,j}\widehat J_a(j)\otimes\rho_L(c^a_{-j-1}).
+\]
+Then, modulo $\hbar^3$,
+\begin{equation}\label{cyquant:eq:all-mode-mc}
+ Q_{M,L}^2+\mathcal DQ_{M,L}+1\otimes\rho_L(\chi)=0,
+ \qquad D^2=[\chi,-]_{*_K},\qquad D\chi=0.
+\end{equation}
+Here $\mathcal D$ differentiates the completed ghost coefficients
+before their action on $F_L$; no descent of $D$ to an arbitrary
+quotient is assumed.
+\end{theorem}
+
+\begin{proof}
+We give the residue and exchange terms in the tensor state space
+$W=V^P\otimes B_3$.  Let $T$ be its total translation and put
+$d_{\mathrm{CE}}c^c=-\frac12f_{ab}^cc^ac^b$.
+Define $\tau=\sum_aJ_a\otimes c^a$,
+$\Gamma=(1\otimes d_{\mathrm{CE}})\tau$,
+$\widehat\tau=\sum_a\widehat J_a\otimes c^a$, and let $T_A$ act on
+the current factor.  Define
+\[
+ \begin{aligned}
+ e(c^c)&=\tfrac{3K+2}{4}f_{ab}^c(T^2c^a)c^b,
+ &\zeta&=\sum_cJ_c\otimes e(c^c),\\
+ v_K&=-\tfrac{K(K^2+9K+6)}{24}B_{ab}c^aT^3c^b,
+ &w_K&=\tfrac K2B_{ab}c^aTc^b.
+ \end{aligned}
+\]
+The classical modes of $e$ are $E_2$ and the zero modes of $w_K,v_K$
+are $\chi_0,\chi_2$.  Direct residue expansion of
+\eqref{cyquant:eq:polar-current} and the ghost generator field gives
+\begin{equation}\label{cyquant:eq:mc-primitive}
+ \tfrac12\widehat\tau_{(0)}\widehat\tau
+ +(1\otimes d_{\mathrm{CE}})\widehat\tau+w_K
+ =\tfrac{\hbar K}{2}T(\Gamma+w_K)
+  +\hbar^2\left(-\zeta-v_K+\tfrac{3K+2}{4}TT_A\Gamma\right).
+\end{equation}
+This is a finite state calculation.  More explicitly, write
+$[\hbar^i]Y^P(J_a,z)J_b=\sum_\ell z^\ell P_{i,\ell}^{ab}$ and
+$C_0=1$, $C_1=-\Omega/2$, $C_2=\Omega^2/8+A_K$.
+The order-$r$ residue of $\tau_{(0)}\tau$ is
+\[
+ \sum_{i+j=r}\sum_{a,b,u,v}\sum_{\ell=-i-2}^{j-1}
+       (C_j)_{ab}^{uv}P_{i,\ell}^{ab}
+                        \otimes\xi_{j-\ell-1}^u\xi_0^v.
+\]
+The sixteen current pairs and these finite intervals, together with
+the two linear insertions of $\theta_K$, give respectively the
+coefficients $0$, $\frac K2T(\Gamma+w_K)$, and the last coefficient
+in \eqref{cyquant:eq:mc-primitive}.  The cubic and quadratic current
+terms cancel.  Thus the local residue in the desired operator identity
+is a total translation and has zero zero mode.
+
+There are also exchange contributions.  Put
+$R(x)=\sum_aJ_{[x,E_a]}\otimes c^a$,
+$\vartheta(x)=1\otimes x^\flat$, and
+\[
+ \mathcal R=\sum_P(R(x)\otimes\vartheta(y)
+                   -\vartheta(x)\otimes R(y)),\qquad
+ \mathcal H=\sum_P\vartheta(x)\otimes\vartheta(y).
+\]
+The tensor exchange is $S_W=\exp(-\hbar s_W)$ for $s_W=s_A-s_B$.
+Invariance of the canonical tensor gives
+\[
+ s_W(z)\tau^{\otimes2}=Kz^{-2}\mathcal R-2K^2z^{-3}\mathcal H,
+ \qquad
+ s_W(z)^2\tau^{\otimes2}=2Kz^{-3}\mathcal R-8K^2z^{-4}\mathcal H.
+\]
+The second equation uses the ghost Casimir eigenvalues $-2,-4$ on
+the adjoint and invariant colour summands.
+For a rational tensor term $z^{-p}u\otimes v$, the correction to a
+mode commutator is computed by
+\[
+ \mathfrak B_{m,n}(z^{-p};u,v)
+   =(-1)^p\sum_{r\geq0}\binom{p+r-1}{r}
+                          v_{(n-p-r)}u_{(m+r)},
+\]
+with an additional $(-1)^{|u||v|}$ for the tensor term.
+The rightmost mode makes the sum finite on each smooth vector.
+Expanding $S_W^{-1}$ gives both
+$\hbar\mathfrak B(s_W)$ and $\hbar^2\mathfrak B(s_W^2)/2$.
+In the first term the reversed product must itself be retained
+through first order.
+
+Its classical part cancels $D_1$ and $\chi_1$.
+Its first-order part has coefficient
+\[
+ -\hbar^2\left(\frac K2\sum_{c,j}J_c(j)\otimes U^c_{-j-1}
+                       +2K^2\,1\otimes N_3\right),
+\]
+where
+\[
+ \begin{aligned}
+ U_n^c&=\sum_{a,b,r\geq0}\binom{r+2}{2}f_{ba}^c
+       (c_{-r-3}^bc_{n+r}^a-c_{n-r-3}^ac_r^b),\\
+ N_3&=\sum_{a,b,r\geq0}\binom{r+3}{3}B_{ab}c_{-r-4}^bc_r^a.
+ \end{aligned}
+\]
+The second exchange term is its negative.  The coefficients follow
+from the same two Casimir eigenvalues and
+$\sum_{r+t=u}(r+1)=\binom{u+2}{2}$,
+$\sum_{r+t=u}\binom{r+2}{2}=\binom{u+3}{3}$.
+This proves the first identity in \eqref{cyquant:eq:all-mode-mc}.
+Every rearrangement is finite after the ghost upper bound and the
+smooth current bound on a fixed vector.
+
+For the curved identities let
+$\mathcal E=D^2-[\chi,-]=\hbar^2\mathcal E_2$ and
+$D\chi=\hbar^2\mathcal C_2$.  The first is a continuous classical
+derivation.  Apply the operator identity to the affine vacuum module
+and all $1_L$; their separation gives an identity of completed
+coefficients.  Its Bianchi identity is
+\[
+ \sum_{a,j}\widehat J_a(j)\otimes\mathcal E(c^a_{-j-1})
+                        +1\otimes D\chi=0.
+\]
+The trace ghost is killed by $D$ and is supercentral for $*_K$:
+every pair or triple correction has a coadjoint action or traceless
+projection on that input.  Fixing a cubic ghost monomial of mode sum
+$s$, the remaining coefficient is $J_x(j)+\lambda1=0$ on the
+classical affine vacuum module, with $x\in\mathfrak{sl}_2$ and
+$j=-s-5$.  For $j<0$ the vacuum and PBW give $x=0$.
+For $j\geq0$ the vacuum first gives $\lambda=0$; applying to
+$J_y(-j-1)\mathbf1$ gives $J_{[x,y]}(-1)\mathbf1=0$.
+The central term is absent because the indices sum to $-1$.
+PBW and the zero centre of $\mathfrak{sl}_2$ imply $x=0$ at every
+level.  Thus $\mathcal E_2$ vanishes on all generators and
+$\mathcal C_2=0$.  Continuity proves the two full identities.
+\end{proof}
+
+Transposing the quadratic product, differential, and curvature on
+finite perfect coefficient blocks now gives a current algebra at
+each precision $1\leq N\leq3$.  Homogenize the linear and scalar
+terms with the generator dual to $\tau$, set that generator to one,
+and take the quotient killing nonnegative current modes on the vacuum.
+The map to the corrected polar currents satisfies every relation by
+\eqref{cyquant:eq:all-mode-mc}.  It is an isomorphism on the singleton
+vacuum module.  Indeed the classical affine relations reorder every
+word, with an error divisible by $\hbar$; iterating this process
+terminates because $\hbar^N=0$.  Thus ordered PBW words span the
+source.  Their images are the PBW basis of the flat polar module,
+which proves independence without assuming source flatness.
+The transposed singleton isomorphism preserves translation, the
+outgoing vacuum, and every ordered-word coefficient, including the
+trace direction.  Native binary germs and their supported residue
+maps require the additional comparison described below.
+
+\subsection{The integral current comparison retains the trace}
+
+The polar current algebra also has a field comparison with the integral
+quantum affine algebra; its trace correction differs from the change
+\eqref{cyquant:eq:current-change} used in the ghost pairing.
+Let $\mathcal U_K$ be the full matrix quantum affine vacuum algebra
+with creation matrix $L(v)=I-\hbar j(v)$ and normalized rational
+matrix
+\[
+ R(w)=f(\hbar/w)(I-\hbar P/w),\qquad
+ f(t)=1+\tfrac12t+\tfrac58t^2+\tfrac{11}{16}t^3
+                         +\tfrac{83}{128}t^4+O(t^5).
+\]
+The scalar normalization and the integral creation lattice are those
+of the rational construction in Section~\ref{cyrep:sec:rtt-double};
+here the full trace-current sector is retained.  Write $j=j^{[0]}$,
+$Tj^{[n]}=(n+1)j^{[n+1]}$, and interpret products of entries of
+$j^{[n]}$ as products in the creation algebra acting on the vacuum.
+They are not being identified with quantum $(-1)$-products.
+
+Put $u=J_I$ and $C=\sum_a e_a(-1)e^a$.
+For the polar completion $a_\mu=a_0+\mu\partial_zs_A$ define
+\[
+ \begin{aligned}
+ \Theta_\mu(x)={}&
+ \left(-\frac{K^2}{12}-\frac K{24}+\frac{13}{72}
+                         +\frac{\mu K}{24}\right)T^2x
+ +\left(\frac{K+1}{8}-\frac\mu{24}\right)\Psi_1(x)
+ +\frac16\Psi_2(x)\\
+ &+\frac12u(-1)Tx+\frac14u(-1)u(-1)x,
+       \qquad x\in\mathfrak{sl}_2,\\
+ \Theta_\mu(I)={}&\frac12u(-1)C.
+ \end{aligned}
+\]
+The map on currents
+\begin{equation}\label{cyquant:eq:integral-current-map}
+ J_{E_{ij}}\longmapsto
+ j_{ij}+\frac\hbar2\sum_a j_{ia}j_{aj}
+                   +\hbar^2\widetilde{\Theta_\mu(E_{ij})}
+\end{equation}
+extends to a graded, equivariant isomorphism of quantum vertex
+algebras $V^P_\mu\simeq\mathcal U_K/\hbar^3\mathcal U_K$.
+The tilde is any lift of the classical PBW state; multiplication by
+$\hbar^2$ makes it independent of that choice.  This comparison
+fixes the vacuum, commutes with translation, and preserves all fields
+and exchanges without localizing the level.
+
+Here is how the second coefficient is detected.  For a current change
+$\theta$, its singular-product coboundary is
+\[
+ q_\theta(x,y;z)=\operatorname{Sing}_z
+       \bigl(Y(\theta(x),z)y+Y(x,z)\theta(y)\bigr)
+                         -z^{-1}\theta([x,y]).
+\]
+The residual of the first logarithmic change
+$j\mapsto j+\hbar j^2/2$ on all sixteen matrix-current pairs is
+$-q_{\Theta_\mu}$.  It follows by expanding the mixed RTT relation
+through the required scalar order, straightening the creation words,
+and using the affine commutator for the polar coefficients.
+Both recursions terminate: the classical commutator shortens a word,
+and its quadratic correction raises the power of $\hbar$.
+The exchange residual after the first coordinate change is
+$s_A^2/2$.  Thus \eqref{cyquant:eq:integral-current-map} matches the
+complete generating products and exchange.  Translation-compatible
+PBW extension and weak associativity then give the equality on every
+state.  Flatness and the identity classical reduction give the inverse
+by a finite $\hbar$-adic recursion.
+
+In particular, for $y^\circ=y-\operatorname{tr}(y)I/2$, the uncorrected
+trace residual is
+\[
+ q(I,y;z)=-(K+2)
+       \left(\frac{u(-1)y^\circ}{z^2}
+                      +\frac{T(u(-1)y^\circ)}z\right),
+ \qquad q(y,I;z)=-(K+2)\frac{u(-1)y^\circ}{z^2}.
+\]
+The Casimir identity
+$\operatorname{Sing}_zY(C,z)y^\circ
+ =2(K+2)(z^{-2}y^\circ+z^{-1}Ty^\circ)$
+shows that $I\mapsto u(-1)C/2$ removes exactly these terms.
+It is essential away from $K=-2$.  A change only on traceless
+currents would leave the trace field comparison false.
+
+\subsection{The next associative order}
+
+The specified precision-three product has a genuine obstruction at
+noncritical level.  We state its admissible class before the conclusion.
+Let $\nu$ be a continuous even biderivation of the classical exterior
+product, of degree zero and weight two, equivariant for the constant
+coadjoint action.  Require its symmetrization on two generating fields
+to be supported on their diagonal.  Allow a continuous odd first-order
+correction $D'$ of degree one and weight one with
+$[D_0,D']=[D_0,D_1]$.
+
+\begin{proposition}\label{cyquant:prop:third-obstruction}
+Suppose $D_0+\hbar D'+\hbar^2D_2'$ is a derivation of
+$\mu_0+\hbar\mu_1+\hbar^2(\kappa_2+\beta+\pi_{A_*}+\nu)$
+modulo $\hbar^3$.  If this product has any parity-preserving bilinear
+associative correction at order $\hbar^3$, then $K=-2$.
+In particular the fixed product $*_K$ has no associative extension
+modulo $\hbar^4$ when $K\ne-2$.
+\end{proposition}
+
+\begin{proof}
+Pass to the quotient by the closed ideal of trace ghosts.  Equivariance
+and diagonal support express the relevant symmetric colour coefficient
+as $Y=y_1P_1+y_3P_3+y_5P_5$, where $P_i$ project onto the
+dimensions $1,3,5$ of the tensor square of the adjoint representation.
+The correction $F=D'-D_1$ is a $D_0$-closed odd derivation.
+Its finitely many coefficients used here may be averaged over $SU(2)$,
+so it may be taken equivariant.  Its remaining component has the form
+$F(\xi_n)=\sum_{p+q=n-2}a(p,q)(\delta\xi)_{p,q}$ modulo trace
+ghosts, with $a(p,q)=a(q,p)$.
+
+Evaluate the second-order derivation defect on $u=c_{-1}^H$ twice
+and the third-order associator on $u$ three times.  Their unknown
+correction terms vanish: $u^2=0$, while $D_2'u$ and $\mu_3(u,u)$
+are even and commute classically with $u$.  Write $h,e,f$ for the
+three traceless ghost colours and take the coefficients of
+$m_2=e_{-2}f_{-2}h_{-1}$, $m_3=h_{-3}e_{-1}f_{-1}$, and
+$m_4=f_{-4}h_{-1}e_{-1}$.  The $[D_0,F](h_{-2})$ coefficient
+at $h_{-2}e_{-2}f_{-1}$ is
+$2(a(-3,-1)-a(-2,-1))$.
+The $m_2,m_3$ coefficients of $[D_0,\nu](u,u)$ are
+$(-y_1+3y_3+y_5)/3$ and $-(y_1+2y_5)/3$; the corresponding
+$[F,\mu_1]$ coefficients are zero and
+$2(a(-2,-1)-a(-3,-1))$.
+The third-order $m_4$ coefficient is
+$(2y_1-3y_3+y_5)/12$.  Together with the base level contribution
+$K+2$ at $m_3$, these yield
+\[
+ \begin{aligned}
+ a(-3,-1)&=a(-2,-1),\\
+ -y_1+3y_3+y_5&=0,\\
+ K+2-(y_1+2y_5)/3&=0,\\
+ 2y_1-3y_3+y_5&=0.
+ \end{aligned}
+\]
+They can be computed from the double-pole expansion and the three
+Casimir eigenvalues $-4,-2,2$; the first equality removes the possible
+contribution of $F$ to the third line.  Adding the second and fourth
+lines gives $y_1+2y_5=0$, and the third gives $K=-2$.
+For $*_K$, take $\nu=(K+2)\pi_{A_2}$ and $D'=D_1$.
+An arbitrary bilinear extension would have a parity-preserving component
+solving the same linear extension equation, so the fixed-product
+conclusion excludes it as well.
+\end{proof}
+
+At $K=-2$ there is a positive associative extension.  If $a_3$ is
+the third-order associator of $*_{-2}$, its total symmetrization on
+odd generators is zero.  Substitution of the colour operators into
+the rational three-point terms proves their cancellation; the
+differences of Laurent expansions are derivatives of diagonal delta
+functions, and their contact terms cancel by the same odd exchange
+and Casimir identities.  This is an all-mode rational identity.
+
+Here is an explicit continuous primitive of that cocycle.  Order
+generators by mode and colour.  For $v>x$ put
+$\mathcal S_{vx}(F)=a_3(F,v,x)+a_3(F,x,v)$ and put
+$\mathcal S_{xx}(F)=a_3(F,x,x)$.  For $g_1<\cdots<g_k$ set
+\[
+ \rho_x(g_1\cdots g_k)=
+ -\sum_{j:g_j\geq x}(-1)^{k-j}
+       \mathcal S_{g_jx}(g_1\cdots g_{j-1})g_{j+1}\cdots g_k,
+\]
+and define
+\begin{equation}\label{cyquant:eq:cubic-primitive}
+ \begin{aligned}
+ \mu_3(f,g_1\cdots g_k)=\sum_{j=1}^k
+ \bigl(&a_3(f,g_1\cdots g_{j-1},g_j)
+       -f\rho_{g_j}(g_1\cdots g_{j-1})\\
+       &+\rho_{g_j}(fg_1\cdots g_{j-1})\bigr)g_{j+1}\cdots g_k.
+ \end{aligned}
+\end{equation}
+The Hochschild cocycle identity and $\operatorname{Sym}a_3=0$
+show that exchanging adjacent generators leaves this formula
+consistent with the exterior signs.  Induction on the second word,
+then the third input of its coboundary, gives $\delta_0\mu_3=a_3$.
+The right ideal and enlarged first-input bounds for $a_3$ give the
+same bounds for these recursions, so $\mu_3$ extends continuously and
+preserves every right-input upper mode ideal.  Therefore
+$*_{-2}+\hbar^3\mu_3$ is associative modulo $\hbar^4$.
+The ordering used in this primitive is not preserved by translation.
+A translation-compatible field extension and the next curved
+differential remain further requirements.  The obstruction above
+also retains its stated admissible class; it does not exclude every
+possible presentation of a dual field theory.
+
+\section{Finite adjunction before stabilization}
+\label{cyquant:sec:native-adjunction}
+
+The singleton comparison does not determine a binary field operation.
+That operation uses a relative germ, its quadratic transpose, and the
+adjoint in one specified input.  We first construct these maps
+classically and then retain the loop cutoff during the first-order
+transpose.
+
+Let $V=V^{KB}(\mathfrak{gl}_2)$ and
+$V_{\leq a}=\bigoplus_{0\leq d\leq a}V_d$.
+The classical ghost germ sends
+\[
+ \xi_j^\alpha\longmapsto\frac1{j!}\partial_u^j
+                         \sum_nc_n^\alpha u^{-n-1}.
+\]
+Its finite first-input transpose is
+\begin{equation}\label{cyquant:eq:native-inserted-action}
+ A_x^a(m;u)=\sum_{j=0}^a\binom mj u^{m-j}J_x(j)|_{V_{\leq a}}.
+\end{equation}
+Negative $m$ occur too: their coefficients pair with the full
+annihilation germ before transposition.  On
+$\mathscr H_a=\operatorname{Hom}(V_{\leq a},V((u)))$, finite
+tensor--Hom adjunction gives
+\begin{equation}\label{cyquant:eq:native-hom-action}
+ R_x^a(m)F=J_x(m)F-FA_x^a(m;u).
+\end{equation}
+The minus sign is the antipode action on the dual input.
+Let $\epsilon_a(v)=e^{uT}v$ be the creation kernel.
+Write $U_K$ for the enveloping algebra of affine mode words with
+central generator acting by $K$.
+
+\begin{proposition}\label{cyquant:prop:classical-adjunction}
+The cyclic module $\mathscr K_a=U_K\epsilon_a$ is canonically
+isomorphic to $V$, by a map $\Psi_a$ with
+$\Psi_a(\mathbf1)=\epsilon_a$.  Its inverse is evaluation on the
+first vacuum.  These maps commute with restriction of the first-input
+bound, and they retain the affine linear and scalar relations.
+\end{proposition}
+
+\begin{proof}
+Vandermonde's identity gives
+$[A_x^a(m),A_y^a(n)]=A_{[x,y]}^a(m+n)$.
+The indices in these first-input operators are nonnegative, so their
+central cocycle is zero.  Negative precomposition is a representation,
+because precomposition reverses order.  Hence
+\eqref{cyquant:eq:native-hom-action} satisfies the affine relation,
+with its central term occurring once in the output.
+For $m\geq0$,
+\[
+ J_x(m)e^{uT}v=e^{uT}\sum_{j=0}^m\binom mj u^{m-j}J_x(j)v,
+\]
+so $R_x^a(m)\epsilon_a=0$.  The vacuum quotient supplies $\Psi_a$.
+Every $A_x^a(m)$ kills the first vacuum, so evaluation there intertwines
+$R_x^a(m)$ with $J_x(m)$ and returns $\mathbf1$ from $\epsilon_a$.
+Its composite with $\Psi_a$ is the identity, proving injectivity;
+surjectivity holds onto the cyclic module by definition.
+Restriction preserves the first-input matrices and the creation kernel.
+Smoothness follows from the resulting identification with $V$.
+\end{proof}
+
+For output projection $\pi_c:V\to V_{\leq c}$, the resulting
+coefficient block is
+\[
+ \Gamma_{a,b,c}:V_{\leq b}\longrightarrow
+ \operatorname{Hom}\bigl(V_{\leq a},
+       V_{\leq c}\otimes\langle u^{-a-b},\ldots,u^c\rangle\bigr),
+ \qquad \Gamma_{a,b,c}(w)(v)=\pi_c\Psi_a(w)(v).
+\]
+The range is finite: if the inputs have weights $i,j$ and the output
+has weight $k$, the Laurent power is $k-i-j$.
+The recursion in negative creation words uses finitely many
+precomposition indices, whose total is at most $i$, and finitely many
+terms of $e^{uT}$ after output projection.
+For at most $d$ additional translations or derivatives, put
+$s_0=a+b+c+d+2$.  All required ghost generators lie in
+$[-4s_0-1,4s_0-1]$; the quadratic rows can be read with upper bound
+$4s_0+1$ and weight interval $[-8s_0-2,8s_0+2]$.
+These bounds follow by straightening the finite current words and
+then transposing their linear terms.  They provide a common finite
+source for each matrix, rather than assuming that a fixed cutoff is
+preserved by the differential.
+
+The compatible operation $\mu(v,u)w=\Psi(w)(v)$ satisfies
+\[
+ \begin{aligned}
+ \mu(J_x(-1)\mathbf1,u)J_y(-1)\mathbf1
+ ={}&J_y(-1)e^{uT}J_x(-1)\mathbf1\\
+ &+u^{-1}e^{uT}J_{[x,y]}(-1)\mathbf1
+       +Ku^{-2}B(x,y)\mathbf1.
+ \end{aligned}
+\]
+The same recursion on all creation words identifies it with the
+classical affine field, including
+$\mu(\mathbf1,u)w=w$, $\mu(v,u)\mathbf1=e^{uT}v$, and its reversed
+operation.  Consequently the two ordered coproduct transposes give
+separate commuting product comparisons.  The actual residue identity
+is equality of
+$\operatorname{pp}_u(f\mu(v,u)w)$ with the corresponding field
+residue.  For pole order $p$ in $f$, only output weights below
+$a+b+p$ contribute.  Spectators and any fixed finite number of normal
+derivatives are therefore covered by a common finite enlargement.
+This also gives the exchanged $13\mid2$ residue and compatibility
+with finite perfect biduality at the classical precision.
+
+\subsection{The two finite terms that cancel}
+
+Let $H$ be the enveloping Hopf algebra of the centrally extended loop
+algebra, with primitive generators $x[m]$ and central generator
+$\mathbf c$.  Its bracket is
+$[x[m],y[n]]=[x,y][m+n]+mB(x,y)\delta_{m+n,0}\mathbf c$.
+On ghosts $\mathbf c$ acts by zero, and on currents by $K$.
+Write $S$ for the antipode of $H$.
+The Hopf counit here belongs to $H$; no character of the fixed-level
+affine algebra is required.
+For a loop cutoff $M$ put
+\[
+ r_M=\sum_{0\leq r<M}\sum_Px[-r-1]\otimes y[r],
+ \qquad \sigma_M^\pm=1\pm\tfrac\hbar2r_M.
+\]
+These are counital twists modulo $\hbar^2$, since their linear twist
+equations are the sums of the three placements of primitive tensors.
+Use $\Delta_\sigma=\sigma\Delta\sigma^{-1}$ and
+$m_\sigma=m\sigma^{-1}$.
+
+Twist the auxiliary relative ghost algebra, including its shared
+$\tau$, by $\sigma_M^+$.  Its product is the finite sum in
+\eqref{cyquant:eq:ghost-product}; commutator with $\tau$ and its
+square give the finite $D$ and $\chi$.  The generator-linear relative
+germ remains an equivariant quadratic map.  Finite inverse transposition
+changes the twist to $\sigma_M^-$, and after setting the generator
+dual to $\tau$ to one its relative current map is
+\[
+ \mathsf J_x(m)\longmapsto
+          \mathbb A_x^a(m;u)\otimes1+1\otimes J_x(m)
+\]
+into the twist of
+$(U(\mathfrak g[t]/t^{a+1})\otimes U_K)[u,u^{-1}]$.
+Here $\mathbb A$ is \eqref{cyquant:eq:native-inserted-action} with
+formal truncated-loop generators in place of their operators.
+The whole relative algebra is twisted, including its mixed rows.
+The first factor has central level zero and the second has level $K$.
+
+Take the right dual of the finite first-input module
+$U=V_{\leq a}\otimes R_2[u,u^{-1}]$, with evaluation in the order
+$U\otimes U^{\mathrm r}\to R_2[u,u^{-1}]$.
+Its action uses the inverse antipode.  For $\sigma=\sigma_M^-$,
+\[
+ \mathcal Q_M=m_H(1\otimes S)(\sigma)
+      =1+\tfrac\hbar2\sum_{r<M,P}x[-r-1]y[r],
+ \qquad S_\sigma^{-1}(h)
+   =S^{-1}(\mathcal Q_M)S^{-1}(h)S^{-1}(\mathcal Q_M)^{-1}.
+\]
+The right-dual comparison contributes precomposition in the order
+$A_y^a(r)A_x^a(-r-1)$.  The tensor comparison contributes negative
+precomposition on the first factor and the output current on the
+second.  Their sum is the actual adjoint comparison
+\begin{equation}\label{cyquant:eq:finite-right-dual}
+ \begin{aligned}
+ \Theta_M(F)={}&F+\tfrac\hbar2\sum_{r<M,P}
+                    FA_y^a(r)A_x^a(-r-1)\\
+ &-\tfrac\hbar2\sum_{r<M,P}J_y(r)FA_x^a(-r-1)
+       =F-\hbar\mathcal C_M^aF,\\
+ \mathcal C_M^aF={}&\tfrac12\sum_{r<M,P}(R_y^a(r)F)A_x^a(-r-1).
+ \end{aligned}
+\end{equation}
+The first sum is fixed by right-dual evaluation, not a choice of
+normalization.  Its inverse is $1+\hbar\mathcal C_M^a$.
+
+\begin{theorem}\label{cyquant:thm:finite-adjunction}
+At every level $K$, the first-order native quadratic germ, with its
+full differential and curvature, has a finite adjunction on each
+coefficient block.  Its stabilized cyclic kernel is
+\begin{equation}\label{cyquant:eq:quantum-kernel}
+ \begin{aligned}
+ W_u(w)(v)=\Psi(w)(v)+\frac\hbar2
+ \sum_{m,n\geq0,P}(-1)^m\binom{m+n}{m}u^{-m-n-1}
+          \Psi(J_y(n)w)(J_x(m)v).
+ \end{aligned}
+\end{equation}
+It preserves both cyclic vacua and all native quadratic, linear, and
+scalar relations.  Its finite coefficient blocks are compatible with
+restriction, inclusion, projection, and finite translation and derivative
+enlargements.
+\end{theorem}
+
+\begin{proof}
+At cutoff $M$, twisting the classical equivariant adjunction leaves
+its underlying map $\Psi_a$ unchanged.  Applying the actual right
+adjoint comparison \eqref{cyquant:eq:finite-right-dual} gives
+$W_{a,M}=(1+\hbar\mathcal C_M^a)\Psi_a$.
+The finite twisting functor preserves the module law, so this map
+satisfies the full transposed relative relations, including those
+containing the differential and curvature.
+
+On $w\in V_{\leq b}$,
+$R_y^a(r)\Psi_a(w)=\Psi_a(J_y(r)w)$ vanishes for $r>b$.
+Thus $W_{a,M}(w)$ stabilizes as soon as $M>b$, before output
+projection.  Expand $A_x^a(-r-1)$ using
+$\binom{-r-1}{m}=(-1)^m\binom{m+r}{m}$ to obtain
+\eqref{cyquant:eq:quantum-kernel}.  Only $m\leq a$, $n\leq b$
+contribute.  Every $A_x^a(m)$ kills the first vacuum, and
+$R_y^a(r)\Psi_a(\mathbf1)=0$ for $r\geq0$; hence
+\[
+ W_u(w)(\mathbf1)=w,\qquad W_u(\mathbf1)(v)=e^{uT}v.
+\]
+Evaluation is the inverse onto the cyclic image, as in the classical
+case.  Trace states remain, although their correction operators are zero.
+
+A word of current indices $m_1,\ldots,m_d$ acting on weight at most
+$b$ has intermediate weight at most
+$b+1+\sum_i\max(0,-m_i)$ at this precision.  Choose $M$ above this
+bound, and enlarge the ghost input block for its finite quadratic
+rows.  Then the native action, its adjoint, and all cyclic comparisons
+for the word stabilize together.  On input weights $i,j$ and output
+weight $k$, the first-order Laurent exponent is $k-i-j-1$.
+Thus the finite projected range is $[-a-b-1,c]$.
+These bounds prove compatibility on common enlargements and with
+every finite collection of derivatives.  Stabilization is asserted on
+the cyclic image; no action on the entire Hom space is needed.
+\end{proof}
+
+The cancellation is visible on $v_E=J_E(-1)\mathbf1$ at the second
+vacuum.  Each of the two sums in
+\eqref{cyquant:eq:finite-right-dual} has $u^{-1}$ coefficient
+$2Mv_E$ before subtraction: the zero-mode trace Casimir is $4$
+on the adjoint representation.  Their difference is zero, as required
+by $W_u(\mathbf1)(v_E)=e^{uT}v_E$.  Dropping the right-dual term
+would leave a coefficient growing with the cutoff.
+For $F=E_{21}$ and $H=E_{11}-E_{22}$, the first-order root coefficients
+are
+\[
+ [u^{-3}\mathbf1](W_u-\Psi)(v_F)(v_E)=-\hbar K(K+2),
+ \qquad
+ [u^{-2}v_H](W_u-\Psi)(v_F)(v_E)=-\hbar(K+1).
+\]
+Both the scalar curvature contribution and the right-dual contribution
+are needed; no denominator excludes zero or critical level.
+
+The translation identities are
+\[
+ TW_u(w)-W_u(w)T=W_u(Tw),\qquad
+ \partial_uW_u(w)(v)=W_u(w)(Tv).
+\]
+They identify the singleton coefficient diagrams as follows.
+For finite PBW subsets $U\subset W$ with
+$T\langle U\rangle\subset\langle W\rangle$, let $\iota_{UW}$ be
+inclusion and $T_{WU}$ the finite translation matrix.  The perfect
+coefficient transpose of the right-$\mathcal D$ Spencer complex gives
+the pro diagram
+\begin{equation}\label{cyquant:eq:ghost-spencer}
+ \left\{
+ \left[\mathcal D_{R_N}^{W^*}
+       \xrightarrow{\ \partial\iota_{UW}^{\mathrm t}-T_{WU}^{\mathrm t}\ }
+       \mathcal D_{R_N}^{U^*}\right]
+ \right\}_{U,W},\qquad N=1,2,
+\end{equation}
+in degrees zero and one.  The right module convention is
+$(f\,dz\otimes v)\partial=-f'\,dz\otimes v-f\,dz\otimes Tv$.
+Formal transposition sends $\partial$ to $-\partial$, and the
+singleton suspension supplies the displayed degrees.  Each map is
+made before passing to the pro diagram; an ordinary inverse limit
+of these complexes is not substituted for it.  The outgoing vacuum
+map to $\omega[-1]$ is preserved.  It remains distinct from the
+empty convolution unit.
+
+The classical all-state comparison gave both ordered residue diagrams.
+The first-order theorem above gives the native finite adjunction and
+its singleton diagrams.  To identify the two quantum ordered products
+one must still compare their separately typed tensor constraints,
+both vacuum actions, arbitrary spectators, normal derivatives, and
+the exchanged $13\mid2$ residue.  At precision three the native
+adjunction must also incorporate \eqref{cyquant:eq:second-product},
+\eqref{cyquant:eq:second-curvature}, and
+\eqref{cyquant:eq:current-change}, reducing to this first-order map.
+The all-mode singleton theorem does not replace these binary
+requirements.
+
+\section{The contact term of supported division}
+\label{cyquant:sec:supported}
+
+Let $a=z_2$, $w=z_1-z_2$, and $\kappa\ne0$.
+Let $\widehat A_\kappa$ be the degreewise energy completion of the
+commutative dg algebra on $x_n$ of cochain degree zero and $\xi_n$
+of cochain degree one, for $n\geq0$, with
+\[
+ dx_n=\kappa(n+1)\xi_{n+1},\qquad d\xi_n=0,
+ \qquad Tx_n=(n+1)x_{n+1},\quad T\xi_n=(n+1)\xi_{n+1}.
+\]
+Their energies are $n+1$ and $n$.  Extend scalars to $\mathbb C[a]$
+before completing, so each energy coefficient remains polynomial in
+$a$.  A first subscript $i$ denotes the copy at $z_i$.
+On the disjoint locus, put $\theta=dw/w$ and place differential
+forms before field coefficients.  In the total de Rham complex the
+charge generators $y_i=\xi_{i,0}+\kappa^{-1}dz_i\,x_{i,0}$ are closed.
+Let $\pi(y_i)=\epsilon_i$, where $\epsilon_i$ are the odd generators
+of the exterior charge algebra.
+The charge comparison with
+$F_2(\epsilon_1,\epsilon_2)=0$ and
+$F_2(\epsilon_2,\epsilon_1)=-\kappa^{-1}\theta$
+differs from the binary roof representative
+\[
+ \mathcal C_2(y_1,y_2)=\frac{da}{\kappa w},\qquad
+ \mathcal C_2(y_2,y_1)=-\frac{da+dw}{\kappa w}
+\]
+by opposite values $\beta,-\beta$, where $\beta=da/(\kappa w)$.
+Their sum vanishes on commuting charge insertions, but
+\[
+ d\beta=-\frac{dw\wedge da}{\kappa w^2}.
+\]
+These two values do not define a homotopy on the whole bar construction.
+Extending their division by $w$ to a supported coefficient requires
+its actual polynomial module action.
+
+Fix a finite-dimensional space $V$ in cochain degree zero and commuting endomorphisms
+$A,B$.  Set $\Sigma=A+B$ and
+$P_\Sigma=(\widehat A_\kappa\otimes V,d+\xi_0\Sigma)$.
+For $e_n=[w^{-n}]$, $n\geq1$, and $e_0=0$, the supported carrier is
+\begin{equation}\label{cyquant:eq:supported-carrier}
+ \mathcal M_{A,B}=\bigcup_{r\geq1}\bigoplus_{n=1}^r e_nP_\Sigma,
+ \qquad we_n=e_{n-1}.
+\end{equation}
+The field energies are completed at each fixed pole bound.  Each
+vector has one finite pole bound independent of its energy; the
+union and the energy product are not interchanged.
+
+In its original normal frame, the differential and connections are
+\[
+ \begin{aligned}
+ D(w)&=d+c(w)A+\xi_0B,&c(w)&=\sum_{n\geq0}w^n\xi_n,\\
+ \nabla_w&=\partial_w+\kappa^{-1}j(w)A,&j(w)&=\sum_{n\geq0}w^nx_n,\\
+ \nabla_a&=\partial_a+T+\kappa^{-1}(j(w)A+x_0B).
+ \end{aligned}
+\]
+Only finitely many Taylor coefficients act at each pole bound.
+The normal gauge
+\begin{equation}\label{cyquant:eq:normal-gauge}
+ \Gamma_A(w)=\exp\left(\frac A\kappa
+                  \sum_{n\geq0}\frac{w^{n+1}x_n}{n+1}\right)
+            =\sum_{n\geq0}w^n\gamma_n
+\end{equation}
+has $\gamma_0=1$ and energy $n$ in $\gamma_n$.
+Multiplication by it intertwines these operators with
+$d+\xi_0\Sigma$, $\partial_w$, and
+$\partial_a+T+\kappa^{-1}x_0\Sigma$.
+
+In the normal frame let $S(e_nm)=e_{n+1}m$ and define
+\[
+ S_A=\Gamma_A^{-1}S\Gamma_A,
+ \qquad R_A(s)=[e_1](\Gamma_As),\qquad \iota(m)=e_1m.
+\]
+The bracket $[e_1]$ denotes coefficient extraction, equivalently the
+normalized covariant residue of $dw\wedge s$.
+The shift uses the unique negative-power representative of a principal
+part.  It is not multiplication by a Laurent function on the quotient.
+
+\begin{proposition}\label{cyquant:prop:contact}
+The exact formulas and identities are
+\begin{equation}\label{cyquant:eq:contact}
+ \begin{gathered}
+ S_A(e_nm)=e_{n+1}m-e_1\gamma_nm,\qquad
+ R_A(e_nm)=\gamma_{n-1}m,\\
+ wS_A=1,\qquad S_Aw=1-\iota R_A,
+ \qquad [w,S_A]=\iota R_A,\qquad R_A\iota=1,\\
+ [D(w),S_A]=0,\qquad [\nabla_a,S_A]=0,
+ \qquad [\nabla_w,S_A]=-S_A^2.
+ \end{gathered}
+\end{equation}
+The contact operator $\iota R_A$ is an idempotent cochain map.
+The shift is continuous at each pole bound through all energies,
+raises that bound by one, and does not lower energy.
+\end{proposition}
+
+\begin{proof}
+On $e_nm$, the gauge retains precisely its first $n$ coefficients.
+Therefore
+$S\Gamma_A(e_nm)=\Gamma_A(e_{n+1}m)-e_1\gamma_nm$.
+Since $\Gamma_A^{-1}(e_1v)=e_1v$, this proves both explicit formulas.
+At pole bound $r$ there are only $r$ gauge coefficients; at a fixed
+output energy each uses finitely many input energies.  This proves
+continuity in the stated order of completion.
+
+In the normal frame $wS=1$ and $Sw=1-e_1[e_1]$.
+Conjugate by $\Gamma_A$, which commutes with $w$, to obtain the
+contact identities and idempotence.  The normal differential and
+tangential connection have no $w$-dependence, so they commute with
+$S$.  Finally $\partial_we_n=-ne_{n+1}$ gives
+$[\partial_w,S]e_n=-e_{n+2}=-S^2e_n$.  Conjugation proves all the
+connection identities and cochain compatibility.
+\end{proof}
+
+For instance,
+$\gamma_1=\kappa^{-1}Ax_0$ and
+$\gamma_2=\frac12(\kappa^{-1}Ax_1+\kappa^{-2}A^2x_0^2)$.
+Thus the differential-compatible shift already has a field correction
+on $e_1v$; its commutator with $w$ there is still $e_1v$.
+
+\begin{theorem}\label{cyquant:thm:contact-obstruction}
+If $\ker(A+B)\ne0$, then $\iota R_A$ is not null-homotopic for
+the internal differential, even after forgetting the module actions.
+Consequently the cochain-homotopy class of $S_A$ contains no
+$\mathbb C[a,w]$-linear cochain map and cannot be the linear term
+of an $A_\infty$ endomorphism of that module.  The obstruction
+persists on a quasi-isomorphic resolution with the corresponding
+module action and maps.  It applies to $B=-A$ without a nilpotence
+assumption on $A$.
+\end{theorem}
+
+\begin{proof}
+For $0\ne v\in\ker(A+B)$, the vector $e_1v$ is closed: positive
+powers of $w$ kill it and the remaining differential is
+$e_1\xi_0(A+B)v=0$.  The complex has no negative cochain degrees,
+so this vector is not a boundary.  The contact operator fixes it.
+Hence its cohomology action is nonzero.
+
+If $K-S_A=Dh+hD$, then $[D,w]=0$ gives
+$[w,K]-[w,S_A]=D[w,h]+[w,h]D$.
+A module-linear $K$ has $[w,K]=0$, contradicting the nonzero
+cohomology action of $[w,S_A]$.  For an $A_\infty$ module map,
+the identity with one algebra input $w$ similarly says that the
+commutator of its linear term with $w$ is the differential of its
+next component.  The same contradiction applies.  Compatible
+quasi-isomorphisms conjugate the cohomology maps and cannot remove
+this nonzero action.
+\end{proof}
+
+This is an obstruction to the specified class of supported division.
+The two Laurent values $\beta,-\beta$ do not force an arbitrary
+relative comparison homotopy into that class.  The remaining binary
+problem is to solve
+\[
+ d_{\mathrm{rel}}H=\mathcal C-F\pi
+\]
+in the complex of continuous module cochains retaining finite Taylor
+action and residue, or to prove that the actual right-hand side has a
+nonzero class there.  Its other bar components and polynomial
+representatives must be allowed before asserting a universal
+obstruction.  A solution must then be compatible with every arity,
+both ordered charts, spectators, all finite normal derivatives,
+vacuum insertion, and the normal gauge.  The transverse arity and
+the carrier's pole bound remain independent parameters throughout.

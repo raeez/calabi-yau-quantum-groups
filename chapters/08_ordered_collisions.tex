@@ -1,0 +1,1745 @@
+\chapter{Ordered collisions and cut reconstruction}
+\label{cycuts:ch}
+\begingroup
+\def\DMod{\operatorname{DMod}}
+\def\RHom{R\operatorname{Hom}}
+\def\W{\mathcal W_X}
+\def\C{\mathcal C_X}
+\def\cut{\star_{\mathrm{cut}}}
+\def\Bcut{B_{\mathrm{cut}}}
+\def\Ocut{\Omega_{\mathrm{cut}}}
+
+Consider three positions in the order $(x,y,x)$, where $x\ne y$.
+Neither cut
+\[
+ (x)\mid(y,x),\qquad (x,y)\mid(x)
+\]
+separates disjoint sets of positions. The outer collision therefore
+survives a construction that permits only consecutive cuts. Collapsing
+the two occurrences of $x$ gives two distinct positions, which do admit
+a cut. This discrepancy determines both a useful reconstruction theorem
+and a limitation of its comparison with full collision geometry.
+
+We begin with the cut product and its bar and cobar constructions.
+Strong cut coproducts identify a finite localization complex; its support
+contains every configuration whose equalities obstruct all cuts. We then
+construct the ordered collision atlas and its product over arbitrary
+ordered subsets. It has its own bar--cobar equivalence. For the dualizing
+coalgebra, the map from its cobar to the cut cobar has a kernel with
+explicit principal-part classes, including negative-degree classes in
+arbitrarily large arity.
+
+The last comparison concerns factorization. Invertibility of each
+coproduct component differs from invertibility of their joint map.
+Full exchange data identify the atlas with the corresponding word
+systems, while a local field realization must also preserve the actual
+collision operations. Throughout, these statements concern associative
+algebras and coassociative coalgebras on specified geometric carriers.
+
+\section{Coefficients on ordered words}
+\label{cycuts:sec:words}
+
+Let $k$ be a field of characteristic zero and let $X$ be a smooth
+separated curve over $k$. Write $\DMod(Y)$ for the enhanced stable
+category of unbounded right differential-module complexes on a smooth
+scheme $Y$, with quasi-coherent underlying modules. External products,
+direct images and extraordinary inverse images are derived. Our shift
+convention is $M[r]^i=M^{i+r}$, with differential $(-1)^r d_M$.
+
+An ordered word coefficient system consists of a complex $F_0$ of
+$k$-vector spaces and objects $F_n\in\DMod(X^n)$ for $n>0$.
+For every monotone surjection $\alpha:[n]\twoheadrightarrow[m]$, it
+includes an equivalence
+\[
+ d_\alpha^!F_n\simeq F_m,
+ \qquad d_\alpha(y)_i=y_{\alpha(i)},
+\]
+compatible with identities, composites and their higher coherences.
+Here $[n]=\{1,\ldots,n\}$ in its usual order. Let $D(k)$ be the
+derived category of $k$-vector spaces, and let $\mathsf{OrdSurj}_+$
+have the nonempty words $[n]$ as objects and monotone surjections
+as arrows. The category of coefficient systems is
+\[
+ \W=D(k)\times
+ \varprojlim_{\mathsf{OrdSurj}_+}\DMod(X^n).
+\]
+The first factor is isolated: there are no collision maps joining it
+to a nonempty word.
+
+For $1\le p<n$, define
+\begin{equation}\label{cycuts:eq:opens}
+ U_p^{(n)}=\{x_i\ne x_j\text{ whenever }i\le p<j\},
+ \qquad j_p:U_p^{(n)}\hookrightarrow X^n.
+\end{equation}
+Every pair crossing the cut occurs in this condition, including pairs
+of nonadjacent labels. Set $U_0^{(n)}=U_n^{(n)}=X^n$. Define
+\begin{equation}\label{cycuts:eq:product}
+ (F\cut G)_n=
+ \bigoplus_{p=0}^n j_{p,*}j_p^!(F_p\boxtimes G_{n-p}).
+\end{equation}
+At an empty end, the external product means tensoring by the scalar
+complex $F_0$ or $G_0$. The candidate unit is
+\[
+ K_0=k,\qquad K_n=0\quad(n>0).
+\]
+This empty-support unit is distinct from a vacuum coefficient on $X$.
+
+We will repeatedly use open base change. If $j:U\hookrightarrow Y$
+is open, $f:Y'\to Y$, and $j':U'\hookrightarrow Y'$ is its pullback,
+then
+\begin{equation}\label{cycuts:eq:basechange}
+ f^!j_*\simeq j'_*f_U^!.
+\end{equation}
+To see this, let $i,i'$ be the closed complements. Recollement gives
+$i^!j_*=0$. The composite $fi'$ factors through $i$, so
+$i'^!f^!j_*=0$. The localization triangle identifies $f^!j_*M$
+with the direct image of its restriction to $U'$, which is $f_U^!M$.
+All comparisons restrict to transitivity of extraordinary inverse image
+on $U'$. Full faithfulness of $j'_*$ therefore supplies their composition
+coherences as well.
+
+A consecutive partition divides a word into nonempty intervals,
+listed in their original order.
+
+\begin{proposition}\label{cycuts:prop:product}
+Formula~\eqref{cycuts:eq:product} makes $\W$ a monoidal category with
+unit $K$. Its iterated products are finite sums over consecutive
+partitions, localized where distinct blocks have disjoint positions.
+\end{proposition}
+\begin{proof}
+A monotone collision kills a cut inside one of its fibres: that fibre
+would have to meet both sides at distinct positions. Every other cut
+is the inverse image of exactly one quotient cut. Equation
+\eqref{cycuts:eq:basechange} identifies the surviving summands with
+the quotient product, compatibly with further collisions.
+
+Each parenthesized product imposes the same final consecutive partition
+and the same cross-block inequalities. Successive open direct images
+identify its coefficient with the external product on that common open.
+These identifications give associativity and all its coherences. The
+two empty-end summands give the unit laws.
+\end{proof}
+
+Call a coefficient system \emph{positive} if its empty coefficient
+vanishes. More generally, let $\mathcal W_{X,\ge a}$ consist of systems vanishing
+in arities below $a$. A nonzero summand of a product requires the labels
+used by each factor, so
+\begin{equation}\label{cycuts:eq:arity}
+ \mathcal W_{X,\ge a}\cut\mathcal W_{X,\ge b}\subseteq\mathcal W_{X,\ge a+b}.
+\end{equation}
+In particular, $r$ positive factors have zero coefficient at $n<r$.
+Every reduced word construction below is finite at each configuration.
+This finiteness uses arity, with no cohomological boundedness assumption.
+
+\section{The two associative constructions}
+\label{cycuts:sec:bar}
+
+Here $E_1$ means homotopy-coherent associative. Let $A$ be an augmented
+$E_1$ algebra for $\cut$, with $A_0=k$ and
+augmentation ideal $a=\operatorname{fib}(A\to K)$. Its unit splits
+$A\simeq K\oplus a$, and $a$ is positive. Write $s=[1]$, so
+$|sx|=|x|-1$. The normalized bar has underlying word object
+\begin{equation}\label{cycuts:eq:bar}
+ \Bcut A=K\oplus\bigoplus_{r\ge1}(sa)^{\cut r}.
+\end{equation}
+Its coproduct deconcatenates words, retaining both empty ends. On a
+strict differential graded representative, its degree-one coderivation
+is determined by
+\begin{equation}\label{cycuts:eq:bar-signs}
+ b_1(sx)=-s(dx),\qquad b_2(sx,sy)=(-1)^{|x|}s(xy).
+\end{equation}
+Insertion after a suspended prefix contributes the Koszul sign of that
+prefix. Thus for closed degree-zero inputs,
+\[
+ b[x|y]=[xy],\qquad
+ b[x|y|z]=[xy|z]-[x|yz].
+\]
+The second differential on the last expression is zero by associativity.
+These words denote geometric coefficient summands; they need not be
+global pure tensors. A coherent $E_1$ model retains the higher faces
+of its normalized bar diagram.
+
+Let $C$ instead be a coaugmented counital $E_1$ coalgebra with $C_0=k$,
+and put $c=\operatorname{cofib}(K\to C)$. Its reduced coproduct is
+$\bar\Delta:c\to c\cut c$. With $t=[-1]$, define
+\begin{equation}\label{cycuts:eq:cobar}
+ \Ocut C=K\oplus\bigoplus_{r\ge1}(tc)^{\cut r}.
+\end{equation}
+Multiplication concatenates consecutive block lists. On a strict model,
+the differential is the derivation
+\begin{equation}\label{cycuts:eq:cobar-signs}
+ d(tc)=-t(d_Cc)+
+ \sum_{\bar\Delta c=\sum c'\otimes c''}
+             (-1)^{|c'|+1}(tc')(tc'').
+\end{equation}
+The notation for the reduced coproduct abbreviates its localized
+coefficient map. Internal differentials cancel the mixed terms in
+$d^2$; disjoint splits cancel by the odd derivation rule; the two
+refinements of one block into three cancel by coassociativity.
+
+\begin{theorem}\label{cycuts:thm:duality}
+Bar and cobar are inverse equivalences between augmented $E_1$ cut
+algebras with empty coefficient $k$ and coaugmented counital $E_1$
+cut coalgebras with empty coefficient $k$. The equivalence includes
+their derived mapping spaces and higher structure maps.
+\end{theorem}
+\begin{proof}
+Use the enhanced bar and cobar, with normalized expressions
+\eqref{cycuts:eq:bar}--\eqref{cycuts:eq:cobar}. Their natural
+comparisons have strict-model forms
+\[
+ \Ocut\Bcut A\longrightarrow A,
+ \qquad C\longrightarrow\Bcut\Ocut C.
+\]
+The first uses the universal twisting map: a one-factor bar word
+desuspends to its generator, and longer generators map to zero. The second
+uses all iterated reduced coproducts. Positivity makes every component
+of these formulas finite.
+
+Flatten a word in $\Ocut\Bcut A$ into $N$ original factors of $a$.
+Filter by $N$. Multiplication of original factors lowers this number.
+In the associated graded, each of its $N-1$ gaps has two states: it
+is inside a bar block, or between cobar factors. Changing the state
+is the identity on the same final localized coefficient, in adjacent
+degrees. The gap complex is the signed tensor product of these
+two-term identity complexes. For $N>1$, contracting the first gap
+contracts the whole complex. At $N=0,1$, the comparison is the
+identity on $K$ and the original factor.
+
+For $\Bcut\Ocut C$, use the decreasing filtration by the number
+of original factors of $c$. Splitting a factor raises that number.
+Its associated graded has the same identity gap complexes, with
+the two states interchanged. The comparison is again an equivalence
+in lengths zero and one and has contractible higher pieces.
+
+At arity $n$, both filtrations have length at most $n$ by
+\eqref{cycuts:eq:arity}. Thus their associated-graded contractions
+prove both comparisons to be equivalences. In coherent models, higher
+products lower the first filtration and higher coproducts raise the
+second; the associated-graded gap diagrams are unchanged. Normalized
+realization and totalization retain their higher faces. Their natural
+comparisons and triangle coherences therefore give inverse functors
+on the enhanced categories, including mapping spaces.
+\end{proof}
+
+The bar is a coalgebra and the cobar is an algebra. An exchanged
+associative algebra requires a coefficient duality as well. For a
+contravariant equivalence $\sharp$ on an admissible coefficient
+subcategory, the coefficient transposition of Chapter~\ref{cyjets:ch}
+takes the following form for the cut product:
+\[
+ A^!_\sharp=(\Bcut A)^\sharp,
+ \qquad
+ F^\sharp\star_\sharp G^\sharp=(F\cut G)^\sharp.
+\]
+The transposed deconcatenation multiplies $A^!_\sharp$ for this
+transported tensor. Its carrier and admissibility hypotheses remain
+part of the construction. No Lie--commutative duality is used to
+identify it with an algebra of fields.
+
+\section{Which collisions the cut cobar retains}
+\label{cycuts:sec:support}
+
+Write $\Delta_{ij}\subset X^n$ for the equality locus $x_i=x_j$,
+$\Delta_n:X\hookrightarrow X^n$ for the small diagonal, and
+$\Delta=\Delta_2$. Define the reduced closed support
+\begin{equation}\label{cycuts:eq:Z}
+ Z_1=X,\qquad
+ Z_n=X^n\setminus\bigcup_{p=1}^{n-1}U_p^{(n)}
+     =\bigcap_{p=1}^{n-1}\ \bigcup_{i\le p<j}\Delta_{ij}.
+\end{equation}
+A tuple lies in $Z_n$ precisely when every cut has an equality
+crossing it. The first examples are
+\begin{equation}\label{cycuts:eq:small-Z}
+ Z_2=\Delta_{12},\qquad Z_3=\Delta_{13},\qquad
+ Z_4=\Delta_{14}\cup(\Delta_{13}\cap\Delta_{24}).
+\end{equation}
+For the four-point formula, equality of the outer positions blocks
+every cut. If those positions differ, failure of the first and last
+cuts leaves the possibilities $12,34$ or $13,24$. The first still
+admits the middle cut unless the outer positions become equal.
+The second blocks all three cuts. These are identities of reduced
+supports, without a claim about scheme multiplicities.
+
+A coaugmented cut coalgebra is \emph{strong} if each of its supplied
+coproduct maps
+\[
+ C_n|_{U_p^{(n)}}\longrightarrow
+       (C_p\boxtimes C_{n-p})|_{U_p^{(n)}}
+\]
+is an equivalence. For a reduced closed support $Z$ with inclusion $i$,
+write $R\Gamma_ZM=i_*i^!M$. Recollement expresses it as the fibre
+of restriction followed by direct image from the complementary open.
+
+\begin{theorem}\label{cycuts:thm:support}
+For a strong cut coalgebra, the reduced cobar has a natural equivalence
+\begin{equation}\label{cycuts:eq:local-cohomology}
+ \overline{\Ocut C}_n\simeq R\Gamma_{Z_n}C_n[-1].
+\end{equation}
+It commutes with monotone collisions. Its map to $C_n[-1]$ is the
+length-one projection of the cobar.
+\end{theorem}
+\begin{proof}
+A subset $S\subseteq[n-1]$ of gaps specifies a consecutive partition
+$P_S$. Let $U_S=\bigcap_{p\in S}U_p^{(n)}$, with inclusion $j_S$,
+and put $L_S=j_{S,*}j_S^!$; the empty subset gives the identity.
+The iterated strong coproduct identifies the entire refinement diagram
+of cobar coefficients with $S\mapsto L_SC_n$. Coassociativity
+identifies its faces and higher homotopies, not merely its vertices.
+
+The nonempty subsets form the finite \v Cech diagram of the union
+of cut opens. Adding the empty vertex takes its total fibre and
+therefore gives $R\Gamma_{Z_n}C_n$. A partition with $r$ blocks
+has $r-1$ cuts. Its cobar term has $r$ desuspensions, producing
+the additional shift $[-1]$ in \eqref{cycuts:eq:local-cohomology}.
+
+For the signs, consolidate the block shifts by
+\begin{equation}\label{cycuts:eq:consolidation}
+ (tc_1)\otimes\cdots\otimes(tc_r)\longmapsto
+ (-1)^{\sum_{j=1}^r(r-j)|c_j|}
+       (c_1\otimes\cdots\otimes c_r)[-r].
+\end{equation}
+Splitting block $i$ into degrees $a,b$ changes this exponent by
+$\sum_{j<i}|c_j|+a$. Adding the cobar splitting exponent gives
+$i$ modulo two. Thus the face has sign $(-1)^i$, the negative
+of the corresponding \v Cech insertion sign; the internal differential
+has sign $(-1)^r$. These are precisely the shifted-cube signs.
+
+A monotone collision deletes cuts inside its fibres and identifies
+the other cuts with all quotient cuts. Open base change identifies
+both augmented cubes. In particular $d_\alpha^{-1}Z_n=Z_m$.
+This proves compatibility, naturality and the assertion about the
+empty vertex of the cube.
+\end{proof}
+
+Write $L_p=L_{\{p\}}$ and $L_{12}=L_{\{1,2\}}$. At two positions,
+the resolution is
+\[
+ \operatorname{Tot}[C_2[-1]\xrightarrow{-\mathrm{loc}}L_1C_2[-2]].
+\]
+At three positions it is
+\begin{equation}\label{cycuts:eq:three-cube}
+ \operatorname{Tot}\left[
+ C_3[-1]\xrightarrow{(-\mathrm{loc},-\mathrm{loc})}
+ (L_1C_3\oplus L_2C_3)[-2]
+ \xrightarrow{(u,v)\mapsto u|_{12}-v|_{12}}L_{12}C_3[-3]
+ \right].
+\end{equation}
+The two composites cancel. For a smooth $Y$, let $p_Y:Y\to\operatorname{Spec}k$
+be its structure map, $\omega_Y$ its canonical right differential
+module, and $J_Y=p_Y^!k$. The dualizing word system is
+\begin{equation}\label{cycuts:eq:J-word}
+ J_n=p_{X^n}^!k=\omega_{X^n}[n],\qquad J_0=k,
+\end{equation}
+the coproduct is localization and is strong. Transitivity of $!$-pullback
+gives its collision identifications. If $i_{13}(x,y)=(x,y,x)$, then
+\begin{equation}\label{cycuts:eq:J-support}
+ \overline{\Ocut J}_2\simeq\Delta_{12,*}J_X[-1],
+ \qquad
+ \overline{\Ocut J}_3\simeq i_{13,*}J_{X^2}[-1].
+\end{equation}
+The latter coefficient remains nonzero at $x_1=x_3\ne x_2$.
+
+\subsection{The product on the localization complex}
+
+The support equivalence retains an algebra structure through the
+specified strong coproduct. Its inverse on $U_p^{(p+q)}$ is a map
+\[
+ m_p:(C_p\boxtimes C_q)|_{U_p}\longrightarrow C_{p+q}|_{U_p}.
+\]
+Write the finite resolution as
+\[
+ \mathcal K(C)_n=
+ \operatorname{Tot}\!\bigoplus_{S\subseteq[n-1]}L_SC_n[-|S|-1].
+\]
+The internal differential on its $S$ term is $(-1)^{|S|+1}d$;
+adding a gap $p$ has sign $(-1)^{1+\#\{a\in S:a<p\}}$.
+For $S\subseteq[p-1]$ and $T\subseteq[q-1]$, put
+\[
+ r=|S|+1,\quad s=|T|+1,\quad
+ G=S\cup\{p\}\cup(p+T).
+\]
+Their product is defined on $U_G$ by the restriction of $m_p$ and
+then extended by $j_{G,*}$. On unshifted homogeneous coefficients,
+\begin{equation}\label{cycuts:eq:resolution-product}
+ u_Sv_T=(-1)^{s|u|}\bigl(m_p(u\boxtimes v)\bigr)_G.
+\end{equation}
+The total degree of $u_S$ is $|u|+r$.
+
+\begin{proposition}\label{cycuts:prop:resolution-product}
+These operations make $K\oplus\mathcal K(C)$ an augmented $E_1$
+cut algebra, and the support comparison identifies it with $\Ocut C$
+as an algebra.
+\end{proposition}
+\begin{proof}
+For a third term with block length $h$, the two multiplication signs
+have exponents $s|u|+h(|u|+|v|)$ and $h|v|+(s+h)|u|$, which agree.
+Both coefficient maps are the inverse factorization map on the same
+final open. Its coherences give the higher associativity data.
+
+An added cut in the first word retains its insertion position.
+An added cut in the second word changes its insertion position by
+$r$. The Leibniz sign and changed product sign contribute
+$|u|+r+(s+1)|u|=r+s|u|$ modulo two, as required. An internal
+differential on the first coefficient gives the equal exponents
+$s|u|+r+s$ and $r+s(|u|+1)$; the second coefficient is identical
+after adding $|u|$ to both. Thus the differential is a derivation.
+Finally, the consolidation exponent for concatenated block lists
+differs from the two separate exponents by $s|u|$. Equation
+\eqref{cycuts:eq:consolidation} therefore intertwines this product
+with cobar concatenation, including the unit and coherent faces.
+\end{proof}
+
+Call an augmented cut algebra \emph{$Z$-supported} when its
+augmentation ideal in arity $n$ is supported on $Z_n$.
+
+\begin{theorem}\label{cycuts:thm:strong}
+Bar and cobar restrict to inverse equivalences between $Z$-supported
+augmented cut algebras and strong coaugmented cut coalgebras, with
+empty coefficient $k$ on both sides.
+\end{theorem}
+\begin{proof}
+Theorem~\ref{cycuts:thm:support} gives one direction. Conversely,
+restrict the bar of $A=K\oplus a$ to a cut open $U_p$. A factor
+whose interval crosses $p$ has an open internal cut there, so its
+$Z$-supported coefficient vanishes. Each surviving bar word has
+a separator at $p$. Deconcatenation identifies it with a word on
+the prefix and a word on the suffix, with the same coefficient.
+Every multiplication face crossing that separator has zero target;
+the other faces and all higher coherences belong to the two factors.
+The supplied coproduct component is consequently an equivalence.
+The ambient inverse functors of Theorem~\ref{cycuts:thm:duality}
+restrict to these full subcategories and their mapping spaces.
+\end{proof}
+
+An equality partition is \emph{cut-indecomposable} if each gap is
+crossed by one of its blocks. Its exact equality stratum $S_\pi$
+then lies in $Z_n$; write $i_\pi:S_\pi\hookrightarrow X^n$ for its
+inclusion. The smaller support consisting only of the
+small diagonal requires an additional condition.
+
+\begin{corollary}\label{cycuts:cor:small-diagonal}
+For a strong cut coalgebra $C$, its reduced cobar is supported on
+the small diagonal in every arity if and only if
+\[
+ i_\pi^!C_n=0
+\]
+for each cut-indecomposable partition $\pi$ with more than one
+equality block. In that case the proper diagonal counit gives
+\[
+ \Delta_{n,*}(C_1[-1])\simeq\overline{\Ocut C}_n.
+\]
+\end{corollary}
+\begin{proof}
+On a stratum in $Z_n$, extraordinary restriction of
+$R\Gamma_{Z_n}C_n$ is that of $C_n$; outside $Z_n$ it vanishes.
+The finite filtration by equality strata gives the stated criterion.
+Kashiwara equivalence and the monotone collapse to the singleton
+identify the remaining coefficient and its counit.
+\end{proof}
+
+\subsection{A coefficient beyond binary data}
+
+Let $X$ have two distinct geometric points and let $J$ be
+\eqref{cycuts:eq:J-word}. Define
+\begin{equation}\label{cycuts:eq:hidden}
+ P_n=\operatorname{cofib}
+ \bigl(R\Gamma_{\Delta_n}J_n\longrightarrow
+                       R\Gamma_{Z_n}J_n\bigr)[-1],\qquad P_0=0.
+\end{equation}
+Both supports pull back correctly under monotone collisions, so $P$
+is a word system. It is $Z$-supported. If
+$v:X^2\setminus\Delta\hookrightarrow X^2$, then
+\[
+ P_1=P_2=0,\qquad
+ P_3\simeq i_{13,*}v_*J_{X^2\setminus\Delta}[-1].
+\]
+Set $A^0=\Ocut J$ and give $P$ its $A^0$-bimodule structure through
+the augmentation. The square-zero extension $A'=A^0\ltimes P$ has
+zero product on $P\cut P$.
+
+\begin{proposition}\label{cycuts:prop:binary-invisible}
+The strong cut coalgebras $J$ and $\Bcut A'$ have identical empty,
+unary and binary data and are not equivalent.
+\end{proposition}
+\begin{proof}
+Theorem~\ref{cycuts:thm:strong} makes $\Bcut A'$ strong. A positive
+bar word containing $P$ needs at least three labels, so projection
+to $\Bcut A^0\simeq J$ is an equivalence through arity two.
+At arity three the only additional word is $P_3[1]$. Hence
+\[
+ (\Bcut A')_3\simeq J_3\oplus P_3[1].
+\]
+On $x_1=x_3\ne x_2$ its extraordinary restriction has two copies
+of the dualizing coefficient, while $J_3$ has one. Their ranks differ.
+\end{proof}
+
+This example uses derived coefficients. On the affine line, put
+$M=i_{13,*}v_*\omega_{X^2\setminus\Delta}$. Then
+\[
+ (\Bcut A')_3[-3]\simeq\omega_{X^3}\oplus M[-1],
+ \qquad H^1((\Bcut A')_3[-3])=M\ne0.
+\]
+It therefore fails the condition that the arity-$n$ coefficient shifted
+by $[-n]$ be an ordinary differential module. A reconstruction theorem
+on that smaller class requires its own hypotheses and comparisons.
+
+\section{A collision that destroys cuts}
+\label{cycuts:sec:transport}
+
+The preceding support formula is compatible with monotone collisions.
+To examine another collision, order the blocks of a set partition by
+their last positions. A surjection $\alpha:[n]\twoheadrightarrow[m]$
+with this \emph{root order} satisfies
+\[
+ \max\alpha^{-1}(1)<\cdots<\max\alpha^{-1}(m).
+\]
+Its retained quotient gaps and source positions are
+\begin{equation}\label{cycuts:eq:retained}
+ T_\alpha=\{q\in[m-1]:\alpha^{-1}([q])=[p]\text{ for some }p\},
+ \qquad p_\alpha(q)=p.
+\end{equation}
+For these surjections, too, let $d_\alpha:X^m\to X^n$ be the
+ordinary diagonal $d_\alpha(y)_i=y_{\alpha(i)}$. Composites retain
+root order: the last position of a composite fibre belongs to its
+last intermediate fibre. The map
+$p_\alpha$ is strictly increasing on its domain.
+
+\begin{proposition}\label{cycuts:prop:retained}
+A source cut crossed by an $\alpha$-fibre has empty inverse image.
+Every other cut is $p_\alpha(q)$ for a unique $q\in T_\alpha$,
+and its inverse image is $U_q^{(m)}$. For root-ordered collisions
+$\alpha:[n]\twoheadrightarrow[m]$ and
+$\beta:[m]\twoheadrightarrow[\ell]$,
+\begin{equation}\label{cycuts:eq:gap-composition}
+ T_{\beta\alpha}=
+ \{q\in T_\beta:p_\beta(q)\in T_\alpha\},\qquad
+ p_{\beta\alpha}(q)=p_\alpha(p_\beta(q)).
+\end{equation}
+All quotient gaps survive precisely when $\alpha$ is monotone.
+\end{proposition}
+\begin{proof}
+A crossing fibre imposes an equality forbidden by the cut open.
+Otherwise each fibre lies on one side. The left fibres have all their
+last positions before those of the right fibres, so root order makes
+their quotient labels a prefix. This gives the asserted inverse image.
+
+If $\alpha^{-1}(E)$ is a prefix, the maxima of the fibres indexed
+by $E$ precede all other maxima; hence $E$ is itself a prefix.
+Apply this observation to $E=\beta^{-1}([q])$. It proves
+\eqref{cycuts:eq:gap-composition} in both directions. If every
+quotient prefix lifts to a prefix, successive differences make all
+fibres consecutive intervals in their given order. This is monotonicity.
+\end{proof}
+
+For $T\subseteq[m-1]$, put
+\[
+ Z_T^{(m)}=\bigcap_{q\in T}(X^m\setminus U_q^{(m)}),
+ \qquad Z_\varnothing^{(m)}=X^m.
+\]
+Taking complements in the proposition gives
+\[
+ d_\alpha^{-1}Z_n=Z_{T_\alpha}^{(m)},\qquad
+ Z_m\subseteq Z_{T_\alpha}^{(m)}.
+\]
+Let $A=\Ocut J$, and write $\bar A$ for its augmentation ideal.
+The support inclusion defines a map
+\begin{equation}\label{cycuts:eq:Phi}
+ \Phi_\alpha:\bar A_m\longrightarrow d_\alpha^!\bar A_n,
+ \qquad d_\alpha^!\bar A_n
+       \simeq R\Gamma_{Z_{T_\alpha}^{(m)}}J_m[-1].
+\end{equation}
+In the finite localization cubes it keeps exactly the subsets of
+retained gaps. Equation~\eqref{cycuts:eq:gap-composition} and coherent
+open base change prove
+\[
+ \Phi_{\beta\alpha}\simeq d_\beta^!\Phi_\alpha\circ\Phi_\beta.
+\]
+The map preserves the length-one projection to $J_m[-1]$.
+It respects multiplication at separators retained by the collision:
+both composites restrict the same inverse factorization map to the
+common open, with the signs of \eqref{cycuts:eq:resolution-product}.
+No monoidal structure on arbitrary nonmonotone pullback is assumed.
+
+\begin{theorem}\label{cycuts:thm:collision-cone}
+Let $O_m=\bigcup_{q=1}^{m-1}U_q^{(m)}$ and $j_m:O_m\hookrightarrow X^m$.
+The cone of $\Phi_\alpha$ is
+\begin{equation}\label{cycuts:eq:cone}
+ E_\alpha\simeq
+ j_{m,*}R\Gamma_{Z_{T_\alpha}^{(m)}\cap O_m}(j_m^!J_m)[-1].
+\end{equation}
+If $X$ has two distinct geometric points, $\Phi_\alpha$ is an
+equivalence exactly for monotone $\alpha$.
+\end{theorem}
+\begin{proof}
+Apply the localization triangle for $Z_m$ to
+$R\Gamma_{Z_{T_\alpha}^{(m)}}J_m$. Its supported term is
+$R\Gamma_{Z_m}J_m$, giving \eqref{cycuts:eq:cone}.
+
+For a missing quotient gap $q$, choose distinct $x,y$ over an
+algebraically closed extension $\kappa/k$, and take
+$t_q=(x,\ldots,x,y,\ldots,y)$, with $q$ occurrences of $x$.
+Only the cut $q$ is open there. The retained-cut cube has just its
+empty vertex after extraordinary restriction, giving $\kappa[-1]$.
+The full cube is acyclic, because its $q$ direction is an identity.
+Consequently
+\[
+ t_q^!E_{\alpha,\kappa}\simeq\kappa[-1]\ne0.
+\]
+For a monotone collision every gap is retained, so the two cubes
+and their comparison agree.
+\end{proof}
+
+For the outer merger $\alpha=(2,1,2)$, no quotient gap survives.
+Equation~\eqref{cycuts:eq:Phi} becomes
+\begin{equation}\label{cycuts:eq:outer-merger}
+ R\Gamma_\Delta J_2[-1]\longrightarrow J_2[-1],
+ \qquad E_\alpha=j_*j^!J_2[-1],
+\end{equation}
+where $j$ includes the distinct pairs. The two endpoint coefficients
+already differ on that open. Changing representatives of the map
+cannot make them equivalent.
+
+Even a surviving cut retains its full localization map. Take $X=\mathbb A^1$.
+For
+$\alpha=(2,1,2,3)$, the last source cut has defining equation
+$(z_1-z_4)(z_2-z_4)(z_3-z_4)$. With
+$x=y_1-y_3$, $y=y_2-y_3$, its pullback is $xy^2$, whereas the
+quotient cut is defined by $xy$. For a polynomial numerator $g$
+and an integer $a\ge0$, the inverse presentations are
+\begin{equation}\label{cycuts:eq:denominators}
+ \frac{g}{(xy^2)^a}\longmapsto\frac{x^ag}{(xy)^{2a}},
+ \qquad
+ \frac{g}{(xy)^a}\longmapsto\frac{y^ag}{(xy^2)^a}.
+\end{equation}
+They preserve the rational section and commute with differentiation.
+The next collision $x=y=d$ sends $1/(xy^2)$ to $d^{-3}$ by either
+route. The numerator in the first map is essential: omitting it
+would instead give $d^{-4}$.
+
+\section{The ordered collision atlas}
+\label{cycuts:sec:atlas}
+
+A word system records monotone identifications. To retain an order
+within every collision, start with one copy $X^I_\sigma$ of $X^I$
+for each total order $\sigma$ on a finite nonempty set $I$.
+For two orders put
+\begin{equation}\label{cycuts:eq:overlap}
+ V_{\sigma\rho}=X^I\setminus
+ \bigcup_{\substack{\{a,b\}\subset I\\
+               \sigma,\rho\text{ disagree on }a,b}}\Delta_{ab}.
+\end{equation}
+Glue the two charts by the identity on this open. On the affine line,
+this is the ravioli configuration construction of
+\cite{cycuts:AKY}*{\S4.1}. The definition also makes sense for every
+separated finite-type scheme, since it uses closed equality loci.
+Here $X$ remains smooth of dimension one.
+
+\begin{proposition}\label{cycuts:prop:atlas}
+The charts glue to a smooth quasi-compact quasi-separated scheme
+$\mathscr R_I$ with a locally isomorphic map $q_I:\mathscr R_I\to X^I$.
+Over a geometric tuple with equality blocks $B$, its fibre has
+$\prod_B|B|!$ points.
+\end{proposition}
+\begin{proof}
+If two orders disagree on a pair, a third order disagrees with at
+least one of them. Hence
+$V_{\sigma\rho}\cap V_{\sigma\eta}
+ =V_{\sigma\rho}\cap V_{\rho\eta}$, the gluing condition.
+There are finitely many noetherian charts and quasi-compact overlaps.
+Smoothness is local on them. Two charts represent the same point
+over the tuple exactly when their orders agree within each equality
+block. Independent total orders on these blocks extend to an order
+on $I$, proving the fibre count.
+\end{proof}
+
+At two labels the scheme has two diagonal branches and one common
+distinct-pair open. At a total triple collision it has six branches.
+The chosen branch records the order inside each equality block.
+
+A surjection $\alpha:I\twoheadrightarrow J$ with an order on each
+fibre expands a total order $\sigma$ of $J$ into an order
+$e_\alpha(\sigma)$ of $I$. Diagonal substitution on those charts
+defines
+\begin{equation}\label{cycuts:eq:atlas-collision}
+ \delta_\alpha:\mathscr R_J\longrightarrow\mathscr R_I,
+ \qquad x_i=y_{\alpha(i)}.
+\end{equation}
+Indeed,
+$d_\alpha^{-1}V_{e_\alpha(\sigma),e_\alpha(\rho)}
+ =V_{\sigma\rho}$: there is no disagreement inside a fibre, and
+disagreements between fibres are exactly the quotient disagreements.
+Thus the chart maps glue. Successive expansion concatenates the same
+ordered lists, giving
+$\delta_\alpha\delta_\beta=\delta_{\beta\alpha}$.
+
+These maps need not be closed immersions. For the ordered fibre
+$1<3$ and singleton fibre $2$, the quotient order $2|13$ expands
+to chart $213$. Where the quotient roots differ, this chart agrees
+with chart $123$ along $x_1=x_3\ne x_2$. At the triple collision,
+the image instead lies on branches where $1,3$ are consecutive.
+Thus its intersection with a fixed chart need not be the entire
+ordinary diagonal of that chart.
+
+Let $\mathsf{OSurj}_+$ denote finite nonempty sets and surjections
+with ordered fibres. Define
+\begin{equation}\label{cycuts:eq:atlas-category}
+ \C=D(k)\times
+ \varprojlim_{\mathsf{OSurj}_+}\DMod(\mathscr R_I),
+\end{equation}
+with transitions $\delta_\alpha^!$. On a nonseparated atlas,
+differential modules are obtained by descent from its chart cover.
+An object of $\C$ includes all the collision equivalences and
+their coherences.
+
+For $I=A\sqcup B$, the locus $U_{A,B}\subset\mathscr R_I$ excluding every cross
+equality is canonically the disjoint locus in
+$\mathscr R_A\times\mathscr R_B$. Orders on each block remain,
+and all their shuffles agree because positions in different blocks
+are distinct. With $j_{A,B}$ its inclusion, put
+\begin{equation}\label{cycuts:eq:atlas-product}
+ (F\star G)_I=
+ \bigoplus_{I=A\sqcup B}j_{A,B,*}
+              (F_A\boxtimes G_B)|_{U_{A,B}}.
+\end{equation}
+The sum includes all ordered decompositions, including empty blocks;
+an empty block contributes its scalar coefficient.
+
+\begin{theorem}\label{cycuts:thm:atlas-duality}
+The product $\star$ is symmetric monoidal on $\C$, with unit $K$
+supported at the empty configuration. Augmented $E_1$ algebras and
+coaugmented counital $E_1$ coalgebras with empty coefficient $k$ are
+exchanged by inverse bar and cobar equivalences for this product.
+\end{theorem}
+\begin{proof}
+A decomposition splitting a collision fibre has empty inverse-image
+disjoint locus. Every other decomposition comes from a unique quotient
+decomposition. Open base change proves compatibility with the coefficient
+systems. All parenthesizations of an iterated product have one summand
+for each final ordered partition and the same coefficient on its
+cross-disjoint open. This supplies the associativity coherences.
+Permuting named blocks gives the symmetry, with the usual Koszul signs;
+the empty summands give the unit.
+
+Each positive factor consumes a label. The bar and cobar therefore
+have at most $|I|$ reduced factors at $I$. The proof of
+Theorem~\ref{cycuts:thm:duality} applies with arbitrary ordered
+partitions in place of consecutive partitions: each gap still has
+the same localized coefficient on both sides of its identity map.
+The finite filtrations and coherent comparisons give the asserted
+inverse equivalences.
+\end{proof}
+
+Equation~\eqref{cycuts:eq:outer-merger} now has a geometric consequence.
+No Cartesian atlas system can have chart coefficients
+$\overline{\Ocut J}_2$ and $\overline{\Ocut J}_3$ on the increasing
+charts in these two arities. On the distinct quotient roots of the
+outer merger, the latter pulls back to $J_2[-1]$, whereas the former
+vanishes. The actual atlas map agrees with the ordinary outer diagonal
+on this open, so a collision equivalence would identify
+zero with a nonzero object. An atlas cobar has its own chart
+coefficients; Theorem~\ref{cycuts:thm:atlas-duality} retains that
+independent construction.
+
+\section{The dualizing coalgebra and its singular product}
+\label{cycuts:sec:dualizing}
+
+On the atlas let $J_I=p_{\mathscr R_I}^!k=\omega_{\mathscr R_I}[|I|]$
+and $J_0=k$. Its coproduct for an ordered decomposition is localization
+to its disjoint locus. Successive localizations impose the same
+inequalities, giving coherent coassociativity. Coaugmentation and
+counit are the identity at the empty component and zero elsewhere.
+The two decompositions with an empty end give the counit identities.
+Define
+\[
+ \mathscr U=\Omega_\star J.
+\]
+Its bar is equivalent to $J$ by Theorem~\ref{cycuts:thm:atlas-duality}.
+We compute the operation retained by its first coefficients.
+
+Fix a reference order on the labels and local coordinates on $X$.
+For $B=\{b_1<\cdots<b_m\}$ let
+$c_B=dz_{b_1}\wedge\cdots\wedge dz_{b_m}$. It has degree $-m$
+in $J_B$; set $\xi_B=tc_B$, of degree $1-m$. If $B=A\sqcup C$,
+define $\epsilon(A,C)$ by $c_A\wedge c_C=\epsilon(A,C)c_B$.
+For an ordered partition $P=(B_1|\cdots|B_r)$, let
+$j_P:U_P\hookrightarrow\mathscr R_I$ include the locus where different
+blocks have disjoint positions. The cobar coefficient at $n=|I|$ is
+\begin{equation}\label{cycuts:eq:all-partitions}
+ \mathscr U_I=
+ \bigoplus_{r=1}^n\ \bigoplus_{I=B_1\sqcup\cdots\sqcup B_r}
+              j_{P,*}\omega_{U_P}[n-r],
+ \qquad P=(B_1|\cdots|B_r),\quad B_i\ne\varnothing.
+\end{equation}
+Its multiplication concatenates block lists on the corresponding
+disjoint open. Splitting block $B_i=A\sqcup C$ has coefficient
+\begin{equation}\label{cycuts:eq:partition-sign}
+ (-1)^{\sum_{j<i}(1-|B_j|)+|A|+1}\epsilon(A,C).
+\end{equation}
+This includes both the suspension and the density permutation.
+Thus, writing $a_i=\xi_{\{i\}}$,
+\begin{align}
+ d\xi_{12}&=a_1a_2-a_2a_1,\label{cycuts:eq:binary-differential}\\
+ d\xi_{123}&=a_1\xi_{23}-a_2\xi_{13}+a_3\xi_{12}
+             -\xi_{12}a_3+\xi_{13}a_2-\xi_{23}a_1.
+             \label{cycuts:eq:ternary-differential}
+\end{align}
+Every three-factor word occurs twice with opposite signs after the
+second differential. In general, splits in different blocks cancel
+by the odd derivation rule. For three subblocks of one block, the
+two refinements have equal total density sign and opposite suspension
+sign. This proves $d^2=0$ in every arity.
+
+On the affine-line chart put $R=k[z_1,z_2]$, $u=z_1-z_2$ and
+$L=R[u^{-1}]$. Suppress the common density while retaining its signs.
+Put $\xi=\xi_{12}$, $e_{12}=a_1a_2$ and $e_{21}=a_2a_1$.
+The binary coefficient is
+\begin{equation}\label{cycuts:eq:binary-complex}
+ R\xi\xrightarrow{d}Le_{12}\oplus Le_{21},
+ \qquad d\xi=e_{12}-e_{21},\qquad |\xi|=-1.
+\end{equation}
+The map is injective. Its degree-zero cohomology has the explicit
+isomorphism
+\begin{equation}\label{cycuts:eq:binary-cohomology}
+ [(f,g)]\longmapsto(f+g,[f])\in L\oplus L/R,
+ \qquad (h,[p])\longmapsto[(p,h-p)].
+\end{equation}
+Changing a lift of $[p]$ changes the pair by $(r,-r)$ for $r\in R$,
+which is a boundary. This proves both well-definedness and inversion.
+For a constant right density $\nu$,
+$(f\nu)\partial_i=-(\partial_i f)\nu$. All displayed maps
+commute with this action.
+
+The regular commutator is a boundary, but
+\begin{equation}\label{cycuts:eq:singular}
+ \beta=\left[\frac{e_{12}-e_{21}}u\right]
+       \longleftrightarrow(0,[u^{-1}])
+\end{equation}
+is nonzero. A primitive would require $u^{-1}\xi$, which is not
+an allowed coefficient in degree $-1$. Normal differentiation generates
+all higher principal parts. Restoring densities, the second summand
+in \eqref{cycuts:eq:binary-cohomology} is the diagonal direct image
+$\Delta_{2,*}\omega_X$.
+
+The coefficient interchange $E(f,g)=(g,f)$ acts in these splitting
+coordinates by
+\[
+ E(h,[p])=(h,[h]-[p]).
+\]
+The half-difference coordinate $[q]=[(f-g)/2]$ instead gives
+$(h,[q])\mapsto(h,-[q])$. A geometric label permutation also
+changes coordinates and density: exchanging $z_1,z_2$ sends $u$ to
+$-u$ and $dz_1\wedge dz_2$ to its negative.
+
+The full bar retains the homotopy and its multiplication together.
+Its reduced binary complex is
+\begin{equation}\label{cycuts:eq:binary-bar}
+ R\oplus L\oplus L\longrightarrow L\oplus L,
+ \qquad(r,f,g)\longmapsto(-r+f,r+g),
+\end{equation}
+in degrees $-2,-1$. It is surjective with kernel $(r,r,-r)$.
+The corresponding cycle is
+\[
+ [\xi]+[a_1|a_2]-[a_2|a_1].
+\]
+Its three differential terms cancel by
+\eqref{cycuts:eq:binary-differential}. Restoring the density gives
+$H^{-2}(B_\star\mathscr U)_2=\omega_{X^2}$ and zero cohomology
+in other degrees, hence the chart coefficient is equivalent to
+$J_2=\omega_{X^2}[2]$.
+The suspended class of $\beta$ is killed by the allowed two-factor
+bar word $u^{-1}([a_1|a_2]-[a_2|a_1])$. Thus the bar comparison
+retains the singular multiplication and the differential resolving it.
+
+\subsection{Derived coefficients on ordinary position space}
+
+The map $q_I:\mathscr R_I\to X^I$ permits a second coefficient
+calculation. Choose an auxiliary ordering of its chart set
+$\Sigma_I=\operatorname{Ord}(I)$. For a nonempty subset $S$ of
+charts, let $V_S$ remove the diagonals whose pair order varies in
+$S$, and let $j_S:V_S\hookrightarrow X^I$. Define the following
+complex of left differential modules:
+\begin{equation}\label{cycuts:eq:cech}
+ \check C_I^p=\bigoplus_{\sigma_0<\cdots<\sigma_p}
+       j_{\{\sigma_0,\ldots,\sigma_p\},*}
+                   \mathcal O_{V_{\{\sigma_0,\ldots,\sigma_p\}}},
+ \qquad d=\sum_a(-1)^a\operatorname{res}_a.
+\end{equation}
+Different subsets remain different summands even when their opens
+coincide.
+
+Write $q_{I,+}$ for the derived direct image of right differential
+modules along $q_I$.
+
+\begin{proposition}\label{cycuts:prop:derived-image}
+There are equivalences of right differential modules
+\[
+ q_{I,+}(B_\star\mathscr U)_I\simeq q_{I,+}J_I
+ \simeq(\omega_{X^I}\otimes_{\mathcal O_{X^I}}\check C_I)[|I|].
+\]
+\end{proposition}
+\begin{proof}
+The first equivalence is the direct image of $J\simeq B_\star\Omega_\star J$.
+Since $q_I$ is locally an isomorphism, its transfer module contributes
+neither a relative de Rham differential nor a dimension shift. Its
+remaining sheaf direct image is computed by the finite chart cover.
+Locally on the base, every intersection is localization at a product
+of diagonal equations and has affine open inclusion. The augmented
+\v Cech resolution is exact, contracted locally by inserting a chart
+containing the point. Thus its direct image is
+\eqref{cycuts:eq:cech}. The canonical line pulls back from $X^I$;
+tensoring by it converts the left connection into a right differential
+module and gives the stated shift.
+\end{proof}
+
+For two labels,
+\[
+ \check C_2=[R\oplus R\xrightarrow{(f,g)\mapsto g-f}L],
+ \qquad H^0(\check C_2)=R,\quad H^1(\check C_2)=L/R.
+\]
+The chart coefficient $J_2$ and its derived direct image therefore
+have different cohomological descriptions.
+
+A commutative dg model retains the products of the derived functions.
+On an affine coordinate open $V\subset X^I$, let
+$R_S=\Gamma(V\cap V_S,\mathcal O)$. Polynomial forms on the simplex
+with vertices $S$ form the differential graded algebra
+\[
+ \Omega_{\mathrm{poly}}(\Delta^S)=
+ k[t_\sigma,dt_\sigma:\sigma\in S]/
+           (\textstyle\sum_\sigma t_\sigma-1,\sum_\sigma dt_\sigma),
+\]
+where $t_\sigma$ has degree zero and $dt_\sigma$ degree one.
+Define $\operatorname{TW}_I(V)$ to consist of families
+\[
+ \eta_S\in R_S\otimes_k\Omega_{\mathrm{poly}}(\Delta^S),
+ \qquad S\ne\varnothing,
+\]
+whose face restrictions agree with the localization maps for every
+inclusion of subsets. Multiplication and differential are componentwise.
+Integration over oriented faces gives a connection-preserving
+quasi-isomorphism of complexes
+$\operatorname{TW}_I(V)\to\Gamma(V,\check C_I)$. These local models
+glue by restriction. One proof of the equivalence filters by simplex
+skeleta: polynomial forms relative to the boundary of a $p$-simplex
+have a single cohomology class in degree $p$, identified with $k$
+by integration; the attaching maps are the alternating restrictions.
+The filtration is finite. This is the all-face model of
+\cite{cycuts:AKY}*{Theorem 5}.
+
+Integration need not preserve a chosen cochain product strictly.
+In the two-endpoint path model, a degree-zero path $f(x)=x$ and
+the one-form $g=u^{-1}dx$ satisfy
+$\int_0^1fg=1/(2u)$, whereas $f(0)\int_0^1g=0$.
+The commutative product is retained in $\operatorname{TW}_I$;
+its comparison with an endpoint cochain product includes higher maps.
+
+\section{The maps between the two bar--cobar constructions}
+\label{cycuts:sec:comparison}
+
+Restrict an atlas system to its increasing chart and monotone collisions:
+\[
+ r:\C\longrightarrow\W.
+\]
+Inclusion and projection of consecutive decompositions give natural maps
+\begin{equation}\label{cycuts:eq:lax-colax}
+ rF\cut rG\xrightarrow{\iota}r(F\star G)
+                       \xrightarrow{\pi}rF\cut rG,
+ \qquad\pi\iota=1.
+\end{equation}
+Every iterated inclusion retains the same consecutive decomposition;
+every iterated projection selects it. The collision comparisons of
+the products show that $\iota$ is lax monoidal and $\pi$ is colax
+monoidal. Thus $r$ transports algebras by $\iota$ and coalgebras
+by $\pi$; write the resulting functors as $r_{\mathrm{alg}}$ and
+$r_{\mathrm{co}}$.
+
+These products have different coefficients. For $n$ positive inputs
+with rank-one singleton coefficients at $n$ distinct positions, the
+all-subset product has $n!$ summands and the cut product has one.
+The retraction in \eqref{cycuts:eq:lax-colax} preserves this difference.
+
+\begin{proposition}\label{cycuts:prop:bar-cobar-maps}
+For an augmented atlas algebra $A$ and a coaugmented atlas coalgebra
+$C$, with empty coefficient $k$, there are natural maps
+\begin{align}
+ \Bcut r_{\mathrm{alg}}A&\longrightarrow r_{\mathrm{co}}B_\star A,
+                  \label{cycuts:eq:bar-map}\\
+ r_{\mathrm{alg}}\Omega_\star C&\longrightarrow\Ocut r_{\mathrm{co}}C.
+                  \label{cycuts:eq:cobar-map}
+\end{align}
+The first is a coalgebra map including consecutive words; the second
+is an algebra map projecting onto them. On strict normalized models,
+the second is a degreewise surjection with a dg two-sided ideal as kernel.
+\end{proposition}
+\begin{proof}
+Adjacent merges of consecutive blocks remain consecutive. Inclusion
+therefore commutes with bar faces, internal differentials and higher
+faces. Deconcatenation followed by the cut projection retains exactly
+the cuts of that consecutive word, proving the coalgebra assertion.
+
+For cobar, a nonconsecutive partition cannot refine to a consecutive
+one: merging two adjacent intervals in such a refinement would make
+the original partition consecutive. Hence discarded summands have
+only discarded refinements. On retained summands the retained
+refinements are exactly the cut coproduct, with the same signs and
+localizations. Projection is therefore a chain map. Concatenation of
+a prefix partition and a suffix partition is consecutive exactly
+when both are, proving multiplicativity and the ideal assertion.
+Empty terms are unchanged.
+
+A monotone collision kills a partition splitting one of its fibres.
+A surviving partition descends to a quotient partition and is
+consecutive precisely when that quotient is. Thus both maps respect
+collisions. These constructions commute with the normalized finite
+diagrams, including their coherent faces, so they also give the
+stated enhanced maps. The strict-model description does not assert
+strictification on unchanged coefficient objects.
+\end{proof}
+
+Projection in the reverse direction for the bar generally fails to
+commute with the differential. A discarded reversed word $[a_2|a_1]$
+can have differential $[a_2a_1]$, which lies in the retained one-block
+term. In a free atlas algebra that product is nonzero. Thus the
+bar map in \eqref{cycuts:eq:bar-map} has an essential direction.
+
+For the dualizing coalgebra, the binary cobar map is especially simple:
+\begin{equation}\label{cycuts:eq:binary-quotient}
+ \begin{array}{ccc}
+ R&\xrightarrow{(1,-1)}&L\oplus L\\
+ {\scriptstyle1}\big\downarrow&&
+        \big\downarrow{\scriptstyle(f,g)\mapsto f}\\
+ R&\xrightarrow{1}&L.
+ \end{array}
+\end{equation}
+The rows have degrees $-1,0$; density bases fix the displayed signs.
+Its kernel is $L$ in degree zero. On cohomology it gives
+\[
+ 0\longrightarrow L\xrightarrow{h\mapsto[(0,h)]}
+ (L\oplus L)/\{(a,-a):a\in R\}
+ \xrightarrow{[(f,g)]\mapsto[f]}L/R\longrightarrow0.
+\]
+Indeed, if $f\in R$, subtracting $(f,-f)$ leaves the unique
+representative $(0,f+g)$ of its kernel class. After inverting $u$,
+the full cobar has one nonzero degree-zero coefficient and the cut
+cobar is acyclic. This comparison is not an equivalence.
+
+\subsection{The ternary kernel}
+
+For the affine line put $R_n=k[z_1,\ldots,z_n]$, $z_{ij}=z_i-z_j$,
+and
+\begin{equation}\label{cycuts:eq:localization-modules}
+ L_n=R_n\left[\left(\prod_{i<j}z_{ij}\right)^{-1}\right],
+ \qquad
+ M_P=R_n[z_{ij}^{-1}:i,j\text{ lie in different blocks of }P].
+\end{equation}
+All modules are tensored with the common right density, suppressed
+in the coordinate matrices. Equal rings with different partition
+labels remain separate summands. Let $F_n$ be the degreewise kernel of
+\eqref{cycuts:eq:cobar-map} on this normalized model for $J$, and put
+$e_P=\xi_{B_1}\cdots\xi_{B_r}$. Then
+\begin{equation}\label{cycuts:eq:discarded}
+ F_n^{r-n}=\bigoplus_{\substack{P\text{ has }r\text{ blocks}\\
+                              P\text{ not consecutive}}}M_Pe_P.
+\end{equation}
+The differential has the signs of \eqref{cycuts:eq:partition-sign}.
+
+At three positions, order the degree-minus-one terms by
+$13|2,3|12,23|1,2|13$, and the degree-zero terms by
+$132,312,321,231,213$. The matrix is
+\begin{equation}\label{cycuts:eq:ternary-kernel}
+ D=\begin{pmatrix}
+ 1&0&0&0\\-1&1&0&0\\0&-1&-1&0\\0&0&1&-1\\0&0&0&1
+ \end{pmatrix}:
+ \bigoplus_P M_P\longrightarrow L_3^5.
+\end{equation}
+An entry $\pm1$ denotes a signed localization inclusion. Replace
+the target coordinates $(a_0,\ldots,a_4)$ by
+\[
+ \left(\sum_i a_i,\ a_0,\ a_0+a_1,\ a_0+a_1+a_2,
+                                  \ a_0+a_1+a_2+a_3\right).
+\]
+Successive differences invert this integral basis change. It turns
+$D$ into a zero row followed by diagonal entries $1,1,-1,-1$.
+Consequently
+\begin{equation}\label{cycuts:eq:ternary-cohomology}
+ H^{-1}(F_3)=0,\qquad
+ H^0(F_3)\simeq\omega_{\mathbb A^3}\otimes_{R_3}
+       \left(L_3\oplus\bigoplus_P L_3/M_P\right).
+\end{equation}
+In particular, the class of $z_{13}^{-1}$ in $L_3/M_{13|2}$ is
+nonzero: at the generic point of $\Delta_{13}$, the factors
+$z_{12},z_{23}$ are units and every element of $M_{13|2}$ is
+regular, whereas $z_{13}^{-1}$ has a pole. Fully localizing every
+coefficient before taking cohomology would lose this class.
+
+\section{Outer principal parts in every arity}
+\label{cycuts:sec:outer}
+
+The discarded complex has negative cohomology beginning at four
+positions. Its first class has an explicit representative in every
+arity. In the fully localized complex, let $T_n$ be the part of
+$d\xi_{[n]}$ keeping the first and last labels in the same block:
+\begin{equation}\label{cycuts:eq:Tn}
+ T_n=\sum_{\substack{A\sqcup C=[n],\ A,C\ne\varnothing\\
+                         1,n\text{ in the same part}}}
+       (-1)^{|A|+1}\epsilon(A,C)\xi_A\xi_C,
+ \qquad b_n=dT_n.
+\end{equation}
+All its terms are discarded. Its degree is $2-n$, and $b_n$ has
+degree $3-n$. Write $u=z_{1n}$.
+
+\begin{theorem}\label{cycuts:thm:outer}
+For $n\ge3$ there is an injection of right differential modules
+\begin{equation}\label{cycuts:eq:outer-injection}
+ \omega_{\mathbb A^n}\otimes_{R_n}(R_n[u^{-1}]/R_n)
+ \lhook\joinrel\longrightarrow H^{3-n}(F_n),
+ \qquad [f]\longmapsto[fb_n].
+\end{equation}
+Thus these negative cohomology groups have no lower bound independent
+of arity.
+\end{theorem}
+\begin{proof}
+The permutahedron is the convex hull of the permutations of
+$(1,\ldots,n)$ in $\mathbb R^n$. After extending coefficients to $L_n$,
+ordered partitions form its cellular chain complex with degrees negated.
+The face of a partition with $r$ blocks has dimension $n-r$;
+the density orientations give exactly
+\eqref{cycuts:eq:partition-sign}. Convexity makes this cellular
+complex acyclic below its degree-zero class. The kernel on its
+facets is the rank-one $L_n$-module spanned by the boundary of the unique top cell.
+That boundary has coefficient $\pm1$ on every two-block partition.
+The discarded facets omit all $n-1$ consecutive two-block partitions,
+so the differential on their span is injective. The same holds on
+their actual localization submodules.
+
+If a three-block partition still keeps $1,n$ together, both its
+facet coarsenings occur in $T_n$ and cancel in $dT_n$. Every nonzero
+coordinate of $b_n$ therefore separates $1,n$ and inverts $u$.
+Thus $fb_n$ is an allowed cochain for every $f\in R_n[u^{-1}]$,
+and it is closed. For $f\in R_n$ its primitive $fT_n$ is allowed.
+
+Conversely, suppose $fb_n=dv$ for an allowed discarded two-block
+cochain $v$. Injectivity of the fully localized facet differential
+forces $v=fT_n$. A facet of $T_n$ does not invert $u$. Unique
+factorization gives $M_P\cap R_n[u^{-1}]=R_n$, so its coordinate
+$\pm f$ can belong to $M_P$ only when $f\in R_n$. This proves
+injectivity. Such a facet exists for $n\ge3$, and the same
+injectivity proves $b_n\ne0$. Its constant coefficients make
+differentiation of $fb_n$ equal to differentiation of $f$ followed
+by the map. Restoring the density proves differential-module linearity.
+\end{proof}
+
+For four positions,
+\begin{equation}\label{cycuts:eq:T4}
+ T_4=-\xi_{124}\xi_3+\xi_{134}\xi_2-\xi_{14}\xi_{23}
+     -\xi_2\xi_{134}-\xi_{23}\xi_{14}+\xi_3\xi_{124}.
+\end{equation}
+The cycle $z_{14}^{-1}dT_4$ is allowed, but its fully localized
+primitive $z_{14}^{-1}T_4$ is not. In particular,
+$F_4\to H^0(F_4)[0]$ is not a quasi-isomorphism.
+
+This class also fixes the sign of the connecting map from the cut
+cobar. Let
+\[
+ U_n=d_{\mathrm{cut}}\xi_{[n]}
+       =\sum_{p=1}^{n-1}(-1)^{p+1}\xi_{[1,p]}\xi_{[p+1,n]}.
+\]
+Every term inverts $u$, so $fU_n$ is a cut cocycle for a principal
+part $f$. Split the full top boundary as $U_n+T_n+V_n$, where
+$V_n$ consists of discarded facets separating the outer labels.
+The exact-sequence connecting map
+$H^{2-n}((\Ocut J)_n)\to H^{3-n}(F_n)$ then satisfies
+\begin{equation}\label{cycuts:eq:connecting}
+ [fU_n]\longmapsto-[fb_n].
+\end{equation}
+Indeed, differentiating its full-complex lift gives
+$d(fU_n)=-fb_n-d(fV_n)$, and $fV_n$ is an allowed discarded
+cochain. The obstruction belongs to this comparison of cobars;
+it leaves both ambient bar--cobar equivalences intact.
+
+\subsection{The complete negative group at four positions}
+
+The four-point complex has eleven discarded facets, thirty-three
+discarded edges and twenty-three vertices:
+\begin{equation}\label{cycuts:eq:F4}
+ \bigoplus_{11}M_P\xrightarrow{A}\bigoplus_{33}M_Q
+                      \xrightarrow{B}L_4^{23},
+\end{equation}
+in degrees $-2,-1,0$. After full localization, the ranks of $A,B$
+are $11,22$. The first rank follows from the facet argument above.
+For the second, the permutahedron graph with vertex $1234$ removed
+is connected: increasing inversion number connects every remaining
+permutation to $4321$ without visiting $1234$.
+
+Put $R=R_4$, $L=L_4$, and for a pair $h=\{i,j\}$ set
+\[
+ L_h=R[z_{ab}^{-1}:\{a,b\}\ne h],\qquad W_h=L/L_h.
+\]
+Let $I_h$ index discarded facets keeping $h$ together, and let
+$J_h$ index three-block partitions keeping $h$ together. The submatrix
+$K_h=A_{J_h,I_h}$ has the following dimensions and ranks:
+\[
+ \begin{array}{c|rrrrrr}
+ h&12&13&14&23&24&34\\\hline
+ |I_h|&4&5&6&4&5&4\\
+ |J_h|&5&6&6&5&6&5\\
+ \operatorname{rank}K_h&4&5&5&4&5&4.
+ \end{array}
+\]
+These are constant matrices defined by
+\eqref{cycuts:eq:partition-sign}. For $h=14$, ordering the columns
+as in \eqref{cycuts:eq:T4} gives
+\[
+ K_{14}=\begin{pmatrix}
+ 1&0&-1&0&0&0\\0&1&1&0&0&0\\-1&0&0&1&0&0\\
+ 0&0&0&-1&1&0\\0&-1&0&0&0&1\\0&0&0&0&-1&-1
+ \end{pmatrix}.
+\]
+Its kernel is generated by $(-1,1,-1,-1,-1,1)$, the coefficients
+of $T_4$. For the other pairs, lexicographic ordering of block lists
+gives the following row equations:
+\[
+ \begin{array}{c|l}
+ 12&-v_1,\ -v_2,\ v_2+v_3,\ v_1-v_4,\ -v_3+v_4\\
+ 13&-v_1,\ v_1-v_2,\ -v_3,\ v_3+v_4,\ v_2+v_5,\ -v_4-v_5\\
+ 23&v_1,\ -v_2,\ v_2-v_3,\ -v_1+v_4,\ v_3-v_4\\
+ 24&v_1,\ v_2,\ -v_1-v_4,\ v_3+v_4,\ -v_2+v_5,\ -v_3-v_5\\
+ 34&v_1,\ v_2,\ -v_2+v_3,\ -v_1-v_4,\ -v_3+v_4.
+ \end{array}
+\]
+Setting each row list to zero successively kills every coordinate.
+These eliminations use only $\pm1$, so the same kernel descriptions
+hold with coefficients in $W_h$.
+
+\begin{theorem}\label{cycuts:thm:four-negative}
+Globally on the standard four-position chart,
+\begin{equation}\label{cycuts:eq:four-negative}
+ H^{-2}(F_4)=0,\qquad
+ H^{-1}(F_4)\simeq
+ \omega_{\mathbb A^4}\otimes_R(R[z_{14}^{-1}]/R).
+\end{equation}
+The second map is $[f]\mapsto[fdT_4]$.
+\end{theorem}
+\begin{proof}
+The facet differential is injective, proving the first assertion.
+For a degree-minus-one cocycle $w$, full localization gives a unique
+$v\in L^{11}$ with $Av=w$. A three-block term keeping $h$
+together has coefficient $L_h$. Thus $w$ belongs to its actual
+coefficient modules precisely when
+\[
+ K_h(v_i\bmod L_h)_{i\in I_h}=0\quad\text{for every }h.
+\]
+For $h\ne14$, the displayed eliminations force the corresponding
+coordinates of $v$ to be regular along $h$.
+
+Unique factorization gives
+$M_P=\bigcap_{h\text{ internal to }P}L_h$ inside $L$.
+Writing $u=z_{14}$, it follows that $v_P\in M_P[u^{-1}]$.
+The coordinates of facets separating $1,4$ already lie in $M_P$
+and can be subtracted as legal boundaries. Modulo those boundaries,
+the other six principal parts are proportional to the coefficients
+of $T_4$. The remaining module is therefore the intersection, in
+$W_{14}$, of the six images $M_P[u^{-1}]/M_P$ for $P\in I_{14}$.
+
+Use coordinates $u=z_{14}$, $a=z_{12}$, $b=z_{23}$, $y=z_4$,
+and write $c=a+b=z_{13}$, $D=k[y,a,b]$. Finite negative Laurent
+parts at $u=0$ identify
+\[
+ W_{14}\simeq\bigoplus_{j\ge1}D[(abc)^{-1}]u^{-j}.
+\]
+The factors $u-a,u-c$ need only finitely many Taylor coefficients
+for any fixed pole order. Vanishing of the negative part means
+divisibility by the required power of $u$, hence membership in $L_{14}$.
+For $124|3$, $134|2$ and $14|23$, the images are respectively
+\[
+ \bigoplus_{j\ge1}D[(bc)^{-1}]u^{-j},\qquad
+ \bigoplus_{j\ge1}D[(ab)^{-1}]u^{-j},\qquad
+ \bigoplus_{j\ge1}D[(ac)^{-1}]u^{-j}.
+\]
+Reversed facets repeat these three modules. Since $a,b,c=a+b$
+are pairwise nonassociated prime factors in $D$, the intersection
+of their coefficient rings is $D$. The desired intersection is
+therefore $\bigoplus_{j\ge1}Du^{-j}=R[u^{-1}]/R$.
+This identifies the class with $[fdT_4]$, and the density argument
+in Theorem~\ref{cycuts:thm:outer} proves differential-module linearity.
+\end{proof}
+
+The degree-zero cohomology also has a global finite presentation.
+Let $G$ be the permutahedron graph on the orders of $[4]$ other than $1234$,
+fix $\sigma_0=4321$, and label each edge by its swapped pair $h$.
+Set
+\begin{equation}\label{cycuts:eq:graph-module}
+ \mathcal G_R=
+ \frac{\displaystyle\bigoplus_{\sigma\in V(G)\setminus\{\sigma_0\}}L e_\sigma}
+ {\displaystyle\sum_{\{\sigma,\tau\}\in E(G)}
+                   L_{h(\sigma,\tau)}(e_\sigma-e_\tau)},
+ \qquad e_{\sigma_0}=0.
+\end{equation}
+Then
+\begin{equation}\label{cycuts:eq:four-zero}
+ H^0(F_4)\simeq\omega_{\mathbb A^4}\otimes_R(L\oplus\mathcal G_R).
+\end{equation}
+To prove this, sum all vertex coordinates. Every incidence column
+has sum zero, and the $\sigma_0$ coordinate splits this sum.
+In its kernel use $e_\sigma-e_{\sigma_0}$ as basis. The edge
+relations are precisely \eqref{cycuts:eq:graph-module}, with twenty-two
+generator modules and thirty-three relation modules. Constant basis
+changes preserve the differential-module action. This presentation
+retains the extensions across intersections of the six diagonals;
+a decomposition into indecomposable modules is additional information.
+
+\subsection{The crossed collision}
+
+On the open set where the blocks $\{1,3\}$ and $\{2,4\}$ are
+separated, write
+\[
+ \begin{gathered}
+ u=z_{13},\quad v=z_{24},\quad
+ A=R[(z_{12}z_{14}z_{23}z_{34})^{-1}],\\
+ A_u=A[u^{-1}],\quad A_v=A[v^{-1}],\quad L=A[(uv)^{-1}].
+ \end{gathered}
+\]
+Here $u,v$ are independent normal coordinates. Suppressing the common
+density, the coefficient types of $F_4$ are
+\begin{equation}\label{cycuts:eq:crossed-types}
+ A^2\oplus A_u^3\oplus A_v^3\oplus L^3
+ \longrightarrow A_u^6\oplus A_v^6\oplus L^{21}
+ \longrightarrow L^{23}.
+\end{equation}
+
+A scalar pivot between two \emph{identical} coefficient modules
+can be cancelled by a chain homotopy. For a nonzero scalar pivot
+$a=D_{ij}$ in row $i$, column $j$ of a differential matrix $D$, the
+remaining matrix is the Schur complement
+\begin{equation}\label{cycuts:eq:schur}
+ D'_{rc}=D_{rc}-D_{rj}a^{-1}D_{ic}.
+\end{equation}
+Triangular row and column operations isolate the two-term isomorphism,
+whose contracting homotopy is $a^{-1}$. All other entries remain
+composites of allowed localization maps. The equality of the pivot
+modules is necessary: a localization inclusion is not an isomorphism
+merely because its displayed scalar is $1$.
+
+Order partitions lexicographically by their increasing block lists.
+Choose the first nonzero pivot between identical modules, first by
+lower degree, then row and column; retain the order after cancellation.
+The nine pivots from degree $-2$ have types
+\[
+ A_u,L,A_v,A_v,L,A_u,A_u,L,A_v
+\]
+and scalars $1,1,-1,-1,1,1,1,1,1$. The next eighteen pivots have
+type $L$ and scalar $1$. Formula~\eqref{cycuts:eq:schur} leaves
+\[
+ A^2\xrightarrow{M_0}A_u^3\oplus A_v^3\xrightarrow{M_1}L^5,
+\]
+with retained middle order $(A_u,A_v,A_v,A_u,A_u,A_v)$ and matrices
+\begin{equation}\label{cycuts:eq:crossed-matrices}
+ M_0=\begin{pmatrix}1&0\\-1&0\\0&1\\0&-1\\-1&1\\1&-1\end{pmatrix},
+ \qquad
+ M_1=\begin{pmatrix}
+ 1&1&0&0&0&0\\0&0&1&1&0&0\\0&-1&-1&0&1&0\\
+ -1&0&0&-1&0&1\\0&0&0&0&-1&-1
+ \end{pmatrix}.
+\end{equation}
+For completeness, the required final basis changes are
+\[
+ S=\begin{pmatrix}
+ 1&0&1&0&0&0\\0&0&0&1&0&1\\0&0&0&0&-1&0\\
+ 0&-1&0&0&0&0\\-1&1&0&0&0&0\\0&0&0&-1&1&0
+ \end{pmatrix},\qquad
+ W=\begin{pmatrix}
+ 1&0&1&1&1\\0&-1&0&0&0\\-1&1&0&-1&0\\
+ -1&1&-1&0&0\\1&-1&0&0&0
+ \end{pmatrix}.
+\]
+Their determinants are units. The first three columns of $S$ have
+type $A_u$ and the last three type $A_v$, so it respects the
+coefficient modules. Direct multiplication gives
+\begin{equation}\label{cycuts:eq:crossed-normal-form}
+ S^{-1}M_0=
+ \begin{pmatrix}1&0\\0&1\\0&0\\-1&0\\0&-1\\0&0\end{pmatrix},
+ \qquad
+ W^{-1}M_1S=
+ \begin{pmatrix}
+ 1&0&0&1&0&0\\0&1&0&0&1&0\\0&0&1&0&0&0\\
+ 0&0&0&0&0&1\\0&0&0&0&0&0
+ \end{pmatrix}.
+\end{equation}
+
+\begin{theorem}\label{cycuts:thm:crossed}
+On this open set, $F_4$ is chain-homotopy equivalent by
+differential-module maps to
+\begin{equation}\label{cycuts:eq:crossed-splitting}
+ L[0]\oplus[A_u\to L]\oplus[A_v\to L]
+       \oplus[A\to A_u\oplus A_v\to L]^{\oplus2}.
+\end{equation}
+The two-term complexes have degrees $-1,0$ and the three-term
+complexes degrees $-2,-1,0$. Hence
+\[
+ H^{<0}(F_4)=0,\qquad
+ H^0(F_4)\simeq\omega\otimes_A
+ \left(L\oplus L/A_u\oplus L/A_v
+                \oplus(L/(A_u+A_v))^{\oplus2}\right).
+\]
+\end{theorem}
+\begin{proof}
+The two paired columns in \eqref{cycuts:eq:crossed-normal-form}
+give complexes with maps $a\mapsto(a,-a)$ and $(f,g)\mapsto f+g$.
+The third and sixth columns give the two single localization maps;
+the last target row gives $L[0]$. The preceding cancellations and
+constant basis changes prove \eqref{cycuts:eq:crossed-splitting}.
+
+The localization maps are injective. In either three-term complex,
+the middle kernel consists of $(f,-f)$ with $f\in A_u\cap A_v$.
+Unique factorization and independence of $u,v$ give $A_u\cap A_v=A$.
+Only the displayed cokernels therefore remain. All transformations
+are scalar matrices or localization maps, so they commute with the
+right differential operators.
+\end{proof}
+
+Both codimension-two summands are nonzero. Near $u=v=0$, the
+double residue of $1/(uv)$ is $1$, while it vanishes on sections
+having poles in only one of these variables. The cross-block
+denominators are units there. Thus $1/(uv)$ survives modulo
+$A_u+A_v$. On this open $z_{14}$ is invertible, so the negative
+outer module of \eqref{cycuts:eq:four-negative} vanishes, consistently
+with the local calculation.
+
+\section{Exchange and the two factorization conditions}
+\label{cycuts:sec:exchange}
+
+To recover an atlas system from a word system, one must specify how
+its charts agree on their full overlaps. For a word system $F$,
+let $F_I^\sigma$ be its transport to the chart with order $\sigma$.
+An \emph{exchange datum} consists of equivalences
+\[
+ g_{\sigma\rho}:F_I^\sigma|_{V_{\sigma\rho}}
+                  \xrightarrow{\sim}F_I^\rho|_{V_{\sigma\rho}},
+\]
+with coherent \v Cech cocycles and relabeling compatibility. It also
+requires collision compatibility: expanding an ordered-fibre
+surjection into charts must intertwine these maps with the monotone
+collision equivalences, coherently under every composite.
+The overlaps in \eqref{cycuts:eq:overlap} may contain partial collisions.
+
+\begin{proposition}\label{cycuts:prop:descent}
+Restriction identifies $\C$ with word systems equipped with this
+exchange datum. The corresponding tensor is the all-subset product
+glued chartwise. Componentwise strong atlas coalgebras correspond
+to strong cut coalgebras with factorization-compatible exchange.
+\end{proposition}
+\begin{proof}
+Differential modules satisfy descent for the finite open chart cover.
+The $g$ maps and their cocycles therefore glue $F_I^\sigma$ to a
+coefficient on $\mathscr R_I$, and descent of morphisms gives the
+same statement on mapping spaces. Collision compatibility glues
+the chartwise $!$-pullback equivalences and their higher coherences.
+Restriction and gluing are inverse.
+
+For an arbitrary ordered decomposition, choose a chart in which its
+blocks are consecutive. Its coefficient product is then the cut
+product on that chart. The exchange compatibilities glue these
+products to \eqref{cycuts:eq:atlas-product}. The same choice identifies
+each supplied factorization component with a cut component, proving
+the last assertion.
+\end{proof}
+
+Write $\operatorname{Conf}_2(X)=X^2\setminus\Delta$ for distinct pairs.
+Such data need not exist for an underlying word system. Suppose an
+augmented cut algebra has augmentation ideal $a_n=\Delta_{n,*}M$,
+and $(M\boxtimes M)|_{\operatorname{Conf}_2(X)}\ne0$. On distinct
+pairs its cut bar has coefficient $(M\boxtimes M)[2]$. On the
+stratum $x_1=x_3\ne x_2$ its ternary coefficient has zero
+extraordinary restriction: a one-block word requires the small
+diagonal, a two-block word requires $12$ or $23$ to coincide,
+and a three-block word requires all positions to be distinct.
+An outer-merger collision equivalence in the atlas would identify
+this zero coefficient with the nonzero binary one. Thus the cut bar
+has no extension with unchanged chart coefficients.
+
+\subsection{Joint factorization}
+
+For the atlas let $D_I$ be the union of the small-diagonal branches
+$\delta_\sigma:X\hookrightarrow\mathscr R_I$. A coefficient
+$N\in\DMod(X)$ has the diagonal insertion
+\[
+ (i_{\mathrm{ord}}N)_I=\bigoplus_\sigma\delta_{\sigma,*}N,
+ \qquad(i_{\mathrm{ord}}N)_0=0.
+\]
+An ordered-fibre collision pulls back exactly the branches whose
+orders are expanded quotient orders. Proper base change gives the
+collision structure; Kashiwara equivalence identifies every positive
+system supported on $D_I$ with $i_{\mathrm{ord}}$ of its singleton.
+
+For an atlas coalgebra $C$ put $N=C_1$ and let $U_I$ be its
+fully distinct locus. Its iterated coproducts define a joint map
+\begin{equation}\label{cycuts:eq:joint}
+ \Theta_I:C_I|_{U_I}\longrightarrow
+ \bigoplus_{\sigma\in\operatorname{Ord}(I)}
+       (N_{\sigma(1)}\boxtimes\cdots\boxtimes N_{\sigma(n)})|_{U_I}.
+\end{equation}
+Call $C$ \emph{jointly factorizing} if these supplied maps are
+equivalences in every arity.
+
+\begin{theorem}\label{cycuts:thm:joint}
+Atlas bar and cobar restrict to inverse equivalences between augmented
+algebras with positive coefficients supported on $D_I$ and jointly
+factorizing coalgebras. For such a coalgebra,
+\[
+ i_{\mathrm{ord}}(C_1[-1])\simeq\overline{\Omega_\star C}.
+\]
+\end{theorem}
+\begin{proof}
+On distinct positions, a diagonal-supported bar factor occupying
+more than one label vanishes. Its surviving terms are the singleton
+words, one per total order, and every multiplication face has zero
+target. Their deconcatenation is exactly \eqref{cycuts:eq:joint}.
+
+Conversely, projection to singletons followed by all iterated
+coproducts maps the separated coefficient system of $C$ to the
+tensor coalgebra on its singleton. Its component is $\Theta_I$,
+so joint factorization makes it an equivalence. The gap contraction
+of Theorem~\ref{cycuts:thm:duality} contracts its cobar at more
+than one distinct position, leaving $C_1[-1]$ at one position.
+Every equality stratum with at least two roots is the distinct
+locus of an ordered-fibre collision. Collision compatibility
+therefore kills its extraordinary restriction. Finite-stratum
+recollement puts the reduced cobar on $D_I$, and the proper branch
+counits give the displayed equivalence. The ambient bar--cobar
+maps restrict to these full subcategories and their mapping spaces.
+\end{proof}
+
+Now assume that \emph{each} binary coproduct component is an
+equivalence on distinct pairs. Using one of them identifies the
+joint map with
+\[
+ (1,R):V\longrightarrow V\oplus V,
+ \qquad V=(N\boxtimes N)|_{\operatorname{Conf}_2(X)},
+\]
+where $R$ is an equivalence. Its cofiber is $V$, even for an
+arbitrary chain endomorphism $R$. Explicitly, cone coordinates
+$(x,y,z)\in V^q\oplus V^q\oplus V^{q+1}$ have differential
+\[
+ D(x,y,z)=(dx+z,dy+Rz,-dz).
+\]
+The maps $q(x,y,z)=y-Rx$, $s(v)=(0,v,0)$ and
+$H(x,y,z)=(0,0,x)$ satisfy $qs=1$ and $DH+HD=1-sq$.
+Thus the ordinary graph kernel is zero but its derived fibre is
+$V[-1]$, and the separated binary cobar is $V[-2]$.
+
+\begin{corollary}\label{cycuts:cor:intersection}
+A componentwise strong atlas coalgebra $C$ is jointly factorizing
+if and only if its singleton satisfies
+\[
+ (C_1\boxtimes C_1)|_{\operatorname{Conf}_2(X)}=0.
+\]
+In this case its positive coefficients are diagonal-supported and
+its reduced coproduct vanishes.
+\end{corollary}
+\begin{proof}
+The graph cofiber proves necessity. Conversely, the assumed vanishing
+kills every separated singleton tensor of length at least two.
+Successive strong components identify the coalgebra with these tensors
+on distinct loci. Ordered-fibre collisions and finite-stratum
+recollement put its positive coefficients on the small-diagonal
+branches. Their two-factor convolution is zero by the same separated
+square condition, so the reduced coproduct vanishes. For $|I|>1$
+both sides of \eqref{cycuts:eq:joint} vanish; for $|I|=1$ the map
+is the identity.
+\end{proof}
+
+For an atlas algebra with diagonal-supported augmentation ideal,
+one can also see the component coproduct directly in its bar.
+On a disjoint decomposition $I=P\sqcup Q$, every surviving block
+has one of these two colors. A multiplication face between colors
+has zero target, so words split into subcomplexes indexed by their
+maximal consecutive runs of colors. The coproduct for $P|Q$
+projects onto the sector with all $P$ blocks before all $Q$ blocks.
+That projection has a section as a coefficient complex. Reverse
+and alternating sectors remain in its kernel.
+
+Finally, derived primitives have a precise associative description.
+For a positive object $V$, let $\operatorname{Prim}_0(V)=K\oplus V$
+have zero reduced coproduct and trivial higher reduced cooperations.
+In either carrier, bar--cobar duality and the free-algebra property give
+\[
+ \begin{aligned}
+ \operatorname{Map}_{\mathrm{Coalg}_{E_1}}
+       (\operatorname{Prim}_0(V),C)
+ &\simeq\operatorname{Map}_{\mathrm{Alg}_{E_1}}
+       (T(V[-1]),\Omega C)\\
+ &\simeq\operatorname{Map}(V,\overline{\Omega C}[1]).
+ \end{aligned}
+\]
+The tensor algebra here uses the chosen geometric product, with
+finite words at each configuration. The right adjoint thus retains
+derived fibres; an ordinary kernel of the reduced coproduct would
+lose them.
+
+\section{Operations on the small diagonals}
+\label{cycuts:sec:operations}
+
+The support of a coefficient determines which associativity homotopies
+it can carry. In this section let $X$ be a smooth separated scheme
+of pure dimension $d\ge1$. The word category and cut product have
+the same definitions. For $M\in\DMod(X)$, let
+\[
+ (iM)_n=\Delta_{n,*}M\quad(n>0),\qquad(iM)_0=0,
+\]
+where $\Delta_n$ is the small diagonal. Kashiwara equivalence and
+monotone collapse identify these coefficients coherently.
+Let $j_n:U_n\hookrightarrow X^n$ include the pairwise-distinct locus.
+The derived complex of $n$-input chiral operations is
+\begin{equation}\label{cycuts:eq:operations}
+ P_n(M_1,\ldots,M_n;P)=
+ \RHom_{\mathcal D_{X^n}}
+ \bigl(j_{n,*}j_n^*(M_1\boxtimes\cdots\boxtimes M_n),
+                                  \Delta_{n,*}P\bigr).
+\end{equation}
+It retains all degrees of the operation, not just ordinary module maps.
+
+\begin{proposition}\label{cycuts:prop:operations}
+For every word system $G$, restriction to the singleton-block summand
+at $n$ positions gives
+\[
+ \RHom_{\W}(iM_1\cut\cdots\cut iM_n,G)
+ \simeq\RHom_{\mathcal D_{X^n}}
+ \bigl(j_{n,*}j_n^*(\boxtimes_iM_i),G_n\bigr).
+\]
+For $G=iP$, this identifies the mapping complex with
+\eqref{cycuts:eq:operations}, compatibly with composition along
+monotone partitions.
+\end{proposition}
+\begin{proof}
+Put $Q=j_{n,*}j_n^*(\boxtimes_iM_i)$. At $m$ positions the cut
+product is the direct sum of $d_{\alpha,*}Q$ over monotone
+surjections $\alpha:[m]\twoheadrightarrow[n]$. Adjunction and
+the structure maps of $G$ identify each component mapping complex
+with $Y=\RHom(Q,G_n)$. Under another monotone collision, a summand
+survives precisely when its partition descends to the quotient;
+otherwise its extraordinary restriction meets a forbidden diagonal
+of $Q$ and vanishes. The mapping diagram is thus the product of
+copies of $Y$ indexed by surjections to $[n]$.
+
+The category of these surjections has final object
+$\operatorname{id}_{[n]}$, so its nerve is contractible. The limit
+of the mapping diagram is $Y$, detected on that singleton summand.
+For composition, an inner operation localizes within each consecutive
+block and an outer operation localizes between the blocks. Open
+base change identifies the common source with the fully localized
+input. The resulting composite is the external product of the
+inner maps followed by the direct image of the outer map, with
+the Koszul signs for tensoring maps. This is exactly composition
+of the displayed chiral operations.
+\end{proof}
+
+Now let every $M_i$ and $P$ be an ordinary right differential module.
+The object $j_{n,*}j_n^*(\boxtimes_iM_i)$ has cohomology in
+degrees $0$ through $(n-1)(d-1)$. To prove the upper bound,
+add the points one at a time. Over the distinct first $n-1$
+points, the forbidden graphs for the last point are disjoint
+smooth loci of codimension $d$. Locally their complement is
+covered by $d$ affine opens, giving direct-image amplitude at
+most $d-1$. Induction gives the stated bound, also after any
+smooth auxiliary factor.
+
+Set $r=(n-1)(d-1)$. Shifting all inputs and the output by $[d-1]$
+changes the operation complex to
+\[
+ \RHom(j_{n,*}j_n^*(\boxtimes_iM_i),\Delta_{n,*}P)[-r].
+\]
+It has no negative cohomology, and its degree-zero part is
+$\operatorname{Hom}(H^r(j_{n,*}j_n^*(\boxtimes_iM_i)),\Delta_{n,*}P)$.
+The mapping spaces of operations on $i(M[d-1])$ are therefore
+discrete. An associative structure on it is determined by a binary
+degree-zero operation whose two ternary composites are equal.
+
+\begin{theorem}\label{cycuts:thm:diagonal-nilpotence}
+Every such associative structure on $i(M[d-1])$ has zero ternary
+composites. More generally, a degree-zero ternary operation on shifted
+modules that factors through both channels $12|3$ and $1|23$ is zero,
+even when the intermediate modules differ.
+\end{theorem}
+\begin{proof}
+First let $d=1$ and use an \'etale coordinate near the small diagonal.
+Put $s=z_1-z_2$, $v=z_2-z_3$, $h=s+v=z_1-z_3$. The intermediate
+module for the first channel has locally nilpotent $s$ and invertible
+$h$; for the second it has locally nilpotent $v$ and invertible $h$.
+Their first maps are linear over $\mathcal O[h^{-1}]$, and their
+last maps to the small-diagonal target are $\mathcal O$-linear.
+
+For a fixed input $e$, choose exponents $a,b$ killing its images
+by $s^a,v^b$ in the two intermediate modules. For $N=a+b-1$,
+\[
+ e=h^{-N}(s+v)^Ne
+   =\sum_{j=0}^N\binom Nj s^jv^{N-j}h^{-N}e.
+\]
+If $j\ge a$, its common output vanishes by the first factorization;
+otherwise $N-j\ge b$ and it vanishes by the second. The inverse
+of $h$ is used before the final map. This proves the curve case
+without a uniform nilpotence or pole bound.
+
+For $d\ge2$, put $F=M_1\boxtimes M_2\boxtimes M_3$ and
+$E=H^{2d-2}(j_{3,*}j_3^*F)$. The degree bound identifies a ternary
+operation with a module map $E\to\Delta_{3,*}P$. If $Z$ is
+the union of the three pair diagonals, recollement gives
+$E=H_Z^{2d-1}(F)$. Each pair diagonal has local-cohomology
+amplitude at most $d$, and their common small diagonal has
+amplitude at most $2d$.
+
+For pair diagonals $A,B$, let $S_{AB}\subset E$ be the image
+of $H_{A\cup B}^{2d-1}(F)$. Mayer--Vietoris gives
+$H_{A\cup B}^{2d-1}(F)\simeq H_\Delta^{2d}(F)$ and
+$H_{A\cup B}^{2d}(F)=0$. With $C$ the third pair diagonal,
+the next Mayer--Vietoris sequence is
+\[
+ 0\longrightarrow S_{AB}\longrightarrow E
+             \longrightarrow H_\Delta^{2d}(F)\longrightarrow0.
+\]
+The first map is injective because the preceding map from
+$H_\Delta^{2d-1}(F)$ factors through $H_A^{2d-1}(F)=0$.
+Naturality for $A\subset A\cup B$ identifies the image of
+$S_{AC}$ in the quotient with the connecting isomorphism for
+$A,C$. Hence $S_{AB}+S_{AC}=E$.
+
+An inner operation through $12|3$ is a map
+$j_*j^*(M_1\boxtimes M_2)\to\Delta_*N[1-d]$.
+Its restriction to $M_1\boxtimes M_2$ is a negative Ext class
+between modules and is zero. The composition formula of
+Proposition~\ref{cycuts:prop:operations} therefore makes the ternary
+operation vanish on $S_{AB}$ for $A=\Delta_{13}$ and
+$B=\Delta_{23}$. A factorization through $1|23$ makes it vanish
+on $S_{AC}$ for $C=\Delta_{12}$. Their sum is $E$, proving
+the assertion. Associativity identifies these two factorizations.
+Every binary tree with at least three leaves contains two adjacent
+internal vertices, so all longer composites vanish as well.
+\end{proof}
+
+The hypothesis is a shifted ordinary module on the small diagonals.
+The cut-support complexes and atlas cobars above have larger supports
+and additional cochain degrees. Their multiplication homotopies and
+outer classes occupy precisely the information that this hypothesis
+excludes. The finite positive-word bound places no two-step-nilpotence
+condition on those larger algebras.
+
+\begin{problem}\label{cycuts:prob:field-comparison}
+Construct collision-compatible maps from the oriented Hall
+correspondence coefficients to the operation complexes of an
+independently specified field theory. The maps must preserve the
+coefficient shifts, translations, supported operations and all
+substitutions, including the nonconsecutive collisions. If a word
+model is used, supply its full-overlap exchange datum and compare
+it with the atlas through \eqref{cycuts:eq:bar-map} and
+\eqref{cycuts:eq:cobar-map}, retaining the action of their kernel
+classes. Specify separately the empty-support unit, the local
+vacuum and any prepared state.
+\end{problem}
+
+An order in the collision atlas records branches over coincident
+positions. A comparison with real-time ordered observables additionally
+requires the spacetime operation maps and their support conditions.
+The two geometric dualities, their support theorems and their explicit
+comparison maps provide coefficient constructions for that problem.
+
+\endgroup

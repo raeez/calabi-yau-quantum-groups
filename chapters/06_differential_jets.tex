@@ -1,0 +1,1391 @@
+\chapter{Restricted duals and differential jets}
+\label{cyjets:ch}
+\begingroup
+\def\eps{\epsilon}
+
+For a polynomial $F(x)$, evaluation of its $m$th derivative at zero
+is a coefficient functional. Transposing differentiation sends this
+functional to evaluation of the next derivative. Thus a locally nilpotent
+operation on polynomials becomes an infinite translation orbit on their
+restricted dual. This elementary change of carrier permits a singular
+field to arise from a spectral Hall cooperation.
+
+We first construct that field for the three-loop quiver with zero
+potential. Its contraction is the full inverse Euler factor, including
+an even factor invisible to the exchange ratio. The comparison is an
+identity on polynomial tests, with explicit factorials, translation sign
+and Laurent bounds. The critical Hall coefficients of the preceding
+chapter require a further geometric map.
+
+An infinite current orbit also determines the coefficient category for
+geometric duality. Finite perfect differential modules admit an
+involutive dual, and dualizing a filtered presentation retains an arbitrary
+coefficient as a pro-object. Normal support imposes a further condition:
+it survives additive convolution but can be lost by an ordinary realized
+dual. After proving these statements, we transpose the coproduct of a
+full bar construction. The resulting associative algebra has a transported
+tensor; its realization by independently defined fields is a separate
+comparison.
+
+\section{Derivative evaluation}
+\label{cyjets:sec:pairing}
+
+Let $k$ be a field of characteristic zero. On $k[x]$ define
+\[
+ \delta_m(F)=F^{(m)}(0),\qquad m\geq0.
+\]
+Then $\delta_m(x^n)=m!\,\delta_{mn}$. The vector space spanned by
+the $\delta_m$ is the continuous dual of $k[[x]]$, where $k$ is
+discrete and $k[[x]]$ has its $x$-adic topology. It is smaller than
+the algebraic dual of $k[x]$: a continuous functional depends on
+only finitely many coefficients. If $D=-\partial_x$ and $D^\circ$
+denotes precomposition by $D$, then
+\begin{equation}\label{cyjets:eq:rank-one-transpose}
+ D^\circ\delta_m=-\delta_{m+1}.
+\end{equation}
+Consequently the finite span of $\delta_0,\ldots,\delta_M$ is not
+preserved by $-D^\circ$.
+
+For the Hall example take
+\[
+ k=\Q(a,b),\qquad h=a+b,\qquad
+ R_N=k[\eps]/(\eps^N),\qquad N\geq1.
+\]
+The parameter $\eps$ is nilpotent and is never inverted. In charge
+$d\geq0$, put
+\[
+ A_d=R_N[x_1,\ldots,x_d]^{\mathfrak S_d},\qquad A_0=R_N.
+\]
+Let $A_d[m]$ denote its homogeneous root-degree-$m$ part. Each such
+part is finite free over $R_N$. Its degree completion and restricted
+dual are, respectively,
+\begin{equation}\label{cyjets:eq:restricted-dual}
+ \widehat A_d=\prod_{m\geq0}A_d[m],\qquad
+ A_d^\circ=\bigoplus_{m\geq0}
+                 \Hom_{R_N}(A_d[m],R_N).
+\end{equation}
+The direct sum is the continuous dual of the displayed product,
+with the finite-degree filtration and discrete target $R_N$.
+
+Introduce the polynomial state space
+\[
+ W_N=R_N[J_0,J_1,J_2,\ldots],\qquad
+ W_{N,d}=\operatorname{span}_{R_N}
+       \{J_{m_1}\cdots J_{m_d}:m_i\geq0\}.
+\]
+Thus $W_N=\bigoplus_dW_{N,d}$ and $W_{N,0}=R_N1$.
+Its ordinary polynomial multiplication concatenates the $J$ factors.
+Define a derivation $T$ by $TJ_m=J_{m+1}$ and $T1=0$.
+All these states have cochain degree zero. Pair states with Hall
+polynomials by
+\begin{equation}\label{cyjets:eq:pairing}
+ \langle J_{m_1}\cdots J_{m_d},F\rangle
+ =\left.\partial_{x_1}^{m_1}\cdots\partial_{x_d}^{m_d}F
+                                                    \right|_{x=0}.
+\end{equation}
+Symmetry of $F$ makes this independent of the ordering of the $m_i$.
+
+\begin{proposition}\label{cyjets:prop:pairing}
+The pairing identifies $A_d^\circ$ with $W_{N,d}$. Under this
+identification,
+\[
+ T=-D^\circ,\qquad D=-\sum_{i=1}^d\partial_{x_i}.
+\]
+\end{proposition}
+\begin{proof}
+For a nondecreasing list $\lambda=(\lambda_1,\ldots,\lambda_d)$,
+let $m_\lambda$ be the sum of the distinct monomials obtained by
+permuting the exponents of $x_1^{\lambda_1}\cdots x_d^{\lambda_d}$.
+These form a basis of the symmetric polynomials. In each degree,
+\[
+ \langle J_{\lambda_1}\cdots J_{\lambda_d},m_\mu\rangle
+ =\begin{cases}\prod_i\lambda_i!,&\lambda=\mu,\\0,&\lambda\ne\mu.
+   \end{cases}
+\]
+The factorials are units in $R_N$, proving perfection in that degree
+and the restricted-dual identification. Precomposing the pairing by
+$D$ raises one derivative order at a time, with a minus sign.
+The derivation rule for $T$ gives the asserted identity.
+\end{proof}
+
+Write $\iota_d:A_d^\circ\xrightarrow{\sim}W_{N,d}$ for this
+identification. The generating series
+\begin{equation}\label{cyjets:eq:generating-state}
+ G(u)=\sum_{m\geq0}\frac{u^m}{m!}J_m=e^{uT}J_0
+\end{equation}
+records all finite jets. It is a formal series of states, not an
+additional algebraic state. Taylor's formula gives the useful identity
+\begin{equation}\label{cyjets:eq:taylor-pairing}
+ \left\langle\prod_{i=1}^dG(u_i),F\right\rangle=F(u_1,\ldots,u_d).
+\end{equation}
+Every formula below involving these series defines an operation on
+algebraic states by taking finitely many auxiliary derivatives at zero.
+
+\section{The full Euler factor}
+\label{cyjets:sec:euler}
+
+Consider the three-loop representation space
+$\operatorname{End}(\C^d)^3$, with zero potential and arrow weights
+$\eps a,\eps b,-\eps h$. Its equivariant cohomology, after this
+base change, is $A_d$. This zero-potential coefficient system differs
+from the vanishing-cycle system for $\Tr Z[X,Y]$.
+
+Set $\ell=\eps h$ and define
+\begin{equation}\label{cyjets:eq:kernels}
+ \begin{aligned}
+ K_0(s)&=\frac{(s+\eps a)(s+\eps b)(s-\ell)}s,
+ &E_0(s)&=K_0(s)^{-1},\\
+ E_{\mathrm{pl}}(s)&=\frac{s(s+\ell)}{(s+\eps a)(s+\eps b)},
+ &P(s)&=s^2-\ell^2,\\
+ r(s)&=\frac{E_{\mathrm{pl}}(s)}{E_{\mathrm{pl}}(-s)}.
+ \end{aligned}
+\end{equation}
+Fractions with nilpotent parameters are expanded in $\eps$ after
+inverting the displayed spectral variable. The identity
+\begin{equation}\label{cyjets:eq:even-factor}
+ E_0(s)=\frac{E_{\mathrm{pl}}(s)}{P(s)},\qquad
+ \frac{E_0(s)}{E_0(-s)}=r(s)
+\end{equation}
+separates the contraction from its exchange ratio.
+
+For $F\in A_d$ and $H\in A_e$, the Hall product is
+\begin{equation}\label{cyjets:eq:hall-product}
+ (F*H)(X)=
+ \sum_{\substack{I\sqcup J=[d+e]\\|I|=d}}
+ F(X_I)H(X_J)\prod_{i\in I,\,j\in J}K_0(x_j-x_i).
+\end{equation}
+There is no factorial divisor in this sum: its summands are the
+coordinate flags of the proper invariant-subspace correspondence.
+Its spectral cooperation is
+\begin{equation}\label{cyjets:eq:hall-split}
+ \Delta^0_{d,e}(s)F
+ =\prod_{i=1}^d\prod_{j=1}^eE_0(s+y_j-x_i)F(x-s,y),
+ \qquad F\in A_{d+e}.
+\end{equation}
+Here $x-s$ means $(x_1-s,\ldots,x_d-s)$, and expansion at infinity
+takes values in $(A_d\otimes_{R_N}A_e)((s^{-1}))$.
+
+\begin{proposition}\label{cyjets:prop:hall}
+The Hall product is polynomial and associative. The cooperation is
+rationally coassociative: for blocks $x,y,w$ the two iterates use
+parameters $s,t,s+t$ and evaluate the input at
+$(x-s-t,y-t,w)$. In charge split $(1,1)$,
+\begin{equation}\label{cyjets:eq:charge-two}
+ 1*1=2\bigl((y-x)^2+\eps^2(ab-h^2)\bigr),\qquad
+ \Delta^0_{1,1}(s)1=E_0(s+y-x).
+\end{equation}
+\end{proposition}
+\begin{proof}
+At a coordinate flag, the three moving arrow spaces contribute
+$y-x+\eps a$, $y-x+\eps b$ and $y-x-\ell$; the flag tangent
+space contributes $y-x$ in the denominator. Their Euler ratio is
+$K_0(y-x)$. The proper pushforward exists before localization.
+Algebraically, each possible root-diagonal pole in the shuffle sum
+is simple, and its residues cancel between the flags interchanged
+across that diagonal. The result is therefore polynomial.
+
+Either bracketing of a triple product sums over ordered three-block
+partitions, with one $K_0$ for every ordered cross-block pair. For
+the cooperation, both iterates have the common expression
+\[
+ \prod_{i,j}E_0(s+y_j-x_i)
+ \prod_{i,k}E_0(s+t+w_k-x_i)
+ \prod_{j,k}E_0(t+w_k-y_j)
+ F(x-s-t,y-t,w).
+\]
+These equalities precede the choice of Laurent expansion. Finally,
+$K_0(v)+K_0(-v)$ gives the first formula in
+\eqref{cyjets:eq:charge-two}.
+\end{proof}
+
+Empty blocks give
+\[
+ \Delta^0_{0,d}(s)F=F,\qquad
+ \Delta^0_{d,0}(s)F=F(x-s).
+\]
+Thus one empty-block identity includes translation. The cooperation
+has not been declared an ordinary Hopf coproduct with two unshifted
+counit identities. Nor is the product $*$ the ordinary multiplication
+on $W_N$: the latter merely forms polynomial states.
+
+There is an obstruction to replacing these identities by ordinary
+counital multiplicativity on the same Hall algebra. Put
+\[
+ \alpha=\eps^2(ab-h^2),\qquad \gamma=-\eps^3abh,
+ \qquad e_m=x^m\in A_1.
+\]
+Thus $K_0(v)=v^2+\alpha+\gamma/v$ and $e_0$ is the constant
+in charge one, distinct from the unit in charge zero.
+
+\begin{proposition}\label{cyjets:prop:no-ordinary-coproduct}
+For $N\geq4$, the charge-graded Hall algebra $\bigoplus_dA_d$
+admits no $R_N$-linear, charge-preserving, unital algebra map to
+its ordinary tensor square whose two-sided counit is projection
+onto charge zero. This conclusion does not require coassociativity.
+\end{proposition}
+\begin{proof}
+The shuffle formula gives
+\[
+ [f,g]_* =2\gamma\frac{f(x)g(y)-g(x)f(y)}{y-x}.
+\]
+Consequently
+\begin{equation}\label{cyjets:eq:primitive-obstruction}
+ [e_0,e_3]_* -3[e_1,e_2]_*+\alpha[e_0,e_1]_*
+       =\gamma(e_0*e_0).
+\end{equation}
+Indeed the left side is
+$2\gamma((y-x)^2+\alpha)$, and
+$e_0*e_0=2((y-x)^2+\alpha)$.
+Charge preservation and the two counit identities force every
+$e_m$ to be primitive. Commutators of even primitive elements
+are primitive in the ordinary tensor product. Applying a
+multiplicative coproduct to \eqref{cyjets:eq:primitive-obstruction}
+and taking its charge-$(1,1)$ component therefore gives
+$0=2\gamma e_0\otimes e_0$. This is impossible in the free
+module $A_1\otimes_{R_N}A_1=R_N[x,y]$, since $\gamma\ne0$
+for $N\geq4$.
+\end{proof}
+
+At $N\leq3$ this particular obstruction vanishes. The proposition
+concerns ordinary tensor multiplication and two unshifted counits;
+it leaves the spectral cooperation above, with its translated
+empty-block identity, intact.
+
+Finite precision will be essential to the lower-truncated field target.
+Before nilpotent base change, specialize the arrow weights to $1,1,-2$.
+The exchange is
+\[
+ r(s)=\frac{(s+2)(s-1)^2}{(s-2)(s+1)^2},\qquad
+ \operatorname{Res}_{s=2}r(s)\,ds=\frac49.
+\]
+A finite Laurent polynomial in $s$ has no pole at $s=2$. At precision
+$N$, the shifted denominators instead expand into finitely many
+powers of $s^{-1}$. Dualizing then changes polynomial differentiation
+into the nonnilpotent translation of
+Proposition~\ref{cyjets:prop:pairing}.
+
+\section{Fields on polynomial jets}
+\label{cyjets:sec:fields}
+
+For lists $u=(u_1,\ldots,u_d)$ and $v=(v_1,\ldots,v_e)$ write
+$A_u=\prod_iG(u_i)$ and $B_v=\prod_jG(v_j)$. Define the field
+on their generating series by
+\begin{equation}\label{cyjets:eq:field}
+ Y(A_u,z)B_v=
+ \prod_{i,j}E_0(-z-u_i+v_j)
+ \prod_iG(z+u_i)\prod_jG(v_j).
+\end{equation}
+Expand first in the auxiliary variables and in the nilpotent parameter.
+Finite auxiliary differentiation defines $Y(a,z)b$ for every
+$a,b\in W_N$. Define the exchange operator by the same prescription:
+\begin{equation}\label{cyjets:eq:exchange}
+ \mathcal S(z)(A_u\otimes B_v)=
+ R_{u,v}(z)A_u\otimes B_v,\qquad
+ R_{u,v}(z)=\prod_{i,j}r(z+u_i-v_j).
+\end{equation}
+The notation means coefficient extraction from a generating identity;
+on individual jet monomials the operator generally has several terms.
+
+\begin{theorem}\label{cyjets:thm:fields}
+The fields have local vacuum $1\in W_{N,0}$ and translation $T$:
+\[
+ Y(1,z)=\id,\qquad Y(a,z)1=e^{zT}a,\qquad
+ Y(Ta,z)=\partial_zY(a,z),\qquad [T,Y(a,z)]=\partial_zY(a,z).
+\]
+For inputs of charges $d,e$ and total jet order $M$, their values lie
+in $W_{N,d+e}((z))$, with pole order at most $2de+N-1+M$.
+After pairing with a Hall polynomial, triple products and iterates
+are expansions of one rational function. The exchange is unitary and satisfies the spectral
+Yang--Baxter equation and the block-fusion identities.
+\end{theorem}
+\begin{proof}
+The empty products give the vacuum identities. Differentiation in
+the first auxiliary list agrees with differentiation in $z$.
+Differentiation in both lists annihilates every contraction, since
+it depends on their differences. These two observations prove the
+translation identities after coefficient extraction.
+
+Expand $E_0(q)=\sum_{j=0}^{N-1}c_j\eps^j q^{-2-j}$.
+In a product of $de$ contractions, the baseline pole order is $2de$.
+A nonzero coefficient has total $\eps$-degree at most $N-1$;
+each auxiliary derivative raises the possible pole order by at most
+one. The remaining state factor is a power series in $z$.
+At each fixed power of $z$, finitely many of its terms contribute.
+This proves both the Laurent target and the asserted bound.
+
+For a third list $w$, put $C_w=\prod_kG(w_k)$. The product
+$Y(A_u,z_1)Y(B_v,z_2)C_w$ is the indicated expansion of
+\begin{align*}
+ &\prod_{i,j}E_0(-z_1+z_2-u_i+v_j)
+  \prod_{i,k}E_0(-z_1-u_i+w_k)\\
+ &\hspace{15mm}\cdot\prod_{j,k}E_0(-z_2-v_j+w_k)
+  \prod_iG(z_1+u_i)\prod_jG(z_2+v_j)\prod_kG(w_k).
+\end{align*}
+The iterate $Y(Y(A_u,z_1-z_2)B_v,z_2)C_w$ gives the same
+expression. At fixed auxiliary orders and precision, a finite product
+of powers of $z_1$, $z_2$ and $z_1-z_2$ clears the denominators.
+This proves rational weak associativity in the respective expansion
+regions.
+
+Since $r(q)r(-q)=1$, the exchange is unitary. On three generating
+inputs the pairwise exchange factors commute, proving the
+Yang--Baxter equation. Compatibility with fusion uses the stronger
+identities
+\[
+ R_{u,v\sqcup w}(z)=R_{u,v}(z)R_{u,w}(z),\qquad
+ R_{u\sqcup v,w}(z)=R_{u,w}(z)R_{v,w}(z),
+\]
+together with substitution of the translated auxiliary coordinates
+in a fused block. They follow by partitioning the cross pairs.
+Thus fusion compatibility follows directly from the block formula,
+in addition to the Yang--Baxter identity.
+\end{proof}
+
+Our exchange convention can be checked without terminology. If
+$Y_z(a\otimes b)=Y(a,z)b$, then
+\begin{equation}\label{cyjets:eq:skew}
+ Y_z\mathcal S(z)(A_u\otimes B_v)
+       =e^{zT}Y(B_v,-z)A_u.
+\end{equation}
+Indeed the contraction on the left is
+$R_{u,v}(z)\prod E_0(-z-u_i+v_j)=\prod E_0(z+u_i-v_j)$,
+and the translated states on both sides agree.
+
+Modulo $\eps^4$, the first coefficients are
+\begin{equation}\label{cyjets:eq:cubic}
+ \begin{aligned}
+ E_0(-z)&=z^{-2}+(h^2-ab)\eps^2z^{-4}-abh\eps^3z^{-5},\\
+ r(z)&=1+2abh\eps^3z^{-3}.
+ \end{aligned}
+\end{equation}
+They follow by inverting
+$K_0(s)=s^2+\eps^2(ab-h^2)-\eps^3abh/s$.
+The even factor $P^{-1}$ changes the leading contraction from $1$
+to $z^{-2}$ while leaving the exchange ratio fixed. Exchange data
+alone therefore do not determine the field.
+
+\begin{theorem}[The restricted transpose]\label{cyjets:thm:transpose}
+For finite-jet functionals $\alpha\in A_d^\circ$ and
+$\beta\in A_e^\circ$,
+\begin{equation}\label{cyjets:eq:transpose}
+ Y(\iota_d\alpha,z)\iota_e\beta
+ =\iota_{d+e}\bigl((\Delta^0_{d,e}(-z))^\circ
+                                    (\alpha\otimes\beta)\bigr).
+\end{equation}
+The right side is defined coefficientwise on polynomial tests and
+belongs to $W_{N,d+e}((z))$. Its exchange is the transpose of the
+inverse Hall multiplier at the reflected coordinate $-z$.
+\end{theorem}
+\begin{proof}
+Pair \eqref{cyjets:eq:field} with $F\in A_{d+e}$. Equation
+\eqref{cyjets:eq:taylor-pairing} gives
+\[
+ \prod_{i,j}E_0(-z-u_i+v_j)F(z+u_1,\ldots,z+u_d,v_1,\ldots,v_e).
+\]
+This is precisely \eqref{cyjets:eq:hall-split} at $s=-z$,
+evaluated on $x=u,y=v$. Finite auxiliary differentiation proves
+the equality. A fixed Laurent coefficient uses finitely many
+derivatives of $F$, so it is in the restricted dual; the theorem's
+lower bound is supplied by Theorem~\ref{cyjets:thm:fields}.
+Finally the Hall multiplier is $\prod r(s+y_j-x_i)$, whose inverse
+at $s=-z$ is $\prod r(z+x_i-y_j)$ by unitarity. This is
+\eqref{cyjets:eq:exchange} under the derivative pairing.
+\end{proof}
+
+Give roots and $\eps$ degree two and $a,b$ degree zero. A root-degree
+$m$ Hall polynomial in charge $d$ has shifted degree $2m-2d^2$.
+Its restricted dual state has degree $2d^2-2m$. With $\deg z=2$
+and $\deg T=-2$, the field comparison is homogeneous. Ordinary
+polynomial multiplication on $W_N$ does not have degree zero for
+this charge-dependent shift. This grading is separate from the
+cochain grading, which remains zero.
+
+The completions also have distinct meanings. For charge-completed
+states the field target is
+\[
+ \prod_{d\geq0}W_{N,d}((z));
+\]
+at a fixed total charge only finitely many input charge splittings
+contribute. No uniform pole bound over all charges is imposed.
+For a formal parameter retain the compatible system
+$\varprojlim_NW_N((z))$, with a bound at each precision.
+The cooperation on polynomials has not been extended to every
+root-adic series: translation by the nonnilpotent variable $s$
+does not preserve the root-adic topology. Its coefficientwise
+restricted transpose is the map proved above.
+
+\section{Moving the centre of evaluation}
+\label{cyjets:sec:moving}
+
+Extend coefficients to $R=R_N[a_{\mathrm{fr}},\beta]$ and put
+$\lambda=a_{\mathrm{fr}}+\eps b$. Here $a_{\mathrm{fr}}$ is the
+moving centre parameter; $\beta$ scales its derivative. The connection
+on charge-$d$ polynomials is
+\begin{equation}\label{cyjets:eq:connection}
+ \nabla_d=\beta\left(\partial_{a_{\mathrm{fr}}}
+                              +\sum_i\partial_{x_i}\right).
+\end{equation}
+It obeys the Leibniz rule over the coefficient derivation
+$\beta\partial_{a_{\mathrm{fr}}}$. On a tensor product over $R$,
+that coefficient derivative occurs once, while every root derivative
+occurs once.
+
+\begin{proposition}\label{cyjets:prop:moving}
+The Hall product and cooperation are horizontal for this connection.
+The finite derivative evaluations at $x_i=\lambda$, indexed by
+nondecreasing derivative orders, form a horizontal basis of the
+continuous dual of the completion along that centre.
+Their identification with $W_{N,d}\otimes_{R_N}R$ makes the field
+transpose horizontal.
+\end{proposition}
+\begin{proof}
+Every Euler factor depends on root differences, so the sum of its
+root derivatives is zero. Translation of one root block by $s$
+commutes with simultaneous root differentiation. This proves the
+first assertion, including the flag sum in the product.
+
+For $\xi_i=x_i-\lambda$, one has $\nabla_d\xi_i=0$.
+The completion in the $\xi_i$ is therefore preserved. If
+\[
+ v_{\mathbf m,\lambda}(F)=
+ \left.\partial_{x_1}^{m_1}\cdots\partial_{x_d}^{m_d}F
+                                                    \right|_{x_i=\lambda},
+\]
+the chain rule gives
+\[
+ \beta\partial_{a_{\mathrm{fr}}}
+       \langle v_{\mathbf m,\lambda},F\rangle
+       =\langle v_{\mathbf m,\lambda},\nabla_dF\rangle.
+\]
+This is horizontality for the dual connection. The assignment
+$v_{\mathbf m,\lambda}\mapsto\prod_iJ_{m_i}$ reduces the transpose
+proof to evaluation of $F$ at $(\lambda+z+u,\lambda+v)$.
+The contraction factors are unchanged.
+\end{proof}
+
+For the test $F(x)=x$, both sides of the displayed chain rule equal
+$\beta$. This test detects omission of the coefficient derivative.
+The moving-centre identification uses new evaluation functionals.
+When $\lambda$ is nonnilpotent, the expression $e^{\lambda T}J_0$
+is an infinite series and does not give an algebraic vector in $W_N$.
+It cannot be substituted for that change of coefficient completion.
+
+\section{Why a singular current needs an infinite orbit}
+\label{cyjets:sec:orbits}
+
+The jet states above have independent translates. A pole forces this
+phenomenon in every translation-equivariant field system over a field
+of characteristic zero, regardless of its Hall origin.
+
+\begin{lemma}\label{cyjets:lem:orbit}
+Let $V$ be a $k$-vector space with fields $Y(a,z)b\in V((z))$ satisfying
+$Y(Ta,z)b=\partial_zY(a,z)b$. If $Y(a,z)b$ has a nonzero
+negative-power term, the states $a,Ta,T^2a,\ldots$ are linearly
+independent.
+\end{lemma}
+\begin{proof}
+Write the lowest term of $Y(a,z)b$ as $v z^{-p}$ with $p>0$
+and $v\ne0$. Suppose $\sum_{j=0}^m c_jT^ja=0$ with $c_m\ne0$.
+Applying its field to $b$ gives a constant-coefficient differential
+equation. Its lowest power is $z^{-p-m}$, with coefficient
+\[
+ c_m(-p)(-p-1)\cdots(-p-m+1)v\ne0.
+\]
+The other derivatives have larger lowest powers, a contradiction.
+\end{proof}
+
+Over $R_N$, the same conclusion holds for a flat state module when
+the pole remains nonzero modulo $\eps$. For a finite relation, take
+the least $\eps$-adic order of its coefficients. Flatness identifies
+the corresponding associated-graded piece with the reduction modulo
+$\eps$, where the lemma applies. The hypothesis on the reduced pole
+is necessary: over $k[\eps]/(\eps^2)$ the state $\eps a$ is
+annihilated by $\eps$, even if its field has a nonzero polar term.
+
+Lower truncation must also be interpreted separately for each second
+input. For the level-one Heisenberg module put
+\[
+ V=k[q_1,q_2,\ldots],\qquad
+ a_{-n}=q_n,\quad a_n=n\partial_{q_n}\ (n>0),\quad a_0=0,
+ \qquad J=q_1.
+\]
+The field is $Y(J,z)=\sum_{n\in\Z}a_nz^{-n-1}$ and the vacuum
+is $1$. Translation on states is the derivation
+$Tq_n=nq_{n+1}$. In particular,
+\begin{equation}\label{cyjets:eq:unbounded-poles}
+ T^rJ=r!q_{r+1},\qquad
+ a_{r+1}T^rJ=(r+1)!1.
+\end{equation}
+The fixed field $Y(J,z)$ therefore has no lower Laurent bound
+uniform over its inputs. Its correct target is
+$\Hom_k(V,V((z)))$; writing it as an element of the literal space
+$\End_k(V)((z))$ would impose a uniform bound. Every polynomial
+input still has a finite lower bound.
+
+Scalar completion introduces a second failure of uniformity, now
+for one fixed pair of completed inputs. Extend this Heisenberg module
+to $V[[\eps]]$ and consider the state
+\[
+ a(\eps)=\sum_{n\geq0}\frac{(-\eps)^n}{(n+1)!}T^nJ.
+\]
+Its vacuum-valued contraction with $J$ is
+\begin{equation}\label{cyjets:eq:completed-poles}
+ [1]Y(a(\eps),z)J=\sum_{n\geq0}\eps^n z^{-n-2},
+\end{equation}
+where $[1]$ extracts the constant polynomial state. To obtain this
+formula, differentiate the contraction $z^{-2}$ exactly $n$ times:
+$\partial_z^nz^{-2}=(-1)^n(n+1)!z^{-n-2}$.
+The resulting series has no finite lower bound in $z$, although
+its reduction modulo every $\eps^r$ does.
+
+For an $\eps$-adically complete module $M$, the appropriate recipient is
+\begin{equation}\label{cyjets:eq:restricted-laurent}
+ \mathcal L_\eps(M)=\varprojlim_r(M/\eps^rM)((z)).
+\end{equation}
+Equivalently, it consists of series $\sum_{j\in\Z}m_jz^j$ such
+that for each $r$ all sufficiently negative $j$ satisfy
+$m_j\in\eps^rM$. A compatible family of finite-precision Laurent
+series determines its coefficients in $M$ and has exactly this
+property, proving the equivalence. Equation
+\eqref{cyjets:eq:completed-poles} belongs to this recipient, whereas
+it does not belong to $V[[\eps]]((z))$. Completion of the states
+therefore requires completion of the Laurent recipient as well.
+
+\subsection{A quotient and its dual have opposite directions}
+
+A finite Hamiltonian quotient gives another useful test of what a
+jet truncation preserves. Let $\mathfrak m=(x,y)\subset k[[x,y]]$
+and give $\mathfrak g=\mathfrak m^2$ the Poisson bracket
+$\{x,y\}=1$. For $d\geq2$, the subspace
+$\mathfrak m^{d+1}$ is a Lie ideal in $\mathfrak g$; hence
+$\mathfrak g_d=\mathfrak m^2/\mathfrak m^{d+1}$ is a finite
+Lie algebra. Let $\rho_{ab}$ extract the coefficient of $x^ay^b$,
+where $a,b\geq0$ and $a+b\geq2$. These span the continuous dual
+$\mathfrak g^\circ$.
+
+The coadjoint action is defined by
+$(f\cdot\rho)(g)=-\rho(\{f,g\})$. It gives
+\begin{equation}\label{cyjets:eq:coadjoint}
+ x^iy^j\cdot\rho_{ab}
+ =\bigl(j(a+1)-i(b+1)\bigr)\rho_{a-i+1,b-j+1},
+\end{equation}
+with the result zero when the indicated functional is outside
+$\mathfrak g^\circ$. To verify the coefficient, pair with $x^py^q$:
+the only possible indices are $p=a-i+1$, $q=b-j+1$, and the
+coadjoint sign changes $iq-jp$ to the displayed number.
+
+Each shifted cotangent Lie algebra
+$\mathfrak g_d\ltimes\mathfrak g_d^\vee[-1]$ is well defined.
+However, simultaneous projection of both factors by total degree
+need not give its transition maps. Already
+\begin{equation}\label{cyjets:eq:cotangent-witness}
+ x^3\cdot\rho_{21}=-6\rho_{02}.
+\end{equation}
+Projection to degree at most two kills both inputs and preserves
+the nonzero output. It is therefore not a Lie map on the cotangent
+algebra. The quotient $\mathfrak g\to\mathfrak g_2$ instead
+dualizes to an inclusion $\mathfrak g_2^\vee\to\mathfrak g^\circ$.
+A compatible family of cotangent theories must supply maps with
+their actual variance; it cannot use the simultaneous projection.
+
+\section{Perfect differential modules and their pro-duals}
+\label{cyjets:sec:perfect}
+
+Let $X=\mathbb A^1_k$ with coordinate $u$ and differential-operator
+algebra
+\[
+ D=k\langle u,\partial\rangle/(\partial u-u\partial-1).
+\]
+A state space $(V,T)$ defines a right differential module
+$\omega_X\otimes_kV$ by multiplication by functions and
+\begin{equation}\label{cyjets:eq:right-current}
+ (f\,du\otimes v)\partial
+       =-f'\,du\otimes v-f\,du\otimes Tv.
+\end{equation}
+This formula satisfies the Weyl relation. If $k[T]a$ is a free
+translation orbit, the right module $\omega_X\otimes k[T]a$
+is free of rank one over $D$: the generator $du\otimes a$
+sends $\partial^m$ to $(-1)^mdu\otimes T^ma$. The formula
+with polynomial coefficients is triangular in the derivative order,
+so it gives an isomorphism. Its characteristic variety is the full
+two-dimensional cotangent bundle. In particular it is not holonomic,
+which on a curve would require characteristic dimension one.
+
+The finite object appropriate to such a coefficient is therefore
+a finite complex of free differential modules, rather than a finite
+span of current modes. Let $X$ now be a smooth affine coordinate
+chart of dimension $n$, and let $D_X=\Gamma(X,\mathcal D_X)$.
+A perfect right $D_X$-module is a retract of a finite complex of
+finite free right modules. Denote their stable category by
+$\Perf_r(D_X)$. All module categories in this section are derived
+categories with their mapping spaces, so homotopies are retained.
+
+A coordinate volume form converts left differential modules to right
+ones. The formal transpose is the anti-involution
+\[
+ t(f)=f,\qquad t(\partial_i)=-\partial_i,\qquad
+ t(PQ)=t(Q)t(P).
+\]
+For $P\in\Perf_r(D_X)$ define
+\begin{equation}\label{cyjets:eq:dagger}
+ P^\dagger=\bigl(\RHom_{D_X}(P,D_X)\bigr)^t[n].
+\end{equation}
+The superscript converts the left module into a right module; the
+shift is the dimension normalization. Intrinsically the canonical
+line supplies the left--right conversion.
+
+\begin{lemma}\label{cyjets:lem:perfect}
+The functor $(-)^\dagger$ is an involutive anti-equivalence on
+$\Perf_r(D_X)$. It commutes with open restriction and with external
+products on products of smooth charts.
+\end{lemma}
+\begin{proof}
+Evaluation is an isomorphism from a finite projective module to
+its double $D_X$-dual. Finite complexes and retracts preserve it.
+Duality reverses a cochain shift, so the two shifts by $n$ cancel
+in the double dual. Localization gives the open-restriction identity.
+For an external product, evaluation gives the comparison on free
+modules over the two operator algebras, and finite cones and retracts
+extend it to perfect modules. The dimensions add. Canonical-line
+conversion makes these comparisons agree on intersections of charts.
+\end{proof}
+
+For an associative ring, compact objects in its derived module
+category are exactly the perfect modules, and every module is a
+filtered colimit of perfect modules
+\cite{LurieHA}*{Proposition 7.2.4.2}. The perfect left--right
+duality is also expressed in \cite{LurieHA}*{Proposition 7.2.4.7}.
+No holonomicity condition occurs in these statements. Thus write
+\[
+ M\simeq\varinjlim_\alpha P_\alpha.
+\]
+The maps in this presentation need not be inclusions of submodules.
+Dualize the presentation as a diagram:
+\begin{equation}\label{cyjets:eq:sharp}
+ M^\sharp=\{P_\alpha^\dagger\}_\alpha
+             \in\operatorname{Pro}\Perf_r(D_X).
+\end{equation}
+For a pro-perfect diagram $Q=\{Q_\beta\}$ set
+$\mathcal UQ=\varinjlim_\beta Q_\beta^\dagger$.
+
+\begin{theorem}[Full coefficient duality]\label{cyjets:thm:pro}
+These constructions give inverse anti-equivalences
+\begin{equation}\label{cyjets:eq:pro-equivalence}
+ \Mod_r(D_X)^{\op}\simeq\operatorname{Pro}\Perf_r(D_X).
+\end{equation}
+In particular $M^\sharp$ is independent of the chosen perfect
+presentation.
+\end{theorem}
+\begin{proof}
+Let $M=\varinjlim_\alpha P_\alpha$ and
+$N=\varinjlim_\beta Q_\beta$. The pro-category mapping formula,
+perfect biduality and compactness give
+\begin{align*}
+ \Map_{\operatorname{Pro}}(N^\sharp,M^\sharp)
+ &\simeq\varprojlim_\alpha\varinjlim_\beta
+                   \Map(Q_\beta^\dagger,P_\alpha^\dagger)\\
+ &\simeq\varprojlim_\alpha\varinjlim_\beta
+                   \Map(P_\alpha,Q_\beta)\\
+ &\simeq\Map(M,N).
+\end{align*}
+The equivalence respects composition. It proves full faithfulness
+and makes the presentation immaterial. Conversely, the same formula
+identifies any $\{Q_\beta\}$ with
+$(\varinjlim_\beta Q_\beta^\dagger)^\sharp$. Evaluation supplies
+both inverse comparisons and their naturality.
+\end{proof}
+
+\subsection{The diagram cannot be replaced by its limit}
+
+On the affine line, the localized free right module has the perfect
+presentation
+\begin{equation}\label{cyjets:eq:localization}
+ D[u^{-1}]=\varinjlim
+       \bigl(D\xrightarrow{L_u}D\xrightarrow{L_u}D\longrightarrow\cdots\bigr),
+\end{equation}
+where $L_u$ is left multiplication by $u$. The stage-$m$ map
+sends $a$ to $u^{-m}a$. Normal form in powers of $\partial$
+shows that these images exhaust the localization. Its dual is
+\begin{equation}\label{cyjets:eq:dual-tower}
+ D[u^{-1}]^\sharp=
+       \{\cdots\xrightarrow{L_u}D[1]\xrightarrow{L_u}D[1]\}.
+\end{equation}
+Indeed precomposition by $L_u$ sends a left-module value $b$ to
+$bu$, and transpose converts this to $L_u$ on a right module.
+Every transition to a fixed stage is a nonzero power of $L_u$.
+The pro-object is therefore nonzero.
+
+Its underived inverse limit is zero. The first component of a
+compatible sequence belongs to $\bigcap_m u^mD=0$, since each
+coefficient in its finite normal form would be divisible by every
+power of $u$. The same argument applies at every stage. This
+calculation does not assert vanishing of a derived inverse limit.
+
+The vacuum coefficient has a different dual. The right-module
+resolution
+\[
+ 0\longrightarrow D\xrightarrow{L_\partial}D
+                  \longrightarrow\omega_X\longrightarrow0
+\]
+and \eqref{cyjets:eq:dagger} give
+$\omega_X^\dagger\simeq\omega_X$, whereas $D^\dagger=D[1]$.
+The same category therefore contains the vacuum and the free
+current, with different resolutions and shifts.
+
+\subsection{Finite perfect pieces of the polynomial current}
+
+Return to $P=k[J_0,J_1,\ldots]$ with $TJ_m=J_{m+1}$, and give
+$J_m$ weight $m+1$. Each weight space is finite-dimensional.
+The derivation $T$ is injective on the positive-weight part $P_+$.
+To see this, take a nonconstant polynomial whose highest occurring
+variable is $J_M$. The coefficient of $J_{M+1}$ in its derivative
+is $\partial F/\partial J_M\ne0$.
+
+Choose a complement $Q_w$ to $T(P_+\cap P_{w-1})$ in $P_w$,
+and put $Q=\bigoplus_{w>0}Q_w$. Induction on weight, using
+injectivity, gives
+\begin{equation}\label{cyjets:eq:free-current-presentation}
+ P=k1\oplus k[T]\otimes_kQ.
+\end{equation}
+For example the Hilbert series of $Q$ is
+\[
+ \sum_{w>0}\dim(Q_w)t^w
+   =(1-t)\left(\prod_{n\geq1}(1-t^n)^{-1}-1\right).
+\]
+Consequently the current module of $P$ is a filtered union of
+$\omega_X$ and finite sums of free copies of $D$, one for each
+chosen finite set of homogeneous basis elements of $Q$.
+Every such piece retains the entire translation orbit of each
+generator. The finite presentation is by differential modules,
+not by a cutoff on the energy or derivative order.
+
+\section{Derived normal support}
+\label{cyjets:sec:normal-support}
+
+The pro-dual retains the full coefficient. A collision also singles out
+the coefficients supported where a normal coordinate vanishes. This
+support condition must be checked after derived scalar reduction:
+ordinary reduction can omit torsion cohomology. We examine it on one
+normal line, where both reconstruction and convolution are explicit.
+
+In this section put $R=k[[\eps]]$, $R_r=R/(\eps^r)$, and
+\[
+ D_R=R\langle u,\partial\rangle/(\partial u-u\partial-1).
+\]
+The formal scalar $\eps$ has cochain degree zero and is independent
+of the normal coordinate $u$.
+For a complex $M$ with an $R$-action write
+\[
+ M_r=M\otimes_R^{\mathbb L}R_r,\qquad
+ \Lambda M=R\!\varprojlim_r M_r.
+\]
+Call $M$ complete when $M\to\Lambda M$ is an equivalence.
+Restriction $M[u^{-1}]$ uses flat localization of the underlying
+$R[u]$-module and its induced differential action. It does not treat
+$u$ as central in the Weyl algebra.
+
+Let $\mathcal G_\eps$ be the derived category of complete scalar
+$R$-complexes. Let $\mathcal C_\eps$ be the full category of complete
+right $D_R$-complexes satisfying
+\begin{equation}\label{cyjets:eq:derived-support}
+ M_r[u^{-1}]\simeq0\qquad\text{for every }r\geq1.
+\end{equation}
+This is the derived adic normal support condition. It imposes no
+boundedness or scalar-flatness assumption. The condition at $r=1$
+already suffices: it says that multiplication by $\eps$ is an
+equivalence on $M[u^{-1}]$, and hence that all its derived reductions
+vanish. For an $R$-flat module the condition becomes
+\[
+ \text{for every }m\in M\text{ and }r\geq1\text{ there is }n
+       \text{ with }mu^n\in\eps^rM.
+\]
+Without flatness, this elementwise condition controls only the
+ordinary quotients and is not the definition in
+\eqref{cyjets:eq:derived-support}.
+
+The basic supported right module is the principal-parts module
+\begin{equation}\label{cyjets:eq:normal-parts}
+ P=R[u,u^{-1}]/R[u]=\bigoplus_{m\geq0}R\beta_m,
+ \qquad \beta_m=[u^{-m-1}].
+\end{equation}
+Right differentiation is minus ordinary differentiation. Thus
+\[
+ \beta_0u=0,\qquad \beta_mu=\beta_{m-1}\ (m>0),\qquad
+ \beta_m\partial=(m+1)\beta_{m+1}.
+\]
+The map $1\mapsto\beta_0$ identifies $P=D_R/uD_R$ and gives
+the resolution
+\begin{equation}\label{cyjets:eq:normal-resolution}
+ 0\longrightarrow D_R\xrightarrow{L_u}D_R
+                       \longrightarrow P\longrightarrow0.
+\end{equation}
+Ordered Weyl monomials prove injectivity of $L_u$.
+
+\begin{theorem}[Normal reconstruction]\label{cyjets:thm:normal}
+The functors
+\[
+ I(E)=\Lambda(P\otimes_R^{\mathbb L}E),\qquad
+ K(M)=\RHom_{D_R}(P,M)
+\]
+give inverse equivalences
+$I:\mathcal G_\eps\simeq\mathcal C_\eps:K$.
+For a right differential module complex,
+\begin{equation}\label{cyjets:eq:normal-ground}
+ K(M)=[M\xrightarrow{\,u\,}M]_{[0,1]}.
+\end{equation}
+The last display is a complex of scalar modules; right multiplication
+by $u$ need not be a differential-module map.
+\end{theorem}
+\begin{proof}
+First work over any commutative $k$-algebra $B$, with the analogous
+Weyl algebra $D_B$ and $P_B=B[u,u^{-1}]/B[u]$. If a right
+$D_B$-module $V$ is supported at $u=0$, multiplication by $u$
+is locally nilpotent. For $v\in V$ the finite sum
+\[
+ \pi(v)=\sum_{j\geq0}\frac{(-1)^j}{j!}(vu^j)\partial^j
+\]
+belongs to $\ker u$. Indeed
+$\partial^ju=u\partial^j+j\partial^{j-1}$ makes consecutive
+terms of $\pi(v)u$ cancel. The same binomial cancellation gives
+\[
+ v=\sum_{m\geq0}\frac{\pi(vu^m)\partial^m}{m!}.
+\]
+Consequently
+\begin{equation}\label{cyjets:eq:normal-evaluation}
+ P_B\otimes_B\ker u\xrightarrow{\sim}V,
+ \qquad \beta_m\otimes e\longmapsto e\partial^m/m!.
+\end{equation}
+Surjectivity follows from the preceding identity. In a finite
+relation, applying the largest occurring power of $u$ extracts
+the highest coefficient, proving injectivity. This also proves
+that $u:V\to V$ is surjective.
+
+Resolution \eqref{cyjets:eq:normal-resolution} gives
+\eqref{cyjets:eq:normal-ground}. For a complex with supported
+cohomology, its long exact sequence therefore identifies
+$H^qK(V)$ with $\ker(u:H^qV\to H^qV)$. Since $P_B$ is
+$B$-free, \eqref{cyjets:eq:normal-evaluation} proves that the
+adjunction counit $P_B\otimes_B^{\mathbb L}K(V)\to V$ is
+an equivalence in every degree. The unit is an equivalence because
+$u:P_B\to P_B$ is a split surjection with kernel $B\beta_0$.
+No truncation of the complex was used.
+
+Derived completion preserves every derived reduction:
+$(\Lambda X)_r\simeq X_r$. To check this, tensor the defining
+limit with the perfect $R$-complex $R_r$. For $n\geq r$ the
+resulting tower has a constant copy of $X_r$ and a shifted copy
+whose transitions multiply by $\eps$. Any $r$ successive
+transitions on the latter copy vanish, so its homotopy limit is
+zero. Completion is the reflection onto complete complexes: its
+kernel consists of complexes on which $\eps$ is invertible,
+and maps from such a complex to a complete one vanish.
+
+The finite free resolution of $P$ shows that $K$ commutes with
+reduction and completion. Tensor--Hom adjunction and the reflection
+just described therefore give $I\dashv K$ on complete objects.
+Its unit and counit reduce to the equivalences over $B=R_r$
+proved above. Complete objects are limits of their reductions,
+so these maps are equivalences over $R$ as well.
+\end{proof}
+
+\subsection{Additive convolution}
+
+There is a geometric tensor preserving this support. For addition
+$a:\mathbb A_x^1\times\mathbb A_y^1\to\mathbb A_t^1$,
+$t=x+y$, let $a_+$ denote right differential-module direct image,
+computed here by the relative right de Rham complex. Define
+\[
+ M*_+N=\Lambda a_+(M\boxtimes_R^{\mathbb L}N),\qquad
+ E\widehat\otimes_R F=\Lambda(E\otimes_R^{\mathbb L}F).
+\]
+
+\begin{proposition}\label{cyjets:prop:normal-convolution}
+There are natural coherent equivalences
+\[
+ I(E)*_+I(F)\simeq I(E\widehat\otimes_R F).
+\]
+They make normal reconstruction symmetric monoidal, with convolution
+unit $\widehat P=I(R)$. Relative convolution over an algebra $I(B)$
+is given by
+\begin{equation}\label{cyjets:eq:normal-relative}
+ I(E)*_{I(B)}^{\mathbb L}I(F)
+       \simeq I\bigl(\Lambda(E\otimes_B^{\mathbb L}F)\bigr)
+\end{equation}
+for right and left $B$-modules $E,F$ in complete scalar complexes.
+\end{proposition}
+\begin{proof}
+At precision $r$, change coordinates to $t=x+y$, $s=y$.
+Since $\partial_x=\partial_t$ and
+$\partial_y=\partial_t+\partial_s$, divided derivatives give
+\[
+ \beta_i(x)\beta_j(y)\longmapsto
+ \sum_{q=0}^j\binom{i+q}{q}\beta_{i+q}(t)\beta_{j-q}(s).
+\]
+The relative de Rham complex
+$[P_s\xrightarrow{\partial_s}P_s]_{[-1,0]}$ has injective
+differential and cokernel $R_r\beta_0$. Thus direct image retains
+the $q=j$ term:
+\begin{equation}\label{cyjets:eq:normal-binomial}
+ \beta_i\beta_j\longmapsto\binom{i+j}{i}\beta_{i+j}.
+\end{equation}
+There is no cohomological shift. This split computation remains
+valid after tensoring with any scalar complexes. Associativity
+on three modes is
+\[
+ \binom{i+j}{i}\binom{i+j+k}{i+j}
+ =\frac{(i+j+k)!}{i!j!k!}
+ =\binom{j+k}{j}\binom{i+j+k}{i}.
+\]
+The coherent comparisons come from iterated addition and relative
+de Rham direct image. Passing through all derived reductions proves
+the completed assertion. The two-sided bar for relative convolution
+has terms $E\widehat\otimes B^{\widehat\otimes n}
+\widehat\otimes F$; its realization gives
+\eqref{cyjets:eq:normal-relative}.
+\end{proof}
+
+This convolution retains the normal coordinate. Balanced tensor over
+the Weyl algebra gives a different output. With formal transpose
+$u\mapsto u$, $\partial\mapsto-\partial$, the same resolution gives
+\[
+ \RHom_{D_R}(P,P)\simeq R,\qquad
+ P\otimes_{D_R}^{\mathbb L}P^t\simeq R[1].
+\]
+The lowering operator is surjective with kernel $R\beta_0$.
+Its Hom complex has degrees $0,1$, while its tensor complex has
+degrees $-1,0$. These calculations explain both the shift and the
+scalar output of the balanced tensor. Identifying additive convolution
+with a collision convolution requires a comparison of their actual
+correspondences and units.
+
+Derived support is stable under the relative operation even when
+scalar flatness is lost. For example, let $B=\widehat{R[t]}$ be
+the $\eps$-adic completion, and give $E_0=R$ and $E_\eps=R$
+the actions $t=0$ and $t=\eps$. The exact free resolution of
+$E_0$ by multiplication by $t$ gives
+\[
+ E_0\otimes_B^{\mathbb L}E_\eps
+       =[R\xrightarrow{\eps}R]_{[-1,0]}\simeq k.
+\]
+Both inputs are scalar-flat; the output is complete and nonflat.
+Its derived reduction has a copy of $k$ in each of degrees $-1,0$.
+Applying $I$ retains normal support in both degrees.
+
+Scalar perfection alone is also not stable under arbitrary relative
+tensor products. For $B=R[\eta]/(\eta^2)$ and the augmentation
+module $R$, the resolution with every negative differential equal
+to multiplication by $\eta$ gives
+\[
+ H^{-n}(R\otimes_B^{\mathbb L}R)=R\qquad(n\geq0).
+\]
+Both scalar inputs are perfect, but their relative tensor is not.
+Perfection of the right module over $B$, together with perfection
+of the left module over $R$, is a sufficient stronger hypothesis:
+a finite $B$-cell presentation then tensors to a finite $R$-cell
+presentation.
+
+\subsection{Limits and ordinary realized duals}
+
+Normal reconstruction describes the supported limits intrinsically:
+\[
+ \varprojlim_{\mathcal C_\eps}M_i
+       \simeq I\left(\varprojlim_iK(M_i)\right).
+\]
+They need not agree with limits in all complete differential modules.
+Indeed
+\[
+ \widehat P=\left\{\sum_{m\geq0}a_m\beta_m:
+       a_m\in R,\ a_m\longrightarrow0\text{ adically}\right\}
+\]
+is flat, complete and derived-supported. Its ambient countable product
+$W=\prod_{i\geq0}\widehat P$ is flat and complete, with
+$W_1=\prod_iP_1$. The element
+\begin{equation}\label{cyjets:eq:diagonal-product}
+ e=(\beta_0,\beta_1,\beta_2,\ldots)\in W_1
+\end{equation}
+is killed by no power of $u$: the $n$th coordinate of $eu^n$
+is $\beta_0\ne0$. Hence $W_1[u^{-1}]\ne0$ and
+$W\notin\mathcal C_\eps$.
+
+In matrix coordinates $a_{i,m}$, the supported product
+$I(\prod_iR)$ consists of those elements of $W$ satisfying
+\[
+ \text{for each }r\text{ there is }M_r\text{ such that }
+ a_{i,m}\in\eps^rR\quad\text{for every }i\text{ and }m\geq M_r.
+\]
+The ambient product imposes the bound separately in each row.
+The diagonal element \eqref{cyjets:eq:diagonal-product} distinguishes
+the two. This is a failure of normal support, even though the tower
+of finite products has split surjective transitions.
+
+The same example obstructs an ordinary realized coefficient dual.
+Put $\widehat D_R=\Lambda D_R$ and define
+\[
+ \mathbb D_\eps(M)=\RHom_{D_R}(M,\widehat D_R)^t[1].
+\]
+This takes values in ordinary complete differential-module complexes.
+Dualizing \eqref{cyjets:eq:normal-resolution} yields an injective
+right-multiplication map $R_u$ on $\widehat D_R$, now regarded as
+a left module. Ordered monomials $\partial^ju^i$ identify its
+cokernel with the completed left delta module. Thus
+\[
+ \RHom_{D_R}(P,\widehat D_R)\simeq\widehat P^{\,t}[-1].
+\]
+For the flat, complete, supported module
+\[
+ M=\Lambda\left(\bigoplus_{i\geq0}P\right)
+\]
+the reflection property of completion and mapping out of a direct
+sum now give
+\begin{equation}\label{cyjets:eq:ordinary-dual-failure}
+ \mathbb D_\eps(M)\simeq\prod_{i\geq0}\widehat P=W
+                       \notin\mathcal C_\eps.
+\end{equation}
+For a perfect scalar ground $E$, finite evaluation instead gives
+\[
+ \mathbb D_\eps(I(E))\simeq I(\RHom_R(E,R)).
+\]
+This is a sufficient domain for ordinary supported duality. The
+relative-tensor example above shows why scalar perfection alone
+does not make that domain stable under every relative fusion.
+The perfect-presentation argument of Theorem~\ref{cyjets:thm:pro}
+also applies to $D_R$. It retains a diagram. The failure in
+\eqref{cyjets:eq:ordinary-dual-failure} concerns the ordinarily realized dual.
+
+\section{Transposing the full bar coalgebra}
+\label{cyjets:sec:bar}
+
+Coefficient duality reverses maps. It becomes a comparison of
+operations only after the tensor and geometric functors on the
+dual coefficients have been specified. On a smooth scheme use
+the affine construction above and open descent to define
+$\Dcal^\sharp(X)$. The canonical-line identifications agree on
+overlaps, and taking opposite categories preserves the descent
+limit. Thus the derived category $\Dcal(X)$ of right differential
+modules satisfies
+$\Dcal(X)^{\op}\simeq\Dcal^\sharp(X)$.
+
+For a given functor $F:\Dcal(X)\to\Dcal(Y)$ define
+\begin{equation}\label{cyjets:eq:transport}
+ F^\sharp=\sharp_Y\circ F\circ\mathcal U_X.
+\end{equation}
+In particular, a collision pullback $\delta^!$ gives
+$\delta^\dagger=\sharp\delta^!\mathcal U$, and an open direct
+image $j_*$ gives $j_{!,\operatorname{pro}}=\sharp j_*\mathcal U$.
+The latter takes values in pro-perfect coefficients; it has not
+been identified with an ordinary $j_!$ on all differential modules.
+The localized module in \eqref{cyjets:eq:dual-tower} explains why
+retaining the pro-diagram matters.
+
+Suppose now that $\Ccal$ is a stable category of coherent coefficient
+systems on smooth collision spaces $X_I$, indexed by finite label
+sets $I$. For an ordered decomposition $I=A\sqcup B$, let
+$U_{A|B}\subset X_I$ be the open locus where points in different
+blocks are distinct, and let $j_{A|B}$ be its inclusion.
+Collisions within one block remain allowed. Assume that external
+products and the collision maps define an associative convolution
+\[
+ (M\star N)_I=
+ \bigoplus_{I=A\sqcup B}j_{A|B,*}
+           (M_A\boxtimes N_B)|_{U_{A|B}}
+\]
+with unit $K_\varnothing=k$, $K_I=0$ for $I\ne\varnothing$.
+The collision equivalences and their higher compatibilities are
+part of a coefficient system. All ordered subset decompositions
+occur in this convolution. Keeping only consecutive cuts of an
+ordered word would define another tensor.
+
+Componentwise duality gives a category $\Ccal^\sharp$ and an
+anti-equivalence $\Ccal^{\op}\simeq\Ccal^\sharp$. Define
+\begin{equation}\label{cyjets:eq:dual-tensor}
+ E\star_\sharp F=(\mathcal UE\star\mathcal UF)^\sharp.
+\end{equation}
+Equivalently its component at $I$ is
+\[
+ \bigoplus_{I=A\sqcup B}j_{A|B,!,\operatorname{pro}}
+                 (E_A\boxtimes^\sharp F_B)|_{U_{A|B}},
+\]
+where $\boxtimes^\sharp$ is the two-index external product of
+perfect diagrams. The sum is finite. Associativity, its coherent
+homotopies and the unit $K^\sharp=K$ are transported from $\star$.
+
+\begin{proposition}\label{cyjets:prop:operations}
+For finite lists of coefficient objects there is a natural equivalence
+\[
+ \Map_{\Ccal}\left(\mathop{\star}_iM_i,\mathop{\star}_jN_j\right)
+ \simeq
+ \Map_{\Ccal^\sharp}
+       \left(\mathop{\star_\sharp}_jN_j^\sharp,
+             \mathop{\star_\sharp}_iM_i^\sharp\right).
+\]
+It reverses composition and preserves identities and all coherent
+homotopies. Collision maps are compared by
+\eqref{cyjets:eq:transport}.
+\end{proposition}
+\begin{proof}
+Apply coefficient anti-equivalence to the two tensor objects.
+Equation \eqref{cyjets:eq:dual-tensor} identifies their images.
+Naturality of the mapping equivalence gives composition and every
+collision diagram, including their specified homotopies.
+\end{proof}
+
+Let $A$ be an augmented associative algebra for $\star$, with
+$A_\varnothing=k$. Its augmentation ideal $\bar A$ has zero
+empty coefficient. A normalized bar word of length $r$ on $I$
+uses an ordered decomposition into $r$ nonempty blocks. Hence
+$r\leq|I|$. This finiteness is in configuration support and makes
+no assertion about the dimension of a current coefficient.
+
+Write $B_\star A$ for its full normalized bar coalgebra, with
+suspensions of $\bar A$, deconcatenation coproduct and complete
+bar differential. For a coherent associative presentation, that
+differential includes all higher products. Define
+\begin{equation}\label{cyjets:eq:bar-dual}
+ \mathcal K_\sharp A=(B_\star A)^\sharp.
+\end{equation}
+Its multiplication is the explicit transpose
+\[
+ \mathcal K_\sharp A\star_\sharp\mathcal K_\sharp A
+ \simeq(B_\star A\star B_\star A)^\sharp
+ \xrightarrow{\Delta_B^\sharp}(B_\star A)^\sharp.
+\]
+The bar counit becomes the unit; the coaugmentation becomes the
+augmentation. This constructs a second associative algebra, with
+the tensor in \eqref{cyjets:eq:dual-tensor}.
+
+\begin{theorem}\label{cyjets:thm:bar-duality}
+Assume that normalized associative bar and cobar are inverse
+equivalences between the augmented algebras with positive
+augmentation ideal in $(\Ccal,\star)$ and their connected
+conilpotent coalgebras. Assume their normalized words have the
+finite configuration bound above. Then $\mathcal K_\sharp$ is an
+anti-equivalence to the corresponding augmented associative algebras
+for $\star_\sharp$. Its inverse is
+\[
+ E\longmapsto\mathcal U B_{\star_\sharp}E.
+\]
+\end{theorem}
+\begin{proof}
+Bar gives a coalgebra equivalence by hypothesis, and
+Proposition~\ref{cyjets:prop:operations} transposes coalgebras to
+algebras for the transported tensor. To identify the inverse, let
+$C$ be a connected conilpotent $\star$-coalgebra. On normalized
+words,
+\[
+ \mathcal U B_{\star_\sharp}(C^\sharp)\simeq\Omega_\star C.
+\]
+A bar suspension dualizes to a cobar desuspension. Multiplication
+dualizes to the coproduct of $C$, while deconcatenation dualizes
+to concatenation. The full differentials are transposed with these
+maps. At each $I$ there are only finitely many positive words,
+so exact duality commutes with their finite extensions.
+For $C=B_\star A$, the comparison back to $A$ is therefore
+\[
+ \mathcal U B_{\star_\sharp}(\mathcal K_\sharp A)
+       \simeq\Omega_\star B_\star A\xrightarrow{\epsilon_A}A,
+\]
+the stipulated bar--cobar counit. The other comparison is the
+coalgebra-side unit. Their triangle identities and coefficient
+biduality prove the inverse-functor assertion.
+\end{proof}
+
+The theorem isolates coefficient transposition from the geometric
+bar--cobar construction: its hypotheses must be proved for the
+chosen collision convolution. They do not follow from Lie--commutative
+chiral duality. Once supplied, the full bar coalgebra yields the
+second associative algebra above, even for nonholonomic currents.
+No quadratic approximation of the bar has been used.
+
+At finite parameter precision the same argument uses
+$D_X\otimes_kR_N$. Perfect modules remain the compact modules
+over this associative ring, although $R_N$ is not regular.
+Coefficient reduction is transported by \eqref{cyjets:eq:transport},
+and the compatible inverse system is part of the dual datum.
+The finite word bound does not exchange an ordinary pro-limit,
+a parameter-adic limit and a Laurent expansion.
+
+\section{The further field comparison}
+\label{cyjets:sec:comparison}
+
+Theorem~\ref{cyjets:thm:transpose} identifies the zero-potential
+Hall cooperation with a field product on restricted jets.
+Theorem~\ref{cyjets:thm:bar-duality} instead transposes a full
+coalgebra to an algebra for a transported geometric tensor.
+Their carriers and operations specify two different comparison
+problems. Neither identifies a Hall charge split with a
+level-changing field coproduct: a map sending a charge-one state
+to two charge-one factors has output charges $(1,1)$, whereas a
+Hall split has output charges adding to one.
+
+The empty-configuration unit $K$ is also different from the local
+vacuum coefficient $\omega_X$. An augmentation is a specified
+algebra map to the tensor unit, and evaluation in a prepared state
+is additional linear data. The coefficient duality constructs none
+of these identifications by changing notation.
+
+\subsection{The full bar contact marking}
+
+Suppose a native field system has already supplied a connected full
+collision coalgebra $C$ in the category above. Its contact maps retain
+\[
+ r(u^m;a,b)=\operatorname{pp}_u\bigl(u^mY(a,u)b\bigr),
+                      \qquad m\in\Z,
+\]
+where $\operatorname{pp}_u$ takes the finite principal part at the
+stated precision. The coalgebra also retains the higher collision
+maps, spectators and normal derivatives. Form $U_*(C)=\Omega_\star C$.
+Under the bar--cobar hypotheses of
+Theorem~\ref{cyjets:thm:bar-duality}, the unit is the identity
+at empty support and has the following formula on $c\in\bar C$:
+\begin{equation}\label{cyjets:eq:bar-contact}
+ \eta_C:C\xrightarrow{\sim}B_\star\Omega_\star C,
+ \qquad
+ \eta_C(c)=\sum_{r\geq1}(s\tau)^{\star r}
+                           \bar\Delta^{r-1}c.
+\end{equation}
+Here $s$ has degree $-1$, $t$ has degree $1$, and $\tau(c)=tc$
+is the universal twisting cochain into the cobar. At a configuration
+$I$ the sum has $r\leq|I|$. With bar signs
+$b_1(sa)=-s(da)$ and $b_2(sa,sb)=(-1)^{|a|}s(ab)$,
+cobar splitting cancels adjacent bar multiplication. The remaining
+terms give the chain identity for $\eta_C$; cutting the outer word
+gives its coalgebra identity. The stipulated bar--cobar theorem
+supplies its inverse equivalence.
+
+This marking retains every native binary mode:
+\begin{equation}\label{cyjets:eq:all-modes}
+ a_{(n)}b=[u^{-1}]r(u^n;a,b),\qquad n\in\Z.
+\end{equation}
+Indeed multiplication by $u^n$ moves the coefficient of
+$u^{-n-1}$ to $u^{-1}$. Negative multipliers are essential for
+recovering regular modes. Transposition gives the operation-preserving
+coefficient comparison
+\[
+ (B_\star\Omega_\star C)^\sharp
+                 \xrightarrow{\eta_C^\sharp}C^\sharp.
+\]
+These operations are marked on the bar of the algebra realization.
+They have not been identified with its bare singleton multiplication.
+The higher native collision system was used to construct $C$;
+equation \eqref{cyjets:eq:all-modes} alone does not construct it.
+
+\subsection{Equal fields can carry different jet markings}
+
+A further ambiguity remains even when all unmarked fields agree.
+Take $R_2=k[\hbar]/(\hbar^2)$, with $\hbar$ of weight and cochain
+degree zero, and
+the charge-graded algebra
+\[
+ A=R_2[e_0,e_1,\ldots]/(e_0,e_1,\ldots)^3.
+\]
+Every $e_n$ has charge one, weight $n+1$ and cochain degree zero;
+the differential is zero. There is no cutoff on $n$. Define
+derivations by
+\[
+ Te_n=(n+1)e_{n+1},\qquad
+ \delta_i e_n=e_{n-i+1}\quad(i\geq1),
+\]
+where $e_j=0$ for $j<0$. Then $\delta_1$ is the charge derivation,
+the $\delta_i$ commute, and
+$[\delta_i,T]=(i-1)\delta_{i-1}$, with $\delta_0=0$.
+For each $\kappa\in k$, change the marking to
+\begin{equation}\label{cyjets:eq:moment-marking}
+ J_1^\kappa=\delta_1,\quad J_2^\kappa=\delta_2,\quad
+ J_i^\kappa=\delta_i+
+       \hbar\kappa\binom{i-1}{2}\delta_{i-2}\quad(i\geq3).
+\end{equation}
+Every operator is charge preserving and bounded for the weight
+filtration. Only finitely many act nontrivially on any fixed state.
+They commute with the differential and satisfy the same jet and
+translation relations. The latter assertion follows from
+\[
+ \binom{i-1}{2}(i-3)=(i-1)\binom{i-2}{2}.
+\]
+
+For these markings define the contraction and fields
+\begin{align*}
+ C_1^\kappa(u)
+ &=\sum_{p,q\geq0}(-1)^{p+1}\binom{p+q}{p}
+       u^{-p-q-1}J_{p+1}^\kappa\otimes J_{q+1}^\kappa,\\
+ Y^\kappa(a,u)b
+ &=\mu(e^{uT}\otimes1)(1-\hbar C_1^\kappa(u))(a\otimes b),\\
+ \mathcal S^\kappa(u)&=1+2\hbar C_1^\kappa(u).
+\end{align*}
+The contraction is finite on each pair of algebraic inputs.
+The commuting derivations and their translation identities give
+the field identities at this precision: in a three-input product
+only the sum of the three pair contractions survives. This also
+gives exchange and the block-fusion identities.
+
+\begin{proposition}\label{cyjets:prop:marked-ambiguity}
+All the displayed unmarked fields and exchanges are identical.
+Distinct values of $\kappa$ remain inequivalent if $R_2$-linear
+morphisms preserve the markings and weak equivalences are state quasi-isomorphisms
+through nonpositive dg algebras whose marked operators are chain maps.
+\end{proposition}
+\begin{proof}
+The difference $J_i^\kappa-\delta_i$ is divisible by $\hbar$.
+Since the contraction already has an external factor $\hbar$,
+its change is zero in $R_2$. Thus $Y^\kappa=Y^0$ and
+$\mathcal S^\kappa=\mathcal S^0$. In particular all iterates and
+Laurent-multiplier residues agree.
+
+On charge one the standard operators satisfy
+$\delta_3=\delta_2^2$. The modified marking has
+\begin{equation}\label{cyjets:eq:moment-defect}
+ J_3^\kappa-(J_2^\kappa)^2=\hbar\kappa\,\id.
+\end{equation}
+Chain compatibility makes this an operator on cohomology. A zigzag
+of marked quasi-isomorphisms induces an invertible intertwiner $f$
+on charge-one cohomology. Between parameters $\kappa,\lambda$,
+equation \eqref{cyjets:eq:moment-defect} would force
+$\hbar(\kappa-\lambda)f=0$. Composing with $f^{-1}$ contradicts
+freeness of the charge-one $R_2$-module unless $\kappa=\lambda$.
+\end{proof}
+
+The assumption that the marked operators are chain maps is necessary
+for this cohomological argument. Exact weight would also change the
+admitted class: the correction in \eqref{cyjets:eq:moment-marking}
+has weight $3-i$, whereas $\delta_i$ has weight $1-i$.
+Filtered boundedness admits both. On the bottom state the difference
+is already visible as $J_2e_0=0$ and $J_3^\kappa e_0=
+\hbar\kappa e_0$, but the translation orbit remains infinite.
+
+This ambiguity does not destroy a specified current realization.
+For example, in charge $n$ let $p_m=\sum_{a=1}^nx_a^m$ and
+$p_0=n$. The corresponding marked moments and their compensation are
+\[
+ P_m^\kappa=p_m+\hbar\kappa\binom m2p_{m-2},\qquad
+ \widehat P_m=P_m^\kappa-
+                   \hbar\kappa\binom m2P_{m-2}^\kappa=p_m,
+\]
+with the correction zero for $m<2$. Thus compensated moments give
+the original action of $k[x_1,\ldots,x_n]^{\mathfrak S_n}$.
+Any current presentation with this specified action retains its
+localization at $\prod_{a<b}(x_a-x_b)^2$ and its rational pair
+multipliers. Raw moments cannot replace that action: in charge one,
+$P_2^\kappa-(P_1^\kappa)^2=\hbar\kappa$, while the polynomial
+identity is $p_2=p_1^2$.
+
+The bar contact comparison and the specified current markings are
+therefore positive additional data. Recovering those markings
+intrinsically from an unmarked field is a stronger problem. The
+first-order equality above makes no assertion of compatible equality
+at every higher parameter precision.
+
+\begin{problem}\label{cyjets:prob:realization}
+For an independently defined family of local fields, construct its
+coherent collision coefficient system and compare its operation
+maps with the transported full-bar algebra. Specify the coefficient
+class, tensor, unit, translation and Laurent completion, and retain
+the maps supported on collision diagonals. For critical Hall input,
+construct the oriented coefficient map before applying the restricted
+transpose; the zero-potential polynomial calculation alone does not
+supply it.
+\end{problem}
+
+The next geometric input is the coefficient at a collision. The
+derived relation directions can survive where their ordinary
+equations vanish. Retaining those directions is necessary before
+testing a comparison with the fields constructed here.
+\endgroup

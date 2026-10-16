@@ -1,0 +1,2153 @@
+\chapter{Compact Hall Geometry on a K3 Product}
+\label{cycompact:chapter}
+
+Translation along an elliptic curve removes a common position while
+preserving the positions of objects relative to one another. An extension
+depends on these relative positions: sheaves in different fibres have
+no extensions, whereas sheaves in the same fibre can have both
+deformations and obstructions. A Hall construction on the translation
+quotient must therefore retain one elliptic torsor throughout its flag
+correspondences.
+
+We develop this geometry for $X=S\times E$, where $S$ is a smooth
+projective complex K3 surface and $E$ is an elliptic curve. The disjoint
+point locus has explicit self-dual coefficients and finite trace maps.
+Compact rational-curve pairs give an oriented critical model with
+computable cohomology. At a polystable collection, cyclic deformation
+theory gives one formal model for all finite flags. These constructions
+also expose the data needed at collisions: scalar trace complexes,
+paired orbit directions, square-root sewing and supported coefficient
+maps. Their compatibility on the full compact extension stack is the
+global comparison problem.
+
+Fix nonzero holomorphic forms $\omega_S\in H^0(S,K_S)$ and
+$\omega_E\in H^0(E,K_E)$, and use their product as the volume form
+on $X$. Coherent complexes are over $\mathbb C$; constructible
+complexes have rational coefficients. All shifts are cohomological,
+so $V[a]^j=V^{j+a}$. Derived pullbacks and tensor products retain
+this convention. Put $W=T_0E$.
+
+\section{One translation torsor for a whole flag}
+\label{cycompact:sec:torsor}
+
+Let $\mathcal M_\alpha$ be an $E$-invariant moduli stack of sheaves
+of charge $\alpha$, and let $\mathcal Q_\alpha=[\mathcal M_\alpha/E]$.
+The morphism $\mathcal Q_\alpha\to BE$ remembers the principal
+$E$-bundle in the definition of the quotient stack. An object of
+$\mathcal Q_\alpha$ over a base $B$ is thus an $E$-torsor
+$P\to B$ together with an equivariant family on $P$.
+
+\begin{proposition}\label{cycompact:prop:torsor}
+There is a natural equivalence
+\[
+ \mathcal Q_\alpha\times_{BE}\mathcal Q_\beta
+ \simeq[(\mathcal M_\alpha\times\mathcal M_\beta)/E_{\mathrm{diag}}].
+\]
+Exact sequences on the common torsor give a correspondence
+\begin{equation}\label{cycompact:eq:span}
+ \mathcal Q_\alpha\times_{BE}\mathcal Q_\beta
+ \xleftarrow{\ a\ }\mathcal H_{\alpha,\beta}
+ \xrightarrow{\ p\ }\mathcal Q_{\alpha+\beta}.
+\end{equation}
+Finite filtrations identify all successive compositions of these
+correspondences, compatibly with refinement. The zero object gives
+the relative unit $BE$.
+\end{proposition}
+
+\begin{proof}
+An object of the fibre product consists of two torsors, their
+identification, and the two equivariant families. Transport along
+the identification makes this one torsor with a pair of families.
+This is precisely the diagonal quotient, including morphisms and
+descent over $B$. An exact sequence in that family defines
+\eqref{cycompact:eq:span}.
+
+For three successive quotients, either composite correspondence
+classifies a filtration $0\subset F_1\subset F_2\subset F_3$ on
+one torsor. A further refinement inserts further subobjects into
+that same filtration. Forgetting specified levels is independent
+of the order in which the other levels are forgotten. This proves
+the assertions for every finite flag. The zero sheaf is fixed by
+$E$, so its quotient is $BE$; inserting it makes no additional
+choice.
+\end{proof}
+
+The relative product is already necessary for a single point.
+Let $\mathfrak M_1$ denote the stack of flat length-one sheaves on
+$X$. Then
+\begin{equation}\label{cycompact:eq:point-stack}
+ \mathfrak M_1=X\times B\mathbb G_m,\qquad
+ [\mathfrak M_1/E]\times_{BE}[\mathfrak M_1/E]
+ \simeq S^2\times E\times B\mathbb G_m^2.
+\end{equation}
+To see the first statement in families, the support of a flat
+length-one sheaf is finite over the base. Its pushforward is a
+line bundle $L$. The support algebra acts faithfully on $L$,
+and its action identifies it with the scalar algebra of the base.
+The support is therefore the graph of a map to $X$, and the sheaf
+is that graph's pushforward of $L$. This construction respects
+isomorphisms and descent. For the second statement, write the two
+elliptic coordinates as $(e_1,e_2)$ and quotient by their common
+translation. The surviving coordinate is $e_2-e_1$.
+
+\section{Disjoint point coefficients}
+\label{cycompact:sec:disjoint}
+
+Let $U_n\subset X^n$ be the variety of ordered pairwise distinct
+points. The torus $T_n=(\mathbb G_m)^n$ acts trivially and records
+the automorphisms of the coefficient lines. The symmetric group
+$\mathfrak S_n$ permutes points and torus factors. Put
+\[
+ \mathfrak Q_n=[U_n/(E\times(T_n\rtimes\mathfrak S_n))],
+ \qquad \mathfrak Q_0=BE.
+\]
+After trivializing the elliptic torsor, the morphism
+$q_n:\mathfrak Q_n\to BE$ becomes the smooth stack
+$[U_n/(T_n\rtimes\mathfrak S_n)]$, of complex dimension
+$3n-n=2n$. Complex orientation consequently gives
+\begin{equation}\label{cycompact:eq:disjoint-coefficients}
+ \omega_{q_n}=\mathbb Q_{\mathfrak Q_n}[4n],\qquad
+ C_n=\mathbb Q_{\mathfrak Q_n}[2n],\qquad
+ C_n\otimes C_n\simeq\omega_{q_n}.
+\end{equation}
+Here $\omega_{q_n}$ is the relative dualizing complex. Thus $C_n$
+is self-dual for relative Verdier duality and $C_0=\mathbb Q_{BE}$.
+These formulas specify smooth coefficients on the disjoint locus.
+
+Let $D_{m,n}\subset\mathfrak Q_m\times_{BE}\mathfrak Q_n$ be
+the open locus of disjoint supports, and restrict the extension
+correspondence to
+\[
+ D_{m,n}\xleftarrow{\ a\ }\mathfrak F_{m,n}
+ \xrightarrow{\ p\ }\mathfrak Q_{m+n}.
+\]
+
+\begin{proposition}\label{cycompact:prop:disjoint}
+The map $a$ is an equivalence, and $p$ is representable finite
+\'{e}tale of degree $\binom{m+n}{m}$. There is a canonical
+identification
+\[
+ a^*(C_m\boxtimes_{BE}C_n)=p^*C_{m+n}.
+\]
+The adjunction and finite trace maps have composite
+\[
+ C_{m+n}\longrightarrow p_*p^*C_{m+n}
+ \xrightarrow{\operatorname{Tr}_p}C_{m+n},
+ \qquad \binom{m+n}{m}\operatorname{id}.
+\]
+They are adjoint for the relative pairings, and their refinement
+identities hold for every finite flag, including empty blocks.
+\end{proposition}
+
+\begin{proof}
+Derived Hom vanishes between sheaves with disjoint support.
+Every extension therefore splits uniquely. A subobject of length
+$m$ in a fixed middle sheaf chooses an $m$-element subset of its
+support. After an \'{e}tale ordering of that support, $p$ is the
+constant cover by those subsets. This proves both geometric
+assertions. The coefficient shifts agree because
+$2m+2n=2(m+n)$.
+
+On that cover, the first map repeats a section on every sheet,
+and trace sums its values. Their composite and adjunction follow
+from summing $\binom{m+n}{m}$ identical values and from
+$\sum_I uv_I=u\sum_Iv_I$. A refined flag is an ordered partition
+of the support. Every parenthesization sums over the same
+partitions, which proves all refinements at once. An empty block
+contributes one choice and the coefficient $C_0$.
+\end{proof}
+
+The scalar automorphisms also enter the determinant line. After
+fixing a basis of $W$, its pullback to $U_n$ is
+$L_n=K_{U_n}\otimes\det\mathbb C^n$. A permutation acts by
+$\operatorname{sgn}^3$ on the support volume and by
+$\operatorname{sgn}$ on the torus determinant. Their product is
+one. If $\lambda_n$ places the support factors before the scalar
+factors, binary sewing has sign $(-1)^{mn}$. The generators
+\begin{equation}\label{cycompact:eq:disjoint-sign}
+ \widetilde\lambda_n=(-1)^{n(n-1)/2}\lambda_n
+\end{equation}
+sew with coefficient one, since
+$\binom{m+n}{2}=\binom m2+\binom n2+mn$.
+The same identity gives every associative regrouping.
+
+\subsection{A two-sheet coefficient cannot be replaced by a scalar}
+
+Choose a nonzero two-torsion point $\tau\in E$. Translation by
+$\tau$ preserves the sheaf supported at $(s,e)$ and $(s,e+\tau)$,
+and interchanges its two length-one subobjects. On that fibre
+the flag coefficient is $A=\mathbb Q^2$, with coordinatewise
+product and the transposition action. Its trace is
+$\operatorname{Tr}(a,b)=a+b$.
+
+\begin{proposition}\label{cycompact:prop:two-sheet}
+There is no equivariant unital algebra map $A\to\mathbb Q$ when
+the target has the trivial action. The complex
+$[A\xrightarrow{\operatorname{Tr}}\mathbb Q]$ in degrees zero
+and one has only one cohomology group: the sign representation
+in degree zero.
+\end{proposition}
+
+\begin{proof}
+A unital algebra map sends the two orthogonal idempotents
+$(1,0),(0,1)$ to $0,1$ in some order. It therefore cannot be
+invariant under their transposition. Trace is surjective and
+has kernel $\mathbb Q(1,-1)$, on which the transposition acts
+by $-1$.
+\end{proof}
+
+This kernel is not an ideal: $(1,-1)^2=(1,1)$ has trace two.
+Nor does adding a homologically scalar dg algebra avoid the
+multiplicity. Indeed, let $B$ be a unital dg algebra with
+$H^0(B)=\mathbb C$, and let a finite group $G$ act transitively
+on a nonempty finite set $\Omega$. Let $G$ act on $M_m(B)$ by
+conjugation through a representation on $\mathbb C^m$, trivially
+on $B$. A $G$-equivariant unital dg algebra map
+$\mathbb C^\Omega\to M_m(B)$ induces orthogonal projectors in
+$M_m(\mathbb C)$. Transitivity makes their ranks equal. Since
+they sum to the identity, $m=d|\Omega|$ for an integer $d\geq1$.
+The permutation representation and its diagonal projectors
+attain $m=|\Omega|$.
+
+\section{Trace complexes on split and nonsplit flags}
+\label{cycompact:sec:trace}
+
+The structure-sheaf cohomology of the product has the finite
+Dolbeault model
+\begin{equation}\label{cycompact:eq:scalar-model}
+ H=\mathbb C[\sigma]/(\sigma^2)\otimes\Lambda(\eta),
+ \qquad |\sigma|=2,\quad |\eta|=1,\quad
+ \int_X\eta\sigma=1.
+\end{equation}
+Parallel representatives for a product Ricci-flat metric give
+the multiplicative inclusion into the Dolbeault complex used in
+Chapter~\ref{cyquant:chapter}. There is one cohomology class in
+each degree zero through three, and multiplication followed by
+the displayed integral is a perfect pairing of degree $-3$.
+
+For a vector bundle $A$ write
+$C_A=R\Gamma(X,R\mathcal Hom(A,A))$ and let $C_A^0$ be its
+trace-free summand. Positive rank is needed for the scalar
+splitting $h\mapsto h\operatorname{id}_A/\operatorname{rk}A$.
+Write $C(A,B)=R\Gamma(X,R\mathcal Hom(A,B))$.
+
+\begin{proposition}\label{cycompact:prop:trace-split}
+For bundles of positive ranks $n,m$ there is a decomposition
+\begin{equation}\label{cycompact:eq:trace-split}
+ C_{A\oplus B}^0\simeq
+ C_A^0\oplus C_B^0\oplus C(A,B)\oplus C(B,A)\oplus H.
+\end{equation}
+The last summand is
+$h\mapsto\operatorname{diag}(h/n,-h/m)$, where the two entries
+multiply the respective identities. Its induced pairing is
+\[
+ (h,k)\longmapsto\frac{n+m}{nm}\int_Xhk.
+\]
+The construction applies to relative endomorphism complexes in
+families of bundles, with the relative structure-sheaf complex.
+\end{proposition}
+
+\begin{proof}
+Split the endomorphism matrix into its four blocks. The two
+diagonal traces must sum to zero, leaving one copy of the
+scalar complex. Composition of their scalar matrices has
+trace $(1/n+1/m)hk$. All decompositions and maps are defined
+before taking cohomology, so they also give the relative claim.
+\end{proof}
+
+For $r$ bundles of ranks $n_i>0$, put
+\[
+ U_r=\{(a_1,\ldots,a_r)\in\mathbb C^r:
+                 \textstyle\sum_i a_i=0\}.
+\]
+The scalar complex is $H\otimes U_r$. In its trace
+coordinates $h_i\in H$, its pairing is
+\[
+ \langle h,k\rangle=\int_X\sum_i\frac{h_ik_i}{n_i}.
+\]
+The scalar matrix in the $i$th block is $h_i/n_i$. For a
+partition into nonempty groups $I_1,\ldots,I_s$, set
+$n_{I_a}=\sum_{i\in I_a}n_i$. The maps
+\begin{equation}\label{cycompact:eq:trace-grouping}
+ G(h)_a=\sum_{i\in I_a}h_i,\qquad
+ J(k)_i=\frac{n_i}{n_{I_a}}k_a\quad(i\in I_a)
+\end{equation}
+give, on scalar coordinates with form
+$\sum_i a_ib_i/n_i$, the orthogonal splitting
+\[
+ 0\longrightarrow\bigoplus_aU_{I_a}
+ \longrightarrow U_r\xrightarrow{G}U_s\longrightarrow0.
+\]
+Tensoring with $H$ gives the scalar flag-complex splitting.
+Indeed $GJ=1$, and a within-group trace-zero vector pairs
+trivially with $J(k)$. The induced pairing on the grouped
+coordinates has denominator $n_{I_a}$. Successive sums compose,
+and the section coefficients multiply as
+$(n_i/n_{I_a})(n_{I_a}/n_J)=n_i/n_J$.
+Thus the splittings agree under every refinement.
+
+\subsection{A family with torsion in its flag cohomology}
+
+Let $B=\mathbb C[t]$ and consider the rank-two Dolbeault operator
+\[
+ \bar\partial_t=\bar\partial+t\eta e_{12},\qquad
+ e_{12}=\begin{pmatrix}0&1\\0&0\end{pmatrix}.
+\]
+It squares to zero because $\bar\partial\eta=\eta^2=0$.
+It defines extensions
+$0\to\mathcal O_X\to F_t\to\mathcal O_X\to0$.
+They are algebraic in $t$: a \v{C}ech representative of the
+elliptic extension class gives transition matrices
+$1+t\eta_{ij}e_{12}$, whose products are finite.
+
+The endomorphism model is
+$M_2(H)\otimes B$ with differential $[t\eta e_{12},-]$.
+For trace-free endomorphisms preserving the first summand, put
+$e=e_{12}$ and $z=\operatorname{diag}(1,-1)$. Their complex is
+\begin{equation}\label{cycompact:eq:nonsplit}
+ \mathfrak b_t^0=(Hz\oplus He)\otimes B,
+ \qquad dz=-2t\eta e,\quad de=0.
+\end{equation}
+The full endomorphism model retains associative composition;
+the trace-free subcomplexes retain its Lie commutator.
+To justify the model after twisting, filter matrices by the
+diagonal weight for which $[e_{12},-]$ strictly raises weight.
+The filtration is finite. On its associated graded, the
+inclusion of \eqref{cycompact:eq:scalar-model} into Dolbeault
+forms is a quasi-isomorphism. It follows that the twisted
+inclusion is also a quasi-isomorphism. The same argument works
+for upper-triangular endomorphisms and for any fixed finite
+strictly upper-triangular matrix.
+
+Directly from \eqref{cycompact:eq:nonsplit},
+\begin{equation}\label{cycompact:eq:nonsplit-cohomology}
+\begin{array}{c|c}
+ j&H^j(\mathfrak b_t^0)\\\hline
+ 0&Be\\
+ 1&B\eta z\oplus(B/(t))\eta e\\
+ 2&B\sigma e\\
+ 3&B\eta\sigma z\oplus(B/(t))\eta\sigma e.
+\end{array}
+\end{equation}
+The only nonzero differentials are multiplication by $-2t$
+from $z$ to $\eta e$ and from $\sigma z$ to $\eta\sigma e$.
+Every nonzero fibre has dimension one in each degree. The
+derived zero fibre has dimension two in each degree, since
+the differential of the free model becomes zero there.
+
+Translations act trivially on $H^1(E,\mathcal O_E)$,
+so for $t\ne0$ the extension on $E$ is invariant under
+translation up to isomorphism. It has no translation
+linearization. An $E$-equivariant vector bundle for the
+free translation action on $E$ descends to a vector space
+on a point and is therefore trivial. The nontrivial
+extension has $h^0=1$: its connecting map
+$H^0(\mathcal O_E)\to H^1(\mathcal O_E)$ is the nonzero
+extension class. A trivial rank-two bundle has $h^0=2$.
+
+More generally, let $V$ be a finite-dimensional matrix subspace
+stable under $L=\operatorname{ad}N$, and put $\ell=\operatorname{rank}L$.
+The complex $H\otimes V\otimes B$ with differential $t\eta L$
+is the direct sum of the two-term complex $[V_B\xrightarrow{tL}V_B]$
+and its shift by $[-2]$. Choosing bases for the image of $L$
+gives
+\[
+ H^0=(\ker L)\otimes B,\qquad
+ H^1\simeq(\operatorname{coker}L)\otimes B\oplus(B/(t))^\ell,
+ \qquad H^{j+2}=\sigma H^j.
+\]
+The displayed splitting is a choice; its torsion submodule
+and multiplicity are intrinsic. Derived specialization retains
+$V$ in each of the four degrees.
+
+\subsection{The endpoint traces in the flag pairing}
+
+Let $N$ be strictly upper triangular, and use differential
+$[\eta N,-]$ on
+$\mathfrak g_r^0=\mathfrak{sl}_r\otimes H$ and on its
+upper-triangular subcomplex $\mathfrak b_r^0$. Put
+$V_r=H\otimes U_r$ for rank-one diagonal blocks, with zero
+differential. Diagonal projection on upper-triangular matrices
+is a chain map. The map
+\[
+ j:\mathfrak b_r^0\longrightarrow\mathfrak g_r^0\oplus V_r,
+ \qquad x\longmapsto(x,\operatorname{diag}x)
+\]
+is isotropic for
+\[
+ Q((x,h),(y,k))=\int_X\operatorname{tr}(xy)-\int_X\sum_i h_ik_i.
+\]
+For upper-triangular $x,y$, the diagonal of $xy$ is the
+componentwise product of their diagonals, proving isotropy.
+The pairing on the target is perfect. In each coefficient
+degree the matrix dimensions satisfy
+$2(r(r+1)/2-1)=(r^2-1)+(r-1)$.
+Pairing complementary upper and lower
+matrix units then shows that the annihilator is exactly the
+image of $j$. Hence
+\begin{equation}\label{cycompact:eq:flag-pairing}
+ 0\longrightarrow\mathfrak b_r^0
+ \xrightarrow{j}\mathfrak g_r^0\oplus V_r
+ \longrightarrow(\mathfrak b_r^0)^\vee[-3]
+ \longrightarrow0
+\end{equation}
+is an exact sequence of complexes, compatible with base change.
+For $r=2$, omitting $V_r$ leaves
+$\operatorname{tr}(z^2)=2$; the flag subspace would no longer
+be isotropic. The endpoint trace term supplies the cancellation.
+
+\section{Paired orbit directions and finite centres}
+\label{cycompact:sec:orbit}
+
+To preserve Calabi--Yau duality, removing an orbit tangent
+direction also requires its paired obstruction direction.
+The following complex
+makes sense even when the orbit map changes rank. Let $R$ be
+a commutative $\mathbb Q$-algebra, let $C$ be a finite-projective
+complex in degrees zero through three, and equip it with a
+perfect graded-symmetric pairing
+$C\otimes_RC\to R[-3]$ compatible with its differential.
+Let $W_R$ be finite projective and let $a:W_R\to C^1$ satisfy
+$d_1a=0$. Define $a^\dagger:C^2\to W_R^*$ by
+$(a^\dagger v)(w)=\langle aw,v\rangle$.
+
+\begin{proposition}\label{cycompact:prop:orbit}
+The complex
+\begin{equation}\label{cycompact:eq:orbit}
+ C_{\mathrm{orb}}=
+ [C^0\oplus W_R\xrightarrow{(d_0,a)}C^1
+ \xrightarrow{d_1}C^2
+ \xrightarrow{(d_2,-a^\dagger)}C^3\oplus W_R^*]
+\end{equation}
+is perfect and self-dual with pairing of degree $-3$.
+It commutes with derived base change, and
+\[
+ \det C_{\mathrm{orb}}=\det C\otimes(\det W_R)^2.
+\]
+A square root $P_C$ therefore gives the square root
+$P_C\otimes\det W_R$.
+\end{proposition}
+
+\begin{proof}
+Pairing compatibility and $d_1a=0$ imply $a^\dagger d_1=0$,
+so consecutive differentials compose to zero. Add the evaluation
+pairing between $W_R$ in degree zero and $W_R^*$ in degree
+three. The two new terms in its differential are
+$\langle aw,v\rangle-\langle w,a^\dagger v\rangle=0$.
+The resulting pairing is perfect. Finite projectivity gives
+derived base change and identifies both new determinant
+contributions with $\det W_R$.
+\end{proof}
+
+Over a field, the outer terms record the kernel of the induced
+orbit map $[a]:W_R\to H^1(C)$ and its dual. When $[a]$ is
+injective, its image in $H^1(C)$ and its dual quotient in
+$H^2(C)$ disappear. A cochain-level centre
+$p:C^1\to W_R$ with $pa=1$ and $pd_0=0$ gives an actual
+complement: its middle terms are $\ker p$ and $\ker a^\dagger$.
+The projections $ap$ and $p^*a^\dagger$ split off two
+contractible pairs in \eqref{cycompact:eq:orbit}. A splitting
+only in the derived category gives the same conclusion by
+splitting its homotopy idempotent in perfect complexes.
+
+The rank-jumping example is already nonconstant over
+$R=\mathbb C[t]$:
+\begin{equation}\label{cycompact:eq:orbit-jump}
+ [R\xrightarrow{t}R\xrightarrow{0}R\xrightarrow{-t}R].
+\end{equation}
+Its cohomology is $R/(t)$ in degrees one and three and zero
+elsewhere. Its generic fibre is acyclic; its derived zero fibre
+has one class in each degree zero through three. A fixed-rank
+deletion cannot recover these fibres.
+
+For $r$ disjoint point sheaves, the original Ext dimensions are
+$(r,3r,3r,r)$. Removing the simultaneous orbit pair gives
+$(r,3r-1,3r-1,r)$. Removing an orbit pair at every endpoint
+would give $(r,2r,2r,r)$ and lose the relative contribution
+\begin{equation}\label{cycompact:eq:orbit-excess}
+ U[-1]\oplus U^*[-2],\qquad
+ U=W^r/W_{\mathrm{diag}},\qquad
+ \det\bigl(U[-1]\oplus U^*[-2]\bigr)=(\det U)^{-2}.
+\end{equation}
+All regroupings give coordinates on the same quotient $U$.
+At the zero object, however, \eqref{cycompact:eq:orbit} is
+$W[0]\oplus W^*[-3]$. After the tangent shift it is
+$W[1]\oplus W^*[-2]$, the tangent of $T^*[-1]BE$ along its
+zero section. A comparison with the relative unit $BE$ must
+therefore specify what happens to its cotangent partner.
+
+\subsection{A centre map retains a finite group}
+
+\begin{proposition}\label{cycompact:prop:centre}
+Let $M$ be an algebraic stack with an $E$-action and a map
+$s:M\to E$ satisfying
+$s(t\cdot m)=s(m)+Nt$ for an integer $N\ne0$.
+Then, with $M_0=s^{-1}(0)$,
+\begin{equation}\label{cycompact:eq:centre}
+ [M/E]\simeq[M_0/E[N]].
+\end{equation}
+This equivalence preserves stabilizers.
+\end{proposition}
+
+\begin{proof}
+The multiplication map $[N]:E\to E$ is finite \'{e}tale and
+surjective. After that base change a point of $M$ admits
+a translation into $M_0$. The choices differ exactly by
+$E[N]$. Thus $E\times^{E[N]}M_0\to M$ is an isomorphism
+after a faithfully flat base change and hence an isomorphism
+of stacks. Quotienting by $E$ proves \eqref{cycompact:eq:centre},
+with the same isomorphism groupoids on each side.
+\end{proof}
+
+For length-$N$ point sheaves, the sum of the elliptic support
+cycle is such a map. On a bounded sector of fixed Hilbert
+polynomial whose sheaves have finite image in $E$, choose an ample line bundle
+$A$ on $S$ and a sufficiently large integer $m$.
+The determinant of the perfect complex
+$R\pi_{E,*}(F\otimes\pi_S^*A^m)$ is a line bundle on $E$.
+Its divisor degree is the sum of the positive Hilbert
+polynomials of the fibre-supported pieces. This gives a
+positive integer $N$ and, after identifying $\operatorname{Pic}^N(E)$
+with $E$, a centre map of the stated weight. The choice of
+$m$ is made on that bounded sector.
+
+Centred factors still have relative centres. For weights
+$N_1,\ldots,N_r$, the condition for a centred total object
+is $\sum_iN_ie_i=0$. Its solution is the full kernel of
+$E^r\to E$, including finite components. Replacing this
+kernel by a point would again erase extension parameters.
+There is no positive-weight isogeny construction at $N=0$.
+
+\section{A compact rational-curve coefficient}
+\label{cycompact:sec:rational-curve}
+
+Assume now that $S$ contains a smooth rational curve $C$.
+Adjunction gives $C^2=-2$. A stable pair on $X$ consists of a
+pure one-dimensional sheaf $F$ and a section
+$\mathcal O_X\to F$ with zero-dimensional cokernel. Let
+$P_n(X,([C],0))$ be its projective moduli scheme with
+$\chi(F)=n$ and curve class $([C],0)$.
+
+\begin{theorem}\label{cycompact:thm:rational-pairs}
+For $r\geq0$, the universal effective divisor gives an
+isomorphism
+\[
+ E\times\operatorname{Sym}^r C\xrightarrow{\sim}
+ P_{r+1}(X,([C],0)),\qquad
+ (e,D)\longmapsto
+ (\mathcal O_X\longrightarrow i_{e,*}\mathcal O_C(D)).
+\]
+Here $i_e:C\hookrightarrow X$ is inclusion in the fibre over
+$e$. Translation is free and its quotient is
+$Y_r=\operatorname{Sym}^rC\simeq\mathbb P^r$.
+The moduli scheme is empty for $n\leq0$.
+\end{theorem}
+
+\begin{proof}
+An effective divisor in the class of $C$ must contain $C$,
+since otherwise its intersection with $C$ would be nonnegative.
+The remainder has zero class and hence zero intersection with
+an ample divisor, so it vanishes. Thus $C$ is the unique
+effective divisor in its class.
+
+The degree against a positive divisor from $E$ is zero.
+Every component of the sheaf's support cycle is consequently
+constant in $E$. Projection to $S$ and the uniqueness just
+proved show that the cycle is $C\times\{e\}$ with multiplicity
+one. Its reduced ideal acts on $F$ with generically zero image.
+That image is zero-dimensional, so purity makes it zero.
+Hence $F=i_{e,*}L$ for a torsion-free rank-one sheaf $L$ on
+the smooth curve $C$. It is a line bundle, and its nonzero
+section gives $L=\mathcal O_C(D)$ for an effective divisor $D$.
+Then $\chi(F)=\deg D+1$.
+
+This classification gives the stated morphism in families.
+To verify its scheme structure, use
+$N_{C\times\{e\}/X}=\mathcal O_C(-2)\oplus\mathcal O_C$.
+The local-to-global Ext sequence gives
+\[
+ 0\to H^1(\mathcal O_C)\to\operatorname{Ext}^1_X(F,F)
+ \to H^0(\mathcal O_C(-2)\oplus\mathcal O_C)
+ \to H^2(\mathcal O_C),
+\]
+so $\operatorname{Ext}^1_X(F,F)=\mathbb C$.
+Also $\operatorname{Hom}(F,F)=\mathbb C$,
+$h^0(F)=r+1$ and $H^1(F)=0$. The tangent sequence for
+deforming a sheaf with its section is
+\[
+ 0\to\operatorname{Hom}(F,F)\to H^0(F)
+ \to T_{(F,s)}P\to\operatorname{Ext}^1(F,F)\to H^1(F).
+\]
+The first map is injective because the section is nonzero.
+Thus every tangent space has dimension $r+1$.
+
+The morphism from $E\times\mathbb P^r$ is proper and
+bijective on closed points, hence finite. It surjects onto
+an irreducible target of dimension $r+1$. At each closed
+point the local dimension equals the tangent dimension,
+so the target is regular and normal. The finite map is
+birational in characteristic zero and therefore an
+isomorphism. Translation acts on the first factor.
+\end{proof}
+
+We can now specify an oriented critical enhancement on this
+smooth quotient. Give $Y_r$ the zero function and take
+$\mathcal Y_r=T^*[-1]Y_r$. Its virtual canonical line is
+$K_{Y_r}^{\otimes2}$, with chosen square root
+\begin{equation}\label{cycompact:eq:rational-orientation}
+ L_r=K_{Y_r}=\mathcal O_{\mathbb P^r}(-r-1).
+\end{equation}
+This is a specified enhancement of the classical quotient.
+An equivalence with a reduced derived stable-pair stack
+requires a comparison of their derived structures.
+
+Use the perverse vanishing-cycle normalization
+$\phi_f^p=\phi_f[-1]$. For the zero function, the nearby-cycle
+complex is zero. The defining triangle gives
+$\phi_0F=F[1]$, and hence the oriented coefficient of
+\eqref{cycompact:eq:rational-orientation} is
+\begin{equation}\label{cycompact:eq:rational-coefficient}
+ \varphi_r=\mathbb Q_{Y_r}[r],\qquad
+ H_r=R\Gamma_c(Y_r,\varphi_r)
+ \simeq\bigoplus_{k=0}^r\mathbb Qv_{r,k},
+ \qquad |v_{r,k}|=2k-r.
+\end{equation}
+The differential is zero. The basis comes from powers of
+the hyperplane class, since projective space has one cell
+in each even real dimension. Exterior products of the
+canonical lines give coherent orientations on ordered
+products of these charts. Determinants of Jacobians
+multiply under composition, so these product comparisons
+agree under regrouping, with the usual Koszul signs.
+
+There are two different functionals here. Integration is
+\[
+ \epsilon_r:H_r\longrightarrow\mathbb Q[-r],\qquad
+ \epsilon_r(v_{r,r})=1,\quad
+ \epsilon_r(v_{r,k})=0\quad(k<r).
+\]
+Its target has its nonzero term in degree $r$, the degree
+of the top class. The categorical trace instead has domain
+$\operatorname{End}^{\bullet}(H_r)$:
+\[
+ \tau_r(T)=\sum_j(-1)^j\operatorname{Tr}(T|_{H_r^j})
+ \quad (|T|=0),\qquad \tau_r(T)=0\quad(|T|\ne0).
+\]
+For a formal degree-zero variable $y$, equip
+$\prod_{r\geq0}\operatorname{End}^{\bullet}(H_r)$ with the
+tail topology and componentwise composition. Define
+$\mathcal T((T_r)_r)=\sum_{r\geq0}y^{r+1}\tau_r(T_r)$.
+
+\begin{proposition}\label{cycompact:prop:rational-trace}
+The maps $\tau_r$ and $\mathcal T$ are continuous cyclic chain maps, and
+\begin{equation}\label{cycompact:eq:rational-trace}
+ \tau_r(\operatorname{id})=(-1)^r(r+1),\qquad
+ \mathcal T((\operatorname{id})_r)=\frac{y}{(1+y)^2}.
+\end{equation}
+The first number is also the Behrend-weighted Euler
+characteristic of the quotient $Y_r$.
+\end{proposition}
+
+\begin{proof}
+For homogeneous composable endomorphisms, pairing the two
+matrix entries in opposite order gives
+$\tau_r(AB)=(-1)^{|A||B|}\tau_r(BA)$.
+In particular $\tau_r([d,T])=0$. This is the evaluation
+trace of a perfect complex and is invariant under a change
+of perfect model. All $r+1$ summands in
+\eqref{cycompact:eq:rational-coefficient} have parity $r$.
+Summing their signs and then the geometric-series derivative
+gives \eqref{cycompact:eq:rational-trace}. Each coefficient
+uses one finite complex, proving continuity. Finally the
+Behrend function of the smooth scheme $\mathbb P^r$ is
+$(-1)^r$, and its Euler characteristic is $r+1$.
+\end{proof}
+
+Oberdieck's quotient-incidence comparison identifies this
+number with the reduced stable-pair incidence invariant for
+the nonzero K3 class $[C]$ \cite{cycompact:Oberdieck}.
+Upstairs, the smooth zero-function coefficient is
+$\mathbb Q_E[1]\boxtimes\varphi_r$. Its restriction to the
+slice over $0$, shifted by $[-1]$, is $\varphi_r$.
+Its compact Euler characteristic vanishes because
+$\chi(E)=0$, while the first quotient value is $+1$.
+The shifted restriction and the quotient virtual-class
+comparison specify how the nonzero invariant is obtained.
+
+\section{Relative Ext and square roots along a curve}
+\label{cycompact:sec:curve-ext}
+
+The unframed sheaves
+$G_e=i_*\mathcal O_C\boxtimes\mathcal O_e$, with
+$i:C\hookrightarrow S$, test extension coefficients.
+On $S$, the divisor resolution gives
+\[
+ R\operatorname{Hom}_S(i_*\mathcal O_C,i_*\mathcal O_C)
+ \simeq\mathbb C\oplus\mathbb C[-2]
+\]
+as a complex of vector spaces: its two contributions are
+$H^0(\mathcal O_C)$ and $H^1(\mathcal O_C(-2))$, the latter
+shifted by one. The point resolution on $E$ then gives
+Ext dimensions $(1,1,1,1)$ when the two parameters coincide.
+For distinct parameters the supports are disjoint and
+derived Hom vanishes.
+
+For $m\geq1$, let $B_m=E^m/E_{\mathrm{diag}}\simeq E^{m-1}$, using the
+first coordinate as origin. For $i\ne j$ let
+$\delta_{ij}:B_m\to E$ be the difference $e_j-e_i$,
+let $D_{ij}=\delta_{ij}^{-1}(0)$, and denote its canonical
+divisor section by $s_{ij}$.
+
+\begin{proposition}\label{cycompact:prop:curve-kernel}
+After choosing the displayed splitting of the surface Hom
+complex, the relative Hom from $G_{e_i}$ to $G_{e_j}$ is
+represented by
+\begin{equation}\label{cycompact:eq:curve-kernel}
+ \mathcal K_{ij}=(\mathbb C\oplus\mathbb C[-2])\otimes
+ [\mathcal O_{B_m}\xrightarrow{s_{ij}}
+       \mathcal O_{B_m}(D_{ij})]_{0,1}.
+\end{equation}
+It computes derived restriction to every equality stratum,
+including their nontransverse intersections, and all further
+derived base changes.
+\end{proposition}
+
+\begin{proof}
+On $E_z\times E_\delta$, resolve the fixed-point sheaf by
+$[\mathcal O(-\{z=0\})\to\mathcal O]$.
+Apply sheaf Hom into the graph sheaf $\mathcal O_{z=\delta}$.
+Projection of that graph to $E_\delta$ is an isomorphism,
+and the resulting complex is
+$[\mathcal O_E\xrightarrow{s_0}\mathcal O_E(0)]_{0,1}$.
+The section has a simple zero at $\delta=0$.
+Translation and pullback by $\delta_{ij}$ give the elliptic
+factor in \eqref{cycompact:eq:curve-kernel}. Tensoring with
+the surface factor proves the formula. Its terms are vector
+bundles, so it computes derived pullback along every map.
+\end{proof}
+
+On a formal normal disk, the elliptic factor is
+$[\mathbb C[[t]]\xrightarrow{t}\mathbb C[[t]]]_{0,1}$.
+It is quasi-isomorphic to its degree-one cokernel, but the
+derived fibre of that cokernel has a degree-zero Tor term.
+Both terms, and their shifts by $[-2]$, are needed for the
+four collision groups. A coefficient pulled back from the
+independent orbit quotient, which is a point, would have
+constant derived fibres and cannot give this complex.
+
+For a perfect complex use
+$\det V^\bullet=\bigotimes_j(\det V^j)^{(-1)^j}$,
+with parity its virtual rank modulo two. The two line
+terms of \eqref{cycompact:eq:curve-kernel} occur in degrees
+one and three; consequently
+$\det\mathcal K_{ij}=\mathcal O(-2D_{ij})$ and its parity
+is even. Choose constant determinant trivializations of the
+diagonal self-Ext factors using the volume forms.
+Taking the endomorphism determinant relatively over $B_m$ gives
+\begin{equation}\label{cycompact:eq:curve-root}
+ \det R\operatorname{Hom}_X
+  \left(\bigoplus_iG_{e_i},\bigoplus_iG_{e_i}\right)
+ =\mathcal O_{B_m}\left(-4\sum_{i<j}D_{ij}\right),\qquad
+ \mathcal L_m=\mathcal O_{B_m}\left(-2\sum_{i<j}D_{ij}\right)
+\end{equation}
+is a specified square root.
+
+For ordered blocks $A,B$, multiplication of divisor lines
+gives
+\begin{equation}\label{cycompact:eq:curve-root-sewing}
+ \mathcal L_{A\sqcup B}\simeq
+ r_A^*\mathcal L_A\otimes r_B^*\mathcal L_B\otimes
+ \det\!\left(\bigoplus_{i\in A,\ j\in B}\mathcal K_{ij}\right),
+\end{equation}
+where $r_A,r_B$ retain the internal differences.
+Every unordered pair of leaves is separated at exactly one
+vertex of a binary tree, its least common ancestor. Each
+parenthesization therefore counts the same divisor with
+exponent $-2$. Multiplication of line bundles is associative,
+and all cross determinants are even. Thus the maps themselves
+agree under every ordered regrouping. They commute with
+derived restriction, and $\mathcal L_0=\mathcal O$ supplies
+the empty-block identity.
+
+These roots are defined on labelled split parameter spaces.
+At coincident parameters the direct sum acquires more
+automorphisms. Descent under those automorphisms, extension
+to nonsplit sheaves and comparison with a reduced critical
+structure are further requirements. The divisor formula
+does not specify a zero-function coefficient on $B_m$.
+
+\section{Determinant sewing and orientation coherence}
+\label{cycompact:sec:orientations}
+
+For point sheaves there is a complementary global calculation.
+Over $X^2$, let $\mathcal C$ be the relative derived Hom
+between the two universal graph sheaves. It is perfect and
+acyclic off the diagonal. Its determinant has a canonical
+acyclic trivialization there. Since $X^2$ is smooth and its
+diagonal has codimension three, this trivialization extends
+uniquely: a rational section of a line bundle on a normal
+variety with no zeros or poles in codimension one is regular
+and invertible. Uniqueness makes it invariant under common
+translation. The coefficient-line automorphisms act on its
+determinant with exponent the Euler characteristic, which is
+zero. It therefore descends to the common-torsor pair stack.
+
+On the diagonal, the complex has cohomology
+$\Lambda^*T_xX$ and dimensions $(1,3,3,1)$.
+Its determinant is trivial because the exponent of
+$\det T_xX$ is $-1+2-1=0$. The full complex still has
+all four groups. For $r$ coincident copies its Yoneda algebra
+is $M_r(\mathbb C)\otimes\Lambda^*T_xX$.
+For independent tangent vectors $v_1,v_2$ and $r=2$,
+the first-order deformation $E_{12}v_1+E_{21}v_2$ has
+quadratic obstruction
+$\operatorname{diag}(1,-1)v_1v_2\ne0$ although its scalar
+trace is zero.
+
+Let $0=F_0\subset F_1\subset F_2\subset F_3=F$ be a
+family over a locally noetherian complex scheme $B$, with
+flat length-one quotients $A_i$.
+For projection $\pi:X\times B\to B$, put
+\[
+ C_{ij}=R\pi_*R\mathcal Hom(A_i,A_j),\qquad
+ L_{ij}=\det C_{ij},\qquad
+ D(F)=\det R\pi_*R\mathcal Hom(F,F).
+\]
+
+\begin{proposition}\label{cycompact:prop:flag-determinant}
+There is a natural isomorphism
+\begin{equation}\label{cycompact:eq:flag-determinant}
+ D(F)\simeq\bigotimes_{i=1}^3D(A_i)
+                \otimes\bigotimes_{i<j}L_{ij}^{\otimes2}.
+\end{equation}
+It is compatible with derived base change and common-torsor
+descent. Both parenthesizations give the same determinant
+map at nonsplit flags and collisions.
+\end{proposition}
+
+\begin{proof}
+The graph sheaves are perfect, and the extensions make
+the $F_i$ perfect. Locally choose bounded locally free
+resolutions of the three quotients. Lifting their successive
+extensions gives an upper-triangular differential on their
+graded direct sum. Filtering the endomorphism complex by
+matrix-block weight has associated graded the nine Hom
+complexes $C_{ij}$. This statement uses the filtered
+resolution, so it does not split the original extensions.
+
+For a short exact sequence, the determinant isomorphism
+concatenates a basis of the subobject with lifts of a basis
+of the quotient. Changing the lifts leaves the top wedge
+unchanged. Concatenating three quotient bases is independent
+of parentheses. Degreewise application, using determinant
+duals in odd degrees, gives the same refinement rule for
+perfect complexes. Acyclic factors cancel canonically,
+so filtered resolution comparisons preserve it.
+
+Apply this rule to the nine blocks in the order
+$C_{31},C_{21},C_{32},C_{11},C_{22},C_{33},C_{12},C_{23},C_{13}$.
+Serre duality gives $C_{ji}\simeq C_{ij}^{\vee}[-3]$ and
+therefore $\det C_{ji}=L_{ij}$. Every block has virtual
+rank zero. The reorderings are thus even and give
+\eqref{cycompact:eq:flag-determinant}. Both parenthesizations
+refine to this same ordered filtration. Perfect base change
+and the translation-invariant Serre pairing give the
+remaining compatibilities.
+\end{proof}
+
+An orientation must lift this determinant identity to chosen
+square roots. A line $D$ has a square root precisely when
+its \'{e}tale Kummer class $\delta(D)\in H^2(-,\mu_2)$ vanishes.
+After square roots have been chosen, two binary sewing
+isomorphisms may differ by a sign. On a three-step flag,
+the ratio of the two parenthesized sewing maps is a
+$\mu_2$-valued associator. Its pentagon is a cocycle equation
+on the full flag and overlap diagram. One must trivialize
+that cocycle coherently. This is the extra associativity
+condition in strong orientation data from
+Definition~\ref{cyhall:def:strong-orientation}.
+
+Ordinary orientation data on compact Calabi--Yau threefold
+moduli are available \cite{JoyceUpmeier}.
+Their existence does not identify the square roots after
+orbit reduction or supply the required reduced flag maps.
+Even a trivial determinant permits an incoherent choice:
+multiply only the binary map for masses $(2,1)$ by $-1$,
+and leave the others unchanged. All squares remain the
+same, but the two maps on masses $(1,1,1)$ differ by $-1$.
+
+\subsection{Two sign defects that can be solved explicitly}
+
+Suppose the associator depends only on masses. Write it as
+$a:\mathbb N^3\to\mu_2$, normalized to one if any argument
+is zero, and assume its pentagon
+\[
+ a(n,r,s)a(m,n+r,s)a(m,n,r)
+ =a(m+n,r,s)a(m,n,r+s).
+\]
+Define $\varepsilon(m,0)=\varepsilon(m,1)=1$ and
+\begin{equation}\label{cycompact:eq:mass-correction}
+ \varepsilon(m,n)=\prod_{j=1}^{n-1}a(m,j,1)\quad(n\geq2).
+\end{equation}
+Multiplying binary sewing by $\varepsilon$ changes the
+associator to
+\[
+ a'(m,n,r)=a(m,n,r)
+ \frac{\varepsilon(m,n)\varepsilon(m+n,r)}
+      {\varepsilon(n,r)\varepsilon(m,n+r)}.
+\]
+The recursion gives $a'(m,n,1)=1$. Its pentagon with last
+argument one gives $a'(m,n,r+1)=a'(m,n,r)$.
+Induction from $r=0$ proves $a'=1$. The correction preserves
+units and squares.
+
+There is also an explicit finite-group calculation. If $G$
+has odd order and $\alpha:G^2\to\mu_2$ is a normalized
+two-cocycle with trivial coefficient action, put
+$\beta(g)=\prod_{k\in G}\alpha(g,k)$.
+Multiplying the cocycle identity over $k$ gives
+\[
+ \alpha(g,h)^{|G|}\beta(gh)=\beta(g)\beta(h).
+\]
+Odd order makes $\alpha=\delta\beta$.
+For $G=(\mathbb Z/2)^2$, however,
+$\alpha(g,h)=(-1)^{g_1h_2}$ is a cocycle and is not a
+coboundary: coboundaries on an abelian group are symmetric,
+and this one is not. Thus $E[N]$ has no constant sign
+obstruction of this kind for odd $N$, while even torsion
+can retain one. Neither calculation trivializes a gerbe
+that varies over the sheaf moduli.
+
+\section{A polystable spherical collection}
+\label{cycompact:sec:polystable}
+
+An Euler matrix alone does not produce a polystable object.
+We construct three spherical sheaves with one polarization
+and one Hilbert polynomial, so that every multiplicity vector
+belongs to an actual polystable locus.
+
+\begin{theorem}\label{cycompact:thm:triple}
+There is a projective K3 surface with an ample class $H$,
+$H^2=8$, and line bundles $L_i=\mathcal O_S(D_i)$,
+$1\leq i\leq3$, such that
+\[
+ D_i^2=-8,\qquad D_iD_j=-4\ (i\ne j),\qquad HD_i=0.
+\]
+They are stable with common Hilbert polynomial $4m^2-2$,
+and their Ext dimensions are
+\[
+ \dim\operatorname{Ext}^{\bullet}_S(L_i,L_j)=
+ \begin{cases}(1,0,1),&i=j,\\(0,2,0),&i\ne j.
+ \end{cases}
+\]
+Thus each $L_i$ is spherical, their Euler matrix is
+\begin{equation}\label{cycompact:eq:Cartan}
+ G=\begin{pmatrix}2&-2&-2\\-2&2&-2\\-2&-2&2\end{pmatrix},
+\end{equation}
+and every nonzero $F_{\mathbf n}=\bigoplus_iL_i\otimes\mathbb C^{n_i}$,
+with $n_i\geq0$, is polystable.
+\end{theorem}
+
+\begin{proof}
+In three hyperbolic planes in the K3 lattice choose
+$e_i^2=f_i^2=0$, $e_if_i=1$, with different planes orthogonal.
+Set
+\[
+\begin{split}
+ D_1&=e_1-4f_1,\qquad D_2=-4f_1+e_2-4f_2,\\
+ D_3&=-4f_1-4f_2+e_3-4f_3,\qquad V=f_1+f_2+2f_3.
+\end{split}
+\]
+Their lattice $N$ has Gram matrix
+\[
+ \begin{pmatrix}
+ -8&-4&-4&1\\-4&-8&-4&1\\-4&-4&-8&2\\1&1&2&0
+ \end{pmatrix},\qquad\det N=-128.
+\]
+The minor in coordinates $e_1,e_2,e_3,f_1$ is one, so the
+embedding is primitive. The first three generators span a
+negative-definite subspace and their Schur complement is
+positive; the signature is $(1,3)$.
+
+Put $H=D_3+4V=e_3+4f_3$. Then $H^2=8$, $HD_i=0$ and
+$HV=2$. The integral orthogonal complement of $H$ in $N$
+is spanned by the $D_i$, with
+\[
+ \left(\sum_i a_iD_i\right)^2
+ =-4\left(\sum_i a_i^2+\left(\sum_i a_i\right)^2\right).
+\]
+The bracket is even, so this complement has no vector of
+square $-2$. The period and lattice embedding theorems
+realize $N$ as the N\'{e}ron--Severi lattice of a projective
+K3 surface. Since $H$ lies on no root wall, the Weyl chamber
+description permits a marking in which it is ample
+\cite[Chapters 8 and 14]{cycompact:Huybrechts}.
+
+For $i\ne j$, the class $D_j-D_i$ is nonzero, has square
+$-8$ and is orthogonal to $H$. Neither sign is effective,
+so its line bundle has $H^0=H^2=0$. Riemann--Roch gives
+$\chi=2-8/2=-2$, proving the cross-Ext calculation.
+Self-Ext is $H^*(S,\mathcal O_S)$. Finally
+$\chi(L_i(mH))=2+(D_i+mH)^2/2=4m^2-2$.
+Rank-one torsion-free sheaves are Gieseker stable: a proper
+same-rank subsheaf has a nonzero torsion quotient and a
+strictly smaller reduced Hilbert polynomial. The common
+polynomial makes the direct sums polystable.
+\end{proof}
+
+The Mukai vectors are $v_i=(1,D_i,-3)$ and satisfy
+$-\langle v_i,v_j\rangle=G_{ij}$.
+They are independent, so this gives an additive isometry
+from their charge lattice with the negative Mukai form to
+the lattice with matrix \eqref{cycompact:eq:Cartan}.
+Budur--Zhang formality applies to every $F_{\mathbf n}$
+\cite{cycompact:BudurZhang}. We will also need compatibility
+with the geometric trace and with the whole collection.
+
+\subsection{One cyclic model for all multiplicities}
+
+Let $\mathcal D$ be the three-object Dolbeault dg category
+with morphisms
+$\mathcal A^{0,*}(S,L_i^\vee\otimes L_j)$ and differential
+$\bar\partial$. Composition is wedge product and bundle
+composition. Its degree-$-2$ trace pairing is
+\[
+ \langle a,b\rangle=\int_S\omega_S\wedge\operatorname{tr}(ba).
+\]
+Put $A(i,j)=\operatorname{Ext}^*_S(L_i,L_j)$ and
+$\ell=\bigoplus_i\mathbb C1_i$.
+A cyclic comparison preserves the associated Calabi--Yau
+class; on a cyclic minimal model that class is represented
+by this perfect pairing.
+
+\begin{proposition}\label{cycompact:prop:cyclic-formality}
+There is a strictly unital cyclic minimal model $A$ of
+$\mathcal D$ with only its Yoneda product $m_2$ nonzero.
+One cyclic quasi-equivalence $F=(F_n):A\to\mathcal D$
+can be chosen for the entire three-object collection.
+\end{proposition}
+
+\begin{proof}
+The collection is simple-minded: its negative Ext groups
+vanish and $A^0=\ell$ consists of the vertex identities.
+The cyclic minimal-model and strict-unit theorem for such
+a $2$-Calabi--Yau collection applies, since Serre
+duality is perfect of degree $-2$
+\cite[Lemmas 4.4--4.5 and Proposition 4.8]{cycompact:DavisonPurity}.
+It supplies a cyclic model with strict units over the
+semisimple algebra $\ell$ and the given geometric trace.
+
+The higher products then vanish for a direct reason.
+For $n\geq3$, an input in $A^0=\ell$ makes $m_n$ zero
+by strict unitality. If all inputs have positive degree
+and one has degree two, the output has degree at least
+three, since $|m_n|=2-n$. Only inputs all in degree one
+remain; their output is in $A^2$. Pair that output with
+each vertex unit. Cyclicity moves the unit into an input
+of $m_n$, giving zero. The pairing between $A^2$ and
+$A^0$ is perfect, so the output is zero.
+\end{proof}
+
+This is a formal statement in the completed tensor algebra
+over $\ell$. The formal correction of a cyclic form can
+be seen weight by weight. In the noncommutative de Rham
+complex, give every coordinate and differential weight
+one. For a closed error $\omega_w$ of weight $w>2$ beyond
+the constant two-form,
+Cartan's identity gives
+$\omega_w=d_{\mathrm{dR}}(w^{-1}\iota_{\mathcal E}\omega_w)$,
+where $\mathcal E$ is the Euler vector field.
+The constant nondegenerate form identifies that primitive
+with a vector field whose formal flow removes the error.
+Increasing weights converge in tensor length. Analytic
+convergence is a separate condition.
+
+For multiplicity spaces $V_i$, amplify the morphisms to
+$A(i,j)\otimes\operatorname{Hom}(V_i,V_j)$ and define
+the Taylor coefficients of $F^{\mathrm{mat}}$ by summing
+over composable matrix paths:
+\begin{equation}\label{cycompact:eq:matrix-path}
+ (F_n^{\mathrm{mat}}(a_n,\ldots,a_1))_{i_ni_0}
+ =\sum_{i_1,\ldots,i_{n-1}}
+ F_n((a_n)_{i_ni_{n-1}},\ldots,(a_1)_{i_1i_0}).
+\end{equation}
+The formula includes multiplication of the matrix
+coefficients. Use the suspended bar convention on $A[1]$:
+the bar differential has degree one and $F$ has degree
+zero. Its tensor products determine the Koszul signs.
+
+A finite twisted flag is an ordered direct sum with a
+strictly upper-triangular degree-one matrix $\delta$
+satisfying its Maurer--Cartan equation, here $\delta^2=0$.
+Twisting inserts copies of $\delta$ into the operations;
+upper-triangular morphisms preserve the filtration.
+The cyclic class is carried by the full matrix morphism
+complexes; its restriction to flag-preserving morphisms
+need not be nondegenerate.
+
+\begin{theorem}\label{cycompact:thm:cyclic-flags}
+The fixed functor $F$ extends to a cyclic quasi-equivalence
+on finite twisted objects, retaining their flag-preserving
+subcomplexes. For morphisms $a_i$ between flags with
+twisting matrices $\delta_i$, it is given by
+\begin{align}
+ F_*(\delta)&=\sum_{n\geq1}
+    F_n^{\mathrm{mat}}(\delta,\ldots,\delta),
+       \label{cycompact:eq:twisted-object}\\
+ F_k^{\mathrm{tw}}(a_k,\ldots,a_1)
+ &=\sum_{j_0,\ldots,j_k\geq0}
+ F_{k+j_0+\cdots+j_k}^{\mathrm{mat}}
+ (\delta_k^{j_k},a_k,\ldots,a_1,\delta_0^{j_0}).
+       \label{cycompact:eq:twisted-morphism}
+\end{align}
+A power denotes repeated inputs. These maps are equivariant
+under changes of multiplicity bases and coherent under
+every ordered regrouping. They also apply over nilpotent
+Artinian bases and in their inverse-limit formal completion.
+\end{theorem}
+
+\begin{proof}
+Each upper-triangular input advances along a finite flag.
+The object formula terminates before its length, and the
+morphism formula terminates between each pair of its
+distinguished inputs. With Artinian parameters, combine
+flag distance with powers of the maximal ideal. Every
+formula is then finite at each precision.
+
+Evaluate the bar identity $b_{\mathcal D}F=Fb_A$ on repeated
+copies of $\delta$. It gives the Maurer--Cartan equation
+for $F_*(\delta)$. Marking $a_1,\ldots,a_k$ in the same
+identity gives all twisted functor equations. A finite
+filtration by matrix distance has associated graded a
+direct sum of the original quasi-isomorphisms $F_1$.
+Thus the twisted functor is quasi-fully faithful.
+
+For essential surjectivity, induct on the flag length.
+The last extension class lifts through quasi-full-faithfulness;
+a change by a boundary gives an isomorphic twisted object.
+Taking its cone extends the lifted flag. Over a square-zero
+Artinian extension with kernel $J$, a tentative lift has
+curvature in degree-two cohomology of the twisted
+endomorphism complex tensored with $J$. The existing
+target lift makes its image zero; the quasi-isomorphism
+already proved on these complexes removes it.
+Surjectivity on degree-one cohomology matches the extension class and
+a degree-zero gauge change matches representatives.
+Induction proves the Artinian claim.
+
+The amplified trace is the original cyclic trace followed
+by matrix trace. Its terms are closed matrix paths, whose
+rotation has exactly the original Koszul sign. This also
+transports the cyclic class after twisting. Basis changes
+conjugate the path sums. Regrouping partitions the same
+paths into consecutive subpaths, leaving their sum
+unchanged. All subdivisions therefore give the required
+coherences. The compatible finite-precision formulas pass
+to the formal inverse limit.
+\end{proof}
+
+For three blocks the first nonlinear term is already
+visible:
+$ (F_*\delta)_{13}=F_1(\delta_{13})+
+F_2(\delta_{12},\delta_{23})$,
+with the composition order of \eqref{cycompact:eq:matrix-path}.
+Separate choices for the two binary extensions need not
+retain that term.
+
+\section{The cubic critical model and its gauge directions}
+\label{cycompact:sec:critical}
+
+Choose a quiver $Q$ with vertices $1,2,3$ and two arrows
+$i\to j$ for each $i<j$. Write $t(a),h(a)$ for the tail
+and head of an arrow. With $\dim V_i=n_i$, its doubled representation space
+has maps
+$X_a:V_{t(a)}\to V_{h(a)}$ and
+$Y_a:V_{h(a)}\to V_{t(a)}$.
+Put $G_{\mathbf n}=\prod_iGL(V_i)$ and
+$\mathfrak g_{\mathbf n}=\bigoplus_i\operatorname{End}(V_i)$.
+The degree-one Yoneda products, using Serre-dual arrow
+bases, give the moment map
+\begin{equation}\label{cycompact:eq:moment}
+ \mu_i=\sum_{h(a)=i}X_aY_a-\sum_{t(a)=i}Y_aX_a.
+\end{equation}
+The equation $x^2=0$ in the surface Ext algebra is
+$\mu=0$. Its pointed formal gauge group over an Artinian
+base is $\exp(\mathfrak g_{\mathbf n}\otimes\mathfrak m)$,
+where $\mathfrak m$ is the maximal ideal. The full affine
+quotient by $G_{\mathbf n}$ is the quiver moduli model.
+
+For the embedding $S\times\{e\}\hookrightarrow X$, a
+normal parameter normalized by $\omega_E$ gives the exterior Koszul factor
+$\Lambda(\theta)$, with $|\theta|=1$ and
+$\operatorname{tr}(\theta)=1$. Tensoring the formal cyclic
+collection with this factor gives a formal cyclic
+threefold comparison. A degree-one element is $x+z\theta$,
+with $x$ in the surface degree one and $z$ in degree zero.
+Its square is $x^2+(xz-zx)\theta$.
+
+On
+$\mathcal V_{\mathbf n}=\operatorname{Rep}(\overline Q,\mathbf n)
+\oplus\mathfrak g_{\mathbf n}$ these equations are the
+critical equations of
+\begin{equation}\label{cycompact:eq:potential}
+ \mathcal W_{\mathbf n}(X,Y,Z)
+ =\sum_i\operatorname{Tr}(Z_i\mu_i)
+ =\sum_a\operatorname{Tr}
+       \bigl(Y_a(Z_{h(a)}X_a-X_aZ_{t(a)})\bigr).
+\end{equation}
+Differentiation with respect to $Z,X,Y$ gives, respectively,
+\[
+ \mu_i=0,\qquad
+ Y_aZ_{h(a)}=Z_{t(a)}Y_a,\qquad
+ Z_{h(a)}X_a=X_aZ_{t(a)}.
+\]
+Thus the classical critical quotient parametrizes
+preprojective representations with a commuting normal
+operator.
+
+The derived critical quotient also keeps the gauge duals.
+For a smooth affine $V$ with a smooth affine group $G$
+acting and an invariant function $f$, write
+$\rho:\mathfrak g\to\Gamma(V,T_V)$ for its action.
+In \'{e}tale coordinates $x_i$, write
+$\rho(a)=\sum_i\rho_a^i\partial_{x_i}$ for a basis element
+$a\in\mathfrak g$. Introduce odd variables $\xi_i$
+of degree $-1$ and variables $b_a$ of degree $-2$, and set
+\begin{equation}\label{cycompact:eq:critical-dga}
+ K_f=\operatorname{Sym}_{\mathcal O(V)}
+       (T_V[1]\oplus(\mathfrak g\otimes\mathcal O(V))[2]),\qquad
+ d\xi_i=\partial_if,\quad
+ db_a=-\sum_i\rho_a^i\xi_i,\quad dx_i=0.
+\end{equation}
+The algebra is graded commutative. The action on all
+generators is the induced $G$-action.
+
+\begin{proposition}\label{cycompact:prop:critical-gauge}
+The stack $[\operatorname{Spec}K_f/G]$ is the derived
+critical locus of $f$ on $[V/G]$. At a critical point,
+its tangent complex shifted to endomorphism degrees is
+\begin{equation}\label{cycompact:eq:critical-tangent}
+ [\mathfrak g\xrightarrow{\rho}T_V
+ \xrightarrow{\operatorname{Hess}f}T_V^*
+ \xrightarrow{-\rho^*}\mathfrak g^*]
+\end{equation}
+in degrees zero through three.
+\end{proposition}
+
+\begin{proof}
+The tangent of $[V/G]$ pulled back to $V$ is
+$[\mathfrak g\to T_V]$ in degrees $-1,0$.
+The Koszul model for the intersection of its zero section
+and $df$ in the cotangent stack has generators
+$T_V[1]$ and $\mathfrak g[2]$, with the differential
+\eqref{cycompact:eq:critical-dga}
+\cite[Section 4]{cycompact:BeniniSafronovSchenkel}.
+It squares to zero because $d^2b_a=-\rho(a)f=0$.
+Linearization and the quotient tangent give
+\eqref{cycompact:eq:critical-tangent}.
+Differentiating invariance at a critical point gives
+$\operatorname{Hess}(f)\rho=0$ and its dual identity.
+This tangent construction makes the coordinate models
+compatible on overlaps.
+\end{proof}
+
+For $N=\sum_i n_i>0$, set
+$c=N^{-1}\sum_i\operatorname{Tr}Z_i$ and
+$Z_i^0=Z_i-cI$. Let $\mathcal V_{\mathbf n}^0$ be the
+hyperplane $\sum_i\operatorname{Tr}Z_i=0$ and
+$\mathcal W_{\mathbf n}^0$ the restricted potential.
+Since $\sum_i\operatorname{Tr}\mu_i=0$,
+the potential is independent of $c$ and
+\begin{equation}\label{cycompact:eq:critical-centre}
+ \operatorname{Crit}_{[\mathcal V_{\mathbf n}/G_{\mathbf n}]}
+       (\mathcal W_{\mathbf n})
+ \simeq T^*[-1]\mathbb A^1\times
+ \operatorname{Crit}_{[\mathcal V_{\mathbf n}^0/G_{\mathbf n}]}
+       (\mathcal W_{\mathbf n}^0).
+\end{equation}
+At the algebra level the first factor is
+$\mathbb C[c]\otimes\Lambda(\xi_c)$ with $d\xi_c=0$.
+The centred factor retains all degree-$-2$ gauge generators.
+This removes the orbit pair, whereas quotienting only
+the translation of $c$ leaves $\xi_c$.
+
+The local orientation is the canonical line of the smooth
+quotient,
+\[
+ K_{[\mathcal V/G]}=\det(\mathcal V^*)\otimes\det\mathfrak g.
+\]
+Every arrow space pairs with its dual reverse-arrow space,
+and the loop space is the adjoint representation. Their
+determinant characters cancel. An ordering of the paired
+spaces gives a trivialization. Removing the centre changes
+this line by $\det W$, in agreement with
+Proposition~\ref{cycompact:prop:orbit}.
+
+\subsection{Dimensional reduction and the point chart}
+
+For a function $f(x,z)=\sum_{a=1}^d z_af_a(x)$ linear in
+the fibre coordinates, dimensional reduction identifies
+compactly supported vanishing-cycle cohomology with
+cohomology of $(f_a=0)$, shifted by $[-2d]$ and
+Tate-twisted by $(-d)$ \cite[Appendix A]{DavisonCriticalCoHA}.
+With $\varphi_f=\phi_f[-1]$, the constructed potential gives
+\begin{equation}\label{cycompact:eq:dimred}
+ R\Gamma_c(\mathcal V_{\mathbf n},\varphi_{\mathcal W}\mathbb Q)
+ \simeq R\Gamma_c(\mu^{-1}(0),\mathbb Q)
+       [-2\dim\mathfrak g_{\mathbf n}](-\dim\mathfrak g_{\mathbf n}).
+\end{equation}
+The equivariant version uses finite-dimensional
+approximations. Centring replaces the loop dimension by
+$\dim\mathfrak g_{\mathbf n}-1$; the zero locus stays the
+same because $\mu$ already has total trace zero.
+Equation~\eqref{cycompact:eq:dimred} is a direct-image
+comparison, with the shift from compact affine fibres.
+
+For a point sheaf there is an analytic cyclic model as
+well. The volume germ identifies its cyclic minimal
+algebra with $\Lambda^*T_xX$, its exterior product and
+its top-degree trace \cite{cycompact:VanGarderen}.
+With multiplicity $n$, matrix amplification gives
+\begin{equation}\label{cycompact:eq:point-potential}
+ f_n(X,Y,Z)=\operatorname{Tr}(Z[X,Y]).
+\end{equation}
+For an oriented tangent basis, if $a=Xe_1+Ye_2+Ze_3$,
+then $f_n=\operatorname{vol}_x\operatorname{Tr}(a^3)/3$.
+This fixes the normalization. Its critical equations
+are the three commutator equations. In the formal
+neighbourhood of the origin, or in a sufficiently small
+analytic neighbourhood, they describe the corresponding
+finite-length local-coordinate modules.
+
+Writing the dual odd matrices as $X^*,Y^*,Z^*$ and the
+degree-$-2$ gauge matrix as $b$, the full differential is
+\[
+ dX^*=[Y,Z],\quad dY^*=[Z,X],\quad dZ^*=[X,Y],\qquad
+ db=-[X,X^*]-[Y,Y^*]-[Z,Z^*].
+\]
+The Jacobi identity gives $d^2b=0$. A single point retains
+endomorphism dimensions $(1,3,3,1)$; after the paired
+centre removal they are $(1,2,2,1)$.
+The ambient orientation line is
+$\det(\operatorname{End}\mathbb C^n)^{-2}$, trivialized by
+the evaluation determinant. The local model retains the
+scalar stabilizer as well as its dual.
+
+\section{The first two-colour collision}
+\label{cycompact:sec:two-colour}
+
+For two one-dimensional vertex spaces, remove their common
+normal centre and retain the relative coordinate $s$.
+With $r$ arrows in each dual direction the potential is
+\[
+ f=sQ,\qquad Q(x,y)=\sum_{i=1}^r x_iy_i,
+ \qquad (s,x,y)\in\mathbb A^{2r+1}.
+\]
+The effective relative group $\mathbb G_m$ has weights
+$1,-1,0$ on $x,y,s$.
+
+\begin{proposition}\label{cycompact:prop:collision}
+The critical ideal is
+\begin{equation}\label{cycompact:eq:collision-ideal}
+ J=(Q,sx_1,\ldots,sx_r,sy_1,\ldots,sy_r)
+   =(x,y)\cap(s,Q).
+\end{equation}
+For $r=2$, the affine quotient of $\{s=Q=0\}$ is
+$\{u^2+vw=0\}$. Its quotient on $x\ne0$ is
+$T^*\mathbb P^1$.
+\end{proposition}
+
+\begin{proof}
+The derivatives give the first ideal. With
+$\mathfrak m=(x,y)$, multiplication by $s$ is injective
+modulo $\mathfrak m$. Since $Q\in\mathfrak m$, an element
+$sa+Qb$ belongs to $\mathfrak m$ exactly when
+$a\in\mathfrak m$, proving the intersection formula.
+For $r=2$, the invariant matrix $(x_iy_j)$ has rank at
+most one and trace zero. Write it as
+$\left(\begin{smallmatrix}u&v\\w&-u\end{smallmatrix}\right)$;
+its determinant is $-u^2-vw$. These entries generate
+the invariant ring. On $x\ne0$, the vector $x$ defines
+a line and $y(x)=0$ defines a cotangent vector there.
+The reciprocal rescaling is precisely the cotangent
+bundle quotient.
+\end{proof}
+
+For $r\geq2$ the two components are the spectral axis
+and the irreducible collision quadric. The relative
+gauge generator remains in the derived model, with
+\[
+ db=-\sum_i(x_i\xi_{x_i}-y_i\xi_{y_i}),
+ \qquad d^2b=-\sum_i(x_isy_i-y_isx_i)=0.
+\]
+
+Set $\Phi_f=\phi_f[-1]\mathbb Q[2r+1]$ on the smooth
+atlas. Its stalks detect more than the ordinary critical
+locus.
+
+\begin{proposition}\label{cycompact:prop:milnor}
+For $r\geq2$, the stalk at the origin has one copy of
+$\mathbb Q$ in degrees $1-2r,-1,0$ and no other
+cohomology. At a nonzero point of the spectral axis
+only degree $-1$ survives. At a smooth nonzero point
+of the collision quadric only degree $1-2r$ survives.
+\end{proposition}
+
+\begin{proof}
+The map $(s,x,y)\mapsto(s,x,sy)$ identifies $f^{-1}(1)$
+with $\mathbb C^*\times Q^{-1}(1)$. Projection of
+$Q^{-1}(1)$ to $x\ne0$ is an affine bundle with fibre
+$\mathbb C^{r-1}$, so it has the homotopy type of
+$S^{2r-1}$. Homogeneity identifies a small local Milnor
+fibre with a sufficiently large ball sublevel in this
+global fibre. Those sublevels stabilize: the squared
+norm is proper and semialgebraic on the smooth affine
+fibre, its critical set has finitely many connected
+components, and its value is constant on each.
+Above these critical values its gradient gives
+deformation retractions. The Milnor fibre at the
+origin therefore has type $S^1\times S^{2r-1}$.
+
+Its reduced cohomology lies in degrees $1,2r-1,2r$.
+The normalization gives
+$H^j(\Phi_f)_0=\widetilde H^{j+2r}(F_0,\mathbb Q)$,
+proving the first assertion. Away from the origin
+on the axis the transverse function is the
+nondegenerate quadratic form $Q$. Away from the
+origin on the quadric use $Q$ as a coordinate;
+the transverse function is the node $sQ$.
+Their Milnor cohomology degrees are $2r-1$ and one,
+respectively, giving the remaining shifts.
+\end{proof}
+
+For $r=1$, the two degree-one classes of the Milnor
+fibre coincide in degree, giving a rank-two stalk
+there. These are atlas coefficients. Passing to
+the quotient requires their equivariant structures
+and retains the classifying-stack directions.
+Inverting $s$ cannot decide a class supported at
+the collision: the complex
+$[\mathbb C[s]e\xrightarrow{d}\mathbb C[s]]$ with
+$|e|=-1$ and $de=s$ becomes contractible there,
+but before localization has $H^0=\mathbb C[s]/(s)$.
+
+\subsection{Real-root convolution relations}
+
+In the constructible Hall algebra of nilpotent
+representations of the preprojective algebra of $Q$,
+use Euler-characteristic convolution. Let $e_i$ be
+the characteristic function of the vertex simple.
+The divided power $e_i^{(b)}=e_i^{*b}/b!$ is the
+characteristic function of its $b$-fold direct sum,
+since a complete flag in $\mathbb C^b$ has Euler
+characteristic $b!$.
+
+\begin{proposition}\label{cycompact:prop:Serre}
+For distinct vertices $i,j$,
+$(\operatorname{ad}e_i)^3(e_j)=0$.
+Consequently the real positive Kac--Moody algebra
+with matrix \eqref{cycompact:eq:Cartan} maps to
+this constructible Hall algebra as a Lie algebra.
+\end{proposition}
+
+\begin{proof}
+Evaluate the relation on dimension vector $(3,1)$
+at $i,j$. Combine the forward arrows into
+$X:\mathbb C^3\to\mathbb C^2$ and the reverse arrows
+into $Y:\mathbb C^2\to\mathbb C^3$.
+The preprojective relation $YX=0$ implies
+$\operatorname{rank}X+\operatorname{rank}Y\leq2$.
+Put $I=\operatorname{im}Y$ and $K=\ker X$.
+A flag counted by $e_i^{(b)}*e_j*e_i^{(3-b)}$
+is a $b$-plane with $I\subset U\subset K$.
+If $I\not\subset K$, all terms are empty.
+Otherwise write $r_0=\dim I$, $s_0=\dim K$.
+The flag Euler characteristic is
+$\binom{s_0-r_0}{b-r_0}$, and
+$s_0-r_0=3-\operatorname{rank}X-\operatorname{rank}Y\geq1$.
+Thus
+\[
+ \sum_{b=0}^3(-1)^b\binom{s_0-r_0}{b-r_0}
+ =(-1)^{r_0}(1-1)^{s_0-r_0}=0.
+\]
+Multiplying by $3!$ gives the cubic Serre relation,
+up to a common sign. Interchanging the vertices
+proves the other relation.
+\end{proof}
+
+This constructs an actual homomorphism and its
+enveloping-algebra map. It does not determine its
+kernel or every imaginary primitive. Those require
+the root-graded operators and their relations,
+beyond the Euler matrix and the real-root Serre
+identities.
+
+\section{An oriented normal coefficient map}
+\label{cycompact:sec:normal}
+
+A local comparison can be made on the actual normal
+Gysin map. Let $U$ be a smooth complex variety, let $m$
+be a regular function, and put
+\[
+ p:Y=U\times\mathbb A^1_{\tau_{\mathrm g}}\to U,
+ \qquad f=m\tau_{\mathrm g}.
+\]
+Let $j:U\hookrightarrow Y$ be the zero section,
+$i:Z=(m=0)\hookrightarrow U$, and
+$k:Z\times\mathbb A^1\hookrightarrow Y$.
+The geometric coordinate $\tau_{\mathrm g}$ has degree
+zero. Write $\Phi_f=\phi_f[-1]$, extended by zero to
+$Y$; in particular $\Phi_0$ is the identity.
+
+For $F\in D_c^b(U;\mathbb Q)$, normalize the complex
+Thom map $j_*F\to p^*F[2]$ to have compact trace $+1$.
+Applying vanishing cycles gives
+\begin{equation}\label{cycompact:eq:normal-Gysin}
+ G_F:j_*F\longrightarrow\Phi_fp^*F[2].
+\end{equation}
+The source identification follows from proper base change
+and $fj=0$. Rank-one dimensional reduction, constructed
+from the coefficient unit $p^*F\to k_*k^*p^*F$, gives
+\[
+ \theta_F:Rp_!\Phi_fp^*F[2]\xrightarrow{\sim}i_*i^*F.
+\]
+It applies to these pulled-back coefficients without a
+smoothness assumption on $Z$.
+
+\begin{lemma}\label{cycompact:lem:normal-trace}
+With this orientation,
+\begin{equation}\label{cycompact:eq:normal-trace}
+ \theta_F Rp_!G_F=(F\longrightarrow i_*i^*F).
+\end{equation}
+The equality is natural in $F$ and in the normal frame.
+\end{lemma}
+
+\begin{proof}
+Pull the Thom map to $Z\times\mathbb A^1$.
+The Cartesian zero-section square identifies its
+composite with restriction to $Z$ followed by the
+same normal Thom map over $Z$. Its compact trace is
+the identity. Naturality of the coefficient unit
+before and after $\Phi_f$ proves
+\eqref{cycompact:eq:normal-trace}. A complex frame
+change preserves the real orientation and its
+trace normalization.
+\end{proof}
+
+We now specify the coefficient change. Pull the
+algebraic structure sheaf to the analytic site,
+and write it as $\mathscr O_U$. Define the dg algebra
+\begin{equation}\label{cycompact:eq:normal-Koszul}
+ K_m=\mathscr O_U\otimes\Lambda(\eta,\chi),\qquad
+ |\eta|=|\chi|=-1,\quad d\eta=m,\quad d\chi=0.
+\end{equation}
+It is the Koszul algebra of the two specified
+equations $(m,0)$. The covariant exact realization is
+\begin{equation}\label{cycompact:eq:normal-realization}
+ \mathcal R_m(A)=K_m\otimes_{\mathbb Q_U}^{\mathbb L}Rp_!A,
+ \qquad D_c^b(Y;\mathbb Q)\longrightarrow D(K_m).
+\end{equation}
+The target consists of sheaves of left dg modules;
+its objects need not be coherent. This construction
+includes extension of scalars by the specified
+Koszul algebra. In unrestricted derived categories
+the right adjoint forgets the module structure and
+then applies $p^!$.
+
+The algebraic normal resolution uses a separate
+variable $\tau_{\mathrm a}$ of degree two. Set
+$\mathcal E=\mathscr O_U[\tau_{\mathrm a}]\otimes\Lambda(e)$,
+with $|e|=1$. Let $\lambda$ multiply by $e$ and
+let $\eta$ contract with $e$. Thus
+$\lambda\eta+\eta\lambda=1$, and
+\[
+ D_{\mathcal E}=m\lambda+\tau_{\mathrm a}\eta,
+ \qquad D_{\mathcal E}^2=m\tau_{\mathrm a}.
+\]
+Put
+\[
+ \mathscr A=\operatorname{End}_{\mathscr O_U[\tau_{\mathrm a}]}
+       (\mathcal E)\otimes\Lambda(\chi),\qquad
+ \mathscr S=(\mathscr A[\tau_{\mathrm a}^{-1}]/\mathscr A)[-1].
+\]
+The differential of $\mathscr A$ is $[D_{\mathcal E},-]$;
+on the shifted quotient it has the opposite sign.
+Only finite negative Laurent sums are admitted.
+Order $\eta,\chi$ before $\lambda$, and use the shifted
+left action $a\cdot[x]=(-1)^{|a|}[ax]$.
+
+For homogeneous $\xi\in K_m$ and $n\geq1$, define
+\begin{equation}\label{cycompact:eq:normal-residue}
+\begin{aligned}
+ r(\xi\lambda\tau_{\mathrm a}^{-n})
+ &=\begin{cases}(-1)^{|\xi|}\xi,&n=1,\\0,&n>1,\end{cases}\\
+ r(\xi\tau_{\mathrm a}^{-n})&=0,\qquad
+ s(\xi)=(-1)^{|\xi|}\xi\lambda\tau_{\mathrm a}^{-1}.
+\end{aligned}
+\end{equation}
+They are degree-zero $K_m$-linear chain maps with
+$rs=1$. The degree-$-1$ homotopy
+\[
+ h(\xi\tau_{\mathrm a}^{-n})
+ =(-1)^{|\xi|+1}\xi\lambda\tau_{\mathrm a}^{-n-1},
+ \qquad h(\xi\lambda\tau_{\mathrm a}^{-n})=0
+\]
+satisfies $dh+hd=1-sr$ and $h^2=rh=hs=0$.
+Indeed $[D_{\mathcal E},\eta]=m$ and
+$[D_{\mathcal E},\lambda]=\tau_{\mathrm a}$.
+Substitution cancels the successive pole terms;
+at pole one the regular term is discarded and
+the remainder is exactly $1-sr$.
+
+\begin{proposition}\label{cycompact:prop:normal-square}
+The coefficient restriction
+$q_F:K_m\otimes F\to K_m\otimes i_*i^*F$ is a
+quasi-isomorphism. If
+$\alpha_F=s\otimes1_F$ and
+$\gamma_F=q_F^{-1}(1\otimes\theta_F)$ in the derived
+category, then
+\begin{equation}\label{cycompact:eq:normal-square}
+ (r\otimes1_F)\alpha_F=\gamma_F\mathcal R_m(G_F).
+\end{equation}
+For constant coefficients, both realized objects
+have the model $K_m$ and the realized arrow is the
+identity. The oriented normal class is represented
+by $\lambda/\tau_{\mathrm a}$, with residue $1$.
+\end{proposition}
+
+\begin{proof}
+On $Z$, the coefficient restriction is the identity
+on stalks. Off $Z$, multiplication by $\eta/m$
+contracts the Koszul complex. Tensoring over the
+field $\mathbb Q$ preserves these assertions,
+so $q_F$ is a quasi-isomorphism.
+Lemma~\ref{cycompact:lem:normal-trace} identifies
+the composite of $\mathcal R_m(G_F)$ with
+$1\otimes\theta_F$ as $q_F$.
+Now $rs=1$ proves \eqref{cycompact:eq:normal-square}.
+The resulting arrow is objectwise equivalent to
+the identity of $K_m\otimes F$, giving the stated
+models and zero cochain homotopy for their square.
+\end{proof}
+
+The geometric coordinate has been integrated out.
+The algebraic coordinate has degree two, with the
+Thom shift $[2]$ and the resolution shift $[-1]$
+making $\lambda/\tau_{\mathrm a}$ degree zero.
+These are distinct coordinate algebras. External
+products of independent normal factors are compatible
+by compact K\"unneth, the product orientation and
+the Koszul tensor rule. The construction also glues
+for a normal line bundle with a section of its dual.
+
+\subsection{The character after fixing the framed slice}
+
+Consider the framed matrices
+\[
+ A=\begin{pmatrix}w+u&B_0\\0&w\end{pmatrix},\quad
+ B=\begin{pmatrix}y+\nu&D_0\\0&y\end{pmatrix},\quad
+ \iota=\binom{\iota_1}{\iota_2},\quad j_{\mathrm{fr}}=(1,0).
+\]
+Their moment matrix is
+\[
+ [A,B]+\iota j_{\mathrm{fr}}
+ =\begin{pmatrix}\iota_1&uD_0-\nu B_0\\\iota_2&0\end{pmatrix}.
+\]
+Eliminate the two regular framing equations by their
+Koszul contractions and, on $B_0\ne0$, use diagonal gauge to set
+$B_0=1$. The remaining equations are
+$m=uD_0-\nu$ and zero, with generators $\eta,\chi$.
+For an auxiliary matrix $L$, the trace potential is
+$L_{11}\iota_1+L_{21}(uD_0-\nu B_0)+L_{12}\iota_2$.
+Thus $\tau_{\mathrm g}=L_{21}$ is the normal coordinate.
+
+Let $(s,t)\in(\mathbb C^*)^2$ scale $A,B$ by $s,t$,
+and let $h_1,h_2$ denote its additive characters.
+The compensating gauge is
+$g=\operatorname{diag}(s^{-1},1)$ with framing change
+$h=s^{-1}$. The transformations
+\[
+ A'=g(sA)g^{-1},\quad B'=g(tB)g^{-1},\quad
+ \iota'=st\,g\iota h^{-1},\quad
+ j'_{\mathrm{fr}}=h j_{\mathrm{fr}}g^{-1}
+\]
+preserve both slice conditions. They give
+\begin{equation}\label{cycompact:eq:normal-weights}
+\begin{array}{c|ccccc}
+ \text{variables}&w,u&D_0&\nu,\eta&\chi&
+       \tau_{\mathrm g},\tau_{\mathrm a},\lambda\\\hline
+ \text{character}&h_1&h_2-h_1&h_2&h_1+h_2&-h_2.
+\end{array}
+\end{equation}
+In fact $D_0'=(t/s)D_0$, $u'=su$, $\nu'=t\nu$,
+and the lower-left entry of
+$g((st)^{-1}L)g^{-1}$ is $t^{-1}\tau_{\mathrm g}$.
+The zero $(2,2)$ moment component retains character
+$h_1+h_2$. Hence the residue frame is invariant.
+Under any degree-zero frame unit $a$,
+\[
+ \tau'_{\mathrm a}=a\tau_{\mathrm a},\quad
+ \lambda'=a\lambda,\quad m'=a^{-1}m,\quad
+ \eta'=a^{-1}\eta,
+\]
+and the residue and section agree in the two frames.
+Writing $h_i$ also for the equivariant first Chern classes,
+the normal Euler class is $-h_2$; compact Thom
+normalization requires no inversion of that class.
+
+\subsection{Supported specialization keeps the incidence term}
+
+Set $A_0=\mathbb C[w,u]$, $z=w+u$ and $v=t_0-w$.
+Use proper rational representatives at $t_0=\infty$
+in the principal-parts modules
+\[
+\begin{split}
+ P_z&=A_0[t_0,(t_0-z)^{-1}]/A_0[t_0],\\
+ P_w&=A_0[t_0,(t_0-w)^{-1}]/A_0[t_0],\\
+ P_{zw}&=A_0[t_0,((t_0-z)(t_0-w))^{-1}]/A_0[t_0].
+\end{split}
+\]
+Let $\mathcal C=[P_z\oplus P_w\to P_{zw}]$ in degrees
+$-1,0$, with differential $(a,b)\mapsto a-b$.
+The target of the Cauchy comparison is
+\[
+ \mathcal T=\bigoplus_{p,r\geq1}\mathbb C[w]u^{-p}v^{-r}.
+\]
+Multiplication discards terms once either pole exponent
+becomes nonnegative. This is a direct sum of finite
+principal parts, with no completion in pole order.
+
+The map $\Theta:\mathcal C\to\mathcal T$ is zero in
+degree $-1$; in degree zero take first the $v$-principal
+part at zero and then the $u$-principal part. Explicitly,
+\begin{equation}\label{cycompact:eq:Cauchy}
+ \Theta\!\left(\frac1{v^a(v-u)^b}\right)
+ =(-1)^b\sum_{j=0}^{a-1}\binom{b+j-1}{j}
+       u^{-b-j}v^{j-a},\qquad a,b\geq1.
+\end{equation}
+It is a quasi-isomorphism. The single-pole modules
+intersect trivially by partial fractions after
+inverting $u$ and torsion-freeness before inversion.
+At each total pole order, the binomial expansion in
+\eqref{cycompact:eq:Cauchy} is triangular with unit
+diagonal, proving surjectivity. If a proper rational
+function has zero image, its $w$-principal part has
+no $u$-pole and lies in $P_w$. Subtract it; the
+remainder has only a $z$-pole and lies in $P_z$.
+Monic division by $t_0-z$ keeps its coefficients
+in $A_0$, proving the kernel assertion.
+
+Take $m=uD_0-\nu$ and put
+\[
+ M_\nu=\mathcal T[D_0,\nu]\otimes\Lambda(\eta,\chi),
+ \qquad d\eta=uD_0-\nu,\quad d\chi=0.
+\]
+The residue contraction tensored with $\mathcal C$
+and the Cauchy map give quasi-isomorphisms
+\begin{equation}\label{cycompact:eq:supported-normal}
+ \mathscr S\otimes_{A_0}\mathcal C
+ \xrightarrow{r\otimes1}K_m\otimes_{A_0}\mathcal C
+ \xrightarrow{1\otimes\Theta}M_\nu.
+\end{equation}
+They commute with derived specialization at $\nu=0$:
+the Koszul terms are bounded free modules and the
+principal-parts terms are free over $\mathbb C[\nu]$.
+On the constructible side the vanishing-cycle
+specialization need not be an isomorphism before
+normal integration. After $Rp_!$, dimensional
+reduction identifies it with the restriction of
+the coefficient unit. The closed inclusion, that
+unit and the relative compact trace commute with
+base change, giving the same specialization after
+extension to $K_m$.
+
+Set
+\[
+ F_1=\frac1{(z-t_0)(t_0-w)},\quad
+ c_1=((t_0-z)^{-1},(t_0-w)^{-1}).
+\]
+Then $dc_1=-uF_1$ and $\Theta(F_1)=u^{-1}v^{-1}$.
+Before specialization the identities are
+\begin{equation}\label{cycompact:eq:incidence-descendants}
+\begin{split}
+ d(\eta F_1+D_0c_1)&=-\nu F_1,\\
+ d(\eta\chi F_1-\chi D_0c_1)&=-\nu\chi F_1.
+\end{split}
+\end{equation}
+At $\nu=0$, the signed section lifts them to the
+cycles
+\[
+\begin{split}
+ B_\eta&=-\eta\lambda\tau_{\mathrm a}^{-1}F_1
+                 +D_0\lambda\tau_{\mathrm a}^{-1}c_1,\\
+ B_{\eta\chi}&=\eta\chi\lambda\tau_{\mathrm a}^{-1}F_1
+                 +\chi D_0\lambda\tau_{\mathrm a}^{-1}c_1.
+\end{split}
+\]
+Together with $\lambda\tau_{\mathrm a}^{-1}F_1$,
+their images are
+\begin{equation}\label{cycompact:eq:three-descendants}
+ [u^{-1}v^{-1}],\quad[\eta u^{-1}v^{-1}],\quad
+ [\eta\chi u^{-1}v^{-1}]
+\end{equation}
+in degrees $0,-1,-2$, and all are nonzero. For the
+first class, evaluate a prospective boundary at
+$D_0=0$. A degree-$-1$ boundary has only a $\chi$
+component, so cannot give the second class. There
+is no incoming differential in degree $-2$.
+Multiplication by $u$ kills the displayed principal
+part, proving closedness. Before projection,
+omitting $D_0c_1$ leaves
+$d(\eta F_1)=uD_0/[v(u-v)]\ne0$.
+
+The specialization can also be read as Tor. On
+$V=\mathcal T[D_0]$ let $N=uD_0$. The two-term
+complex $[V[\nu]\xrightarrow{N-\nu}V[\nu]]$
+has degree-zero cohomology $V$, with $\nu$ acting
+as $N$, and no degree-$-1$ cohomology. Injectivity
+follows by taking the highest $\nu$ coefficient;
+polynomial division gives the cokernel. Its
+derived zero fibre therefore retains
+\[
+ \operatorname{Tor}^{\mathbb C[\nu]}_1(V,\mathbb C)
+ =\ker N=\bigoplus_{r\geq1}
+       \mathbb C[w,D_0]u^{-1}v^{-r}.
+\]
+The cokernel of $N$ is $\mathcal T$, since $u$
+acts surjectively on $\mathcal T$. Adjoining
+$\chi$ retains both copies with their shifts.
+On a generic fibre, however,
+$(N-\nu)^{-1}=-\sum_{j\geq0}N^j\nu^{-j-1}$;
+the sum is finite on each principal part.
+The generic complex is contractible, while its
+derived special fibre has the classes
+\eqref{cycompact:eq:three-descendants}.
+
+\subsection{The kernel test for a Hall comparison}
+
+The functor \eqref{cycompact:eq:normal-realization}
+has a concrete nonzero kernel. Let
+$a:U\times\mathbb C^*\hookrightarrow Y$ and put
+$L=Ra_*\mathbb Q_{U\times\mathbb C^*}$.
+On each normal line the localization triangle is
+\[
+ \mathbb Q_{\{0\}}[-2]\xrightarrow{\mathrm{Thom}}
+ \mathbb Q_{\mathbb C}\longrightarrow
+ Ra_*\mathbb Q_{\mathbb C^*}\longrightarrow.
+\]
+Compact pushforward takes its first arrow to the
+identity of $\mathbb Q[-2]$. Hence $Rp_!L=0$,
+although $L\ne0$. Its restriction to the zero
+section is $\mathbb Q_U\oplus\mathbb Q_U[-1]$.
+For the ordinary internal tensor,
+\begin{equation}\label{cycompact:eq:normal-tensor-test}
+ \mathcal R_m(L)=0,\qquad
+ \mathcal R_m(L\otimes j_*\mathbb Q_U)
+ =K_m\oplus K_m[-1].
+\end{equation}
+When $Z$ is nonempty the second object is nonzero.
+Thus this realization is not strong monoidal for
+that tensor. Its external-product comparison
+remains valid.
+
+There is a separate proper-image test on the
+algebraic models. For $f:\mathbb P^1\to\mathrm{pt}$,
+take $m=0$ and $K_0=\mathbb C\otimes\Lambda(\eta,\chi)$.
+Constructible proper pushforward followed by
+realization gives $K_0\oplus K_0[-2]$, since
+$H^*(\mathbb P^1,\mathbb Q)$ has degrees zero
+and two. Ordinary coherent pushforward of the
+model $\mathcal O_{\mathbb P^1}\otimes K_0$
+gives $K_0$. Indeed the degree-one \v{C}ech
+quotient is
+\[
+ \mathbb C[z,z^{-1}]/
+       (\mathbb C[z]+\mathbb C[z^{-1}])=0.
+\]
+The two complexes have cohomological widths four
+and two; a uniform shift cannot identify them.
+This excludes that proposed use of ordinary
+coherent direct image. It is not a statement
+about every functor on the sheaf-module target.
+
+For an actual critical Hall convolution
+$\star_{\mathrm H}$ and specified cut realizations
+$\mathcal R_d$, descent through their kernels
+$\mathcal N_d$ requires
+\begin{equation}\label{cycompact:eq:Hall-kernel}
+ \mathcal R_{d+e}(A\star_{\mathrm H}B)=0
+ \quad\text{if }A\in\mathcal N_d\text{ or }B\in\mathcal N_e.
+\end{equation}
+The ordinary tensor test does not decide this
+different product. The normal square constructs
+its stated coefficient arrow; a Hall lift must
+still prove \eqref{cycompact:eq:Hall-kernel} and
+compare the actual proper traces and supported
+incidence maps.
+
+\section{Vertical, wrapped and mixed support}
+\label{cycompact:sec:wrapped}
+
+The projection $\pi_E:X\to E$ gives a useful
+support decomposition. Call a coherent sheaf
+\emph{vertical} if its support has finite image
+in $E$, and let $\mathcal T$ be their full
+subcategory. Let $\mathcal F$ consist of coherent
+sheaves flat over $E$.
+
+\begin{proposition}\label{cycompact:prop:torsion-pair}
+The pair $(\mathcal T,\mathcal F)$ is a torsion
+pair in $\operatorname{Coh}(X)$. Every sheaf has
+a functorial exact sequence
+\begin{equation}\label{cycompact:eq:torsion-pair}
+ 0\longrightarrow t_E(F)\longrightarrow F
+ \longrightarrow F/t_E(F)\longrightarrow0
+\end{equation}
+with the first term vertical and the last flat
+over $E$, and
+$\operatorname{Hom}(\mathcal T,\mathcal F)=0$.
+\end{proposition}
+
+\begin{proof}
+The sum of all vertical subsheaves stabilizes
+because $F$ is noetherian; its support has finite
+image in $E$. This defines $t_E(F)$.
+The quotient has no torsion over the local
+discrete valuation rings of the smooth curve
+$E$, so it is flat over them. A map from a
+vertical sheaf to an $E$-flat sheaf has
+torsion image and is zero. These characterizations
+also prove functoriality.
+\end{proof}
+
+Sheaves pulled back from $S$ are examples of
+wrapped support, and belong to $\mathcal F$.
+The torsion-pair sequence does not yield a
+product decomposition of families. On $E$,
+let $F_t$ be the family of extensions
+\[
+ 0\to\mathcal O_E(-p)\to F_t\to\mathcal O_p\to0
+\]
+with extension parameter $t$.
+For $t\ne0$, $F_t\simeq\mathcal O_E$ has no
+torsion; at zero it is
+$\mathcal O_E(-p)\oplus\mathcal O_p$ and its
+torsion has length one. The total family is
+flat in $t$, but its torsion parts are not.
+Pushing it into $\{s\}\times E$ gives the same
+example on $X$. Hall identities using
+\eqref{cycompact:eq:torsion-pair} must therefore
+use the corresponding strata of the extension
+stack.
+
+The mixed Ext groups retain the normal direction.
+For $i:S\times\{e\}\hookrightarrow X$ and
+perfect $A,B$ on $S$,
+\begin{equation}\label{cycompact:eq:mixed-Ext}
+\begin{split}
+ R\operatorname{Hom}_X(\pi_S^*B,i_*A)
+   &\simeq R\operatorname{Hom}_S(B,A),\\
+ R\operatorname{Hom}_X(i_*A,\pi_S^*B)
+   &\simeq R\operatorname{Hom}_S(A,B)\otimes W[-1],\\
+ R\operatorname{Hom}_X(i_*A,i_*B)
+   &\simeq R\operatorname{Hom}_S(A,B)
+                  \otimes(\mathbb C\oplus W[-1]),\\
+ R\operatorname{Hom}_X(\pi_S^*A,\pi_S^*B)
+   &\simeq R\operatorname{Hom}_S(A,B)
+                  \otimes R\Gamma(E,\mathcal O_E).
+\end{split}
+\end{equation}
+The first two follow from the point resolution
+on $E$: $R\operatorname{Hom}_E(\mathcal O_E,\mathcal O_e)
+=\mathbb C$ and
+$R\operatorname{Hom}_E(\mathcal O_e,\mathcal O_E)
+=W[-1]$. The other two follow from its
+self-Ext and from K\"unneth. Thus the two
+directions of a mixed extension carry
+different shifts, and both are needed in a
+cyclic comparison.
+
+\section{Reduced invariants and the remaining coefficient map}
+\label{cycompact:sec:global-comparison}
+
+A reduced virtual-class theory exists
+for stable pairs on $S\times E$.
+Let $\beta\ne0$ be an effective K3 curve class,
+$d\geq0$, and put $P=P_n(X,(\beta,d))$.
+Its standard perfect obstruction theory
+$\mathbb E\to L_P$ has amplitude $[-1,0]$.
+The semiregularity morphism is
+\[
+ \operatorname{sr}:\mathbb E^\vee
+ \longrightarrow H^{1,3}(X)\otimes\mathcal O_P[-1].
+\]
+It is surjective on obstruction sheaves. Its
+dual cone gives a reduced obstruction theory
+of virtual dimension one. The existence of
+the map from that cone to $L_P$ uses the
+twistor deformation of the K3 surface; it
+does not follow merely by deleting a vector
+from the obstruction space.
+
+The elliptic orbit vector and semiregularity
+are Serre dual. One way to see their
+relationship is to express both through the
+universal Atiyah class: contraction with
+the invariant vector field gives the orbit
+direction, while composition and trace give
+semiregularity. This duality allows a second
+cone, removing the orbit direction, to carry
+a symmetric obstruction theory on an actual
+centre fibre. Determinant and Fourier--Mukai
+constructions give a centre map of nonzero
+weight, so that this fibre has a finite-group
+quotient as in Proposition~\ref{cycompact:prop:centre}.
+
+For the incidence convention, let $\mathcal I$ be the
+universal stable-pair complex on $X\times P$, with
+projections $\pi_X,\pi_P$. For $\gamma\in H^4(X,\mathbb Q)$
+put
+\[
+ \tau_0(\gamma)=-\pi_{P,*}
+       \bigl(\operatorname{ch}_2(\mathcal I)\cup\pi_X^*\gamma\bigr).
+\]
+This is a degree-two class on $P$.
+
+\begin{theorem}[Reduced stable-pair comparison]
+\label{cycompact:thm:reduced-pairs}
+For these nonzero K3 classes, the quotient
+$P/E$ has a zero-dimensional virtual class
+whose pullback along $\pi:P\to P/E$ is
+\begin{equation}\label{cycompact:eq:virtual-comparison}
+ \pi^*[P/E]^{\mathrm{vir}}=[P]^{\mathrm{red}}.
+\end{equation}
+Its degree is the Behrend-weighted Euler
+characteristic of the quotient, with finite
+stabilizers counted orbifoldly. It equals
+the reduced incidence invariant obtained by
+inserting $\tau_0(\beta^\vee\boxtimes[0])$,
+where $\langle\beta,\beta^\vee\rangle=1$.
+\end{theorem}
+
+This is the quotient and incidence theorem
+of Oberdieck \cite[Theorems 1--2]{cycompact:Oberdieck}.
+Concretely, if $K$ is a centre fibre with
+finite group $G$, its class on the quotient
+is $|G|^{-1}q_*[K]^{\mathrm{vir}}$.
+The symmetric obstruction theory computes
+its weighted Euler characteristic. The
+virtual-class comparison uses the common
+Fulton class and Segre-class expression;
+the normalized incidence intersects the
+elliptic orbit with degree one. This
+construction is independent of the chosen
+centre fibration.
+
+The original standard virtual class is zero
+in this sector. Likewise, a surjective
+cosection has empty degeneracy locus for
+the cosection-localized standard class
+\cite[Theorem 1.1]{cycompact:KiemLi}.
+The reduced class above uses the
+separate reduced obstruction theory.
+For $\beta\ne0$, the reduced Donaldson--Thomas
+and stable-pair series also agree
+\cite[Theorem 3(i)]{cycompact:Oberdieck}.
+That comparison uses the local Hall identity
+and Behrend integration for the quotient;
+the vanishing of $\chi(S\times E)$ alone
+does not construct it.
+
+Equivariant Hall integration gives another
+precise numerical construction. For the
+elliptic translation action on the smooth
+projective Calabi--Yau threefold, the
+regular equivariant Hall algebra has a
+semiclassical Poisson quotient. Its
+integration map takes values in the
+charge algebra with dual numbers
+$\mathbb Q[\varepsilon]/(\varepsilon^2)$
+\cite[Theorem 5]{OberdieckShen}.
+The two terms integrate the fixed locus
+and the moving quotient, respectively,
+with the sign $(-1)^{\dim E}$ on the
+latter. With $\chi$ the sheaf Euler pairing,
+the target basis $c_\alpha$ has
+product
+$c_\alpha c_\beta=(-1)^{\chi(\alpha,\beta)}c_{\alpha+\beta}$
+and Poisson bracket
+$\{c_\alpha,c_\beta\}=(-1)^{\chi(\alpha,\beta)}
+\chi(\alpha,\beta)c_{\alpha+\beta}$.
+
+Write the integration as $I_0+\varepsilon I_1$.
+Then $I_0$ is unital and multiplicative, and
+\begin{equation}\label{cycompact:eq:dual-number}
+ I_1(ab)=I_0(a)I_1(b)+I_1(a)I_0(b),\qquad
+ I_1(1)=0.
+\end{equation}
+Thus the moving contribution is an
+$I_0$-derivation. It supplies reduced
+numbers, with a different domain and unit
+law from a state-valued Hall action.
+
+The preceding constructions fix substantial
+parts of a global coefficient comparison:
+the common torsor and its relative unit;
+the disjoint coefficient and trace; the
+full scalar and orbit complexes; explicit
+compact coefficients and split roots;
+one formal cyclic comparison on finite
+flags; and an oriented normal Gysin map
+with its supported specialization.
+Their global assembly has a definite
+remaining equation. For a proposed reduced
+critical enhancement of the common-torsor
+extension stack, write
+$\operatorname{Filt}_{\alpha,\beta}$ for its
+filtered objects, let $\operatorname{gr}$ take its
+graded pair and let $\operatorname{ev}$
+forget the filtration. For specified
+virtual index $\iota_{\alpha,\beta}$,
+the desired critical coefficient map is
+\begin{equation}\label{cycompact:eq:global-Hall-map}
+ \operatorname{gr}^*
+    (\varphi_\alpha\boxtimes_{BE}\varphi_\beta)
+       [\iota_{\alpha,\beta}]
+ \longrightarrow
+ \operatorname{ev}^!\varphi_{\alpha+\beta}.
+\end{equation}
+
+\begin{problem}\label{cycompact:prob:global}
+Construct the compact reduced critical
+coefficient system $\varphi$ with its
+relative unit, cyclic pairing and strong
+orientation, and the maps
+\eqref{cycompact:eq:global-Hall-map} on the
+full extension stack. Prove their
+compatibility with every flag refinement,
+finite-isogeny descent, collision
+specialization and the support conditions
+needed for the chosen pushforward.
+Compare their trace and orbit reductions
+with \eqref{cycompact:eq:flag-pairing} and
+\eqref{cycompact:eq:orbit}, and their
+normal restriction with
+\eqref{cycompact:eq:supported-normal}.
+\end{problem}
+
+The ordinary critical Hall theorem of
+Chapter~\ref{cyhall:sec:arrow} supplies its
+coefficient map under the stated
+Calabi--Yau, geometric and strong
+orientation hypotheses. Applying it to
+this reduced relative stack requires
+those data on that stack. A further
+comparison is then needed with the
+independently defined chiral states:
+it must preserve normal oscillators,
+mixed wrapped collisions, the local
+vacuum and cycle joining. The numerical
+trace \eqref{cycompact:eq:rational-trace}
+and integration \eqref{cycompact:eq:dual-number}
+remain positive consequences in their
+own coefficient categories.

@@ -1,0 +1,367 @@
+\chapter{Two insertions and one extension}
+\label{cyopen:chapter}
+
+An extension distinguishes the subobject from the quotient.
+This order can remain visible after passing to cohomology.
+For the quiver with one vertex and one weighted loop, reversing
+the two inputs changes their product.
+The same geometry has a nonsplit extension at coincident support.
+Its invariant lines form a nonreduced scheme of length two.
+
+\section{The first ordered product}
+
+Geometric objects are over $\mathbb C$, and cohomology has rational
+coefficients. Put $R=\mathbb Q[\hbar]$ and
+\[
+ \mathcal S_n=R[x_1,\ldots,x_n]^{\mathfrak S_n},\qquad
+ \mathcal S=\bigoplus_{n\geq0}\mathcal S_n.
+\]
+The symmetric group permutes the variables. The summand index $n$
+is called the \emph{charge}. Write $\mathbf1_n$ for the constant
+polynomial in $\mathcal S_n$, including $\mathcal S_0=R$.
+
+Give every $x_i$ and $\hbar$ cohomological degree two.
+All classes are even. The coefficient ring is polynomial, with no
+completion.
+
+For $f,g\in\mathcal S_1$, define
+\begin{equation}\label{cyopen:eq:binary}
+ \begin{split}
+ (f\star g)(x_1,x_2)
+ ={}&f(x_1)g(x_2)\frac{x_2-x_1-\hbar}{x_2-x_1}\\
+ &+f(x_2)g(x_1)\frac{x_1-x_2-\hbar}{x_1-x_2}.
+ \end{split}
+\end{equation}
+The two summands correspond to the two choices of a first root.
+Their residues at $x_1=x_2$ cancel, so the result is a symmetric
+polynomial.
+
+Set $a_r=x_1^r\in\mathcal S_1$ for $r\geq0$.
+Write $[f,g]=f\star g-g\star f$.
+Direct substitution gives
+\begin{equation}\label{cyopen:eq:first-products}
+ \begin{aligned}
+ a_0\star a_1&=x_1+x_2-\hbar,&
+ a_1\star a_0&=x_1+x_2+\hbar,\\
+ a_0\star a_0&=2\mathbf1_2,&
+ [a_1,a_0]&=2\hbar\mathbf1_2.
+ \end{aligned}
+\end{equation}
+In particular, $[a_1,a_0]=\hbar(a_0\star a_0)$.
+The constant $\mathbf1_2$ has charge two. The algebra unit will be
+$\mathbf1_0$, and $a_0=\mathbf1_1$ is a third element.
+
+The two-root formula extends by assigning roots to the two inputs.
+For a subset $I$, write $x_I$ for its list of roots.
+For $f\in\mathcal S_n$ and $g\in\mathcal S_m$, set
+\begin{equation}\label{cyopen:eq:shuffle}
+ (f\star g)(x)=
+ \sum_{\substack{I\subset\{1,\ldots,n+m\}\\|I|=n}}
+ f(x_I)g(x_{I^c})
+ \prod_{i\in I,\,j\in I^c}
+ \frac{x_j-x_i-\hbar}{x_j-x_i}.
+\end{equation}
+Symmetry makes the order within $I$ and $I^c$ irrelevant.
+An empty product equals one. Each subset occurs once.
+
+\begin{proposition}[The weighted-loop algebra]
+\label{cyopen:prop:algebra}
+Formula~\eqref{cyopen:eq:shuffle} defines an associative unital
+$R$-algebra structure on $\mathcal S$. Multiplication adds charges
+and has cohomological degree zero. Its unit is $\mathbf1_0$.
+\end{proposition}
+\begin{proof}
+The only possible poles are simple poles on root diagonals.
+Fix $x_i=x_j$ and pair each summand that places these roots in
+opposite blocks with the summand that exchanges them.
+On this diagonal the input polynomials and all other pair factors
+agree, while the two residues have opposite signs.
+Thus every residue vanishes.
+
+The common denominator is a product
+of distinct diagonal equations in the unique factorization domain
+$R[x_1,\ldots,x_{n+m}]$.
+Cancellation at each one proves polynomiality.
+Permuting the roots permutes the summands.
+
+For three inputs, either bracketing sums over the same ordered
+partition of the roots into three blocks. Every pair of roots in
+distinct blocks contributes its factor exactly once, in the order
+of those blocks. The two rational expressions agree term by term
+after this common indexing, and hence agree as polynomials.
+With an empty input there is one subset and no pair factor,
+which proves the unit identities. Each pair factor has degree zero.
+\end{proof}
+
+At $\hbar=0$ the pair factors are one. The commutator in
+\eqref{cyopen:eq:first-products} therefore measures a deformation
+of the unweighted product. Its geometric origin is the difference
+between the loop weight and the tangent weight of a flag.
+
+\section{The Euler factor of an invariant subspace}
+
+A representation of the one-loop quiver is a vector space with
+an endomorphism. In dimension $n$ its moduli stack is
+\[
+ \mathfrak M_n=[\operatorname{End}(\mathbb C^n)/GL_n].
+\]
+Let $T=\mathbb C^\times$ act on the endomorphism by the character
+$\chi_{-1}(s)=s^{-1}$, and let $\hbar$ be the first Chern class
+of the character $s\mapsto s$. Equivariant contraction of the
+endomorphism space to zero identifies
+\[
+ H^\bullet_T(\mathfrak M_n;\mathbb Q)
+ =H^\bullet(BGL_n\times BT;\mathbb Q)=\mathcal S_n.
+\]
+The variables $x_i$ are the Chern roots of the universal vector
+bundle. They have cohomological degree two, independently of the
+eigenvalues of an individual endomorphism.
+
+Let $\mathfrak E_{n,m}$ classify an endomorphism of an
+$(n+m)$-dimensional space together with an invariant
+$n$-dimensional subspace. It gives the correspondence
+\begin{equation}\label{cyopen:eq:extension-correspondence}
+ \mathfrak M_n\times\mathfrak M_m
+ \xleftarrow{\ q\ }\mathfrak E_{n,m}
+ \xrightarrow{\ p\ }\mathfrak M_{n+m}.
+\end{equation}
+The map $q$ takes the restricted endomorphism and its quotient.
+The map $p$ forgets the subspace. It is proper, since invariant
+subspaces form a closed subscheme of a Grassmannian.
+
+On $\operatorname{Gr}(n,n+m)$ write $S$ for the tautological
+subbundle and $Q$ for the quotient bundle. Invariance sets to
+zero the endomorphism block from $S$ to $Q$.
+Its normal bundle is
+$\operatorname{Hom}(S,Q)\otimes\chi_{-1}$.
+The Grassmannian tangent bundle is $\operatorname{Hom}(S,Q)$.
+
+Write $e$ for the top Chern class and $f(S),g(Q)$ for evaluation
+on the respective Chern roots.
+The Hall operation in ordinary equivariant cohomology is
+complex-oriented integration of
+\begin{equation}\label{cyopen:eq:euler-integration}
+ f(S)g(Q)\,
+ e\bigl(\operatorname{Hom}(S,Q)\otimes\chi_{-1}\bigr)
+\end{equation}
+over the Grassmannian.
+The normal Gysin map adds degree $2nm$ and Grassmannian
+integration subtracts $2nm$.
+
+At the coordinate subspace indexed by $I$, these two bundles have
+roots $x_j-x_i-\hbar$ and $x_j-x_i$, respectively, for
+$i\in I$, $j\in I^c$. Equivariant integration divides by the
+tangent Euler class and sums over these subspaces.
+It gives exactly \eqref{cyopen:eq:shuffle}.
+This is the ordinary quiver Hall construction of
+\cite{cyopen:KS}*{\S\S2.4--2.5}, with the loop character retained.
+Proposition~\ref{cyopen:prop:algebra} proves directly that its
+formula is polynomial over $\mathbb Q[\hbar]$.
+
+For $n=m=1$, $S=\mathcal O(-1)$ and $Q=\mathcal O(1)$
+on $\mathbb P^1$. Consequently
+\[
+ \int_{\mathbb P^1}c_1(Q)=1,\qquad
+ \int_{\mathbb P^1}c_1(S)=-1,\qquad
+ \int_{\mathbb P^1}c_1\operatorname{Hom}(S,Q)=2.
+\]
+These equations fix the signs and the charge-two coefficient in
+\eqref{cyopen:eq:first-products}. Geometrically, the coefficient
+integrates invariant-subspace data. Those data change when support
+points coincide.
+
+\section{A nonsplit extension at a collision}
+
+To see the support, regard an endomorphism as the action of $t$
+on a finite-dimensional $A=\mathbb C[t]$-module.
+For $\lambda\in\mathbb C$, put $L_\lambda=A/(t-\lambda)$.
+An extension
+\begin{equation}\label{cyopen:eq:extension}
+ 0\longrightarrow L_\lambda\longrightarrow E
+ \longrightarrow L_\mu\longrightarrow0
+\end{equation}
+has, after choosing a lift of the quotient basis, the matrix
+\[
+ T_E=\begin{pmatrix}\lambda&c\\0&\mu\end{pmatrix}.
+\]
+Replacing that lift by itself plus $b$ times the submodule basis
+changes $c$ to $c+b(\lambda-\mu)$.
+If $\lambda\ne\mu$, taking $b=-c/(\lambda-\mu)$ splits the
+extension. If $\lambda=\mu$, the parameter $c$ is unchanged.
+
+The free resolution
+$0\to A\xrightarrow{t-\mu}A\to L_\mu\to0$
+computes the full derived Hom by the two-term complex
+\begin{equation}\label{cyopen:eq:hom-complex}
+ \operatorname{RHom}_A(L_\mu,L_\lambda)\simeq
+ [\,\mathbb C\xrightarrow{\lambda-\mu}\mathbb C\,],
+ \qquad\text{in degrees }0,1.
+\end{equation}
+The degree-one basis is chosen for the displayed differential.
+Both Hom and $\operatorname{Ext}^1$ vanish at distinct supports.
+At coincident support they are each one-dimensional.
+In particular, the splitting off the diagonal is unique as a
+splitting of \eqref{cyopen:eq:extension}.
+
+At $\lambda=\mu=0$ and $c=1$ the middle term is $A/(t^2)$.
+Its exact sequence is
+\begin{equation}\label{cyopen:eq:jordan-extension}
+ 0\longrightarrow A/(t)
+ \xrightarrow{\,1\mapsto t\,}A/(t^2)
+ \longrightarrow A/(t)\longrightarrow0.
+\end{equation}
+It is nonsplit because multiplication by $t$ is nonzero on its
+middle term and zero on $A/(t)\oplus A/(t)$.
+The characteristic polynomial of $T_E$ is nevertheless
+$(s-\lambda)(s-\mu)$ for every $c$.
+It records the two support points with multiplicity and forgets
+the extension class.
+
+The flag correspondence retains still more than the invariant
+lines as a set. In the affine chart of $\mathbb P^1$ whose line
+is spanned by $(1,w)$, invariance under $T_E$ is the equation
+\begin{equation}\label{cyopen:eq:stable-line}
+ (\mu-\lambda)w-cw^2=0.
+\end{equation}
+Indeed, the second coordinate of $T_E(1,w)$ must equal $w$
+times the first. This equation holds over every commutative
+$\mathbb C$-algebra, so it describes the scheme, including its
+infinitesimal points.
+
+\begin{proposition}[The invariant-line scheme of a Jordan block]
+\label{cyopen:prop:double-line}
+For $T_E=\left(\begin{smallmatrix}0&1\\0&0\end{smallmatrix}\right)$,
+the scheme of invariant lines is
+$\operatorname{Spec}\mathbb C[w]/(w^2)$.
+It has length two and one underlying point.
+\end{proposition}
+\begin{proof}
+The only invariant line over $\mathbb C$ is the first coordinate
+line, so the entire invariant-line scheme lies in the displayed
+affine chart. Equation~\eqref{cyopen:eq:stable-line} becomes $w^2=0$.
+The quotient has basis $1,w$ over $\mathbb C$.
+\end{proof}
+
+Thus the two in \eqref{cyopen:eq:first-products} is also the
+length of this regular zero scheme of the invariant-line section.
+Replacing the scheme by its reduced point loses that length.
+For the scalar endomorphism the section instead vanishes identically,
+and the invariant-line scheme is all of $\mathbb P^1$.
+The Euler-class operation remains the specified pushforward.
+
+\section{Relations and ordered words}
+
+The first commutator belongs to a complete presentation of the
+weighted-loop algebra. Let $\mathcal P_\hbar$ be the unital
+associative $R$-algebra generated by $e_r$, $r\geq0$, subject to
+\begin{equation}\label{cyopen:eq:relations}
+ [e_{r+1},e_s]-[e_r,e_{s+1}]
+ =\hbar(e_re_s+e_se_r),\qquad r,s\geq0.
+\end{equation}
+Each $e_r$ has charge one and cohomological degree $2r$.
+
+\begin{theorem}[An integral ordered basis]
+\label{cyopen:thm:presentation}
+The map $e_r\mapsto a_r$ is an isomorphism
+$\mathcal P_\hbar\simeq\mathcal S$ of charge-graded $R$-algebras.
+The words $e_{r_1}\cdots e_{r_n}$ with
+$0\leq r_1\leq\cdots\leq r_n$, including the empty word,
+form an $R$-basis.
+\end{theorem}
+\begin{proof}
+For two roots $x,y$, formula~\eqref{cyopen:eq:binary} gives
+\[
+ [a_r,a_s]=2\hbar\frac{y^rx^s-x^ry^s}{y-x}.
+\]
+Subtracting this formula at $(r,s+1)$ from the one at $(r+1,s)$
+gives $2\hbar(x^ry^s+x^sy^r)$.
+This also equals $\hbar(a_r\star a_s+a_s\star a_r)$,
+so the assignments respect \eqref{cyopen:eq:relations}.
+
+These relations order the words. For $r>s$, write
+$C_{r,s}=[e_r,e_s]$. Then
+\[
+ C_{r,s}=C_{r-1,s+1}
+       +\hbar(e_{r-1}e_s+e_se_{r-1}).
+\]
+The index gap decreases until
+$C_{s,s}=0$ or $C_{s+1,s}=\hbar e_s^2$.
+Every correction has smaller sum of generator indices.
+Induction on that sum, and then on the number of inversions in
+the word, expresses every word in ordered form.
+
+Filter $\mathcal S_n$ by total root degree, treating $\hbar$
+as a coefficient. The leading part of an ordered product is
+\[
+ \sum_{\sigma\in\mathfrak S_n}
+ x_1^{r_{\sigma(1)}}\cdots x_n^{r_{\sigma(n)}}.
+\]
+It is the monomial symmetric polynomial with these exponents
+multiplied by the factorials of their multiplicities.
+Every such factorial is invertible in $R$.
+Distinct ordered words have distinct leading basis elements,
+which proves independence over $R$.
+
+Subtracting the leading term of a symmetric polynomial reduces
+its root degree and proves spanning. The ordered spanning words
+in $\mathcal P_\hbar$ therefore map bijectively to a basis of
+$\mathcal S$.
+\end{proof}
+
+The proof works at $\hbar=0$ and over the full ring $\mathbb Q[\hbar]$.
+It gives an algebraic deformation with its generators and relations.
+A field realization requires operations with a different target.
+
+\section{A coefficient transpose and the field comparison}
+
+Let $m_{1,1}:\mathcal S_1\otimes_R\mathcal S_1\to\mathcal S_2$
+be the binary product~\eqref{cyopen:eq:binary}.
+Let $\epsilon_r:\mathcal S_1\to R$ extract the coefficient of
+$x_1^r$, and let $\epsilon^{(2)}:\mathcal S_2\to R$ extract the
+constant term in both roots. Transposing the binary Hall product
+on this particular functional gives the finite tensor
+\begin{equation}\label{cyopen:eq:dual-binary}
+ m_{1,1}^*\epsilon^{(2)}
+ =2\epsilon_0\otimes\epsilon_0
+  +\hbar(\epsilon_1\otimes\epsilon_0-
+                   \epsilon_0\otimes\epsilon_1).
+\end{equation}
+
+To verify the formula, evaluate on
+$a_r\otimes a_s$. The polynomial part of the product contributes
+a constant only for $r=s=0$.
+Its part proportional to $\hbar$ contributes only when $r+s=1$.
+Equation~\eqref{cyopen:eq:first-products} gives the three coefficients.
+
+For an $R$-module $V$, put $V((z))=V[[z]][z^{-1}]$.
+A binary field operation has type
+\begin{equation}\label{cyopen:eq:field-type}
+ Y:V\otimes_R V\longrightarrow V((z)).
+\end{equation}
+Thus $Y(v,z)w$ has a finite principal part for each pair $v,w$.
+This target differs from the tensor of coefficient functionals
+in \eqref{cyopen:eq:dual-binary}.
+The formal variable $z$ describes an insertion difference.
+The Chern roots in \eqref{cyopen:eq:binary} describe characteristic
+classes on a moduli stack.
+
+\begin{problem}[Realizing extension operations as fields]
+\label{cyopen:prob:realization}
+For specified Calabi--Yau moduli and extension correspondences,
+construct their oriented coefficient complexes on finite support
+configurations and their maps across collision strata.
+Construct a state module, a vacuum, translation, and operations of type
+\eqref{cyopen:eq:field-type}, together with a comparison
+of their coefficients with the geometric operations.
+The comparison must preserve the empty-object unit, the chosen
+local vacuum, nested flag composition, and the attaching maps
+at collisions. Its domain and its tensor completions are part of the construction.
+\end{problem}
+
+The one-loop model supplies the Hall multiplication and
+\eqref{cyopen:eq:dual-binary}. Its coincident extension shows
+what a comparison based only on support would omit.
+For Calabi--Yau moduli, the coefficient construction additionally
+uses the cyclic duality class and compatible orientation data.
+These enter before the extension correspondences can define the
+required operations on complexes.

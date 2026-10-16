@@ -1,0 +1,1079 @@
+\chapter{Direct sums and spectral Hall operations}
+\label{cyspec:chapter}
+
+Two operations on representations distinguish the geometry needed
+for a spectral coproduct. The Hall correspondence remembers a
+subrepresentation and integrates over its possible positions.
+The direct-sum inclusion fixes two summands and sets both
+off-diagonal arrow blocks to zero. Their normal bundles differ.
+
+For one loop and two one-dimensional summands, write $x,y$ for
+their Chern roots. In the Hall integral, the arrow normal weight
+$y-x$ cancels the tangent weight of the invariant-line flag.
+The two coordinate lines therefore give
+$\mathbf 1_1\star\mathbf 1_1=2\mathbf 1_2$.
+For the direct-sum inclusion, both off-diagonal entries vanish.
+Their weights are $y-x$ and $x-y$, so its Gysin map sends
+$1\otimes1$ to $-(y-x)^2$.
+
+Here $\mathbf 1_n$ denotes the constant class in charge $n$.
+Only $\mathbf 1_0$ is the Hall unit.
+
+The direct-sum Gysin map becomes invertible away from its normal
+Euler divisor. The Hall coproduct instead weights direct-sum
+pullback by the Euler class of a quiver Hom complex. Translating
+one summand makes its moving factors invertible as Laurent series.
+Compatibility with the Hall product then involves four blocks:
+each input has a part in each output.
+We first construct these maps on polynomial coefficients, then
+give their critical-cohomology form. An explicit pair of shuffle
+algebras will show which collision information their common
+exchange ratio fails to determine.
+
+\section{Direct-sum normal bundles}
+\label{cyspec:sec:direct-sums}
+
+Work over $\mathbb C$ with rational cohomology. Let $Q$ be a finite
+quiver, with vertex set $Q_0$ and arrow set $Q_1$.
+A dimension vector $d=(d_i)_{i\in Q_0}$ has nonnegative integral entries.
+Its representation space is
+\[
+ V_d=\bigoplus_{a:i\to j}\operatorname{Hom}(\mathbb C^{d_i},
+                                           \mathbb C^{d_j}).
+\]
+
+Retain labeled roots and put
+\[
+ P_d=\mathbb Q[x_{i,r}:i\in Q_0,\ 1\leq r\leq d_i],
+ \qquad C_d=\operatorname{Spec}P_d,
+ \qquad m(d)=\sum_{a:i\to j}d_i d_j.
+\]
+Thus $P_d$ is the equivariant cohomology of $V_d$ for its coordinate
+torus. A root has degree two. The space $C_d$ is the spectrum of the underlying
+ordinary ring, with this grading retained on its coefficient modules.
+
+For chosen blocks of dimensions $d,e$, the inclusion
+$V_d\times V_e\hookrightarrow V_{d+e}$ has normal representation
+\[
+ N_{d,e}=\bigoplus_{a:i\to j}
+ \left(\operatorname{Hom}(\mathbb C^{d_i},\mathbb C^{e_j})
+ \oplus\operatorname{Hom}(\mathbb C^{e_i},\mathbb C^{d_j})\right).
+\]
+Consequently its Euler class is
+\begin{equation}\label{cyspec:eq:direct-euler}
+ \mathcal E_{d,e}(x;y)=
+ \prod_{a:i\to j}
+ \left(\prod_{r\leq d_i,\ s\leq e_j}(y_{j,s}-x_{i,r})\right)
+ \left(\prod_{r\leq e_i,\ s\leq d_j}(x_{j,s}-y_{i,r})\right).
+\end{equation}
+Let $\mathcal F_d$ be the free rank-one graded sheaf on $C_d$,
+where a polynomial $F$ has adjusted degree $\deg F-2m(d)$.
+Under $C_{d+e}=C_d\times C_e$ for the chosen blocks, define
+\begin{equation}\label{cyspec:eq:direct-map}
+ \nu_{d,e}(F\boxtimes G)=\mathcal E_{d,e}(x;y)F(x)G(y).
+\end{equation}
+
+\begin{proposition}\label{cyspec:prop:direct-sums}
+The maps $\nu_{d,e}$ have degree zero, are associative, and commute
+with block exchange and root relabeling. Charge zero gives their unit.
+On the open set where all cross-block roots are distinct, they are
+isomorphisms. For any ordered collection of blocks, every iterated
+map is
+\begin{equation}\label{cyspec:eq:all-blocks}
+ \boxtimes_{r=1}^k F_r\longmapsto
+ \left(\prod_{r<s}\mathcal E_{d_r,d_s}(x_r;x_s)\right)
+ \prod_{r=1}^k F_r(x_r).
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Complex orientation identifies the Gysin map with multiplication
+by the Euler class of $N_{d,e}$. Its degree is
+$2(m(d+e)-m(d)-m(e))$, which the three grading adjustments cancel.
+For three blocks the normal representation is the direct sum of
+the representations between each pair of blocks. Hence
+\[
+ \mathcal E_{d,e}\mathcal E_{d+e,f}
+ =\mathcal E_{d,e}\mathcal E_{d,f}\mathcal E_{e,f}
+ =\mathcal E_{e,f}\mathcal E_{d,e+f}.
+\]
+
+The same decomposition proves \eqref{cyspec:eq:all-blocks} for every
+$k$. Both directions of each arrow occur, so exchanging the blocks
+preserves the normal representation and its Euler class.
+Relabeling roots permutes the factors. On the indicated open set
+each factor is invertible, and division gives the inverse map.
+An empty block contributes the empty product, equal to one.
+\end{proof}
+
+This is the direct-sum factorization over Chern-root parameters
+\cite{cyspec:KS}*{\S6.5}. Its extension across the Euler divisor
+contains more information than its restriction to that open set.
+
+For one vertex with $\ell\geq1$ loops, take two charge-one blocks
+and put $P=\mathbb Q[x,y]$, $\delta=y-x$. The Euler class is
+$(-1)^\ell\delta^{2\ell}$. Forgetting the internal polynomial grading,
+the cone of the normal map has the free representative
+\begin{equation}\label{cyspec:eq:direct-cone}
+ [\,P\xrightarrow{(-1)^\ell\delta^{2\ell}}P\,],
+ \qquad\text{in cochain degrees }-1,0.
+\end{equation}
+It resolves $P/(\delta^{2\ell})$, since $P$ is a domain.
+
+For $D=P/(\delta)$ its derived restriction is
+$[D\xrightarrow{0}D]$. Thus the diagonal fiber has a class in each
+of degrees $-1$ and $0$. Ordinary restriction of the degree-zero
+quotient alone would omit the first class.
+
+\section{The completion of an Euler inverse}
+\label{cyspec:sec:euler-completion}
+
+An external torus weight does not by itself invert the Euler class
+of a bundle over a stack. Let $L$ be the universal line on
+$B\mathbb G_m$, with $a=c_1(L)$, and let another torus $T=\mathbb G_m$
+scale its fibers. Write $u$ for the external parameter.
+The zero section has equivariant Euler class $a+u$.
+The Gysin sequence for its complement $L^\times$ gives
+\begin{equation}\label{cyspec:eq:universal-line}
+ H_T^\bullet(L^\times;\mathbb Q)=\mathbb Q[a,u]/(a+u).
+\end{equation}
+There is no odd term because multiplication by $a+u$ is injective.
+
+After tensoring over $\mathbb Q[u]$ with $\mathbb Q(u)$, the quotient
+is still $\mathbb Q(u)$: the relation sets $a=-u$.
+Equivalently, $u+a$ is not a unit of $\mathbb Q(u)[a]$.
+
+The stabilizer accounts for the surviving class. Present the
+complement as $[\mathbb G_m/H]$, where $H=\mathbb G_m$ acts by
+scaling. In the further quotient by $T$, the point represented
+by $1$ has automorphisms $(h,t)$ satisfying $ht=1$.
+Their projection onto $T$ is an isomorphism. The free action on
+each geometric fiber therefore does not remove the torus
+stabilizer of the stack point.
+
+For a commutative $\mathbb Q$-algebra $R$, write $R((u^{-1}))$ for series
+whose powers of $u$ are bounded above, completed toward decreasing
+powers. Coefficients may have unbounded degree in $R$.
+
+\begin{proposition}\label{cyspec:prop:euler-inverse}
+For $R=\mathbb Q[a]$, the Euler class $u+a$ is a unit of
+$R((u^{-1}))$, with
+\begin{equation}\label{cyspec:eq:euler-inverse}
+ (u+a)^{-1}=u^{-1}\sum_{j\geq0}(-a/u)^j.
+\end{equation}
+On the finite approximation $\mathbb P^m$ of $B\mathbb G_m$, the
+series stops at $j=m$. More generally, every factor $wu+c$, with
+$0\ne w\in\mathbb Q$ and $c\in R$, is invertible in this completion.
+\end{proposition}
+
+\begin{proof}
+Multiplication of the partial sum through $j=m$ by $u+a$ gives
+$1-(-a/u)^{m+1}$. The remainder tends to zero in the specified
+topology. On $\mathbb P^m$ it is zero because $a^{m+1}=0$.
+Factoring $wu+c=wu(1+c/(wu))$ proves the last assertion.
+\end{proof}
+
+The corresponding flag denominator is equally concrete.
+Let $T_2=\mathbb G_m^2$ act on $\mathbb C^2$, put
+$R=\mathbb Q[x_1,x_2]$, and let $h$ be the first Chern class of
+the tautological line on $\mathbb P^1$. Then
+\[
+ H_{T_2}^\bullet(\mathbb P^1)=R[h]/((h-x_1)(h-x_2)).
+\]
+
+Restriction to the two coordinate lines is
+\[
+ r(f_0+f_1h)=(f_0+x_1f_1,f_0+x_2f_1).
+\]
+Its matrix in the basis $1,h$ has determinant $\delta=x_2-x_1$.
+Its image consists precisely of pairs $(a,b)$ with $b-a\in\delta R$.
+After inverting $\delta$, its inverse is
+\begin{equation}\label{cyspec:eq:flag-inverse}
+ r^{-1}(a,b)=\frac{x_2a-x_1b}{\delta}+\frac{b-a}{\delta}h.
+\end{equation}
+Inverting $x_2$ alone cannot give this inverse: at $x_1=x_2=1$
+the matrix has rank one.
+
+For a bounded complex of bundles with nonzero external weights,
+its Euler factor is a finite product of factors $wu+c$ and their
+inverses. Proposition~\ref{cyspec:prop:euler-inverse} constructs this
+characteristic class in the Laurent ring, independently of a
+splitting into Chern roots. A Gysin inverse requires a further
+identification: on the chosen fundamental class, the Gysin map
+must act by this Euler factor.
+Even coefficient extraction depends on the expansion: $u/(u+a)$
+has constant term one at infinity and zero at the origin over
+$\mathbb Q(a)$.
+
+\section{The translated Hall coproduct}
+\label{cyspec:sec:polynomial-coproduct}
+
+Allow a torus $T$ to act on the arrows of $Q$, and let
+$R=H^\bullet(BT;\mathbb Q)$. For an arrow $a$, denote its weight
+class by $h_a\in R^2$. A zero weight is allowed.
+For each dimension vector define the even polynomial coefficient
+module
+\[
+ A_d=R[x_{i,r}:1\leq r\leq d_i]^{\prod_i S_{d_i}},
+ \qquad A=\bigoplus_d A_d.
+\]
+The charge sum is algebraic. Neither roots nor charges are completed.
+
+Write
+\[
+ \chi(d,e)=\sum_i d_i e_i-\sum_{a:i\to j}d_i e_j.
+\]
+In the subobject-first convention, the weighted Hall kernel is
+\begin{equation}\label{cyspec:eq:hall-kernel}
+ K_{d,e}(x;y)=
+ \frac{\displaystyle\prod_{a:i\to j}
+                \prod_{r\leq d_i,\ s\leq e_j}(y_{j,s}-x_{i,r}+h_a)}
+      {\displaystyle\prod_i
+                \prod_{r\leq d_i,\ s\leq e_i}(y_{i,s}-x_{i,r})}.
+\end{equation}
+The product $F\star G$ sums $F(x_I)G(x_J)K_{d,e}(x_I;x_J)$
+over root partitions $I_i\sqcup J_i$ of sizes $d_i,e_i$ at each
+vertex. There is no factorial divisor.
+
+This formula is polynomial. A possible pole along a root diagonal
+at one vertex is simple. Pair the summands obtained by exchanging
+the two roots across the blocks. Their remaining factors agree on
+the diagonal, and their residues have opposite signs. Every possible
+prime denominator therefore cancels. The result is symmetric.
+
+Both bracketings of three inputs sum over the same ordered
+three-block partitions, with one kernel factor for every ordered
+pair of blocks. This proves associativity in every charge and,
+by the same partition argument, coherence of all iterated products.
+The empty block gives the unit $1\in A_0=R$.
+
+Geometrically, the numerator is the normal Euler class of the
+invariant-subspace condition. The denominator is the tangent
+Euler class of the flag \cite{cyspec:KS}*{\S\S2.4--2.5}.
+The product has ordinary cohomological degree $-2\chi(d,e)$.
+
+Define the Euler series, first as a rational function, by
+\begin{equation}\label{cyspec:eq:spectral-euler}
+ E_{d,e}(u;x,y)=
+ \frac{\displaystyle\prod_i\prod_{r\leq d_i,\ s\leq e_i}
+                                  (u+y_{i,s}-x_{i,r})}
+      {\displaystyle\prod_{a:i\to j}\prod_{r\leq d_i,\ s\leq e_j}
+                                  (u+y_{j,s}-x_{i,r}+h_a)}.
+\end{equation}
+Its leading term is $u^{\chi(d,e)}$.
+At $u=0$ it is the inverse of \eqref{cyspec:eq:hall-kernel} in the
+ring where the displayed Euler factors are inverted.
+
+Now set
+\begin{equation}\label{cyspec:eq:coproduct}
+ \Delta_{d,e}(u)F=E_{d,e}(u;x,y)F(x-u,y),
+ \qquad F\in A_{d+e},
+\end{equation}
+where every first-block root is shifted by $-u$.
+Expanding at infinity gives a map
+$A_{d+e}\to(A_d\otimes_R A_e)((u^{-1}))$.
+Each input has finite upper Laurent order, and a fixed total charge
+has only finitely many splits. With $\deg u=2$, this component has
+cohomological degree $2\chi(d,e)$.
+
+\begin{theorem}\label{cyspec:thm:coassociativity}
+On rational representatives the coproduct satisfies
+\begin{equation}\label{cyspec:eq:coassociativity}
+ (\Delta_{d,e}(u)\otimes1)\Delta_{d+e,f}(v)
+ =(1\otimes\Delta_{e,f}(v))\Delta_{d,e+f}(u+v).
+\end{equation}
+The equality also holds in either chosen iterated Laurent chamber,
+using that chamber for every factor on both sides.
+\end{theorem}
+
+\begin{proof}
+Splitting a block factors its Euler product into the products for
+its two constituents. Both sides of \eqref{cyspec:eq:coassociativity}
+therefore send $F$ to
+\[
+ E_{d,e}(u;x,y)E_{d,f}(u+v;x,z)E_{e,f}(v;y,z)
+ F(x-u-v,y-v,z).
+\]
+This is an identity of rational functions before expansion.
+For example, one may expand in
+$(A_d\otimes_R A_e\otimes_R A_f)((u^{-1}))((v^{-1}))$,
+with $v$ the outer variable and $u+v$ expanded at $v=\infty$.
+Applying this expansion to the common rational expression proves
+the asserted formal identity. It does not require extending either
+binary map to every element of an arbitrary two-variable completion.
+\end{proof}
+
+Projection onto $A_0$ is the counit $\varepsilon:A\to R$.
+The empty-block formulas are
+\begin{equation}\label{cyspec:eq:counits}
+ (\varepsilon\otimes1)\Delta(u)=\operatorname{id},\qquad
+ (1\otimes\varepsilon)\Delta(u)=e^{uD},\qquad
+ D=-\sum_{i,r}\partial_{x_{i,r}}.
+\end{equation}
+The exponential is finite on each polynomial. The even derivation
+$D$ lowers cohomological degree by two and satisfies
+\[
+ \Delta(u)D=\partial_u\Delta(u)+(1\otimes D)\Delta(u).
+\]
+Indeed, differentiating the Euler factor with respect to $u$ is
+the same as differentiating simultaneously in all second-block
+roots. These terms cancel against their contribution from $D$.
+
+\subsection{Exchange and the four blocks}
+
+Define
+\begin{equation}\label{cyspec:eq:exchange}
+ R_{d,e}(u;x,y)=\frac{E_{d,e}(u;x,y)}{E_{e,d}(-u;y,x)}.
+\end{equation}
+This Laurent unit obeys
+$R_{d,e}(u;x,y)R_{e,d}(-u;y,x)=1$.
+Its pairwise multipliers on three labeled blocks commute, hence
+satisfy the spectral Yang--Baxter identity. Splitting a block gives
+the corresponding fusion identities by factorization of $E$.
+The signs from negative arguments are included in
+\eqref{cyspec:eq:exchange}.
+
+Let $\tau$ exchange two blocks and let $\mathsf T_u$ shift all roots
+of a rational representative by $-u$. Then
+\begin{equation}\label{cyspec:eq:translated-exchange}
+ \Delta_{d,e}(u)=R_{d,e}(u)\mathsf T_u\tau\Delta_{e,d}(-u).
+\end{equation}
+Simultaneous translation preserves every root difference.
+The right side has polynomial part $F(x-u,y)$ and Euler factor
+$E_{d,e}(u)$, proving the identity on its stated rational domain.
+
+\begin{theorem}[The four-block identity]\label{cyspec:thm:four-block}
+For $F\in A_\alpha$, $G\in A_\beta$ and $r+s=\alpha+\beta$,
+\begin{equation}\label{cyspec:eq:four-block}
+\begin{split}
+ \Delta_{r,s}(u)(F\star G)
+ =\sum_{\substack{a+c=\alpha,\ b+d=\beta\\a+b=r,\ c+d=s}}
+ &(\star_{a,b}\otimes\star_{c,d})\Bigl[
+ R_{b,c}(u;x_b,y_c)\\[-2pt]
+ &\quad\cdot\tau_{23}
+       (\Delta_{a,c}(u)F\otimes\Delta_{b,d}(u)G)\Bigr].
+\end{split}
+\end{equation}
+Here $\tau_{23}$ takes slots $(a,c,b,d)$ to $(a,b,c,d)$.
+After that permutation, $R_{b,c}$ multiplies the middle two slots.
+The two Hall products sum over divisions of the output roots.
+All operations are formed rationally and then expanded at infinity.
+\end{theorem}
+
+\begin{proof}
+Write the first-output roots as $x_a,x_b$ and the second-output
+roots as $y_c,y_d$. The coproduct on the left contributes
+$E_{a,c}E_{a,d}E_{b,c}E_{b,d}$ at parameter $u$.
+The Hall kernel between its two input blocks contributes
+\[
+ K_{a,b}(x_a;x_b),\quad E_{a,d}(u;x_a,y_d)^{-1},\quad
+ E_{c,b}(-u;y_c,x_b)^{-1},\quad K_{c,d}(y_c;y_d).
+\]
+
+The $a,d$ factors cancel. The $b,c$ factors give
+$E_{b,c}(u)/E_{c,b}(-u)=R_{b,c}(u)$.
+The remaining Euler factors are those of the two input coproducts.
+The remaining kernels are those of the two output products.
+Both constructions enumerate the same four labeled subsets.
+Thus their summands agree under this correspondence.
+\end{proof}
+
+For one vertex and two charge-one inputs, write $K(v)$ for the pair
+kernel and put $v=u+y-x$. The constant-input case is already
+\[
+ \Delta_{1,1}(u)(\mathbf1_1\star\mathbf1_1)
+ =\frac{K(v)+K(-v)}{K(v)}=1+R_{1,1}(u;x,y).
+\]
+The crossed factor is therefore part of the multiplication
+comparison itself. The Yang--Baxter equation alone would not
+determine this comparison. Equations~\eqref{cyspec:eq:four-block}
+and \eqref{cyspec:eq:counits} use the unshifted even coefficient
+modules. A different grading must transport their tensor shifts
+and permutation signs together.
+
+\section{Critical coefficients}
+\label{cyspec:sec:critical}
+
+The same translation mechanism applies when ordinary coefficients
+are replaced by vanishing cycles. Let $W$ be a potential, a finite
+linear combination of cyclic paths in $Q$, and assume that the
+arrow action of $T$ preserves $W$. The arrow weights belong to the
+character lattice of $T$. They need not lie in a positive cone.
+For $G_d=\prod_iGL_{d_i}$, put
+\[
+ \mathfrak M_d^T=[V_d/(G_d\times T)],\qquad
+ w_d=\operatorname{Tr}(W),\qquad
+ B_d=H^\bullet(\mathfrak M_d^T,
+                  \phi_{w_d}\mathbb Q[-\chi(d,d)]).
+\]
+
+Use the perverse normalization of vanishing cycles and the shift
+convention $K[s]^n=K^{n+s}$. The shift $-\chi(d,d)$ is the dimension
+of $[V_d/G_d]$, before passage to the external torus quotient.
+The coefficient ring remains $R=H^\bullet(BT;\mathbb Q)$.
+The charge-dependent tensor convention is
+\[
+ B_d\otimes^T B_e=(B_d\otimes_R B_e)[\chi(d,e)-\chi(e,d)].
+\]
+
+\begin{assumption}[Relative Kunneth]\label{cyspec:ass:kunneth}
+For every pair $d,e$, the relative Kunneth map and Thom--Sebastiani
+comparison identify
+\begin{equation}\label{cyspec:eq:kunneth}
+ B_d\otimes_R B_e\xrightarrow{\ \sim\ }
+ H^\bullet\left(\mathfrak M_d^T\times_{BT}\mathfrak M_e^T,
+ \phi_{w_d\boxplus w_e}\mathbb Q[-\chi(d,d)-\chi(e,e)]\right).
+\end{equation}
+\end{assumption}
+
+This is an assumption over the base $BT$, imposed component by
+component. A Kunneth isomorphism for sheaves on $BT$ does not by
+itself give \eqref{cyspec:eq:kunneth} for their cohomology modules.
+All the critical coproducts below use this hypothesis.
+
+On the product stack let $E_i$ and $F_i$ be the tautological bundles
+of the first and second representation. If $L_a$ is the line on
+$BT$ associated with the arrow weight, define the perfect complex
+\begin{equation}\label{cyspec:eq:ambient-ext}
+ \mathcal V_{d,e}=
+ \left[\bigoplus_i E_i^\vee\otimes F_i
+ \longrightarrow
+ \bigoplus_{a:i\to j}E_i^\vee\otimes F_j\otimes L_a\right],
+ \qquad\text{in degrees }0,1.
+\end{equation}
+The differential sends a family of maps to its commutators with
+the arrow maps. This is the derived Hom complex for the underlying
+quiver representations. Its virtual rank is $\chi(d,e)$.
+It is not the full self-Ext complex in the associated
+three-dimensional Calabi--Yau category.
+
+For a virtual bundle $V$, write
+\begin{equation}\label{cyspec:eq:characteristic-series}
+ \Psi(V,z)=z^{\operatorname{rk}V}c(V,z^{-1}),
+ \qquad c(V,t)=\sum_{k\geq0}c_k(V)t^k.
+\end{equation}
+In a two-term presentation $V=[V^0\to V^1]$, this is the ratio
+$\Psi(V^0,z)/\Psi(V^1,z)$. In Chern roots it is the product of
+$z+$root for $V^0$, divided by the corresponding product for $V^1$,
+expanded at infinity. Thus
+\[
+ \Psi(V\oplus V',z)=\Psi(V,z)\Psi(V',z),\qquad
+ \Psi(V\otimes L,z)=\Psi(V,z+c_1(L)).
+\]
+
+Tensoring a representation by a line defines an action of
+$B\mathbb G_m$. On coefficients its coaction is
+$\operatorname{act}_z^*=e^{zT}$, where $z$ is the first Chern class
+of the line and $T$ has degree $-2$.
+It sends each Chern root $x$ to $x+z$.
+Write $\oplus^*$ for the critical pullback along direct sum,
+followed by \eqref{cyspec:eq:kunneth}. The potential identity
+$\operatorname{Tr}W(E\oplus F)=w_d(E)+w_e(F)$ supplies the
+Thom--Sebastiani comparison used in this map.
+
+A \emph{coassociative vertex coproduct} here means a Laurent map
+satisfying parameter-dependent coassociativity
+\eqref{cyspec:eq:coassociativity} and the translation identity.
+It also satisfies the two counit identities \eqref{cyspec:eq:counits}.
+Use $z,T$ in place of $u,D$ and the specified tensor convention.
+Its right counit is polynomial on each input.
+This definition imposes no exchange axiom.
+
+\begin{theorem}[The critical spectral coproduct]
+\label{cyspec:thm:critical-coproduct}
+Under Assumption~\ref{cyspec:ass:kunneth}, the maps
+\begin{equation}\label{cyspec:eq:critical-coproduct}
+ \Delta^{\mathrm{crit}}_{d,e}(z)
+ =\Psi(\mathcal V_{d,e},-z)\operatorname{act}_{z,1}^*\oplus^*
+\end{equation}
+give a coassociative vertex coproduct on $B=\bigoplus_d B_d$.
+Its component has target
+\[
+ (B_d\otimes_R B_e)[\chi(d,e)-\chi(e,d)]((z^{-1})).
+\]
+The covacuum is projection to $B_0=R$. Its left counit is the
+identity and its right counit is $e^{zT}$.
+\end{theorem}
+
+\begin{proof}
+The direct-sum pullbacks are coassociative and commute with
+simultaneous line tensoring. Pulling $\mathcal V$ back along a
+direct sum in either variable splits it into the corresponding
+two Ext complexes. Tensoring the first variable by the line changes
+its characteristic argument by $-z$.
+Consequently the two three-block composites have common factor
+\[
+ \Psi(\mathcal V_{d,e},-z)
+ \Psi(\mathcal V_{d,f},-z-w)
+ \Psi(\mathcal V_{e,f},-w).
+\]
+They tensor the first block by the line of class $z+w$
+and the second by the line of class $w$.
+
+This proves the coassociativity identity with parameters $z,w,z+w$,
+in compatible Laurent expansions. The empty Ext complex gives the
+two counit identities. Differentiating the line action gives
+$\Delta^{\mathrm{crit}}(z)T=\partial_z\Delta^{\mathrm{crit}}(z)
++(1\otimes T)\Delta^{\mathrm{crit}}(z)$.
+
+The perverse shifts give direct-sum pullback degree
+$-\chi(d,e)-\chi(e,d)$. Multiplication by the characteristic factor
+adds $2\chi(d,e)$. The stated target shift makes the resulting map
+degree zero. These are the geometric and grading identities of
+\cite{cyspec:JKL}*{Theorem 2.3.1}.
+\end{proof}
+
+The localized operation before line translation is
+\[
+ \Delta^{\mathrm{loc}}_{d,e}
+ =e(\mathcal V_{d,e})\oplus^*,\qquad
+ e(\mathcal V_{d,e})=
+ \frac{e(\mathcal V_{d,e}^0)}{e(\mathcal V_{d,e}^1)}.
+\]
+Inverting the indicated Euler classes makes this expression defined.
+Applying $\operatorname{act}_{z,1}^*$ and expanding at infinity
+changes $e(\mathcal V)$ to $\Psi(\mathcal V,-z)$.
+This identifies the localized and spectral constructions
+\cite{cyspec:JKL}*{Lemma 3.2.4 and Theorem 3.3.2}.
+For zero potential, the unshifted polynomial formula
+\eqref{cyspec:eq:coproduct} uses $z=-u$.
+
+\subsection{Braided multiplication and its signs}
+
+Assume now that $Q$ is symmetric: for each pair of distinct vertices
+the numbers of arrows in the two directions agree. Thus $\chi$ is
+symmetric, although the arrow weights need not be paired by negation.
+The tensor shift in Theorem~\ref{cyspec:thm:critical-coproduct} vanishes.
+Let $H$ be the tautological ring, the $R$-subalgebra of
+$\prod_d H^\bullet(\mathfrak M_d^T)$ generated by the Chern characters
+of the vertex bundles, including their ranks.
+Direct sum and line tensoring give its coproduct
+$\delta_H(z)=\operatorname{act}_{z,1}^*\oplus^*$.
+It acts on $B$ by cup product.
+
+Let $\sigma$ denote the graded swap, with its Koszul sign on
+cohomology. The characteristic multiplier
+\begin{equation}\label{cyspec:eq:joyce-r}
+ \mathscr R_{d,e}(z)=
+ \frac{\Psi(\sigma^*\mathcal V_{e,d}^{\vee},z)}
+      {\Psi(\mathcal V_{d,e},z)}
+\end{equation}
+has coefficients in $H\otimes_R H$ and leading term one.
+Its spectral hexagon identities follow from direct-sum factorization
+and line translation of the two complexes.
+These identities define the meromorphic exchange
+$\beta(z)=\sigma\circ(\mathscr R(z)\cdot-)$ on tautological modules,
+using $\delta_H(z)$ for the coefficient action.
+
+In Chern-root coordinates its relation to
+\eqref{cyspec:eq:exchange} is
+\begin{equation}\label{cyspec:eq:exchange-conventions}
+ \mathscr R_{e,d}(-u;y,x)=(-1)^{\chi(d,e)}R_{d,e}(u;x,y).
+\end{equation}
+Indeed, duality gives $\Psi(V^\vee,z)=(-1)^{\operatorname{rk}V}
+\Psi(V,-z)$. Thus the change $z=-u$ includes both a block reversal
+and the displayed Euler sign.
+
+The perverse grading contributes another sign. Put
+\begin{equation}\label{cyspec:eq:tau}
+ p(d)=\chi(d,d)\pmod2,\qquad
+ \tau(d,e)=p(d)p(e)+\chi(d,e)\pmod2.
+\end{equation}
+Symmetry of $\chi$ makes $p$ linear modulo two and makes $\tau$
+alternating and bilinear. Use the exchange
+\[
+ \beta^\tau_{d,e}(z)=(-1)^{\tau(d,e)}\beta_{d,e}(z).
+\]
+
+The critical Hall product $m$ and the coproduct satisfy
+\begin{equation}\label{cyspec:eq:critical-bialgebra}
+ \Delta^{\mathrm{crit}}(z)m
+ =(m\otimes m)(1\otimes\beta^\tau(z)\otimes1)
+        (\Delta^{\mathrm{crit}}(z)\otimes\Delta^{\mathrm{crit}}(z)).
+\end{equation}
+This is the untwisted-product form of the critical vertex-bialgebra
+theorem \cite{cyspec:JKL}*{Theorem 4.5.2 and its untwisted form}.
+Its proof starts with the localized Hall compatibility, translates
+the first and third blocks, and expands their invertible Euler
+factors. Cup-product linearity permits translation through the two
+Hall products. The crossed Euler factor becomes
+\eqref{cyspec:eq:joyce-r}. The Koszul and perverse signs give
+\eqref{cyspec:eq:tau}.
+
+One can move this sign into the operations, provided both are
+transported. Order the vertices, with basis dimension vectors $e_i$,
+and choose
+\[
+ \psi(d,e)=\sum_{i<j}\tau(e_i,e_j)d_i e_j\pmod2.
+\]
+Then $\psi(d,e)+\psi(e,d)=\tau(d,e)$ and $\psi$ is bilinear.
+
+\begin{proposition}[Simultaneous sign transport]
+\label{cyspec:prop:sign-transport}
+Define, on their charge components,
+\begin{equation}\label{cyspec:eq:sign-transport}
+ m^\psi_{d,e}=(-1)^{\psi(d,e)}m_{d,e},\qquad
+ \Delta^\psi_{d,e}(z)=(-1)^{\psi(d,e)}
+                         \Delta^{\mathrm{crit}}_{d,e}(z).
+\end{equation}
+They remain unital, associative and spectrally coassociative,
+with the same counits and translation. Their multiplication
+compatibility uses $\beta$ in place of $\beta^\tau$.
+\end{proposition}
+
+\begin{proof}
+Bilinearity gives
+$\psi(d,e)+\psi(d+e,f)=\psi(e,f)+\psi(d,e+f)$,
+so the two associativity identities retain their signs.
+Also $\psi(d,0)=\psi(0,d)=0$.
+
+For four blocks set $r=a+b$, $s=c+d$, $\alpha=a+c$, $\beta=b+d$.
+Expanding the bilinear terms gives
+\[
+ \psi(r,s)+\psi(\alpha,\beta)+\tau(c,b)
+ =\psi(a,b)+\psi(c,d)+\psi(a,c)+\psi(b,d)\pmod2.
+\]
+The left side is the sign on the left of
+\eqref{cyspec:eq:critical-bialgebra}, including its old crossed sign.
+The right side is the sign of the four transported operations.
+This proves the assertion.
+\end{proof}
+
+Changing only multiplication need not preserve this square.
+For two isolated vertices, $\chi$ is the identity matrix and
+$\psi(e_1,e_2)=1$. The straight four-block term
+$(a,c,b,d)=(e_1,0,0,e_2)$ changes sign on the product of the two
+inputs, while neither product in the two outputs changes sign.
+The coproduct factors in \eqref{cyspec:eq:sign-transport} supply
+the required correction.
+
+For a nonsymmetric quiver, the characteristic ratio
+\eqref{cyspec:eq:joyce-r} has leading power
+$z^{\chi(e,d)-\chi(d,e)}$. The componentwise module formulation
+of \cite{cyspec:JKL}*{\S4.5.4} therefore has a different coefficient
+recipient from the tautological-ring formulation above.
+
+The displayed symmetric sign prescription also has a precise limit.
+For one arrow $1\to2$,
+\[
+ \chi(e_1,e_2)=-1,\quad\chi(e_2,e_1)=0,\quad
+ \tau(e_1,e_2)=0,\quad\tau(e_2,e_1)=1.
+\]
+No function $\psi$ can then satisfy $\psi+\psi^{\mathrm{op}}=\tau$.
+Extending that sign convention requires a compatible choice on the
+shifted componentwise tensor product. The polynomial identity
+\eqref{cyspec:eq:four-block}, with its explicitly even convention,
+already applies to this quiver.
+
+\section{An exchange ratio and two integral lattices}
+\label{cyspec:sec:lattices}
+
+Exchange compares a pair kernel with its reverse. Multiplying the
+kernel by an even function leaves that ratio unchanged, but can
+change multiplication on the collision divisor. To measure the
+change, keep the entire polynomial coefficient module in each charge.
+
+For this section take
+\begin{equation}\label{cyspec:eq:parameter-ring}
+ R=\mathbb Q[h_1,h_2],\qquad h_3=-h_1-h_2,\qquad
+ a=\sum_{i<j}h_i h_j,\qquad b=h_1h_2h_3.
+\end{equation}
+Thus $a=-(h_1^2+h_1h_2+h_2^2)$ and $b=-h_1h_2(h_1+h_2)\ne0$
+in the domain $R$. No parameter is inverted.
+
+Define two independently specified polynomial carriers
+\[
+ A_n^{(j)}=R[x_1,\ldots,x_n]^{S_n},\qquad
+ \mathcal A^{(j)}=\bigoplus_{n\geq0}A_n^{(j)},\qquad j=0,1,
+\]
+with even parity and algebraic charge sum. Their pair kernels are
+\begin{equation}\label{cyspec:eq:two-kernels}
+ K_0(v)=\frac{\prod_{i=1}^3(v+h_i)}{v}
+       =v^2+a+\frac bv,\qquad
+ K_1(v)=v^2K_0(v).
+\end{equation}
+Here $v$ is a root difference, not a coefficient parameter.
+
+For $F\in A_d^{(j)}$ and $G\in A_e^{(j)}$, set
+\begin{equation}\label{cyspec:eq:two-products}
+ (F*_jG)(X)=\sum_{\substack{I\sqcup J=[d+e]\\|I|=d}}
+ F(X_I)G(X_J)\prod_{r\in I,\ s\in J}K_j(x_s-x_r).
+\end{equation}
+The sum has no factorial divisor and the empty charge is its unit.
+
+The pole-cancellation and ordered-partition arguments of
+Section~\ref{cyspec:sec:polynomial-coproduct} prove polynomiality and
+associativity. For $K_1$, polynomiality also follows term by term.
+The first kernel is the zero-potential three-loop Hall kernel.
+Two additional loops of weight zero give the second kernel.
+This is a calculation of ordinary normal Euler classes, without
+a critical-cohomology identification.
+
+Both kernels have exchange ratio
+\begin{equation}\label{cyspec:eq:common-ratio}
+ \frac{K_0(-v)}{K_0(v)}=\frac{K_1(-v)}{K_1(v)}
+ =\frac{v^3+av-b}{v^3+av+b}
+ =\frac{\prod_i(v-h_i)}{\prod_i(v+h_i)}.
+\end{equation}
+The equality cancels the even factor $v^2$.
+To decide whether that cancellation comes from an invertible
+change of polynomial coefficients, compute the whole binary image.
+
+\subsection{Binary generation and its cokernel}
+
+In charge two put
+\[
+ c=\frac{x+y}{2},\qquad v=y-x,\qquad t=v^2,\qquad B=R[c,t].
+\]
+Then $A_2^{(j)}=B$ and
+$A_1^{(j)}\otimes_R A_1^{(j)}=R[c,v]=B\oplus vB$.
+Pure tensors span this entire source. For $p=A+vC$, with $A,C\in B$,
+linearized multiplication is therefore
+\begin{equation}\label{cyspec:eq:binary-rows}
+ \mu_0(A+vC)=2((t+a)A+bC),\qquad
+ \mu_1(A+vC)=2t((t+a)A+bC).
+\end{equation}
+
+Indeed, the two terms for $K_0$ are
+$(v^2+a+b/v)(A+vC)$ and $(v^2+a-b/v)(A-vC)$.
+Their sum gives the first formula. The common even factor $v^2$
+gives the second. Since $2$ is invertible, their images are
+\begin{equation}\label{cyspec:eq:binary-images}
+ \operatorname{im}\mu_0=J=(t+a,b)B,\qquad
+ \operatorname{im}\mu_1=tJ.
+\end{equation}
+
+Regard each product as the two-term cochain complex
+\[
+ M_j=[B\oplus vB\xrightarrow{\mu_j}B],
+ \qquad\text{in degrees }-1,0.
+\]
+It records binary generation, rather than a full deformation complex.
+
+\begin{proposition}\label{cyspec:prop:binary-cohomology}
+The cohomology of these complexes is
+\begin{align}
+ H^{-1}(M_0)=H^{-1}(M_1)&=B\,(b,-(t+a)),
+       \label{cyspec:eq:binary-kernel}\\
+ H^0(M_0)&=R[c]/(b),\label{cyspec:eq:first-cokernel}\\
+ H^0(M_1)&=R[c]\oplus (R[c]/(b))\,t
+       \quad\text{as }R[c]\text{-modules}.
+       \label{cyspec:eq:second-cokernel}
+\end{align}
+On the last module, multiplication by $t$ is
+$t(A,C)=(0,A-aC)$, with the second coordinate reduced modulo $b$.
+Evaluation at $t=0$ gives a cochain map $M_1\to R[c][0]$.
+It detects the nonzero class of $b\mathbf1_2$.
+\end{proposition}
+
+\begin{proof}
+If $(t+a)A+bC=0$, reduction modulo $t+a$ gives $b\overline C=0$
+in the domain $R[c]$. Thus $C=-(t+a)H$ and $A=bH$.
+Multiplication of the row by the non-zero-divisor $t$ changes no
+kernel, proving \eqref{cyspec:eq:binary-kernel}.
+
+The first cokernel sets $t=-a$ and $b=0$.
+In the second, the relations are $t^2=-at$ and $bt=0$.
+Division by the monic polynomial $t^2+at$ gives a unique expression
+$A(c)+tC(c)$, with $C$ then taken modulo $b$.
+This proves both the module description and its $t$-action.
+
+Every value of $\mu_1$ is divisible by $t$, so evaluation at zero
+annihilates the differential. It sends $b\mathbf1_2$ to the nonzero
+element $b$. By contrast, $\mu_0(v/2)=b\mathbf1_2$.
+\end{proof}
+
+An \emph{ambient lattice equivalence} will mean a family of
+$R$-linear bijections $U_n:A_n^{(0)}\to A_n^{(1)}$ with $U_0=\operatorname{id}_R$
+and
+\begin{equation}\label{cyspec:eq:ambient-gauge}
+ U_{d+e}(F*_0G)=U_d(F)*_1U_e(G).
+\end{equation}
+No preservation of root degree, translation or multiplication by
+$c,t$ is assumed. In particular, these are not restricted to maps
+given by scalar multiplication.
+
+\begin{theorem}\label{cyspec:thm:ambient-obstruction}
+There is no ambient lattice equivalence. The conclusion remains
+true if every $U_n$ is semilinear for one automorphism of $R$.
+\end{theorem}
+
+\begin{proof}
+The $R$-annihilators of the binary cokernels are
+\[
+ \operatorname{Ann}_R H^0(M_0)=(b),\qquad
+ \operatorname{Ann}_R H^0(M_1)=0.
+\]
+The first follows from \eqref{cyspec:eq:first-cokernel}. The second
+follows from the quotient $H^0(M_1)\twoheadrightarrow R[c]$, a
+faithful $R$-module. The charge-two instance of
+\eqref{cyspec:eq:ambient-gauge} would identify the complexes through
+$U_1\otimes U_1$ in degree $-1$ and $U_2$ in degree zero.
+Their cokernels would then have the same annihilator, a contradiction.
+
+Under a parameter automorphism $\sigma$, the nonzero annihilator
+$b$ is carried to the nonzero element $\sigma(b)$. The contradiction
+persists. No step requires $U_2$ to preserve the coordinate $t$.
+\end{proof}
+
+The same distinction survives inversion of parameters alone.
+For a submodule $L\subset B$ define its parameter saturation by
+\[
+ L_R^{\mathrm{sat}}=\{F\in B:rF\in L
+                     \text{ for some }0\ne r\in R\}.
+\]
+Since $bB\subset J$ and $btB\subset tJ$,
+\begin{equation}\label{cyspec:eq:saturation}
+ J_R^{\mathrm{sat}}=B,\qquad (tJ)_R^{\mathrm{sat}}=tB.
+\end{equation}
+
+For the reverse inclusion in the second equality, if $rF\in tB$,
+evaluation at $t=0$ gives $rF(c,0)=0$ in the domain $R[c]$.
+Thus $F\in tB$. Over $\operatorname{Frac}(R)$, the first binary
+product is consequently surjective and the second still has image
+$t\operatorname{Frac}(R)[c,t]$. In particular,
+$\mu_0(v/(2b))=\mathbf1_2$ but $\mu_1(v/(2b))=t\mathbf1_2$.
+
+\subsection{The comparison that does exist}
+
+Set $D_0=D_1=1$ and
+\begin{equation}\label{cyspec:eq:discriminant}
+ D_n(X)=\prod_{r<s}(x_s-x_r)^2,\qquad \Phi_n(F)=D_nF.
+\end{equation}
+For each partition $I\sqcup J=[d+e]$,
+\begin{equation}\label{cyspec:eq:discriminant-factorization}
+ D_{d+e}(X)=D_d(X_I)D_e(X_J)
+                  \prod_{r\in I,\ s\in J}(x_s-x_r)^2.
+\end{equation}
+Thus the even factors omitted by exchange supply an actual map.
+
+\begin{theorem}\label{cyspec:thm:discriminant-map}
+The maps $\Phi_n$ define a unital, injective, charge-preserving
+algebra map $\Phi:\mathcal A^{(0)}\to\mathcal A^{(1)}$.
+They commute with simultaneous root translation and satisfy
+\begin{equation}\label{cyspec:eq:discriminant-product}
+ \Phi_{d+e}(F*_0G)=\Phi_d(F)*_1\Phi_e(G).
+\end{equation}
+They are not surjective on $A_n$ for $n\geq2$.
+If $\mathcal C^{(j)}$ is the subalgebra generated by $A_1^{(j)}$,
+restriction gives an integral isomorphism
+\begin{equation}\label{cyspec:eq:current-isomorphism}
+ \Phi:\mathcal C^{(0)}\xrightarrow{\sim}\mathcal C^{(1)},
+ \qquad\mathcal C_n^{(1)}=D_n\mathcal C_n^{(0)}.
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+In every summand on the right of
+\eqref{cyspec:eq:discriminant-product}, the internal discriminants
+and the cross squares from $K_1=v^2K_0$ combine, by
+\eqref{cyspec:eq:discriminant-factorization}, into $D_{d+e}$.
+This factor is independent of the subset and can be taken outside
+the sum. The same factorization over any ordered partition proves
+compatibility with every iterated product.
+
+Each $D_n$ is nonzero in a domain, so multiplication by it is
+injective. For $n\geq2$ its image cannot contain the constant
+polynomial, since $D_n$ vanishes at $x_1=x_2$.
+The factors $D_0=D_1=1$ give the unit and the identity on charge
+one. A multiplicative injection fixing those generators therefore
+maps $\mathcal C^{(0)}$ exactly onto $\mathcal C^{(1)}$.
+Division by $D_n$ on this specified image gives its inverse.
+Finally $\sum_i\partial_{x_i}D_n=0$, proving translation compatibility.
+\end{proof}
+
+This isomorphism of generated algebras and
+Theorem~\ref{cyspec:thm:ambient-obstruction} concern different modules.
+The former identifies the generated images, whereas the latter
+excludes its extension to bijections of all polynomial coefficients.
+For compatible even gradings, give roots and parameters raw degree
+two and set
+\[
+ \deg_0F=\deg_{\mathrm{raw}}F-2n(n-1),\qquad
+ \deg_1F=\deg_{\mathrm{raw}}F-4n(n-1),\qquad F\in A_n.
+\]
+Both products and $\Phi$ then have degree zero. The obstruction
+requires none of these grading restrictions on the proposed gauges.
+
+Define the spectral maps of the two algebras independently by
+\begin{equation}\label{cyspec:eq:lattice-coproduct}
+ \Delta^{(j)}_{d,e}(s)F(X,Y)=
+ \prod_{r,k}K_j(s+y_k-x_r)^{-1}\,F(X-s,Y).
+\end{equation}
+They are rationally coassociative by
+Theorem~\ref{cyspec:thm:coassociativity}, and expand at infinity with
+coefficients in $A_d^{(j)}\otimes_R A_e^{(j)}$.
+Their left counit is the identity and their right counit is
+translation by $-s$.
+
+\begin{proposition}\label{cyspec:prop:localized-comparison}
+The discriminant maps preserve these coproducts:
+\begin{equation}\label{cyspec:eq:discriminant-coproduct}
+ \Delta^{(1)}_{d,e}(s)\Phi_{d+e}
+ =(\Phi_d\otimes_R\Phi_e)\Delta^{(0)}_{d,e}(s).
+\end{equation}
+The products extend to
+$\mathcal A^{(j)}_{\mathrm{reg}}=\bigoplus_n A_n^{(j)}[D_n^{-1}]$.
+On these carriers $\Phi$ is an algebra isomorphism preserving
+translation and the coproducts with localized output coefficients.
+\end{proposition}
+
+\begin{proof}
+The translated factorization is
+\[
+ D_{d+e}(X-s,Y)=D_d(X)D_e(Y)
+                         \prod_{r,k}(s+y_k-x_r)^2.
+\]
+The cross factors cancel the extra squares in the denominators of
+$\Delta^{(1)}$, proving \eqref{cyspec:eq:discriminant-coproduct}
+before and after expansion.
+
+Every internal discriminant and every cross-root difference is
+invertible after the total discriminant is inverted. Each localized
+shuffle therefore has poles only on that total divisor and lies in
+the stated localized symmetric ring. Multiplication by $D_n$ now
+has inverse $D_n^{-1}$. Translation fixes $D_n$, and the displayed
+translated factorization proves the coproduct assertion.
+In charge two the map of binary complexes $(\operatorname{id},t)$
+is an isomorphism after $t$ is inverted. No coefficient parameter
+such as $b$ needs to be inverted.
+\end{proof}
+
+\subsection{The remaining collision module}
+
+The classes discarded by the discriminant localization form the
+coefficient modules
+\[
+ Q_n=A_n^{(1)}/D_nA_n^{(1)},\qquad Q=\bigoplus_n Q_n.
+\]
+Their support lies on the internal root discriminant.
+In particular, $Q_0=Q_1=0$ and $Q_2=B/(t)=R[c]$.
+There is an exact sequence
+\begin{equation}\label{cyspec:eq:relative-sequence}
+ 0\longrightarrow\mathcal A^{(0)}\xrightarrow{\Phi}\mathcal A^{(1)}
+ \longrightarrow Q\longrightarrow0
+\end{equation}
+of $\mathcal A^{(0)}$-bimodules, with quotient actions
+\begin{equation}\label{cyspec:eq:quotient-actions}
+ a\cdot[z]=[\Phi(a)*_1z],\qquad [z]\cdot a=[z*_1\Phi(a)].
+\end{equation}
+
+These are well-defined because replacing $z$ by $z+\Phi(c)$ changes
+the two products by $\Phi(a*_0c)$ and $\Phi(c*_0a)$.
+Associativity proves the bimodule laws. Translation preserves the
+sequence, since it fixes $D_n$ and is a derivation of both products.
+The sequence is not an algebra quotient: its proper kernel contains
+the unit and therefore cannot be an ideal of a nonzero unital quotient.
+
+The charge-two cone is $[B\xrightarrow{t}B]$ in degrees $-1,0$,
+with cokernel $B/(t)$. The same cone occurs for the chain map
+$(\operatorname{id},t):M_0\to M_1$.
+Indeed, write $P=B^2$. Its cone has terms $P$, $P\oplus B$, $B$
+in degrees $-2,-1,0$, with differentials
+\[
+ p\longmapsto(p,-\mu_0p),\qquad
+ (q,z)\longmapsto t(\mu_0q+z).
+\]
+The coordinate $w=z+\mu_0q$ splits off the contractible pair
+$P\xrightarrow{1}P$, leaving $[B\xrightarrow{t}B]$.
+
+On the ordered root cover this quotient is $R[c,v]/(v^2)$.
+Its normal direction has length two there, while on the symmetric
+quotient its coordinate $t=v^2$ gives length one.
+
+\subsection{Other even factors}
+
+The same argument applies to a general monic even multiplier.
+Let $R$ now be a commutative $\mathbb Q$-algebra that is a domain,
+and choose $a,b\in R$ with $b\ne0$.
+Put $q(v)=P(v^2)$, where $P(t)\in R[t]$ is monic of positive degree.
+
+\begin{theorem}\label{cyspec:thm:general-even-factor}
+The shuffle products for $K(v)=v^2+a+b/v$ and $q(v)K(v)$ are
+polynomial and associative. There is no charge-preserving
+$R$-linear equivalence of their full polynomial algebras.
+Their current-generated subalgebras are nevertheless isomorphic
+through multiplication in charge $n$ by
+\begin{equation}\label{cyspec:eq:general-pair-factor}
+ \prod_{r<s}q(x_s-x_r).
+\end{equation}
+This map is injective on the full carriers and becomes an algebra
+isomorphism after the displayed pair product is inverted.
+The two exchange ratios agree.
+\end{theorem}
+
+\begin{proof}
+Pole cancellation over $\operatorname{Frac}(R)$ removes the possible
+simple diagonal denominators. Division by each monic linear root
+difference already takes place over $R$. Successive such divisions
+remove the full denominator: over the fraction field, distinct
+differences are relatively prime. Ordered partitions then prove
+associativity over $R$.
+
+In charge two the images are $J=(t+a,b)$ and $P(t)J$ in $B=R[c,t]$.
+The first cokernel is killed by $b$. The second surjects onto
+$B/(P(t))$, which is a nonzero free $R[c]$-module with basis
+$1,t,\ldots,t^{\deg P-1}$. It is faithful over $R$.
+The scalar-annihilator argument therefore excludes every proposed
+equivalence of full carriers. Their parameter saturations are
+$B$ and $P(t)B$: use $bP(t)B\subset P(t)J$ and the
+$R$-torsion-freeness of $B/P(t)B$.
+
+The pair product \eqref{cyspec:eq:general-pair-factor} factors into
+internal and cross-block products. Substitution in each shuffle
+summand proves multiplicativity and the isomorphism on generated
+subalgebras. It is injective over the domain.
+
+For localized inputs, a sufficiently high power of the total pair
+product clears their internal denominators. The remaining diagonal
+poles cancel by the polynomiality argument. This proves closure
+under localized multiplication and gives the stated inverse.
+It does not require that inverting $q(v)$ invert $v$.
+Finally $q(-v)=q(v)$ proves equality of the exchange ratios.
+\end{proof}
+
+At $(h_1,h_2,h_3)=(1,1,-2)$, the original example has $a=-3$, $b=-2$.
+Its two constant-current products are $2(t-3)$ and $2t(t-3)$.
+The tensor polynomial $-v/4$ multiplies to $\mathbf1_2$ for $K_0$
+and to $t\mathbf1_2$ for $K_1$.
+
+At a fiber where $b=0$, the broad class of linear gauges requires
+a separate invariant. For example, when $a=b=0$, the two cokernels
+are $\mathbb Q[c,t]/(t)$ and $\mathbb Q[c,t]/(t^2)$.
+Their $t$-module structures differ, but an arbitrary
+$\mathbb Q$-linear gauge need not preserve that operator.
+The integral theorem asserts no such fiberwise classification.
+
+\section{From coefficient collisions to fields}
+\label{cyspec:sec:realization}
+
+The coefficient constructions now retain their operations:
+direct-sum Gysin maps and their cones, Hall multiplication,
+spectral translation, the four-block square, and the discriminant
+comparison. The even-factor example shows why a common exchange
+ratio cannot recover the coefficient module supported at a collision.
+It also supplies a positive comparison on generated algebras and
+on the complement of that collision.
+
+\begin{problem}\label{cyspec:prob:field-realization}
+Construct a geometric coefficient family on a spacetime collision
+space which realizes these spectral operations. Its comparison with
+the Chern-root family must preserve Hall multiplication, translation,
+the empty-charge unit and the chosen local vacuum. Across the
+collision divisor it must realize the derived coefficient cones
+and their attachment maps.
+
+For \eqref{cyspec:eq:relative-sequence}, construct both bimodule
+actions \eqref{cyspec:eq:quotient-actions} geometrically and identify
+the first relative term with $[R[c,t]\xrightarrow{t}R[c,t]]$,
+including the quotient class detected by $t=0$.
+At three or more points, require compatibility on all intersecting
+collision divisors and under every successive merger.
+\end{problem}
+
+This problem requires a map between two independently specified
+families. Internal root differences have so far been coefficient
+coordinates. Their substitution for spacetime separations needs
+pullback, support and continuity data. The translated counit of the
+spectral coproduct also remains part of that comparison. It does
+not become an ordinary Hopf counit by choosing an expansion.

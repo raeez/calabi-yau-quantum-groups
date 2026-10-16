@@ -1,0 +1,2094 @@
+\chapter{Spectral forms and level-changing tensor products}
+\label{cylev:chapter}
+
+\section{Addition of levels}
+
+Let $k$ be a field of characteristic zero.
+Let $J$ be a Heisenberg current with singular product
+$J(z)J(w)\sim K(z-w)^{-2}$.
+In the ordinary tensor product of two such algebras, the current
+$J\otimes\mathbf1+\mathbf1\otimes J$ has level $2K$.
+The two self-contractions add, and the mixed contractions vanish.
+Thus this formula cannot define a vertex-algebra coproduct at a fixed
+nonzero level. It instead gives a map from level $K_1+K_2$ to the
+tensor product of levels $K_1$ and $K_2$.
+
+There is a further effect when translation changes the contraction.
+Over $k[\lambda,c_1,c_2]/(c_1^2,c_2^2)$, consider
+\[
+ P_c(z)=\frac{\lambda}{z-c}-\frac{\lambda}{z},
+\]
+where a shifted denominator means its finite nilpotent expansion.
+Each separate field has $P_{c_i}(z)=\lambda c_i z^{-2}$, whereas
+\begin{equation}\label{cylev:eq:opening-cross}
+ P_{c_1+c_2}(z)-P_{c_1}(z)-P_{c_2}(z)
+       =\frac{2\lambda c_1c_2}{z^3}.
+\end{equation}
+The right side is nonzero in this coefficient ring.
+A tensor product receiving a coproduct from the summed level must
+retain it. We shall construct the extra contraction and prove its
+compatibility with fields, iterated coproducts and module actions.
+
+The construction starts with an ordinary Hopf algebra, a translation
+derivation and a bilinear form depending on the separation of two
+points. The form determines both exchange and contraction. A Hopf
+automorphism preserving it specifies a level. The coproduct then
+composes levels in their given order, which need not be commutative.
+Formal translation levels recover additive parameters and the rational
+quantum affine example. Their comparison with Hall charge splitting
+requires an additional map between the two coefficient systems.
+
+\section{Rational fields and a spectral form}
+
+Throughout the algebraic construction, $k$ has characteristic zero,
+$R$ is a commutative $k$-algebra, and tensor products are over $R$.
+States lie in cohomological degree zero. For an $R$-module $V$, put
+\begin{equation}\label{cylev:eq:germs}
+ \mathcal G_r(V)=V[[z_1,\ldots,z_r]]
+ [z_1^{-1},\ldots,z_r^{-1},(z_i-z_j)^{-1}\mid 1\leq i<j\leq r].
+\end{equation}
+Each element has a finite common denominator. The bound may depend
+on the input states. Products and iterates of fields are compared
+as expansions of the same element of this module.
+
+\begin{definition}\label{cylev:def:fields}
+A \emph{quantum vertex algebra with rational exchange} consists of
+a flat module $V$, an operator $T$, and bilinear fields
+$Y(a,z)b\in V((z))$.
+Its vacuum $\mathbf1$ spans a free direct summand.
+They obey
+\[
+ Y(\mathbf1,z)=\id,\qquad Y(a,z)\mathbf1=e^{zT}a,\qquad
+ Y(Ta,z)=\partial_zY(a,z)=[T,Y(a,z)].
+\]
+They are weakly associative: a product and its consecutive iterate
+agree in their common expansion domain after clearing a finite power
+of the collision coordinate.
+
+The exchange is an invertible $R[z,z^{-1}]$-linear map
+$\mathcal S(z)$ on $(V\otimes V)[z,z^{-1}]$, fixing both vacuum
+tensors. It satisfies
+\begin{align}
+ [T\otimes1,\mathcal S(z)]&=-\partial_z\mathcal S(z),
+       \label{cylev:eq:shift}\\
+ \mathcal S_{12}(u)\mathcal S_{13}(u+v)\mathcal S_{23}(v)
+ &=\mathcal S_{23}(v)\mathcal S_{13}(u+v)\mathcal S_{12}(u),
+       \label{cylev:eq:yb}\\
+ \mathcal S_{21}(-z)\mathcal S(z)&=1.
+       \label{cylev:eq:unitarity}
+\end{align}
+Here $\mathcal S_{21}$ conjugates $\mathcal S$ by the flip.
+Writing $Y(z)(a\otimes b)=Y(a,z)b$, the field identities are
+\begin{align}
+ &(z-w)^N Y(b,w)Y(a,z)c\nonumber\\
+ &\qquad=(z-w)^N Y(z)(1\otimes Y(w))
+       \bigl(\mathcal S(z-w)(a\otimes b)\otimes c\bigr),
+       \label{cylev:eq:locality}\\
+ &\mathcal S(z)(Y(w)\otimes1)
+       =(Y(w)\otimes1)\mathcal S_{23}(z)\mathcal S_{13}(z+w).
+       \label{cylev:eq:hexagon}
+\end{align}
+The exponent $N$ in the first identity depends on $a,b$, not on $c$.
+In the second identity $\mathcal S_{13}(z+w)$ is expanded at $w=0$.
+\end{definition}
+
+This is the rational, algebraic version of the exchange and hexagon
+formalism of Etingof and Kazhdan
+\cite[\S\S1.3--1.4]{EtingofKazhdanV}.
+The formal version below uses completed tensors and these identities
+at each finite precision. The definition itself supplies no coproduct.
+
+Let $H$ be a flat Hopf algebra over $R$, with coproduct $\Delta$,
+counit $\varepsilon$ and bijective antipode $\mathsf s$.
+Write $\Delta a=a_1\otimes a_2$, with the finite sum understood.
+Repeated subscripts denote iterated coproducts.
+Let $T$ be a derivation and coderivation with $\varepsilon T=0$.
+It commutes with $\mathsf s$. Write $a(z)=e^{zT}a$.
+
+\begin{definition}\label{cylev:def:form}
+A \emph{unitary spectral coquasitriangular form} is an $R$-bilinear
+map $\rho_z:H\otimes H\to R[z,z^{-1}]$ satisfying
+\begin{align}
+ \rho_z(1,a)&=\varepsilon(a)=\rho_z(a,1),
+       \label{cylev:eq:form-unit}\\
+ \rho_z(ab,c)&=\rho_z(a,c_1)\rho_z(b,c_2),
+       \label{cylev:eq:form-first}\\
+ \rho_z(a,bc)&=\rho_z(a_1,c)\rho_z(a_2,b),
+       \label{cylev:eq:form-second}\\
+ \rho_z(a_1,b_1)a_2(z)b_2
+       &=b_1a_1(z)\rho_z(a_2,b_2),
+       \label{cylev:eq:form-commutation}\\
+ \rho_z(Ta,b)&=\partial_z\rho_z(a,b)=-\rho_z(a,Tb),
+       \label{cylev:eq:form-translation}\\
+ \rho_z(a_1,b_1)\rho_{-z}(b_2,a_2)
+       &=\varepsilon(a)\varepsilon(b).
+       \label{cylev:eq:form-unitarity}
+\end{align}
+The commutation identity takes values in $H[[z]][z^{-1}]$.
+The reversed order in \eqref{cylev:eq:form-second} fixes our convention.
+\end{definition}
+
+The two multiplication rules alone do not impose exchange or unitarity.
+When $T=0$ and the form is constant, the first four rules are the
+coquasitriangular identities and the last is cotriangularity.
+For two forms, use convolution
+$(f*g)(a,b)=f(a_1,b_1)g(a_2,b_2)$, whose unit is
+$\varepsilon\otimes\varepsilon$.
+
+\begin{lemma}\label{cylev:lem:form}
+The convolution inverse of $\rho_z$ is
+\begin{equation}\label{cylev:eq:form-inverse}
+ \bar\rho_z(a,b)=\rho_{-z}(b,a)
+       =\rho_z(\mathsf sa,b)=\rho_z(a,\mathsf s^{-1}b).
+\end{equation}
+Simultaneous application of the antipode preserves the form, and
+\begin{equation}\label{cylev:eq:form-yb}
+\begin{split}
+ &\rho_u(a_1,b_1)\rho_{u+v}(a_2,c_1)\rho_v(b_2,c_2)\\
+ &\qquad=\rho_v(b_1,c_1)\rho_{u+v}(a_1,c_2)\rho_u(a_2,b_2).
+\end{split}
+\end{equation}
+The latter is an identity in $R[u,v,u^{-1},v^{-1},(u+v)^{-1}]$.
+\end{lemma}
+\begin{proof}
+Apply the first multiplication rule to $\mathsf s(a_1)a_2$ and
+$a_1\mathsf s(a_2)$. The antipode identities make
+$\rho_z(\mathsf s-,-)$ a two-sided inverse.
+The second multiplication rule, applied to
+$b_2\mathsf s^{-1}(b_1)$ and $\mathsf s^{-1}(b_2)b_1$, gives the
+other inverse. Uniqueness and \eqref{cylev:eq:form-unitarity} give
+\eqref{cylev:eq:form-inverse}. Substituting $\mathsf sb$ then gives
+$\rho_z(\mathsf sa,\mathsf sb)=\rho_z(a,b)$.
+
+Taylor expansion gives $\rho_v(a(u),c)=\rho_{u+v}(a,c)$.
+Pair the two sides of \eqref{cylev:eq:form-commutation}, at $u$,
+with $c$ using $\rho_v$. Expanding their products gives exactly the
+two sides of \eqref{cylev:eq:form-yb}, expanded at $u=0$.
+The expansion map from the displayed localization is injective,
+so the rational identity follows.
+\end{proof}
+
+Translation puts the commutation identity at two positions:
+\begin{equation}\label{cylev:eq:two-positions}
+ \rho_{z-w}(a_1,b_1)a_2(z)b_2(w)
+       =b_1(w)a_1(z)\rho_{z-w}(a_2,b_2).
+\end{equation}
+Before introducing contractions, this already gives a regular example.
+
+\begin{proposition}\label{cylev:prop:regular}
+On $H$, the fields $Y^{\mathrm{reg}}(a,z)b=a(z)b$ and exchange
+\[
+ \mathcal S^{\mathrm{reg}}(z)(a\otimes b)
+       =\rho_z(a_1,b_1)a_2\otimes b_2\bar\rho_z(a_3,b_3)
+\]
+form a quantum vertex algebra. Its Hopf coproduct and counit preserve
+fields and exchange, using ordinary tensor fields on the target.
+\end{proposition}
+\begin{proof}
+The derivation rule proves the vacuum, translation and associativity
+identities. Convolving \eqref{cylev:eq:two-positions} on the right
+with $\bar\rho$ proves locality. The finitely many scalar coefficients
+on $a,b$ give its bound independently of the terminal state.
+
+For a convolution-invertible form $f$, put
+$\Phi_f(a\otimes b)=f(a_1,b_1)a_2\otimes b_2f^{-1}(a_3,b_3)$.
+Coassociativity gives $\Phi_f\Phi_g=\Phi_{g*f}$.
+Equations \eqref{cylev:eq:form-yb} and
+\eqref{cylev:eq:form-inverse} give Yang--Baxter and unitarity.
+Differentiating the scalar factors gives \eqref{cylev:eq:shift}.
+The first multiplication rule and its reversed inverse rule
+$\bar\rho_z(ab,c)=\bar\rho_z(b,c_1)\bar\rho_z(a,c_2)$ give
+the hexagon, with the translated argument producing $z+w$.
+
+The Hopf maps preserve multiplication and translation, hence fields.
+In the target exchange
+$\mathcal S^{\mathrm{reg}}_{13}\mathcal S^{\mathrm{reg}}_{24}$,
+the middle factors $\bar\rho_z(a_3,b_3)\rho_z(a_4,b_4)$ cancel.
+The result is $(\Delta\otimes\Delta)\mathcal S^{\mathrm{reg}}$.
+Applying both counits cancels all scalar factors.
+\end{proof}
+
+\section{Levels, coactions and contractions}
+
+\begin{definition}\label{cylev:def:level}
+A \emph{spectral level} is a Hopf automorphism $\eta$ of $H$ commuting with
+$T$ and satisfying $\rho_z(\eta a,\eta b)=\rho_z(a,b)$.
+Products of levels mean composition: $\eta_1\eta_2=\eta_1\circ\eta_2$.
+\end{definition}
+
+The levels form a group. It contains $\mathsf s^2$.
+For a nilpotent $c\in R$, it also contains $e^{cT}$: this exponential
+is finite, and simultaneous translation leaves the form unchanged.
+No commutativity of levels is assumed.
+
+Fix a level $\eta$. On the underlying module $H$, define
+\begin{equation}\label{cylev:eq:coaction}
+ \delta_\eta(b)=b_2\otimes b_3\mathsf s^{-1}(\eta b_1).
+\end{equation}
+For a right coaction we use parentheses,
+$\delta(b)=b_{(0)}\otimes b_{(1)}$, to distinguish its terms from
+Hopf coproduct components.
+
+\begin{lemma}\label{cylev:lem:coaction}
+The map $\delta_\eta$ is a counital right $H$-coaction, sends $1$ to
+$1\otimes1$, and satisfies
+\begin{align}
+ \delta_\eta T&=(T\otimes1+1\otimes T)\delta_\eta,
+       \label{cylev:eq:coaction-translation}\\
+ \delta_\eta(xb)&=x_2b_{(0)}\otimes
+          x_3b_{(1)}\mathsf s^{-1}(\eta x_1).
+       \label{cylev:eq:coaction-product}
+\end{align}
+\end{lemma}
+\begin{proof}
+The two coaction composites are both
+\[
+ b_3\otimes b_4\mathsf s^{-1}(\eta b_2)
+       \otimes b_5\mathsf s^{-1}(\eta b_1).
+\]
+Applying the last counit gives $b$.
+The coderivation rule and commutation of $T$ with $\eta,\mathsf s$
+give \eqref{cylev:eq:coaction-translation}.
+Expanding $\delta_\eta(xb)$ gives the second formula because
+$\mathsf s^{-1}$ reverses products.
+\end{proof}
+
+For any right comodule $M$, set
+\begin{equation}\label{cylev:eq:annihilation}
+ A_z^M(x)m=m_{(0)}\rho_{-z}(m_{(1)},x).
+\end{equation}
+It is a finite Laurent polynomial for fixed $x,m$.
+Write $A_z$ for $M=(H,\delta_\eta)$, and let $L(x)$ denote
+left multiplication by $x$.
+
+\begin{lemma}\label{cylev:lem:operators}
+On every right comodule,
+\begin{align}
+ A_z(x)A_z(y)&=A_z(yx),\label{cylev:eq:anti-action}\\
+ \rho_{w-z}(y_1,x_1)A_z(x_2)A_w(y_2)
+ &=A_w(y_1)A_z(x_1)\rho_{w-z}(y_2,x_2).
+       \label{cylev:eq:annihilation-exchange}
+\end{align}
+For $\delta_\eta$ one further has
+\begin{align}
+ A_z(x)L(b(w))={}&\rho_{w-z}(b_3,x_1)
+    \rho_{w-z}(\mathsf s^{-1}\eta b_1,x_3)
+    L(b_2(w))A_z(x_2),\label{cylev:eq:mixed-operators}\\
+ A_z(x)1={}&\varepsilon(x)1.\label{cylev:eq:annihilation-vacuum}
+\end{align}
+\end{lemma}
+\begin{proof}
+Coassociativity writes the first composite as
+$m_{(0)}\rho_{-z}(m_{(1)},x)\rho_{-z}(m_{(2)},y)$.
+The second multiplication rule combines the scalar factors with
+the product $yx$. Pairing the components of $m,x,y$ in
+\eqref{cylev:eq:form-yb}, at positions $0,z,w$, gives the second
+identity.
+
+For the mixed identity, use \eqref{cylev:eq:coaction-product} on
+$b(w)m$. Its last factor is
+$b_3(w)m_{(1)}\mathsf s^{-1}\eta b_1(w)$.
+The first multiplication rule separates these three factors.
+Translation changes the first and last parameters to $w-z$,
+leaving $A_z(x_2)$ in the middle. The vacuum identity follows from
+$\delta_\eta(1)=1\otimes1$.
+\end{proof}
+
+Creation and annihilation now define the fields:
+\begin{equation}\label{cylev:eq:field}
+\begin{split}
+ Y_\eta(a,z)b
+ &=L(a_1(z))A_z(a_2)b\\
+ &=a_1(z)b_{(0)}\rho_{-z}(b_{(1)},a_2)\\
+ &=a_1(z)b_2\rho_{-z}(b_3,a_2)
+                  \rho_{-z}(\mathsf s^{-1}\eta b_1,a_3).
+\end{split}
+\end{equation}
+The finite coproducts give an element of $H((z))$.
+Denote this state module with its fields by $V_\eta$.
+
+\begin{theorem}\label{cylev:thm:fields}
+The fields \eqref{cylev:eq:field}, vacuum $1$, translation $T$ and
+exchange
+\begin{equation}\label{cylev:eq:exchange}
+ \mathcal S_\eta(z)(a\otimes b)
+       =a_{(0)}\otimes b_{(0)}\rho_z(a_{(1)},b_{(1)})
+\end{equation}
+make $V_\eta$ a quantum vertex algebra with rational exchange.
+Every finite ordered field product on a fixed state has a common
+germ in \eqref{cylev:eq:germs}. Moreover,
+\begin{align}
+ \delta_\eta(Y_\eta(a,z)b)
+ &=Y_\eta(a_{(0)},z)b_{(0)}\otimes b_{(1)}a_{(1)}(z),
+       \label{cylev:eq:covariance}\\
+ Y_\eta(a_{(0)},z)b_{(0)}\rho_z(a_{(1)},b_{(1)})
+ &=e^{zT}Y_\eta(b,-z)a.
+       \label{cylev:eq:skew}
+\end{align}
+\end{theorem}
+\begin{proof}
+The unit rule for $\rho$ gives the vacuum and creation identities.
+The Hopf counit splits off the vacuum summand as an $R$-module.
+Using \eqref{cylev:eq:coaction-translation} gives
+\[
+ [T,A_z(x)]b=-b_{(0)}\rho_{-z}(Tb_{(1)},x)
+       =\partial_z(A_z(x)b)=A_z(Tx)b.
+\]
+Together with the coderivation rule for $\Delta$, this proves both
+translation identities for $Y_\eta$.
+
+Move annihilation past creation using
+\eqref{cylev:eq:mixed-operators}. The product becomes
+\begin{equation}\label{cylev:eq:normal-product}
+\begin{split}
+ Y_\eta(a,z)Y_\eta(b,w)
+ ={}&\rho_{w-z}(b_3,a_2)
+       \rho_{w-z}(\mathsf s^{-1}\eta b_1,a_4)\\
+ &\quad\cdot L(a_1(z)b_2(w))A_z(a_3)A_w(b_4).
+\end{split}
+\end{equation}
+Expanding the inner field in the iterate instead gives
+\begin{equation}\label{cylev:eq:normal-iterate}
+\begin{split}
+ Y_\eta(Y_\eta(a,u)b,w)
+ ={}&\rho_{-u}(b_4,a_3)
+       \rho_{-u}(\mathsf s^{-1}\eta b_1,a_4)\\
+ &\quad\cdot L(a_1(u+w)b_2(w))A_w(b_3)A_{w+u}(a_2).
+\end{split}
+\end{equation}
+The annihilation exchange identifies these expressions at $u=z-w$.
+
+On a fixed terminal state the remaining annihilations are finite
+Laurent polynomials. The other poles lie on $z=w$, so both expressions
+come from one element of $\mathcal G_2(H)$.
+Repeatedly moving annihilations to the right proves the same assertion
+for any finite number of fields.
+
+For covariance, expand the coaction of \eqref{cylev:eq:field}.
+The middle factors are interchanged by
+\[
+ a_3(z)b_{(1)}\rho_{-z}(b_{(2)},a_4)
+       =\rho_{-z}(b_{(1)},a_3)b_{(2)}a_4(z),
+\]
+which is \eqref{cylev:eq:two-positions} at $0,z$.
+The outer factors agree directly, proving \eqref{cylev:eq:covariance}.
+
+For skew-symmetry, expand the two coactions on its left, separate
+products inside each form, and cancel inverse pairings.
+Invariance under $\eta$ leaves
+\[
+ a_3(z)b_2\rho_z(a_2,b_1)
+                  \rho_z(\mathsf s^{-1}\eta a_1,b_3).
+\]
+Direct expansion of the right side gives
+$b_1a_2(z)\rho_z(a_3,b_2)\rho_z(\mathsf s^{-1}\eta a_1,b_3)$.
+The commutation identity for $\rho$ equates them.
+
+Associativity and skew-symmetry identify the two orders of a pair
+of fields in their collision expansion.
+The scalar coefficients in \eqref{cylev:eq:normal-product} have a
+pole bound depending only on $a,b$.
+The exchanged side has finitely many analogous coefficients.
+Their maximum clears the collision denominators independently of
+the terminal state, proving \eqref{cylev:eq:locality}.
+
+Coassociativity of $\delta_\eta$ turns
+\eqref{cylev:eq:form-yb} and \eqref{cylev:eq:form-unitarity} into
+Yang--Baxter and unitarity for $\mathcal S_\eta$.
+Differentiation of the paired coaction components gives
+\eqref{cylev:eq:shift}.
+Finally, the tail of a field in \eqref{cylev:eq:covariance} is
+$b_{(1)}a_{(1)}(w)$.
+Pairing it with $c_{(1)}$ gives
+$\rho_z(b_{(1)},c_{(1)})\rho_{z+w}(a_{(1)},c_{(2)})$,
+the two factors of the hexagon.
+The unit rule fixes its vacuum tensors.
+\end{proof}
+
+\section{The tensor product and its cross contraction}
+
+An \emph{$H$-covariant field algebra} is a quantum vertex algebra
+with rational exchange and a right coaction preserving its vacuum
+and total translation, satisfying \eqref{cylev:eq:covariance}.
+Its exchange is given by \eqref{cylev:eq:exchange}, and every finite
+ordered product on a fixed state has a common rational germ.
+Morphisms preserve fields, vacuum, translation and coaction.
+The algebras $V_\eta$ and the scalar algebra $R$ with trivial coaction
+are examples.
+
+For any such algebra $V$, covariance gives
+\begin{equation}\label{cylev:eq:annihilation-field}
+ A_z^V(x)Y_V(a,w)
+       =\rho_{w-z}(a_{(1)},x_2)Y_V(a_{(0)},w)A_z^V(x_1).
+\end{equation}
+Indeed, its left side pairs $v_{(1)}a_{(1)}(w)$ with $x$.
+The first multiplication rule separates precisely the two factors
+on the right.
+
+On $V_1\otimes V_2$ define
+\begin{align}
+ Y_{12}(a\otimes b,z)(c\otimes d)
+ &=Y_1(a,z)c_{(0)}\otimes Y_2(b_{(0)},z)d\,
+        \rho_{-z}(c_{(1)},b_{(1)}),\label{cylev:eq:tensor-field}\\
+ \delta_{12}(a\otimes b)
+ &=a_{(0)}\otimes b_{(0)}\otimes b_{(1)}a_{(1)}.
+       \label{cylev:eq:tensor-coaction}
+\end{align}
+The vacuum is $\mathbf1\otimes\mathbf1$ and translation is $T_1+T_2$.
+Pairing the last factors of the coaction defines its exchange.
+Write $V_1\boxtimes_\rho V_2$ for this field algebra on the ordinary
+tensor module. The symbol records its cross contraction at one point.
+
+\begin{theorem}\label{cylev:thm:tensor}
+These formulas define a monoidal product on $H$-covariant field
+algebras, with unit $R$ and the usual associativity map of tensor
+modules.
+\end{theorem}
+\begin{proof}
+The reversed product of tails is a coaction because $\Delta$ is
+multiplicative. The coderivation identity gives its translation rule.
+The two counits give the vacuum and creation identities.
+Differentiating the pairing proves translation for the fields.
+
+In operator notation the tensor field is
+\[
+ Y_{12}(a\otimes b,z)
+       =Y_1(a,z)A_z^{V_1}(b_{(1)})\otimes Y_2(b_{(0)},z).
+\]
+Using \eqref{cylev:eq:annihilation-field}, a product of two such
+fields is
+\begin{equation}\label{cylev:eq:tensor-normal}
+\begin{split}
+ &\rho_{w-z}(c_{(1)},b_{(2)})
+   Y_1(a,z)Y_1(c_{(0)},w)
+   A_z^{V_1}(b_{(1)})A_w^{V_1}(d_{(1)})\\
+ &\hspace{34mm}\otimes Y_2(b_{(0)},z)Y_2(d_{(0)},w).
+\end{split}
+\end{equation}
+For the iterate, covariance in $V_2$ instead gives the annihilation
+$A_w^{V_1}(d_{(1)}b_{(1)}(z-w))$.
+The anti-action and translation rules turn this into
+$A_z^{V_1}(b_{(1)})A_w^{V_1}(d_{(1)})$.
+Associativity in the two factors therefore gives
+\eqref{cylev:eq:tensor-normal} again.
+
+Finite coactions and the common-germ property in each factor bound
+all denominators. Repeating the calculation gives the common germ
+at every arity.
+
+For covariance, the middle tails are related by
+\[
+ b_{(1)}(z)c_{(1)}\rho_{-z}(c_{(2)},b_{(2)})
+       =\rho_{-z}(c_{(1)},b_{(1)})c_{(2)}b_{(2)}(z).
+\]
+This is \eqref{cylev:eq:two-positions}.
+Multiplication on the left by $d_{(1)}$ and on the right by
+$a_{(1)}(z)$ gives the desired reversed tensor coaction.
+
+To prove skew-symmetry, expand the exchange pairing of
+$b_{(1)}a_{(1)}$ with $d_{(1)}c_{(1)}$.
+Alongside the two factor fields its scalar coefficient is
+\[
+\begin{split}
+ &\rho_{-z}(c_{(1)},b_{(1)})\rho_z(b_{(2)},c_{(2)})
+   \rho_z(b_{(3)},d_{(1)})\\
+ &\hspace{18mm}\cdot\rho_z(a_{(1)},c_{(3)})
+                         \rho_z(a_{(2)},d_{(2)}).
+\end{split}
+\]
+The first two factors cancel. Skew-symmetry in each factor leaves
+\[
+ e^{z(T_1+T_2)}
+ \bigl(Y_1(c,-z)a_{(0)}\otimes Y_2(d_{(0)},-z)b\bigr)
+             \rho_z(a_{(1)},d_{(1)}),
+\]
+the reversed tensor field.
+The proof of Theorem~\ref{cylev:thm:fields} now gives locality and
+all exchange identities. Its pole bound uses the two factor bounds
+and their finitely many cross pairings.
+
+For associativity of the tensor itself, the reversed tails give
+\begin{equation}\label{cylev:eq:tensor-annihilation}
+ A_z^{V_1\boxtimes_\rho V_2}(x)
+       =A_z^{V_1}(x_2)\otimes A_z^{V_2}(x_1).
+\end{equation}
+Both triple parenthesizations consequently have the field
+\begin{equation}\label{cylev:eq:triple-field}
+\begin{split}
+ &Y_1(a,z)A_z^{V_1}(c_{(2)}b_{(1)})
+     \otimes Y_2(b_{(0)},z)A_z^{V_2}(c_{(1)})\\
+ &\hspace{47mm}\otimes Y_3(c_{(0)},z),
+\end{split}
+\end{equation}
+and their coaction ends in $c_{(1)}b_{(1)}a_{(1)}$.
+Thus the ordinary associator preserves the fields and coaction.
+Its pentagon is the tensor-module pentagon.
+A trivial coaction makes every cross factor a counit, proving the
+unit assertion. Colinear field maps preserve the formulas.
+\end{proof}
+
+The tensor is also an instance of Li and Sun's twisted tensor
+construction \cite[Definition~2.2 and Theorem~2.4]{LiSun2011}.
+In their convention the twisting map is
+\[
+ \mathscr T(x)(b\otimes c)
+       =c_{(0)}\otimes b_{(0)}\rho_x(c_{(1)},b_{(1)}).
+\]
+The two nontrivial twisting identities follow by expanding the tails
+$d_{(1)}c_{(1)}(y)$ and $d_{(1)}b_{(1)}(y)$ in the covariance rule.
+They read
+\begin{align*}
+ \mathscr T(x)(1\otimes Y_1(y))
+   &=(Y_1(y)\otimes1)\mathscr T^{23}(x)\mathscr T^{12}(x+y),\\
+ \mathscr T(x)(Y_2(y)\otimes1)
+   &=(1\otimes Y_2(y))\mathscr T^{12}(x-y)\mathscr T^{23}(x).
+\end{align*}
+The unit identities are the two counits.
+Their field formula $(Y_1(z)\otimes Y_2(z))\mathscr T^{23}(-z)$
+is exactly \eqref{cylev:eq:tensor-field}.
+
+\section{Ordered coproducts and covariant modules}
+
+The tensor target has now been constructed independently of a level.
+The coproduct into it is a shifted Hopf coproduct.
+
+\begin{theorem}\label{cylev:thm:coproduct}
+For any two levels, the map
+\begin{equation}\label{cylev:eq:coproduct}
+ D_{\eta_1,\eta_2}=(\eta_2\otimes1)\Delta:
+ V_{\eta_1\eta_2}\longrightarrow V_{\eta_1}\boxtimes_\rho V_{\eta_2}
+\end{equation}
+preserves fields, vacuum, translation, coaction and exchange.
+It is coassociative as a family:
+\begin{equation}\label{cylev:eq:family-coassociativity}
+ (D_{\eta_1,\eta_2}\boxtimes_\rho1)D_{\eta_1\eta_2,\eta_3}
+ =(1\boxtimes_\rho D_{\eta_2,\eta_3})D_{\eta_1,\eta_2\eta_3}.
+\end{equation}
+The Hopf counit is a covariant field map
+$\varepsilon:V_{\mathrm{id}}\to R$, and
+\[
+ (1\boxtimes_\rho\varepsilon)D_{\eta,\mathrm{id}}=1,
+ \qquad
+ (\varepsilon\boxtimes_\rho1)D_{\mathrm{id},\eta}=1.
+\]
+\end{theorem}
+\begin{proof}
+Let $D=(\eta_2\otimes1)\Delta$ and
+$W=V_{\eta_1}\boxtimes_\rho V_{\eta_2}$.
+Expanding its target coaction gives
+\[
+ \delta_WD(a)=\eta_2a_2\otimes a_5\otimes
+ a_6\mathsf s^{-1}(\eta_2a_4)\eta_2a_3
+                       \mathsf s^{-1}(\eta_1\eta_2a_1).
+\]
+The middle inverse-antipode pair cancels, leaving
+$\eta_2a_2\otimes a_3\otimes
+a_4\mathsf s^{-1}(\eta_1\eta_2a_1)$.
+This is $(D\otimes1)\delta_{\eta_1\eta_2}(a)$.
+The order of the levels has not changed.
+
+Colinearity intertwines annihilations.
+Using \eqref{cylev:eq:tensor-annihilation} and the multiplicativity
+of $D$ for the original Hopf product gives
+\begin{equation}\label{cylev:eq:coproduct-field}
+ D Y_{\eta_1\eta_2}(a,z)
+ =\bigl(L(\eta_2a_1(z))A_z^1(a_4)
+           \otimes L(a_2(z))A_z^2(a_3)\bigr)D.
+\end{equation}
+Here $A^1,A^2$ denote the two target annihilations.
+
+Expanding $Y_W(Da,z)$ gives in its first slot the factors
+\[
+ A_z^1(\eta_2a_2)A_z^1(a_6\mathsf s^{-1}(\eta_2a_3))
+       =A_z^1(a_6\mathsf s^{-1}(\eta_2a_3)\eta_2a_2).
+\]
+Canceling the inverse-antipode pair gives the parenthesis in
+\eqref{cylev:eq:coproduct-field}. Hence $D$ preserves fields.
+It preserves the vacuum and translation by construction, and
+colinearity also preserves the paired exchange.
+
+The two iterates in \eqref{cylev:eq:family-coassociativity} both send
+$a$ to
+\begin{equation}\label{cylev:eq:triple-coproduct}
+ \eta_2\eta_3a_1\otimes\eta_3a_2\otimes a_3.
+\end{equation}
+Theorem~\ref{cylev:thm:tensor} identifies their field targets.
+At the identity level,
+$(\varepsilon\otimes1)\delta_{\mathrm{id}}(b)=\varepsilon(b)1$.
+Applying $\varepsilon$ to the field formula therefore gives
+$\varepsilon(Y_{\mathrm{id}}(a,z)b)=\varepsilon(a)\varepsilon(b)$.
+The same coaction identity preserves exchange.
+The family counits follow from the Hopf counits and
+$\varepsilon\eta=\varepsilon$.
+\end{proof}
+
+\begin{proposition}\label{cylev:prop:counit}
+The Hopf counit $(H,\delta_\eta)\to R$, with trivial coaction on $R$,
+is colinear if and only if $\eta=\mathrm{id}$.
+Thus it is a covariant field counit precisely at the identity level.
+\end{proposition}
+\begin{proof}
+Colinearity is the identity
+$b_2\mathsf s^{-1}(\eta b_1)=\varepsilon(b)1$.
+On $\operatorname{Hom}_R(H,H)$ use opposite convolution
+$(f\star_{\mathrm{op}}g)(b)=f(b_2)g(b_1)$.
+The displayed equation says that $\mathsf s^{-1}\eta$ is an inverse
+of $\id$, whose inverse is already $\mathsf s^{-1}$.
+Uniqueness gives $\eta=\id$.
+The converse and preservation of fields are part of
+Theorem~\ref{cylev:thm:coproduct}.
+\end{proof}
+
+Preservation of fields alone has a different answer.
+Take $H=k[x]$ with $x$ primitive, $T=0$ and
+$\rho_z=\varepsilon\otimes\varepsilon$.
+The level $\eta x=2x$ gives ordinary multiplication as its field.
+The polynomial augmentation preserves that field, but
+$\delta_\eta(x)=x\otimes1-1\otimes x$, so it is not colinear.
+Thus a scalar field character and a covariant counit are distinct.
+
+For translation levels $\eta_i=e^{c_iT}$,
+\[
+ D_{c_1,c_2}(a)=a_1(c_2)\otimes a_2.
+\]
+Its source parameter is $c_1+c_2$, and its counit belongs to parameter
+zero. The first target factor is translated by the second parameter.
+
+\begin{definition}\label{cylev:def:module}
+A \emph{covariant module} for an $H$-covariant field algebra $V$ is
+a flat right $H$-comodule $M$ equipped with fields $Y_M(a,z)m\in M((z))$.
+These satisfy the vacuum and input-translation identities.
+Every finite ordered product on a fixed $m$ has a common germ
+in $\mathcal G_r(M)$.
+Every consecutive field substitution or terminal module substitution
+expands that germ.
+
+The terminal module is placed at $0$. Covariance means
+\begin{equation}\label{cylev:eq:module-covariance}
+ \delta_M(Y_M(a,z)m)
+       =Y_M(a_{(0)},z)m_{(0)}\otimes m_{(1)}a_{(1)}(z).
+\end{equation}
+Morphisms preserve the fields and coaction.
+Write $\mathcal M_\eta$ for these modules over $V_\eta$.
+\end{definition}
+
+No translation operator on the module itself is required here.
+The identity $Y_M(Ta,z)=\partial_zY_M(a,z)$ concerns its state input.
+Its coaction supplies the annihilation operators
+\eqref{cylev:eq:annihilation} and the identity
+\eqref{cylev:eq:annihilation-field}.
+
+\begin{theorem}\label{cylev:thm:modules}
+For covariant modules $M,N$ over $V_1,V_2$, respectively, the formula
+\begin{equation}\label{cylev:eq:module-tensor}
+\begin{split}
+ &Y_{M\boxtimes_\rho N}(a\otimes b,z)(m\otimes n)\\
+ &\qquad=Y_M(a,z)m_{(0)}\otimes Y_N(b_{(0)},z)n\,
+                         \rho_{-z}(m_{(1)},b_{(1)})
+\end{split}
+\end{equation}
+defines a covariant $V_1\boxtimes_\rho V_2$-module.
+Its coaction has tail $n_{(1)}m_{(1)}$.
+Pullback along \eqref{cylev:eq:coproduct} gives
+\[
+ \mathcal M_{\eta_1}\times\mathcal M_{\eta_2}
+       \longrightarrow\mathcal M_{\eta_1\eta_2}.
+\]
+The disjoint union over levels is monoidal, with the ordinary
+associativity map and unit $R\in\mathcal M_{\mathrm{id}}$ acting
+through $\varepsilon$.
+\end{theorem}
+\begin{proof}
+The action operator is
+$Y_M(a,z)A_z^M(b_{(1)})\otimes Y_N(b_{(0)},z)$.
+Moving annihilation past the next action produces
+\eqref{cylev:eq:tensor-normal}, now acting on $M\otimes N$.
+Module associativity in each factor identifies it with the action
+of the tensor field. Repetition proves all consecutive substitutions.
+Every pairing on fixed inputs is finite, so the same calculation
+supplies the common denominator.
+The unit rule gives the vacuum identity, and
+$\partial_zA_z^M(x)=A_z^M(Tx)$ gives input translation.
+
+Applying \eqref{cylev:eq:module-covariance} in both slots leaves the
+same middle interchange \eqref{cylev:eq:two-positions} as in the
+tensor-algebra proof. It gives the stated reversed tail.
+For three modules both actions are \eqref{cylev:eq:triple-field}
+with $Y_M,Y_N,Y_P$ in the respective slots.
+Their pullbacks coincide by \eqref{cylev:eq:triple-coproduct}.
+
+Consequently the usual associator is colinear and intertwines actions.
+Its pentagon, the two family counits and the counital coactions give
+all monoidal coherences. The formulas preserve module morphisms.
+\end{proof}
+
+The theorem uses the specified coaction on each module.
+Without it, the annihilation $A_z^M$ in the tensor formula has no
+definition. Likewise, the exchange on states does not by itself give
+an intertwiner exchanging arbitrary modules.
+
+\section{Polynomial fields and additive parameters}
+
+Let $U$ be a free $R$-module and $H=\operatorname{Sym}_R(U)$, with
+primitive generators and $T(U)\subset U$.
+A bilinear kernel $G_z$ on $U$ extends uniquely by the unit and
+multiplication rules to
+\begin{equation}\label{cylev:eq:pairings}
+ \rho_z(u_1\cdots u_r,v_1\cdots v_r)
+       =\sum_{\sigma\in S_r}\prod_{i=1}^rG_z(u_i,v_{\sigma(i)}).
+\end{equation}
+The pairing of unequal polynomial degrees is zero.
+Commutativity and cocommutativity give the form commutation rule.
+Unitarity is equivalent to $G_z(u,v)+G_{-z}(v,u)=0$, and the
+translation rule is its restriction to $U$.
+
+For a level preserving $U$, put
+\begin{equation}\label{cylev:eq:primitive-contraction}
+ P_z^\eta(u,v)=\rho_{-z}(v-\eta v,u).
+\end{equation}
+Since $\delta_\eta(v)=v\otimes1+1\otimes(v-\eta v)$,
+the primitive field is $Y_\eta(u,z)v=u(z)v+P_z^\eta(u,v)$.
+
+For a basis $(u_i)$ and the corresponding polynomial derivatives,
+all fields are given by Wick contraction:
+\begin{equation}\label{cylev:eq:wick}
+ Y_\eta(a,z)b=
+ \mu(e^{zT}\otimes1)
+ \exp\!\left(\sum_{i,j}P_z^\eta(u_i,u_j)
+                         \partial_i\otimes\partial_j\right)(a\otimes b).
+\end{equation}
+Each input pair uses finitely many derivatives and finitely many
+contractions. Selecting $r$ contracted factors in the coproducts and
+pairing them gives \eqref{cylev:eq:pairings}. The exponential's
+$1/r!$ cancels the ordering of the same contractions.
+This proves the formula in every polynomial degree.
+
+Take $H=R[x_1,x_2,\ldots]$, with $Tx_n=nx_{n+1}$.
+An odd Laurent polynomial $g(z)$ defines the jet kernel
+\begin{equation}\label{cylev:eq:jet-kernel}
+ \rho_z(x_p,x_q)=\frac{(-1)^{q-1}}{(p-1)!(q-1)!}
+                       \partial_z^{p+q-2}g(z).
+\end{equation}
+Indeed, multiplication by $p$ in the $(p+1,q)$ entry is its
+$z$-derivative, and multiplication by $q$ in the $(p,q+1)$ entry
+is its negative derivative.
+Oddness gives the unitary condition.
+
+For nilpotent $c$ and $\eta=e^{cT}$, the current $J=x_1$ has
+\begin{align}
+ P_c(z)&=g(z-c)-g(z),\label{cylev:eq:translation-kernel}\\
+ \mathcal S_c(z)(J\otimes J)
+ &=J\otimes J+
+       \bigl(2g(z)-g(z+c)-g(z-c)\bigr)1\otimes1.
+       \label{cylev:eq:translation-exchange}
+\end{align}
+The coproduct current is $J^{(1)}(c_2)+J^{(2)}$.
+Its two self-contractions are $P_{c_1}$ and $P_{c_2}$, and its
+mixed contraction is
+\begin{equation}\label{cylev:eq:cross-kernel}
+ Q_{c_1,c_2}(z)=g(z-c_1-c_2)-g(z-c_1)-g(z-c_2)+g(z).
+\end{equation}
+Their sum is $P_{c_1+c_2}$.
+With $g(z)=\lambda/z$ and $c_1^2=c_2^2=0$, this is precisely
+\eqref{cylev:eq:opening-cross}.
+
+\subsection{An independent simple pole}
+
+The double pole and simple pole of a current can vary independently.
+Use $R=k[\kappa,\lambda]$ and two families of primitive jets
+$x_n,y_n$, translated by $Tx_n=nx_{n+1}$ and $Ty_n=ny_{n+1}$.
+At the first jets the kernel and level are
+\begin{equation}\label{cylev:eq:two-current-data}
+ G_z=\begin{pmatrix}
+ -\lambda/(2z)&\kappa/z^2\\
+ -\kappa/z^2&0
+ \end{pmatrix},\qquad
+ \eta x_n=-x_n+y_n,\quad \eta y_n=-y_n.
+\end{equation}
+Rows and columns of $G$ index its first and second inputs.
+Extend each entry by the jet derivative formula and then by
+\eqref{cylev:eq:pairings}.
+
+\begin{proposition}\label{cylev:prop:two-current}
+The data \eqref{cylev:eq:two-current-data} define a spectral form
+and a level. The polynomial submodule generated by the $x_n$ is
+a quantum vertex subalgebra, with primitive contraction
+$\kappa z^{-2}+\lambda z^{-1}$ and exchange coefficient
+$-2\lambda z^{-1}$ on $x_1\otimes x_1$.
+\end{proposition}
+\begin{proof}
+The kernel satisfies $G_z+G_{-z}^{\mathsf t}=0$.
+The matrix $E=\left(\begin{smallmatrix}-1&0\\1&-1\end{smallmatrix}\right)$
+of the level satisfies $E^{\mathsf t}G_zE=G_z$ and commutes with
+jet translation. Thus it preserves the extended form.
+
+Since $x_1-\eta x_1=2x_1-y_1$,
+\[
+ \rho_{-z}(2x_1-y_1,x_1)=\frac\kappa{z^2}+\frac\lambda z,
+ \qquad
+ \rho_z(2x_1-y_1,2x_1-y_1)=-\frac{2\lambda}{z}.
+\]
+Differentiation gives all jet coefficients.
+Wick contraction leaves only $x$-jets in the output, and the same
+holds for exchange. This proves closure on all polynomial states.
+\end{proof}
+
+The full two-current algebra has the level-changing coproduct.
+Its one-current subalgebra need not be preserved by the target levels:
+already $\eta x_1=-x_1+y_1$ introduces the second current.
+The larger state space is therefore part of this coproduct construction.
+There is no vacuum-preserving $R$-linear field map from this singular
+member to the scalar algebra. Such a map would send the nonzero
+singular coefficients $\kappa1$ and $\lambda1$ to themselves,
+whereas scalar fields have no pole.
+
+\subsection{A noncommutative constant example}
+
+The order of the tails can also be seen without a spectral parameter.
+Over $k[\alpha]$, let $H$ have basis $1,g,x,gx$ with
+\[
+ g^2=1,\quad x^2=0,\quad xg=-gx,\qquad
+ \Delta g=g\otimes g,\quad \Delta x=x\otimes1+g\otimes x.
+\]
+Its counit sends $g$ to $1$ and $x$ to $0$. Its antipode is
+$\mathsf s(g)=g$, $\mathsf s(x)=-gx$.
+Take $T=0$ and, in the displayed basis, the constant form
+\begin{equation}\label{cylev:eq:sweedler-form}
+ (\rho(e_i,e_j))=
+ \begin{pmatrix}
+ 1&1&0&0\\1&-1&0&0\\0&0&\alpha&\alpha\\0&0&-\alpha&\alpha
+ \end{pmatrix}.
+\end{equation}
+The multiplication and coproduct tables give both multiplicativity
+rules, the commutation rule and unitarity.
+
+The levels $\id$ and $\mathsf s^2$ have
+\begin{align*}
+ \delta_{\mathrm{id}}(x)&=x\otimes g+(1-g)\otimes gx,\\
+ \delta_{\mathsf s^2}(x)&=x\otimes g-(1+g)\otimes gx.
+\end{align*}
+Substitution in \eqref{cylev:eq:field}, writing $*_{\eta}$ for the
+constant field product, gives
+\[
+ x*_{\mathrm{id}}x=\alpha(1-g),\qquad
+ x*_{\mathsf s^2}x=\alpha(1+g).
+\]
+The Hopf counit sends the second product to $2\alpha$.
+Thus it fails to preserve fields at that level, while the identity-level
+counit remains multiplicative.
+
+\section{An integral formal family}
+
+Let $\hbar$ be formal. A completed field on $V$ takes values in
+\[
+ V((z))^\wedge=\varprojlim_{N\geq1}(V/\hbar^NV)((z)).
+\]
+Each precision has a finite pole bound on fixed inputs.
+The inverse limit need not have one bound valid at every precision.
+All tensors in this section are $\hbar$-adically completed.
+
+On $k[K][x_1,x_2,\ldots][[\hbar]]$, with the same jet translation,
+consider the Wick propagator
+\begin{equation}\label{cylev:eq:formal-propagator}
+ P_K(z)=\frac1\hbar\left(\frac1{z-K\hbar}-\frac1z\right)
+       =\frac K{z^2}+\frac{K^2\hbar}{z^3}
+          +\frac{K^3\hbar^2}{z^4}+\cdots.
+\end{equation}
+Every fraction is expanded in $\hbar$.
+
+\begin{proposition}\label{cylev:prop:formal}
+These fields define compatible quantum vertex algebras at all finite
+precisions, with Heisenberg classical limit of level $K$.
+There are coassociative field maps from level $K_1+K_2$ given by
+\begin{equation}\label{cylev:eq:formal-coproduct}
+ x_n\longmapsto e^{K_2\hbar T}x_n\otimes1+1\otimes x_n.
+\end{equation}
+The target has diagonal propagators $P_{K_1},P_{K_2}$.
+Its contraction from the first current to the second is zero.
+The contraction from the second to the first is
+\begin{equation}\label{cylev:eq:formal-cross}
+ Q_{K_1,K_2}^{21}(z)=\frac1\hbar
+ \left(-\frac1z+\frac1{z+K_2\hbar}+\frac1{z-K_1\hbar}
+                 -\frac1{z+(K_2-K_1)\hbar}\right).
+\end{equation}
+The family counit is polynomial augmentation at $K=0$.
+\end{proposition}
+\begin{proof}
+The numerator in \eqref{cylev:eq:formal-propagator} has zero constant
+term. In \eqref{cylev:eq:formal-cross}, both constant and linear terms
+cancel, so $Q^{21}=O(\hbar)$.
+The displayed fields are therefore integral.
+
+At finite precision every propagator is a Laurent polynomial.
+The contraction operators in the Wick formula commute.
+A product and its iterate contract exactly the same pairs, giving
+weak associativity on a common germ.
+
+Exchanging the two inputs replaces the contraction matrix by its
+transposed value at $-z$. The exponential of the difference gives
+exchange, with unitarity, Yang--Baxter and the hexagon following
+from addition of these commuting pair contractions.
+Jet differentiation gives translation.
+Reduction commutes with all these finite formulas.
+At $\hbar=0$ the propagator is $K/z^2$ and the exchange is the identity.
+
+The contraction of the image current is
+\[
+ P_{K_1}(z)+P_{K_2}(z)+Q_{K_1,K_2}^{21}(z-K_2\hbar)
+       =P_{K_1+K_2}(z).
+\]
+The four fractions cancel to give this identity.
+The state map preserves translation and polynomial multiplication,
+so Wick contraction proves preservation of every field and exchange.
+
+Writing $Q_{A,B}=Q_{A,B}^{21}$, the same fractions give
+\begin{align*}
+ Q_{K_1+K_2,K_3}(z)
+   &=Q_{K_1,K_3}(z-K_2\hbar)+Q_{K_2,K_3}(z),\\
+ Q_{K_1,K_2+K_3}(z)
+   &=Q_{K_1,K_2}(z+K_3\hbar)+Q_{K_1,K_3}(z).
+\end{align*}
+Thus both triple parenthesizations have the same pairwise kernels.
+Both iterated state maps shift the first factor by
+$(K_2+K_3)\hbar$, the second by $K_3\hbar$, and the third by zero.
+This proves coassociativity at every precision and in the limit.
+At $K=0$ the fields are regular polynomial fields, whose augmentation
+gives the counit.
+\end{proof}
+
+Formally, the primitive spectral form behind this example is
+$1/(\hbar z)$, which is not integral.
+The difference between a state and its level translate supplies the
+power of $\hbar$ canceled in the field formula.
+Thus integrality of fields and integrality of the underlying form
+are separate assertions.
+
+\section{Divided states and the rational quantum affine algebra}
+
+The same distinction occurs for matrix currents.
+Write $\mathsf R$ for an auxiliary matrix, reserving $R$ for the
+coefficient ring. If $L=1+\hbar\ell$ and
+$\rho_z(L_1(u),L_2(v))=\mathsf R(z+u-v)$, the unit rule forces
+\begin{equation}\label{cylev:eq:divided-form}
+ \rho_z(\ell_1(u),\ell_2(v))
+       =\hbar^{-2}\bigl(\mathsf R(z+u-v)-1\bigr).
+\end{equation}
+Thus $\mathsf R=1+\hbar r+O(\hbar^2)$ with $r\ne0$ gives a
+term $\hbar^{-1}r$ on divided generators.
+The formula follows simply by subtracting the identity in both inputs.
+An integral field construction must explain how its actual coaction
+avoids this nonintegral pairing.
+
+Work now over $\mathbb C[[\hbar]]$ in rank two.
+Let $P$ flip $\mathbb C^2\otimes\mathbb C^2$, and normalize
+\begin{equation}\label{cylev:eq:rtt-normalization}
+\begin{split}
+ \mathsf R(w)&=f(\hbar/w)(1-\hbar P/w),\qquad f(0)=1,\\
+ f\left(\frac{\hbar}{w+2\hbar}\right)
+       &=f(\hbar/w)(1-\hbar^2/w^2).
+\end{split}
+\end{equation}
+This determines the scalar series, whose first terms are
+\[
+ f(t)=1+\frac12t+\frac58t^2+\frac{11}{16}t^3
+                         +\frac{83}{128}t^4+O(t^5).
+\]
+The matrix is unitary and has crossing identity
+\begin{equation}\label{cylev:eq:rtt-crossing}
+ \bigl((\mathsf R(w)^{t_1})^{-1}\bigr)^{t_1}
+       =\mathsf R(w-2\hbar)^{-1},
+\end{equation}
+where $t_1$ transposes the first auxiliary factor.
+The scalar equation and $(P^{t_1})^2=2P^{t_1}$ prove these identities.
+
+Let $H$ be the $\hbar$-adic dual Yangian generated by
+\[
+ L(u)=1+\hbar\ell(u),\qquad
+ \ell(u)=\sum_{r\geq1}\ell^{(r)}u^{r-1},
+\]
+with RTT relation
+\begin{equation}\label{cylev:eq:rtt}
+ \mathsf R(u-v)L_1(u)L_2(v)
+       =L_2(v)L_1(u)\mathsf R(u-v).
+\end{equation}
+Its generator relations are obtained after canceling $\hbar^2$.
+We use the torsion-free algebra with its topological PBW basis of
+ordered monomials in the $\ell_{ij}^{(r)}$.
+
+The coproduct is matrix multiplication, $\Delta L=L^{[1]}L^{[2]}$,
+the counit sends $L$ to $1$, and $TL(u)=\partial_uL(u)$.
+The internal variables $u,v$ are expanded at zero.
+The normalized matrix defines the spectral form on polynomial states
+after inverting $\hbar$. The multiplication rules determine every
+pairing.
+
+The independent comparison object is the double Yangian at level $c$.
+It has a creation matrix
+$T^+(u)=1-\hbar\sum_{r\geq1}t^{(-r)}u^{r-1}$ and an annihilation
+matrix $M_c(s)=1+\hbar\sum_{r\geq1}m^{(r)}s^{-r}$.
+Each satisfies RTT, and their mixed relation is
+\begin{equation}\label{cylev:eq:double-mixed}
+ \mathsf R(s-v+c\hbar/2)M_{c,1}(s)T^+_2(v)
+       =T^+_2(v)M_{c,1}(s)\mathsf R(s-v-c\hbar/2).
+\end{equation}
+It is expanded in $s^{-1}$ and $v$ and divided by $\hbar^2$
+at the level of generator relations.
+
+The vacuum module $\mathcal V_c$ is the completed quotient by the
+left ideal generated by the $m_{ij}^{(r)}$, so
+$M_c(s)\mathbf1=1$.
+The PBW theorem identifies its states with the completed dual Yangian
+\cite[Theorem~2.2 and \S4.1]{JingKozicMolevYang2017}.
+The full scalar-matrix direction is retained.
+
+\begin{lemma}\label{cylev:lem:integrality}
+For $\eta_c=e^{-c\hbar T}$, the fields and exchange of $V_{\eta_c}$
+are integral on the divided states $H$.
+The cross contractions in
+$V_{\eta_{c_1}}\boxtimes_\rho V_{\eta_{c_2}}$ are integral as well.
+They extend continuously to the $\hbar$-adic state completions.
+\end{lemma}
+\begin{proof}
+Let $F_pH$ be PBW degree at most $p$ before completion.
+The completed subalgebra $B$ generated by entries of $L$ consists,
+in PBW coordinates, of series
+$\sum_{r\geq0}\hbar^rb_r$ with $b_r\in F_rH$.
+The divided RTT relations give
+$[\ell_{ij}^{(r)},\ell_{kl}^{(s)}]\in F_1H+\hbar F_2H$.
+Consequently $[\ell_{ij}^{(r)},B]\subset B$.
+Both antipodes, the coproduct and translation preserve $B$, and
+$(\eta_c-1)B\subset\hbar B$.
+
+The pairing has the estimate
+\begin{equation}\label{cylev:eq:degree-estimate}
+ \rho_z(F_pH,F_qH)
+       \subset\hbar^{-\min(p,q)}\mathbb C((z))[[\hbar]].
+\end{equation}
+To see it, pair two products of $L$'s and subtract the identity
+in every input. Each surviving product of factors $\mathsf R-1$
+must meet every input generator. At least $\max(p,q)$ such factors
+are needed. Dividing by $\hbar^{p+q}$ gives the estimate.
+
+It makes pairings of $B$ with polynomial states integral.
+For an input of degree $q$, the term $\hbar^rb_r$ contributes
+at order at least $r-q$, proving convergence.
+
+The coaction has its second component in $B$.
+On a divided generator the inverse-antipode identity gives
+\begin{equation}\label{cylev:eq:integral-coaction}
+\begin{split}
+ \delta_{\eta_c}(\ell_{ij}(u))
+ ={}&\sum_{a,b}\ell_{ab}(u)\otimes
+                  L_{bj}(u)\mathsf s^{-1}\eta_cL_{ia}(u)\\
+ &+1\otimes\hbar^{-1}\sum_aL_{aj}(u)
+                  \mathsf s^{-1}(\eta_c-1)L_{ia}(u).
+\end{split}
+\end{equation}
+Both tails lie in $B$.
+For products, \eqref{cylev:eq:coaction-product} introduces only
+commutators $[\ell_{ij}^{(r)},b]$ and the divided translation
+difference in the second line, multiplied by elements of $B$.
+Induction gives $\delta_{\eta_c}(H)\subset H\widehat\otimes B$.
+
+Annihilation therefore pairs $B$ with a polynomial state.
+Exchange and cross contraction pair two tails in $B$.
+The estimate proves integrality and convergence for each operation.
+Its continuous $\hbar$-linear extension gives the completed fields.
+At finite precision a fixed tuple of states still has a finite
+Laurent pole bound.
+\end{proof}
+
+\begin{theorem}\label{cylev:thm:rtt-comparison}
+The map
+\begin{equation}\label{cylev:eq:rtt-state-map}
+ \Phi_c(\ell_{i_1j_1}^{(r_1)}\cdots\ell_{i_mj_m}^{(r_m)})
+       =(-1)^m t_{i_1j_1}^{(-r_1)}\cdots
+                        t_{i_mj_m}^{(-r_m)}\mathbf1
+\end{equation}
+identifies $V_{e^{-c\hbar T}}$ with the rational quantum affine
+vertex algebra on $\mathcal V_c$.
+It preserves the vacuum, translation, all fields and exchange.
+On products of generating matrices the fields are
+\begin{equation}\label{cylev:eq:rtt-fields}
+\begin{split}
+ Y_c(L_1(u_1)\cdots L_m(u_m)\mathbf1,z)
+ ={}&L_1(z+u_1)\cdots L_m(z+u_m)\\
+ &\cdot\bigl(M_{c,1}(z+u_1+c\hbar/2)\cdots
+               M_{c,m}(z+u_m+c\hbar/2)\bigr)^{-1}.
+\end{split}
+\end{equation}
+\end{theorem}
+\begin{proof}
+PBW gives the continuous inverse replacing $t_{ij}^{(-r)}$ by
+$-\ell_{ij}^{(r)}$.
+Differentiation of generating series proves translation compatibility.
+Put $K_0(u,z)=A_z(L_0(u))$ and $w=z+u-v$.
+The antipode pairing rule and crossing identity give
+$\rho_w(\mathsf s^{-1}L_1,L_2)=\mathsf R(w-2\hbar)^{-1}$.
+Substitution in \eqref{cylev:eq:mixed-operators} yields
+\begin{equation}\label{cylev:eq:annihilation-recurrence}
+ K_0(u,z)\mathsf R_{01}(w+c\hbar)^{-1}L_1(v)
+       =L_1(v)\mathsf R_{01}(w)^{-1}K_0(u,z),
+ \qquad K_0(u,z)\mathbf1=1.
+\end{equation}
+Inverting \eqref{cylev:eq:double-mixed} shows that
+$M_c(z+u+c\hbar/2)^{-1}$ satisfies this same recurrence.
+
+Its value on the vacuum determines its action on every ordered
+product of creation matrices. Subtracting their constant terms and
+dividing by powers of $\hbar$ gives equality on polynomial PBW states.
+Lemma~\ref{cylev:lem:integrality} extends it to the completion.
+The anti-action reverses annihilation order, giving
+\eqref{cylev:eq:rtt-fields}.
+
+The exchange uses four contractions of the two coaction tails.
+For an auxiliary matrix $F=\sum F'\otimes F''$, write
+$F^{\mathrm{lr}}(X\otimes Y)=\sum F'X\otimes YF''$.
+The superscripts $\mathrm{ll},\mathrm{rl},\mathrm{rr}$ indicate the
+other left or right placements.
+
+Expanding \eqref{cylev:eq:exchange}, using the two multiplicativity
+rules and the inverse-antipode pairing, gives the operator
+\begin{equation}\label{cylev:eq:four-contractions}
+ \bigl(\mathsf R(w-c\hbar)^{\mathrm{lr}}\bigr)^{-1}
+       \mathsf R(w)^{\mathrm{ll}}\mathsf R(w)^{\mathrm{rr}}
+       \bigl(\mathsf R(w+c\hbar)^{-1}\bigr)^{\mathrm{rl}}.
+\end{equation}
+The first inverse is an inverse of an operator.
+The last factor places an inverse matrix. These two operations differ.
+
+Equivalently,
+\begin{equation}\label{cylev:eq:exchange-comparison}
+\begin{split}
+ &\mathcal S_c(z)\bigl(\mathsf R(w)^{-1}L_2(v)
+                       \mathsf R(w-c\hbar)L_1(u)\bigr)\\
+ &\qquad=L_1(u)\mathsf R(w+c\hbar)^{-1}L_2(v)\mathsf R(w).
+\end{split}
+\end{equation}
+The state factors remain separate throughout the auxiliary products.
+This is the exchange on the independently defined vacuum module
+\cite[Theorem~4.1, equations~(4.17)--(4.19)]{JingKozicMolevYang2017}.
+
+For $n$ matrices in the first state and $m$ in the second, replace
+each $\mathsf R(w)$ by
+$\prod_{i=1}^{n}\prod_{j=m}^{1}
+\mathsf R_{i,n+j}(z+u_i-v_j)$, in those orders.
+Appending one creation matrix inserts its four contractions by
+the multiplicativity rules. Yang--Baxter moves them past the
+existing factors, and crossing cancels the inverse pairs.
+Induction proves the same exchange identity for all polynomial
+states. Continuity proves it for completed states.
+\end{proof}
+
+The first divided coefficients make the level visible.
+Put $t=\hbar/w$ and let
+$A=P^{\mathrm{lr}}$, $B=P^{\mathrm{ll}}$,
+$C=P^{\mathrm{rr}}$, $D=P^{\mathrm{rl}}$.
+Then $A^2=2A$, $D^2=2D$ and $B^2=C^2=1$.
+Writing $a=c+2$, expansion of \eqref{cylev:eq:four-contractions} is
+\begin{equation}\label{cylev:eq:fourth-order}
+\begin{split}
+ \mathcal Q_c(t)={}&(1+t^2-c(c+2)t^3+t^4)\\
+ &\cdot(1+(t+at^2+a^2t^3+a^3t^4)A)\\
+ &\cdot(1-t(B+C)+t^2BC)\\
+ &\cdot(1+(t-ct^2+c^2t^3-c^3t^4)D)\pmod{t^5}.
+\end{split}
+\end{equation}
+The scalar factor comes from
+\[
+ \frac{f(t)^2}
+ {f(t/(1-ct))f(t/(1+ct))(1-t^2/(1+ct)^2)}.
+\]
+
+Let $Q_j$ be the coefficient of $t^j$.
+For $X=\ell_1(u)+\ell_2(v)$ and $Z=\ell_1(u)\ell_2(v)$,
+subtracting the vacuum and one-state terms of $L_1L_2$ gives
+\begin{equation}\label{cylev:eq:divided-exchange}
+\begin{split}
+ \mathcal S_c(z)Z={}&Z+
+ \hbar\left(\frac{Q_1Z}{w}+\frac{Q_2X}{w^2}+\frac{Q_3(1)}{w^3}\right)\\
+ &+\hbar^2\left(\frac{Q_2Z}{w^2}+\frac{Q_3X}{w^3}
+                                      +\frac{Q_4(1)}{w^4}\right)
+       +O(\hbar^3).
+\end{split}
+\end{equation}
+Direct multiplication gives $Q_1(1)=Q_2(1)=Q_1X=0$ and, with
+$\Omega=P-\tfrac12I$,
+\begin{equation}\label{cylev:eq:vacuum-coefficients}
+ Q_3(1)=2c^2\Omega,\qquad Q_4(1)=4c^2\Omega.
+\end{equation}
+For the $11,11$ input, applying both Hopf counits gives
+$c^2\hbar w^{-3}+2c^2\hbar^2w^{-4}+O(\hbar^3)$.
+Replacing the level translate by the identity sets $c=0$ and loses
+this coefficient already at first order on divided states.
+
+The fields retain the classical affine level as well.
+For $J_{ij}(z)=Y_c(-\ell_{ij}^{(1)},z)$, expansion of the mixed
+relation through $\hbar^2$ gives, modulo $\hbar$,
+\begin{equation}\label{cylev:eq:classical-affine}
+ J_{ij}(z)J_{kl}(w)\sim
+ \frac{c(\delta_{jk}\delta_{il}-\tfrac12\delta_{ij}\delta_{kl})}{(z-w)^2}
+ +\frac{\delta_{jk}J_{il}(w)-\delta_{il}J_{kj}(w)}{z-w}.
+\end{equation}
+The difference of the two shifted $R$-matrices supplies the double
+pole, while their linear matrix terms supply the Lie bracket.
+The invariant form is
+$\operatorname{tr}(XY)-\tfrac12\operatorname{tr}(X)\operatorname{tr}(Y)$.
+Its scalar-matrix direction has zero level.
+For $c\ne0$, the $12,21$ double pole excludes a vacuum-preserving
+field map to the scalar vertex algebra.
+
+\section{The two rational coproducts}
+
+Under \eqref{cylev:eq:rtt-state-map}, the spectral coproduct is
+\begin{align}
+ \mathscr D_{c_1,c_2}L(u)
+ &=L^{[1]}(u-c_2\hbar)L^{[2]}(u),
+       \label{cylev:eq:spectral-coproduct}\\
+ \mathscr D_{c_1,c_2}\ell(u)
+ &=\ell^{[1]}(u-c_2\hbar)+\ell^{[2]}(u)
+       +\hbar\ell^{[1]}(u-c_2\hbar)\ell^{[2]}(u).
+       \nonumber
+\end{align}
+Its source is $\mathcal V_{c_1+c_2}$ and its target is
+$\mathcal V_{c_1}\boxtimes_\rho\mathcal V_{c_2}$.
+Theorems~\ref{cylev:thm:coproduct} and
+\ref{cylev:thm:rtt-comparison} prove that it preserves all fields
+and exchange. Both triple iterates give
+\[
+ L^{[1]}(u-(c_2+c_3)\hbar)L^{[2]}(u-c_3\hbar)L^{[3]}(u).
+\]
+The counit belongs to level zero.
+
+The field of its generating state is
+\begin{equation}\label{cylev:eq:coproduct-fields}
+\begin{split}
+ Y_{12}(\mathscr D L(u),z)
+ ={}&L^{[1]}(u+z-c_2\hbar)L^{[2]}(u+z)\\
+ &\cdot M_{c_2}^{[2]}(u+z+c_2\hbar/2)^{-1}
+          M_{c_1}^{[1]}(u+z+c_1\hbar/2)^{-1}.
+\end{split}
+\end{equation}
+This follows by inserting the annihilation recurrence into
+\eqref{cylev:eq:coproduct-field}.
+The first creation matrix is shifted by $-c_2\hbar$, while its
+annihilation argument has no such shift. The cross contraction
+accounts for the difference.
+
+The ordinary double Yangian has a different pair of half-coproducts.
+With central generator $C$, put $C_1=C\otimes1$, $C_2=1\otimes C$.
+In the normalization of \eqref{cylev:eq:double-mixed}, they are
+\begin{align}
+ \Delta_{\mathrm{DY}}L(u)
+ &=L^{[1]}(u-\hbar C_2/4)L^{[2]}(u+\hbar C_1/4),
+       \label{cylev:eq:dy-creation}\\
+ \Delta_{\mathrm{DY}}M(s)
+ &=M^{[1]}(s+\hbar C_2/4)M^{[2]}(s-\hbar C_1/4),
+       \label{cylev:eq:dy-annihilation}\\
+ \Delta_{\mathrm{DY}}C&=C_1+C_2.\nonumber
+\end{align}
+These opposite quarter shifts are part of the Hopf structure
+\cite[\S4.1]{JingKozicMolevYang2017}.
+
+Scalar recentering of each level cannot identify the families.
+If $L(u)$ is replaced by $L(u+b(c)\hbar)$ at level $c$, the two
+spectral shifts become
+$b(c_1)-b(c_1+c_2)-c_2$ and $b(c_2)-b(c_1+c_2)$.
+Equality with the quarter shifts, first at $c_1=0$ and then at
+$c_2=0$, would require simultaneously
+\[
+ b(c)-b(0)=-3c/4,\qquad b(c)-b(0)=-c/4.
+\]
+A tensor-dependent translation does give an exact comparison.
+
+\begin{definition}\label{cylev:def:translation-extension}
+Adjoin to the double Yangian an element $d$ with
+\[
+ [d,C]=0,\qquad[d,L(u)]=\partial_uL(u),\qquad
+ [d,M(s)]=\partial_sM(s),
+\]
+and make $d$ primitive, with counit zero and antipode $-d$.
+This is the \emph{translation extension} of the double Yangian.
+\end{definition}
+
+Simultaneous differentiation leaves every spectral difference in the
+defining relations unchanged, so it defines a derivation.
+Differentiating the two half-coproducts proves the coderivation rule.
+The extension therefore exists as a completed Hopf algebra.
+On $\mathcal V_c$, $C$ acts by $c$ and $d$ by the state translation $T$.
+
+\begin{theorem}\label{cylev:thm:twist}
+In the translation extension,
+\begin{equation}\label{cylev:eq:twist}
+ F=\exp\!\left(\frac{\hbar}{4}(3d\otimes C+C\otimes d)\right)
+\end{equation}
+is an invertible normalized Hopf two-cocycle.
+The conjugated coproduct $\Delta_{\mathrm{sp}}=F^{-1}\Delta_{\mathrm{DY}}F$
+satisfies
+\begin{align}
+ \Delta_{\mathrm{sp}}L(u)&=L^{[1]}(u-\hbar C_2)L^{[2]}(u),
+       \label{cylev:eq:sp-creation}\\
+ \Delta_{\mathrm{sp}}M(s)&=M^{[1]}(s-\hbar C_2/2)
+                              M^{[2]}(s-\hbar C_1/2).
+       \label{cylev:eq:sp-annihilation}
+\end{align}
+It restricts to the unextended double.
+On vacuum state spaces,
+\begin{equation}\label{cylev:eq:state-twist}
+ F_{c_1,c_2}=e^{\hbar(3c_2T_1+c_1T_2)/4},\qquad
+ \Delta^{\mathrm{vac}}_{\mathrm{DY},c_1,c_2}
+       =F_{c_1,c_2}\mathscr D_{c_1,c_2}.
+\end{equation}
+This is a continuous invertible comparison preserving the vacuum
+and total translation.
+\end{theorem}
+\begin{proof}
+A normalized two-cocycle satisfies
+\[
+ F_{12}(\Delta\otimes1)F=F_{23}(1\otimes\Delta)F,
+ \qquad(\varepsilon\otimes1)F=(1\otimes\varepsilon)F=1.
+\]
+Here $C,d$ commute and are primitive.
+For $f=(3d\otimes C+C\otimes d)/4$, all placements commute and
+$f_{12}+(\Delta\otimes1)f=f_{23}+(1\otimes\Delta)f$.
+Exponentiation proves the two-cocycle equation and counitality.
+The same argument applies to $F^{-1}$.
+
+Conjugation by $F^{-1}$ shifts first-factor arguments by
+$-3\hbar C_2/4$ and second-factor arguments by $-\hbar C_1/4$.
+Applied to the two opposite quarter shifts, it gives
+\eqref{cylev:eq:sp-creation}--\eqref{cylev:eq:sp-annihilation}.
+Their coefficients lie in the unextended tensor square.
+The twisted antipode is conjugated by
+$m(1\otimes\mathsf s_{\mathrm{DY}})(F^{-1})=e^{\hbar Cd}$.
+Its action translates both matrix arguments by $\hbar C$, so it
+also preserves the unextended algebra.
+
+Both half-coproducts make the annihilation matrices act as the identity
+on $\mathbf1\otimes\mathbf1$ and therefore descend to the vacuum
+quotients of source level $c_1+c_2$.
+There $F$ acts as the exponential in \eqref{cylev:eq:state-twist}.
+Conjugation proves the state identity on every creation generator,
+then on their products and their PBW completion.
+\end{proof}
+
+The comparison transports the field tensor as well.
+Put $p=3\hbar c_2/4$, $q=\hbar c_1/4$ and $\tau_a=e^{aT}$.
+On the same completed tensor module, set
+\begin{align}
+ Y^F(a\otimes b,z)(x\otimes y)
+ &=Y_{c_1}(a,z)x_{(0)}\otimes Y_{c_2}(b_{(0)},z)y\,
+       \rho_{-z-p+q}(x_{(1)},b_{(1)}),\label{cylev:eq:twisted-field}\\
+ \delta^F(a\otimes b)
+ &=a_{(0)}\otimes b_{(0)}\otimes
+          \tau_{-q}(b_{(1)})\tau_{-p}(a_{(1)}).
+       \label{cylev:eq:twisted-coaction}
+\end{align}
+The shifts are $\hbar$-adic Taylor series.
+The pairings use the integral tails of Lemma~\ref{cylev:lem:integrality}.
+
+\begin{proposition}\label{cylev:prop:transported-tensor}
+The map $F_{c_1,c_2}=\tau_p\otimes\tau_q$ is an isomorphism
+from $\mathcal V_{c_1}\boxtimes_\rho\mathcal V_{c_2}$ to the
+field tensor \eqref{cylev:eq:twisted-field}--\eqref{cylev:eq:twisted-coaction}.
+It preserves fields, vacuum, translation, coaction and exchange.
+In this target, the ordinary double-Yangian vacuum coproduct is a
+field homomorphism. The comparison is coherent on all iterated tensors.
+\end{proposition}
+\begin{proof}
+Translation is a field automorphism, and
+$\delta\tau_a=(\tau_a\otimes\tau_a)\delta$.
+The form satisfies
+$\rho_w(\tau_a x,\tau_b y)=\rho_{w+a-b}(x,y)$.
+Inserting the translated inputs in \eqref{cylev:eq:twisted-field}
+therefore changes its scalar factor to
+$\rho_{-z-p+q+p-q}=\rho_{-z}$.
+All other factors are the translates of the original fields.
+Thus $Y^F(Fv,z)Fw=FY_{12}(v,z)w$.
+The same substitution gives $\delta^FF=(F\otimes1)\delta_{12}$,
+and hence preservation of the paired exchange.
+
+These identities hold at every precision, so also on the completion.
+
+Composing with $\mathscr D$ and using \eqref{cylev:eq:state-twist}
+gives the ordinary vacuum coproduct as a field map.
+On three factors both comparison composites are
+\[
+ \exp\!\left(\frac{\hbar}{4}
+  \bigl(3(c_2+c_3)T_1+(c_1+3c_3)T_2+(c_1+c_2)T_3\bigr)\right).
+\]
+This is the cocycle identity on state spaces.
+It gives the associativity coherence, and iteration gives all higher
+coherences. The scalar unit has level and translation zero, so both
+unit comparisons are the identity.
+\end{proof}
+
+\subsection{Obstructions without translation}
+
+The translation extension changes the admissible comparison maps.
+This can be detected by a central series in the unextended double.
+Define the quantum determinant
+\begin{equation}\label{cylev:eq:determinant}
+ Q(u)=L_{11}(u)L_{22}(u-\hbar)-L_{21}(u)L_{12}(u-\hbar).
+\end{equation}
+Its coefficients are central
+\cite[Proposition~2.8]{JingKozicMolevYang2017}.
+For commuting RTT matrices it is multiplicative: the identity
+$A^{(2)}L_1(u)L_2(u-\hbar)=A^{(2)}Q(u)$, with
+$A^{(2)}=(1-P)/2$, applied successively to the two matrices proves it.
+
+\begin{proposition}\label{cylev:prop:central-obstruction}
+At a nonzero level pair $(c_1,c_2)$, no invertible element of the
+unextended double-Yangian tensor square conjugates the spectral
+coproduct to the ordinary double-Yangian coproduct.
+The obstruction is already visible modulo $\hbar^3$.
+\end{proposition}
+\begin{proof}
+The images of the quantum determinant are
+\begin{align*}
+ \Delta_{\mathrm{sp}}Q(u)&=Q^{[1]}(u-c_2\hbar)Q^{[2]}(u),\\
+ \Delta_{\mathrm{DY}}Q(u)&=Q^{[1]}(u-c_2\hbar/4)
+                                  Q^{[2]}(u+c_1\hbar/4).
+\end{align*}
+Both are central in the target and hence fixed by conjugation.
+Since $L=1+\hbar\ell$,
+$\Delta_{\mathrm{DY}}Q-\Delta_{\mathrm{sp}}Q$ begins with
+\begin{equation}\label{cylev:eq:central-defect}
+ \frac{\hbar^2}{4}
+ \left(3c_2\partial_u\operatorname{tr}\ell^{[1]}(u)
+          +c_1\partial_u\operatorname{tr}\ell^{[2]}(u)\right).
+\end{equation}
+PBW makes the two trace derivatives independent, so this coefficient
+is nonzero for every nonzero level pair.
+
+For the scalar test $c_1=0,c_2=1$, take the creation-algebra characters
+$L^{[1]}(u)=(1+\hbar u)I_2$, $L^{[2]}(u)=I_2$.
+The coefficient in \eqref{cylev:eq:central-defect} is $3/2$.
+Only the creation subalgebras are evaluated in this test. The
+characters need not extend to the annihilation matrices.
+\end{proof}
+
+At $(c_1,c_2)=(0,0)$ the state coproducts agree.
+The determinant-one quotient removes this particular central coefficient.
+In the translation extension, $[d,Q(u)]=\partial_uQ(u)$,
+so this coefficient is no longer central and the explicit twist applies.
+
+A different restriction concerns the completion.
+Let
+\[
+ A_c=U(\mathfrak{sl}_2[t,t^{-1}]\oplus\mathbb CK)/(K-c),
+\]
+where
+$[X_m,Y_n]=[X,Y]_{m+n}
++m\delta_{m,-n}\operatorname{tr}(XY)K$.
+An element of $A_c$ is a finite sum of PBW monomials.
+No completion in the mode index is included.
+Take $H=\operatorname{diag}(1,-1)$, $E=E_{12}$ and $F=E_{21}$.
+
+\begin{lemma}\label{cylev:lem:finite-mode}
+For $(\alpha,\beta)\ne(0,0)$, no
+$a\in A_{c_1}\otimes A_{c_2}$ satisfies, for every $r\geq1$,
+\[
+ [a,H_{-r}\otimes1+1\otimes H_{-r}]
+       =r(\alpha H_{-r-1}\otimes1+\beta1\otimes H_{-r-1}).
+\]
+\end{lemma}
+\begin{proof}
+Use PBW symmetrization to express $a$ as a finite polynomial in
+loop generators in each slot.
+Choose $r$ larger than the absolute value of every mode index in it.
+Then its commutator with $H_{-r}$ has no central term.
+The adjoint action sends an $E_n$ or $F_n$ to a root vector of mode
+$n-r$ and sends $H_n$ to zero.
+Symmetrization intertwines this action, so it preserves PBW bidegree.
+
+Only bidegrees $(1,0)$ and $(0,1)$ could produce the right side.
+Their brackets are root vectors, while that side is a nonzero
+combination of independent Cartan vectors. This is impossible.
+\end{proof}
+
+Consequently, suppose a flat determinant-one quantization has
+classical reduction $A_c$ and translation
+$[d,H_{-r}]=rH_{-r-1}$.
+A twist $1+\hbar a+O(\hbar^2)$ in its purely $\hbar$-adic tensor
+completion would give the forbidden identity with
+$\alpha=3c_2/4$, $\beta=c_1/4$.
+This consequence assumes the specified classical reduction.
+A completion allowing infinitely many modes in $a$ has a different
+admissible class.
+
+Such mode completions occur in the double-Yangian cocycle of
+Enriquez and Felder \cite[\S1, Theorem~3.1 and Proposition~5.1]{EnriquezFelder1997}.
+Their algebra includes a derivation and central element, and their
+cocycle compares Drinfeld's coproduct with the Yangian coproduct.
+Those two named structures require their own current and completion
+comparison with \eqref{cylev:eq:dy-creation}--\eqref{cylev:eq:sp-annihilation}.
+The finite-mode lemma does not exclude their construction.
+
+\subsection{The field tensor remains nontrivial}
+
+Even when the two state coproducts agree at level zero, their field
+target retains a mixed exchange.
+Let $j_1(a)=a\otimes\mathbf1$, $j_2(b)=\mathbf1\otimes b$ in
+$W=\mathcal V_0\boxtimes_\rho\mathcal V_0$.
+Write its exchange as $1+\hbar\sigma_W(z)+O(\hbar^2)$.
+Use the ordered PBW decomposition to project to degree one in each
+state factor, denoting this projection by $\operatorname{pr}_{1,1}$.
+
+\begin{proposition}\label{cylev:prop:ordinary-obstruction}
+There is no exchange-preserving isomorphism
+$W\to\mathcal V_0\otimes\mathcal V_0$ equal to the identity
+modulo $\hbar$, when the target has ordinary tensor fields and exchange.
+\end{proposition}
+\begin{proof}
+The four first-order contractions in the mixed exchange give
+\begin{equation}\label{cylev:eq:mixed-witness}
+ \operatorname{pr}_{1,1}\sigma_W(z)
+       (\ell_{11}^{(1)}\otimes\ell_{12}^{(1)})
+       =z^{-1}\ell_{12}^{(1)}\otimes
+                          (\ell_{22}^{(1)}-\ell_{11}^{(1)}).
+\end{equation}
+The inputs denote $j_1(\ell_{11}^{(1)})$ and
+$j_2(\ell_{12}^{(1)})$ in the two copies of $W$.
+In auxiliary notation their coefficient is
+$P^{\mathrm{lr}}Z-PZ-ZP+P^{\mathrm{rl}}Z$,
+where $Z=\ell_1\ell_2$.
+Its $11,12$ entry is the displayed tensor.
+
+Equivalently, the adjoint Casimir calculation is
+\[
+ -\sum_{i,j}[E_{ij},E_{11}]\otimes[E_{ji},E_{12}]
+       =E_{12}\otimes(E_{22}-E_{11}).
+\]
+PBW makes \eqref{cylev:eq:mixed-witness} nonzero.
+The ordinary tensor exchange is the identity on these mixed inputs.
+
+If $G=1+\hbar g+O(\hbar^2)$ intertwined the exchanges, the coefficient
+of $\hbar$ in
+$\mathcal S_{\mathrm{ord}}(G\otimes G)=(G\otimes G)\mathcal S_W$
+would give $\sigma_{\mathrm{ord}}=\sigma_W$.
+The nonzero mixed coefficient contradicts this equality.
+\end{proof}
+
+Thus the translation twist compares two presentations of the same
+level family with their specified field tensors.
+It does not identify that tensor with the ordinary field tensor.
+The obstruction just proved fixes the identity classical state map.
+It makes no assertion about every possible intrinsic comparison.
+
+\section{Differentials and the spectral tensor of a line}
+\label{cylev:sec:dg}
+
+A spectral tensor can also change a differential.
+For a dg algebra $(A,Q)$, an element $r(z)$ of degree one with
+$Q_\otimes r+r^2=0$ defines the differential
+$Q_\otimes+[r(z),-]$ on the completed tensor square containing $r$.
+Here $Q_\otimes=Q\otimes1+1\otimes Q$, with the Koszul sign in the
+second summand. This construction has a different degree from the
+degree-zero exchange operators considered above.
+The gauge-theory example makes the relation between the two degrees
+explicit \cite[\S\S6.5, 7.2]{DimofteNiuPy2025}.
+
+Let $\mathfrak g$ be a finite-dimensional complex Lie algebra, with
+basis $t_a$ and structure constants $[t_a,t_b]=f_{ab}^{\ c}t_c$.
+Fix an invariant symmetric form $\kappa$ and a scalar $k\in\mathbb C$.
+In this section $k$ denotes the level. The ground field is $\mathbb C$.
+Repeated Lie algebra indices are summed.
+
+Write
+\[
+ h_{\mathfrak g}(x,y)=\tfrac12\operatorname{tr}
+                         (\operatorname{ad}x\,\operatorname{ad}y).
+\]
+For a simple algebra with long roots of square length two,
+$h_{\mathfrak g}=h^\vee\kappa$.
+
+\begin{definition}\label{cylev:def:line-algebra}
+The graded algebra $\mathcal Y_k$ has even generators $B^a_n$ of
+cohomological degree zero and odd generators $c_{a,n}$ of degree one,
+for $n\ge0$, with relations
+\begin{equation}\label{cylev:eq:line-relations}
+ [B^a_n,B^b_m]=f_{ab}^{\ c}B^c_{n+m},\qquad
+ [B^a_n,c_{b,m}]=-f_{ac}^{\ b}c_{c,n+m},\qquad
+ c_{a,n}c_{b,m}=-c_{b,m}c_{a,n}.
+\end{equation}
+Define a degree-one derivation on the generators by
+\begin{align}
+ Qc_{a,n}
+   &=\frac12f_{bc}^{\ a}\sum_{m+p=n-1}c_{b,m}c_{c,p},
+       \label{cylev:eq:line-ghost}\\
+ QB^a_n
+   &=nk\kappa_{ab}c_{b,n-1}
+     +\frac12f_{ab}^{\ c}\sum_{m+p=n-1}
+                   (c_{b,m}B^c_p+B^c_pc_{b,m}).
+       \label{cylev:eq:line-even}
+\end{align}
+Every index in a sum is nonnegative, so the sum is empty for $n=0$.
+The weights $\operatorname{wt}(B_n)=n$ and
+$\operatorname{wt}(c_n)=n+1$ make $Q$ weight preserving.
+The algebra consists of finite polynomial expressions in these modes.
+\end{definition}
+
+The symmetric ordering in \eqref{cylev:eq:line-even} determines the
+level seen by a cochain model.
+Moving every ghost to the left gives
+\begin{equation}\label{cylev:eq:line-shift}
+ QB^a_n=n(k\kappa+h_{\mathfrak g})_{ab}c_{b,n-1}
+       +f_{ab}^{\ c}\sum_{m+p=n-1}c_{b,m}B^c_p.
+\end{equation}
+Indeed, each of the $n$ commutators contributes
+$-\frac12f_{ab}^{\ c}f_{cd}^{\ b}c_{d,n-1}
+=(h_{\mathfrak g})_{ad}c_{d,n-1}$.
+
+\begin{proposition}\label{cylev:prop:line-dg}
+The derivation $Q$ respects \eqref{cylev:eq:line-relations} and
+satisfies $Q^2=0$.
+\end{proposition}
+\begin{proof}
+Put $\mathfrak g_+=\mathfrak g[u]$ and
+$\mathfrak g_-=u^{-1}\mathfrak g[u^{-1}]$.
+For an invariant form $b$, let $U_b$ be the enveloping algebra of
+the central extension
+\[
+ [xu^p,yu^q]=[x,y]u^{p+q}+p\delta_{p+q,0}b(x,y)\mathbf1,
+\]
+with the central element specialized to $1$.
+Take $b=k\kappa+h_{\mathfrak g}$ and
+$M_b=U_b\otimes_{U(\mathfrak g_-)}\mathbb C$.
+PBW identifies $M_b$ with $U(\mathfrak g_+)$.
+
+Use restricted Chevalley cochains for $\mathfrak g_-$ on this module.
+The ghost dual to $t_au^{-n-1}$ is $c_{a,n}$.
+Each cochain is a finite sum of homogeneous energy components.
+The energies of $B_n$ and $c_n$ are $n$ and $n+1$, respectively.
+Write $\mathfrak g_-^\circ$ for this restricted graded dual.
+
+Choose the ghost sign for which
+$dc^x=\frac12c^x([y,z])c^yc^z$ and the action term is
+$-\sum_x c^x\rho(x)$.
+Here $x,y,z$ range over a homogeneous basis of $\mathfrak g_-$,
+$c^x$ is the dual ghost, and $\rho$ is its action on $M_b$.
+On $B=t_au^n$, the identity
+\[
+ [t_bu^{-m-1},B]
+ =f_{ba}^{\ c}t_cu^{n-m-1}
+       -(m+1)\delta_{m,n-1}b_{ba}
+\]
+gives exactly \eqref{cylev:eq:line-shift} after acting on the inducing
+vector. The ghost differential gives \eqref{cylev:eq:line-ghost}.
+
+This generator calculation extends to products as follows.
+Transport left multiplication by $B$ to
+$a_B\otimes1+1\otimes L_B$ on
+$\Lambda(\mathfrak g_-^\circ)\otimes U(\mathfrak g_+)$, where $a_B$
+is the coadjoint derivation for the projected bracket $[B,-]_-$.
+The projected Jacobi identity gives
+\[
+ [d_{\mathrm{CE}},a_B]
+       =-\sum_x\varepsilon(c^x)a_{[x,B]_+}.
+\]
+Here $\varepsilon(c^x)$ is exterior multiplication by $c^x$.
+Together with the central term in the displayed bracket, this says
+$[d,L_B]=L_{QB}$. For ghost multiplication the same equation is
+the exterior Leibniz rule.
+
+Induction on word length now identifies the transported differential
+with $Q$ on every PBW monomial.
+The multiplication operators already satisfy the relations, so $Q$
+respects them. The Chevalley identity $d^2=0$ gives $Q^2=0$.
+\end{proof}
+
+Let $T B_n=nB_{n-1}$ and $T c_n=nc_{n-1}$.
+This degree-zero derivation commutes with $Q$ and is locally
+nilpotent on the polynomial algebra.
+Put $\tau_z=e^{zT}$ and let $\epsilon$ kill every generator.
+For each generator $a$, define
+\begin{equation}\label{cylev:eq:line-spectral}
+ \Delta_z(a)=\tau_z(a)\otimes1+1\otimes a,\qquad
+ r(z)=\sum_{n,m\ge0}(-1)^n\binom{n+m}{n}
+       \frac{c_{a,n}\otimes B^a_m-B^a_n\otimes c_{a,m}}{z^{n+m+1}}.
+\end{equation}
+The coproduct extends multiplicatively.
+
+The tensor $r$ lies in
+$(\mathcal Y_k\otimes\mathcal Y_k)((z^{-1}))$.
+This Laurent completion consists of series bounded above in powers
+of $z$, with algebraic coefficients. It is larger than algebraic
+scalar extension by $\mathbb C((z^{-1}))$.
+
+\begin{theorem}\label{cylev:thm:line-spectral}
+The spectral data satisfy
+\begin{align}
+ Q_\otimes r+r^2&=0,&
+ \Delta_z Q&=(Q_\otimes+[r,-])\Delta_z,
+          \label{cylev:eq:line-mc}\\
+ (\epsilon\otimes1)\Delta_z&=1,&
+ (1\otimes\epsilon)\Delta_z&=\tau_z,
+          \label{cylev:eq:line-counit}\\
+ (T\otimes1+1\otimes T)r&=0,&r(-z)&=P r(z).
+          \label{cylev:eq:line-symmetry}
+\end{align}
+In the first counit identity, $1$ denotes the identity map.
+The flip $P$ uses the cohomological sign.
+Coassociativity takes the form
+\[
+ (\Delta_w\otimes1)\Delta_z=(1\otimes\Delta_z)\Delta_{z+w}.
+\]
+The two iterated twists both equal
+$r_{12}(w)+r_{13}(z+w)+r_{23}(z)$.
+
+The shifted kernels are first evaluated on
+$0<|w|<|z|<|z+w|$, with sufficiently small auxiliary jet variables.
+Their fixed-mode coefficients then continue rationally to
+$zw(z+w)\ne0$.
+The assertion concerns these kernels and their finite products.
+It does not extend translation to every formal Laurent series.
+\end{theorem}
+\begin{proof}
+Translation, the two counits and coassociativity follow on generators
+from $\tau_z\tau_w=\tau_{z+w}$.
+The binomial coefficients in \eqref{cylev:eq:line-spectral} give
+\[
+ (\Delta_w\otimes1)r(z)=r_{13}(z+w)+r_{23}(z),\qquad
+ (1\otimes\Delta_z)r(z+w)=r_{12}(w)+r_{13}(z+w).
+\]
+They also give \eqref{cylev:eq:line-symmetry}.
+For fixed output modes, the first shifted sum converges normally
+when $|w|<|z|$, and the second when $|z|<|z+w|$.
+Indeed, their tails are polynomial in the summation index times
+the corresponding geometric ratio.
+The stated common domain permits both substitutions and their
+finite products before rational continuation.
+
+For the two differential identities, write
+$B^a(s)=\sum_{n\ge0}B^a_ns^{-n-1}$ and similarly for $c_a(s)$.
+Then $r(z)$ is the coefficient of $s^{-1}$ in
+$c_a(s)\otimes B^a(s+z)-B^a(s)\otimes c_a(s+z)$, expanded in $s/z$.
+The terms of $Q_\otimes r$ containing $k\kappa+h_{\mathfrak g}$
+are the residue of a total $s$-derivative and vanish.
+
+Its remaining terms are the residue of
+\[
+ f_{ab}^{\ c}\left(
+ \tfrac12c_ac_b\otimes B^c-c_a\otimes c_bB^c
+          -c_bB^c\otimes c_a-\tfrac12B^c\otimes c_ac_b\right).
+\]
+The first and second factors are evaluated at $s$ and $s+z$.
+The commutators \eqref{cylev:eq:line-relations} in $r^2$ give the
+negatives of these four terms. This is the residue calculation
+of \cite[(7.23)--(7.24)]{DimofteNiuPy2025}.
+
+Both sides of the second identity in \eqref{cylev:eq:line-mc} are
+derivations along $\Delta_z$ after subtracting $Q_\otimes\Delta_z$.
+On $c_{a,n}$ their common value is
+$f_{bc}^{\ a}\sum_{m+p=n-1}\tau_z(c_{b,m})\otimes c_{c,p}$.
+On $B^a_n$ it is
+\[
+ f_{ab}^{\ c}\sum_{m+p=n-1}
+       \bigl(\tau_z(c_{b,m})\otimes B^c_p+
+                    \tau_z(B^c_p)\otimes c_{b,m}\bigr).
+\]
+For $\Delta_zQ-Q_\otimes\Delta_z$, these are the cross terms of
+the quadratic differential.
+For $[r,\Delta_z(-)]$, inserting the commutator relations and summing
+the binomial expansion gives the same finite sums
+\cite[\S7.2.3]{DimofteNiuPy2025}.
+The identity therefore holds on every polynomial.
+\end{proof}
+
+For dg left modules $M,N$, the tensor space
+$(M\otimes N)((z^{-1}))$ consequently has differential
+$D_z=d_\otimes+\rho(r(z))$ and $\mathcal Y_k$-action through $\Delta_z$.
+Here $\rho$ denotes the tensor product representation.
+Its iterated products use the common triple twist just displayed.
+This is the spectral tensor product of the dg line modules.
+
+\subsection{A degree-zero kernel from a translation homotopy}
+
+Assume $k\ne0$ and that $\kappa$ is nondegenerate.
+Let $\kappa^{ab}$ be the inverse matrix.
+Define a derivation $L$ of degree $-1$ by
+\[
+ Lc_{a,n}=k^{-1}\kappa^{ab}B^b_n,\qquad LB^a_n=0.
+\]
+Invariance of $\kappa$ makes these assignments respect all relations.
+Put $\Omega=\kappa^{ab}t_a\otimes t_b$.
+
+\begin{proposition}\label{cylev:prop:line-kernel}
+The derivation $L$ satisfies $[Q,L]=T$.
+The degree-zero tensor $X=(L\otimes1)r$ is
+\begin{equation}\label{cylev:eq:line-kernel}
+ X(z)=\frac1k\sum_{n,m\ge0}(-1)^n\binom{n+m}{n}
+              \frac{\kappa^{ab}B^a_n\otimes B^b_m}{z^{n+m+1}}
+      =\frac{\Omega}{k(z+u-v)}.
+\end{equation}
+In the last expression, $B^a_n$ is read as $t_au^n$ in the first
+factor and $t_av^n$ in the second.
+On the tensor product of dg modules,
+$\nabla_z=\partial_z+\rho(X)$ commutes with $D_z$.
+\end{proposition}
+\begin{proof}
+On $B_n$, the level term of $LQB_n$ is $nB_{n-1}$.
+The remaining terms vanish because invariance makes their Lie
+coefficient antisymmetric, while the symmetric ordering and the sum
+over $(m,p)$ make their even product symmetric.
+On $c_n$, the level term of $QLc_n$ is $nc_{n-1}$, and the two
+quadratic contributions in $QLc_n+LQc_n$ cancel by the same
+invariance. These checks prove $[Q,L]=T$ on the full algebra.
+
+Only the first summand of $r$ survives $L\otimes1$.
+Expanding $(z+u-v)^{-1}$ proves \eqref{cylev:eq:line-kernel}.
+Apply $L\otimes1$ to the Maurer--Cartan equation.
+Since $(L\otimes1)(r^2)=Xr-rX$ and
+$(T\otimes1)r=\partial_zr$, the result is
+\[
+ \partial_zr=Q_\otimes X+[r,X].
+\]
+This is exactly $[\partial_z+\rho(X),D_z]=0$.
+\end{proof}
+
+The inverse in $L$ is the inverse of $k\kappa$.
+For a normalized simple algebra, replacing it by
+$(k+h^\vee)^{-1}\kappa^{-1}$ gives
+$[Q,L]B_1=k(k+h^\vee)^{-1}B_0$, which differs from $TB_1=B_0$
+when $h^\vee\ne0$.
+Thus the normal-ordering shift in
+\eqref{cylev:eq:line-shift} is not a replacement for the level
+in the translation homotopy.
+
+A Wilson module is obtained from a $\mathfrak g$-representation
+by letting the ghosts and all $B_n$, $n>0$, act by zero.
+On two such modules $r$ acts by zero, while the connection becomes
+$\partial_z+\rho(\Omega)/(kz)$.
+For two defining $\mathfrak{sl}_2$ modules with
+$\kappa=\operatorname{tr}_{\mathbb C^2}$,
+\[
+ \Omega=P-\tfrac12\mathrm{id}.
+\]
+Its connection residues are $1/(2k)$ and $-3/(2k)$ on the symmetric
+and antisymmetric summands.
+With affine level $k'=-k-h^\vee$, these are the residues of the
+Knizhnik--Zamolodchikov connection in the convention
+$d-\Omega\,d\log z/(k'+h^\vee)$.
+
+The ideal generated by the ghosts is stable under $Q$, and its
+quotient is $U(\mathfrak g[u])$ with zero differential.
+The tensor $r$ maps to zero in this quotient, whereas $X$ survives.
+The operation $r\mapsto(L\otimes1)r$ therefore identifies a rational
+kernel. It does not identify the dg line algebra with a degree-zero
+quantum group.
+It also requires $k\ne0$, although the dg spectral structure itself
+exists at $k=0$.
+
+\section{The comparisons still to be constructed}
+\label{cylev:sec:comparisons}
+
+An algebra isomorphism on states does not determine a field tensor.
+Proposition~\ref{cylev:prop:ordinary-obstruction} proves this for the
+rational rank-two family, even at level zero.
+The dg example adds a second distinction: a differential twist and
+its degree-zero connection kernel have different types.
+A comparison must specify how these types are related.
+
+Current Ward identities provide a useful intermediate target for
+maps from line modules to affine modules.
+For smooth affine modules $X_1,X_2,X_3$, such an identity has the form
+\[
+ xt^m I_z(v_1,v_2)
+ =\sum_{j\ge0}\binom mj z^{m-j}I_z(xt^jv_1,v_2)
+                         +I_z(v_1,xt^mv_2).
+\]
+Smoothness means that sufficiently positive modes kill each vector.
+
+Suppose their energy gradings are bounded below with
+finite-dimensional energy spaces.
+Take $I_z$ with values in
+$\prod_e(X_{3,e}\otimes\mathbb C((z^{-1})))$ and require
+\[
+ \operatorname{pr}_e I_z(X_{1,e_1}\otimes X_{2,e_2})
+                   \subset X_{3,e}z^{e-e_1-e_2}.
+\]
+Then its restricted transpose converts the Ward equation into
+linearity for the mode coproduct
+\[
+ \delta_z(xt^m)=\sum_{j\ge0}\binom{-m}{j}z^{-m-j}
+                         xt^{-j}\otimes1+1\otimes xt^m.
+\]
+The transpose uses the anti-involution $xt^m\mapsto-xt^{-m}$ and
+Laurent completion after the algebraic tensor product.
+This is a comparison of current actions.
+The full intertwining Jacobi identity imposes further equations.
+
+\begin{example}\label{cylev:ex:ward-jacobi}
+Let $H_\lambda$ be the Heisenberg vacuum algebra with
+$[J_m,J_n]=\lambda m\delta_{m+n,0}$, where $\lambda\ne0$.
+For $\alpha\in\mathbb C$, set
+$A_\alpha(z)=J(z)+\alpha z^{-1}\mathrm{id}$ and define
+\[
+ I_\alpha(J_{-n_1}\cdots J_{-n_r}\mathbf1,z)
+   ={:}\prod_{i=1}^r
+                 \frac{\partial_z^{n_i-1}A_\alpha(z)}{(n_i-1)!}{:}.
+\]
+The empty product is the identity.
+Normal ordering places the negative current modes first.
+The scalar summand commutes with every current, so
+\[
+ [J_m,\partial_z^{n-1}A_\alpha(z)/(n-1)!]
+                  =\lambda n\binom mn z^{m-n}\mathrm{id}.
+\]
+
+The product rule gives the current Ward identity on every PBW state.
+The relation $[L_{-1},J_{-n}]=nJ_{-n-1}$ also gives
+$I_\alpha(L_{-1}v,z)=\partial_zI_\alpha(v,z)$.
+
+The full intertwining Jacobi identity, applied with first state
+$\mathbf1$, would instead require
+$I_\alpha(J_{-1}\mathbf1,z)={:}J(z)I_\alpha(\mathbf1,z){:}=J(z)$.
+It fails when $\alpha\ne0$.
+Thus the current and derivative equations alone do not construct an
+affine intertwining operator.
+\end{example}
+
+\begin{problem}\label{cylev:prob:line-field}
+Start from a coassociative comparison through an affine bimodule
+resolution of the line-module functor.
+Choose a derived affine fusion category and coefficient models on
+which the comparison computes derived images and admits restricted
+transposition.
+Does its transpose satisfy the full intertwining Jacobi identity
+and the required grading and completion conditions?
+If so, determine when the resulting comparison from affine fusion
+to the image of the spectral line tensor is invertible.
+Retain the unit and normalization on the resolution.
+Agreement of Wilson connection residues determines neither this
+fusion morphism nor its inverse.
+\end{problem}
+
+\subsection{A rational Hall cooperation}
+
+A Hall cooperation can be multiplicative after both its coefficients
+and its tensor multiplication are specified.
+Set $R_H=\mathbb Q[h_1,h_2,h_3]/(h_1+h_2+h_3)$ and
+\[
+ N(v)=\prod_{i=1}^3(v+h_i),\qquad
+ K_0(v)=N(v)/v,\qquad K_1(v)=vN(v).
+\]
+For $j=0,1$, give
+$\mathcal P_d=R_H[x_1,\ldots,x_d]^{\mathfrak S_d}$
+the shuffle product
+\[
+ (F*_jG)(Z)=
+ \sum_{Z=X\sqcup Y}F(X)G(Y)\prod_{x\in X,y\in Y}K_j(y-x),
+\]
+where the ordered partitions have the prescribed input sizes.
+
+The first kernel has only simple root-diagonal poles, whose paired
+residues cancel in the sum. The second is polynomial.
+Thus both products are polynomial.
+Summing over ordered three-block partitions proves associativity.
+
+For ordered lists $X,Y$ of sizes $d,e$, put
+\[
+ Q^{(j)}_{d,e}(X,Y)=\prod_{x\in X,y\in Y}K_j(y-x),\qquad
+ \Delta^{\mathrm{rat}}_{d,e}F
+                      =F(X,Y)/Q^{(j)}_{d,e}(X,Y).
+\]
+The recipient is the algebra of block-symmetric polynomials localized
+at all pair differences and their translates by $\pm h_i$.
+No parameter $h_i$ is inverted.
+Write $r_H(v)=K_j(-v)/K_j(v)$. The ratio is the same for both $j$.
+
+For bidegrees $(d,e)$ and $(d',e')$, define a product by summing over
+$X=X_1\sqcup X_2$, $Y=Y_1\sqcup Y_2$, with these sizes and summand
+\begin{equation}\label{cylev:eq:rational-middle}
+\begin{split}
+ &F(X_1,Y_1)G(X_2,Y_2)
+   \prod_{x\in X_1,x'\in X_2}K_j(x'-x)
+   \prod_{y\in Y_1,y'\in Y_2}K_j(y'-y)\\
+ &\hspace{35mm}\cdot
+   \prod_{y\in Y_1,x'\in X_2}r_H(y-x').
+\end{split}
+\end{equation}
+The final factors specify the interchange of the middle two blocks.
+They are absent from ordinary tensor multiplication.
+
+\begin{proposition}\label{cylev:prop:rational-hall}
+The product \eqref{cylev:eq:rational-middle} is associative and
+unital. The sum of the maps $\Delta^{\mathrm{rat}}_{d,e}$ is
+multiplicative into this recipient, rationally coassociative and
+counital for both charge-zero projections.
+\end{proposition}
+\begin{proof}
+Fix four ordered groups $X_1,Y_1,X_2,Y_2$ in a source product.
+Dividing by the kernel between $X_1\sqcup X_2$ and $Y_1\sqcup Y_2$
+cancels the factors from $X_1$ to $Y_2$.
+The other mixed factors leave
+\[
+ K_j(x'-y)/K_j(y-x')=r_H(y-x'),
+       \qquad y\in Y_1,\ x'\in X_2.
+\]
+The remaining denominators are those of $\Delta^{\mathrm{rat}}F$
+and $\Delta^{\mathrm{rat}}G$.
+The factors within the two output lists are exactly those in
+\eqref{cylev:eq:rational-middle}.
+Summing proves multiplicativity.
+
+For three input pairs, either bracketing has the same factors within
+each output list.
+It also has the same factor from every earlier right block to every
+later left block. Hence the target product is associative.
+On three output lists, either iterated cooperation divides by
+$Q_{12}^{(j)}Q_{13}^{(j)}Q_{23}^{(j)}$.
+The empty lists give the unit and both counits.
+All charge sums on a fixed input are finite.
+\end{proof}
+
+The construction leaves the polynomial carrier:
+\[
+ \Delta^{\mathrm{rat}}_{1,1}1=\frac{v}{N(v)}
+       \quad(j=0),\qquad
+ \Delta^{\mathrm{rat}}_{1,1}1=\frac1{vN(v)}
+       \quad(j=1).
+\]
+It also removes the closed loci at the inverted denominators.
+It therefore supplies neither a supported comparison across those
+loci nor an ordinary-tensor coproduct on the original polynomial
+Hall algebra. The obstruction in
+Proposition~\ref{cyjets:prop:no-ordinary-coproduct} retains its scope.
+
+Hall charge now introduces another comparison index.
+For a charge monoid $\Gamma$, a Hall cooperation has components
+$\Delta_{\gamma_1,\gamma_2}$ from charge
+$\gamma_1+\gamma_2$ to a completed tensor of charges
+$\gamma_1,\gamma_2$.
+The field coproduct $D_{\eta_1,\eta_2}$ instead changes the level
+from $\eta_1\eta_2$ to $(\eta_1,\eta_2)$ and takes values in the
+covariant field tensor of this chapter.
+Even when both structures have a Yangian presentation, these
+indices and their coefficient completions remain to be compared.
+
+\begin{problem}\label{cylev:prob:hall-level}
+For a specified oriented Hall system and a specified spectral field
+family, construct the coefficient and state comparison maps.
+Choose a map from Hall charges to levels and prove its compatibility
+with their ordered composition.
+Construct the tensor comparison that identifies each Hall
+cooperation with $D_{\eta_1,\eta_2}$, including the cross contractions,
+vacuum maps and expansions at every collision.
+Determine the coefficient localization, integral form and completion
+on which it is defined and invertible.
+\end{problem}
+
+There is also a question internal to the level family.
+The formulas above put all $\mathcal V_c$ on a common state module,
+but their classical current products have level-dependent central
+terms. The translation twist compares two coproduct presentations.
+It does not remove that dependence.
+
+One may instead seek an intrinsic category or a category of
+coefficient objects in which the different levels admit comparison
+functors preserving the relevant tensor.
+The first required construction is such a functor together with its
+map on the central operation. The ordinary-tensor obstruction fixes
+one classical state identification and leaves this broader question
+open.

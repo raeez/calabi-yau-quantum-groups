@@ -1,0 +1,524 @@
+\section{The subobject comes first}
+\label{cyhall:sec:arrow}
+
+An extension correspondence gives a product only after its
+coefficient maps have been specified. For a quiver without relations,
+these maps are ordinary pullback and complex-oriented integration.
+A Calabi--Yau moduli space is generally singular. Its corresponding
+operation uses a perverse sheaf of vanishing cycles and an orientation.
+The one-arrow quiver fixes the order and grading before those
+coefficients are introduced.
+
+For the Hall constructions below, work over $\mathbb C$ and use
+rational constructible coefficients.
+
+For a finite quiver $Q$, write $Q_0$ for its vertices and $Q_1$
+for its arrows. A representation consists of vector spaces $V_i$
+and maps $V_a:V_i\to V_j$ for each arrow $a:i\to j$.
+Its dimension vector is $\alpha=(\dim V_i)_{i\in Q_0}$.
+Put
+\[
+ R_\alpha=\bigoplus_{a:i\to j}\operatorname{Hom}
+             (\mathbb C^{\alpha_i},\mathbb C^{\alpha_j}),
+ \qquad G_\alpha=\prod_iGL_{\alpha_i},\qquad
+ \mathfrak M_\alpha=[R_\alpha/G_\alpha].
+\]
+Contraction of $R_\alpha$ to zero identifies
+$H^\bullet(\mathfrak M_\alpha;\mathbb Q)$ with
+$H^\bullet(BG_\alpha;\mathbb Q)$.
+Its Chern roots have degree two.
+
+An extension is written
+\begin{equation}\label{cyhall:eq:extension}
+ 0\longrightarrow E\longrightarrow V\longrightarrow F
+ \longrightarrow0.
+\end{equation}
+The ordered input is $(E,F)$: subobject, then quotient.
+Let $\mathfrak E_{\alpha,\beta}$ classify
+\eqref{cyhall:eq:extension} with dimensions $(\alpha,\beta)$.
+There are maps
+\begin{equation}\label{cyhall:eq:correspondence}
+ \mathfrak M_\alpha\times\mathfrak M_\beta
+ \xleftarrow{\ q\ }\mathfrak E_{\alpha,\beta}
+ \xrightarrow{\ p\ }\mathfrak M_{\alpha+\beta},
+ \qquad q(V,E)=(E,V/E),\quad p(V,E)=V.
+\end{equation}
+Over $\mathfrak M_{\alpha+\beta}$, the correspondence is the closed
+incidence subscheme of the product of Grassmannian bundles
+$\prod_i\operatorname{Gr}(\alpha_i,\alpha_i+\beta_i)$.
+Hence $p$ is representable and proper.
+
+Take $Q$ to have one arrow $1\to2$, and let $S_1,S_2$ be its
+one-dimensional simple representations. Write $x,y$ for the Chern
+classes at the two vertices, and $u_1,u_2$ for the constant classes
+of their moduli stacks.
+A representation of dimension $(1,1)$ is a scalar map $z:\mathbb C\to
+\mathbb C$.
+
+For subobject $S_1$ and quotient $S_2$, invariance forces $z=0$.
+This is the zero section of the equivariant line of weight $y-x$.
+For subobject $S_2$ and quotient $S_1$, every scalar $z$ is allowed.
+Complex-oriented Gysin integration therefore gives
+\begin{equation}\label{cyhall:eq:arrow-products}
+                    u_1\star u_2=y-x,
+                    \qquad u_2\star u_1=1
+ \quad\text{in }H^\bullet(\mathfrak M_{(1,1)};\mathbb Q).
+\end{equation}
+The two products have ordinary degrees two and zero.
+Their common target is the same stack, with different extension
+conditions.
+
+\subsection{Normal and tangent Euler classes}
+
+For arbitrary $Q$, let $S_i$ and $T_i$ be the tautological subbundle
+and quotient bundle on the product of Grassmannians above.
+Preservation of the subspaces sets to zero every block
+$S_i\to T_j$ along an arrow $i\to j$.
+The normal bundle of this incidence condition and the tangent bundle
+of the Grassmannians are respectively
+\begin{equation}\label{cyhall:eq:normal-tangent}
+ N_{\alpha,\beta}=\bigoplus_{a:i\to j}
+                   \operatorname{Hom}(S_i,T_j),
+ \qquad
+ T_{\alpha,\beta}=\bigoplus_i\operatorname{Hom}(S_i,T_i).
+\end{equation}
+For classes $f$ and $g$, the Hall product is the Grassmannian
+integral of $f(S)g(T)e(N_{\alpha,\beta})$.
+Here $e$ is the top Chern class. Thus the construction is polynomial
+before equivariant localization is used to compute it.
+
+Define the quiver Euler form by
+\begin{equation}\label{cyhall:eq:quiver-euler}
+ \chi_Q(\alpha,\beta)=
+ \sum_i\alpha_i\beta_i-\sum_{a:i\to j}\alpha_i\beta_j.
+\end{equation}
+The normal Gysin map raises degree by
+$2\operatorname{rank}N_{\alpha,\beta}$, and integration lowers it by
+$2\operatorname{rank}T_{\alpha,\beta}$.
+Consequently
+\begin{equation}\label{cyhall:eq:ordinary-degree}
+ H^p(\mathfrak M_\alpha)\otimes H^q(\mathfrak M_\beta)
+ \longrightarrow
+ H^{p+q-2\chi_Q(\alpha,\beta)}(\mathfrak M_{\alpha+\beta}).
+\end{equation}
+This is the ordinary cohomological Hall construction
+\cite{cyhall:KS}*{\S\S2.4--2.5}.
+
+For its localized expression, partition the roots at each vertex
+into $I_i\sqcup J_i$, with $|I_i|=\alpha_i$ and $|J_i|=\beta_i$.
+Each such partition contributes
+\begin{equation}\label{cyhall:eq:shuffle}
+ f(x_I)g(x_J)
+ \frac{\displaystyle\prod_{a:i\to j}
+        \prod_{r\in I_i,\ s\in J_j}(x_{j,s}-x_{i,r})}
+      {\displaystyle\prod_i
+        \prod_{r\in I_i,\ s\in J_i}(x_{i,s}-x_{i,r})}.
+\end{equation}
+Summing over all partitions gives $f\star g$.
+The numerator records precisely the forbidden arrow blocks.
+The denominator records the tangent directions of the flag.
+
+For three inputs, both bracketings sum over the same ordered
+three-block partitions. Every pair of distinct blocks contributes
+its factor once. This proves associativity of the displayed
+formula and agrees with composition of three-step flags.
+
+\subsection{Perverse normalization}
+
+For a cochain complex $K$ we use $K[s]^n=K^{n+s}$.
+
+The smooth stack $\mathfrak M_\alpha$ has dimension
+\[
+ d_\alpha=\dim R_\alpha-\dim G_\alpha
+          =-\chi_Q(\alpha,\alpha).
+\]
+Its constant perverse sheaf is
+$\mathbb Q_{\mathfrak M_\alpha}[d_\alpha]$.
+Set
+\[
+ \mathsf H^p_\alpha=
+ H^p(\mathfrak M_\alpha,\mathbb Q[d_\alpha])
+ =H^{p+d_\alpha}(\mathfrak M_\alpha;\mathbb Q).
+\]
+
+Changing to this grading changes the degree in
+\eqref{cyhall:eq:ordinary-degree} to
+\begin{equation}\label{cyhall:eq:perverse-degree}
+ \begin{split}
+ \nu_Q(\alpha,\beta)
+ &=-2\chi_Q(\alpha,\beta)+d_\alpha+d_\beta-d_{\alpha+\beta}\\
+ &=\chi_Q(\beta,\alpha)-\chi_Q(\alpha,\beta).
+ \end{split}
+\end{equation}
+In the one-arrow example, all three stack dimensions are $-1$.
+Both constant input classes have perverse degree one.
+The outputs $y-x$ and $1$ have perverse degrees three and one,
+respectively. Their product degrees are $+1$ and $-1$.
+This also fixes the shift when the coefficient sheaf is replaced
+by vanishing cycles.
+
+\section{Flags and derived composition}
+\label{cyhall:sec:flags}
+
+For three objects, composing extensions gives
+$0\subset E_1\subset E_2\subset E_3$.
+One bracketing first forms $E_2$, the other $E_3/E_1$.
+Both retain the same three successive quotients.
+In a derived category the quotient is a cofiber, so its nullhomotopy
+is part of the flag.
+
+Let $\mathcal D$ be a small stable $\infty$-category.
+Thus it has a zero object and finite limits and colimits, and a
+square is a pullback precisely when it is a pushout.
+
+For $n\geq0$, let $T_n$ be the poset of pairs $(i,j)$ with
+$0\leq i\leq j\leq n$, ordered coordinatewise.
+Let $S_n(\mathcal D)$ be the space of coherent $T_n$-diagrams
+\[
+               X_{ij},\qquad 0\leq i\leq j\leq n,
+\]
+with $X_{ii}=0$, such that, for $i\leq j\leq k$, the square
+\[
+ \begin{tikzcd}[column sep=large]
+ X_{ij}\ar[r]\ar[d]&X_{ik}\ar[d]\\
+ 0\ar[r]&X_{jk}
+ \end{tikzcd}
+\]
+is a pushout and a pullback.
+Equivalences of diagrams give the paths in this space.
+Restriction to a subset of the indices gives its face maps.
+Repetition of an index inserts a zero quotient and gives its
+degeneracy maps. This is the Waldhausen $S$-construction.
+
+\begin{proposition}[Gluing flags]
+\label{cyhall:prop:two-segal}
+Triangulate the polygon with vertices $0,\ldots,n$.
+Restriction identifies $S_n(\mathcal D)$ with the homotopy limit
+of its triangle spaces, glued along common edges.
+In particular, both extension composites are equivalent
+to $S_3(\mathcal D)$. Inserting a zero quotient gives the unit.
+\end{proposition}
+\begin{proof}
+For the diagonal $02$ of the quadrilateral $0123$, the two
+triangles specify $X_{01}\to X_{02}\to X_{03}$ together with
+the corresponding cofibers. The remaining object is
+$X_{13}=\operatorname{cofib}(X_{01}\to X_{03})$.
+Pasting pushout squares gives the required map
+$X_{12}\to X_{13}$ and its cofiber $X_{23}$.
+The space of these completions is contractible by the universal
+property of a colimit.
+
+For the diagonal $13$, the triangles specify
+$X_{01}\to X_{03}\to X_{13}$ and
+$X_{12}\to X_{13}\to X_{23}$.
+Recover $X_{02}$ as the pullback of $X_{03}\to X_{13}$ along
+$X_{12}\to X_{13}$. Stability makes this square a pushout as well,
+so it recovers the same flag.
+Again the completion is unique up to a contractible choice.
+
+Gluing triangles successively and applying these universal
+properties proves the assertion for a polygon.
+The coherent version is the unital $2$-Segal theorem for the
+$S$-construction, \cite{cyhall:DK}*{Theorem~7.3.3}.
+A stable category has the exact structure in which all maps
+are admissible.
+A zero cofiber makes its map an equivalence, which proves the
+unit assertion.
+\end{proof}
+
+The proposition concerns spaces of diagrams, including their
+automorphisms and higher homotopies. Applied to stable categories
+of families over a derived test algebra, it gives equivalences
+of prestacks. Its fiber products are derived.
+
+For example, put $A=\mathbb C[t]$ and let both maps
+$\operatorname{Spec}\mathbb C\to\operatorname{Spec}A$ be the origin.
+Resolving $\mathbb C$ by
+$[A\xrightarrow{t}A]$ in degrees $-1,0$ gives
+\begin{equation}\label{cyhall:eq:self-intersection}
+ \mathbb C\otimes_A^{\mathrm L}\mathbb C
+       \simeq\Lambda_{\mathbb C}(\eta),
+       \qquad |\eta|=-1,\qquad d\eta=0.
+\end{equation}
+The ordinary fiber product retains only degree zero.
+The missing class belongs to the composed correspondence itself,
+before a coefficient theory is applied.
+
+\section{The Calabi--Yau coefficient map}
+\label{cyhall:sec:coefficients}
+
+Let $\mathcal C$ be a dg category of finite type over $\mathbb C$,
+equipped with a left Calabi--Yau structure of dimension three.
+Here finite type means compactness in the Morita category, and
+a Calabi--Yau structure is a nondegenerate negative cyclic class.
+Write $\mathcal M_{\mathcal C}$ for its derived moduli stack of
+pseudo-perfect right modules: an $R$-family is a dg functor
+$\mathcal C^{\mathrm{op}}\to\operatorname{Perf}(R)$.
+It carries the resulting $(-1)$-shifted symplectic form.
+
+Choose an open substack $\mathcal M\subset\mathcal M_{\mathcal C}$
+closed under direct sums and containing the zero module.
+Put $\Theta=[\mathbb A^1/\mathbb G_m]$, where
+$\mathbb G_m$ acts by scaling, and set
+\[
+ \operatorname{Filt}(\mathcal M)=\operatorname{Map}(\Theta,\mathcal M),
+ \qquad
+ \operatorname{Grad}(\mathcal M)=\operatorname{Map}(B\mathbb G_m,\mathcal M).
+\]
+Restriction at $1$ gives evaluation, and restriction at zero gives
+the associated graded object.
+These definitions include the automorphisms of a filtration.
+
+We impose the following geometric hypotheses:
+\begin{enumerate}
+ \item The classical truncation $\mathcal M^{\mathrm{cl}}$ is a
+ quasi-separated Artin stack with affine stabilizers.
+ \item The evaluation map
+ $\operatorname{Filt}(\mathcal M^{\mathrm{cl}})\to
+ \mathcal M^{\mathrm{cl}}$ is proper on each connected component
+ of its source.
+ \item The zero-module map
+ $\epsilon:\operatorname{Spec}\mathbb C\to\mathcal M^{\mathrm{cl}}$
+ is a closed immersion.
+\end{enumerate}
+The second condition is called \emph{$\Theta$-reductivity} here.
+
+Put $\Gamma=\pi_0(\mathcal M)$, with addition induced by direct sum,
+and write $\mathcal M_\alpha$ for a component.
+Map $\mathcal M_\alpha\times\mathcal M_\beta$ to
+$\operatorname{Grad}(\mathcal M)$ by giving $E$ weight one and
+$F$ weight zero. Define
+\[
+ \mathcal E_{\alpha,\beta}=
+ \operatorname{Filt}(\mathcal M)
+ \mathop{\times}^{\mathrm R}_{\operatorname{Grad}(\mathcal M)}
+ (\mathcal M_\alpha\times\mathcal M_\beta).
+\]
+This is the correspondence of cofiber sequences $E\to V\to F$
+with those weights. For modules in a heart it is the Rees
+convention for $0\subset E\subset V$.
+Projection and evaluation give
+\[
+ \mathcal M_\alpha\times\mathcal M_\beta
+ \xleftarrow{\ q\ }\mathcal E_{\alpha,\beta}
+ \xrightarrow{\ p\ }\mathcal M_{\alpha+\beta},
+\]
+with the same subobject-first order as
+\eqref{cyhall:eq:correspondence}.
+
+\subsection{Strong orientation}
+
+An orientation $o$ consists of a $\mathbb Z/2$-graded line $L_o$
+on $\mathcal M^{\mathrm{red}}$ and a squaring isomorphism
+\[
+ L_o^{\otimes2}\simeq
+ \det(\mathbb L_{\mathcal M})|_{\mathcal M^{\mathrm{red}}},
+\]
+where the determinant has its virtual-rank parity.
+This is \cite{cyhall:KPS}*{Definition~3.15}.
+On a critical chart the orientation determines the
+sign local system needed to glue perverse vanishing cycles.
+The resulting Donaldson--Thomas sheaf will be denoted $\mathcal P_o$.
+It is a rational perverse sheaf on $\mathcal M^{\mathrm{cl}}$.
+We use the vanishing-cycle normalization for which the zero
+function on a smooth space has coefficient $\mathbb Q[\dim]$.
+
+The direct-sum map $\Phi:\mathcal M\times\mathcal M\to\mathcal M$
+has an oriented pullback operation $\Phi^\star$ supplied by its
+filtered Lagrangian correspondence. This operation includes the
+determinant of the moving tangent directions in addition to
+ordinary pullback.
+\begin{definition}\label{cyhall:def:strong-orientation}
+A \emph{strong orientation datum} consists of $o$, an isomorphism
+$\lambda:\Phi^\star o\simeq o\boxtimes o$, and a trivialization
+$\epsilon^\star o\simeq o_{\mathrm{triv}}$ at the zero module.
+The two isomorphisms obtained by applying $\lambda$ to three
+summands must agree under the canonical comparison of the
+filtered Lagrangian correspondences. The left and right unit
+comparisons must agree with the given trivialization.
+\end{definition}
+This is \cite{cyhall:KPS}*{Definition~8.4}.
+It specifies the compatibility isomorphisms themselves.
+Existence of a square root at each object does not give these
+isomorphisms or their associativity.
+
+\subsection{The index and the product}
+
+At $E\oplus F$, decompose the tangent complex into
+$\mathbb G_m$-weights. Define the index
+\begin{equation}\label{cyhall:eq:index}
+ I(\alpha,\beta)=
+ \operatorname{rank}\bigl(\mathbb T_{\mathcal M,E\oplus F}^{>0}\bigr),
+ \qquad
+ \operatorname{rank}K=\sum_j(-1)^j\dim H^j(K).
+\end{equation}
+This index is locally constant on the graded component.
+Equivalently, take the positive-minus-negative weight dimension
+in $H^0$ of the classical tangent complex.
+Subtract the same difference in $H^{-1}$
+\cite{cyhall:KPS}*{Definition~6.6 and (6.4)}.
+
+At objects with perfect derived Hom complexes, put
+$\chi(E,F)=\sum_j(-1)^j\dim\operatorname{Ext}^j(E,F)$.
+The positive-weight tangent is $\operatorname{RHom}(F,E)[1]$.
+Three-dimensional Calabi--Yau duality therefore gives
+\begin{equation}\label{cyhall:eq:index-euler}
+            I(\alpha,\beta)=-\chi(F,E)=\chi(E,F).
+\end{equation}
+The shift by one in the tangent is essential to this sign.
+It also shows that $I$ is additive in each charge whenever the
+charges are taken in the Grothendieck group.
+
+On connected components it satisfies the identity
+\begin{equation}\label{cyhall:eq:cocycle}
+ I(\alpha,\beta)+I(\alpha+\beta,\gamma)
+ =I(\beta,\gamma)+I(\alpha,\beta+\gamma).
+\end{equation}
+This identity also follows directly by comparing the moving
+directions of a three-step filtration.
+
+\begin{theorem}[Kinjo--Park--Safronov]
+\label{cyhall:thm:coefficient}
+Under the stated geometric hypotheses and a strong orientation
+datum, write $\mathcal P_\alpha=\mathcal P_o|_{\mathcal M_\alpha}$.
+There is a natural coefficient isomorphism
+\begin{equation}\label{cyhall:eq:coefficient}
+ \zeta_{\alpha,\beta}:
+ (\mathcal P_\alpha\boxtimes\mathcal P_\beta)[I(\alpha,\beta)]
+ \xrightarrow{\ \sim\ }\mathrm Rq_*p^!\mathcal P_{\alpha+\beta}.
+\end{equation}
+Its two composites on a three-step filtered correspondence agree,
+and its zero-object restrictions are the identities.
+Consequently the spaces
+$\mathsf H_\alpha^p=H^p(\mathcal M_\alpha,\mathcal P_\alpha)$
+have a unital associative Hall multiplication
+\begin{equation}\label{cyhall:eq:critical-product}
+ \mathsf H_\alpha^p\otimes\mathsf H_\beta^q
+ \longrightarrow
+ \mathsf H_{\alpha+\beta}^{p+q-I(\alpha,\beta)}.
+\end{equation}
+\end{theorem}
+
+The coefficient theorem is
+\cite{cyhall:KPS}*{Theorem~8.6 and Proposition~8.29},
+with the two graded factors ordered as above.
+Its construction uses hyperbolic localization of oriented vanishing
+cycles. The following adjunction calculation specifies how it gives
+the product and fixes the target shift.
+
+\begin{proof}[Construction of the product]
+Write $C_\alpha=\mathrm R\Gamma(\mathcal M_\alpha,\mathcal P_\alpha)$.
+First take the external product of sections. Then use
+\eqref{cyhall:eq:coefficient}:
+\[
+ \begin{split}
+ (C_\alpha\otimes C_\beta)[I(\alpha,\beta)]
+ &\longrightarrow
+ \mathrm R\Gamma(\mathcal M_\alpha\times\mathcal M_\beta,
+       (\mathcal P_\alpha\boxtimes\mathcal P_\beta)[I])\\
+ &\xrightarrow{\ \zeta_{\alpha,\beta}\ }
+ \mathrm R\Gamma(\mathcal E_{\alpha,\beta},p^!\mathcal P_{\alpha+\beta}).
+ \end{split}
+\]
+The canonical external product suffices, without a K\"unneth
+isomorphism for an unrestricted infinite stack.
+
+Properness of $p$ identifies $\mathrm Rp_*$ with $\mathrm Rp_!$.
+The counit $\mathrm Rp_!p^!\mathcal P\to\mathcal P$ gives
+\begin{equation}\label{cyhall:eq:chain-product}
+ (C_\alpha\otimes C_\beta)[I(\alpha,\beta)]
+ \longrightarrow C_{\alpha+\beta},
+ \quad\text{equivalently}\quad
+ C_\alpha\otimes C_\beta\longrightarrow
+ C_{\alpha+\beta}[-I(\alpha,\beta)].
+\end{equation}
+Taking cohomology gives \eqref{cyhall:eq:critical-product}.
+
+For three inputs, identify both composed correspondences with the
+three-step filtered correspondence. Proper base change and
+composition of counits identify the two final integrations.
+The two coefficient maps agree by the associativity part of the
+coefficient theorem. Equation~\eqref{cyhall:eq:cocycle} makes their
+shifts equal, so the induced cohomological products agree with
+the usual Koszul signs for shifted complexes.
+The zero module, its orientation trivialization and the unitality
+of $\zeta$ give the unit, as in
+\cite{cyhall:KPS}*{Corollary~8.8}.
+\end{proof}
+
+The source shift in \eqref{cyhall:eq:coefficient} determines the
+minus sign in \eqref{cyhall:eq:chain-product}.
+For a quiver with potential, the comparison with the critical
+quiver construction is
+\cite{cyhall:KPS}*{Proposition~8.37}.
+With subobject first, its index is
+$I(\alpha,\beta)=\chi_Q(\alpha,\beta)-\chi_Q(\beta,\alpha)$.
+Thus \eqref{cyhall:eq:critical-product} recovers
+\eqref{cyhall:eq:perverse-degree}.
+Reversing the order of the inputs reverses this antisymmetric
+index. The one-arrow products \eqref{cyhall:eq:arrow-products}
+provide the elementary normalization.
+
+\section{Coherent coefficients and local flag calculations}
+\label{cyhall:sec:coherent}
+
+The $2$-Segal statement identifies spaces of composable flags.
+The coefficient theorem supplies the maps needed for cohomological
+Hall multiplication. To obtain an algebra of complexes with all
+associativity homotopies, retain coefficient maps and their
+coherences on every higher flag.
+
+Here is a sufficient formulation. Take a class of flag
+correspondences closed under the derived fiber products used in
+composition. On $\Gamma$-graded complexes define the tensor product
+\[
+ (V\mathbin{\odot}W)_\delta=
+ \bigoplus_{\alpha+\beta=\delta}
+       (V_\alpha\otimes W_\beta)[I(\alpha,\beta)].
+\]
+Equation~\eqref{cyhall:eq:cocycle} gives its associator, using the
+standard signed identifications for shifts and tensor products.
+Assume a monoidal functor from the flag
+$\infty$-category of correspondences to this category of complexes.
+
+Require that it sends the extension span to
+\eqref{cyhall:eq:chain-product} and the zero span to its unit.
+Such a functor includes coherent base-change maps, composition
+maps and unit maps. Equality of the induced cohomology maps is
+weaker data.
+
+\begin{proposition}[Conditional coherent realization]
+\label{cyhall:prop:coherent-realization}
+A coefficient functor with these properties sends the unital
+$2$-Segal flag object to a unital $E_1$-algebra in the specified
+category of charge-graded complexes.
+\end{proposition}
+\begin{proof}
+Each triangulation gives an iterated multiplication span.
+Proposition~\ref{cyhall:prop:two-segal} identifies it with the span
+of the full flag. These identifications are equivalences of
+coherent diagrams, not choices of isomorphism classes.
+
+Applying the assumed functor carries them and their compositions
+to the associativity coherences. Inserting a zero quotient gives
+the unit coherences. The cocycle identity
+\eqref{cyhall:eq:cocycle} identifies their shifts.
+These are the operations and coherences of a unital $E_1$-algebra.
+\end{proof}
+
+On compact threefolds, an orientation compatible with direct sums
+must still satisfy the strong associativity condition before the
+coefficient theorem applies. A coherent realization must further
+retain the required higher coefficient comparisons.
+To produce holomorphic fields, one must in addition construct the
+coefficient system on ordered collision strata and compare its
+operations with the Hall maps. These are distinct constructions.
+
+A local flag family can test those comparisons. Its coherent
+direct image records functions and derived specialization. Its
+constructible direct image records supported cohomology maps.
+The Hall integration map is determined by
+\eqref{cyhall:eq:coefficient} and its proper counit.
+Neither a scheme-cycle multiplicity nor a Frobenius functional
+on the coherent algebra identifies that trace without a
+comparison of these coefficient operations.

@@ -1,0 +1,2552 @@
+\chapter{Positive halves, doubles, and Fock spaces}
+\label{chap:positive-doubles-fock}
+
+Adding a point to a surface gives a creation operator.
+Its commutators can generate a positive quantum group, and its
+successive applications can generate a Fock space. Neither assertion
+specifies the annihilation operators, the pairing between two halves,
+or a state--field correspondence. These additional structures can be
+constructed, but their coefficient rings and tensor products matter.
+A lowering operator may require an equivariant parameter in its
+denominator even when every creation operator is polynomial.
+A tensor product may retain relative oscillators after its total
+charge has been fixed.
+
+The Hilbert scheme of two points provides a small model in which these
+distinctions can be calculated. Its nested correspondence is a ramified
+double cover. The trace of this cover fixes the normalization of the
+first nontrivial current. The resulting rational half-current has a
+nonzero regular boundary; projecting that boundary away changes the
+operation. We first retain it, extend the creation action to all
+charges, and construct polynomially scaled lowering and Cartan modes.
+
+We then construct doubles in two settings. A perfect residue pairing
+gives an oscillator Hopf algebra with an actual braiding on continuous
+modules. A formal coordinate Hopf algebra gives divided states and a
+cotangent Lie algebra; the determinant-one rational matrix algebra
+realizes this construction as a quantum affine vertex algebra.
+Its induced modules retain both the coordinate coaction and the
+creation action. Finally, total and relative Fock coordinates explain
+why extracting a charge line is generally only a lax tensor operation.
+
+\section{The first two charges}
+\label{cyrep:sec:hecke}
+
+Let \(T=(\mathbb C^\times)^2\) act on \(\mathbb C^2\) with tangent
+weights \(\alpha,\beta\). Put
+\[
+ R_0=\mathbb Q[\alpha,\beta],\qquad R=R_0[a],\qquad
+ h=\alpha+\beta,\quad p=\alpha\beta.
+\]
+Here \(a\) is a framing weight; \(h\) is an equivariant parameter,
+not the formal quantization parameter \(\hbar\) used later.
+Write \(H_n=\operatorname{Hilb}^n(\mathbb C^2)\), and let
+\[
+ H_n\xleftarrow{q_n}H_{n,n+1}\xrightarrow{p_n}H_{n+1}
+\]
+be the correspondence of inclusions \(I_{n+1}\subset I_n\).
+The map \(p_n\) is proper. The tautological bundles fit into
+\[
+ 0\longrightarrow\mathcal L_n\longrightarrow
+ p_n^*\mathcal V_{n+1}\longrightarrow q_n^*\mathcal V_n
+ \longrightarrow0,\qquad
+ \mathcal L_n|_{(I_n,I_{n+1})}=I_n/I_{n+1}.
+\]
+Use the negative Chern classes
+\[
+ D_n=-c_1^T(\mathcal V_n),\qquad
+ \ell_n=-c_1^T(\mathcal L_n).
+\]
+On \(\mathcal H=\bigoplus_{n\geq0}H_T^*(H_n;\mathbb Q)\otimes_{R_0}R\)
+define
+\begin{equation}\label{cyrep:eq:hecke}
+ E_r^{(n)}(v)=(p_n)_*((a+\ell_n)^r q_n^*v),\qquad r\geq0.
+\end{equation}
+The direct sum is algebraic, and the charge is \(n\).
+
+\begin{proposition}\label{cyrep:prop:double-cover}
+There are identifications
+\[
+ H_{1,2}\simeq\mathbb C_c^2\times
+       \operatorname{Tot}\mathcal O_{\mathbb P^1}(-1),\qquad
+ H_2\simeq\mathbb C_c^2\times
+       \operatorname{Tot}\mathcal O_{\mathbb P^1}(-2).
+\]
+On the chart with difference vector \(v=(s,sr)\), the maps are
+\[
+ p_1(c,s,r)=(c,t=s^2,r),\qquad
+ q_1(c,s,r)=c-\tfrac12(s,sr).
+\]
+Thus \(p_1\) is finite flat of degree two, with involution
+\(s\mapsto-s\).
+\end{proposition}
+
+\begin{proof}
+A pair of distinct points has center \(c\) and unordered difference
+\(\{v,-v\}\). At coincidence its limiting direction is a point of
+\(\mathbb P^1\). The resolution of \(\mathbb C^2/\{\pm1\}\) is the
+total space of \(\mathcal O(-2)\); choosing which point is retained
+replaces the squared difference by \(v\), giving \(\mathcal O(-1)\).
+The two chart transition functions are those of these line bundles.
+In either chart the coordinate map is \(t=s^2\), whose coordinate
+algebra is free on \(1,s\) over the target. This also proves the
+assertion along the zero section.
+\end{proof}
+
+Let \(E\subset H_2\) be the exceptional divisor and
+\(j:H_2\setminus E\hookrightarrow H_2\) its complement.
+On the complement, the anti-invariant summand of the double cover
+is the rank-one local system \(\mathscr L_-\) with normal monodromy
+\(-1\). In the constructible derived category,
+\begin{equation}\label{cyrep:eq:cover-trace}
+ R(p_1)_*\mathbb Q\simeq\mathbb Q_{H_2}\oplus j_!\mathscr L_-,
+ \qquad j_!\mathscr L_-=Rj_*\mathscr L_-,
+ \qquad \operatorname{Tr}_{p_1}=(2,0).
+\end{equation}
+Indeed the idempotents \((1\pm\iota)/2\) split the direct image.
+The punctured normal disk has zero cohomology with coefficients
+in \(\mathscr L_-\), since its cellular differential is
+\((-1)-1=-2\). Both extensions therefore have zero stalk on \(E\).
+The trace is two on the invariant summand over the dense unramified
+locus and zero on the anti-invariant summand. Proper trace extends
+these formulas across \(E\).
+
+The trace-free line in \(\mathcal V_2\) has negative Chern class
+\(\ell\), with restrictions \(\alpha,\beta\) at the two fixed
+directions. Equivariant retraction to \(\mathbb P^1\) gives
+\begin{equation}\label{cyrep:eq:two-ring}
+ H_T^*(H_2;\mathbb Q)\otimes_{R_0}R
+   =R[\ell]/(\ell^2-h\ell+p).
+\end{equation}
+Restriction to the fixed points is injective, with image
+\[
+ \{(F_\alpha,F_\beta)\in R^2:
+                   F_\alpha-F_\beta\in(\alpha-\beta)\}.
+\]
+To see the image, write a class as \(A+B\ell\); conversely the
+displayed divisibility recovers \(B\) and then \(A\).
+This description retains the lattice at \(\alpha=\beta\).
+It does not replace it by two independent fixed-point values.
+
+The class \(\ell\) pulls back to \(\ell_1\), so the projection
+formula and \eqref{cyrep:eq:cover-trace} give, for every \(r\),
+\[
+ E_r^{(1)}(1)=2(a+\ell)^r.
+\]
+Writing \(Z=z-a\), the current expanded at infinity is
+\begin{equation}\label{cyrep:eq:geometric-current}
+ E(z)1_{H_1}=\frac{2}{Z-\ell}
+       =\frac{2(Z-h+\ell)}{(Z-\alpha)(Z-\beta)}.
+\end{equation}
+The equality follows by multiplying by \(Z-\ell\) and using
+\(\ell^2-h\ell+p=0\). At \(\alpha=\beta=0\) it becomes
+\(2Z^{-1}+2\ell Z^{-2}\). The nilpotent class remains present.
+
+\section{The polynomial Fock action}
+\label{cyrep:sec:polynomial}
+
+Let
+\[
+ \mathcal F_R=R[p_1,p_2,\ldots],\qquad
+ \operatorname{charge}(p_j)=j,\qquad \mathbf1=1,
+ \qquad \partial_j=\partial/\partial p_j.
+\]
+The coefficient \(p=\alpha\beta\) is distinct from every variable
+\(p_j\). For a partition \(\lambda\), put
+\(p_\lambda=\prod_i p_{\lambda_i}\), and let \(\ell(\lambda)\)
+be its number of parts. Define the charge-preserving operator
+\begin{equation}\label{cyrep:eq:divisor}
+ \mathsf D=
+ \frac12\sum_{i,j\geq1}ij p_{i+j}\partial_i\partial_j
+ -\frac p2\sum_{i,j\geq1}(i+j)p_ip_j\partial_{i+j}
+ +\frac h2\sum_{j\geq1}j(j-1)p_j\partial_j.
+\end{equation}
+Every sum is finite on each polynomial. If \(M_f\) denotes
+multiplication by \(f\), set
+\begin{equation}\label{cyrep:eq:mode-recursion}
+ e_0=M_{p_1},\qquad
+ e_r=(\operatorname{ad}_{\mathsf D}+a)^r e_0,\qquad
+ \mathsf E(z)=\sum_{r\geq0}e_rz^{-r-1}.
+\end{equation}
+Each mode raises charge by one.
+
+\begin{theorem}\label{cyrep:thm:lattice}
+The Nakajima correspondence map is an isomorphism
+\[
+ \Psi_n:R_0\{p_\lambda:|\lambda|=n\}
+                  \xrightarrow{\ \sim\ }H_T^*(H_n;\mathbb Q)
+\]
+in every charge. After adjoining \(a\), it intertwines
+\(\mathsf D\) with \(D_n\), and \(e_r\) with \(E_r\).
+The identities and the inverse map persist under every commutative
+coefficient change from \(R\).
+\end{theorem}
+
+\begin{proof}
+The Hilbert scheme has affine strata of complex dimensions
+\(n+\ell(\lambda)\), hence Betti polynomial
+\(\sum_{\lambda\vdash n}t^{2(n-\ell(\lambda))}\)
+\cite[Theorem 6]{Lederer2014}.
+The equivariant spectral sequence degenerates by parity.
+Homogeneous lifts of ordinary cohomology give a free \(R_0\)-basis
+with degrees \(2(n-\ell(\lambda))\).
+The correspondence class of \(p_\lambda\) has precisely this degree.
+The geometric Fock theorem makes \(\Psi_n\) invertible over
+\(\operatorname{Frac}(R_0)\) \cites{Nakajima97,Nakajima2014}.
+
+The determinant of a degree-zero map between these two graded free
+modules has degree zero: each nonzero determinant monomial has degree
+equal to the difference of the two sums of basis degrees.
+Since \(\alpha,\beta\) have positive degree, this determinant is
+a rational scalar. Generic invertibility makes it a nonzero scalar,
+so the adjugate matrix gives an inverse over \(R_0\).
+
+The equivariant tautological divisor formula gives
+\eqref{cyrep:eq:divisor}; its splitting and joining terms are the
+classical terms of the Hilbert-scheme divisor operator
+\cite[Section 2.2]{OkounkovPandharipande2004}.
+Our use of \(-c_1(\mathcal V_n)\) fixes the sign of the operator.
+The tautological exact sequence gives
+\([D,E_r]=E_{r+1}-aE_r\) by the projection formula.
+The equality at \(r=0\) therefore identifies all modes.
+All identities are matrices over \(R\), so extending coefficients
+preserves them and the inverse of \(\Psi_n\).
+\end{proof}
+
+The two smallest divisor matrices are
+\begin{equation}\label{cyrep:eq:small-divisors}
+ D_2=\begin{pmatrix}0&-p\\1&h\end{pmatrix},\qquad
+ D_3=\begin{pmatrix}0&-p&0\\3&h&-3p\\0&2&3h\end{pmatrix},
+\end{equation}
+in the bases \((p_1^2,p_2)\) and \((p_1^3,p_1p_2,p_3)\).
+In charge two, \(\Psi(p_1^2)=2\) and \(\Psi(p_2)=2\ell\);
+these formulas identify the resolvent of \(D_2\) with
+\eqref{cyrep:eq:geometric-current}.
+They also identify the sign convention with a tautological
+\(c_1\)-convention: if its modes are \(E_r^{\mathrm{taut}}(a)\), then
+\[
+ e_r(a)=(-1)^rE_r^{\mathrm{taut}}(-a).
+\]
+Thus spectral reflection, including the framing shift, must accompany
+this change of divisor.
+
+Put
+\(\sigma_2=p-h^2\) and \(\sigma_3=-ph\).
+The positive affine Yangian in this convention has generators \(e_r\)
+with quadratic relations
+\begin{equation}\label{cyrep:eq:quadratic}
+\begin{split}
+ &[e_{i+3},e_j]-3[e_{i+2},e_{j+1}]
+ +3[e_{i+1},e_{j+2}]-[e_i,e_{j+3}]\\
+ &\quad+\sigma_2([e_{i+1},e_j]-[e_i,e_{j+1}])
+       =\sigma_3(e_ie_j+e_je_i)
+\end{split}
+\end{equation}
+and cubic Serre relations
+\begin{equation}\label{cyrep:eq:serre}
+ \sum_{\pi\in S_3}
+ [e_{i_{\pi(1)}},[e_{i_{\pi(2)}},e_{i_{\pi(3)}+1}]]=0.
+\end{equation}
+The operators \eqref{cyrep:eq:mode-recursion} satisfy both families
+over \(R\). Indeed the localized geometric action satisfies them
+\cite[Theorem 2.2]{Tsymbaliuk}, with parameters
+\((\alpha,\beta,-\alpha-\beta)\) after the displayed reflection.
+Every matrix entry of either relation is a polynomial in
+\(\alpha,\beta,a\). A polynomial matrix vanishing over their
+fraction field vanishes over \(R\).
+This proves every mode relation, not only a bounded charge check.
+
+The same argument descends the action of the current-generated
+shuffle algebra. Over the fraction field its identification with
+the positive Yangian is \cite[Theorem 7.6]{Tsymbaliuk}.
+Multiplication or division by
+\(\prod_{i<j}(x_i-x_j)^2\) changes the two shuffle kernels as in
+Chapter~\ref{cyspec:chapter}.
+For any relation in the kernel of the free algebra on the currents,
+its action on each polynomial is zero after localization and hence
+before localization. This proves the factorization of the action
+through the integral current-generated algebra. No commutation
+between an endomorphism ring and base change is required.
+
+The module is cyclic on every nonzero coefficient fibre. In fact
+\[
+ S=e_1-ae_0=\sum_{j\geq1}jp_{j+1}\partial_j,\qquad
+ [S,M_{p_n}]=nM_{p_{n+1}},
+\]
+so
+\begin{equation}\label{cyrep:eq:cyclic}
+ M_{p_n}=\frac{1}{(n-1)!}
+                (\operatorname{ad}_S)^{n-1}e_0.
+\end{equation}
+Products of these operators generate every monomial from \(1\).
+For example \([e_1,e_0]=M_{p_2}\) survives at
+\(\alpha=\beta=a=0\). This survival concerns the intrinsic
+current action even when an ambient specialized shuffle image
+loses the corresponding commutator.
+The character is the partition product
+\(\prod_{n\geq1}(1-q^n)^{-1}\). A plane-partition character
+belongs to a different representation.
+
+\begin{example}\label{cyrep:ex:charge-three}
+Let \(l=-c_1^T(\mathcal V_3)\). Then
+\[
+ H_T^*(H_3;\mathbb Q)
+ =R_0[l]/((l-h)(l^2-3hl+9p)).
+\]
+Indeed \(\Psi(p_1^3)=6\), since the three distinct points admit six
+ordered flags. In the charge-three oscillator basis, the columns
+for \(1,l,l^2\) are
+\[
+ \begin{pmatrix}1/6\\0\\0\end{pmatrix},\quad
+ \begin{pmatrix}0\\1/2\\0\end{pmatrix},\quad
+ \begin{pmatrix}-p/2\\h/2\\1\end{pmatrix}.
+\]
+Their determinant is \(1/12\), a unit. The characteristic
+polynomial of \(D_3\) supplies the displayed relation; comparison
+of the two free rank-three modules proves there are no others.
+At the parameter origin the ring is \(\mathbb Q[l]/(l^3)\).
+\end{example}
+
+There is also an exact current matrix from charge two to three.
+Put
+\[
+ Q(Z)=(Z^2-hZ+p)(Z^2-2hZ+4p),
+\]
+and
+\begin{equation}\label{cyrep:eq:charge-three-current}
+ N(Z)=
+ \begin{pmatrix}
+ Z^3-3hZ^2+(2h^2+3p)Z-2ph&2p^2\\
+ 2Z^2-4hZ+2p&Z^3-3hZ^2+(2h^2+p)Z-4ph\\
+ 2Z&2Z^2-2hZ+4p
+ \end{pmatrix}.
+\end{equation}
+Then \(\mathsf E^{(2)}(z)=N(Z)/Q(Z)\), with \(Z=z-a\).
+To verify the formula, let
+\(E_0=\left(\begin{smallmatrix}1&0\\0&1\\0&0\end{smallmatrix}\right)\).
+Multiplication gives \(ZN-D_3N+ND_2=QE_0\).
+The current recursion has the unique solution
+\(ZE-D_3E+ED_2=E_0\) with leading term \(Z^{-1}E_0\).
+Since \(Q\) is monic, every mode remains polynomial.
+At \(h=p=0\) the matrix becomes
+\[
+ \begin{pmatrix}Z^{-1}&0\\2Z^{-2}&Z^{-1}\\
+                       2Z^{-3}&2Z^{-2}\end{pmatrix}.
+\]
+Its higher poles retain the nilpotent divisor action.
+
+\section{Regular terms, lowering, and Cartan modes}
+\label{cyrep:sec:regular}
+
+Already on the vacuum the complete rational half-currents
+have no scalar exchange. With
+\(\Delta(Z)=(Z-\alpha)(Z-\beta)\), the first two charges give
+\[
+ \mathsf E(z)1=\frac{p_1}{Z},\qquad
+ \mathsf E(z)p_1=\frac{(Z-h)p_1^2+p_2}{\Delta(Z)}.
+\]
+The coefficient columns of
+\(\mathsf E(z)\mathsf E(w)1\) and
+\(\mathsf E(w)\mathsf E(z)1\), with \(W=w-a\), have determinant
+\begin{equation}\label{cyrep:eq:scalar-defect}
+ \det\begin{pmatrix}
+ (Z-h)/(W\Delta(Z))&(W-h)/(Z\Delta(W))\\
+ 1/(W\Delta(Z))&1/(Z\Delta(W))
+ \end{pmatrix}
+ =\frac{Z-W}{ZW\Delta(Z)\Delta(W)}\ne0.
+\end{equation}
+Consequently no scalar rational function can exchange these
+unmodified operators.
+
+This obstruction is consistent with the mode relations.
+Let \(\pi_z^-\) retain strictly negative powers of \(z\) in
+\(A[[z^{-1},w^{-1}]][z,w]\), for any associative \(R\)-algebra
+\(A\); define \(\pi_w^-\) in the same way.
+Put \(P_\pm(s)=s^3+\sigma_2s\pm\sigma_3\) and
+\begin{align}
+ B(z,w)&=P_-(z-w)\mathsf E(z)\mathsf E(w)
+             -P_+(z-w)\mathsf E(w)\mathsf E(z),\notag\\
+ C(z,w)&=(z^2-3zw+3w^2+\sigma_2)e_0
+                          +(z-3w)e_1+e_2.\label{cyrep:eq:C}
+\end{align}
+
+\begin{proposition}\label{cyrep:prop:boundary}
+Relation \eqref{cyrep:eq:quadratic} is equivalent to the exact identity
+\begin{equation}\label{cyrep:eq:boundary}
+ B(z,w)=[C(z,w),\mathsf E(w)]
+              +[C(w,z),\mathsf E(z)]-6[e_0,e_1].
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+The coefficient of \(z^{-i-1}w^{-j-1}\) in \(B\) is the
+difference of the two sides of \eqref{cyrep:eq:quadratic}.
+Thus that relation says \(\pi_z^-\pi_w^-B=0\).
+Set \(q_z=1-\pi_z^-\). The formula
+\[
+ q_z(z^r\mathsf E(z))=\sum_{i=0}^{r-1}e_i z^{r-1-i}
+\]
+gives \(q_zB=[C(z,w),\mathsf E(w)]\) and its transposed
+counterpart. Their common polynomial part is
+\(3[e_0,e_1]-3[e_1,e_0]=6[e_0,e_1]\).
+The identity \(1-\pi_z^-\pi_w^-=q_z+q_w-q_zq_w\)
+proves the formula. Conversely its right side has no term
+strictly negative in both variables.
+\end{proof}
+
+At the parameter origin the boundary is visibly nonzero:
+\[
+ B(z,w)1=-\frac{(z-w)^4}{z^2w^2}p_2
+ =\left(-\frac{z^2}{w^2}+\frac{4z}{w}-6
+                         +\frac{4w}{z}-\frac{w^2}{z^2}\right)p_2.
+\]
+Here regularity refers to spectral powers. Turning these terms
+into spacetime distributions or supported operations requires
+their own coefficient maps.
+
+Their higher overlaps are also operator-valued. Write
+\(X_i=\mathsf E(z_i)\),
+\(r_{ij}=P_+(z_i-z_j)/P_-(z_i-z_j)\), and
+\(c_{ij}=B(z_i,z_j)/P_-(z_i-z_j)\), over the generic spectral field.
+Then \(X_iX_j=r_{ij}X_jX_i+c_{ij}\).
+Expanding the two three-swap paths gives
+\begin{equation}\label{cyrep:eq:triple-overlap}
+\begin{split}
+ 0={}&c_{12}X_3+r_{12}X_2c_{13}
+                     +r_{12}r_{13}c_{23}X_1\\
+ &-X_1c_{23}-r_{23}c_{13}X_2
+                     -r_{23}r_{13}X_3c_{12}.
+\end{split}
+\end{equation}
+Two disjoint swaps give
+\[
+ X_1X_2X_3X_4
+ =r_{12}r_{34}X_2X_1X_4X_3
+ +r_{12}X_2X_1c_{34}+r_{34}c_{12}X_4X_3+c_{12}c_{34}.
+\]
+Both identities follow by substitution in the indicated order.
+They retain the noncentral corrections and their product.
+They alone do not construct homotopies on a critical flag complex.
+
+The generic geometric pairing has normalization
+\begin{equation}\label{cyrep:eq:fock-pairing}
+ \langle p_\lambda,p_\mu\rangle
+ =\delta_{\lambda\mu}z_\lambda
+       \frac{(-1)^{n-\ell(\lambda)}}{p^{\ell(\lambda)}},
+ \qquad
+ z_\lambda=\prod_{j\geq1}j^{m_j}m_j!,\quad |\lambda|=n,
+\end{equation}
+where \(m_j\) is the multiplicity of \(j\).
+It is defined after inverting \(p\); Nakajima's signed form
+differs by \((-1)^n\) in charge \(n\)
+\cite[Sections 2(i), 3(iii)]{Nakajima2014}.
+Thus
+\[
+ M_{p_j}^{\dagger}=(-1)^{j-1}j p^{-1}\partial_j,\qquad
+ \mathsf D^\dagger=\mathsf D.
+\]
+Polynomial lowering operators are obtained by retaining the scale:
+\begin{equation}\label{cyrep:eq:scaled}
+ \widetilde f_r=(-\operatorname{ad}_{\mathsf D}+a)^r\partial_1,
+ \qquad \widetilde\psi_r=[e_r,\partial_1].
+\end{equation}
+They have charge shifts \(-1\) and \(0\).
+
+For two mode families \(x_i,y_j\), let
+\[
+ \mathcal D_{i,j}(x,y)
+ =[x_{i+3},y_j]-3[x_{i+2},y_{j+1}]
+ +3[x_{i+1},y_{j+2}]-[x_i,y_{j+3}]
+ +\sigma_2([x_{i+1},y_j]-[x_i,y_{j+1}]).
+\]
+With \(\{x,y\}=xy+yx\), the full polynomial relations are
+\begin{align}
+ [e_i,\widetilde f_j]&=\widetilde\psi_{i+j},
+ &[\widetilde\psi_i,\widetilde\psi_j]&=0,\notag\\
+ \mathcal D_{i,j}(e,e)&=\sigma_3\{e_i,e_j\},
+ &\mathcal D_{i,j}(\widetilde f,\widetilde f)
+                 &=-\sigma_3\{\widetilde f_i,\widetilde f_j\},\notag\\
+ \mathcal D_{i,j}(\widetilde\psi,e)
+                 &=\sigma_3\{\widetilde\psi_i,e_j\},
+ &\mathcal D_{i,j}(\widetilde\psi,\widetilde f)
+                 &=-\sigma_3\{\widetilde\psi_i,\widetilde f_j\}.
+ \label{cyrep:eq:scaled-relations}
+\end{align}
+Both \(e\) and \(\widetilde f\) obey \eqref{cyrep:eq:serre}.
+The initial Cartan modes are
+\begin{equation}\label{cyrep:eq:low-cartan}
+\begin{split}
+ \widetilde\psi_0&=-1,\qquad
+ \widetilde\psi_1=-a,\qquad
+ \widetilde\psi_2=2p\mathsf N-a^2,\\
+ \widetilde\psi_3&=6p\mathsf D+(2ph+6ap)\mathsf N-a^3,
+ \qquad \mathsf N=\sum_{j\geq1}jp_j\partial_j.
+\end{split}
+\end{equation}
+In particular their commutators with \(e_j\) are \(0,0,2pe_j\)
+for indices \(0,1,2\); with \(\widetilde f_j\) the last sign
+is negative.
+
+To prove these relations in all charges, work first over the fraction
+field. Adjunction identifies the geometric lowering modes with
+\(p^{-1}\widetilde f_r\), and the Cartan modes with
+\(p^{-1}\widetilde\psi_r\). The geometric Yangian relations,
+multiplied by the required powers of \(p\), give
+\eqref{cyrep:eq:scaled-relations}.
+Their matrices are polynomial, so the same injectivity argument
+as above descends every relation and every Serre identity.
+The low formulas follow directly from \eqref{cyrep:eq:divisor}.
+This proves an integral representation with a scaled negative half;
+it does not define a nonproper geometric pushforward without
+localization.
+
+For
+\(\widetilde F(w)=\sum_j\widetilde f_jw^{-j-1}\) and
+\(\widetilde\Psi(z)=\sum_m\widetilde\psi_mz^{-m-1}\), the mixed
+relation has the exact form
+\begin{equation}\label{cyrep:eq:mixed-current}
+ [\mathsf E(z),\widetilde F(w)]
+       =\frac{\widetilde\Psi(z)-\widetilde\Psi(w)}{w-z}.
+\end{equation}
+The coefficient identity is
+\((z^{-m-1}-w^{-m-1})/(w-z)
+=\sum_{i+j=m}z^{-i-1}w^{-j-1}\);
+the coincident limit is \(-\widetilde\Psi'(z)\).
+
+At the origin the positive Lie algebra remains large. Define
+\[
+ W_{b,r}=\sum_{i_1,\ldots,i_r\geq1}
+ i_1\cdots i_r\,p_{b+i_1+\cdots+i_r}
+                    \partial_{i_1}\cdots\partial_{i_r},
+ \qquad b\geq1,\ r\geq0,
+\]
+where \(W_{b,0}=M_{p_b}\).
+Then
+\begin{equation}\label{cyrep:eq:origin-lie}
+ e_r=W_{1,r},\qquad
+ [W_{b,r},W_{c,s}]=(rc-sb)W_{b+c,r+s-1}.
+\end{equation}
+When \(r=s=0\), the right side means zero.
+In a composite at most one derivative can hit the other operator's
+linear coefficient. Terms with no such hit cancel.
+Symmetrizing the remaining indices cancels their sums and leaves
+the constants \(rc-sb\), proving the bracket.
+The same calculation with \(W_{0,2}/2=\mathsf D\) proves the
+formula for \(e_r\).
+Charge distinguishes \(b\), and the coefficient of
+\(\partial_1^r\) is \(p_{b+r}\); successive highest differential
+orders prove linear independence.
+Thus \(x^by^r\mapsto W_{b,r}\) is a faithful Lie action of
+\(x\mathbb Q[x,y]\) with bracket
+\(\{f,g\}=x(f_y g_x-f_x g_y)\).
+The identity
+\([W_{1,0},W_{b-1,r+1}]=-(r+1)W_{b,r}\)
+shows that its image is generated by the positive modes.
+By contrast, \(\widetilde f_0=\partial_1\) and
+\(\widetilde f_r=0\) for \(r>0\) on this fibre.
+
+\section{What a double must add}
+\label{cyrep:sec:double-data}
+
+The half-current obstruction also prevents a simple change of
+coordinate from supplying the creation axiom.
+Suppose a vector space \(V\) has a distinguished vector \(\mathbf1\)
+and operators \(E(z)=\sum_{r\geq0}e_rz^{-r-1}\) with
+\(E(z)\mathbf1=v/(z-a)\), where \(v\ne0\).
+Let \(q(s)\in s\,k[[s]]\) be an invertible formal coordinate
+and \(g(s)\in k((s))\).
+If a state--field map satisfied
+\[
+ Y(v,s)=g(s)E(1/q(s)),\qquad
+ Y(w,s)\mathbf1=e^{sT}w,\qquad Y(Tw,s)=\partial_sY(w,s),
+\]
+then all the \(e_r\) would lie in a single scalar line of
+\(\operatorname{End}(V)\).
+Indeed creation says
+\[
+ e^{sT}v=\frac{g(s)q(s)}{1-aq(s)}v.
+\]
+Its linear coefficient gives \(Tv=cv\).
+Translation then forces
+\(\partial_sY(v,s)=cY(v,s)\).
+The Laurent coefficient recurrence in characteristic zero gives
+\(Y(v,s)=e^{cs}A\) for one operator \(A\).
+Dividing by the nonzero scalar \(g\) and reversing the coordinate
+change proves the claim.
+For the Hecke action \(e_0\) and \(e_1\) are independent, so this
+prescription fails.
+
+There is nevertheless a direct way to realize these operators as
+current modes on a larger space. Let \(\mathfrak l\) be their Lie
+algebra inside \(\operatorname{End}(V)\), acting on \(V\).
+Regard \(V\) as a \(\mathfrak l[\zeta]\)-module by evaluation
+at \(\zeta=0\). The induced module is
+\[
+ \widehat V=
+ U(\mathfrak l[\zeta,\zeta^{-1}])
+       \otimes_{U(\mathfrak l[\zeta])}V
+ \simeq U(\zeta^{-1}\mathfrak l[\zeta^{-1}])\otimes V.
+\]
+It is restricted: a sufficiently high positive mode kills any
+fixed finite word, after commuting past its negative modes.
+Consequently
+\[
+ J_b(s)=\sum_{n\in\mathbb Z}(b\zeta^n)s^{-n-1}
+\]
+is a field on \(\widehat V\), and its zero mode on the inducing top
+is \(b\). The loop bracket gives the current vertex-algebra module
+identities at level zero. This construction adds states and negative
+modes; it does not turn the original rational half-current on \(V\)
+into the field of its vacuum output.
+
+Integral doubles impose a further constraint. Let \(B\) be a
+separated \(q\)-adic algebra with
+\([B,B]\subset qB\).
+If an ordinary Yangian maps to \(B\), its relations
+\([\,\psi_2,e_j\,]=2e_j\) and
+\([\,\psi_2,f_j\,]=-2f_j\) force every image of \(e_j,f_j\)
+into \(qB\), then into \(q^2B\), and inductively into every \(q^nB\).
+Separation makes them zero; the mixed commutators then kill all
+\(\psi_j\). Thus such a map factors through the scalar augmentation.
+This argument concerns the full ordinary presentation.
+It does not obstruct the positive action above, or a presentation
+whose Cartan relations have been scaled.
+
+The pairing in a triangular double must likewise be normalized
+before denominators can be cancelled. For example, suppose
+\[
+ \Delta e=e\otimes1+k\otimes e,\qquad
+ \Delta f=1\otimes f+f\otimes l
+\]
+with \(k,l\) grouplike. Let a skew Hopf pairing satisfy
+\(\langle e,f\rangle=b\),
+\(\langle k,f\rangle=\langle e,l\rangle=0\), and the
+unit--counit normalization. In the convention
+\[
+ \sum a_{(1)}c_{(1)}\langle a_{(2)},c_{(2)}\rangle
+ =\sum\langle a_{(1)},c_{(1)}\rangle c_{(2)}a_{(2)},
+\]
+substitution of \(a=e,c=f\) gives
+\begin{equation}\label{cyrep:eq:paired-double}
+ [e,f]=b(l-k).
+\end{equation}
+If \(l-k=\sigma_3\theta\), the normalization \(b=\sigma_3^{-1}\)
+produces \([e,f]=\theta\) over the generic field.
+An integral double requires lattices on which this product,
+both coproducts and the full pairing are defined.
+The cancellation in one commutator does not by itself provide them.
+
+\section{An oscillator Hopf algebra}
+\label{cyrep:sec:oscillator}
+
+Let \(k\) have characteristic zero, \(Q\) be a discrete vector space,
+and \(E=Q^*_{\mathrm{cont}}\) its linearly compact dual.
+Fix the perfect evaluation pairing
+\(\beta:E\times Q\to k\).
+The residue example is
+\[
+ Q=k((t))/k[[t]],\qquad E=k[[t]]\,dt,\qquad
+ \beta(\omega,f)=\operatorname{Res}_{t=0}(f\omega).
+\]
+Write \(q(v)\), \(p(e)\) for copies of \(v\in Q,e\in E\).
+The Heisenberg bracket is
+\([p(e),q(v)]=\beta(e,v)c\), with \(c\) central.
+On \(\operatorname{Sym}(Q)\) it has the Fock action
+\[
+ q(v)=M_v,\qquad p(e)=\kappa D_e,\qquad c=\kappa,
+ \qquad D_e(v)=\beta(e,v).
+\]
+Each polynomial is killed by an open subspace of \(E\).
+For \(\kappa\ne0\), the quotient algebra \(c=\kappa\) has no
+scalar character: applying one to \([p(e),q(v)]=\kappa\)
+with \(\beta(e,v)=1\) gives a contradiction.
+Its vacuum vector therefore cannot serve as a Hopf counit.
+
+The canonical tensor \(t=\sum_iq(v_i)\otimes p(e_i)\)
+is interpreted through finite continuous evaluations.
+It obeys
+\[
+ [t_{12},t_{13}]=[t_{13},t_{23}]=0,\qquad
+ [t_{12},t_{23}]=
+ \Theta:=\sum_iq(v_i)\otimes c\otimes p(e_i)\ne0.
+\]
+The coefficient of one dual pair detects the last inequality.
+In particular \(t\) does not solve the constant classical
+Yang--Baxter equation.
+
+There is also a polar obstruction. Let \(M_2,M_3\) be tensor
+coefficient spaces for the square and cube of the Heisenberg
+enveloping algebra, in which the displayed contractions and brackets
+are defined and a dual-pair coefficient detects \(\Theta\).
+A strict spectral solution
+\[
+ S(z)=1+\hbar(t/z+a(z))+O(\hbar^2),\qquad a(z)\in M_2[[z]],
+\]
+would have classical Yang--Baxter coefficient \(\Theta/(uv)\)
+in the expansion at \(u=0\), followed by \(v=0\).
+Every term involving the regular correction belongs to
+\[
+ M_3((v))[[u]]+M_3[[v]]((u))
+       \subset M_3((v))((u)).
+\]
+The double residue kills this sum and sends
+\(\Theta/(uv)\) to \(\Theta\).
+Second-order coefficients of \(S\) cancel between the two sides
+of Yang--Baxter. Hence no such correction can give a strict
+solution while retaining this polar coefficient and the central
+generator.
+
+Adjoin a weight derivation \(d\) with
+\([d,q(v)]=-q(v)\), \([d,p(e)]=p(e)\).
+For \(r_\gamma=\gamma d\otimes c+t\), direct commutation gives
+\[
+ \operatorname{CYB}(r_\gamma)=(1-\gamma)\Theta.
+\]
+The coefficient \(\gamma=1\) supplies a constant classical solution.
+It has a quantization with a controlled tensor topology.
+Put \(R_\hbar=k[[\hbar]]\) and
+\(g_\hbar(c)=(e^{\hbar c}-1)/\hbar\).
+Define \(\mathcal U_\hbar\) by the relations
+\begin{equation}\label{cyrep:eq:oscillator-relations}
+ [p(e),q(v)]=\beta(e,v)g_\hbar(c),\qquad
+ [d,q(v)]=-q(v),\qquad[d,p(e)]=p(e),
+\end{equation}
+with all other displayed brackets zero.
+Its vectors are algebraic in \(Q,E,c,d\), completed only
+in \(\hbar\).
+
+\begin{theorem}\label{cyrep:thm:oscillator-hopf}
+The algebra \(\mathcal U_\hbar\) is topologically free, with
+ordered PBW module
+\[
+ \bigl(\operatorname{Sym}(Q)\otimes k[c,d]
+                         \otimes\operatorname{Sym}(E)\bigr)[[\hbar]].
+\]
+It is a Hopf algebra with primitive \(q(v),c,d\), and
+\begin{equation}\label{cyrep:eq:oscillator-coproduct}
+ \Delta p(e)=p(e)\otimes1+e^{\hbar c}\otimes p(e),\qquad
+ S(p(e))=-e^{-\hbar c}p(e).
+\end{equation}
+The counit kills all generators, and the antipode negates
+the primitive ones.
+\end{theorem}
+
+\begin{proof}
+Order \(q\)'s before \(c,d\), and \(p\)'s last.
+The mixed commutator is central. The only overlap involving
+three different types reduces to
+\[
+ [d,[p,q]]=0=[[d,p],q]+[p,[d,q]].
+\]
+Commuting differential Ore extensions, followed by the weight
+derivation, therefore give the indicated basis at each precision.
+Every expression uses finitely many vectors of \(Q,E\), so this
+argument has no finite-dimensional restriction.
+
+The coproduct preserves the mixed bracket because
+\[
+ g_\hbar(c_1+c_2)
+ =g_\hbar(c_1)+e^{\hbar c_1}g_\hbar(c_2).
+\]
+The weight relations use primitivity of \(d\).
+Since \(e^{\hbar c}\) is grouplike, both iterated coproducts
+of \(p\) are
+\[
+ p\otimes1\otimes1+e^{\hbar c}\otimes p\otimes1
+                   +e^{\hbar c}\otimes e^{\hbar c}\otimes p.
+\]
+The counit and both antipode identities follow on the generators;
+the antipode respects the relations in reverse order.
+All maps take values in the \(\hbar\)-completed algebraic tensor.
+\end{proof}
+
+A smooth module is a compatible system of discrete
+\(\mathcal U_\hbar/(\hbar^N)\)-modules \(M_N\), with
+\[
+ M_{N+1}\otimes_{k[\hbar]/(\hbar^{N+1})}k[\hbar]/(\hbar^N)
+ \simeq M_N,
+\]
+such that \(p(-)m:E\to M_N\) is continuous for every \(m\).
+Equivalently an open finite-codimension subspace of \(E\)
+kills \(m\). Morphisms are compatible module maps.
+The coproduct defines their tensor product stage by stage.
+
+\begin{theorem}\label{cyrep:thm:oscillator-exchange}
+On smooth modules the operator
+\begin{equation}\label{cyrep:eq:oscillator-R}
+ \mathcal R=
+ \exp(\hbar d\otimes c)\,
+ \exp\left(\hbar\sum_iq(v_i)\otimes p(e_i)\right)
+\end{equation}
+is continuous, invertible and independent of the dual coordinates.
+It satisfies
+\[
+ \mathcal R\Delta(x)\mathcal R^{-1}=\Delta^{\mathrm{op}}(x),\qquad
+ (\Delta\otimes1)\mathcal R=\mathcal R_{13}\mathcal R_{23},
+ \qquad
+ (1\otimes\Delta)\mathcal R=\mathcal R_{13}\mathcal R_{12}.
+\]
+Thus \(\tau\mathcal R\) is a braiding, with scalar unit at level zero.
+\end{theorem}
+
+\begin{proof}
+For \(n\in N_N\), choose an open annihilator \(U\subset E\).
+The contraction in the second exponential then uses only the
+finite-dimensional pair \(E/U\) and \(U^\perp\subset Q\).
+The \(p(e)\)'s commute, so this same annihilator suffices for all
+their products on \(n\).
+Modulo \(\hbar^N\) both exponentials are finite sums.
+Their definitions are canonical contractions and commute with
+reduction. The intersection of annihilators proves smoothness
+of the tensor product.
+
+Write \(A=\hbar d_1c_2\), \(B=\hbar\sum_iq_i^{(1)}p_i^{(2)}\).
+Conjugation first by \(e^B\), then by \(e^A\), sends
+\[
+ \Delta q=q_1+q_2
+ \ \longmapsto\ q_1e^{\hbar c_2}+q_2
+ \ \longmapsto\ q_1+q_2,
+\]
+and
+\[
+ \Delta p=p_1+e^{\hbar c_1}p_2
+ \ \longmapsto\ p_1+p_2
+ \ \longmapsto\ e^{\hbar c_2}p_1+p_2.
+\]
+Both exponentials commute with \(\Delta c,\Delta d\).
+This proves the intertwining identity.
+Primitivity gives the first hexagon.
+For the second, the coproduct of \(p\) gives
+\[
+ (1\otimes\Delta)\mathcal R
+ =e^{\hbar d_1(c_2+c_3)}
+  e^{\hbar\sum_iq_i^{(1)}p_i^{(2)}}
+  e^{\hbar e^{\hbar c_2}\sum_iq_i^{(1)}p_i^{(3)}}.
+\]
+Conjugation by \(e^{-\hbar d_1c_2}\) multiplies \(q_i^{(1)}\)
+by \(e^{\hbar c_2}\), so moving the middle factors of
+\(\mathcal R_{13}\mathcal R_{12}\) gives exactly this expression.
+These calculations use finite contractions on every input at
+every precision. They prove the identities on the complete
+module systems. The hexagons and intertwining give Yang--Baxter;
+the associator is the ordinary tensor associator.
+\end{proof}
+
+On \(F_{\kappa,\sigma}=\operatorname{Sym}(Q)[[\hbar]]\), put
+\[
+ c=\kappa,\qquad q(v)=M_v,\qquad
+ p(e)=g_\hbar(\kappa)D_e,\qquad d=\sigma-\mathsf E,
+\]
+where \(\mathsf E\) is polynomial degree.
+At \(\sigma=0\), on two such modules of levels \(\kappa,\lambda\),
+\begin{equation}\label{cyrep:eq:oscillator-shear}
+ \mathcal R f(x,y)=f(bx,y+(1-b)x),\qquad b=e^{-\hbar\lambda}.
+\end{equation}
+The right exponential translates \(y\) by
+\((e^{\hbar\lambda}-1)x\); the left then rescales \(x\).
+This proves the formula on every polynomial coefficient.
+Levels add, so a fixed nonzero-level sector is not closed under
+this tensor product.
+
+The categorical braiding is not the vacuum-normalized exchange
+of a field algebra on these Fock states:
+\[
+ \mathcal R(x\otimes1)=e^{-\hbar\lambda}x\otimes1,\qquad
+ \mathcal R(1\otimes x)
+       =1\otimes x+(1-e^{-\hbar\lambda})x\otimes1.
+\]
+For \(\lambda\ne0\), the first defect begins with
+\(-\hbar\lambda x\otimes1\).
+An invertible comparison preserving the vacuum insertions
+cannot kill this defect. The scalar monoidal unit and the
+vacuum in a nonzero-level module have different central actions.
+
+Nor can the algebra be enlarged by every formal normal-ordered
+symbol without checking the antipode. In the ordinary Heisenberg
+algebra let \(E_N=\sum_{i<N}q_i p_i\), with
+\([p_i,q_i]=c\). Then \(S(E_N)=E_N+Nc\).
+If a separated linear completion contained \(\lim_NE_N\) and
+retained a continuous scalar detector with
+\(\ell(q_ip_i)=0,\ell(c)=1\), continuity of the primitive
+antipode would force the sequence \(N\) to converge in discrete
+\(k\). It does not. The smooth-module interpretation of
+\eqref{cyrep:eq:oscillator-R} avoids asserting this larger
+symbol completion.
+
+\section{Dividing the augmentation ideal}
+\label{cyrep:sec:divided}
+
+We now return to the spectral forms of Chapter~\ref{cylev:chapter}.
+Work over \(R_\hbar=k[[\hbar]]\), with \(k\) of characteristic zero.
+A formal spectral datum consists of a topologically free Hopf algebra
+\(H\), a bijective antipode \(S\), a continuous derivation and
+coderivation \(T\) with \(\varepsilon T=0\), and a form
+\[
+ \rho_z:H\widehat\otimes H
+       \longrightarrow k[z,z^{-1}][[\hbar]].
+\]
+The form satisfies the unit, two product, commutation, translation
+and unitarity identities of Definition~\ref{cylev:def:form}
+at every \(\hbar\)-adic precision.
+Assume \(H/\hbar H\) commutative and
+\(\rho_z\equiv\varepsilon\otimes\varepsilon\pmod\hbar\).
+Levels are continuous Hopf automorphisms \(\eta\) satisfying
+Definition~\ref{cylev:def:level}, with
+\((\eta-1)H\subset\hbar H\).
+The target of the form permits its Laurent degree to grow
+with the \(\hbar\)-adic precision.
+
+Write
+\[
+ J=\ker\varepsilon,\qquad I=J+\hbar H,\qquad
+ H^\times=\bigcup_{n\geq0}\hbar^{-n}I^n\subset H[\hbar^{-1}],
+ \qquad
+ H^\vee=\varprojlim_N H^\times/\hbar^NH^\times.
+\]
+This is the divided augmentation construction
+\cite{Gavarini2003}.
+The superscript \(\vee\) here denotes this algebra,
+not a linear dual.
+The original coordinate algebra \(H\) and the divided state algebra
+\(H^\vee\) have different roles.
+
+\begin{lemma}\label{cyrep:lem:divided-estimates}
+For \(m,n\geq0\), with closures understood at each finite precision,
+\begin{align}
+ \Delta(I^n)&\subset\sum_{r+s=n}I^r\widehat\otimes I^s,\notag\\
+ \delta_\eta(I^n)&\subset I^n\widehat\otimes H,\qquad
+ \delta_\eta(x)=x_2\otimes x_3S^{-1}(\eta x_1),\notag\\
+ \rho_z(I^m,I^n)&\subset
+       \hbar^{\max(m,n)}k[z,z^{-1}][[\hbar]].
+ \label{cyrep:eq:divided-estimates}
+\end{align}
+The Hopf maps and \(T\) extend to \(H^\vee\), and the coaction
+extends to \(H^\vee\to H^\vee\widehat\otimes H\).
+The form extends integrally on either mixed carrier
+\(H\widehat\otimes H^\vee\) or \(H^\vee\widehat\otimes H\).
+\end{lemma}
+
+\begin{proof}
+Since \(H=R_\hbar1\oplus J\),
+\(\Delta(J)\subset J\otimes H+H\otimes J\).
+Including \(\hbar\) and taking products gives the first estimate.
+Both antipodes, \(T\) and the levels preserve \(I^n\);
+also \(\varepsilon(I^n)\subset\hbar^nR_\hbar\).
+Division therefore extends these maps.
+
+For \(x\in I\), applying \(\varepsilon\) to the first factor of
+\(\delta_\eta(x)\) gives \(x_2S^{-1}(\eta x_1)\in\hbar H\).
+Here \(\eta\equiv1\pmod\hbar\) and
+\(x_2S^{-1}(x_1)=\varepsilon(x)\).
+The splitting by \(J\) proves the second estimate for \(n=1\).
+For \(b\in I^{n-1}\), the coaction product formula reads
+\[
+ \delta_\eta(xb)=
+ x_{(0)}b_{(0)}\otimes b_{(1)}x_{(1)}
+ +x_2b_{(0)}\otimes[x_3,b_{(1)}]S^{-1}(\eta x_1).
+\]
+The first term has its first factor in \(I^n\).
+Commutativity modulo \(\hbar\) places the second in
+\(\hbar I^{n-1}\otimes H\subset I^n\otimes H\).
+This proves the induction.
+
+For \(x\in J\), the normalization of \(\rho\) gives
+\(\rho_z(H,x)\subset\hbar k[z,z^{-1}][[\hbar]]\);
+the same holds for the scalar generator \(\hbar\) of \(I\).
+The second product rule gives a factor \(\hbar^n\) on \(I^n\)
+in the second argument. The first product rule gives
+\(\hbar^m\) in the first. Both estimates hold simultaneously.
+Dividing in just one argument is therefore integral.
+All extended identities follow at finite precision and pass
+to the separated inverse limit.
+\end{proof}
+
+Dividing both arguments is different: on
+\(\hbar^{-m}I^m\otimes\hbar^{-n}I^n\), the estimate allows
+a pole of order \(\min(m,n)\) in \(\hbar\).
+The field construction uses the mixed pairing precisely where
+integrality is available.
+Writing
+\(\delta_\eta(b)=b_{(0)}\otimes b_{(1)}\), its formulas are
+\begin{align}
+ A_z(a)b&=b_{(0)}\rho_{-z}(b_{(1)},a),\notag\\
+ Y_\eta(a,z)b&=a_1(z)b_{(0)}
+                         \rho_{-z}(b_{(1)},a_2),\notag\\
+ \mathcal S_\eta(z)(a\otimes b)
+   &=a_{(0)}\otimes b_{(0)}
+                         \rho_z(a_{(1)},b_{(1)}),
+ \qquad a(z)=e^{zT}a.
+ \label{cyrep:eq:divided-fields}
+\end{align}
+In the second line \(a_i\) are divided states and \(b_{(1)}\)
+is a coordinate. In the third line both paired factors are
+coordinates. Lemma~\ref{cyrep:lem:divided-estimates} therefore
+makes all formulas integral.
+The unit, translation, common-germ substitutions and exchange
+identities of Theorem~\ref{cylev:thm:fields} extend by division
+to algebraic words and then by continuity.
+The level-changing coproduct
+\((\eta_2\otimes1)\Delta\) extends in the same way, with the
+crossed field tensor of Theorem~\ref{cylev:thm:coproduct}.
+The coaction is still by \(H\).
+
+\subsection{The full cotangent space}
+
+Let \(A=H/\hbar H\) and \(\mathfrak m=\ker(\varepsilon:A\to k)\).
+Its Poisson bracket is
+\(\{f,g\}=\hbar^{-1}[\widetilde f,\widetilde g]\bmod\hbar\).
+The cotangent Lie algebra is
+\[
+ Q=\mathfrak m/\mathfrak m^2=J/(J^2+\hbar J),\qquad
+ [\langle x\rangle,\langle y\rangle]
+                  =\langle\hbar^{-1}[x,y]\rangle.
+\]
+Define \(U_t(Q)\) as the graded \(k[t]\)-algebra generated by
+\(Q\) in degree one, with \(t\) central of degree one and
+relations \(xy-yx=t[x,y]_Q\).
+
+\begin{theorem}\label{cyrep:thm:cotangent}
+There are canonical isomorphisms
+\begin{equation}\label{cyrep:eq:cotangent}
+ \operatorname{gr}_I H\simeq U_t(Q),\qquad
+ H^\vee/\hbar H^\vee\simeq U(Q).
+\end{equation}
+The second is a Hopf isomorphism taking
+\(\langle x\rangle\) to \(x/\hbar\bmod\hbar\).
+Ordered monomials in lifts of \(Q\), divided by \(\hbar\),
+form a topological basis of \(H^\vee\).
+\end{theorem}
+
+\begin{proof}
+A commutative Hopf algebra over a characteristic-zero field is
+formally smooth, including without finite generation
+\cite[Theorem 1.2(1), Section 3.1]{EgamiMasuokaSuzuki2024}.
+Choose an ordered basis \(v_b\) of \(Q\) and lifts \(x_b\in J\).
+The local coordinate lemma for the augmentation filtration
+\cite[Lemma 4.1, Section 4.8]{Gavarini2003}
+identifies \(\widehat H_I\) with ordered series
+\[
+ \sum_{r,\gamma}c_{r,\gamma}\hbar^r x^\gamma
+\]
+having finitely many terms below each total degree
+\(r+|\gamma|\). Reduction modulo \(\hbar\) gives the formal
+coordinates at the counit of \(A\); successive lifting gives
+existence and uniqueness of the expansion.
+Reordering preserves total degree because
+\([x_b,x_c]\in\hbar J\).
+At any fixed degree only finitely many coordinates occur.
+In particular multiplication by \(\hbar^s\) raises the filtration
+by exactly \(s\). Pulling back to \(H\) gives
+\begin{equation}\label{cyrep:eq:strict-filtration}
+ (I^n:\hbar^s)=I^{n-s}\quad(0\leq s\leq n).
+\end{equation}
+Elements in the kernel of \(I\)-adic completion belong to
+every \(I^n\) and cause no exception to this formula.
+
+The symbols of \(\hbar,x_b\) generate \(\operatorname{gr}_IH\).
+Their commutator in degree two is \(t[x_b,x_c]_Q\).
+This defines a surjection from \(U_t(Q)\).
+The ordered coordinate basis identifies its PBW basis with
+the associated-graded basis, proving the first isomorphism.
+
+The divided images generate \(H^\times/\hbar H^\times\).
+If \(x/\hbar\in\hbar H^\times\), then
+\(\hbar^{n-2}x\in I^n\) for some \(n\geq2\);
+\eqref{cyrep:eq:strict-filtration} gives \(x\in I^2\).
+Intersecting with \(J\) gives \(J\cap I^2=J^2+\hbar J\).
+Thus no additional cotangent class vanishes.
+Applying the same ordered-coordinate argument to a finite
+linear combination of divided PBW monomials proves their
+independence modulo \(\hbar\). They span by the definition
+of \(H^\times\), so this quotient is \(U(Q)\).
+Successive lifting of its basis gives the topological basis
+of \(H^\vee\). The reduced coproduct makes each cotangent
+generator primitive, proving the Hopf assertion.
+\end{proof}
+
+The characteristic-zero hypothesis has content.
+In characteristic three the free rank-three Hopf algebra
+\[
+ H=k[[\hbar]][y]/(y^3-\hbar y),\qquad \Delta y=y\otimes1+1\otimes y
+\]
+has one-dimensional cotangent space.
+But \(X=y/\hbar\) satisfies \(X=\hbar X^3\), hence
+\(X=\hbar^{(3^r-1)/2}X^{3^r}\) for every \(r\).
+Its separated divided completion is only \(k[[\hbar]]\).
+The failure is already
+\(\hbar y=y^3\in I^3\) with \(y\notin I^2\).
+Disconnected components can also disappear without contradicting
+\eqref{cyrep:eq:cotangent}: for \(H=k[C_2][[\hbar]]\), the
+nontrivial augmentation idempotent belongs to every \(I^n\);
+the cotangent space is zero and the divided completion is scalar.
+
+The coproduct of \(A\) also induces a Lie cobracket
+\[
+ \delta_Q(\pi f)=(\pi\otimes\pi)
+                       (\Delta_Af-\Delta_A^{\mathrm{op}}f),\qquad
+ \pi f=\langle f-\varepsilon(f)\rangle.
+\]
+A product of augmentation elements contributes symmetrically
+modulo \(\mathfrak m^2\) in each factor, so this is well defined.
+Coassociativity and the Poisson coproduct identity prove coJacobi
+and compatibility with the bracket.
+It is the co-Poisson limit of \(H^\vee\).
+
+For instance a finite free coordinate comodule \(M\) with matrix
+\((a_{ij})\) has character \(\chi=\sum_i a_{ii}\), and
+\[
+ \frac{\chi-\operatorname{rank}(M)}{\hbar}\in H^\vee
+\]
+has cocommutative coproduct:
+\(\Delta\chi=\sum_{i,j}a_{ij}\otimes a_{ji}\).
+A grouplike \(q\) with counit one gives the primitive
+\(\hbar^{-1}\log q\), since \(q-1\in\hbar H^\vee\).
+These are positive lifting constructions.
+For a general \(a\in U(Q)\), the first obstruction is
+\[
+ \omega_1(a)=\hbar^{-1}
+              (\Delta-\Delta^{\mathrm{op}})\widetilde a\bmod\hbar.
+\]
+It is independent of the lift: replacing \(\widetilde a\)
+by \(\widetilde a+\hbar b\) changes it by a coproduct defect
+which vanishes modulo \(\hbar\).
+A cocommutative lift requires \(\omega_1(a)=0\);
+on \(Q\) this is precisely \(\delta_Q\).
+
+\section{The cotangent double and current fields}
+\label{cyrep:sec:cotangent-double}
+
+Give \(Q\) the discrete topology and
+\(\mathfrak g=\operatorname{Hom}_k(Q,k)\) the topology of
+pointwise convergence on finite-dimensional subspaces.
+The continuous dual of \(\mathfrak g\) is \(Q\).
+The bracket dual to \(\delta_Q\) is convolution:
+\[
+ [\xi,\zeta](f)=\xi(f_1)\zeta(f_2)-\zeta(f_1)\xi(f_2).
+\]
+Elements of \(\mathfrak g\) are derivations of \(A\) at the counit.
+For the coadjoint actions use
+\[
+ \langle\zeta,\operatorname{ad}^*_\xi q\rangle
+       =-\langle[\xi,\zeta],q\rangle,\qquad
+ (\operatorname{ad}^*_q\xi)(q')=-\xi([q,q']).
+\]
+The first action takes values in \(Q\), since \(\delta_Q(q)\)
+is an algebraic tensor.
+The continuous double \(\mathfrak D=Q\oplus\mathfrak g\) has
+mixed bracket
+\[
+ [\xi,q]=\operatorname{ad}^*_\xi q-\operatorname{ad}^*_q\xi
+\]
+and invariant form
+\(B(q+\xi,q'+\zeta)=\xi(q')+\zeta(q)\).
+Mixed Jacobi, evaluated against either summand, is exactly
+Lie-bialgebra compatibility. Thus the construction applies to
+this infinite-dimensional dual pair with its specified topology.
+
+Let
+\(\theta=\hbar^{-1}(\eta-1)\bmod\hbar\) and
+\(D\langle f\rangle=\langle\theta f\rangle\).
+Expansion of the Hopf identities makes \(\theta\) a derivation
+and coderivation; expansion of the commutator identity to second
+order shows that it preserves the Poisson bracket.
+Extend \(D\) to \(\mathfrak D\) by \(D\xi=-\xi\circ D\).
+Then
+\begin{equation}\label{cyrep:eq:double-cocycle}
+ c_\eta(u,v)=B(Du,v)
+\end{equation}
+is a continuous Lie two-cocycle.
+Indeed \(D\) is a derivation skew for \(B\).
+For \(\varphi(u,v,w)=B([u,v],w)\), invariance and skewness give
+\[
+ \varphi(Du,v,w)+\varphi(u,Dv,w)+\varphi(u,v,Dw)=0;
+\]
+the cocycle identity is twice this equality.
+In particular \(c_\eta(\xi,q)=-\xi(Dq)\).
+
+On \(V=H^\vee/\hbar H^\vee=U(Q)\), the reduced coaction
+defines
+\[
+ \mathcal A^\xi b=b_{(0)}\xi(b_{(1)}),\qquad L(q)b=qb.
+\]
+These operators represent the central extension
+\(\widehat{\mathfrak D}_\eta=\mathfrak D\oplus k\mathbf c\),
+with \(\mathbf c\) acting by one.
+Coassociativity proves
+\([\,\mathcal A^\xi,\mathcal A^\zeta\,]=\mathcal A^{[\xi,\zeta]}\).
+Expanding the divided coaction product gives the mixed relation
+\begin{equation}\label{cyrep:eq:double-action}
+ [\mathcal A^\xi,L(q)]
+ =L(\operatorname{ad}^*_\xi q)
+       -\mathcal A^{\operatorname{ad}^*_q\xi}
+       -\xi(Dq)\operatorname{id}.
+\end{equation}
+Its three terms come respectively from the adjoint coaction of
+\(A\), its Poisson bracket and the first-order level.
+For example the first term, evaluated by \(\zeta\), is
+\((\zeta*\xi-\xi*\zeta)(f)\) for \(q=\langle f\rangle\);
+this fixes its sign.
+The vacuum is killed by \(\mathfrak g\).
+PBW consequently identifies
+\begin{equation}\label{cyrep:eq:induced-vacuum}
+ U(\widehat{\mathfrak D}_\eta)
+       \otimes_{U(\mathfrak g\oplus k\mathbf c)}k_1
+          \xrightarrow{\ \sim\ }U(Q),
+\end{equation}
+where \(\mathfrak g\) kills \(k_1\) and \(\mathbf c\) acts as one.
+The source is algebraic \(U(Q)\), and its action on the vacuum
+is the identity under Theorem~\ref{cyrep:thm:cotangent}.
+
+The spectral form supplies fields as well as these Lie actions.
+Put
+\[
+ r_z(f,g)=\hbar^{-1}
+       (\rho_z(f,g)-\varepsilon(f)\varepsilon(g))\bmod\hbar.
+\]
+It is a derivation at the counit in each argument.
+For \(q=\langle x\rangle\), define
+\(\xi_q(z)(\langle f\rangle)=r_{-z}(f,x)\).
+The filtration estimate makes this independent of the lifts.
+Its carrier is
+\[
+ \operatorname{Hom}_k(Q,k[z,z^{-1}])
+ =\varprojlim_{\substack{F\subset Q\\\dim F<\infty}}
+                  F^*\otimes k[z,z^{-1}],
+\]
+with a Laurent bound on each finite-dimensional \(F\), rather
+than a uniform bound on \(Q\).
+Reduction of \eqref{cyrep:eq:divided-fields} gives
+\begin{equation}\label{cyrep:eq:classical-field}
+ Y(q,z)=L(e^{zT}q)+\mathcal A^{\xi_q(z)}.
+\end{equation}
+The coaction of a fixed state has finitely many coordinate
+factors, so the annihilation term is Laurent on that state.
+The quantum exchange is the identity modulo \(\hbar\);
+the common-germ field identities therefore reduce to the
+ordinary vertex-algebra identities on \(V\).
+
+Its singular products preserve \(k\mathbf1\oplus Q\).
+In fact \eqref{cyrep:eq:double-action} applied to the vacuum
+shows that the singular part of \(Y(q,z)q'\) belongs to
+\(Q\oplus k\mathbf1\).
+With the inherited translation and
+\([q_\lambda q']=\sum_{n\geq0}\lambda^nq_{(n)}q'/n!\),
+this is a Lie conformal algebra \(R_\eta\).
+The distinguished central \(\mathbf1\) is retained.
+Its pointed vertex envelope is canonically \(V\).
+
+Here is a PBW proof that does not assume \(R_\eta\) free over
+\(k[T]\). Its coefficient Lie algebra is
+\[
+ \mathcal L(R_\eta)=
+ \frac{R_\eta\otimes k[t,t^{-1}]}
+ {(T\otimes1+1\otimes\partial_t)(R_\eta\otimes k[t,t^{-1}])},
+ \qquad
+ [u(m),v(n)]=
+       \sum_{j\geq0}\binom mj(u_{(j)}v)(m+n-j).
+\]
+Its negative part identifies with \(R_\eta\) by
+\(u(-r)\leftrightarrow T^{r-1}u/(r-1)!\).
+Inducing from the nonnegative part and imposing
+\(\mathbf1(-1)=1\) gives associated graded
+\(\operatorname{Sym}(Q)\).
+The coefficient fields are local and create the generators;
+their iterated normal products construct the universal vertex
+algebra. On \(U(Q)\), relation \eqref{cyrep:eq:double-action}
+shows that every \(\mathcal A^\xi\) preserves PBW degree.
+Thus the \((-1)\)-mode of \(q\) is \(L(q)\) plus a
+degree-preserving operator. The map from the envelope has
+associated graded the identity on \(\operatorname{Sym}(Q)\).
+Induction on the exhaustive nonnegative filtration proves it
+an isomorphism, preserving all fields and translation.
+
+\section{The determinant-one rational double}
+\label{cyrep:sec:rtt-double}
+
+The rational matrix example makes both halves independent before
+their action on the vacuum is considered.
+Fix \(N\geq2\), \(R_\hbar=\mathbb C[[\hbar]]\), and let \(P\)
+flip \(\mathbb C^N\otimes\mathbb C^N\).
+Normalize
+\begin{equation}\label{cyrep:eq:normalized-R}
+ \mathsf R(w)=f(w)(I-\hbar P/w),\qquad
+ f(w+N\hbar)=f(w)(1-\hbar^2/w^2),\qquad f(w)=1+O(\hbar/w).
+\end{equation}
+The scalar recurrence determines \(f\) coefficientwise.
+It gives unitarity and the crossing identity
+\[
+ \bigl((\mathsf R(w)^{t_1})^{-1}\bigr)^{t_1}
+                 =\mathsf R(w-N\hbar)^{-1};
+\]
+the first term is \(I-\hbar(P-N^{-1}I)/w\).
+These are the determinant-normalized conventions of
+\cite[Sections 1.1--1.6]{EtingofKazhdanIV}.
+
+Use independent matrices
+\[
+ L(v)=I+\hbar\sum_{r\geq1}\ell^{[r-1]}v^{r-1},
+ \qquad C(p)=I+\hbar\sum_{r\geq1}m^{(r)}p^{-r}.
+\]
+For either matrix \(X\), define the descending-column determinant
+\[
+ q_X(u)=\sum_{\sigma\in S_N}(-1)^\sigma
+ X_{\sigma(1),1}(u)X_{\sigma(2),2}(u-\hbar)\cdots
+ X_{\sigma(N),N}(u-(N-1)\hbar).
+\]
+The creation algebra \(U\) and annihilation algebra \(U_+\)
+are generated by the divided coefficients of \(L,C\), respectively.
+Each satisfies RTT and \((q_X-1)/\hbar=0\).
+For \(K\in\mathbb C\), impose in addition
+\begin{equation}\label{cyrep:eq:mixed-RTT}
+ \mathsf R_{12}(p-v+K\hbar/2)C_1(p)L_2(v)
+ =L_2(v)C_1(p)\mathsf R_{12}(p-v-K\hbar/2).
+\end{equation}
+All RTT and mixed defects are divided by \(\hbar^2\) before
+their coefficients are imposed. Clear auxiliary denominators
+in the creation relation; expand the mixed relation in
+\(p^{-1},v,\hbar\).
+The closed ideal of these divided relations defines \(D_K\).
+Initially every \(\hbar\)-coefficient is a finite polynomial
+in modes. Flatness is not imposed as an extra quotient.
+
+\begin{theorem}\label{cyrep:thm:rtt-pbw}
+The algebras \(U,U_+,D_K\) are topologically free over \(R_\hbar\),
+and multiplication is an isomorphism of topological modules
+\begin{equation}\label{cyrep:eq:rtt-factorization}
+ U\widehat\otimes_{R_\hbar}U_+\xrightarrow{\ \sim\ }D_K.
+\end{equation}
+In each half, ordered monomials in the off-diagonal generators
+and \(N-1\) independent diagonal generators give a topological basis.
+Moreover
+\[
+ D_K/\hbar D_K\simeq
+ U(\mathfrak{sl}_N[t,t^{-1}]\oplus\mathbb C\mathbf c)/
+                         (\mathbf c-K),
+\]
+where
+\[
+ [xt^a,yt^b]=[x,y]t^{a+b}
+       +a\delta_{a+b,0}\operatorname{tr}(xy)\mathbf c.
+\]
+The creation and annihilation halves reduce respectively to
+\(U(t^{-1}\mathfrak{sl}_N[t^{-1}])\) and
+\(U(\mathfrak{sl}_N[t])\).
+\end{theorem}
+
+\begin{proof}
+Retain the full diagonal families and a variable central
+\(\mathbf c\) first. The general linear double has the PBW
+basis of \cite[Theorem 2.2, Corollary 2.3, Section 4.1]
+{JingKozicMolevYang2017}.
+Their matrices are \(T=C,T^+=L\), with
+\(t^{(-r)}=-\ell^{[r-1]}\), \(t^{(r)}=m^{(r)}\).
+The filtration
+\[
+ \deg t^{(r)}=r-1,\qquad
+ \deg t^{(-r)}=-r,\qquad \deg\mathbf c=0
+\]
+produces the present divided relations in its Rees algebra,
+after spectral rescaling. Negative filtration degrees cause
+no difficulty before completion: expressions in the localization
+are finite sums. The Rees PBW basis and then \(\hbar\)-completion
+give a topologically free general linear algebra, free also
+over the central parameter. Specializing \(\mathbf c=K\)
+retains this basis.
+
+The divided determinant coefficients
+\(d_L=(q_L-1)/\hbar\), \(d_C=(q_C-1)/\hbar\) are central.
+For the mixed commutation, the antisymmetrizer \(A_N\) obeys
+\[
+ A_N\mathsf R_{0N}(w+(N-1)\hbar)\cdots
+                   \mathsf R_{01}(w)=A_N.
+\]
+Without the scalar factors the product is
+\(A_N(1-\hbar/w)\), while
+\(\prod_{j=0}^{N-1}f(w+j\hbar)=(1-\hbar/w)^{-1}\).
+Moving \(C\) through the fused determinant of \(L\) therefore
+cancels both numerical products, including their central shifts.
+The argument with the halves interchanged is the same.
+Within either half this is the RTT determinant identity.
+Torsion-freeness permits division of the commutator by \(\hbar\).
+
+At each mode the leading term of a divided determinant coefficient
+is the trace of the divided matrix.
+Replace one diagonal generator by that central coefficient.
+Modulo \(\hbar\) this is an invertible change of basis in
+\(\mathfrak{gl}_N\). PBW and successive lifting prove that the
+new ordered monomials remain a topological basis: subtract
+a lift at each precision and divide by \(\hbar\);
+the first nonzero coefficient rules out a kernel.
+Put the central coefficients last.
+The closed ideal they generate is precisely the span of monomials
+containing one of them, by centrality and factorization of that
+coefficient. The remaining monomials form a free complementary
+summand. This proves the determinant-one quotient is saturated,
+its factorization, and its displayed classical limit.
+\end{proof}
+
+Formal positive modes require a different completion.
+Let \(I_{d,M}\) be the left ideal generated by \(\hbar^d\)
+and the \(m_{ij}^{(r)}\) with \(r>M\), and put
+\[
+ D_K^{\mathrm{sm}}=\varprojlim_{d,M}D_K/I_{d,M}.
+\]
+These are module quotients, not asserted to be algebra quotients.
+The corresponding classical carrier is
+\[
+ t^{-1}\mathfrak{sl}_N[t^{-1}]
+ \oplus\mathfrak{sl}_N[[t]]\oplus\mathbb C\mathbf c,
+\]
+with the positive half \(t\)-adic and the negative half discrete.
+The same left-ideal construction defines its completed enveloping
+algebra at level \(K\).
+
+PBW extends to this completion. At precision \(\hbar^d\),
+commuting a high positive mode past a fixed creation word lowers
+its index by a bounded amount, as follows from the expansion in
+\eqref{cyrep:eq:mixed-RTT}.
+A determinant correction of order \(\hbar^j\) contains at most
+\(j+1\) mode factors, whose total positive index is at least \(r-j\)
+if it replaces a trace of index \(r\).
+Following a marked high mode during ordering therefore leaves
+some factor of index at least \((r-d)/(d+1)\).
+If \(B_{d,M}\) is the span of \(\hbar^dD_K\) and ordered PBW
+monomials containing a positive index greater than \(M\), then
+\[
+ B_{d,M}\subset I_{d,M},\qquad
+ I_{d,L}\subset B_{d,M}\quad\text{for }L>(d+1)M+d.
+\]
+The two systems are cofinal.
+Thus the completion consists of PBW series with finite support
+at each precision after bounding all positive indices.
+This proves separation, \(\hbar\)-torsion-freeness and the
+stated completed classical limit.
+Left multiplication preserves the left-ideal neighborhoods;
+right multiplication by a fixed word is continuous by the index
+bound. Approximating one factor at a time extends multiplication
+to Cauchy series, and density proves associativity.
+
+For a finite free continuous \(U_+^{\mathrm{sm}}\)-module \(E\),
+the separated completed balanced tensor consequently satisfies
+\[
+ D_K^{\mathrm{sm}}\widehat\otimes^{\mathrm{cont}}_{U_+^{\mathrm{sm}}}E
+                       \simeq U\widehat\otimes E.
+\]
+At each precision all sufficiently high positive modes kill \(E\).
+PBW ordering therefore evaluates a completed element on the top
+to a finite creation polynomial at that precision.
+The inverse is the inclusion of creation tensors.
+Both composites are identities on finite words and hence on
+their completions. No infinite sum of creation modes has been
+added to the state space.
+
+\subsection{The independent field comparison}
+
+Let \(F\) denote the determinant-one coordinate Hopf algebra:
+its matrix \(L(v)\) is not divided by \(\hbar\).
+Its commutative reduction is the coordinate algebra of
+\(SL_N[[t]]\); its map to the divided algebra sends
+\(L\) to \(I+\hbar\ell\).
+The form on \(F\) is
+\(\rho_z(L_1(u),L_2(v))=\mathsf R(z+u-v)\).
+Take \(\eta_K=\tau_{-K\hbar}\), where
+\(\tau_sL(v)=L(v+s)\).
+The mixed pairing and coaction of
+Lemma~\ref{cyrep:lem:divided-estimates} give the fields on \(U\).
+
+On the independently induced vacuum module of \(D_K\),
+the matrix \(C\) satisfies \(C(p)\mathbf1=I\).
+The mixed relation recursively determines its value on every
+creation word. The coaction annihilation operator obeys the
+same recursion, with
+\begin{equation}\label{cyrep:eq:annihilation-inverse}
+ C_0(z+u+K\hbar/2)
+ =A_z(S^{-1}L_0(u))=A_z(L_0(u))^{-1}.
+\end{equation}
+This is an inverse of matrices of operators on all states.
+It is not obtained by silently replacing a partial inverse
+of a numerical tensor with an ordinary inverse.
+The recursion follows by pairing the coaction product against
+\(L_0(u)\); the inverse-antipode pairing is evaluated with
+the crossing identity following \eqref{cyrep:eq:normalized-R}.
+Both sides equal \(I\) on the vacuum.
+PBW induction and the integral divided formulas prove the
+equality on every state.
+
+For a word of creation matrices this gives
+\begin{equation}\label{cyrep:eq:all-fields}
+\begin{split}
+ Y_K(L_1(u_1)\cdots L_r(u_r),z)
+ ={}&L_1(u_1+z)\cdots L_r(u_r+z)\\
+ &\cdot\bigl(C_1(u_1+z+K\hbar/2)\cdots
+             C_r(u_r+z+K\hbar/2)\bigr)^{-1}.
+\end{split}
+\end{equation}
+The reversed order inside the inverse is the annihilation
+anti-action. This is the quantum affine field formula of
+\cite[Section 2.1, equation (2.10)]{EtingofKazhdanV}.
+Subtract \(I\) in each input matrix and divide by \(\hbar^r\)
+to obtain the equality on every divided monomial.
+One can first work to \(r\) extra powers of \(\hbar\);
+integrality then permits division, and continuity gives
+the complete state space.
+The PBW identity is therefore an isomorphism preserving the
+vacuum, translation and all fields, for every rank and level.
+
+For completeness, the exchange comparison retains the full
+auxiliary block order. Put
+\[
+ A=L_1(u_1)\cdots L_r(u_r),\qquad
+ B=L_{r+1}(v_1)\cdots L_{r+s}(v_s),
+\]
+with entries in the first and second state factors, and
+\[
+ r_0=\prod_{i=1}^{r}\prod_{j=s}^{1}
+             \mathsf R_{i,r+j}(z+u_i-v_j),\qquad
+ r_\pm=r_0(z\pm c),\qquad c=-K\hbar.
+\]
+Then the coordinate-coaction exchange satisfies
+\begin{equation}\label{cyrep:eq:block-exchange}
+ \mathcal S_K(z)(r_0^{-1}B r_+ A)=A r_-^{-1}B r_0.
+\end{equation}
+To check the order, let
+\(b_+=((r_+^{t_A})^{-1})^{t_A}\), where \(t_A\)
+transposes the first auxiliary block.
+The coefficient of \(A_{ab}\otimes B_{cd}\) in
+\(\mathcal S_K(z)(A_{ij}\otimes B_{kl})\) is
+\[
+ \sum_{p,q,r',s'}
+ (r_-^{-1})_{bs',pc}(r_0)_{pd,jr'}
+                  (r_0)_{qk,as'}(b_+)_{ir',ql}.
+\]
+These are the four pairings of the ordinary and inverse-antipode
+tails. Substitution into the left side of
+\eqref{cyrep:eq:block-exchange} first contracts
+\[
+ \sum_{e,d}(r_+)_{ad,el}(b_+)_{er',qd}
+                         =\delta_{aq}\delta_{r'l},
+\]
+which is \(b_+^{t_A}r_+^{t_A}=I\), and then contracts
+\(r_0^{-1}r_0\). The remaining expression is the right side.
+No entries in one state factor are commuted.
+The numerical input transformation is the identity modulo
+\(\hbar\), hence invertible.
+It determines the exchange on coordinate words; divided finite
+differences and continuity extend it to every pair of states.
+This is equation (2.11) of \cite{EtingofKazhdanV}, with its
+displayed level shifts.
+
+The reduction is \(V^K(\mathfrak{sl}_N)\).
+The cotangent double is the Laurent current algebra, paired by
+\(\operatorname{Res}\operatorname{tr}(ab)\,dt\), and
+\eqref{cyrep:eq:double-cocycle} becomes
+\[
+ K\operatorname{Res}_{t=0}
+                 \operatorname{tr}(\partial_ta(t)b(t))\,dt.
+\]
+Indeed the negative and positive halves are isotropic and
+complementary, so invariance determines the mixed bracket.
+On the negative half \(T=-\partial_t\) and
+\(\theta=-KT=K\partial_t\); its skew extension is also
+\(K\partial_t\) by integration by parts.
+The coaction derivation associated to \(at^m\), \(m\geq0\),
+is the current mode \(a(m)\) on every PBW state.
+This follows first on current generators from the rational kernel,
+then on products from the mixed relation and the vacuum.
+Sufficiently high modes kill a fixed state, so the positive formal
+series acts by a pointwise finite sum.
+
+The first exchange coefficient is consequently
+\[
+ s_K(z)=
+ -\sum_{m,n\geq0}(-1)^m\binom{m+n}{m}z^{-m-n-1}
+                       \sum_\gamma e_\gamma(m)\otimes e^\gamma(n),
+\]
+for trace-dual bases \(e_\gamma,e^\gamma\).
+The sign is the negative rational kernel in
+\eqref{cyrep:eq:normalized-R}.
+For two current states \(a,b\), only modes zero and one remain:
+\begin{equation}\label{cyrep:eq:current-exchange}
+\begin{split}
+ s_K(z)(a\otimes b)
+ ={}&-\frac{\sum_\gamma[e_\gamma,a]\otimes[e^\gamma,b]}{z}\\
+ &+\frac{K(1\otimes[a,b]+[a,b]\otimes1)}{z^2}
+       +\frac{2K^2\operatorname{tr}(ab)}{z^3}1\otimes1.
+\end{split}
+\end{equation}
+
+The critical specialization retains a scalar pole.
+Set \(s=z+u-v\) and
+\(\omega_{ij,kl}=\delta_{il}\delta_{kj}
+                       -N^{-1}\delta_{ij}\delta_{kl}\).
+The scalar component, extracted by the state counit, is
+\begin{equation}\label{cyrep:eq:scalar-current}
+ \varepsilon(Y_K(\ell_{ij}(u),z)\ell_{kl}(v))
+ =\omega_{ij,kl}
+       \left(\frac K{s^2}-\hbar\frac{K(K+N)}{s^3}\right)
+       +O(\hbar^2).
+\end{equation}
+At \(K=-N\), its exact value is
+\begin{equation}\label{cyrep:eq:critical-current}
+ -\frac{N\omega_{ij,kl}}{s^2-\hbar^2}.
+\end{equation}
+To derive both formulas, put \(w=-s,c=-K\hbar\),
+\(\varphi=f(w)/f(w+c)\) and \(g=\hbar/(w+c-N\hbar)\).
+The four contractions give
+\[
+ \frac{\varphi-1}{\hbar^2}\delta_{ij}\delta_{kl}
+ +\frac{\varphi}{\hbar^2}
+       \left(g-\frac{\hbar}{w}-\frac{N\hbar g}{w}\right)
+                            \delta_{il}\delta_{kj}.
+\]
+For \(c=\lambda\hbar\), the scalar recurrence gives
+\[
+ \varphi=1+\frac{\lambda\hbar^2}{Nw^2}
+       -\frac{\lambda(\lambda-N)\hbar^3}{Nw^3}
+       +O(\hbar^4).
+\]
+Also the parenthesis is
+\(-\hbar c/[w(w+c-N\hbar)]\).
+These yield \eqref{cyrep:eq:scalar-current}.
+At \(K=-N\), \(c=N\hbar\) and
+\(\varphi=(1-\hbar^2/w^2)^{-1}\), giving
+\eqref{cyrep:eq:critical-current}.
+No construction above divides by \(K+N\).
+The identity \(S^2=\tau_{N\hbar}\) gives
+\(\eta_K=S^2\tau_{-(K+N)\hbar}\); at critical level the
+extra translation disappears, while the central contraction
+remains nonzero.
+
+\section{Induced modules and the level twist}
+\label{cyrep:sec:induced}
+
+A coordinate comodule alone has an annihilation action through
+the form. Covariant fields also need creation.
+This can be seen before constructing the induced module.
+Let \(E\) be the vector comodule with coefficient matrix \(L(0)\),
+and try to use only
+\[
+ A^E_z(a)e=e_{(0)}\rho_{-z}(e_{(1)},a).
+\]
+Write \(G(v)\) for the universal classical loop.
+For the identity level, the first covariance defect on coefficients
+\(L^0_{ij},L^0_{kl}\) is
+\begin{equation}\label{cyrep:eq:annihilation-defect}
+ \frac{\delta_{jk}G_{il}(0)
+       -G_{il}(w)(G(w)^{-1}G(0))_{kj}}{w}.
+\end{equation}
+It follows by inserting the first-order kernel
+\(-\bigl(P-N^{-1}I\bigr)/w\) in the two coaction tails;
+the scalar terms cancel.
+In rank two, evaluate at \(g(v)=I+vE_{21}\) and
+\((i,j,k,l)=(2,1,1,1)\). The result is \(-1\).
+
+Changing the level cannot repair these prescribed operators and
+this coaction. If covariance held at a level \(\eta\), its
+zeroth-order identity would imply
+\[
+ G_{ij}(0)\bigl(\varepsilon(a)
+       -\tau_w(a_2S_0^{-1}(\eta_0a_1))\bigr)=0
+\]
+for every \(a\) in the classical coordinate algebra.
+Invertibility of \(G(0)\) gives
+\(a_2S_0^{-1}(\eta_0a_1)=\varepsilon(a)\).
+Uniqueness of the convolution inverse for the opposite coproduct
+then gives \(\eta_0=1\).
+At first order the change of level modifies
+\eqref{cyrep:eq:annihilation-defect} by
+\(-G_{ij}(0)q^\eta_{kl}(w)\) for a scalar coordinate function
+\(q^\eta_{kl}\). The same test loop has \(g_{21}(0)=0\);
+its defect remains \(-1\).
+This rules out the annihilation-only prescription, while leaving
+modules with additional states and fields available.
+
+Let now \(E\) be any finite free \(R_\hbar\)-module with a
+continuous right \(F\)-coaction
+\(e\mapsto e_0\otimes e_1\).
+No translation on \(E\) is assumed.
+Set \(W_K(E)=U\widehat\otimes E\), with left creation action
+\(\lambda(a)(b\otimes e)=ab\otimes e\).
+
+\begin{theorem}\label{cyrep:thm:induction}
+There is a unique continuous integral coaction on \(W_K(E)\)
+whose restriction to the top is
+\((1\otimes e)\mapsto(1\otimes e_0)\otimes e_1\)
+and whose compatibility is
+\begin{equation}\label{cyrep:eq:module-coaction}
+ \delta_K(\lambda(a)w)
+       =\lambda(a_2)w_0\otimes a_3w_1S^{-1}\eta_K(a_1).
+\end{equation}
+The fields
+\begin{equation}\label{cyrep:eq:module-fields}
+ A_z(a)w=w_0\beta_{-z}(w_1,a),\qquad
+ Y_W(a,z)w=\lambda(a_1(z))A_z(a_2)w
+\end{equation}
+are integral, with values in
+\(\varprojlim_d(W_K(E)/\hbar^d)((z))\).
+They satisfy the module field identities and covariance
+\[
+ \delta_K(Y_W(a,z)w)
+       =Y_W(a_{(0)},z)w_0\otimes w_1a_{(1)}(z).
+\]
+Here \(\beta:F\widehat\otimes U\to
+\mathbb C[z,z^{-1}][[\hbar]]\) is the mixed pairing.
+\end{theorem}
+
+\begin{proof}
+The generic formula is
+\[
+ \delta_K(a\otimes e)
+ =(a_2\otimes e_0)\otimes a_3e_1S^{-1}\eta_K(a_1).
+\]
+Its integral meaning is fixed by a recursion.
+Put \(B_{ia}(v)=S^{-1}L_{ia}(v)\). The opposite-antipode
+identity is \(\sum_aL_{aj}(v)B_{ia}(v)=\delta_{ij}\).
+For \(f\in F\) define
+\[
+ d^v_{ij}(f)=\hbar^{-1}
+  \left(\sum_aL_{aj}(v)fB_{ia}(v-K\hbar)-\delta_{ij}f\right).
+\]
+Its numerator is the sum of
+\(\sum_aL_{aj}[f,B_{ia}]\) and
+\(\sum_aL_{aj}f(B_{ia}(v-K\hbar)-B_{ia}(v))\).
+Both are divisible by \(\hbar\), using commutativity of
+\(F/\hbar F\) and \(\eta_K\equiv1\pmod\hbar\).
+For a divided generator this gives
+\[
+\begin{split}
+ \delta_K(\ell_{ij}(v)w)
+ ={}&\sum_{a,b}\lambda(\ell_{ab}(v))w_0\otimes
+                   L_{bj}(v)w_1B_{ia}(v-K\hbar)\\
+ &+w_0\otimes d^v_{ij}(w_1).
+\end{split}
+\]
+Starting at the top defines integral values on all divided
+words. The generic formula kills the RTT relations;
+the integral torsion-free target and the saturated PBW
+presentation prove descent to \(U\).
+For determinant descent, the coordinate determinant \(q\)
+is central and grouplike. With \(d=(q-1)/\hbar\) and
+\(g=q(\eta_Kq)^{-1}\), its coaction is
+\[
+ (d\otimes e_0)\otimes ge_1
+       +(1\otimes e_0)\otimes\frac{g-1}{\hbar}e_1.
+\]
+Imposing \(d=0\) in \(U\) and \(q=1\) in \(F\) kills it.
+
+The two coaction iterates are
+\[
+ (a_3\otimes e_0)\otimes
+ a_4e_1S^{-1}\eta_K(a_2)\otimes
+ a_5e_2S^{-1}\eta_K(a_1).
+\]
+This proves coassociativity; the counit identity is immediate.
+The recursion proves uniqueness.
+The mixed pairing is integral by
+Lemma~\ref{cyrep:lem:divided-estimates}, so
+\eqref{cyrep:eq:module-fields} is integral.
+The two pairing product rules and
+\eqref{cyrep:eq:module-coaction} give covariance by
+cancelling consecutive antipode factors.
+The same cancellations in products of fields give the
+consecutive-substitution common germ, exactly as in
+Theorem~\ref{cylev:thm:fields}.
+The unit and derivative identities follow from the counit
+and \(a(z)=e^{zT}a\).
+All calculations hold on divided words at finite precision;
+continuity gives the stated field carrier.
+\end{proof}
+
+This is the integral version of dimodule induction
+\cite[Proposition 3.2]{EtingofKazhdanIV}.
+When the top is realized as a continuous annihilation-module,
+PBW identifies it with induction from \(U_+\) to \(D_K\).
+For example the evaluation top is defined by the spectral pairing;
+the mixed relation \eqref{cyrep:eq:mixed-RTT} recursively determines
+the action on \(U\widehat\otimes E\).
+The equality \eqref{cyrep:eq:annihilation-inverse} on words
+identifies that action with \eqref{cyrep:eq:module-fields}.
+This comparison preserves creation, coaction and every field.
+
+Let \(\mathscr D_K\) be the category of such continuous structured
+modules: a \(U\)-action \(\lambda\), an \(F\)-coaction \(\delta\)
+and the compatibility \eqref{cyrep:eq:module-coaction}.
+Morphisms preserve both maps.
+For \(M\in\mathscr D_K,N\in\mathscr D_L\), define
+\begin{equation}\label{cyrep:eq:structured-tensor}
+\begin{split}
+ \delta_{M\odot N}(m\otimes n)
+       &=m_0\otimes n_0\otimes n_1m_1,\\
+ \lambda_{M\odot N}(a)
+       &=(\lambda_M\eta_L\otimes\lambda_N)\Delta a.
+\end{split}
+\end{equation}
+The reverse coordinate tail is essential.
+Expansion of the two compatibility identities cancels
+the adjacent factors
+\(S^{-1}\eta_L(a_4)\eta_L(a_3)\), leaving
+\eqref{cyrep:eq:module-coaction} at level \(K+L\).
+Thus \(M\odot N\in\mathscr D_{K+L}\).
+Its fields are the crossed tensor fields pulled back along
+\((\eta_L\otimes1)\Delta\).
+Both descriptions reduce to the same normal expression
+\[
+ \lambda_M(\eta_La_1(z))A^M_z(a_4)m
+       \otimes\lambda_N(a_2(z))A^N_z(a_3)n.
+\]
+On a divided matrix generator the coproduct is explicitly
+\[
+ \ell_{ij}(u-L\hbar)\otimes1+1\otimes\ell_{ij}(u)
+       +\hbar\sum_a\ell_{ia}(u-L\hbar)\otimes\ell_{aj}(u).
+\]
+The triple creation product is
+\(L^{(1)}(u-(L+J)\hbar)L^{(2)}(u-J\hbar)L^{(3)}(u)\)
+for a third level \(J\), and the triple tail is \(p_1n_1m_1\).
+These prove associativity with the ordinary associator.
+The scalar counit module is the unit at level zero.
+Two induced modules retain two creation factors
+\((U\widehat\otimes E)\widehat\otimes(U\widehat\otimes E')\);
+the tensor is not identified with \(U\widehat\otimes(E\otimes E')\).
+
+For a scalar \(A\), define the level twist on \(N\in\mathscr D_L\)
+by
+\[
+ \lambda_{\operatorname{Tw}_A N}(a)=\lambda_N(\eta_A^{-1}a),
+ \qquad
+ \delta_{\operatorname{Tw}_A N}(n)=n_0\otimes\eta_A(n_1).
+\]
+It remains at level \(L\).
+There are integral field intertwiners
+\begin{equation}\label{cyrep:eq:crossed-braiding}
+ c_{M,N}:M\odot N\longrightarrow
+             (\operatorname{Tw}_K N)\odot M,\qquad
+ c_{M,N}(m\otimes n)=n_0\otimes\lambda_M(n_1)m.
+\end{equation}
+The action of \(n_1\in F\) uses the map \(F\to U\).
+The inverse, using the untwisted coaction of \(N\), is
+\[
+ n\otimes m\longmapsto\lambda_M(Sn_1)m\otimes n_0.
+\]
+The antipode identities check both composites.
+For creation intertwining, the source expression reduces to
+\(\lambda_N(a_1)n_0\otimes\lambda_M(a_2n_1)m\).
+On the target the twist cancels the \(\eta_K\) in its tensor
+action and gives the same expression.
+For colinearity the inverse-antipode pair cancels to leave
+\(n_0\otimes\lambda_M(n_1)m_0\otimes n_2m_1\).
+A map preserving creation and coaction preserves
+\eqref{cyrep:eq:module-fields}, proving all-field intertwining.
+
+The two hexagons have respective values
+\[
+ n_0\otimes p_0\otimes\lambda_M(p_1n_1)m,\qquad
+ p_0\otimes\lambda_M(\eta_Lp_1)m\otimes\lambda_N(p_2)n.
+\]
+Thus they hold with their specified twisted targets;
+naturality, the unit and compatibility with every twist follow
+from the same formulas.
+At level zero this is an ordinary braiding.
+At general levels erasing the twist changes the creation action
+and loses the intertwining equation.
+
+\section{Coefficients at finite precision}
+\label{cyrep:sec:formal-coefficients}
+
+The rational matrix construction has a representation-theoretic
+counterpart. Its coefficient algebra must retain extensions and the
+scalar part of the universal matrix. Both affect the integral lattice.
+We construct it over \(R=\mathbb C[[\hbar]]\), with
+\(R_N=R/\hbar^NR\).
+
+Let \(\mathfrak g\) be a complex simple Lie algebra with a fixed
+nondegenerate invariant form and inverse tensor \(\Omega\).
+Let \(A\) be its formal Yangian, completed at the current origin.
+A finite-free \(R\)-module is continuous if sufficiently high current
+modes act by zero modulo each \(\hbar^N\). Write
+\(M_N=M/\hbar^NM\) for its reduction.
+Use the conventions
+\[
+ \Delta_AJ(x)=J(x)\otimes1+1\otimes J(x)
+                 +\frac{\hbar}{2}[x\otimes1,\Omega],\qquad
+ \tau_sJ(x)=J(x)+sx.
+\]
+The universal formal matrix has expansion
+\(\mathsf R(z)=1+\hbar\Omega/z+O(z^{-2})\).
+Its translation, cabling, unitarity and shifted intertwining
+identities hold with its full scalar factor
+\cite[Theorem 7.4]{GautamToledanoLaredoWendlandt2021}.
+
+Let \(\mathcal C\) have all finite-free continuous \(A\)-modules as
+objects and all intertwiners as morphisms. Exactness means exactness
+on the underlying \(R\)-modules. For \(m\in M\in\mathcal C\) and
+\(\phi\in M^\vee\), put
+\[
+ c_{\phi,m}(a)=\phi(am),\qquad
+ H^\circ=\operatorname{span}_R\{c_{\phi,m}\}
+                         \subset A^\vee_{\mathrm{cont}}.
+\]
+A finite sum of coefficients is a coefficient of a direct sum.
+
+\begin{proposition}\label{cyrep:prop:coefficient-lattice}
+The category \(\mathcal C\) is exact and rigid. Evaluation identifies
+its coend with \(H^\circ\):
+\[
+ \left(\bigoplus_{M\in\mathcal C}M^\vee\otimes_RM\right)
+ \big/\langle[\psi f,m]_M-[\psi,fm]_{M'}\rangle
+       \xrightarrow{\ \sim\ }H^\circ.
+\]
+Here \(f:M\to M'\) ranges over all intertwiners.
+Write \(Q(\mathcal C)\) for the displayed quotient.
+The coefficient module is saturated in the continuous dual and is
+a flat Hopf algebra.
+\end{proposition}
+
+\begin{proof}
+The continuous coproduct and both antipodes preserve the indicated
+class under tensor products and duals. Stable finite-free quotients
+inherit continuity. For a stable submodule \(L\subset M\), Smith
+normal form gives \(d\geq0\) such that
+\(L\cap\hbar^{n+d}M\subset\hbar^nL\) for every \(n\).
+Continuity on \(M\) at precision \(n+d\) therefore implies
+continuity on \(L\) at precision \(n\). Such submodules are finite
+free because \(R\) is a discrete valuation ring. These facts also
+give the exact structure and its idempotent splittings.
+
+Represent a coend class by \([\phi,m]_M\), and take the stable
+lattice \(L=Am\). Its inclusion gives
+\([\phi,m]_M=[\phi|_L,m]_L\). If the coefficient vanishes,
+\(\phi|_L=0\); hence evaluation is injective.
+If instead its values lie in \(\hbar^rR\), the functional
+\(\psi=\hbar^{-r}\phi|_L\) is integral and continuous, and
+\[
+ c_{\phi,m}=\hbar^r c^L_{\psi,m},\qquad
+ [\phi,m]_M=\hbar^r[\psi,m]_L.
+\]
+This proves saturation. Torsion-freeness proves flatness.
+
+For a basis \((e_i)\) of \(M\), the Hopf maps are
+\[
+ (fg)(a)=(f\otimes g)(\Delta_Aa),\qquad
+ \Delta_Hc_{\phi,m}=\sum_i c_{\phi,e_i}\otimes c_{e^i,m},
+ \qquad \varepsilon_H(f)=f(1),\quad S_H(f)=f\circ S_A.
+\]
+The unit is \(\varepsilon_A\). Tensor products and duals keep these
+maps inside \(H^\circ\); evaluation verifies their identities.
+\end{proof}
+
+This argument also gives finite coalgebras on which reduction loses
+no coefficient relations. For the coefficient space \(C_U\) of a
+finite direct sum \(U\in\mathcal C\), define
+\[
+ B_U=(\mathbb C((\hbar))C_U)\cap A^\vee_{\mathrm{cont}}.
+\]
+Finitely many evaluations separate the finite-dimensional fraction
+space and embed \(B_U\) into some \(R^d\). Thus \(B_U\) is finite
+free. Saturation puts it inside \(H^\circ\) with flat quotient.
+Consequently \(B_U\otimes B_U\) is saturated in
+\(H^\circ\otimes H^\circ\). Since its fraction space contains
+\(\Delta_H(B_U)\), it is a subcoalgebra.
+
+There is a stronger evaluation statement. Saturation embeds
+\(B_U/\hbar B_U\) into \((A/\hbar A)^\vee\).
+Choose evaluations giving a square matrix invertible modulo
+\(\hbar\); its determinant is a unit. They identify \(B_U\)
+with \(R^{\operatorname{rank}B_U}\) and separate tensors at every
+precision. The regular action
+\((a\cdot b)(y)=b(ya)\) is continuous in these coordinates.
+Hence \(B_U\in\mathcal C\). The maps
+\[
+ M\longrightarrow B_U,\quad m\longmapsto c_{\phi,m},
+ \qquad \varepsilon_H(c_{\phi,m})=\phi(m),
+\]
+are intertwiners whenever the coefficients of \(M\) lie in \(B_U\).
+The \(B_U\) form a directed family exhausting \(H^\circ\).
+
+Set \(H_N=H^\circ/\hbar^NH^\circ\), viewed by saturation inside
+\((A/\hbar^NA)^\vee\). Define \(\mathcal C_N\) to have the
+finite-free continuous \(A/\hbar^NA\)-modules whose coefficients
+belong to this specified \(H_N\). A module in \(\mathcal C_N\)
+need not lift to \(R\).
+
+\begin{theorem}\label{cyrep:thm:coefficient-recognition}
+The algebras \(H_N\) are flat over \(R_N\), commute with reduction,
+and satisfy
+\[
+ \mathcal C_N\simeq\operatorname{Comod}_{\mathrm{ff}}(H_N),
+ \qquad Q(\mathcal C_N)\cong H_N
+                 \cong Q(\mathcal C)/\hbar^NQ(\mathcal C).
+\]
+The complete Hopf algebra
+\(H=\varprojlim_NH_N\) is topologically free, with
+\(H/\hbar^NH=H_N\), and
+\[
+ \mathcal C\simeq\operatorname{Comod}^{\mathrm{cont}}_{\mathrm{ff}}(H),
+ \qquad H\widehat\otimes H
+          =\varprojlim_N(H_N\otimes_{R_N}H_N).
+\]
+\end{theorem}
+
+\begin{proof}
+Flatness and reduction follow from the flatness of \(H^\circ\).
+The finite-free coalgebras \(B_U/\hbar^NB_U\) exhaust \(H_N\).
+On a basis of \(M\in\mathcal C_N\), define
+\(\delta(m)=\sum_i e_i\otimes c_{e^i,m}\).
+The action identities give the coaction identities because the
+finite evaluation coordinates just constructed separate their
+tensors. Conversely, evaluate a coaction by
+\(am=\sum m_0\langle a,m_1\rangle\).
+These constructions are inverse on objects and morphisms and
+preserve exact sequences, tensor products and both duals.
+
+Every coend class reduces to a regular coefficient object by
+\([\phi,m]_M=[\varepsilon_H,c_{\phi,m}]_{B_U}\).
+A lifted class with zero coefficient modulo \(\hbar^N\) is
+\(\hbar^N\) times an actual coefficient class by the cyclic-lattice
+argument. Additional intertwiners at finite precision have zero
+coefficient defect, so introduce no further kernel. This proves
+the two coend identifications without lifting those intertwiners.
+
+Choose compatible lifts of a complex basis of \(H_1\).
+Flatness identifies each successive \(\hbar\)-quotient of \(H_N\)
+with \(H_1\), so the lifts give compatible isomorphisms
+\(H_N\cong R_N^{(I)}\). Their limit is \(H_1[[\hbar]]\).
+Evaluation of a continuous finite-free \(H\)-coaction gives a
+continuous \(A\)-action at every precision, and its coefficient
+coaction is the original one. This proves the final equivalence.
+\end{proof}
+
+The recognition theorem concerns the actual Yangian coefficient
+category just defined. It does not characterize an arbitrary
+category of local fields by a unitary spectral presentation.
+Its ordinary tensor product has tail \(m_1n_1\).
+For the reverse-tail convention of
+\eqref{cyrep:eq:structured-tensor}, reverse the tensor category
+and then take opposite multiplication on its raw coend.
+The associated spectral interchange is \(P\mathsf R(z)^{-1}\);
+ordinary Yangian commutativity uses \(P\mathsf R(z)\).
+
+\section{The full scalar and the pole bound}
+\label{cyrep:sec:coefficient-poles}
+
+A finite pole bound at each precision is enough for formal fields.
+A single bound independent of precision is a stronger condition,
+and fails even on a fixed pair of vector coefficients.
+We first prove the finite-precision bound, including the abelian
+factor of the universal matrix.
+
+For nonzero \(M\in\mathcal C\), its reduction factors through a
+finite current Lie algebra \(\mathfrak g[t]/t^J\mathfrak g[t]\).
+The positive-current ideal kills every simple constituent: its
+solvable radical acts there by a character, and the commutator with
+the constant semisimple algebra forces this character to vanish.
+Choose a filtration of length \(e_M\leq\operatorname{rank}_R M\)
+which positive currents lower by one, and put
+\(\lambda_M=2e_M-1\). Take \(e_M=1\) if positive currents vanish.
+
+Write \(x_{i,r}^{\pm}\) and \(\xi_{i,r}\) for the Drinfeld root
+and Cartan modes. Define their logarithmic Cartan modes by
+\[
+ \hbar\sum_{r\geq0}t_{i,r}u^{-r-1}
+   =\log\left(1+\hbar\sum_{r\geq0}\xi_{i,r}u^{-r-1}\right).
+\]
+If \((a_{ij})\) is the Cartan matrix and \(d_i\) its symmetrizers,
+then
+\[
+ t_{i,1}=\xi_{i,1}-\tfrac\hbar2\xi_{i,0}^2,\qquad
+ [t_{i,1},x_{j,r}^{\pm}]=\pm d_i a_{ij}x_{j,r+1}^{\pm}
+\]
+\cite[\S2.4]{GautamToledanoLaredoWendlandt2021}.
+For the matrix \(B_i=t_{i,1}|_M\), we have
+\(B_i^{e_M}\in\hbar\operatorname{End}(M)\).
+Every term of \((\operatorname{ad}B_i)^{2e_M-1}\) therefore
+contains a factor divisible by \(\hbar\).
+Iterating the displayed commutator with \(i=j\), and using
+\([x_{i,r}^+,x_{i,0}^-]=\xi_{i,r}\), proves
+\begin{equation}\label{cyrep:eq:mode-bound}
+ v_\hbar(x_{i,r}^{\pm}|_M),\quad
+ v_\hbar(\xi_{i,r}|_M),\quad v_\hbar(t_{i,r}|_M)
+                 \ \geq\ \lfloor r/\lambda_M\rfloor.
+\end{equation}
+For the last inequality, a logarithmic term has the form
+\(\hbar^{k-1}\xi_{i,r_1}\cdots\xi_{i,r_k}\), where
+\(\sum r_j=r+1-k\). If its lower valuation bound is
+\(v=k-1+\sum\lfloor r_j/\lambda_M\rfloor\), division of each
+index by \(\lambda_M\) gives \(r\leq\lambda_M(v+1)-1\).
+This proves the claim for all three families.
+
+\begin{theorem}\label{cyrep:thm:full-pole-bound}
+For nonzero \(M,W\in\mathcal C\), put
+\(D=\lambda_M+\lambda_W-1=2(e_M+e_W)-3\).
+Then
+\[
+ \mathsf R_{M,W}(z)\bmod\hbar^N
+ \in\operatorname{End}_{R_N}(M_N\otimes W_N)[z^{-1}],
+ \qquad \operatorname{pole}_0\mathsf R_{M,W}\leq D(N-1).
+\]
+The bound includes the full scalar normalization.
+\end{theorem}
+
+\begin{proof}
+It suffices to show that the coefficient of \(z^{-d}\) has valuation
+at least \(\lceil d/D\rceil\). This region is preserved by products
+and inversion of a series congruent to one modulo \(\hbar\).
+Use the Gauss factors \(\mathsf R^+\mathsf R^0\mathsf R^-\).
+For a regular element \(h_0\) of the positive Cartan chamber,
+let \(T_A(h_0)\) be the corresponding linear combination of
+logarithmic first modes, and set
+\(Q=T_A(h_0)|_M\otimes1+1\otimes T_A(h_0)|_W\).
+The tensor filtration gives
+\(Q^{e_M+e_W-1}\in\hbar\operatorname{End}(M\otimes W)\),
+hence \((\operatorname{ad}Q)^D\) is divisible by \(\hbar\).
+
+For a positive root-lattice element \(\beta\), the triangular
+recursion is
+\[
+ \mathsf R^-_\beta(z)=\hbar\sum_{r\geq0}
+ \frac{(\operatorname{ad}Q)^r}{(z\beta(h_0))^{r+1}}
+ \sum_{\alpha>0}\alpha(h_0)\mathsf R^-_{\beta-\alpha}(z)
+                (x^-_\alpha|_M\otimes x^+_\alpha|_W)
+\]
+\cite[\S4.2]{GautamToledanoLaredoWendlandt2021}.
+A path of \(q\) steps with indices \(r_1,\ldots,r_q\) has valuation
+at least \(q+\sum\lfloor r_j/D\rfloor\) and pole at most
+\(\sum(r_j+1)\). Since
+\(r+1\leq D(1+\lfloor r/D\rfloor)\), it lies in the required
+region. At precision \(N\), only \(q<N\) and bounded indices
+contribute; there are finitely many roots. The inverse
+\(\mathsf R^+(z)=\mathsf R^-_{21}(-z)^{-1}\) has the same bound.
+
+The logarithm of the abelian factor is a sum of terms
+\[
+ C\hbar^a t_{i,r}|_M\otimes t_{j,s}|_W\ z^{-(a+r+s)},
+                       \qquad a\geq1.
+\]
+This follows directly from the explicit logarithm in
+\cite[equation (6.7)]{GautamToledanoLaredoWendlandt2021}:
+its two series \(\hbar\sum t_{i,r}u^r/r!\) cancel the prefactor
+\(\hbar^{-2}\), while its remaining scalar series begins with
+\(\hbar/z\). By \eqref{cyrep:eq:mode-bound}, a lower valuation is
+\(v=a+\lfloor r/\lambda_M\rfloor+\lfloor s/\lambda_W\rfloor\).
+The sum of the two remainders is at most \(D-1\), so
+\(a+r+s\leq Dv\). Exponentiation preserves the region.
+All three factors obey the stated bound.
+\end{proof}
+
+In type \(A_{n-1}\), use the opposite spectral sign from
+Section~\ref{cyrep:sec:rtt-double}. Write
+\[
+ R_+(z)=f_+(z)(I+\hbar P/z),\qquad
+ \prod_{r=0}^{n-1}f_+(z+r\hbar)
+                      =\frac{z+(n-1)\hbar}{z+n\hbar}.
+\]
+Let \(F_+\) be the corresponding determinant-one coordinate
+Hopf algebra. The vector representation \(V(u)\) has \(J(x)=ux\).
+Its parameter jets define a Hopf map
+\begin{equation}\label{cyrep:eq:yangian-coordinate-map}
+ F_+\longrightarrow H,\qquad
+ L_{ij}^{[r]}\longmapsto
+       \bigl(a\longmapsto[u^r]e_i^*\pi_{V(u)}(a)e_j\bigr).
+\end{equation}
+The map is an isomorphism preserving translation and the full
+spectral pairing. Here is the determinant and scalar check.
+The alternating line in
+\(V(u+(n-1)\hbar)\otimes\cdots\otimes V(u)\)
+is trivial: on its alternating vector \(w\),
+\([x_i,P_{ij}]w=(x_j-x_i)w\), and the coefficient of each
+\(x_iw\) in the iterated \(J(x)\) is
+\(u+(n-i)\hbar+\hbar(2i-n-1)/2=u+(n-1)\hbar/2\).
+The sum \(\sum_i x_iw\) vanishes. Its coefficient is therefore one.
+The bare cabled matrix on this line tensored with \(V\) is
+\[
+ \prod_{i=1}^n\left(1+\frac{\hbar P_{i,n+1}}{z+(n-i)\hbar}\right)
+       =\frac{z+n\hbar}{z+(n-1)\hbar}\,1.
+\]
+Compression of a product of \(k\) distinct permutations to the
+alternating line is \((-1)^{k-1}/n\); expansion reduces the
+formula to a telescoping product. Trivial-line cabling forces the
+displayed equation for \(f_+\), whose constant term one determines
+it uniquely, order by order. The forms thus agree on vector
+coefficients and, by their product identities, on the whole algebra.
+
+Modulo \(\hbar\), every coefficient representation integrates to
+a finite jet group \(\mathrm{SL}_n(\mathbb C[t]/t^J)\): its constant
+semisimple action integrates, and the nilpotent positive-current
+action exponentiates polynomially. Differentiation of functions on
+this connected smooth group is injective. Conversely the parameter
+jets of \(V(u)\) give every jet matrix coordinate. These generate
+\(\mathbb C[\mathrm{SL}_n[[t]]]\), proving that
+\eqref{cyrep:eq:yangian-coordinate-map} is an isomorphism modulo
+\(\hbar\). Both sides are topologically free, by the rational
+coordinate flatness theorem \cite[\S1.5]{EtingofKazhdanIV} and
+Theorem~\ref{cyrep:thm:coefficient-recognition}.
+Successive lifting proves surjectivity; successive divisibility
+and separatedness prove injectivity. The change of spectral sign
+identifies the source level \(K\) with \(c=-K\).
+This coordinate algebra remains distinct from the divided state
+algebra \(U\), whose pairing has domain \(F\widehat\otimes U\).
+
+The scalar cannot in general be discarded or replaced by a Laurent
+polynomial. For \(\mathfrak{sl}_2\), normalize
+\(\Omega=P-\tfrac12I\), and set \(M=V(\hbar)\otimes V(0)\).
+If
+\(s=e_+\otimes e_--e_-\otimes e_+\),
+\(t=e_+\otimes e_-+e_-\otimes e_+\), and
+\(H_0=\operatorname{diag}(1,-1)\), then
+\(J(H_0)t=2\hbar s\). The trivial line \(Rs\) has no stable
+triplet complement, so this module is a nonsplit extension.
+
+Put \(x=\hbar/z\), and write the vector matrix as \(F(x)(I+xP)\).
+Cabling with \(Rs\) gives
+\[
+ F\left(\frac{x}{1+x}\right)F(x)=\frac{1+x}{1+2x},\qquad
+ F(x)=1-\frac x2+\frac{5x^2}8-\frac{11x^3}{16}
+                       +\frac{83x^4}{128}-\frac{143x^5}{256}+O(x^6).
+\]
+The matrix entry from \(010\) to \(001\) on \(M\otimes V(0)\) is
+\[
+ \frac{x(1+x)}{1+2x}=x-x^2+2x^3-4x^4+\cdots.
+\]
+Both reductions have zero positive currents, so \(D=1\).
+This entry attains pole order \(N-1\) at every precision \(N\geq2\).
+Moreover, if \(F\) were polynomial, the left side of its equation
+could have a finite pole only at \(-1\), whereas the right side
+has one at \(-1/2\). Thus \(F\) is not polynomial.
+On two fixed opposite off-diagonal coefficients the pairing equals
+\(xF(x)\). Every reduction has finite pole order, but the complete
+value does not belong to \(R[z,z^{-1}]\).
+
+\section{Total and relative Fock oscillators}
+\label{cyrep:sec:relative-fock}
+
+The tensor of two induced modules retains two creation factors.
+In the abelian case we can identify the extra factor explicitly.
+Let \(\Gamma\subset\mathbb C\) be an additive charge group, and put
+\[
+ H_\Gamma=(\mathbb C[b_1,b_2,\ldots]\otimes\mathbb C[\Gamma])[[\hbar]].
+\]
+The \(b_n\) are primitive, the charge elements \(g_\mu\) are
+group-like, and
+\[
+ Tb_n=nb_{n+1},\qquad Tg_\mu=-\mu b_2g_\mu.
+\]
+The spectral pairing is determined by the Hopf product identities,
+translation, and
+\begin{equation}\label{cyrep:eq:charged-spectral-pairing}
+ \rho_z(b_1,b_1)=\frac\hbar z,\qquad
+ \rho_z(g_\mu,b_1)=\rho_z(b_1,g_\mu)=-\frac{\hbar\mu}{z},
+ \qquad \rho_z(g_\mu,g_\nu)=e^{\hbar\mu\nu/z}.
+\end{equation}
+For example, applying translation to the last formula agrees
+with \(Tg_\mu=-\mu b_2g_\mu\); this fixes its sign.
+All exponentials are \(\hbar\)-adic.
+In this section the level translation is
+\(\eta_K=e^{K\hbar T}\), the opposite spectral-sign convention
+from \(\eta_K=\tau_{-K\hbar}\) in the rational matrix example.
+
+For \(a\in\mathbb C\), define
+\begin{equation}\label{cyrep:eq:fock-A}
+ A_a(T)=\sum_{r\geq0}\frac{a^{r+1}\hbar^rT^r}{(r+1)!},
+ \qquad \beta_{K,n}=-TA_K(T)b_n
+                    =\frac{b_n-e^{K\hbar T}b_n}{\hbar}.
+\end{equation}
+The notation \((e^{a\hbar T}-1)/(\hbar T)\) for \(A_a(T)\)
+is a power-series abbreviation, requiring no inverse of \(T\)
+or \(\hbar\).
+The field-state algebra is the divided primitive polynomial algebra
+\(V_K=\mathbb C[x_1,x_2,\ldots][[\hbar]]\), with
+\(x_n=b_n/\hbar\) inside the divided algebra. The group elements
+remain coaction coefficients. For level \(K\) and charge
+\(\mu\), set
+\[
+ F_{K,\mu}=\mathbb C[x_1,x_2,\ldots][[\hbar]]v_\mu,
+ \qquad Tx_n=nx_{n+1},
+\]
+with coaction
+\begin{equation}\label{cyrep:eq:fock-coaction}
+ \delta(f(x)v_\mu)=
+ f(x\otimes1+1\otimes\beta_K)(v_\mu\otimes g_\mu).
+\end{equation}
+The \(\beta_{K,n}\) are primitive, so this is coassociative.
+
+Define the rational formal series and annihilation derivation
+\[
+ P_K(z)=\frac1\hbar\left(\frac1{z-K\hbar}-\frac1z\right),\qquad
+ P_{K,n}(z)=\frac{(-\partial_z)^{n-1}}{(n-1)!}P_K(z),\qquad
+ D_K(z)=\sum_{n\geq1}P_{K,n}(z)\partial_{x_n}.
+\]
+At each precision the derivative sum is finite on each polynomial.
+Writing \(C(z)=\sum_{n\geq1}x_nz^{n-1}\), the current is
+\begin{equation}\label{cyrep:eq:fock-current}
+ J^{K,\mu}(z)=C(z)+\frac\mu z+D_K(z).
+\end{equation}
+It represents the state \(x_1=b_1/\hbar\). For every monomial of
+\(V_K\), the field is
+\[
+ Y(x_{n_1}\cdots x_{n_r},z)
+ =:\prod_{i=1}^r\frac{\partial_z^{n_i-1}J^{K,\mu}(z)}{(n_i-1)!}: .
+\]
+Normal ordering puts the multiplication operators on the left
+and the scalar and differentiation operators on the right.
+The annihilation map of \(b_1\) is
+\(\hbar(\mu/z+D_K(z))\), as follows by pairing
+\eqref{cyrep:eq:fock-coaction} with \eqref{cyrep:eq:charged-spectral-pairing}.
+The creation factors and this annihilation map give the field
+construction of Section~\ref{cyrep:sec:induced}.
+
+For the level-additive product \(F_{K,\mu}\star F_{L,\nu}\), the
+first creation current is shifted by \(L\hbar\). The charge term
+also shifts, but the crossed pairing supplies
+\[
+ \rho_{-z}(g_\mu,\beta_{L,1})
+          =\mu\left(\frac1z-\frac1{z+L\hbar}\right).
+\]
+It cancels the shifted charge pole. Consequently the total current is
+\begin{equation}\label{cyrep:eq:fock-total}
+ C_1(z+L\hbar)+C_2(z)+\frac{\mu+\nu}{z}+D_K^{(1)}(z)+D_L^{(2)}(z).
+\end{equation}
+The substitution
+\(x_n\mapsto q_n=e^{L\hbar T}x_n^{(1)}+x_n^{(2)}\),
+\(v_{\mu+\nu}\mapsto v_\mu\otimes v_\nu\), defines a continuous
+injective field-module and comodule map
+\[
+ I_{12}:F_{K+L,\mu+\nu}\longrightarrow F_{K,\mu}\star F_{L,\nu}.
+\]
+Injectivity follows already by setting the first oscillator family
+to zero. This construction holds at zero and cancelling levels.
+It identifies a cyclic submodule, not the whole tensor.
+
+\begin{theorem}\label{cyrep:thm:relative-fock}
+Suppose \(K+L\ne0\), and set
+\[
+ y_n=A_L(T)x_n^{(1)}-A_K(T)x_n^{(2)}.
+\]
+There is an isomorphism of continuous covariant field modules
+\begin{equation}\label{cyrep:eq:fock-relative-decomposition}
+ F_{K,\mu}\star F_{L,\nu}
+   \cong F_{K+L,\mu+\nu}\widehat\otimes_R
+                          \mathbb C[y_1,y_2,\ldots][[\hbar]].
+\end{equation}
+The current and coaction act on the first factor. The second is
+exactly the positive-mode ground-space multiplicity, and \(I_{12}\)
+is its constant-multiplicity inclusion. Multiplication by \(y_1\)
+and differentiation \(\partial_{y_1}\) are covariant field
+endomorphisms with \([\partial_{y_1},y_1]=1\).
+\end{theorem}
+
+\begin{proof}
+The identity
+\[
+ e^{L\hbar T}A_K(T)+A_L(T)=A_{K+L}(T)
+\]
+provides the inverse coordinate change
+\[
+ \begin{split}
+ x_n^{(1)}&=A_{K+L}(T)^{-1}(A_K(T)q_n+y_n),\\
+ x_n^{(2)}&=A_{K+L}(T)^{-1}
+                       (A_L(T)q_n-e^{L\hbar T}y_n).
+ \end{split}
+\]
+The constant term of \(A_{K+L}(T)\) is the nonzero scalar \(K+L\).
+Every coefficient uses finitely many higher oscillator indices,
+so these changes are inverse on polynomial modules modulo each
+\(\hbar^N\), and on their inverse limits.
+
+On a linear oscillator,
+\(D_K(z)T^rx_n=(-\partial_z)^rP_{K,n}(z)\), while
+\(P_K(z)=A_K(-\partial_z)z^{-2}\).
+Commutativity of the two \(A\) operators gives
+\[
+ (D_K^{(1)}+D_L^{(2)})y_n=0,\qquad
+ (D_K^{(1)}+D_L^{(2)})q_n=P_{K+L,n}(z).
+\]
+The second equality uses
+\(P_K(z-L\hbar)+P_L(z)=P_{K+L}(z)\).
+Thus \eqref{cyrep:eq:fock-total} acts only on the \(q\) variables,
+and equals the total-level current. Its normal-ordered derivatives
+give the assertion for every field.
+
+The primitive coaction of \(y_n\) is
+\(A_L(T)\beta_{K,n}-A_K(T)\beta_{L,n}=0\), and that of
+\(q_n\) is \(\beta_{K+L,n}\). The highest-vector tail is
+\(g_\mu g_\nu=g_{\mu+\nu}\). This proves the coaction assertion.
+Write \(J(z)=\sum_{n\in\mathbb Z}J_nz^{-n-1}\).
+Modulo \(\hbar\), its positive modes on the first factor are
+\(n(K+L)\partial_{q_n}\). Their common kernel contains no \(q\)
+variables. Removing the constant coefficient and repeating at
+each precision proves that the exact common kernel is precisely
+the completed polynomial space in the \(y\)'s. Conversely the
+exact annihilation derivations kill all these polynomials.
+Multiplication and differentiation in \(y_1\) commute with both
+structures, and their Weyl commutator proves the last assertion.
+\end{proof}
+
+For \(K=2,L=3\), for instance,
+\[
+ y_1=3x_1^{(1)}-2x_1^{(2)}
+ +\hbar\left(\frac92x_2^{(1)}-2x_2^{(2)}\right)
+ +\hbar^2\left(9x_3^{(1)}-\frac83x_3^{(2)}\right)+O(\hbar^3).
+\]
+Its constant term is already a ground vector distinct from the
+tensor of highest vectors. At cancelling levels the inverse
+coordinate argument fails, and no such decomposition is asserted.
+
+Let \(\mathscr C_F\) be the full continuous \(R\)-linear category
+generated by \(F_{K,\mu}\), for \(K\in\mathbb Z_{>0}\) and
+\(\mu\in\Gamma\), their finite \(\star\)-products, finite direct
+sums at each level, and the scalar unit at level zero.
+Morphisms are colinear field-module maps. Positive levels ensure
+that each nonempty total level is invertible over \(\mathbb C\).
+Let \(b\) generate the charge algebra \(R[b]\), with primitive
+coproduct. Let \(\mathscr W\) consist of charge modules
+\(P[[\hbar]]\otimes W_\mu\), and finite sums of these, where
+\(P\) is a complex vector space and \(W_\mu=R\) has \(b=\mu\).
+Morphisms preserve charge, and tensor product adds charges.
+
+\begin{proposition}\label{cyrep:prop:ground-functor}
+The functor
+\[
+ \mathsf G(M)=\bigcap_{n>0}\ker J_n,\qquad
+ b|_{\mathsf G(M)}=J_0,
+\]
+from \(\mathscr C_F\) to \(\mathscr W\) is lax monoidal,
+with tensor comparison the natural inclusion of ground spaces.
+It sends \(F_{K,\mu}\) to \(W_\mu\).
+There is no \(R\)-linear strong monoidal functor on this full
+category having these values on every generating Fock module.
+\end{proposition}
+
+\begin{proof}
+Iterate Theorem~\ref{cyrep:thm:relative-fock} to express a tensor
+word as its total-level Fock module with a trivial polynomial
+multiplicity space. Morphisms preserve positive-mode kernels
+and \(J_0\), so restriction defines the functor.
+The tensor of two ground vectors is ground for the crossed total
+current, by the charge-pole cancellation in
+\eqref{cyrep:eq:fock-total}. Its charge is the sum.
+This gives \(\mathsf G(M)\widehat\otimes\mathsf G(N)
+\to\mathsf G(M\star N)\).
+Both three-factor composites are the same inclusion of underlying
+ground tensors, and the scalar unit map is the identity.
+These observations prove the lax coherence identities.
+
+For two generators the inclusion is \(R\hookrightarrow
+\mathbb C[y_1,y_2,\ldots][[\hbar]]\). Under a strong functor
+with the stated values, their product would have rank-one image
+\(W_{\mu+\nu}\), whose endomorphism algebra is \(R\).
+The relative endomorphisms \(y_1,\partial_{y_1}\) would map to
+commuting scalars. Linearity, composition and the identity would
+then imply
+\(0=[\mathsf G'(\partial_{y_1}),\mathsf G'(y_1)]
+=\mathsf G'(1)=1\). This contradiction already holds modulo
+\(\hbar\).
+\end{proof}
+
+Through the abelian charge reconstruction of
+Chapter~\ref{cyrec:chapter}, \(\mathscr W\) also has a
+Wilson-line interpretation at a fixed nonzero physical level
+\(\kappa\). That fixed-level fusion is a different source operation
+from the level-additive product \(\star\).
+On ground vectors the pairing is \(e^{\hbar\mu\nu/z}\).
+Its logarithmic residue agrees with the Wilson coefficient
+\(\mu\nu/\kappa\) after the parameter relation \(\hbar\kappa=1\)
+in a ring where this relation is meaningful; it is not a
+specialization of the formal parameter to an invertible complex
+number inside \(\mathbb C[[\hbar]]\).
+
+Even the ground coefficient does not provide a field intertwiner
+on all descendants. At zero charge the spectral pairing fixes a
+tensor with at most one oscillator. If \(\mathcal E(u)\) denotes
+its exchange and \(\tau\) flips factors, then
+\[
+ \tau\mathcal E(u)I_{12}(x_1v_0)-I_{21}(x_1v_0)
+ =1\otimes(e^{L\hbar T}-1)x_1
+       +(1-e^{K\hbar T})x_1\otimes1
+ =\hbar(L\,1\otimes x_2-Kx_2\otimes1)+O(\hbar^2).
+\]
+The right side is nonzero. A comparison retaining this highest
+coefficient requires a translation-corrected intertwiner acting
+also on the relative multiplicity space. It would still leave
+the strong-functor obstruction intact. A physical line--boundary
+comparison must separately specify its junction complex,
+fixed-level tensor operation, vacuum and residue maps.
+
+\section{Stable lattices and meromorphic families}
+\label{cyrep:sec:stable-lattices}
+
+An equivariant formula with denominators can have a good integral
+lattice even if its displayed basis has poles. This is a finite
+linear-algebra question before it is a question about fields.
+Let \(\mathcal O\) be a discrete valuation ring with fraction field
+\(Q\), and let \(T\in\operatorname{End}_Q(V)\), with
+\(\dim_QV=d<\infty\). Then
+\begin{equation}\label{cyrep:eq:stable-lattice}
+ T\text{ preserves an }\mathcal O\text{-lattice}
+ \quad\Longleftrightarrow\quad
+ \det(t-T)\in\mathcal O[t].
+\end{equation}
+Necessity follows by writing \(T\) in an integral basis.
+For sufficiency choose any lattice \(L_0\) and set
+\(L=\sum_{i=0}^{d-1}T^iL_0\). This is a lattice, and
+Cayley--Hamilton gives \(TL\subset L\).
+If \(T\) is invertible, the stronger equality \(TL=L\)
+can be arranged exactly when its characteristic polynomial is
+integral and its determinant is a unit. The constant term then
+expresses \(T^{-1}\) integrally in powers of \(T\).
+A unit determinant alone is insufficient:
+\(\operatorname{diag}(t,t^{-1})\) over \(\mathbb C((t))\)
+has determinant one but nonintegral trace.
+
+A second distinction appears in the energy completion.
+Suppose \(E=\prod_{n\geq0}E_n\), with every \(E_n\) finite-dimensional,
+and \(T_n(u)\) is a meromorphic endomorphism of
+\(E_n\). Here a meromorphic family with values in
+\(\prod_n\operatorname{End}(E_n)\) means a family which becomes
+coordinatewise holomorphic near each point after multiplication
+by one scalar holomorphic function not identically zero.
+Then \((T_n(u))_n\) has this property precisely when the union
+of its actual poles is locally finite and the pole orders at
+each point are bounded independently of \(n\).
+Necessity follows because a common scalar denominator has isolated
+zeros of finite order. For sufficiency, choose a disk containing
+at most its central pole and multiply by a sufficiently high power
+of the local coordinate. Product holomorphy is coordinatewise
+holomorphy. Thus the criterion is exact.
+Blockwise rationality alone is insufficient: the scalar families
+\(u^{-n}\) have unbounded orders, while \((u-1/n)^{-1}\) have
+accumulating poles. Formal \(\hbar\)-adic fields instead permit
+pole bounds depending on precision, as in
+Theorem~\ref{cyrep:thm:full-pole-bound}.
+
+These distinctions persist for transfer operators. To state a
+conditional construction precisely, let \(A=\bigoplus_{r\geq0}A_r\)
+be an auxiliary energy-graded space with finite-dimensional pieces,
+and let \(d_A|_{A_r}=r\). Let \(V\) be a quantum space, and suppose a monodromy
+\(M_A(u)\) and an invertible auxiliary matrix \(R_{AB}(u-v)\)
+satisfy
+\[
+ R_{AB}(u-v)M_A(u)M_B(v)
+       =M_B(v)M_A(u)R_{AB}(u-v),
+ \qquad [R_{AB},d_A+d_B]=0.
+\]
+Assume all restrictions and sums below are defined at each finite
+total auxiliary energy. Define the formal transfer series
+\(\mathsf T(u;q)=\operatorname{tr}_A(q^{d_A}M_A(u))\).
+For the same parameter \(q\) in two auxiliary copies,
+\([\mathsf T(u;q),\mathsf T(v;q)]=0\).
+Indeed, at each total energy, cyclicity of the finite partial
+trace moves the numerical auxiliary matrix \(R_{AB}\) through
+the product. It commutes with \(q^{d_A+d_B}\), and its inverse
+cancels. The monodromy relation then reverses the two factors.
+If the energy-zero term is a nonzero scalar, normalize it to one;
+coefficients of the formal logarithm belong to the same commuting
+algebra. Convergence, analytic continuation, and a geometric
+realization of the monodromy are additional assertions.
+
+The positive Hilbert-scheme action, its integral scaled negative
+modes, the paired doubles, and their Fock modules are therefore
+separate constructions with explicit links. To identify a compact
+geometric Hall theory with one of these field theories still
+requires a map preserving the actual coefficient system,
+annihilation pairing, local vacuum and collision operations.
+A character identity, a generic fixed-point action or a transfer
+trace alone does not construct that map.

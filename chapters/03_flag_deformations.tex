@@ -1,0 +1,472 @@
+\section{The multiplication varies over the parameter}
+\label{cyd:section}
+
+The coherent flag algebra \(\mathcal B\) is free over \(k[t]\),
+and its residue pairing is constant in the displayed basis.
+Its multiplication nevertheless has a nonzero first derivative
+as an algebra deformation. We compute this derivative before
+asking for a connection that preserves multiplication.
+
+Retain the characteristic-zero field \(k\), the ring \(R=k[t]\),
+and the basis \((1,q,b,\lambda,c,d)\) of
+Theorem~\ref{cyt:thm:coherent}. Put \(B_0=\mathcal B/t\mathcal B\).
+The basis identifies the underlying module with \(B_0\otimes_kR\),
+so \eqref{cyt:eq:products} takes the form
+\[
+                         \mu_t=\mu_0+t\mu_1.
+\]
+Here \(\mu_0\) is the product of \(B_0\).
+
+For a unital algebra \(A\), the normalized Hochschild cochains are
+\(C^n(A,A)=\operatorname{Hom}_k((A/k1)^{\otimes n},A)\) for
+\(n>0\), and \(C^0(A,A)=A\). Positive-degree cochains vanish
+on unit inputs. In the degrees needed here their differential is
+\begin{align*}
+ (\delta a)(x)&=xa-ax,\\
+ (\delta D)(x,y)&=xD(y)-D(xy)+D(x)y,\\
+ (\delta F)(x,y,z)&=xF(y,z)-F(xy,z)+F(x,yz)-F(x,y)z.
+\end{align*}
+Write \(HH^n(A)\) for its cohomology. For a two-cochain \(F\),
+the insertion bracket satisfies
+\[
+ \tfrac12[F,F](x,y,z)=F(F(x,y),z)-F(x,F(y,z)).
+\]
+Thus the coefficient of \(t\) in associativity is the cocycle
+equation, and the coefficient of \(t^2\) is the bracket equation.
+
+\begin{proposition}\label{cyd:prop:deformation}
+The first-order deformation class \([\mu_1]\in HH^2(B_0)\)
+is nonzero. Its representative has precisely the nonzero values
+\begin{equation}\label{cyd:eq:class}
+ \mu_1(q,q)=b,\qquad
+ \mu_1(q,\lambda)=\mu_1(\lambda,q)=c,\qquad
+ \mu_1(\lambda,\lambda)=-(b+c).
+\end{equation}
+It satisfies \(\delta\mu_1=[\mu_1,\mu_1]=0\).
+For the residue pairing
+\(\langle x,y\rangle=\varepsilon(\mu_t(x,y))\) of
+Theorem~\ref{cyt:thm:frobenius}, it is cyclic:
+\[
+            \langle\mu_1(x,y),z\rangle
+                 =\langle x,\mu_1(y,z)\rangle.
+\]
+\end{proposition}
+
+\begin{proof}
+Differentiating \eqref{cyt:eq:products} gives
+\eqref{cyd:eq:class}. Associativity of \(\mu_t\) gives the
+two equations. If \(\mu_1=\delta D\), evaluation on \((q,q)\)
+in \(B_0\) would give
+\[
+          b=2qD(q)\in qB_0=\operatorname{span}_k\{q,d\},
+\]
+which contradicts the basis of \(B_0\).
+
+None of the varying products has a \(d\) component, so the
+pairing is independent of \(t\). Associativity gives
+\(\langle\mu_t(x,y),z\rangle=\langle x,\mu_t(y,z)\rangle\).
+Its coefficient of \(t\) proves cyclicity.
+\end{proof}
+
+A change of basis equal to the identity modulo \(t\) changes
+\(\mu_1\) by a Hochschild coboundary. The proposition therefore
+rules out a trivialization as an algebra even over \(k[t]/(t^2)\).
+Allowing an automorphism on the special fiber does not remove
+the obstruction: it acts invertibly on \(HH^2(B_0)\).
+
+\subsection{Regular and logarithmic connections}
+
+For a derivation \(\xi:R\to R\), a connection along \(\xi\)
+is a \(k\)-linear map \(\nabla:\mathcal B\to\mathcal B\)
+such that \(\nabla(fx)=\xi(f)x+f\nabla x\).
+It is multiplicative if
+\(\nabla(xy)=(\nabla x)y+x\nabla y\).
+The derivation \(t\partial_t\) vanishes at the special point;
+a connection along it can preserve a degeneration there.
+
+\begin{proposition}\label{cyd:prop:connection}
+There is no multiplicative connection along \(\partial_t\).
+A multiplicative connection along \(t\partial_t\) is
+\begin{equation}\label{cyd:eq:logarithmic}
+ \nabla_{\log}(f(t)x)=tf'(t)x+w(x)f(t)x,
+ \qquad
+ (w(1),w(q),w(b),w(\lambda),w(c),w(d))=(0,1,1,1,1,2).
+\end{equation}
+For this connection the residue pairing obeys
+\[
+ \langle\nabla_{\log}x,y\rangle+
+ \langle x,\nabla_{\log}y\rangle
+      =t\partial_t\langle x,y\rangle+2\langle x,y\rangle.
+\]
+\end{proposition}
+
+\begin{proof}
+Apply a putative multiplicative connection along \(\partial_t\)
+to \(q^2=tb\). Modulo \(t\) it gives \(2q\nabla q=b\),
+the same impossible equality used in
+Proposition~\ref{cyd:prop:deformation}.
+
+For the logarithmic connection, give \(t\) weight one and the
+basis the weights in \eqref{cyd:eq:logarithmic}.
+Every product in \eqref{cyt:eq:products} is homogeneous.
+The Euler derivation of this grading is \(\nabla_{\log}\),
+so it obeys the product rule. These weights also define a
+\(\mathbb G_m\)-action on the algebra over the dilation
+action on the parameter line.
+
+Since \(\varepsilon\) takes the coefficient of the
+weight-two element \(d\),
+\[
+ \varepsilon(\nabla_{\log}x)
+        =t\partial_t\varepsilon(x)+2\varepsilon(x).
+\]
+Apply this identity to a product to obtain the pairing formula.
+\end{proof}
+
+\subsection{All first-order associative deformation classes}
+
+The geometric family selects one class in \(HH^2(B_0)\).
+The entire group can be calculated from the nondegenerate
+product on the maximal ideal of \(B_0\).
+
+\begin{theorem}\label{cyd:thm:hochschild}
+The special fiber satisfies
+\[
+             \dim_k HH^1(B_0)=11,\qquad
+             \dim_k HH^2(B_0)=26.
+\]
+The second group is the direct sum of a \(16\)-dimensional
+space represented by symmetric cocycles and a \(10\)-dimensional
+space represented by antisymmetric cocycles.
+The class \([\mu_1]\) lies in the symmetric summand.
+\end{theorem}
+
+\begin{proof}
+Write \(z=d\) and \(V=k\{q,b,\lambda,c\}\). Then
+\[
+ B_0=k1\oplus V\oplus kz,\qquad
+ vw=g(v,w)z,\qquad Vz=z^2=0,
+\]
+where the matrix of the nondegenerate form \(g\) is
+\begin{equation}\label{cyd:eq:form}
+ G=\begin{pmatrix}
+ 0&0&0&1\\0&0&1&0\\0&1&0&-1\\1&0&-1&0
+ \end{pmatrix}.
+\end{equation}
+Give \(V\) weight one and \(z\) weight two.
+The internal weight of a cochain is its output weight minus
+the sum of its input weights. The differential preserves it.
+After extending \(k\), we may choose an orthonormal basis of
+\(V\). Dimensions descend because extension of fields
+preserves the ranks of these finite matrices.
+
+A derivation of weight one is an arbitrary map \(V\to kz\),
+giving four dimensions. At weight zero it has the form
+\(D(v)=Lv\), \(D(z)=rz\), with
+\[
+               g(Lv,w)+g(v,Lw)=r g(v,w).
+\]
+These are a skew-adjoint map and a scalar multiple of the
+identity, giving \(6+1=7\) dimensions.
+
+At weight \(-1\), write \(D(v)=a(v)1\) and \(D(z)=b\in V\).
+The product rule on \(vw\) gives
+\[
+                 a(v)w+a(w)v=g(v,w)b.
+\]
+Distinct orthonormal basis vectors force \(a=0\), and taking
+\(v=w\) then gives \(b=0\).
+At weight \(-2\), only \(D(z)=c1\) is possible, and the
+same product rule gives \(c=0\). These exhaust the weights.
+Since \(B_0\) is commutative, inner derivations vanish.
+Thus \(HH^1\) has dimension \(11\), and the boundary map
+\(C^1\to C^2\) has rank \(30-11=19\).
+
+At weight zero, a two-cochain is a bilinear form
+\(V\otimes V\to kz\). All sixteen are closed.
+The boundaries are exactly the symmetric forms:
+\[
+       (v,w)\longmapsto g(v,Lw)+g(Lv,w)-r g(v,w).
+\]
+Consequently this weight contributes the six alternating forms.
+
+At weight \(-1\), a two-cochain has the form
+\[
+ F(v,w)=B(v,w)\in V,\qquad
+ F(v,z)=p(v)z,\qquad F(z,v)=q(v)z.
+\]
+Set \(C(v,w,u)=g(B(v,w),u)\). Its cocycle equation is
+\begin{equation}\label{cyd:eq:cyclic}
+ C(w,u,v)-C(v,w,u)
+      =g(v,w)q(u)-g(w,u)p(v).
+\end{equation}
+Sum over cyclic permutations and take \(v=w\) a unit vector
+orthogonal to \(u\). This forces \(p=q\).
+Equation~\eqref{cyd:eq:cyclic} now says that
+\[
+                  C'(v,w,u)=C(v,w,u)+g(v,w)p(u)
+\]
+is cyclically invariant. Conversely, a cyclic tensor \(C'\)
+and a covector \(p\) give a cocycle; triples containing \(z\)
+give no additional equation.
+
+The trace of either nontrivial three-cycle on
+\(V^{*\otimes3}\) is \(4\). Averaging over the cyclic group
+therefore gives \((4^3+2\cdot4)/3=24\) invariant tensors.
+Together with \(p\), they give \(28\) cocycles.
+A one-cochain of this weight is \(D(v)=a(v)1\), \(D(z)=b\).
+Its boundary corresponds to
+\[
+ \begin{split}
+ p&=a+g(b,-),\\
+ C'(v,w,u)&=a(w)g(v,u)+a(v)g(w,u)+a(u)g(v,w).
+ \end{split}
+\]
+The absence of derivations of weight \(-1\) makes this
+eight-dimensional boundary map injective. The quotient
+therefore has dimension \(28-8=20\).
+
+At weight \(-2\), write
+\[
+ F(v,w)=h(v,w)1,\quad F(v,z)=Lv,\quad
+ F(z,v)=Mv,\quad F(z,z)=cz.
+\]
+The equations on \((v,w,z)\), \((v,z,w)\) and \((z,v,w)\)
+give \(M=L^*\) and \(h(v,w)=g(v,Lw)-cg(v,w)\).
+The equation on three vectors is
+\[
+ h(w,u)v-g(v,w)Mu+g(w,u)Lv-h(v,w)u=0.
+\]
+Three distinct basis indices force the off-diagonal entries
+of \(h\), and then of \(L\), to vanish.
+The indices \((i,i,j)\) give \(L_i+L_j=c\) for every
+\(i\ne j\). With four indices this implies
+\(L=M=a\operatorname{id}\), \(c=2a\), \(h=-ag\).
+This is precisely the boundary of \(D(z)=a1\), \(D(V)=0\).
+
+At weight \(-3\), the possible values are
+\(F(v,z)=p(v)1\), \(F(z,v)=q(v)1\) and \(F(z,z)=b\in V\).
+The equation on three vectors forces \(p=q=0\); the equation
+on \((v,w,z)\) then forces \(b=0\).
+At weight \(-4\), only \(F(z,z)=c1\) is possible, and
+the latter equation again gives \(c=0\).
+There are no cochains of other weights. We obtain
+\[
+\begin{array}{c|rrrrr}
+ \text{weight}&0&-1&-2&-3&-4\\\hline
+ \dim C^2&16&72&49&12&1\\
+ \dim Z^2&16&28&1&0&0\\
+ \dim B^2&10&8&1&0&0.
+\end{array}
+\]
+Thus \(\dim HH^2=6+20=26\).
+
+Every boundary is symmetric because \(B_0\) is commutative.
+At weight \(-1\), symmetric cocycles correspond to fully
+symmetric \(C'\) and arbitrary \(p\). There are \(20+4\)
+such cocycles, leaving \(16\) classes after quotienting.
+For an antisymmetric cocycle, \(p=q\) forces \(p=q=0\),
+and cyclicity makes \(C'\) alternating. These give four
+classes. The six alternating forms at weight zero supply
+the other six. The weight \(-2\) cocycle is a boundary,
+which proves the claimed decomposition.
+\end{proof}
+
+\section{Ramification of the flag family}
+\label{cyr:section}
+
+Replace the marked parameter \(t\) by \(u^e\), where
+\(e\geq1\) is an integer. The coherent algebra remains free,
+but its inclusion in the flat closure acquires a larger
+cokernel. At the same time the vertical cycle multiplicity
+increases. We calculate both changes and then compare the
+resulting trace with pullback of the oriented Gysin map.
+
+Put \(R_e=k[u]\) and let
+\(p_e:\mathscr F_e=\mathscr F\times_{\operatorname{Spec}R}
+\operatorname{Spec}R_e\to\operatorname{Spec}R_e\).
+The charts of \eqref{cyt:eq:charts} become
+\begin{equation}\label{cyr:eq:charts}
+ \begin{aligned}
+ S_{B,e}&=k[u,v,\lambda]/(u^ev^3,G_e),&
+ G_e&=\lambda^2+u^ev\lambda+u^{2e}v^2,\\
+ S_{A,e}&=k[u,r,\mu]/(u^e,\mu^2).
+ \end{aligned}
+\end{equation}
+The gluing is \(r=v^{-1}\), \(\mu=-v\lambda\).
+Denote the reduced horizontal and vertical components by
+\(H_e\) and \(V_e\), with \(V_e\simeq\mathbb P^1_k\), and set
+\[
+ \mathcal B_e=\mathcal B\otimes_RR_e,\qquad
+ B_e^{\mathrm{flat}}=k[u,v,\lambda]/(v^3,G_e).
+\]
+
+\begin{proposition}\label{cyr:prop:coherent}
+The fundamental cycle and coherent direct image are
+\begin{equation}\label{cyr:eq:cycle}
+ [\mathscr F_e]=6[H_e]+2e[V_e],\qquad
+ Rp_{e*}\mathcal O_{\mathscr F_e}=\mathcal B_e[0].
+\end{equation}
+The inclusion into the flat closure fits into an exact sequence
+\begin{equation}\label{cyr:eq:lattice}
+ 0\longrightarrow\mathcal B_e\longrightarrow B_e^{\mathrm{flat}}
+ \longrightarrow(R_e/(u^e))^3\longrightarrow0.
+\end{equation}
+Its matrix in the bases
+\((1,q,b,\lambda,c,d)\) and
+\((1,v,v^2,\lambda,v\lambda,v^2\lambda)\) is
+\(\operatorname{diag}(1,u^e,u^e,1,1,u^e)\), with determinant
+\(u^{3e}\).
+\end{proposition}
+
+\begin{proof}
+Over \(k(u)\), the six monomials
+\(1,v,v^2,\lambda,v\lambda,v^2\lambda\) form a basis,
+so the horizontal length is six.
+At the generic point of \(V_e\), invert \(v\).
+The transverse ring is
+\(k(v)[u,\lambda]/(u^e,\lambda^2)\), of length \(2e\).
+Both charts are complete intersections of dimension one:
+\(u^ev^3\) is a nonzero divisor in the polynomial ring,
+and \(G_e\) is monic in \(\lambda\) over its quotient.
+They have no embedded associated components. The two
+generic lengths therefore give the fundamental cycle.
+
+The map \(R\to R_e\) is free with basis
+\(1,u,\ldots,u^{e-1}\). Tensoring the two-chart
+\v Cech complex is consequently exact, and computes
+\(Rp_{e*}\mathcal O_{\mathscr F_e}\).
+Tensoring \eqref{cyt:eq:index} gives
+\eqref{cyr:eq:lattice}. The formulas
+\(q=u^ev\), \(b=u^ev^2\), \(c=v\lambda\),
+\(d=u^ev^2\lambda\) give the displayed inclusion matrix.
+\end{proof}
+
+The cokernel has length \(3e\). Tensoring it with
+\(k=R_e/(u)\) gives only a three-dimensional space, so
+ordinary specialization of the cokernel forgets \(e\).
+The resolution \([R_e\xrightarrow{u^e}R_e]\) also gives
+\(\operatorname{Tor}_1^{R_e}(R_e/(u^e),k)=k\).
+Thus specialization of \eqref{cyr:eq:lattice} has a
+three-dimensional kernel as well as a three-dimensional
+cokernel. Its kernel in \(\mathcal B_e/u\mathcal B_e\)
+is exactly \(k\{q,b,d\}\).
+
+\subsection{The trace under a change of marking}
+
+Take \(k=\mathbb C\) and rational constructible coefficients.
+Let \(D_t,D_u\) be small disks and
+\(\rho_e:D_u\to D_t\) the map \(t=u^e\).
+Write \(i_t,i_u\) for their origins. Normalize the Gysin maps
+\[
+ \gamma_t:i_{t,*}\mathbb Q[-2]\to\mathbb Q_{D_t},\qquad
+ \gamma_u:i_{u,*}\mathbb Q[-2]\to\mathbb Q_{D_u}
+\]
+by the complex orientations.
+
+\begin{lemma}\label{cyr:lem:gysin}
+Under the natural identification of the pulled-back point
+sheaf with \(i_{u,*}\mathbb Q\),
+\begin{equation}\label{cyr:eq:gysin}
+                         \rho_e^*\gamma_t=e\gamma_u.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Purity identifies a Gysin class with the oriented generator
+of \(H^2(D,D\setminus\{0\};\mathbb Q)\).
+The boundary isomorphism from
+\(H^1(D\setminus\{0\};\mathbb Q)\) identifies it with the
+positive link generator. On that link, \(u\mapsto u^e\)
+has degree \(e\), so pullback multiplies the generator by
+\(e\). Naturality of the relative cohomology sequence proves
+the identity of Gysin classes, hence of the corresponding maps.
+\end{proof}
+
+\begin{proposition}\label{cyr:prop:trace}
+Use the horizontal section and the exceptional generator
+\(\int_{V_e}-c_1(\mathscr L)=1\) to split
+\[
+ Rp_{e*}\mathbb Q_{\mathscr F_e}
+       =\mathbb Q_{D_u}\oplus i_{u,*}\mathbb Q[-2].
+\]
+The cycle trace and its normalization on the punctured disk are
+\begin{equation}\label{cyr:eq:trace}
+ \operatorname{Tr}_{[\mathscr F_e]}
+       =(6\operatorname{id},2e\gamma_u),\qquad
+ \widehat{\operatorname{Tr}}_{[\mathscr F_e]}
+       =(\operatorname{id},\tfrac e3\gamma_u).
+\end{equation}
+The normalized trace is the pullback of
+\eqref{cyt:eq:trace}. For independent marked axes with indices
+\(e_1,\ldots,e_r\), its coefficient on the exceptional summand
+indexed by \(S\) is \(\prod_{i\in S}(e_i/3)\).
+\end{proposition}
+
+\begin{proof}
+The reduced space is still a horizontal section with a
+vertical projective line attached at the origin.
+The splitting of Theorem~\ref{cyf:thm:proper} therefore
+applies, with the same orientation of the exceptional curve.
+Apply the fundamental-class construction
+\eqref{cyt:eq:trace-definition} to the cycle in
+\eqref{cyr:eq:cycle}. The horizontal component gives
+\(6\operatorname{id}\). Integration on \(V_e\), followed by
+its Gysin map, gives \(2e\gamma_u\).
+Division by six gives the normalized trace.
+
+Proper base change identifies the pulled-back coefficient
+complex with this splitting: the section and exceptional
+generator pull back to the specified ones.
+Lemma~\ref{cyr:lem:gysin} now identifies the pulled-back trace.
+External products multiply the singleton coefficients,
+and Proposition~\ref{cyf:prop:products} gives their
+compatibility with all regroupings.
+\end{proof}
+
+For two successive markings \(t=u^e\), \(u=w^f\),
+the exceptional coefficient is \(ef/3\), whether pulled
+back successively or along the composite. Choosing the reduced cycle separately after
+each change of marking instead gives coefficient one;
+pulling back the reduced trace in \(t\) gives coefficient
+\(e\). These two prescriptions differ when \(e>1\).
+Restriction to the horizontal section, whose exceptional
+coefficient is zero, also commutes with pullback.
+
+\subsection{Ramification retains the connection obstruction}
+
+The logarithmic connection on \(\mathcal B_e\) has parameter
+part \(u\partial_u\) and basis weights
+\((0,e,e,e,e,2e)\). It satisfies
+\[
+ \langle\nabla_{\log}x,y\rangle+
+ \langle x,\nabla_{\log}y\rangle
+       =u\partial_u\langle x,y\rangle+2e\langle x,y\rangle.
+\]
+These assertions follow from the same homogeneous relations
+as Proposition~\ref{cyd:prop:connection}.
+
+A multiplicative connection along \(\partial_u\) would give
+\[
+           2q\nabla q=e u^{e-1}b+u^e\nabla b.
+\]
+The \(b\) coefficient of the left side is divisible by
+\(u^e\): multiplication by \(q\) produces \(b\) only
+through \(q^2=u^eb\).
+Comparing coefficients, cancelling \(u^{e-1}\), and
+reducing modulo \(u\) would give \(0=e\).
+Characteristic zero rules this out. The obstruction persists
+even when the first derivative of \(u^e\) vanishes at zero.
+
+The coherent and constructible calculations impose different
+conditions on a geometric realization. A comparison of
+coherent algebras over the parameter must carry the nonzero
+class \([\mu_1]\). A comparison that also identifies the
+inclusions into the flat closures must carry their ramified
+cokernels \((R_e/(u^e))^3\). A comparison of the specified
+constructible cycle traces must carry the coefficient
+\(e/3\) and its products on independent axes.
+An oriented critical Hall operation has its own coefficient
+complex and trace. Identifying those maps with the ones
+calculated here requires the actual oriented correspondence
+and its supported comparison maps.

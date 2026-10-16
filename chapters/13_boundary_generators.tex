@@ -1,0 +1,2308 @@
+\chapter{Local centres and boundary generators}
+\label{cyp:section}
+
+A representation of a boundary algebra becomes a reconstruction
+of the bulk only after its operations determine the bulk action.
+The tensor used by the action matters: convolution combines
+separated positions, whereas the diagonal tensor places an
+interior input above a boundary input at the same position.
+Each tensor has its own representing problem. We begin with a
+local geometric model in which the boundary data and their
+maps can be recovered completely.
+
+On a disk, restriction to the puncture and to the closed point
+misses the homotopy attaching them. The exceptional component
+of the trace \eqref{cyt:eq:trace} is such a homotopy.
+Nontrivial monodromy supplies a second difficulty: every finite
+collection of finite-rank probes misses some rank-one local
+system. The regular monodromy module solves this problem in
+an explicitly enlarged category. Its derived centre then
+remembers the attaching point through logarithmic derivatives.
+
+This calculation leads to three further constructions: the
+categorical centre of a tensor category, the internal centre
+for convolution, and the ambient endomorphism coalgebra for
+the diagonal tensor. The last exists without a factorization
+condition. Requiring factorizing actors changes the answer:
+a nonzero vertex derivation produces a parallel pair that no
+receiving factorizing monoid action can identify. The proof
+retains the action paths and multiplication coherences.
+
+Let \(D\) be a complex disk, \(U=D\setminus\{0\}\), and
+let \(j:U\hookrightarrow D\) and \(i:\{0\}\hookrightarrow D\)
+be the inclusions. Fix a field \(k\) of characteristic zero.
+Work in the presentable stable category \(\mathcal C(D)\)
+of sheaves of \(k\)-complexes whose restriction to \(U\)
+is locally constant. Fibers and complexes are unrestricted
+in rank and degree.
+
+All tensor products and mapping complexes
+below are derived unless a chain model is explicitly given.
+Derived categories retain their mapping complexes, not only
+their homotopy categories.
+Cycle traces are extended from \(\mathbb Q\) to \(k\).
+
+Choose the positively oriented generator \(s\) of
+\(\pi_1(U)\), and write \(\Lambda=k[s,s^{-1}]\).
+A local system of complexes is determined by a left
+\(\Lambda\)-module complex \(M\). Denote it by
+\(\mathcal L_M\). The link functor is
+\begin{equation}\label{cyp:eq:link}
+ K(M)=R\operatorname{Hom}_{\Lambda}(k,M)
+        \simeq[M\xrightarrow{s-1}M].
+\end{equation}
+
+The link degrees are zero and one, totalized with the
+internal differential of \(M\). The free resolution
+\(0\to\Lambda\xrightarrow{s-1}\Lambda\to k\to0\)
+both proves this formula and supplies a functorial chain
+model. In particular \(i^*Rj_*\mathcal L_M=K(M)\).
+
+\section{Objects and maps in the attaching diagram}
+
+\begin{proposition}\label{cyp:prop:gluing}
+An object of \(\mathcal C(D)\) is equivalently a diagram
+\begin{equation}\label{cyp:eq:data}
+           (M,V,\alpha:V\longrightarrow K(M)),
+\end{equation}
+with \(M\in D(\Lambda)\) and \(V\in D(k)\).
+The reconstructed sheaf and its costalk are
+\begin{align}
+ F&=\operatorname{Fib}\left(
+ Rj_*\mathcal L_M\oplus i_*V
+ \xrightarrow{\mathrm{res}-i_*\alpha}i_*K(M)\right),
+                  \label{cyp:eq:reconstruct}\\
+ i^!F&=\operatorname{Fib}\bigl(V\xrightarrow{\alpha}K(M)\bigr).
+                  \label{cyp:eq:costalk}
+\end{align}
+For two such diagrams, the mapping complex is
+\begin{equation}\label{cyp:eq:maps}
+ \operatorname{Fib}\left(
+ R\operatorname{Hom}_{\Lambda}(M,M')\oplus
+ R\operatorname{Hom}_k(V,V')
+ \xrightarrow{\Phi}R\operatorname{Hom}_k(V,K(M'))\right),
+\end{equation}
+where \(\Phi(a,b)=K(a)\alpha-\alpha'b\).
+\end{proposition}
+
+\begin{proof}
+Restricting \eqref{cyp:eq:reconstruct} to \(U\) gives
+\(\mathcal L_M\). At the point, the fiber of
+\(K(M)\oplus V\xrightarrow{(1,-\alpha)}K(M)\)
+is \(V\), with the prescribed attaching map \(\alpha\).
+Conversely, the adjunction maps from any \(F\) to
+\(Rj_*j^*F\) and to \(i_*i^*F\) define a map to this
+fiber. Its restrictions to both strata are equivalences.
+The open--closed localization triangle shows it is an
+equivalence. Applying that triangle at the closed stratum
+gives \eqref{cyp:eq:costalk}.
+
+A map of the reconstructed diagrams consists of maps on
+the two vertices and a homotopy commuting the attaching
+square. The homotopy limit of these mapping complexes is
+exactly \eqref{cyp:eq:maps}. This computes maps in the
+derived diagram category, including their higher homotopies.
+The reconstruction equivalence transfers it to
+\(\mathcal C(D)\).
+\end{proof}
+
+Choose compatible resolutions so that \(\alpha,\alpha'\)
+and \(\Phi\) are actual chain maps. In the fiber convention
+used here, a degree-\(n\) element is \((a,b,h)\), where
+\(a,b\) have degree \(n\) and \(h\) degree \(n-1\), with
+\begin{equation}\label{cyp:eq:differential}
+ d(a,b,h)=(da,db,K(a)\alpha-\alpha'b-dh).
+\end{equation}
+Thus a degree-zero map with fixed closed endpoints exists
+precisely when \(K(a)\alpha-\alpha'b\) is a boundary.
+Its homotopy component is an actual primitive in that
+mapping complex. The supported extension problem below uses the same
+homotopy-fiber construction.
+
+\begin{proposition}\label{cyp:prop:gysin}
+In \eqref{cyp:eq:maps}, the oriented Gysin morphism
+\(\gamma:i_*k[-2]\to k_D\) has representative
+\((0,0,h_\gamma)\), where \(h_\gamma\) sends the degree-two
+point generator to the degree-one link generator.
+This class spans the degree-zero cohomology of the mapping
+complex. With these conventions the normalized cycle trace
+of Theorem~\ref{cyt:thm:cycle-trace} has open component
+\(a=\operatorname{id}\), closed component
+\(b=(\operatorname{id},0):k\oplus k[-2]\to k\),
+and homotopy component \(\tfrac13h_\gamma\) on the second
+summand.
+\end{proposition}
+
+\begin{proof}
+The constant sheaf has diagram \((k,k,\alpha)\), where
+\(K(k)=[k\xrightarrow0 k]\) and \(\alpha\) is inclusion
+into link degree zero. The point source has diagram
+\((0,k[-2],0)\).
+
+Its mapping complex has a \(b\)-component in degree \(-2\).
+The \(h\)-components from link degrees zero and one have
+degrees \(-1\) and zero, respectively. Formula~\eqref{cyp:eq:differential} makes the
+first differential \(-\operatorname{id}\). The second is
+zero. Exactly the asserted class survives.
+
+The costalk fiber differential is \(d(v,u)=(dv,\alpha v-du)\).
+A closed triple \((a,b,h)\) induces the costalk map
+\((v,u)\mapsto(bv,K(a)u-hv)\).
+
+Let \(\eta\) be the positive link class with integral one.
+On a small closed subdisk \(D_\epsilon\), relative
+integration is \(\int_{D_\epsilon}v-\int_{\partial D_\epsilon}u\).
+Thus \((0,-\eta)\) is the positive degree-two orientation
+class in the relative cone.
+
+Consequently \(h_\gamma(1)=\eta\) induces the identity on the
+oriented costalk \(k[-2]\). This is precisely the Gysin
+counit, also normalized by \(H_c^2(\gamma)=1\).
+Adding the identity on the constant summand and multiplying
+this class by \(1/3\) gives the last assertion.
+\end{proof}
+
+This calculation locates the lost datum. The exceptional
+ordinary stalk map is zero, but its attaching homotopy is
+nonzero. Extraordinary costalks and compact support already
+detect its coefficient, as in Theorem~\ref{cyf:thm:gysin}.
+
+\section{Probes and monodromy}
+
+\begin{definition}
+For \(P,F\in\mathcal C(D)\), the \emph{probe value} of
+\(F\) at \(P\) is \(R\operatorname{Hom}(P,F)\).
+A family of probes is \emph{conservative} if their values
+vanish simultaneously only on the zero object.
+\end{definition}
+
+The preceding Gysin calculation uses constant monodromy.
+Nontrivial monodromy can make both constant-probe values
+vanish, even for a rank-one local system.
+
+For \(\lambda\in k^\times\), let \(k_\lambda\) be the
+one-dimensional \(\Lambda\)-module on which \(s\) acts
+by \(\lambda\), and write \(\mathcal L_\lambda\) for its
+local system.
+
+\begin{proposition}\label{cyp:prop:blindness}
+If \(\lambda\ne1\), the nonzero object
+\(F_\lambda=j_!\mathcal L_\lambda\) satisfies
+\[
+ F_\lambda\simeq Rj_*\mathcal L_\lambda,\qquad
+ R\operatorname{Hom}(k_D,F_\lambda)=0,
+ \qquad R\operatorname{Hom}(i_*k,F_\lambda)=0,
+ \qquad R\Gamma_c(D,F_\lambda)=0.
+\]
+More generally, a finite family of bounded finite-rank
+constructible objects cannot be conservative as probes
+\(R\operatorname{Hom}(P,-)\) on all bounded finite-rank
+objects of \(\mathcal C(D)\).
+\end{proposition}
+
+\begin{proof}
+The link complex of \(k_\lambda\) has differential
+\(\lambda-1\), hence is acyclic. The localization triangle
+identifies extension by zero with derived direct image,
+and \eqref{cyp:eq:costalk} makes its costalk zero.
+Ordinary sections are the same acyclic circle complex.
+Compact sections of \(U\simeq S^1\times(0,1)\) are
+that complex tensored with the compact cochains of the
+open interval, so vanish as well.
+
+For finitely many bounded probes, choose \(\lambda\ne0,1\)
+outside the spectra of all their finite-dimensional open
+cohomology modules. There are only finitely many excluded
+values, and \(k\) is infinite. If \(W\) is a finite-dimensional
+monodromy module with operator \(T_W\), it has free resolution
+\[
+ 0\longrightarrow\Lambda\otimes_k W
+ \xrightarrow{s\otimes1-1\otimes T_W}\Lambda\otimes_k W
+ \longrightarrow W\longrightarrow0.
+\]
+
+Injectivity follows by comparing the highest Laurent power.
+The cokernel imposes exactly the given monodromy relation.
+Applying \(\operatorname{Hom}_{\Lambda}(-,k_\lambda)\)
+gives an invertible differential when \(\lambda\) is outside
+the spectrum. Truncation triangles give the same vanishing
+for each bounded open complex.
+
+In \eqref{cyp:eq:maps},
+the target has zero closed term and acyclic link, so these
+open vanishings prove \(R\operatorname{Hom}(P,F_\lambda)=0\)
+for every chosen probe. Its restriction to \(U\) is a
+nonzero rank-one local system.
+\end{proof}
+
+\subsection{The ramified double cover}
+
+The monodromy \(-1\) occurs in a branched correspondence.
+Let \(\pi:\widetilde D\to D\) be the squaring map
+\(z=u^2\) between unit disks, and let \(\sigma(u)=-u\).
+
+\begin{example}\label{cyp:ex:ramification}
+The coefficient object and its complex-oriented trace are
+\[
+ R\pi_*k_{\widetilde D}=k_D\oplus j_!\mathcal L_{-1},
+ \qquad \operatorname{Tr}_\pi=(2,0),
+ \qquad j_!\mathcal L_{-1}=Rj_*\mathcal L_{-1}.
+\]
+
+Indeed, the idempotents \((1\pm\sigma)/2\) split the
+permutation representation on the two sheets. At zero
+there is one invariant stalk. The anti-invariant link has
+differential \(-2\), so its stalk and costalk vanish.
+The finite map has no higher direct images. On the
+unramified open the oriented trace sums the two sheets.
+It extends as multiplication by two on the constant
+summand, including the ramification point.
+
+This is the normal form of the first nested Hilbert
+correspondence on \(\mathbb C^2\). After centering a length-two
+quotient, a chart with basis \(1,X\) has equations
+\[
+                       Y-rX=0,\qquad X^2=z/4.
+\]
+Here \(r\) fixes its tangent direction. Choosing a retained
+length-one quotient means choosing the root \(X=-u/2\),
+so the forgetful map is \(z=u^2\). The center and \(r\)
+are smooth parameters. Thus the normal anti-invariant
+coefficient is exactly \(\mathcal L_{-1}\).
+\end{example}
+
+This coefficient is missed by the two constant probes.
+A generator for all monodromies must contain more information.
+
+\section{The regular monodromy generator}
+
+The regular module \(\Lambda\) supplies all monodromies at
+once. Its local system has infinite rank. No nonzero Laurent
+polynomial lies in a finite-dimensional \(s\)-stable subspace:
+its translates by increasing powers of \(s\) are linearly
+independent. Thus \(\mathcal L_\Lambda\) is not a filtered
+union of finite-rank local systems. The unrestricted category
+specified above is essential.
+
+Set
+\begin{equation}\label{cyp:eq:generator}
+ A=j_!\mathcal L_\Lambda,\qquad B=i_*k,
+ \qquad \mathcal G=A\oplus B.
+\end{equation}
+For a sheaf with diagram \((M,V,\alpha)\), adjunction gives
+\begin{equation}\label{cyp:eq:probe-values}
+ R\operatorname{Hom}(A,F)=M,
+ \qquad R\operatorname{Hom}(B,F)=i^!F.
+\end{equation}
+
+\begin{definition}
+An object \(P\) of \(\mathcal C(D)\) is \emph{compact}
+if \(R\operatorname{Hom}(P,-)\) commutes with arbitrary
+sums. A family \emph{generates} if the smallest stable
+subcategory containing it and closed under arbitrary sums
+is \(\mathcal C(D)\).
+\end{definition}
+
+\begin{theorem}\label{cyp:thm:generator}
+The object \(\mathcal G\) is a compact generator of
+\(\mathcal C(D)\). Its derived endomorphism algebra has the
+triangular model
+\begin{equation}\label{cyp:eq:endomorphisms}
+ \mathcal E=
+ \begin{pmatrix}\Lambda&k[-2]\\0&k\end{pmatrix},
+ \qquad d=0,
+\end{equation}
+where the left action of \(\Lambda\) on the off-diagonal
+entry is evaluation at \(s=1\). Consequently
+\(\mathcal C(D)\) is equivalent to the derived category
+of right \(\mathcal E\)-modules, retaining their full
+derived mapping complexes.
+\end{theorem}
+
+\begin{proof}
+The first functor in \eqref{cyp:eq:probe-values} commutes
+with arbitrary sums. The second does too: by
+\eqref{cyp:eq:costalk} it is a fiber of stalk and link
+functors, and \eqref{cyp:eq:link} is a finite free
+resolution. Hence \(A,B\) are compact.
+
+If both probe
+values vanish, the open restriction is zero, so localization
+makes \(F=i_*V\). Its costalk is then \(V\), which is zero.
+More explicitly, \(\Lambda\) generates \(D(\Lambda)\)
+and \(k\) generates \(D(k)\). The triangle
+\(j_!j^*F\to F\to i_*i^*F\) puts every \(F\) in the
+localizing subcategory generated by \(A,B\).
+
+Use their diagrams \((\Lambda,0,0)\) and \((0,k,0)\)
+in \eqref{cyp:eq:maps}. The four blocks are
+\begin{align*}
+ R\operatorname{Hom}(A,A)&=\Lambda,&
+ R\operatorname{Hom}(A,B)&=0,\\
+ R\operatorname{Hom}(B,B)&=k,&
+ R\operatorname{Hom}(B,A)&=K(\Lambda)[-1].
+\end{align*}
+Let \(Q\) be the complex with \(Q^1=Q^2=\Lambda\)
+and differential \(s-1\). It identifies with
+\(K(\Lambda)[-1]\) by multiplying degree one by \(-1\).
+Composition of diagrams therefore gives a strict model
+\[
+ \widetilde{\mathcal E}
+       =\begin{pmatrix}\Lambda&Q\\0&k\end{pmatrix}.
+\]
+
+Evaluation at one in degree two and zero in degree one
+give a quasi-isomorphism of bimodules \(Q\to k[-2]\).
+It extends to a dg algebra quasi-isomorphism
+\(\widetilde{\mathcal E}\to\mathcal E\): two off-diagonal
+entries cannot compose, and all remaining products are
+the indicated left and right module actions.
+
+The functor \(R\operatorname{Hom}(\mathcal G,-)\) takes
+values in right \(\widetilde{\mathcal E}\)-modules by
+precomposition. Its left adjoint is
+\(N\mapsto N\otimes^L_{\widetilde{\mathcal E}}\mathcal G\).
+The unit and counit are equivalences on the two idempotent
+free modules and the corresponding summands of
+\(\mathcal G\). Both functors preserve sums and triangles,
+so the equivalences extend to their generated categories,
+which are the entire categories just specified.
+
+Finally transport modules along
+\(\widetilde{\mathcal E}\to\mathcal E\). If an explicit
+inverse over the zero-differential algebra is desired, put
+\(\mathcal G_{\mathcal E}
+=\mathcal E\otimes^L_{\widetilde{\mathcal E}}\mathcal G\).
+The inverse is
+\(N\mapsto N\otimes^L_{\mathcal E}\mathcal G_{\mathcal E}\).
+Derived transport defines the left action without factoring
+the original chain action strictly through the quotient.
+\end{proof}
+
+\begin{example}\label{cyp:ex:extension}
+Full derived module maps carry more than their underlying
+graded cohomology maps. Fix \(\lambda\ne0,1\). The sequence
+\[
+ 0\longrightarrow k_\lambda\longrightarrow
+ \Lambda/(s-\lambda)^2\longrightarrow k_\lambda
+ \longrightarrow0
+\]
+does not split as \(\Lambda\)-modules. Indeed, any lift of
+the quotient generator is sent by \(s-\lambda\) to the
+nonzero submodule generator. Its connecting morphism is a
+nonzero element of
+\(\operatorname{Ext}^1_\Lambda(k_\lambda,k_\lambda)\).
+
+Since \(j_!\) is fully faithful, it gives a nonzero map
+\(F_\lambda\to F_\lambda[1]\).
+The underlying map of \(A\)-probe complexes is zero in
+\(D(k)\), because the sequence splits as vector spaces.
+Both \(B\)-probe complexes are zero. The derived module
+map in Theorem~\ref{cyp:thm:generator} nevertheless remains
+nonzero. Conservativity on objects cannot be replaced by
+faithfulness of the underlying graded vector-space maps.
+\end{example}
+
+\section{Independent normal directions}
+
+Give \(D^r\) the coordinate stratification, and allow arbitrary
+local systems of complexes on each stratum. For each
+\(I\subseteq\{1,\ldots,r\}\), take the external product
+which uses \(A\) in coordinates in \(I\) and \(B\) in
+the others.
+
+\begin{proposition}\label{cyp:prop:normal-crossings}
+These \(2^r\) external products form a compact generating
+family. The derived endomorphism algebra of their sum is
+quasi-isomorphic to the graded tensor product
+\(\mathcal E^{\otimes r}\), with its Koszul signs.
+It reconstructs all objects and maps in this stratified
+category. In particular it detects a nonzero discrepancy
+from the two-axis coefficient \(1/9\) of
+Corollary~\ref{cyt:cor:products}.
+\end{proposition}
+
+\begin{proof}
+Apply open--closed localization one coordinate at a time.
+On a stratum with open coordinates \(I\), the regular
+local system is the free module over
+\(k[s_i^{\pm1}:i\in I]\). It generates that stratum's
+local systems. The localization triangles give generation
+on the whole polydisk. Compactness follows from the finite
+tensor product of the two-term link resolutions.
+
+The same resolutions compute each Hom block between the
+displayed generators. A factor with source \(A\) and
+target \(B\) gives zero. The other factors give
+\(\Lambda\), \(k\), or \(Q\), as in the preceding proof.
+The product cellular complex is the tensor product of
+these finite free resolutions. Composition is tensor
+composition with the cohomological signs. Thus its full
+dg endomorphism algebra is
+\(\widetilde{\mathcal E}^{\otimes r}\).
+
+Tensoring the block quasi-isomorphisms over the field \(k\)
+gives \(\mathcal E^{\otimes r}\), and the same adjunction
+argument reconstructs the category. The exceptional
+two-axis Gysin class is nonzero by coordinate purity,
+so a nonzero scalar multiple remains a nonzero derived
+module map under this equivalence.
+\end{proof}
+
+For independent flags this model tests the whole normalized
+trace, including its attaching homotopies. An interacting
+flag requires its own stratification and link functors.
+The reconstruction theorem applies once those coefficient
+objects and their attaching maps have been supplied.
+
+\section{Derived centres and change of generator}
+\label{cycen:sec:derived}
+
+A compact generator reconstructs objects and maps from one
+algebra. The operations that act naturally on every module
+are its derived centre. This requires the bimodule structure
+of the algebra itself.
+
+For a unital differential graded algebra $\mathsf A$ over $k$,
+put $\mathsf A^e=\mathsf A\otimes_k\mathsf A^{\mathrm{op}}$ and define
+\[
+ Z_{\mathrm{dg}}(\mathsf A)
+   =R\operatorname{Hom}_{\mathsf A^e}(\mathsf A,\mathsf A),
+ \qquad
+ HH^n(\mathsf A)=H^n Z_{\mathrm{dg}}(\mathsf A).
+\]
+The ordinary centre is $HH^0$ when $\mathsf A$ is concentrated
+in degree zero. The whole complex has a product and coherent
+operations refining its commutativity.
+
+Write $s=[1]$ for suspension, so $|sa|=|a|-1$.
+The normalized two-sided bar resolution gives the product
+complex
+\begin{equation}\label{cycen:eq:bar}
+ C(\mathsf A)=\prod_{q\geq0}
+  \operatorname{Hom}_k\bigl((s\overline{\mathsf A})^{\otimes q},
+                                  \mathsf A\bigr),
+ \qquad \overline{\mathsf A}=\mathsf A/k\mathbf1.
+\end{equation}
+Derived representatives are understood. An arity-$q$ cochain
+vanishes if any of its inputs is the unit. The product over
+arities is part of the totalization; it is not replaced by a
+direct sum when infinitely many arities contribute in one degree.
+
+The signs can be specified on suspended inputs. For a
+homogeneous cochain $f$, set $F=sf$, with $|F|=|f|-1$.
+The brace $F\{G_1,\ldots,G_r\}$ sums over ordered disjoint
+insertions of the $G_j$ into $F$. On suspended inputs $x_i$,
+an insertion beginning at positions $\ell_j$ has sign
+\begin{equation}\label{cycen:eq:brace-sign}
+ (-1)^{\sum_j|G_j|\sum_{i<\ell_j}|x_i|}.
+\end{equation}
+An arity-zero insertion consumes no input. The inner sum
+includes inputs consumed by earlier inserted maps. Projection
+to $s\overline{\mathsf A}$ precedes every insertion into a
+normalized input.
+
+Let $b=b_1+b_2$ be the bar coderivation on $T^c(s\mathsf A)$,
+with
+\[
+ b_1(sa)=-s(da),\qquad b_2(sa,sb)=(-1)^{|a|}s(ab).
+\]
+For suspended maps put
+$[F,G]=F\{G\}-(-1)^{|F||G|}G\{F\}$.
+The cochain differential, cup product and Gerstenhaber bracket
+are
+\begin{equation}\label{cycen:eq:operations}
+ Df=-s^{-1}[b,F],\qquad
+ f\smile g=(-1)^{|f|}s^{-1}b_2\{F,G\},\qquad
+ [f,g]_{\mathrm G}=s^{-1}[F,G].
+\end{equation}
+The bracket has degree $-1$.
+An ordinary arity-$q$ multilinear map is put in this
+convention by precomposing with $(s^{-1})^{\otimes q}$,
+including its tensor Koszul sign.
+
+\begin{proposition}\label{cycen:prop:bar-operations}
+The complex \eqref{cycen:eq:bar} computes
+$Z_{\mathrm{dg}}(\mathsf A)$. Its cup product represents
+composition of derived bimodule endomorphisms. Its cup and
+braces give the Hochschild $E_2$ structure. On cohomology,
+\eqref{cycen:eq:operations} defines a Gerstenhaber algebra.
+\end{proposition}
+\begin{proof}
+The two-sided bar is augmented to $\mathsf A$ by multiplication.
+Inserting the unit contracts the augmented resolution. Applying
+bimodule Hom produces \eqref{cycen:eq:bar}. Its differential
+has the internal differential, the adjacent products and the
+two outer actions, exactly the terms of $-s^{-1}[b,F]$.
+
+The Alexander--Whitney diagonal cuts a bar string at every
+position. Applying $g$ to its final segment and then $f$ to
+the preceding segment gives $f\smile g$, with the sign of
+moving the maps through the suspended inputs. The diagonal
+commutes with the bar differential: products across a cut
+cancel against its outer actions. Its coassociativity identifies
+cup with composition of the resulting chain endomorphisms.
+
+A second family of brace insertions either lies inside an
+existing insertion or occupies a remaining slot. These choices
+partition the same ordered substitutions, with the same Koszul
+signs. This proves the brace identities; $b^2=0$ gives their
+differential identities. The operad generated by cup, unit and
+these braces is a chain model of the little two-cubes operad
+\cite{McClureSmith}*{Theorem~1.1}. Its cohomology operations
+are the asserted product and bracket.
+\end{proof}
+
+\begin{example}\label{cycen:ex:dual-numbers}
+Let $\mathsf A=k[\epsilon]/(\epsilon^2)$. The periodic
+bimodule resolution has successive differentials alternating
+between multiplication by $x-y$ and $x+y$ in
+$\mathsf A^e=k[x,y]/(x^2,y^2)$, beginning with $x-y$.
+The kernels are the images of the other multiplication:
+this follows by evaluating on the basis $1,x,y,xy$.
+After applying bimodule Hom, the differentials alternate
+between zero and multiplication by $2\epsilon$. Hence
+\[
+ HH^0(\mathsf A)=\mathsf A,\qquad
+ HH^{2r+1}(\mathsf A)=k\epsilon\quad(r\geq0),\qquad
+ HH^{2r}(\mathsf A)=k\quad(r\geq1).
+\]
+In contrast, $\operatorname{End}_k(\mathsf A)$ is
+four-dimensional and concentrated in degree zero. Linear
+endomorphisms do not compute the derived centre.
+\end{example}
+
+\begin{theorem}\label{cycen:thm:morita}
+A $k$-linear equivalence of presentable derived module
+categories, preserving colimits, identifies their derived
+centres as $E_2$ algebras and intertwines their actions on
+modules. In particular, changing a compact generator preserves
+the full Hochschild structure.
+\end{theorem}
+\begin{proof}
+A colimit-preserving $k$-linear functor from left
+$\mathsf A$-modules to left $\mathsf B$-modules is tensoring
+with a $\mathsf B$--$\mathsf A$ bimodule $P$. Indeed, take
+$P$ to be its value on $\mathsf A$; the right action comes
+from the right action on this free module. The assertion
+holds on free modules by linearity and on every module by
+its free bar resolution. The same construction identifies
+natural transformations and their higher homotopies.
+
+Thus endofunctors of the module category correspond to
+bimodules, composition corresponds to balanced tensor, and
+the identity corresponds to $\mathsf A$. Its endomorphism
+complex is $Z_{\mathrm{dg}}(\mathsf A)$. Vertical composition
+cuts bar strings; horizontal composition substitutes their
+components. These are cup and braces. Conjugating
+endofunctors by the given equivalence and a chosen inverse
+preserves both compositions and their interchange. It therefore
+identifies the $E_2$ algebras and their evaluations. This is
+also the derived invariance of Hochschild higher operations
+\cite{cycen:KellerHigher}*{Sections~3.2 and~4.6}.
+\end{proof}
+
+For $\mathsf B=M_n(\mathsf A)$ the comparison is visible
+entry by entry. With $e=E_{11}$, the bimodules
+$P=\mathsf Be$ and $Q=e\mathsf B$ satisfy
+\[
+ Q\otimes_{\mathsf B}^{\mathbb L}P\simeq\mathsf A,
+ \qquad P\otimes_{\mathsf A}^{\mathbb L}Q\simeq\mathsf B.
+\]
+For an unsuspended arity-$q$ cochain,
+\begin{equation}\label{cycen:eq:matrix}
+ (\Phi_nf)(X_1,\ldots,X_q)_{i_0i_q}
+  =\sum_{i_1,\ldots,i_{q-1}}
+   f\bigl((X_1)_{i_0i_1},\ldots,(X_q)_{i_{q-1}i_q}\bigr).
+\end{equation}
+At arity zero it is the diagonal matrix with entry $f$.
+Concatenating index paths proves compatibility with cup;
+substituting paths proves compatibility with every brace.
+The relative bar over $M_n(k)$ computes the ordinary bar
+Hom because this algebra is separable: inserting
+$\sum_i E_{i1}\otimes E_{1i}$ contracts the extra balancing
+directions. Its relative cochains identify with $C(\mathsf A)$
+by \eqref{cycen:eq:matrix}. Thus the displayed map is a
+quasi-isomorphism with all these operations.
+
+\section{The centre retains the attaching point}
+\label{cycen:sec:attached}
+
+Return to the disk generator $A\oplus B$ of
+\eqref{cyp:eq:generator}. Replace it by $A\oplus B[-2]$.
+The off-diagonal derived Hom is now in degree zero, so its
+endomorphism algebra is quasi-isomorphic to
+\begin{equation}\label{cycen:eq:simple}
+ T_x=\begin{pmatrix}\Lambda&k\\0&k\end{pmatrix},
+ \qquad \Lambda=k[x,(1+x)^{-1}],\quad x=s-1.
+\end{equation}
+The arrow $a$ in the upper-right entry satisfies $xa=0$.
+The shift changes the compact generator; it does not discard
+the degree-two attachment. More explicitly, a dg algebra with
+cohomology only in degree zero has the multiplicative truncation
+zigzag $E\leftarrow\tau_{\leq0}E\to H^0(E)$.
+Theorem~\ref{cycen:thm:morita} therefore identifies the derived
+centre of the disk category with that of $T_x$.
+
+To vary the attachment, let $F\in k[x]$ be monic and
+nonconstant, with $F(-1)\ne0$, and put
+\begin{equation}\label{cycen:eq:attached-family}
+ M_F=\Lambda/(F),\qquad
+ T_F=\begin{pmatrix}\Lambda&M_F\\0&k\end{pmatrix}.
+\end{equation}
+Its diagonal idempotents are $e_1,e_2$; the class of $1$ in
+$M_F$ is $a=e_1ae_2$, and $F(x)a=0$. The algebra $T_{x^r}$
+for $r>1$ defines a different attaching category. A geometric
+realization of that category requires additional data.
+
+\begin{theorem}\label{cycen:thm:resolution}
+The algebra $T=T_F$ has the projective bimodule resolution
+\[
+ 0\longrightarrow P_2\xrightarrow{d_2}P_1
+ \xrightarrow{d_1}P_0\xrightarrow{\mu}T\longrightarrow0,
+\]
+where
+\[
+ \begin{aligned}
+ P_0&=(Te_1\otimes e_1T)[e_1]\oplus(Te_2\otimes e_2T)[e_2],\\
+ P_1&=(Te_1\otimes e_1T)[x]\oplus(Te_1\otimes e_2T)[a],\\
+ P_2&=(Te_1\otimes e_2T)[R].
+ \end{aligned}
+\]
+Here all tensors are over $k$, and brackets name generators.
+Writing $F(x)=\sum_j f_jx^j$, the differentials are
+\begin{equation}\label{cycen:eq:resolution-differentials}
+ \begin{aligned}
+ d_1[x]&=x[e_1]-[e_1]x,&
+ d_1[a]&=a[e_2]-[e_1]a,\\
+ d_2[R]&=\sum_{j\geq1}f_j\sum_{b=0}^{j-1}
+             x^b[x]x^{j-1-b}a+F(x)[a].
+ \end{aligned}
+\end{equation}
+\end{theorem}
+\begin{proof}
+Every summand is an idempotent summand of a free $T^e$-module.
+The composite $d_1d_2$ telescopes to
+$F(x)a[e_2]-[e_1]F(x)a=0$. Check exactness in the four
+idempotent blocks. The $(2,1)$ block is zero, the $(2,2)$
+augmentation is the identity, and the $(1,1)$ block is the
+diagonal resolution of $\Lambda$, whose kernel is generated
+by the nonzero divisor $x-y$ in $\Lambda\otimes_k\Lambda$.
+
+For the $(1,2)$ block set
+\[
+ L=\Lambda_x\otimes_k M_{F,y},\qquad
+ D_F(x,y)=\frac{F(x)-F(y)}{x-y}.
+\]
+The augmented complex is
+\[
+ 0\longrightarrow\Lambda_x\longrightarrow L\oplus\Lambda_x
+ \longrightarrow L\oplus M_F\longrightarrow M_F\longrightarrow0
+\]
+with maps
+\[
+ W\longmapsto(D_FW,FW),\quad
+ (U,V)\longmapsto((x-y)U-V,\overline V),\quad
+ (Z,m)\longmapsto Z(y,y)+m.
+\]
+The first is injective because $F$ is nonzero in the domain
+$\Lambda_x$. Multiplication by $x-y$ on $L$ is injective:
+it is monic in $x$ before localization, even when $M_F$ is
+nonreduced. If $(x-y)U=V$ and $\overline V=0$, write
+$V=FW$; then $U=D_FW$. If $Z(y,y)+m=0$, choose a lift
+$V\in\Lambda$ of $m$. The element $Z+V$ is divisible by
+$x-y$, and its quotient gives a preimage of $(Z,m)$.
+The final map is surjective. These arguments prove exactness.
+\end{proof}
+
+Let $S=ke_1\oplus ke_2$. The relative normalized bar cochains
+\[
+ C_S^n(T_F,T_F)=\operatorname{Hom}_{S\text{-}S}
+       ((T_F/S)^{\otimes_S n},T_F)
+\]
+retain cup and braces and compute the derived centre, since
+$S$ is separable. The finite resolution maps to this bar by
+sending $[x]$ and $[a]$ to their one-bar classes and
+\begin{equation}\label{cycen:eq:relation-bar}
+ [R]\longmapsto
+ \sum_{j\geq1}f_j\sum_{b=0}^{j-1}x^b[x\mid x^{j-1-b}a].
+\end{equation}
+Its bar boundary telescopes to
+\eqref{cycen:eq:resolution-differentials}; the relation
+$F(x)a=0$ supplies the constant term. The short complex
+below computes cohomology. Its length does not define strict
+brace operations on it.
+
+\begin{theorem}\label{cycen:thm:attached-centre}
+The underlying derived-centre complex is computed by
+\begin{equation}\label{cycen:eq:small}
+ \Lambda\oplus k\xrightarrow{d^0}\Lambda\oplus M_F
+ \xrightarrow{d^1}M_F,
+ \quad
+ d^0(f,c)=(0,c-\overline f),\qquad
+ d^1(v,w)=\overline{F'v}.
+\end{equation}
+These terms are in degrees zero, one and two. If
+$g=\gcd(F,F')$ is monic, then
+\begin{equation}\label{cycen:eq:attached-hh}
+ \begin{aligned}
+ HH^0(T_F)&=k+F\Lambda,&
+ HH^1(T_F)&=(F/g)\Lambda\,\partial_x,\\
+ HH^2(T_F)&=\Lambda/(F,F'),& HH^{n}(T_F)&=0\quad(n\geq3).
+ \end{aligned}
+\end{equation}
+The function $f=c+Fh$ represents the central matrix
+$\operatorname{diag}(f,c)$.
+\end{theorem}
+\begin{proof}
+Bimodule Hom sends the vertex generators to $(f,c)$ and
+the loop and arrow generators to $(v,w)$. Evaluating their
+coboundaries on \eqref{cycen:eq:resolution-differentials}
+gives $d^0$ and $F'v+Fw=F'v$ modulo $F$. The first
+differential surjects onto the arrow component. The remaining
+kernel is $\{v:F\mid F'v\}=(F/g)\Lambda$, and the cokernel
+is $\Lambda/(F,F')$. The resolution excludes higher groups.
+Represent a degree-one class by the derivation
+$\delta_v(x)=v$, $\delta_v(a)=\delta_v(e_i)=0$.
+The divisibility condition is exactly the condition preserving
+$F(x)a=0$.
+\end{proof}
+
+For the simple attachment this gives
+\begin{equation}\label{cycen:eq:logarithmic-centre}
+ HH^0(T_x)=\Lambda,\qquad
+ HH^1(T_x)=x\Lambda\partial_x,\qquad HH^{\geq2}(T_x)=0.
+\end{equation}
+The contraction of \eqref{cycen:eq:small} onto these groups
+is explicit:
+\[
+ \begin{array}{ll}
+ i^0(f)=(f,f(0)),&p^0(f,c)=f,\\
+ i^1(v)=(v,0),&p^1(v,w)=v-v(0),
+ \end{array}
+ \qquad
+ h^1(v,w)=(0,w),\quad h^2(z)=(z,0).
+\]
+It satisfies $dh+hd=1-ip$ and $pi=1$. The cup action is
+multiplication of functions on vector fields. The derivation
+representatives give
+\begin{equation}\label{cycen:eq:logarithmic-bracket}
+ [v\partial_x,f]=vf',\qquad
+ [v\partial_x,w\partial_x]=(vw'-wv')\partial_x,
+ \qquad v,w\in x\Lambda.
+\end{equation}
+Products of two positive-degree classes vanish by
+\eqref{cycen:eq:logarithmic-centre}.
+
+\begin{corollary}\label{cycen:cor:missing-derivative}
+There is no Gerstenhaber-algebra map
+$HH^\bullet(\Lambda)\to HH^\bullet(T_x)$ that is the identity
+on degree-zero functions. Consequently there is no unital
+$E_2$ map of derived centres with that property.
+\end{corollary}
+\begin{proof}
+The image of $\partial_x$ would be $v\partial_x$ for
+$v\in x\Lambda$. Preservation of $[\partial_x,x]=1$
+would force $v=1$, whereas $x$ is not invertible in
+$\Lambda$. No section property is needed for this contradiction.
+\end{proof}
+
+The coordinate $x=s-1$ measures monodromy relative to the
+attaching point. It is not a spacetime insertion coordinate.
+Restriction to the open object does give a higher Hochschild
+map in the opposite direction, by restriction of bar cochains
+to a full subcategory \cite{cycen:KellerHigher}*{Section~4.3}.
+On cohomology it is the identity on functions and the
+inclusion $x\Lambda\partial_x\subset\Lambda\partial_x$.
+
+\subsection{Several attachments and flat deformations}
+
+For $d$ independent simple attachments, tensor the finite
+bimodule resolutions. Their terms are finitely generated
+projectives, so Hom commutes with the tensors in this
+calculation. K\"unneth gives
+\begin{equation}\label{cycen:eq:log-polyvectors}
+ HH^\bullet(T_x^{\otimes d})=
+ k[x_i,(1+x_i)^{-1}:1\leq i\leq d]
+   \otimes\Lambda(\theta_1,\ldots,\theta_d),
+ \qquad \theta_i=x_i\partial_{x_i},\quad |\theta_i|=1.
+\end{equation}
+The brackets obey $[\theta_i,x_j]=\delta_{ij}x_i$ and
+$[\theta_i,\theta_j]=0$, extended by the graded Leibniz rule.
+In two directions, $\theta_1\smile\theta_2\ne0$.
+
+Let $D_i$ be the derivation of $T_x^{\otimes2}$ which acts
+by $x_i\partial_{x_i}$ on its open coordinate and kills
+both idempotents and both arrows. It preserves the arrow
+relations and the localized functions. The commuting
+operators $D_1,D_2$ define
+\begin{equation}\label{cycen:eq:log-twist}
+ a\star_\hbar b=\sum_{n\geq0}\frac{\hbar^n}{n!}
+                        D_1^n(a)D_2^n(b).
+\end{equation}
+This is an associative unital product on
+$T_x^{\otimes2}[[\hbar]]$. Both triple products equal ordinary
+triple multiplication after
+\[
+ \exp\bigl(\hbar(D_1\otimes D_2\otimes1
+                  +D_1\otimes1\otimes D_2
+                  +1\otimes D_1\otimes D_2)\bigr).
+\]
+The three operators commute, proving associativity in every
+formal degree. The derivations kill the unit. The first-order
+class is $\theta_1\smile\theta_2$, and
+\[
+ x_1\star_\hbar x_2=e^\hbar x_1x_2,
+ \qquad x_2\star_\hbar x_1=x_1x_2.
+\]
+The antisymmetrization of a Hochschild coboundary on the
+central pair $(x_1,x_2)$ is zero, whereas that of the displayed
+first-order term is $x_1x_2$. This also detects its nonzero class.
+
+For a thick attachment $F=x^r$, $r\geq2$, the groups are
+\[
+ HH^0(T_{x^r})=k+x^r\Lambda,\quad
+ HH^1(T_{x^r})=x\Lambda\partial_x,\quad
+ HH^2(T_{x^r})=k[x]/(x^{r-1}).
+\]
+The degree-two directions distinguish it from the simple
+attachment even up to derived Morita equivalence. For
+$v=xw$ their Gerstenhaber action is
+\begin{equation}\label{cycen:eq:thick-bracket}
+ [xw\partial_x,g]=xwg'-rwg\pmod{x^{r-1}}.
+\end{equation}
+Indeed, $x\mapsto x+\varepsilon xw$ carries $x^r$ to
+$(1+\varepsilon rw)x^r$. Apply this change to $x^r-\tau g$
+and divide the relation by that unit. Its new deformation
+term is $g+\varepsilon(xwg'-rwg)$, proving the formula.
+In particular $[x\partial_x,x^j]=(j-r)x^j$ in degree two.
+
+All these directions integrate together. Put
+\[
+ R=k[[t_0,\ldots,t_{r-2}]],\qquad
+ F_{\mathbf t}(x)=x^r-\sum_{j=0}^{r-2}t_jx^j,
+\]
+and complete in the maximal ideal of $R$. Then
+\begin{equation}\label{cycen:eq:formal-attaching}
+ \mathcal T_{\mathbf t}=
+ \begin{pmatrix}
+ \Lambda\widehat\otimes_k R&R[x]/(F_{\mathbf t})\\0&R
+ \end{pmatrix}
+\end{equation}
+is a formally flat algebra. The arrow module is free over
+$R$ on $1,x,\ldots,x^{r-1}$, and $1+x$ is invertible on
+it because $F_{\mathbf t}(-1)$ is a unit. Each Artinian
+reduction is free over its parameter ring. The $t_j$ tangent
+class is $+x^j$: in the companion presentation, the first
+product variation sends $(x,x^{r-1}a)$ to $x^ja$, and
+\eqref{cycen:eq:relation-bar} identifies this with the
+positive relation class.
+
+For $r=2$, multiplication by $1+x$ on the arrow module is
+\[
+ S_\tau=\begin{pmatrix}1&\tau\\1&1\end{pmatrix},\qquad
+ (S_\tau-I)^2=\tau I,
+ \qquad \det S_\tau=1-\tau.
+\]
+The rank and trace are constant while the attachment deforms.
+The algebraic families \eqref{cycen:eq:log-twist} and
+\eqref{cycen:eq:formal-attaching} construct operations on
+ordinary probe algebras. A Hall coproduct and factorization
+sewing require their own maps.
+
+\section{Half-braidings and central functors}
+\label{cycen:sec:categorical}
+
+The derived centre above is an algebra of operations. A
+tensor category has a different centre, itself a braided
+category. Its objects remember how one object exchanges
+with every other object of the category.
+
+Let $(\mathscr M,\otimes,\mathbf1)$ be a monoidal category.
+An object of its \emph{Drinfeld centre} $\mathcal Z(\mathscr M)$
+is a pair $(V,\beta)$, where $V\in\mathscr M$ and
+\[
+ \beta_W:V\otimes W\xrightarrow{\sim}W\otimes V
+\]
+is natural in $W$, equals the unit constraint at $\mathbf1$,
+and obeys the half-braiding identity
+\[
+ \beta_{W\otimes W'}
+   =(1_W\otimes\beta_{W'})(\beta_W\otimes1_{W'}).
+\]
+Associators are understood in this formula. Morphisms commute
+with every $\beta_W$. Tensoring the half-braidings defines
+the monoidal product, and $\beta_{V'}$ gives its braiding.
+
+A central structure on a strong monoidal functor
+$F:\mathscr B\to\mathscr M$ consists of half-braidings
+on every $F(B)$, compatible with the tensor constraints.
+If $\mathscr B$ is braided and the lift is to be braided,
+its braiding must also map to the resulting half-braiding
+between objects in the image. These structures are additional
+to the monoidal constraints of $F$.
+
+\begin{example}\label{cycen:ex:no-central-lift}
+For a finite group $G$, let $\operatorname{Vec}_G$ be the
+category of finite-dimensional $G$-graded vector spaces,
+with $(V\otimes W)_g=\bigoplus_{ab=g}V_a\otimes W_b$.
+Write $\delta_g$ for the one-dimensional object of degree $g$.
+The symmetric category $\operatorname{Vec}_{C_2}$ maps
+strongly monoidally to $\operatorname{Vec}_{S_3}$ by sending
+the nontrivial degree to $s=(12)$. This functor has no
+central lift. Indeed, a half-braiding of $\delta_s$ with
+$\delta_h$, $h=(123)$, would identify objects of degrees
+$sh$ and $hs$. These degrees differ, so every graded map
+between them is zero.
+\end{example}
+
+Thus the centre construction does not provide a right adjoint
+from arbitrary monoidal categories to braided categories with
+all strong monoidal functors as morphisms. There is a genuine
+adjunction for the forgetful functor from a fixed centre.
+The finite-group case computes it completely.
+
+\begin{proposition}\label{cycen:prop:group-centre}
+The category $\mathcal Z(\operatorname{Vec}_G)$ consists of
+$G$-graded vector spaces $V$ with a $G$-action $\rho$ such that
+\[
+ \rho(h)V_g\subset V_{hgh^{-1}}.
+\]
+The associated half-braiding on homogeneous elements is
+\begin{equation}\label{cycen:eq:group-half-braiding}
+ \beta(v\otimes w_h)=w_h\otimes\rho(h^{-1})v.
+\end{equation}
+The forgetful functor $U$ has right adjoint
+\begin{equation}\label{cycen:eq:group-adjoint}
+ I(X)=\bigoplus_{a\in G}(a,X),\qquad
+ \deg(a,x_g)=aga^{-1},\quad
+ \rho(h)(a,x)=(ha,x).
+\end{equation}
+\end{proposition}
+\begin{proof}
+The grading condition makes \eqref{cycen:eq:group-half-braiding}
+degree-preserving. Exchanges first with degree $h$ and then
+with degree $k$ apply
+$\rho(k^{-1})\rho(h^{-1})=\rho((hk)^{-1})$; this is the
+half-braiding identity. Conversely, the exchanges with all
+$\delta_h$ determine these operators. The unit and tensor
+identities give their group law, and degree preservation gives
+the conjugation condition. Naturality extends the formula
+from graded lines to all objects.
+
+The object \eqref{cycen:eq:group-adjoint} has the required
+grading and action. Given a graded map $f:UV\to X$, define
+\[
+ \widetilde f(v)=\sum_{a\in G}
+       (a,f(\rho(a^{-1})v)).
+\]
+Each summand has the degree of $v$. Reindexing $a=hb$
+proves equivariance, so $\widetilde f$ is a central morphism.
+Projection to the identity-labelled summand recovers $f$.
+Conversely, equivariance determines every summand of a central
+map from that projection. The two constructions are inverse
+and natural, proving
+$\operatorname{Hom}_{\mathcal Z}(V,I(X))
+ =\operatorname{Hom}_{\operatorname{Vec}_G}(UV,X)$.
+\end{proof}
+
+For $G=S_3$ and $X=\delta_{(12)}$, the object $I(X)$ has
+dimension six. Each of the three conjugate transposition
+degrees occurs twice. The adjoint adds these conjugate
+components; it does not place a half-braiding on the original
+one-dimensional object.
+
+\begin{proposition}\label{cycen:prop:transport}
+A strong monoidal equivalence
+$F:\mathscr M\xrightarrow{\sim}\mathscr N$ induces a
+braided equivalence
+$\mathcal Z(\mathscr M)\xrightarrow{\sim}\mathcal Z(\mathscr N)$.
+\end{proposition}
+\begin{proof}
+Choose a monoidal inverse $G$ and counit
+$\varepsilon:FG\xrightarrow{\sim}\operatorname{Id}_{\mathscr N}$.
+If $\phi$ denotes the tensor constraint of $F$, transport a
+half-braiding by the composite
+\[
+ \begin{split}
+ F(V)\otimes W&\xrightarrow{1\otimes\varepsilon_W^{-1}}
+ F(V)\otimes F(GW)\xrightarrow{\phi}F(V\otimes GW)\\
+ &\xrightarrow{F(\beta_{GW})}F(GW\otimes V)
+ \xrightarrow{\phi^{-1}}F(GW)\otimes F(V)
+ \xrightarrow{\varepsilon_W\otimes1}W\otimes F(V).
+ \end{split}
+\]
+The monoidal coherence equations and the original
+half-braiding identity prove the new one. The same construction
+with $G$ supplies the inverse; the unit and counit give its
+central equivalences. Applying the formula to two central
+objects shows preservation of their braiding.
+\end{proof}
+
+A derived equivalence of geometric categories therefore
+transports their ordinary derived centres by
+Theorem~\ref{cycen:thm:morita}. To use
+Proposition~\ref{cycen:prop:transport}, it must additionally
+preserve the specified monoidal products. An equivalence of
+underlying categories supplies no Hall tensor constraint.
+
+\section{The internal centre for convolution}
+\label{cycen:sec:convolution}
+
+The coefficient category of the ordered collision schemes
+carries a symmetric disjointness convolution. We now apply
+the derived-centre construction internally, retaining the
+coefficient object on every configuration.
+
+Let $(\mathscr C_R,\star,K_R)$ be the presentable stable
+coefficient category of Chapter~\ref{cycuts:ch}, extended
+over a commutative $k$-algebra $R$. Its convolution preserves
+colimits in both variables, and $K_R$ is supported at the
+empty configuration. For an associative algebra $A$ in this
+category, define $Z_\star^{\mathrm{int}}(A)$ by
+\begin{equation}\label{cycen:eq:internal-centre}
+ \operatorname{Map}_{\mathscr C_R}
+       (V,Z_\star^{\mathrm{int}}(A))
+ \simeq
+ \operatorname{Map}_{A\text{-}A}(V\star A,A).
+\end{equation}
+The right side uses the two actions of $A$ on itself. Its
+representability follows from presentability and the
+colimit-preserving coefficient action.
+
+An action on $A$ through convolution is a left-module
+structure over an $E_2$ algebra $F$ in the category of
+associative algebras of $\mathscr C_R$. Thus
+$F\star A\to A$ is an algebra map with unit, multiplication
+and action coherences. Morphisms of actions preserve all
+these data.
+
+\begin{theorem}\label{cycen:thm:convolution}
+The internal centre is an $E_2$ algebra, and its evaluation
+is final among convolution actions on $A$. Composition with
+evaluation identifies maps of $E_2$ algebras
+$F\to Z_\star^{\mathrm{int}}(A)$ with such actions of $F$.
+Evaluation at the unit of $A$ gives an algebra map
+$Z_\star^{\mathrm{int}}(A)\to A$.
+\end{theorem}
+\begin{proof}
+The centre theorem for a presentable symmetric monoidal
+category whose tensor preserves colimits constructs the final
+action \cite{LurieHA}*{Corollary~5.3.1.15}. Its centralizer
+of the identity is the morphism object of $A$ as a bimodule
+\cite{LurieHA}*{Proposition~5.3.1.8 and Theorem~5.3.1.30}.
+That morphism object is precisely
+\eqref{cycen:eq:internal-centre}. The two compatible
+compositions make it an associative algebra in associative
+algebras, hence an $E_2$ algebra. Finally, compose evaluation
+with $Z_\star^{\mathrm{int}}(A)\star K_R\to
+Z_\star^{\mathrm{int}}(A)\star A$. Both arrows are algebra maps.
+\end{proof}
+
+For a left $A$-module $M$, tensoring evaluation over $A$
+gives its characteristic action
+\begin{equation}\label{cycen:eq:module-action}
+ Z_\star^{\mathrm{int}}(A)\star M
+ \simeq (Z_\star^{\mathrm{int}}(A)\star A)
+                \star_A^{\mathbb L}M
+ \longrightarrow A\star_A^{\mathbb L}M\simeq M.
+\end{equation}
+It is natural in $M$, including all homotopies. A
+$\mathscr C_R$-linear equivalence of module categories
+intertwines these actions and identifies their internal
+centres as $E_2$ algebras. The proof of
+Theorem~\ref{cycen:thm:morita} applies with $\star$ in place
+of tensor over $k$: the coefficient-linear endofunctors are
+bimodules and the identity is $A$. The coefficient linearity
+is necessary to retain the internal object.
+
+For $A=K_R\oplus a$ with positive augmentation ideal $a$,
+let $[V,W]_\star$ denote the internal Hom for convolution.
+The two-sided bar gives
+\begin{equation}\label{cycen:eq:internal-bar}
+ Z_\star^{\mathrm{int}}(A)
+ \simeq
+ \left(\prod_{q\geq0}[(sa)^{\star q},A]_\star,
+                             \partial+[\tau,-]\right),
+\end{equation}
+where $\tau:BA\to A$ is the universal twisting cochain,
+$\partial f=d_Af-(-1)^{|f|}fd_{BA}$, and
+$f\smile g=\mu_A(f\star g)\Delta_{BA}$.
+The adjacent bar products contribute to $\partial$;
+the two outer module actions give the commutator with $\tau$.
+The Maurer--Cartan equation for $\tau$ makes this differential
+square zero. Cup and braces are those of
+\eqref{cycen:eq:brace-sign}--\eqref{cycen:eq:operations},
+using evaluation and the symmetry of convolution.
+
+The product in \eqref{cycen:eq:internal-bar} can be infinite
+even on one fixed output configuration: internal Hom from
+a high convolution power can have a nonzero empty coefficient.
+Define the scalar centre by
+\[
+ Z_\star^{\mathrm{sc}}(A)
+  =R\operatorname{Hom}_{\mathscr C_R}
+              (K_R,Z_\star^{\mathrm{int}}(A)).
+\]
+It retains only this scalar coefficient of the internal object.
+
+For the square-zero algebra $K\oplus a$, the cochains with
+values in $a$ have only their internal differential. The
+positive-to-empty mapping objects vanish, so
+\[
+ Z_\star^{\mathrm{int}}(K\oplus a)
+   \simeq K\oplus\prod_{q\geq0}[a^{\star q},a]_\star[-q].
+\]
+Their cup products vanish, but their braces need not. If
+$\delta$ is the identity of $a$, regarded as a degree-one
+Hochschild class, then any $a$-valued arity-$q$ cochain obeys
+\begin{equation}\label{cycen:eq:arity-bracket}
+                 [\delta,f]_{\mathrm G}=(1-q)f.
+\end{equation}
+The output insertion gives $f$ and the $q$ input insertions
+give $qf$; $s\delta$ has degree zero, so no insertion sign occurs.
+
+For $a=i_{\mathrm{ord}}\omega_{\mathbb A^1}$, every binary
+reduced word gives the operation complex $k\oplus k[-1]$.
+Indeed, applying derived Hom into the diagonal module to the
+localization triangle gives a triangle with other terms
+$k[-1]$ and $k[1]$. The map between them is zero over $k$;
+the remaining complex is $k\oplus k[-1]$, with the residue
+in degree zero. The middle-term calculation uses the one-variable
+Spencer resolution: derivatives act freely on the delta module,
+leaving one degree-one cokernel. The Hochschild shift by two
+therefore gives scalar-centre classes $\mu_w,\nu_w$ of degrees
+two and three, with
+\[
+ [\delta,\mu_w]_{\mathrm G}=-\mu_w,
+ \qquad [\delta,\nu_w]_{\mathrm G}=-\nu_w.
+\]
+Thus even this square-zero example requires the brace operations.
+
+\section{The ambient transverse endomorphism coalgebra}
+\label{cycen:sec:transverse}
+
+Convolution permits disjoint position sets. A transverse
+bulk input may share every position of its boundary input.
+The corresponding tensor is the diagonal tensor $\otimes^!$.
+Let $\mathsf{Coalg}_+$ be the category of coaugmented counital
+convolution coalgebras whose empty coefficient is $k$.
+Its diagonal unit is the dualizing coalgebra $\mathbb J$,
+with a vacuum at every configuration. Its reduced part is
+positive. The empty convolution unit remains $K$.
+
+A \emph{transverse monoid} is an associative algebra object
+of $(\mathsf{Coalg}_+,\otimes^!,\mathbb J)$. Its product,
+unit and action on a coalgebra $C$ have the forms
+\[
+ F\otimes^!F\longrightarrow F,
+ \qquad \mathbb J\longrightarrow F,
+ \qquad F\otimes^!C\longrightarrow C.
+\]
+They are coalgebra maps with coherent monoid or module laws.
+In particular the product intertwines the coproduct through
+the common-decomposition interchange of the two tensors.
+
+\begin{theorem}\label{cycen:thm:ambient}
+The category $\mathsf{Coalg}_+$ is closed for $\otimes^!$.
+Write $[\![C,D]\!]$ for its internal mapping coalgebra. Then
+\[
+ \mathcal E(C)=[\![C,C]\!]
+\]
+is a transverse monoid, and evaluation classifies every
+transverse monoid action on $C$:
+\begin{equation}\label{cycen:eq:ambient-action}
+ \operatorname{Map}_{\mathrm{Mon}}(F,\mathcal E(C))
+ \simeq\{\text{coherent transverse actions of }F\text{ on }C\}.
+\end{equation}
+At one position,
+\[
+ \mathcal E(C)_{\{1\}}
+ \simeq\underline{\operatorname{Hom}}_X^!
+                    (C_{\{1\}},C_{\{1\}}).
+\]
+No factorization condition on $\mathcal E(C)$ is asserted.
+\end{theorem}
+\begin{proof}
+Associative bar--cobar identifies $\mathsf{Coalg}_+$ with
+augmented convolution algebras having positive augmentation
+ideal. The latter form a presentable category. Limits of
+nonunital algebras in the opposite coefficient category are
+computed on underlying objects, so coalgebra colimits are
+computed on reduced parts. The diagonal tensor preserves
+these colimits componentwise. The adjoint functor theorem
+therefore gives the mapping coalgebra.
+
+An internal endomorphism object has composition and an identity.
+The enriched endomorphism universal property identifies its
+algebra maps with module structures, including their coherences
+\cite{LurieHA}*{Corollary~4.7.1.40}. This gives
+\eqref{cycen:eq:ambient-action}.
+
+For the last statement, test the pointwise Hom on objects
+supported on the small-diagonal branches. Local cohomology on
+those branches is $i_{\mathrm{ord}}(C_{\{1\}})$, and the
+projection formula reduces the adjunction to the one-position
+mapping object. Bar words of length at least two vanish at
+one position. The suspension in bar cancels the desuspension
+in cobar, leaving the displayed endomorphism object.
+\end{proof}
+
+There is also an explicit cochain description. For reduced
+parts $c$ of $C$ and $a$ of an augmented convolution algebra
+$A$, put
+\[
+ \mathcal H(C,A)=\Omega[\![C,BA]\!].
+\]
+Its augmentation ideal is
+$\underline{\operatorname{Hom}}^!(c,a)$, and on strict
+derived representatives its product is determined by
+\begin{equation}\label{cycen:eq:pointwise-cup}
+ \operatorname{ev}(\cup\otimes^!1)
+ =\mu_a(\operatorname{ev}\star\operatorname{ev})
+              \zeta(1\otimes^!\overline\Delta_C).
+\end{equation}
+Here $\zeta$ projects onto common ordered decompositions.
+The differential is the mapping differential, without a
+twist by a distinguished cochain.
+
+To verify the assertion, test on a positive coefficient $V$.
+The bar of the free tensor algebra $T_\star V$ is equivalent
+to the primitive coalgebra $K\oplus sV$. Its diagonal product
+with $C$ is primitive on $sV\otimes^!c$, so free-algebra
+adjunction gives
+\[
+ \operatorname{Map}(V,\overline{\mathcal H(C,A)})
+ \simeq\operatorname{Map}(V\otimes^!c,a).
+\]
+The product \eqref{cycen:eq:pointwise-cup} is associative by
+coassociativity, associativity and the coherent interchange.
+Compose the bar twisting cochain of this cup algebra with
+evaluation. The resulting twisting cochain defines a map
+from its bar tensored with $C$ to $BA$; its adjoint induces
+the identity on the displayed augmentation ideal. It is
+therefore an equivalence of algebras. Taking $A=\Omega C$
+gives
+\[
+ \Omega\mathcal E(C)\simeq\mathcal H(C,\Omega C).
+\]
+The identity of $C$ specifies its transverse unit.
+
+The two action tensors cannot be interchanged in these
+statements. For a positive coefficient $V$,
+\[
+ (K\star V)_{\{1\}}=V_{\{1\}},\qquad
+ (K\otimes^!V)_{\{1\}}=0.
+\]
+The common-decomposition interchange has a section, but its
+other composite is a projection, not an equivalence. The
+convolution centre has the twisted differential in
+\eqref{cycen:eq:internal-bar}; the transverse endomorphism
+coalgebra has the untwisted cochains above. A comparison
+must specify its tensor and its evaluation map.
+
+\section{A Heisenberg monoid and its augmentation obstruction}
+\label{cycen:sec:heisenberg}
+
+The ambient construction does not require a chosen
+augmentation to $\mathbb J$. A concrete factorizing monoid
+acting on the Heisenberg boundary shows why such an
+augmentation can fail even when its singleton cohomology
+is an augmented algebra.
+
+Fix $\kappa\in k^\times$, and let $V_\kappa$ be the
+Heisenberg vertex algebra generated by $J$, with
+$[J_\lambda J]=\kappa\lambda$. Adjoin an odd field $c$
+of degree one, with regular brackets, and set
+\[
+ \mathcal Z_\kappa=V_\kappa\otimes\Lambda[c,Tc,T^2c,\ldots],
+ \qquad dJ=\kappa Tc,\quad dc=0.
+\]
+The differential is the zero mode of ${:}cJ{:}$ and is a
+vertex derivation. It squares to zero. All states are
+algebraic polynomials in finitely many jets.
+
+Let $E$ be the Weyl--Clifford vertex algebra on even fields
+$t,p$ of degree zero and odd fields $\eta,\iota$ of degrees
+$1,-1$, with
+\begin{equation}\label{cycen:eq:quartet}
+ [p_\lambda t]=1,\qquad [\iota_\lambda\eta]=1,\qquad
+ Qt=\eta,\quad Q\iota=p,\quad Q\eta=Qp=0.
+\end{equation}
+The other generator brackets are zero or determined by
+skewsymmetry. On $W=V_\kappa\otimes E$, the maps
+\begin{equation}\label{cycen:eq:quartet-maps}
+ i(J)=J+p,\qquad j(J)=J-\kappa Tt,\qquad j(c)=-\eta
+\end{equation}
+define vertex maps $i:V_\kappa\to W$ and
+$j:\mathcal Z_\kappa\to W$ with commuting images.
+Indeed,
+\[
+ [(J+p)_\lambda(J-\kappa Tt)]=\kappa\lambda-\kappa\lambda=0,
+ \qquad Q(J-\kappa Tt)=-\kappa T\eta.
+\]
+Both image currents retain level $\kappa$.
+
+The quartet is contractible away from its scalar vacuum.
+On polynomial mode coordinates its differential pairs each
+$t$ mode with its $\eta$ mode and each $\iota$ mode with
+its $p$ mode. The reverse pairing, divided by the total
+positive quartet degree, is a contraction. Thus $i$ is a
+quasi-isomorphism. The commutant of $J+p$ has coordinates
+\[
+ v_n=x_n-\kappa n\tau_n,\quad \pi_n\quad(n\geq1),
+ \qquad \bar\eta_m\quad(m\geq0),\quad\bar\iota_n\quad(n\geq1),
+\]
+Here $x_n=T^{n-1}J/(n-1)!$ and
+$\pi_n=T^{n-1}p/(n-1)!$ for $n\geq1$,
+whereas $\tau_m=T^mt/m!$ and
+$\bar\eta_m=T^m\eta/m!$ for $m\geq0$.
+Finally $\bar\iota_n=T^{n-1}\iota/(n-1)!$.
+These are polynomial jet coordinates. Their differential is
+$Qv_n=-\kappa n\bar\eta_n$ and $Q\bar\iota_n=\pi_n$.
+Contracting the latter pairs shows that $j$ is a
+quasi-isomorphism onto the commutant.
+
+For $b$ quartets put $W_b=V_\kappa\otimes E^{\otimes b}$,
+$K_b=J+\sum_{l=1}^bp_l$ and
+$\mathcal Z^{(b)}=\operatorname{Com}(K_b,W_b)$.
+These commutants have generators
+$J-\kappa Tt_1$, $t_j-t_1$ for $j>1$, and all
+$p_j,\eta_j,\iota_j$. For an order-preserving surjection
+$\phi:[b']\twoheadrightarrow[b]$, define a merge
+$m_\phi:W_b\to W_{b'}$ by
+\[
+ p_j\mapsto\sum_{\phi(l)=j}p_l,\quad
+ \iota_j\mapsto\sum_{\phi(l)=j}\iota_l,\quad
+ t_j\mapsto t_{\min\phi^{-1}(j)},\quad
+ \eta_j\mapsto\eta_{\min\phi^{-1}(j)}.
+\]
+It fixes $J$ and carries $K_b$ to $K_{b'}$. The generator
+brackets prove that it is a dg vertex map. The same polynomial
+contractions show that it and its restriction to commutants
+are quasi-isomorphisms. Taking the least element of a fibre
+commutes with composition, so these merges form a diagram.
+
+The shift $r_a:W_b\to W_{a+b}$ sends $J$ to $K_a$ and
+the $j$th quartet to the $(a+j)$th. The products
+\[
+ \mathcal Z^{(a)}\otimes W_b\longrightarrow W_{a+b},
+ \qquad z\otimes w\longmapsto{:}z\,r_a(w){:}
+\]
+are vertex maps because the two images commute. They restrict
+to the commutants, are strictly associative and commute with
+merges. Iteration sends the $i$th cochain factor to
+\begin{equation}\label{cycen:eq:tower-currents}
+ J^{(i)}\longmapsto J+\sum_{l<i}p_l-\kappa Tt_i,
+ \qquad c^{(i)}\longmapsto-\eta_i,
+\end{equation}
+and the boundary current to $K_b$.
+
+For a dg vertex algebra $B$ on $X=\mathbb A^1$, let
+\[
+ L_B=i_{\mathrm{ord}}(\omega_X\otimes B)
+\]
+be its main-diagonal Lie object for $\star$.
+Here $i_{\mathrm{ord}}$ is the diagonal insertion of
+Section~\ref{cycuts:sec:exchange}; the right differential-module
+structure is induced by translation, and the bracket by the
+vertex products. Write
+\[
+ C_B=\operatorname{CE}_\star(L_B)
+     =K\oplus\bigoplus_{r\geq1}
+                    \operatorname{Sym}_\star^r(L_B[1])
+\]
+for its Chevalley--Cousin factorization coalgebra.
+The differential combines the internal differential with pairwise
+bracket contractions, with the suspended Koszul signs; the
+coproduct is the unshuffle coproduct. Each coefficient has
+finitely many positive factors. Write $U_\star L_B$ for the
+associative enveloping algebra of $L_B$.
+
+\begin{proposition}\label{cycen:prop:heisenberg-monoid}
+The coalgebra
+$F_\kappa=C_{\mathcal Z_\kappa}$ has a coherent unital
+transverse monoid structure and acts on $C_{V_\kappa}$.
+Its products are the roofs
+\[
+ C_{\mathcal Z_\kappa}^{\otimes^! b}
+ \longrightarrow C_{\mathcal Z^{(b)}}
+ \xleftarrow{\sim}C_{\mathcal Z^{(1)}}
+ \xleftarrow{\sim}C_{\mathcal Z_\kappa}.
+\]
+Its action is induced by the commuting maps in
+\eqref{cycen:eq:quartet-maps} and the inverse of $C_i$.
+\end{proposition}
+\begin{proof}
+For these free fields the factorization lattices are
+$K$-flat: their PBW filtration has graded pieces equal to
+symmetric powers of free principal-part modules, with a
+linear differential. Tensoring lattices therefore computes
+the derived diagonal tensor. The finite Chevalley--Cousin
+comparison gives factorization and carries quasi-isomorphisms
+to equivalences. It also carries polynomial homotopies to
+homotopies. Hence $B\mapsto C_B$ preserves the tensor,
+merges and strict products above.
+
+The category of nonempty ordered finite sets and surjections
+has a final singleton. Its nerve, and the nerves of its finite
+products, are contractible. Localizing the diagram at its
+merge equivalences therefore descends the products and action
+to the singleton. The same argument for the two-coloured
+algebra/module operad retains all their coherences: localization
+of the associated cocartesian fibration localizes its fibres
+\cite{cycen:HinichLocalization}*{Proposition~2.1.4}.
+
+It remains to verify the unit. In two quartets, the merge
+$mj$ and shift $r_1j$ are joined by the following two
+polynomial homotopies, with parameter $u$ and forms on the left:
+\[
+ \begin{array}{c|cc}
+  &J&c\\ \hline
+  1&J-\kappa T((1-u)t_1+ut_2)
+    &-(1-u)\eta_1-u\eta_2-du(t_2-t_1)\\
+  2&J+up_1+du\,\iota_1-\kappa Tt_2&-\eta_2.
+ \end{array}
+\]
+The first starts at $mj$; the second ends at $r_1j$.
+They preserve brackets and differential and commute with
+$K_2$. Right multiplication by the vacuum is the inclusion,
+which agrees with $m$ on $j$; left multiplication is the
+shift. Thus the vacuum is a quasi-unit. On the module its
+action is an equivalence, since $r_1i_1=i_2$. Unitalization
+of quasi-unital algebras and modules supplies the coherent
+units \cite{LurieHA}*{Theorem~5.4.3.5 and
+Proposition~5.4.3.14}. Transport along $C_j$ and $C_i$
+gives the stated monoid and action.
+\end{proof}
+
+\subsection{The supported binary class}
+
+The specified homotopies also determine a supported
+operation. Put $Z=\mathcal Z_\kappa$ and
+$Z'=\mathcal Z^{(2)}$. Its two embeddings are
+\[
+ \jmath_1(J)=U_1=J-\kappa Tt_1,\quad\jmath_1(c)=-\eta_1,
+ \qquad
+ \jmath_2(J)=U_1+p_1-\kappa T(t_2-t_1),\quad
+ \jmath_2(c)=-\eta_2.
+\]
+Integrating the form components of the two homotopies gives
+$h$ of degree $-1$, with
+\[
+ Qh+hd=\jmath_2-\jmath_1,\qquad
+ h(J)=\iota_1,\quad h(c)=-(t_2-t_1).
+\]
+On a binary chart the unshifted coefficient is the fibre
+of the chiral bracket
+$\mu:j_*j^*(Z^r\boxtimes Z^r)\to\Delta_*Z^r$,
+where $Z^r=\omega_X\otimes Z$. Its differential is
+$d(\sigma,\zeta)=(d\sigma,\mu\sigma-d\zeta)$.
+The two products of vacuum insertions are
+$(\jmath_1\boxtimes\jmath_2,0)$ and
+$(\jmath_2\boxtimes\jmath_1,0)$.
+
+The external homotopy
+\[
+ H(a\boxtimes b)=-h(a)\boxtimes\jmath_2(b)
+               +(-1)^{|a|}\jmath_2(a)\boxtimes h(b)
+\]
+has differential their difference in the first component.
+Subtracting its boundary in the fibre leaves $(0,-\mu H)$.
+Its Fourier expression is therefore
+\begin{equation}\label{cycen:eq:roof-bracket}
+ \beta(a,b)=[h(a)_\lambda\jmath_2(b)]
+                 -(-1)^{|a|}[\jmath_2(a)_\lambda h(b)].
+\end{equation}
+This calculation specifies the overlap nullhomotopy as well
+as the supported map.
+
+Contract the extra quartet coordinates by the polynomial
+contraction, obtaining $R:Z'\to Z$ with
+$R\jmath_1=1$. The sign-adjusted pairing
+$\{a_\lambda b\}=(-1)^{|a|}R\beta(a,b)$ has degree $-1$
+and generator values
+\[
+ \{J_\lambda J\}=\{c_\lambda c\}=0,\qquad
+ \{c_\lambda J\}=1,\quad\{J_\lambda c\}=-1.
+\]
+For example $[\jmath_2(J)_\lambda(t_2-t_1)]=-1$
+and $[\iota_1{}_\lambda\eta_2]=0$, giving
+$\beta(J,c)=-1$.
+
+The underlying polynomial complex has coordinates
+$x_n=J_{-n}\mathbf1$ for $n\geq1$ and
+$\xi_n=T^nc/n!$ for $n\geq0$, with
+\[
+ dx_n=\kappa n\xi_n,\quad d\xi_n=0,\quad
+ Tx_n=nx_{n+1},\quad T\xi_n=(n+1)\xi_{n+1}.
+\]
+Its cohomology is $\Lambda(\xi_0)$. The derivation
+$K=\kappa^{-1}\sum_{n\geq0}x_{n+1}\partial_{\xi_n}$
+satisfies $dK+Kd=T$. Thus the secondary value of the
+specified pairing is
+\begin{equation}\label{cycen:eq:secondary}
+ -\{K\xi_0{}_\lambda\xi_0\}\big|_{\lambda=0}
+                         =\kappa^{-1}.
+\end{equation}
+The homotopy $K$ refers to the polynomial complex; its
+existence does not identify all its vertex operations with
+those of a commutative vertex algebra.
+
+To locate this value geometrically, record a moving
+coefficient complex as a module over the de Rham algebra,
+with differential $d+dz(\partial_z+T)$. The operator
+$1-dzK$, with inverse $1+dzK$, changes this differential
+to $d+dz\partial_z$. Indeed,
+$[d+dz\partial_z,dzK]=-dzT$. Apply this change on the
+two inputs and the diagonal output of the bracket.
+The coefficient of $dz_1$ at Fourier parameter zero is
+$(-1)^{|a|}\{Ka_\lambda b\}|_{\lambda=0}$.
+For $a=b=\xi_0$ it is $\kappa^{-1}$.
+The de Rham generator of the diagonal direct image is
+$\varepsilon=[(dz_1-dz_2)\otimes1]$, the residue image
+of $dz/z$, where $z=z_1-z_2$. Thus the supported lift has
+class
+\begin{equation}\label{cycen:eq:residue-lift}
+ \kappa^{-1}(\xi_0\otimes\xi_0)^\vee\otimes\varepsilon.
+\end{equation}
+
+\subsection{Why the singleton augmentation does not extend}
+
+Let $Y=\mathbb A^2$, $U=Y\setminus\Delta$ and
+$\mathbb J_Y=\omega_Y[2]$. Put
+$H_F=\Lambda(\xi_0)$ and
+$P=(H_F\otimes H_F)\otimes\mathbb J_Y$.
+The relative mapping group is
+\begin{equation}\label{cycen:eq:relative-residue}
+ \frac{H^{-1}R\operatorname{Hom}_U(P|_U,\mathbb J_U)}
+ {\operatorname{im}H^{-1}R\operatorname{Hom}_Y(P,\mathbb J_Y)}
+ \cong k(\xi_0\otimes\xi_0)^\vee[dz/z].
+\end{equation}
+This follows from $H^*_{\mathrm{dR}}(Y)=k$ and
+$H^*_{\mathrm{dR}}(U)=k\oplus k[dz/z]$. The connecting
+map is residue. If $N$ is the external nullhomotopy used
+above and $L$ a chart nullhomotopy after applying a map
+$f$ to $\mathbb J_Y$, the fibre convention gives
+\[
+ \Delta_*\epsilon_1\,\beta=-\partial[\,j^!fN-j^!L\,].
+\]
+Here $\epsilon_1:H_F\to k$ is the singleton augmentation.
+Indeed, the iterated fibre with coordinates
+$(\sigma,\zeta,N)$ maps to the supported complex by
+$\zeta-\mu N$. Hence a pure overlap loop contributes
+minus its residue. By \eqref{cycen:eq:residue-lift}, the
+loop has residue $-\kappa^{-1}$ for every such $L$.
+
+\begin{theorem}\label{cycen:thm:no-augmentation}
+The transverse monoid $F_\kappa$ has no augmentation to
+$\mathbb J$. Every transverse monoid receiving a monoid
+map from $F_\kappa$ has the same obstruction, including
+$\mathcal E(C_{V_\kappa})$. These assertions persist under
+constant extension to any nonzero commutative $k$-algebra
+concentrated in degree zero.
+\end{theorem}
+\begin{proof}
+Suppose an augmentation exists. Use the roof model $Z'$,
+and let $f$ be its two-position coefficient. Its coproduct
+comparison supplies a homotopy $H$ from the localized $f$
+to the external product of singleton augmentations.
+Its multiplicativity comparison supplies a chart homotopy
+$M$, and compatibility of that homotopy with coproduct
+supplies a degree-$-2$ homotopy $\Gamma$ on $U$.
+All three belong to the coherent augmentation data.
+
+Denote by $\mu$ the two-factor product in the roof, by
+$v',v''$ the two vacuum insertions, and by $s$ their symmetry.
+The difference
+\[
+ L=M(v'\otimes^!v'')-M(v''\otimes^!v')s
+\]
+is a chart nullhomotopy of the augmented product difference:
+the two products in the commutative unit cancel.
+Expand the coproduct-compatibility equation for $M$ on
+these two insertions. Its terms involving $H$ applied to
+the product difference cancel against the same terms in
+$fN$. The remaining loop is a chart restriction, a
+$\Gamma$ boundary, and products of an insertion of $H$
+with a closed chart map.
+
+Each latter term is again a chart restriction plus a
+boundary. On a single vacuum insertion, the possible
+residue of $H$ belongs to
+$\operatorname{Hom}^{-2}(H_F,k)[dz/z]=0$.
+The degree-zero restriction on its boundary is injective,
+so that boundary has a chart primitive. Subtracting it
+leaves a closed insertion of $H$ whose only possible
+non-chart component is the vanishing residue just described.
+Multiplication by the other closed factor preserves exactness.
+Thus the loop of this particular $L$ is zero in
+\eqref{cycen:eq:relative-residue}. This contradicts the
+value $-\kappa^{-1}$ computed above.
+
+An augmentation of a receiving monoid would restrict to
+one of $F_\kappa$, proving the inheritance assertion.
+Its action gives the map to $\mathcal E(C_{V_\kappa})$
+by Theorem~\ref{cycen:thm:ambient}. Over a degree-zero
+coefficient algebra $R\ne0$, the same finite free mapping
+calculation replaces $H_F$ by $R\oplus R\xi_0$ and the
+residue by $-\kappa^{-1}1_R\ne0$. The vanishing unary
+residue and the cancellation argument remain valid.
+\end{proof}
+
+A module whose underlying coalgebra is $\mathbb J$ is
+precisely an augmentation: the endomorphism object of the
+monoidal unit is the unit. Therefore neither left nor right
+unit modules exist for these receiving monoids. The relative
+bar with both endpoints equal to this fixed unit cannot be
+formed. Other endpoint modules remain possible. Already
+$M_2(k)$ has no one-dimensional unit module, but its row
+and column modules have a well-defined relative tensor
+product. Likewise a vacuum family varying through collisions
+requires its own module and comparison data.
+
+\section{Factorizing monoid actions}
+\label{cycen:sec:native}
+
+We now impose factorization on the acting coalgebra, while
+retaining the transverse tensor and every action coherence.
+The resulting universal problem can fail even for an ordinary
+vertex algebra. The obstruction comes from a submonoid whose
+action is trivial although its multiplication with another
+submonoid leaves a nonzero binary operation.
+
+For this section work over $\mathbb C$ on $X=\mathbb A^1$.
+Let $Q$ be a unital vertex algebra in cohomological degree zero,
+with algebraic state space and translation $T$. A
+\emph{vertex derivation} is a linear map $D:Q\to Q$ such that
+\[
+ D\mathbf1=0,\qquad DT=TD,\qquad
+ D(x_{(n)}y)=(Dx)_{(n)}y+x_{(n)}Dy
+ \quad(n\in\mathbb Z).
+\]
+Write $C_Q$ for its Chevalley--Cousin factorization coalgebra
+on the full ordered collision carrier, and put
+$\mathfrak g=L_Q$, $\ell=L_{\mathbb C}$ and
+$\mathbb J=C_{\mathbb C}$. The singleton coefficient of
+$\mathfrak g$ is the right differential module
+$\omega_X\otimes Q$, in degree zero.
+
+The category of \emph{native monoid actions on $C_Q$} has
+connected, coaugmented, counital factorizing coalgebras as
+actors. Each actor has a coherent unital monoid structure for
+$\otimes^!$ and a coherent action on $C_Q$. Morphisms preserve
+the monoid and action structures, including their comparison
+paths. Neither an augmentation to $\mathbb J$ nor a
+propagation condition is imposed. Receiving actors may have
+unbounded derived coefficients. A native monoid centre would
+be a final object of this category.
+
+\begin{theorem}\label{cycen:thm:native-obstruction}
+If $Q$ admits a nonzero vertex derivation, its category of
+native monoid actions has no final object. There are two
+parallel morphisms of monoid actions which no receiving
+factorizing monoid action can identify up to homotopy.
+\end{theorem}
+
+We construct the actors first. This also explains why a
+calculation of formal coordinate maps alone would miss the
+obstruction.
+
+\subsection{Exterior actors and marked forms}
+
+For a finite-dimensional vector space $W$ in degree zero, set
+\[
+ E_W=\Lambda(W[-1]),\qquad C_W=C_{E_W}.
+\]
+Thus the exterior generators have degree one; their
+differential and translation are zero. The augmentation and
+unit of $E_W$ give maps under and over $\mathbb J$.
+A natural operation between these actors means a compatible
+family formed from the ordinary chiral bracket, products in
+the exterior coefficients, and the induced Chevalley and bar
+maps. Only finite linear combinations are allowed in each
+source weight and cochain degree. Completing over source
+weights is harmless on a configuration of $m$ positions:
+its exterior actor weight is at most $m\dim W$.
+
+A natural map $C_W\to C_V$ has a marked matrix
+\[
+ A(t)\in\widehat{\operatorname{Sym}}(W^*)\otimes W^*\otimes V,
+ \qquad \Phi_A(t)=A(t)t.
+\]
+The completion is in polynomial degree. One source root is
+marked; exponential polarization supplies the factorials for
+the remaining roots. The contraction $\Phi_A$ forgets that
+mark. For example, $t\,ds-s\,dt$ is a nonzero marked form
+with zero contraction.
+
+\begin{lemma}\label{cycen:lem:marked}
+Components of the natural mapping space under and over
+$\mathbb J$ are the marked matrices $A(t)$, and each
+component is contractible. Composition and exterior tensor
+product are
+\begin{equation}\label{cycen:eq:marked-law}
+ A_{g f}(t)=A_g(\Phi_f(t))A_f(t),
+ \qquad A_{f\otimes g}=A_f\oplus A_g.
+\end{equation}
+Different marked matrices remain different under geometric
+homotopy, although this statement does not classify all
+geometric maps.
+\end{lemma}
+\begin{proof}
+Here is the natural mapping complex and its contraction.
+Let $\mathfrak q_W$ be the Lie cobar of the reduced dual
+coalgebra $(E_W^+)^*$, and adjoin the ordinary-input
+generator $z$ of degree one, with $dz=\tfrac12[z,z]$.
+Before taking its positive source-weight and
+positive target-exterior summand, the
+natural convolution algebra is the completed envelope of
+\[
+ \bigl(\operatorname{Lie}(z)\amalg\mathfrak q_W\bigr)
+                         \otimes E_V.
+\]
+The coproduct in $E_W^*$ gives the cobar differential.
+This description follows by resolving the input coalgebra:
+connected rooted bracket expressions give the free Lie
+generators, their ordered forests give its envelope, and
+splitting an exterior input gives the cobar differential.
+The relation $dz=z^2$ in the envelope accounts for the
+ordinary bar input. Taking a positive target-exterior
+factor imposes the relative condition under and over
+$\mathbb J$.
+
+The ordinary generator can be removed without changing
+cohomology. In the augmentation ideal of
+$(\mathbb C\langle z\rangle,dz=z^2)$, use
+\[
+ h(z^{2j})=z^{2j-1},\qquad h(z^{2j-1})=0
+ \quad(j\geq1).
+\]
+The graded Leibniz rule gives $dh+hd=1$. In the free
+product with $U(\mathfrak q_W)$, apply this contraction
+to the first ordinary factor, with the sign of its prefix.
+PBW symmetrization then proves the same assertion on
+the Lie algebra, after tensoring with $E_V$, and after
+taking its envelope.
+
+The projection $\mathfrak q_W\to W^*$ kills brackets and
+nonsingleton exterior labels and has abelian target.
+To check it, write
+$E_W=\Lambda(\alpha_1,\ldots,\alpha_r)$ and resolve the
+augmentation module by
+\[
+ E_W\otimes\mathbb C[v_1,\ldots,v_r],
+ \qquad |v_i|=0,\quad dv_i=\alpha_i.
+\]
+At positive combined weight $N$, the map
+$N^{-1}\sum_i v_i\partial_{\alpha_i}$ contracts this
+complex. Its dual derived Hom is concentrated in degree
+zero and is $\operatorname{Sym}(W^*)$. The bar resolution
+computes the same Hom; dualizing each finite weight
+identifies it with $U(\mathfrak q_W)$. In degree zero,
+its boundaries are exactly the commutators of the
+singleton generators. PBW gives the asserted Lie
+quasi-isomorphism.
+
+Consequently the natural convolution algebra projects
+surjectively, with weightwise acyclic kernel, to
+\[
+ \mathcal B(W,V)=
+ \left[\widehat{\operatorname{Sym}}(W^*\otimes E_V)
+                                      \right]_{E_V^+}.
+\]
+The subscript denotes the ideal generated by
+$W^*\otimes E_V^+$. It has zero differential and no
+terms in degrees at most zero. Its degree-one part is
+precisely the space of marked matrices.
+
+Lift the Maurer--Cartan equation one source weight at
+a time. Its first curvature is a closed degree-two
+kernel element, removed by a degree-one primitive.
+The first difference of two lifts is removed by a
+degree-zero primitive. Tensoring the same acyclic
+kernel with polynomial forms relative to the boundary
+of a simplex supplies all parameterized lifts.
+Thus every fibre is contractible. In $\mathcal B$ a
+degree-one Maurer--Cartan simplex is constant: its
+square is zero by graded commutativity, and its
+parameter differential vanishes.
+
+To compute composition, keep independent ordinary root
+variables and project their brackets to zero. The
+marked source variable has one continuation through a
+composite, giving matrix multiplication; the unmarked
+variables substitute by $\Phi_f$. This gives
+\eqref{cycen:eq:marked-law}. Disjoint coefficient
+blocks give the tensor formula. The same top-root
+coefficient is unchanged by a geometric homotopy:
+after the ordinary variables become independent, its
+possible cobar boundary has zero top coefficient.
+It therefore distinguishes unequal matrices without
+asserting that every geometric map is natural.
+\end{proof}
+
+The preceding contractions involve no infinite sum of
+states or normal derivatives. At fixed source weight
+and cochain degree the number of forest slots is
+bounded; at a fixed configuration only finitely many
+source weights occur. These are the finiteness
+conditions used below.
+
+\subsection{A monoid with a trivially acting direction}
+
+Let $A=\mathbb C a\oplus\mathbb C b$ be the auxiliary
+commutative algebra
+\[
+ a^2=a,\qquad ab=ba=b,\qquad b^2=0.
+\]
+Its unit $a$ is distinct from the vacuum of the
+exterior vertex algebra. Put
+\[
+ F=C_A,\qquad G=C_{\mathbb C a},\qquad
+ H=C_{\mathbb C b}.
+\]
+For $x\in A$, let $L_x$ be multiplication by $x$, and set
+\[
+ Q(x)=e^{L_x},\qquad
+ M(x)=\sum_{n\geq0}\frac{L_x^n}{(n+1)!}.
+\]
+The inverse of $M$ exists as a formal series. Define
+the multiplication of $F$ by the two marked blocks
+\begin{equation}\label{cycen:eq:frame-product}
+ \bigl(M(x+y)^{-1}M(x)\mid
+              M(x+y)^{-1}Q(x)M(y)\bigr).
+\end{equation}
+
+\begin{lemma}\label{cycen:lem:frame-monoid}
+This is a coherent unital transverse monoid under
+and over $\mathbb J$. The inclusions
+$i:G\to F$ and $j:H\to F$ are monoid maps.
+The multiplication of $H$ is additive, and the
+coordinate contraction of the multiplication of $F$
+is $x+y$.
+\end{lemma}
+\begin{proof}
+In the affine group with law
+\[
+ (x,U)(y,V)=(x+y,U+Q(x)V),
+\]
+associativity follows from $Q(x+y)=Q(x)Q(y)$.
+The change of fibre coordinates $U=M(x)u$ gives
+\eqref{cycen:eq:frame-product}, so its three
+marked associativity identities and its unit
+identities hold. In the algebra $A$,
+\[
+ M(x)x=e^x-a,\qquad
+ e^{x+y}-a=(e^x-a)+e^x(e^y-a).
+\]
+Hence the diagonal $u=x$ is a homomorphism, which
+proves the coordinate contraction. Both lines are
+stable under these operators. On the $b$-line,
+$L_{sb}b=0$, so both multiplication blocks are the
+identity. Lemma~\ref{cycen:lem:marked} realizes the
+identities and all their coherences. Its contractions
+preserve the auxiliary grading
+$\deg a=0$, $\deg b=1$, as does the multiplication.
+\end{proof}
+
+\begin{lemma}\label{cycen:lem:relative-action}
+For a vertex derivation $D$ of $Q$, the monoid $F$
+has a coherent action on $C_Q$ whose restriction
+to $G$ is the trivial monoid action and whose
+restriction to $H$ is the single-derivation action.
+Both inclusions preserve these actions with their
+specified comparisons.
+\end{lemma}
+\begin{proof}
+First construct the operations with one formal
+derivation. For $r$ copies of $F$, let $t_\nu,s_\nu$
+be the coordinates dual to $a,b$. Give $D$ auxiliary
+weight one, each $s_\nu$ weight minus one and each
+$t_\nu$ weight zero. Prescribe the entire restriction
+with no $b$-input to be trivial.
+
+The scalar-bar and Koszul contractions in the preceding
+proof apply also to differential polynomials in $D$.
+They give the commutative relative model
+\begin{equation}\label{cycen:eq:relative-derivation}
+ \left[(s_1,\ldots,s_r)
+ \mathbb C[[t_1,s_1,\ldots,t_r,s_r]]
+                       \otimes\Lambda(\mathbb C D[-1])
+ \right]_{\mathrm{weight}\,0}.
+\end{equation}
+The odd generator in this formula is the suspended
+derivation, not the degree-zero endomorphism of $Q$.
+The differential is zero. There are no nonpositive
+degrees: a scalar monomial with a positive $s$-count
+has negative auxiliary weight. The degree-one part is
+exactly
+\[
+       \sum_{\nu=1}^r s_\nu f_\nu(t_1,\ldots,t_r)D.
+\]
+The projections to this model have the same
+weightwise acyclic kernels as before.
+
+Deleting an actor or deleting all its $a$-generators
+commutes with the projection deleting the $b$-generators.
+Their inclusions split the projections.
+Inclusion--exclusion therefore extends compatible data
+on the union of these faces; the remaining kernel is
+a sum of multigraded acyclic kernels. The lifting
+argument works relative to the unit faces, the
+trivial $G$-restriction and a prescribed $H$-action.
+
+Choose the class $sD$ for one copy. Pullback along the
+monoid product is $(s_1+s_2)D$, since its coordinate
+contraction is addition. Composition has the same
+class: the formal operator identity
+$e^{s_1D}e^{s_2D}=e^{(s_1+s_2)D}$ involves one
+derivation. Relative contractibility supplies the
+comparison path. Every higher module associahedron
+has its boundary in the component with class
+$(s_1+\cdots+s_r)D$. The same relative lifting fills
+it, including all parameterized comparisons.
+
+To evaluate these operations on the whole collision
+carrier, the functor
+$\mathcal T_Q(B)=B\otimes^!C_Q$ is strong symmetric
+monoidal for $\star$. On each ordered disjoint
+decomposition its comparison is the factorization
+isomorphism of $C_Q$ followed by open projection.
+Iteration gives the same ordered partition and
+coproduct, and hence preserves collisions and normal
+transfers. On the main diagonal it sends $\ell$ to
+$\mathfrak g$ with its bracket. In particular
+\[
+ C_W\otimes^!C_Q
+ \simeq\operatorname{CE}_\star(\mathfrak g\otimes E_W).
+\]
+These comparisons commute with envelopes and bars.
+The vertex automorphism $1+uD$ over
+$\mathbb C[u]/(u^2)$ carries $D$ to $D\otimes1$
+through them, so the differential polynomials and
+their homotopies evaluate to the required action.
+Exterior degree bounds the total actor weight;
+derivative order equals its $b$-count. Every
+evaluated operation is finite on its specified input.
+\end{proof}
+
+The requirement that the whole $G$-action be trivial
+is used here. The zero auxiliary degree of $a$ alone
+would not remove scalar homotopies.
+
+\subsection{A commutator with a nonzero marked form}
+
+Let $S=C_{\mathbb C e_1\oplus\mathbb C e_2}$. Map its
+exterior generators into four copies of $F$ by
+\[
+ e_1\longmapsto a^{(1)}-a^{(3)},\qquad
+ e_2\longmapsto b^{(2)}-b^{(4)},
+\]
+and multiply in the displayed order. Denote the
+resulting pointed coalgebra map by $w:S\to F$.
+This map need not preserve a monoid structure on $S$.
+
+\begin{lemma}\label{cycen:lem:commutator}
+There is a natural pointed map $f:S\to H$ with
+$w\simeq jf$. Its marked matrix is
+\begin{equation}\label{cycen:eq:commutator-form}
+ A_f(t,s)=\bigl(-s\chi(t)\mid t\chi(t)\bigr),
+ \qquad \chi(t)=\sum_{n\geq0}\frac{t^n}{(n+1)!}.
+\end{equation}
+Its coordinate contraction and singleton components
+are zero, but its first marked form is $t\,ds-s\,dt$.
+\end{lemma}
+\begin{proof}
+Compute the fourfold product in the affine coordinates
+of Lemma~\ref{cycen:lem:frame-monoid}, with base points
+$ta,sb,-ta,-sb$. Their sum is zero, so the final
+change of frame is the identity. If $dt,ds$ denote
+the marked inputs, the fibre coordinate is
+\[
+ \begin{split}
+ &M(ta)a\,dt+Q(ta)M(sb)b\,ds\\
+ &\hspace{1em}-Q(ta+sb)M(-ta)a\,dt
+                         -Q(sb)M(-sb)b\,ds.
+ \end{split}
+\]
+The two $a$-components cancel. Using $b^2=0$,
+the remaining component is
+$b(-s\chi(t)\,dt+(e^t-1)\,ds)$.
+This is \eqref{cycen:eq:commutator-form} in the
+$b$-line. The natural classification supplies the
+map and the homotopy. The other assertions follow
+by contraction and by taking the lowest polynomial
+degree.
+\end{proof}
+
+\subsection{Detection in an arbitrary receiving actor}
+
+Fix $D\ne0$. Let $h:H\to Z$ be a receiving pointed
+map of actions, and put $B=\Omega Z$. Write
+$\iota:\ell\to B$ for its vacuum pointing and
+$h_0$ for the pure singleton component of $h$.
+
+\begin{lemma}\label{cycen:lem:singleton}
+On every nonempty affine open $Y\subset X$,
+\[
+ [h_0]|_Y\ne0
+ \quad\text{in}\quad
+ H^1R\operatorname{Hom}_{Y}
+              (\ell|_Y,B_{\{1\}}|_Y).
+\]
+No boundedness or holonomicity assumption on $B$ is needed.
+\end{lemma}
+\begin{proof}
+We first examine a plain degree-zero coefficient class
+$a:\ell|_Y\to B_{\{1\}}|_Y$. Its action gives an
+endomorphism $M$ of $\mathfrak g|_Y$. We claim
+\begin{equation}\label{cycen:eq:vacuum-module}
+ M\mu_{\mathfrak g}
+ =\mu_{\mathfrak g}(1\star M)
+ =\mu_{\mathfrak g}(M\star1).
+\end{equation}
+Both ordered cobar products of $B$ are equivalences
+on distinct roots. Indeed, the quotient by one product
+summand is the cone of the other factorization
+coproduct. Subtract the open exchange part of
+$[\iota,a]$, with its nullhomotopy. Its image in
+$U_\star\mathfrak g$ is zero there, because the
+commutator in this envelope is the supported chiral
+bracket.
+
+The remaining map factors through
+\[
+ \operatorname{cofib}\bigl(j_!j^*(\ell\boxtimes\ell)
+                    \longrightarrow
+                         j_*j^*(\ell\boxtimes\ell)\bigr),
+\]
+where $j$ is the distinct-root inclusion. The source
+is regular holonomic, so this $j_!$ is defined.
+On either diagonal branch the cofiber has a
+two-step filtration with successive terms $\ell[1]$
+and $\ell$. Tensoring by $C_Q$ replaces them by
+$\mathfrak g[1]$ and $\mathfrak g$. The PBW
+envelope is in the right-module heart and its
+extraordinary diagonal restriction is $\mathfrak g$.
+Negative Ext kills the first term. The remaining
+action has the form $N\mu_{\mathfrak g}$ and also
+$\mu_{\mathfrak g}(1\star M)$. Inserting the vacuum
+in the first slot gives $N=M$: the possible kernel
+of the principal-part vacuum precomposition is
+again a negative Ext between heart objects.
+Skewsymmetry gives the other equality in
+\eqref{cycen:eq:vacuum-module}.
+
+Suppose now that $[h_0]|_Y=0$. A relative gauge in
+the resolved pointed mapping complex removes
+$h_0$, fixing $\mathbb J$. Its first actor-weight
+term is then a degree-zero cocycle on one ordinary
+input and one actor input. Choose $q\in Y$,
+put the actor at $q$, and vary the ordinary input
+on $Y'=Y\setminus\{q\}$.
+
+The finite Spencer resolution of $\ell$ commutes
+with tensoring by an arbitrary coefficient complex.
+Algebraic K\"unneth therefore expresses this
+operation as a finite sum of bidegrees $(r,-r)$.
+After the action, the second factor lies in
+$H^{-r}R\operatorname{Hom}_{\mathbb C}(Q,Q)$,
+which vanishes unless $r=0$. The action path gives
+\[
+              D\otimes1_Q=\sum_\nu M_\nu\otimes N_\nu,
+\]
+where every $M_\nu$ satisfies
+\eqref{cycen:eq:vacuum-module}. This equality holds
+for the two-output classes: the possible
+zero-column boundary vanishes by open adjunction,
+$R\operatorname{Hom}(\mathfrak g,
+             \operatorname{Sym}^2_\star\mathfrak g)=0$.
+
+Choose a linear functional on the finite span of
+$1,N_1,\ldots,N_m$ taking $1$ to $1$.
+It expresses $D|_{Y'}$ as a linear combination of
+the $M_\nu$. Thus $D$ is both a module map and a
+derivation. Subtracting the derivation identity
+from \eqref{cycen:eq:vacuum-module} and inserting
+the vacuum in the second slot gives $D=0$.
+Localization is faithful on the free algebraic
+state module $\mathcal O_X\otimes Q$. This
+contradicts the choice of $D$.
+\end{proof}
+
+\begin{lemma}\label{cycen:lem:binary-invariant}
+The composite $hf:S\to Z$ is not homotopic under
+$\mathbb J$ to the map through $\mathbb J$.
+\end{lemma}
+\begin{proof}
+On the distinct-root slice
+$(X\setminus\{q\})\times\{q\}$, its first binary class is
+\begin{equation}\label{cycen:eq:binary-detector}
+ [\iota]|_{X\setminus\{q\}}\otimes[h_0]_q
+       -[h_0]|_{X\setminus\{q\}}\otimes[\iota]_q.
+\end{equation}
+The normalized fibre at $q$ is $i_q^!B[1]$.
+The two terms have K\"unneth degrees $(0,1)$ and
+$(1,0)$. The second is nonzero by the preceding
+lemma and the unit identity: $[\iota]_q$ acts as
+$1_Q$. Changing the cobar product order adds a
+cobar boundary, so centrality of $\iota$ is not
+being assumed.
+
+We verify invariance under an arbitrary pointed
+geometric homotopy. Represent it in the full
+coefficient resolution by $\tau(u)+c(u)\,du$,
+where $\tau$ and $c$ have degrees one and zero.
+Both endpoint maps have zero pure singleton
+components. On those inputs the interval equation
+gives
+\[
+ \tau_{1,0}=\partial E,\qquad
+ \tau_{0,1}=\partial F,\qquad
+ E(u)=\int_0^u c_{1,0}(v)\,dv,\quad
+ F(u)=\int_0^u c_{0,1}(v)\,dv.
+\]
+Here $E(0)=F(0)=0$ and
+$\partial E(1)=\partial F(1)=0$.
+Restriction to distinct roots kills the supported
+source bracket. The binary equation becomes
+\[
+ \tau'_{1,1}=\partial c_{1,1}
+                   +[\partial E,F']+[\partial F,E'].
+\]
+The brackets include the labelled external
+products and the target multiplication. Since
+$E,F$ have degree zero, the graded Leibniz rule gives
+\[
+ [\partial E,F']+[\partial F,E']
+   =\partial[E,F']-\frac{d}{du}[E,\partial F].
+\]
+Integration makes the difference of the endpoint
+binary components a boundary; the endpoint term
+$[E,\partial F]|_0^1$ is zero. Their classes are
+therefore equal under any such homotopy.
+The map through $\mathbb J$ has zero binary class,
+whereas \eqref{cycen:eq:binary-detector} is nonzero.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{cycen:thm:native-obstruction}]
+Let $i_0:G\to\mathbb J\to F$ be augmentation followed
+by the unit. The relative action construction gives
+two morphisms
+\[
+          (G,\mathrm{triv})\rightrightarrows(F,\alpha),
+          \qquad i,\ i_0.
+\]
+If a receiving monoid-action map $k:F\to Z$ identified
+$ki$ and $ki_0$, its multiplication coherences would
+send the four-factor commutator $w$ through
+$\mathbb J$: the first and third factors become
+units, and the remaining $H$-factors cancel.
+But $w\simeq jf$, and the map $h=kj$ is a receiving
+pointed action map. Lemma~\ref{cycen:lem:binary-invariant}
+forbids this homotopy. A final object would identify
+the parallel maps after their map into it, so no
+final object exists.
+\end{proof}
+
+For the Heisenberg vertex algebra, translation itself
+is a nonzero vertex derivation, since $TJ\ne0$.
+Thus the theorem applies to its ordinary factorization
+coalgebra. The acting monoid of
+Proposition~\ref{cycen:prop:heisenberg-monoid} and the
+ambient universal monoid of
+Theorem~\ref{cycen:thm:ambient} remain valid constructions.
+The latter is not required to factorize. The parallel-pair
+obstruction also differs from a claim that two objects
+have no common recipient; no such claim is used or
+deduced here.
+
+A physical bulk reconstruction must consequently specify
+its actor class, action tensor, local vacuum and morphisms
+independently. Restricting that class may change the
+universal problem, but then the restriction and the
+comparison to physical observables are additional
+mathematical data.
+
+\section{Supported comparison equations}
+
+The same open--closed decomposition decides whether a
+map on the separated locus extends through a collision.
+Let \(j:U\hookrightarrow X\) be an open embedding,
+\(i:Z\hookrightarrow X\) its closed complement, and
+work in a stable coefficient category with recollement
+\[
+ i_*i^!Q\longrightarrow Q\longrightarrow Rj_*j^*Q
+                          \longrightarrow i_*i^!Q[1].
+\]
+For a source \(P\), a map \(f_U:j^*P\to j^*Q\)
+has a connecting class
+\[
+ \operatorname{ob}(f_U)\in
+              H^1R\operatorname{Hom}_X(P,i_*i^!Q).
+\]
+
+\begin{proposition}\label{cyp:prop:extension}
+The map \(f_U\) extends to \(P\to Q\), with a specified
+homotopy on restriction, exactly when
+\(\operatorname{ob}(f_U)=0\). After choosing one extension,
+the space of extensions is identified with
+\(\operatorname{Map}_X(P,i_*i^!Q)\).
+\end{proposition}
+
+\begin{proof}
+Apply \(R\operatorname{Hom}_X(P,-)\) to the recollement
+triangle. Open adjunction identifies the third term with
+\(R\operatorname{Hom}_U(j^*P,j^*Q)\). Exactness gives the
+obstruction and the lift. Translation by a chosen lift
+identifies the homotopy fiber over \(f_U\) with the fiber
+over zero. This retains the restriction homotopy and all
+higher homotopies of an extension.
+\end{proof}
+
+Extension is only the first equation for a comparison
+preserving composition. To specify the higher equations,
+let \(\mathsf A,\mathsf B\) be augmented homotopy
+associative algebras over \(k\), with augmentation ideals
+\(\overline{\mathsf A},\overline{\mathsf B}\).
+
+Their bar coderivations \(b^{\mathsf A},b^{\mathsf B}\)
+on the tensor coalgebras of the suspended ideals have
+degree one and square zero. A coaugmentation-preserving
+coalgebra map \(F\) of degree zero has Taylor components
+\[
+ f_n:(\overline{\mathsf A}[1])^{\otimes n}
+                         \longrightarrow\overline{\mathsf B}[1],
+                         \qquad n\geq1.
+\]
+
+All tensor substitutions use the Koszul signs on these
+suspended complexes. Suppose the allowed derived Hom
+complexes are closed under these substitutions, and let
+\(\partial\) be their differential induced by
+\(b_1^{\mathsf A}\) and \(b_1^{\mathsf B}\).
+Projection of \(b^{\mathsf B}F=Fb^{\mathsf A}\) to one
+output gives
+\begin{equation}\label{cyp:eq:higher-comparison}
+\begin{split}
+ \partial f_n={}&
+ \sum_{\substack{r+s+t=n\\s\geq2}}
+ f_{r+1+t}(1^{\otimes r}\otimes b_s^{\mathsf A}
+                                      \otimes1^{\otimes t})\\
+ &-\sum_{\substack{\ell\geq2\\i_1+\cdots+i_\ell=n}}
+ b_\ell^{\mathsf B}(f_{i_1}\otimes\cdots\otimes f_{i_\ell}).
+\end{split}
+\end{equation}
+The first sum inserts one source operation. The second
+runs over every ordered partition of the inputs into
+blocks. In particular, at four inputs it contains
+\(-b_2^{\mathsf B}(f_2\otimes f_2)\), even when the binary
+defect has a primitive.
+
+For an oriented Hall-to-field comparison, the endpoints,
+orientations, supported mapping complexes and both unit
+markings must first be specified. The regular generator
+then reconstructs their maps. It neither chooses those
+operations nor supplies the primitives required by
+\eqref{cyp:eq:higher-comparison}.
